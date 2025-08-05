@@ -1,6 +1,16 @@
 ﻿#if !DEBUG
 using LenovoLegionToolkit.Lib.System;
 #endif
+using System;
+using System.Diagnostics;
+using System.Linq;
+using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Interop;
+using System.Windows.Media;
+using System.Windows.Threading;
 using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Automation;
 using LenovoLegionToolkit.Lib.Controllers;

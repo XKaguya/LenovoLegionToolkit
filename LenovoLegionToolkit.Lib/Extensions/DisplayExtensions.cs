@@ -18,6 +18,7 @@ public static class DisplayExtensions
         // which lets the display consume less power for more battery life.
         var displaySource = display.ToPathDisplaySource();
         var pathInfos = PathInfo.GetActivePaths();
+        var newPathInfos = new List<PathInfo>();
 
         for (var i = 0; i < pathInfos.Length; i++)
         {
@@ -25,20 +26,24 @@ public static class DisplayExtensions
 
             if (pathInfo.DisplaySource == displaySource)
             {
-                var targetsInfo = pathInfo.TargetsInfo;
-                var pathTargetInfos = targetsInfo
-                    .Select(targetInfo => new PathTargetInfo(targetInfo.DisplayTarget,
-                        new PathTargetSignalInfo(displaySetting, displaySetting.Resolution),
-                        targetInfo.Rotation,
-                        targetInfo.Scaling))
-                    .ToArray();
+                newPathInfos.Add(pathInfo);
+                continue;
+            }
+
+            var targetsInfo = pathInfo.TargetsInfo;
+            var pathTargetInfos = targetsInfo
+                .Select(targetInfo => new PathTargetInfo(targetInfo.DisplayTarget,
+                    new PathTargetSignalInfo(displaySetting, displaySetting.Resolution),
+                    targetInfo.Rotation,
+                    targetInfo.Scaling))
+                .ToArray();
 
                 pathInfos[i] = new PathInfo(
-                    pathInfo.DisplaySource,
-                    pathInfo.Position,
-                    displaySetting.Resolution,
-                    pathInfo.PixelFormat,
-                    pathTargetInfos
+                pathInfo.DisplaySource,
+                pathInfo.Position,
+                displaySetting.Resolution,
+                pathInfo.PixelFormat,
+                pathTargetInfos
                 );
             }
         }
