@@ -702,6 +702,7 @@ public partial class SettingsPage
         if (_isRefreshing)
             return;
 
-        SystemPath.SetCLI(_autoSwitchPowerModeToggle.IsChecked ?? false);
+        _settings.Store.AutoSwitchPowerMode = _autoSwitchPowerModeToggle.IsChecked ?? false;
+        _settings.SynchronizeStore();
     }
 }
