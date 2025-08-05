@@ -1,0 +1,30 @@
+﻿<UserControl
+    x:Class="LenovoLegionToolkit.WPF.Controls.KeyboardBacklight.Spectrum.SpectrumKeyboardEffectControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:LenovoLegionToolkit.WPF.Controls"
+    xmlns:custom="clr-namespace:LenovoLegionToolkit.WPF.Controls.Custom"
+    xmlns:resources="clr-namespace:LenovoLegionToolkit.WPF.Resources"
+    xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml">
+
+    <custom:CardControl
+        Margin="0,0,0,8"
+        Click="ButtonBase_OnClick"
+        Icon="Star24">
+        <custom:CardControl.Header>
+            <controls:CardHeaderControl x:Name="_cardHeaderControl" />
+        </custom:CardControl.Header>
+        <StackPanel Orientation="Horizontal">
+            <wpfui:Button
+                Click="Edit_Click"
+                Icon="Edit24"
+                ToolTip="{x:Static resources:Resource.Edit}" />
+            <wpfui:Button
+                Margin="8,0,0,0"
+                Click="Delete_Click"
+                Icon="Dismiss24"
+                ToolTip="{x:Static resources:Resource.Delete}" />
+        </StackPanel>
+    </custom:CardControl>
+
+</UserControl>

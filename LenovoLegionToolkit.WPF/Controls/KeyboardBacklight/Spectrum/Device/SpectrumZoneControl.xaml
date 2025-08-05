@@ -1,0 +1,17 @@
+﻿<UserControl
+    x:Class="LenovoLegionToolkit.WPF.Controls.KeyboardBacklight.Spectrum.Device.SpectrumZoneControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Border
+            x:Name="_background"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            BorderThickness="4"
+            CornerRadius="4" />
+        <ToggleButton
+            x:Name="_button"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch" />
+    </Grid>
+</UserControl>

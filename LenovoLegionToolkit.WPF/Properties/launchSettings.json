@@ -1,0 +1,20 @@
+{
+  "profiles": {
+    "LenovoLegionToolkit.WPF": {
+      "commandName": "Project",
+      "commandLineArgs": ""
+    },
+    "LenovoLegionToolkit.WPF (Trace)": {
+      "commandName": "Project",
+      "commandLineArgs": "--trace"
+    },
+    "LenovoLegionToolkit.WPF (Minimized)": {
+      "commandName": "Project",
+      "commandLineArgs": "--minimized"
+    },
+    "LenovoLegionToolkit.WPF (Trace, Minimized)": {
+      "commandName": "Project",
+      "commandLineArgs": "--trace --minimized"
+    }
+  }
+}

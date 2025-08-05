@@ -1,0 +1,187 @@
+﻿<UserControl
+    x:Class="LenovoLegionToolkit.WPF.Controls.Packages.PackageControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:custom="clr-namespace:LenovoLegionToolkit.WPF.Controls.Custom"
+    xmlns:resources="clr-namespace:LenovoLegionToolkit.WPF.Resources"
+    xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml">
+
+    <custom:CardControl Margin="0,0,0,8">
+        <custom:CardControl.Header>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="150" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel
+                    x:Name="_updateRebootStackPanel"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Margin="0,0,0,8"
+                    Orientation="Horizontal">
+
+                    <StackPanel x:Name="_isUpdateStackPanel" Orientation="Horizontal">
+                        <wpfui:SymbolIcon
+                            Margin="0,0,4,0"
+                            FontSize="18"
+                            FontWeight="Medium"
+                            Foreground="{DynamicResource SystemFillColorSuccessBrush}"
+                            Symbol="ArrowSync24" />
+                        <TextBlock
+                            FontSize="14"
+                            FontWeight="Medium"
+                            Foreground="{DynamicResource SystemFillColorSuccessBrush}"
+                            Text="{x:Static resources:Resource.PackageControl_IsUpdateInfo}"
+                            TextTrimming="CharacterEllipsis" />
+                    </StackPanel>
+
+                    <StackPanel
+                        x:Name="_rebootStackPanel"
+                        Margin="16,0,0,0"
+                        Orientation="Horizontal">
+                        <wpfui:SymbolIcon
+                            Margin="0,0,4,0"
+                            FontSize="18"
+                            FontWeight="Medium"
+                            Foreground="{DynamicResource SystemFillColorCautionBrush}"
+                            Symbol="Warning24" />
+                        <TextBlock
+                            x:Name="_rebootTextBlock"
+                            FontSize="14"
+                            FontWeight="Medium"
+                            Foreground="{DynamicResource SystemFillColorCautionBrush}"
+                            Text="{x:Static resources:Resource.PackageControl_RebootRecommended}"
+                            TextTrimming="CharacterEllipsis" />
+                    </StackPanel>
+
+                </StackPanel>
+
+                <TextBlock
+                    x:Name="_dateTextBlock"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    FontSize="12"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    TextTrimming="CharacterEllipsis" />
+
+                <TextBlock
+                    x:Name="_categoryTextBlock"
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Margin="0,4,0,8"
+                    FontWeight="Medium"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    MouseRightButtonUp="CopyToClipboard_MouseRightButtonUp" />
+
+                <TextBlock
+                    x:Name="_titleTextBlock"
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    FontSize="14"
+                    FontWeight="Medium"
+                    MouseRightButtonUp="CopyToClipboard_MouseRightButtonUp"
+                    TextTrimming="CharacterEllipsis" />
+
+                <TextBlock
+                    x:Name="_descriptionTextBlock"
+                    Grid.Row="4"
+                    Grid.Column="0"
+                    Margin="0,8,0,8"
+                    FontSize="13"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    MouseRightButtonUp="CopyToClipboard_MouseRightButtonUp"
+                    TextWrapping="Wrap" />
+
+                <TextBlock
+                    x:Name="_detailTextBlock"
+                    Grid.Row="5"
+                    Grid.Column="0"
+                    Margin="0,4,0,0"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    MouseRightButtonUp="CopyToClipboard_MouseRightButtonUp"
+                    TextTrimming="CharacterEllipsis" />
+
+                <TextBlock
+                    x:Name="_warningTextBlock"
+                    Grid.Row="6"
+                    Grid.Column="0"
+                    Margin="0,4,0,0"
+                    Foreground="{DynamicResource SystemFillColorCautionBrush}"
+                    Text="{x:Static resources:Resource.PackageControl_OldPackageWarning}"
+                    TextTrimming="CharacterEllipsis"
+                    Visibility="Collapsed" />
+
+                <StackPanel
+                    x:Name="_idleStackPanel"
+                    Grid.Row="0"
+                    Grid.RowSpan="6"
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+
+                    <wpfui:Button
+                        x:Name="_readmeButton"
+                        Margin="0,0,8,0"
+                        Click="ReadmeButton_Click"
+                        FontSize="18"
+                        Icon="DocumentBulletList24"
+                        ToolTip="{x:Static resources:Resource.PackageControl_OpenReadme}" />
+
+                    <wpfui:Button
+                        Click="DownloadButton_Click"
+                        FontSize="18"
+                        Icon="ArrowDownload24"
+                        ToolTip="{x:Static resources:Resource.PackageControl_Download}" />
+
+                </StackPanel>
+
+                <StackPanel
+                    x:Name="_downloadingStackPanel"
+                    Grid.Row="0"
+                    Grid.RowSpan="7"
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal"
+                    Visibility="Collapsed">
+
+                    <Label x:Name="_downloadProgressLabel" VerticalContentAlignment="Center" />
+
+                    <wpfui:ProgressRing
+                        x:Name="_downloadProgressRing"
+                        Width="24"
+                        Height="24"
+                        Margin="4,0,0,0"
+                        IsIndeterminate="true"
+                        RenderTransformOrigin="0.5,0.5">
+                        <wpfui:ProgressRing.RenderTransform>
+                            <TransformGroup>
+                                <RotateTransform Angle="-90" />
+                                <ScaleTransform ScaleX="-1" />
+                            </TransformGroup>
+                        </wpfui:ProgressRing.RenderTransform>
+                    </wpfui:ProgressRing>
+
+                    <wpfui:Button
+                        Margin="8,0,0,0"
+                        Click="CancelDownloadButton_Click"
+                        FontSize="18"
+                        Icon="Dismiss24"
+                        ToolTip="{x:Static resources:Resource.Cancel}" />
+
+                </StackPanel>
+
+            </Grid>
+        </custom:CardControl.Header>
+    </custom:CardControl>
+
+</UserControl>

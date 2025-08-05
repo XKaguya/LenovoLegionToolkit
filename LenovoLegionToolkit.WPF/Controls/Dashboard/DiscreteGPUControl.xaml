@@ -1,0 +1,111 @@
+﻿<controls:AbstractRefreshingControl
+    x:Class="LenovoLegionToolkit.WPF.Controls.Dashboard.DiscreteGPUControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:LenovoLegionToolkit.WPF.Controls"
+    xmlns:custom="clr-namespace:LenovoLegionToolkit.WPF.Controls.Custom"
+    xmlns:resources="clr-namespace:LenovoLegionToolkit.WPF.Resources"
+    xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml">
+    <custom:CardControl Margin="0,0,0,8" Icon="DeveloperBoard24">
+        <custom:CardControl.Header>
+            <controls:CardHeaderControl Title="{x:Static resources:Resource.DiscreteGPUControl_Title}" Subtitle="{x:Static resources:Resource.DiscreteGPUControl_Message}" />
+        </custom:CardControl.Header>
+        <StackPanel
+            x:Name="_content"
+            Orientation="Vertical"
+            Visibility="Hidden">
+            <Grid HorizontalAlignment="Right">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Ellipse
+                    x:Name="_discreteGPUStatusActiveIndicator"
+                    Grid.Column="0"
+                    Width="12"
+                    Height="12"
+                    Fill="#FF8BC34A"
+                    Visibility="Collapsed" />
+                <Ellipse
+                    x:Name="_discreteGPUStatusInactiveIndicator"
+                    Grid.Column="0"
+                    Width="12"
+                    Height="12"
+                    Fill="#F2A541"
+                    Visibility="Collapsed" />
+                <Ellipse
+                    x:Name="_discreteGPUStatusPoweredOffIndicator"
+                    Grid.Column="0"
+                    Width="12"
+                    Height="12"
+                    Fill="#BF360C"
+                    Visibility="Collapsed" />
+                <TextBlock
+                    x:Name="_discreteGPUStatusDescription"
+                    Grid.Column="1"
+                    Margin="8,0,0,0"
+                    VerticalAlignment="Center"
+                    AutomationProperties.HelpText="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Text}"
+                    AutomationProperties.Name="{x:Static resources:Resource.DiscreteGPUControl_Title}"
+                    Focusable="True"
+                    FontWeight="Medium" />
+                <wpfui:Button
+                    x:Name="_gpuInfoButton"
+                    Grid.Column="2"
+                    Margin="8,0,0,0"
+                    AutomationProperties.HelpText="{x:Static resources:Resource.Information}"
+                    AutomationProperties.Name="{x:Static resources:Resource.DiscreteGPUControl_Title}"
+                    ClickMode="Hover"
+                    FontSize="20"
+                    Icon="QuestionCircle24"
+                    ToolTipService.InitialShowDelay="0" />
+            </Grid>
+            <wpfui:Button
+                x:Name="_deactivateGPUButton"
+                MinWidth="150"
+                Margin="0,8,0,0"
+                Appearance="Primary"
+                AutomationProperties.Name="{x:Static resources:Resource.DiscreteGPUControl_Deactivate}"
+                Click="DeactivateGPUButton_Click"
+                IsEnabled="False"
+                ToolTipService.InitialShowDelay="0"
+                ToolTipService.ShowOnDisabled="True">
+                <wpfui:Button.Content>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            x:Name="_deactivateGPUButtonText"
+                            Grid.Column="1"
+                            Margin="8,0,8,2"
+                            FontWeight="Medium"
+                            Text="{x:Static resources:Resource.DiscreteGPUControl_Deactivate}" />
+                        <wpfui:SymbolIcon
+                            x:Name="_deactivateGPUButtonIcon"
+                            Grid.Column="0"
+                            FontWeight="Bold"
+                            Symbol="ChevronDown24" />
+                    </Grid>
+                </wpfui:Button.Content>
+                <wpfui:Button.ContextMenu>
+                    <ContextMenu MinWidth="150">
+                        <ContextMenu.Items>
+                            <wpfui:MenuItem
+                                x:Name="_killAppsMenuItem"
+                                Click="KillAppsMenuItem_Click"
+                                Header="{x:Static resources:Resource.DiscreteGPUControl_KillApps}" />
+                            <wpfui:MenuItem
+                                x:Name="_restartGPUMenuItem"
+                                Click="RestartGPUMenuItem_Click"
+                                Header="{x:Static resources:Resource.DiscreteGPUControl_RestartGPU}" />
+                        </ContextMenu.Items>
+                    </ContextMenu>
+                </wpfui:Button.ContextMenu>
+            </wpfui:Button>
+        </StackPanel>
+    </custom:CardControl>
+</controls:AbstractRefreshingControl>

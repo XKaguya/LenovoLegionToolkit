@@ -1,0 +1,32 @@
+﻿<UserControl
+    x:Class="LenovoLegionToolkit.WPF.Controls.MultiColorPickerItemControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:LenovoLegionToolkit.WPF.Controls"
+    xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml">
+    <Grid Margin="8,0,0,0">
+
+        <local:ColorPickerControl x:Name="_picker" />
+
+        <Border
+            Width="20"
+            Height="20"
+            Background="{DynamicResource SolidBackgroundFillColorBaseBrush}"
+            CornerRadius="10"
+            Cursor="Hand"
+            MouseLeftButtonDown="Delete_Click"
+            MouseRightButtonDown="Delete_Click">
+            <Border.RenderTransform>
+                <TranslateTransform X="14" Y="-14" />
+            </Border.RenderTransform>
+
+            <wpfui:SymbolIcon
+                FontSize="11"
+                FontWeight="Medium"
+                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                Symbol="Dismiss12" />
+
+        </Border>
+
+    </Grid>
+</UserControl>

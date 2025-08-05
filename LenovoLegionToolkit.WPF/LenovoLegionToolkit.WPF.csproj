@@ -1,0 +1,86 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
+		<Platforms>x64</Platforms>
+		<OutputType>WinExe</OutputType>
+		<ApplicationIcon>Assets/icon.ico</ApplicationIcon>
+		<AssemblyName>Lenovo Legion Toolkit</AssemblyName>
+		<Copyright>© 2024 Bartosz Cichecki</Copyright>
+		<FileVersion>0.0.1</FileVersion>
+		<Version>0.0.1</Version>
+		<Nullable>enable</Nullable>
+		<UseWPF>true</UseWPF>
+		<UseWindowsForms>true</UseWindowsForms>
+		<SelfContained>false</SelfContained>
+		<PublishSingleFile>false</PublishSingleFile>
+		<PublishReadyToRun>false</PublishReadyToRun>
+		<PublishUrl>publish\</PublishUrl>
+		<IncludeAllContentForSelfExtract>false</IncludeAllContentForSelfExtract>
+		<RollForward>Major</RollForward>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<SourceRevisionId>build$([System.DateTime]::UtcNow.ToString("yyyyMMddHHmmss"))</SourceRevisionId>
+	</PropertyGroup>
+	<PropertyGroup>
+		<ApplicationManifest>app.manifest</ApplicationManifest>
+		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+		<NeutralLanguage>en</NeutralLanguage>
+		<SatelliteResourceLanguages>ar;bg;cs;de;en;el;es;fr;hu;it;ja;lv;nl;nl-nl;pl;pt;pt-br;ro;ru;sk;uk;tr;vi;zh;zh-hans;zh-hant</SatelliteResourceLanguages>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <DebugType>portable</DebugType>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	  <DebugType>embedded</DebugType>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Autofac" Version="8.2.0" />
+		<PackageReference Include="Humanizer" Version="2.14.1" />
+		<PackageReference Include="Markdig" Version="0.40.0" />
+		<PackageReference Include="Markdig.Wpf" Version="0.5.0.1" />
+		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+		<PackageReference Include="PixiEditor.ColorPicker" Version="3.4.2" />
+		<PackageReference Include="WPF-UI" Version="2.1.0" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\LenovoLegionToolkit.Lib\LenovoLegionToolkit.Lib.csproj" />
+		<ProjectReference Include="..\LenovoLegionToolkit.Lib.Automation\LenovoLegionToolkit.Lib.Automation.csproj" />
+		<ProjectReference Include="..\LenovoLegionToolkit.Lib.Macro\LenovoLegionToolkit.Lib.Macro.csproj" />
+		<ProjectReference Include="..\LenovoLegionToolkit.CLI.Lib\LenovoLegionToolkit.CLI.Lib.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Remove="Assets\icon.ico" />
+		<None Remove="Assets\default_exe.png" />
+		<None Remove="Assets\Donate\paypal_logo.png" />
+		<None Remove="Assets\Donate\paypal_qr.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<Resource Include="Assets\default_exe.png" />
+		<Resource Include="Assets\icon.ico" />
+		<Resource Include="Assets\Donate\paypal_logo.png" />
+		<Resource Include="Assets\Donate\paypal_qr.png" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Update="Assets\AssetResources.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>AssetResources.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Resources\Resource.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Resource.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+	<ItemGroup>
+	  <EmbeddedResource Update="Assets\AssetResources.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>AssetResources.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Resources\Resource.resx">
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	    <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	</ItemGroup>
+</Project>
