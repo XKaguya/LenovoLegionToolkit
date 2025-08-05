@@ -15,6 +15,8 @@
 Kaguya's custom LLT version. Fix some issues.
 
 <img height="128" align="left" src="assets/logo.png" alt="Logo">
+
+
 # Lenovo Legion Toolkit
 
 [![Build](https://github.com/BartoszCichecki/LenovoLegionToolkit/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/BartoszCichecki/LenovoLegionToolkit/actions/workflows/build.yml)
