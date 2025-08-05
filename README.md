@@ -1,4 +1,18 @@
-<img height="128" align="left" src="assets/logo.png" alt="Logo">
+> [!IMPORTANT]
+> _Archived on July 24, 2025, This project is no longer actively maintained._
+> 
+> Thank you to everyone who supported, used, contributed to, and shared this project. It's been an amazing journey watching it grow among Legion users.
+> 
+> As I no longer have time to maintain it, I’ve decided to archive the repo. Feel free to fork and continue development, if you'd like to carry it forward. All code remains available under the existing license.
+> 
+> For questions, issues, or maintenance, I recommend checking out forks from the community—or even starting your own!
+> 
+> Much love and happy coding,
+>
+> – Bartosz
+
+# About
+Kaguya's custom LLT version. Fix some issues.
 
 # Lenovo Legion Toolkit
 
@@ -14,14 +28,6 @@
 * [日本語版のREADME](README_ja-JP.md)
 
 ---
-
-![Ukrainian Flag](assets/ukraine_flag_bar.png)
-
-Support the Armed Forces of Ukraine and People Affected by Russia’s Aggression on UNITED24, the official fundraising platform of Ukraine: https://u24.gov.ua.
-
-**Слава Україні!**
-
-![Ukrainian Flag](assets/ukraine_flag_bar.png)
 
 <br />
 
@@ -416,25 +422,58 @@ Many thanks to everyone else, who monitors and corrects translations!
 
 ## FAQ
 
-- [Why do I get a message that Vantage is still running, even though I uninstalled it?](#why-do-i-get-a-message-that-vantage-is-still-running-even-though-i-uninstalled-it)
-- [Why is my antivirus reporting that the installer contains a virus/trojan/malware?](#why-is-my-antivirus-reporting-that-the-installer-contains-a-virustrojanmalware)
-- [Can I customize hotkeys?](#can-i-customize-hotkeys)
-- [Can I customize Conservation mode threshold?](#can-i-customize-conservation-mode-threshold)
-- [Can I customize fans in Quiet, Balance or Performance modes?](#can-i-customize-fans-in-quiet-balance-or-performance-modes)
-- [Why can't I switch to Performance or Custom Power Mode on battery?](#why-cant-i-switch-to-performance-or-custom-power-mode-on-battery)
-- [Why does switching to Performance mode seem buggy, when AI Engine is enabled?](#why-does-switching-to-performance-mode-seem-buggy-when-ai-engine-is-enabled)
-- [Why am I getting incompatible message after motherboard replacement?](#why-am-i-getting-incompatible-message-after-motherboard-replacement)
-- [Why isn't a game detected, even though Actions are configured properly?](#why-isnt-a-game-detected-even-though-actions-are-configured-properly)
-- [Can I use other RGB software while using LLT?](#can-i-use-other-rgb-software-while-using-llt)
-- [Will iCue RGB keyboards be supported?](#will-icue-rgb-keyboards-be-supported)
-- [Can I have more RGB effects?](#can-i-have-more-rgb-effects)
-- [Can you add fan control to other models?](#can-you-add-fan-control-to-other-models)
-- [Why don't I see the custom tooltip when I hover LLT icon in tray?](#why-dont-i-see-the-custom-tooltip-when-i-hover-llt-icon-in-tray)
-- [How can I OC/UV my CPU?](#how-can-i-ocuv-my-cpu)
-- [What if I overclocked my GPU too much?](#what-if-i-overclocked-my-gpu-too-much)
-- [Why is my Boot Logo not applied?](#why-is-my-boot-logo-not-applied)
-- [Why do I see stuttering when using Smart Fn Lock?](#why-do-i-see-stuttering-when-using-smart-fn-lock)
-- [Which generation is my laptop?](#which-generation-is-my-laptop)
+- [About](#about)
+- [Lenovo Legion Toolkit](#lenovo-legion-toolkit)
+			- [Other language versions of this README file:](#other-language-versions-of-this-readme-file)
+- [Table of Contents](#table-of-contents)
+	- [Disclaimer](#disclaimer)
+	- [Download](#download)
+			- [Next steps](#next-steps)
+			- [Required drivers](#required-drivers)
+			- [Problems with .NET?](#problems-with-net)
+			- [Want to help with testing?](#want-to-help-with-testing)
+	- [Compatibility](#compatibility)
+		- [Lenovo's software](#lenovos-software)
+		- [Other remarks](#other-remarks)
+	- [Features](#features)
+		- [Custom Mode](#custom-mode)
+		- [RGB and lighting](#rgb-and-lighting)
+		- [Hybrid Mode and GPU Working Modes](#hybrid-mode-and-gpu-working-modes)
+		- [Deactivate discrete NVIDIA GPU](#deactivate-discrete-nvidia-gpu)
+		- [Overclock discrete NVIDIA GPUs](#overclock-discrete-nvidia-gpus)
+		- [Windows Power Plans \& Windows Power Mode](#windows-power-plans--windows-power-mode)
+		- [Boot Logo](#boot-logo)
+		- [Running programs or scripts from actions](#running-programs-or-scripts-from-actions)
+			- [Environment](#environment)
+			- [Output](#output)
+		- [CLI](#cli)
+	- [Donate](#donate)
+	- [Credits](#credits)
+	- [FAQ](#faq)
+			- [Why do I get a message that Vantage is still running, even though I uninstalled it?](#why-do-i-get-a-message-that-vantage-is-still-running-even-though-i-uninstalled-it)
+			- [Why is my antivirus reporting that the installer contains a virus/trojan/malware?](#why-is-my-antivirus-reporting-that-the-installer-contains-a-virustrojanmalware)
+			- [Can I customize hotkeys?](#can-i-customize-hotkeys)
+			- [Can I customize Conservation mode threshold?](#can-i-customize-conservation-mode-threshold)
+			- [Can I customize fans in Quiet, Balance or Performance modes?](#can-i-customize-fans-in-quiet-balance-or-performance-modes)
+			- [Why can't I switch to Performance or Custom Power Mode on battery?](#why-cant-i-switch-to-performance-or-custom-power-mode-on-battery)
+			- [Why does switching to Performance mode seem buggy, when AI Engine is enabled?](#why-does-switching-to-performance-mode-seem-buggy-when-ai-engine-is-enabled)
+			- [Why am I getting incompatible message after motherboard replacement?](#why-am-i-getting-incompatible-message-after-motherboard-replacement)
+			- [Why isn't a game detected, even though Actions are configured properly?](#why-isnt-a-game-detected-even-though-actions-are-configured-properly)
+			- [Can I use other RGB software while using LLT?](#can-i-use-other-rgb-software-while-using-llt)
+			- [Will iCue RGB keyboards be supported?](#will-icue-rgb-keyboards-be-supported)
+			- [Can I have more RGB effects?](#can-i-have-more-rgb-effects)
+			- [Can you add fan control to other models?](#can-you-add-fan-control-to-other-models)
+			- [Why don't I see the custom tooltip when I hover LLT icon in tray?](#why-dont-i-see-the-custom-tooltip-when-i-hover-llt-icon-in-tray)
+			- [How can I OC/UV my CPU?](#how-can-i-ocuv-my-cpu)
+			- [What if I overclocked my GPU too much?](#what-if-i-overclocked-my-gpu-too-much)
+			- [Why is my Boot Logo not applied?](#why-is-my-boot-logo-not-applied)
+			- [Why do I see stuttering when using Smart Fn Lock?](#why-do-i-see-stuttering-when-using-smart-fn-lock)
+			- [Why don't I see warranty infos in device information?](#why-dont-i-see-warranty-infos-in-device-information)
+			- [Which generation is my laptop?](#which-generation-is-my-laptop)
+	- [Arguments](#arguments)
+	- [How to collect logs?](#how-to-collect-logs)
+	- [Contribution](#contribution)
+			- [Compatibility](#compatibility-1)
 
 
 
