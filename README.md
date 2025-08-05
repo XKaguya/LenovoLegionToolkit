@@ -16,6 +16,7 @@ Kaguya's custom LLT version. Fix some issues.
 
 <img height="128" align="left" src="assets/logo.png" alt="Logo">
 
+---
 
 # Lenovo Legion Toolkit
 
