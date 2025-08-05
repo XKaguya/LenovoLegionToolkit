@@ -59,7 +59,7 @@ public class UpdateChecker
                 var productInformation = new ProductHeaderValue("LenovoLegionToolkit-UpdateChecker");
                 var connection = new Connection(productInformation, adapter);
                 var githubClient = new GitHubClient(connection);
-                var releases = await githubClient.Repository.Release.GetAll("BartoszCichecki", "LenovoLegionToolkit", new ApiOptions { PageSize = 5 }).ConfigureAwait(false);
+                var releases = await githubClient.Repository.Release.GetAll("XKaguya", "LenovoLegionToolkit", new ApiOptions { PageSize = 5 }).ConfigureAwait(false);
 
                 var thisReleaseVersion = Assembly.GetEntryAssembly()?.GetName().Version;
                 var thisBuildDate = Assembly.GetEntryAssembly()?.GetBuildDateTime() ?? new DateTime(2000, 1, 1);
