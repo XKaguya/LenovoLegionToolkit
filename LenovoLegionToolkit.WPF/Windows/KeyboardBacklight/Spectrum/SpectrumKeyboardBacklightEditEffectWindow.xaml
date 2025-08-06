@@ -16,7 +16,9 @@
     FlowDirection="{x:Static utils:LocalizationHelper.Direction}"
     ResizeMode="CanMinimize"
     ShowInTaskbar="False"
-    WindowStartupLocation="CenterOwner">
+    WindowStartupLocation="CenterOwner"
+    Focusable="False">
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -50,7 +52,7 @@
                 Text="{x:Static resources:Resource.SpectrumKeyboardBacklightEditEffectWindow_Title_Edit}" />
         </Grid>
 
-        <wpfui:DynamicScrollViewer Grid.Row="1" Margin="12,0,0,0">
+        <wpfui:DynamicScrollViewer Grid.Row="1" Margin="12,0,0,0" Focusable="False">
             <StackPanel Margin="0,0,16,0">
 
                 <custom:CardControl x:Name="_effectTypeCard" Margin="0,0,0,8">

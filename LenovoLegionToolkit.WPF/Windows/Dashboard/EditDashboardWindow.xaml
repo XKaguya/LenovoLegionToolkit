@@ -16,7 +16,9 @@
     FlowDirection="{x:Static utils:LocalizationHelper.Direction}"
     ResizeMode="CanMinimize"
     ShowInTaskbar="False"
-    WindowStartupLocation="CenterOwner">
+    WindowStartupLocation="CenterOwner"
+    Focusable="False">
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -63,7 +65,7 @@
             Grid.Row="2"
             Margin="12,0,0,0"
             IndicatorVerticalAlignment="Center">
-            <wpfui:DynamicScrollViewer x:Name="_groupsScrollViewer">
+            <wpfui:DynamicScrollViewer x:Name="_groupsScrollViewer" Focusable="False">
                 <StackPanel>
                     <custom:CardControl Margin="0,0,16,16">
                         <custom:CardControl.Header>

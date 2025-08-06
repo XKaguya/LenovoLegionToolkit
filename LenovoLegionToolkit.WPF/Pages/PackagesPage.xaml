@@ -206,7 +206,7 @@
                 Grid.Row="2"
                 IndicatorVerticalAlignment="Center"
                 Visibility="Hidden">
-                <wpfui:DynamicScrollViewer x:Name="_scrollViewer">
+                <wpfui:DynamicScrollViewer x:Name="_scrollViewer" Focusable="False">
 
                     <StackPanel>
 

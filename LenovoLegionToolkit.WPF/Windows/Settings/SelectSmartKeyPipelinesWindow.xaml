@@ -15,7 +15,8 @@
     FlowDirection="{x:Static utils:LocalizationHelper.Direction}"
     ResizeMode="CanMinimize"
     ShowInTaskbar="False"
-    WindowStartupLocation="CenterOwner">
+    WindowStartupLocation="CenterOwner"
+    Focusable="False">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -85,7 +86,7 @@
                         <SolidColorBrush Color="{DynamicResource ControlFillColorDefault}" />
                     </Border.Background>
 
-                    <wpfui:DynamicScrollViewer>
+                    <wpfui:DynamicScrollViewer Focusable="False">
                         <ItemsControl
                             x:Name="_list"
                             Margin="8,8,16,0"
