@@ -14,7 +14,9 @@
     FlowDirection="{x:Static utils:LocalizationHelper.Direction}"
     ResizeMode="NoResize"
     ShowInTaskbar="False"
-    WindowStartupLocation="CenterOwner">
+    WindowStartupLocation="CenterOwner"
+    Focusable="False">
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

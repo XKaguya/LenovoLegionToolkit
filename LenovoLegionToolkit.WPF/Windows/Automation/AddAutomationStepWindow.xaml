@@ -14,7 +14,8 @@
     FlowDirection="{x:Static utils:LocalizationHelper.Direction}"
     ResizeMode="CanMinimize"
     ShowInTaskbar="False"
-    WindowStartupLocation="CenterOwner">
+    WindowStartupLocation="CenterOwner"
+    Focusable="False">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -49,7 +50,7 @@
 
         </Grid>
 
-        <wpfui:DynamicScrollViewer Grid.Row="1" Margin="12,0,0,12">
+        <wpfui:DynamicScrollViewer Grid.Row="1" Margin="12,0,0,12" Focusable="False">
             <StackPanel x:Name="_content" Margin="0,0,12,0" />
         </wpfui:DynamicScrollViewer>
 

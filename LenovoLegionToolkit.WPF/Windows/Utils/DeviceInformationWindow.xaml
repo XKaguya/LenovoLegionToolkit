@@ -16,7 +16,8 @@
     ResizeMode="CanMinimize"
     ShowInTaskbar="False"
     SizeToContent="Height"
-    WindowStartupLocation="CenterOwner">
+    WindowStartupLocation="CenterOwner"
+    Focusable="False">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -49,7 +50,7 @@
 
         </Grid>
 
-        <wpfui:DynamicScrollViewer Grid.Row="1">
+        <wpfui:DynamicScrollViewer Grid.Row="1" Focusable="False">
             <StackPanel Margin="16,0,16,12">
 
                 <TextBlock

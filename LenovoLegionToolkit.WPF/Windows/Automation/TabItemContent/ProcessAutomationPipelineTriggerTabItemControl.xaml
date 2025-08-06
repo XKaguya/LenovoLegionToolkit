@@ -16,7 +16,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <wpfui:DynamicScrollViewer Grid.Row="0">
+        <wpfui:DynamicScrollViewer Grid.Row="0" Focusable="False">
             <ItemsControl
                 x:Name="_list"
                 Margin="0,0,16,8"

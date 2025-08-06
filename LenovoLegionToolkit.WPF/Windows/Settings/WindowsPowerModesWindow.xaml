@@ -17,7 +17,8 @@
     ResizeMode="CanMinimize"
     ShowInTaskbar="False"
     SizeToContent="Height"
-    WindowStartupLocation="CenterOwner">
+    WindowStartupLocation="CenterOwner"
+    Focusable="False">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -56,7 +57,7 @@
             Margin="12,0,0,0"
             IndicatorVerticalAlignment="Center">
 
-            <wpfui:DynamicScrollViewer>
+            <wpfui:DynamicScrollViewer Focusable="False">
                 <StackPanel Margin="0,0,16,0">
 
                     <custom:CardControl Margin="0,0,0,8">

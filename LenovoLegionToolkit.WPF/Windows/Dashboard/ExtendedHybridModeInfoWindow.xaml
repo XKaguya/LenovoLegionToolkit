@@ -13,7 +13,9 @@
     ResizeMode="CanMinimize"
     ShowInTaskbar="False"
     SizeToContent="Height"
-    WindowStartupLocation="CenterOwner">
+    WindowStartupLocation="CenterOwner"
+    Focusable="False">
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
