@@ -654,6 +654,15 @@ public partial class SettingsPage
         Process.Start("control", "/name Microsoft.PowerOptions");
     }
 
+    private void AutoSwitchPowerModeToggle_Click(object sender, RoutedEventArgs e)
+    {
+        if (_isRefreshing)
+            return;
+
+        _settings.Store.AutoSwitchPowerMode = _autoSwitchPowerModeToggle.IsChecked ?? false;
+        _settings.SynchronizeStore();
+    }
+
     private void OnBatterySinceResetToggle_Click(object sender, RoutedEventArgs e)
     {
         if (_isRefreshing)
@@ -695,14 +704,5 @@ public partial class SettingsPage
             return;
 
         SystemPath.SetCLI(_cliPathToggle.IsChecked ?? false);
-    }
-
-    private void AutoSwitchPowerModeToggle_Click(object sender, RoutedEventArgs e)
-    {
-        if (_isRefreshing)
-            return;
-
-        _settings.Store.AutoSwitchPowerMode = _autoSwitchPowerModeToggle.IsChecked ?? false;
-        _settings.SynchronizeStore();
     }
 }
