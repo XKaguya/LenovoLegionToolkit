@@ -26,7 +26,7 @@ jobs:
       run: dotnet restore
       
     - name: Build
-      run: .\make.bat ${{ steps.version.outputs.version }}
+      run: .\make.bat latest
       
     - name: Verify installer exists
       run: |
