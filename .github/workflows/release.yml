@@ -54,8 +54,8 @@ jobs:
       uses: softprops/action-gh-release@v2.0.8
       with:
         draft: true
-        tag_name: release-${{ steps.set_version.outputs.version }}
-        name: LenovoLegionToolkit v${{ steps.set_version.outputs.version }}
+        tag_name: ${{ steps.set_version.outputs.version }}
+        name: LenovoLegionToolkit [${{ steps.set_version.outputs.version }}]
         body: |
           ## Release Notes
           Version ${{ steps.set_version.outputs.version }}
