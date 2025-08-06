@@ -11,8 +11,7 @@
     FlowDirection="{x:Static utils:LocalizationHelper.Direction}"
     Initialized="DashboardPage_Initialized"
     Scrollable="True"
-    SizeChanged="DashboardPage_SizeChanged"
-    Focusable="False">
+    SizeChanged="DashboardPage_SizeChanged">
 
     <controls:LoadableControl
         x:Name="_loader"

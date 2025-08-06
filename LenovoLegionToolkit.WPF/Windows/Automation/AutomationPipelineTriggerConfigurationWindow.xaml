@@ -15,8 +15,7 @@
     Initialized="AutomationPipelineTriggerConfigurationWindow_Initialized"
     ResizeMode="CanMinimize"
     ShowInTaskbar="False"
-    WindowStartupLocation="CenterOwner"
-    Focusable="False">
+    WindowStartupLocation="CenterOwner">
 
     <Grid>
 

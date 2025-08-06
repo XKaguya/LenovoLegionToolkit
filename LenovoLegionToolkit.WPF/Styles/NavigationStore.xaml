@@ -234,7 +234,6 @@
                                 Grid.Row="0"
                                 MinWidth="60"
                                 MaxWidth="80"
-                                Focusable="False"
                                 ItemsSource="{TemplateBinding Items}"
                                 KeyboardNavigation.DirectionalNavigation="Contained"
                                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -251,7 +250,6 @@
 
                             <ItemsControl
                                 Grid.Row="1"
-                                Focusable="False"
                                 ItemsSource="{TemplateBinding Footer}"
                                 KeyboardNavigation.DirectionalNavigation="Contained"
                                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"

@@ -1,12 +1,13 @@
-﻿using System;
+﻿using LenovoLegionToolkit.Lib.Automation.Pipeline.Triggers;
+using LenovoLegionToolkit.WPF.Extensions;
+using LenovoLegionToolkit.WPF.Windows.Automation.TabItemContent;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Automation;
 using System.Windows.Controls;
-using LenovoLegionToolkit.Lib.Automation.Pipeline.Triggers;
-using LenovoLegionToolkit.WPF.Extensions;
-using LenovoLegionToolkit.WPF.Windows.Automation.TabItemContent;
+using System.Windows.Input;
 using Wpf.Ui.Controls;
 
 namespace LenovoLegionToolkit.WPF.Windows.Automation;
@@ -22,6 +23,14 @@ public partial class AutomationPipelineTriggerConfigurationWindow
         _triggers = triggers;
 
         InitializeComponent();
+
+        PreviewKeyDown += (s, e) => {
+            if (e.Key == Key.System && e.SystemKey == Key.LeftAlt)
+            {
+                e.Handled = true;
+                Keyboard.ClearFocus();
+            }
+        };
     }
 
     private void AutomationPipelineTriggerConfigurationWindow_Initialized(object? sender, EventArgs e)

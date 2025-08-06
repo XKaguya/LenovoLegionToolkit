@@ -13,8 +13,7 @@
     MinWidth="300"
     MinHeight="100"
     FlowDirection="{x:Static utils:LocalizationHelper.Direction}"
-    mc:Ignorable="d"
-    Focusable="False">
+    mc:Ignorable="d">
 
     <wpfui:UiWindow.Resources>
         <system:Double x:Key="SymbolFontSize">24</system:Double>

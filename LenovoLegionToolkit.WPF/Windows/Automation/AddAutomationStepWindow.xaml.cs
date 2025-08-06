@@ -1,9 +1,10 @@
-﻿using System;
+﻿using LenovoLegionToolkit.WPF.Controls;
+using LenovoLegionToolkit.WPF.Controls.Automation;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
-using LenovoLegionToolkit.WPF.Controls;
-using LenovoLegionToolkit.WPF.Controls.Automation;
+using System.Windows.Input;
 using Wpf.Ui.Common;
 using Wpf.Ui.Controls;
 using CardControl = LenovoLegionToolkit.WPF.Controls.Custom.CardControl;
@@ -23,6 +24,14 @@ public partial class AddAutomationStepWindow
         InitializeComponent();
 
         IsVisibleChanged += AddAutomationStepWindow_IsVisibleChanged;
+
+        PreviewKeyDown += (s, e) => {
+            if (e.Key == Key.System && e.SystemKey == Key.LeftAlt)
+            {
+                e.Handled = true;
+                Keyboard.ClearFocus();
+            }
+        };
     }
 
     private async void AddAutomationStepWindow_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)

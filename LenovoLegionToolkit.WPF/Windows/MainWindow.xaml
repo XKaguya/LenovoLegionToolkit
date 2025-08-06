@@ -13,8 +13,7 @@
     Height="750"
     MinWidth="650"
     MinHeight="600"
-    FlowDirection="{x:Static utils:LocalizationHelper.Direction}"
-    Focusable="False">
+    FlowDirection="{x:Static utils:LocalizationHelper.Direction}">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -41,7 +40,6 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
                 FlowDirection="LeftToRight"
-                Focusable="False"
                 FontSize="12"
                 IsHitTestVisible="False"
                 Text="{x:Static resources:Resource.AppName}" />
@@ -144,11 +142,11 @@
 
             </wpfui:NavigationStore>
 
-            <Border Focusable="False"
+            <Border
                 Grid.Column="1"
                 Background="{DynamicResource ControlFillColorDefaultBrush}"
                 CornerRadius="8,0,0,0">
-                <Frame Name="_rootFrame" Margin="24,0,0,0" Focusable="False" />
+                <Frame Name="_rootFrame" Margin="24,0,0,0" />
             </Border>
 
             <wpfui:Snackbar

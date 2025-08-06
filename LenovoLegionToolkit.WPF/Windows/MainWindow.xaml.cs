@@ -74,6 +74,14 @@ public partial class MainWindow
             _openLogIndicator.Visibility = Visibility.Visible;
         }
 
+        PreviewKeyDown += (s, e) => {
+            if (e.Key == Key.System && e.SystemKey == Key.LeftAlt)
+            {
+                e.Handled = true;
+                Keyboard.ClearFocus();
+            }
+        };
+
         Title = _title.Text;
     }
 

@@ -1,13 +1,14 @@
-﻿using System;
+﻿using LenovoLegionToolkit.Lib;
+using LenovoLegionToolkit.Lib.Utils;
+using LenovoLegionToolkit.WPF.Extensions;
+using LenovoLegionToolkit.WPF.Resources;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Text;
 using System.Threading;
 using System.Windows;
-using LenovoLegionToolkit.Lib;
-using LenovoLegionToolkit.Lib.Utils;
-using LenovoLegionToolkit.WPF.Extensions;
-using LenovoLegionToolkit.WPF.Resources;
+using System.Windows.Input;
 
 namespace LenovoLegionToolkit.WPF.Windows.Utils;
 
@@ -17,7 +18,18 @@ public partial class UpdateWindow : IProgress<float>
 
     private CancellationTokenSource? _downloadCancellationTokenSource;
 
-    public UpdateWindow() => InitializeComponent();
+    public UpdateWindow()
+    {
+        InitializeComponent();
+
+        PreviewKeyDown += (s, e) => {
+            if (e.Key == Key.System && e.SystemKey == Key.LeftAlt)
+            {
+                e.Handled = true;
+                Keyboard.ClearFocus();
+            }
+        };
+    }
 
     private async void UpdateWindow_Loaded(object sender, RoutedEventArgs e)
     {
