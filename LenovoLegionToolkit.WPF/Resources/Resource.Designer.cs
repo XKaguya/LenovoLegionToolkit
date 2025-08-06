@@ -5285,6 +5285,24 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Never check for updates 的本地化字符串。
+        /// </summary>
+        public static string SettingsPage_NeverCheckForUpdates_Content {
+            get {
+                return ResourceManager.GetString("SettingsPage_NeverCheckForUpdates_Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Never check for updates 的本地化字符串。
+        /// </summary>
+        public static string SettingsPage_NeverCheckForUpdates_Title {
+            get {
+                return ResourceManager.GetString("SettingsPage_NeverCheckForUpdates_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Configure which notifications are shown. 的本地化字符串。
         /// </summary>
         public static string SettingsPage_Notifications_Message {

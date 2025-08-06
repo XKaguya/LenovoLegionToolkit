@@ -7,8 +7,8 @@
 		<ApplicationIcon>Assets/icon.ico</ApplicationIcon>
 		<AssemblyName>Lenovo Legion Toolkit</AssemblyName>
 		<Copyright>© 2025 Bartosz Cichecki and Kaguya</Copyright>
-		<FileVersion>2.26.3</FileVersion>
-		<Version>2.26.3</Version>
+		<FileVersion>2.26.4</FileVersion>
+		<Version>2.26.4</Version>
 		<Nullable>enable</Nullable>
 		<UseWPF>true</UseWPF>
 		<UseWindowsForms>true</UseWindowsForms>

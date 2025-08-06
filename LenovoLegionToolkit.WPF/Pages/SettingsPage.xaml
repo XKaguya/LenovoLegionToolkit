@@ -9,7 +9,8 @@
     xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="{x:Static resources:Resource.SettingsPage_Title}"
     FlowDirection="{x:Static utils:LocalizationHelper.Direction}"
-    Scrollable="True">
+    Scrollable="True"
+    Focusable="False">
 
     <StackPanel Margin="0,0,16,12">
 
@@ -260,6 +261,18 @@
                 AutomationProperties.Name="{x:Static resources:Resource.SettingsPage_UpdateCheckFrequency_Title}"
                 MaxDropDownHeight="Auto"
                 SelectionChanged="UpdateCheckFrequencyComboBox_SelectionChanged"
+                Visibility="Hidden" />
+        </custom:CardControl>
+
+        <custom:CardControl Margin="0,0,0,8">
+            <custom:CardControl.Header>
+                <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_NeverCheckForUpdates_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_NeverCheckForUpdates_Content}" />
+            </custom:CardControl.Header>
+            <wpfui:ToggleSwitch
+                x:Name="_neverCheckForUpdatesToggle"
+                Margin="0,0,0,8"
+                AutomationProperties.Name="{x:Static resources:Resource.SettingsPage_NeverCheckForUpdates_Content}"
+                Click="NeverCheckForUpdatesToggle_Click"
                 Visibility="Hidden" />
         </custom:CardControl>
 

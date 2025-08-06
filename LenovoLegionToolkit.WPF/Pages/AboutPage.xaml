@@ -7,7 +7,8 @@
     xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="{x:Static resources:Resource.AboutPage_Title}"
     FlowDirection="{x:Static utils:LocalizationHelper.Direction}"
-    Scrollable="True">
+    Scrollable="True"
+    Focusable="False">
 
     <StackPanel Margin="0,0,16,12">
         <TextBlock

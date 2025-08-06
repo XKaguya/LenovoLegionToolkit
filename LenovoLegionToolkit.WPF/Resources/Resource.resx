@@ -2225,6 +2225,12 @@ Supported formats are: {1}.</value>
   <data name="SettingsPage_UpdateCheckFrequency_Title" xml:space="preserve">
     <value>Automatically check for updates</value>
   </data>
+  <data name="SettingsPage_NeverCheckForUpdates_Title" xml:space="preserve">
+    <value>Never check for updates</value>
+  </data>
+  <data name="SettingsPage_NeverCheckForUpdates_Content" xml:space="preserve">
+    <value>Never check for updates</value>
+  </data>
   <data name="PackagesPage_UpdateCatalogNotFound_Title" xml:space="preserve">
     <value>Update catalog not found</value>
   </data>
