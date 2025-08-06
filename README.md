@@ -1,31 +1,19 @@
+<div align="center">
+  <img height="128" src="assets/logo.png" alt="Lenovo Legion Toolkit Logo">
+  
+  # Lenovo Legion Toolkit (Unofficial Fork)
+
+  [![Build Status](https://img.shields.io/github/actions/workflow/status/XKaguya/LenovoLegionToolkit/build.yml?branch=master)](https://github.com/XKaguya/LenovoLegionToolkit/actions)
+  [![Translation Status](https://badges.crowdin.net/llt/localized.svg)](https://crowdin.com/project/llt)
+  [![Discord Community](https://img.shields.io/discord/761178912230473768?label=Legion%20Series%20Discord)](https://discord.com/invite/legionseries)
+</div>
+
+## 🚨 Project Status Notice
+
 > [!IMPORTANT]
-> _Archived on July 24, 2025, This project is no longer actively maintained._
-> 
-> Thank you to everyone who supported, used, contributed to, and shared this project. It's been an amazing journey watching it grow among Legion users.
-> 
-> As I no longer have time to maintain it, I’ve decided to archive the repo. Feel free to fork and continue development, if you'd like to carry it forward. All code remains available under the existing license.
-> 
-> For questions, issues, or maintenance, I recommend checking out forks from the community—or even starting your own!
-> 
-> Much love and happy coding,
->
-> – Bartosz
-
-# About
-Kaguya's custom LLT version. Fix some issues.
-
-<img height="128" align="left" src="assets/logo.png" alt="Logo">
-
----
-
-# Lenovo Legion Toolkit
-
-[![Build](https://github.com/BartoszCichecki/LenovoLegionToolkit/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/BartoszCichecki/LenovoLegionToolkit/actions/workflows/build.yml)
-[![Crowdin](https://badges.crowdin.net/llt/localized.svg)](https://crowdin.com/project/llt)
-[![Join Discord](https://img.shields.io/discord/761178912230473768?label=Legion%20Series%20Discord)](https://discord.com/invite/legionseries)
-<a href="https://hellogithub.com/repository/dd55be3ac0c146208259f17b29d2162f" target="_blank"><img src="https://abroad.hellogithub.com/v1/widgets/recommend.svg?rid=dd55be3ac0c146208259f17b29d2162f&claim_uid=LBbuUlZqTIm1JAP&theme=small" alt="Featured｜HelloGitHub" /></a>
-
----
+> + This is a personal maintenance fork of the original project
+> + Source repository [BartoszCichecki/LenovoLegionToolkit](https://github.com/BartoszCichecki/LenovoLegionToolkit) is archived
+> - Not officially affiliated with Lenovo or original author
 
 #### Other language versions of this README file:
 * [简体中文版简介](README_zh-hans.md)

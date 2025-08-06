@@ -70,7 +70,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   查找类似 Lenovo Legion Toolkit 的本地化字符串。
+        ///   查找类似 Lenovo Legion Toolkit (Unofficial Fork) 的本地化字符串。
         /// </summary>
         public static string AboutPage_AppName {
             get {
