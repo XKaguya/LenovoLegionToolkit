@@ -31,6 +31,7 @@ jobs:
     - name: Create Release and Upload Installer
       uses: softprops/action-gh-release@v2.0.8
       with:
+        draft: true
         tag_name: latest
         name: LenovoLegionToolkit v${{ steps.version.outputs.version }}
         body: |
