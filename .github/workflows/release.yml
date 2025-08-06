@@ -38,3 +38,8 @@ jobs:
           Version ${{ steps.version.outputs.version }}
         files: build_installer/LenovoLegionToolkitSetup.exe
         token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: installer
+        path: build_installer/LenovoLegionToolkitSetup.exe
