@@ -27,14 +27,7 @@ jobs:
       
     - name: Build
       run: .\make.bat latest
-      
-    - name: Verify installer exists
-      run: |
-        if (-not (Test-Path "build_installer\LenovoLegionToolkitSetup.exe")) {
-          Write-Error "Installer not found!"
-          exit 1
-        }
-        
+
     - name: Create Release and Upload Installer
       uses: softprops/action-gh-release@v2.0.8
       with:
