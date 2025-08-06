@@ -21,6 +21,7 @@ public static class Devices
     private static SafeFileHandle? _battery;
     private static SafeFileHandle? _rgbKeyboard;
     private static SafeFileHandle? _spectrumRgbKeyboard;
+    private static List<SafeFileHandle>? _spectrumRgbKeyboards;
 
     #region All devices
 
@@ -282,6 +283,27 @@ public static class Devices
         return _spectrumRgbKeyboard;
     }
 
+    public static List<SafeFileHandle> GetSpectrumRGBKeyboards(bool forceRefresh = false)
+    {
+        if (_spectrumRgbKeyboard is not null && !forceRefresh)
+            return new List<SafeFileHandle> {_spectrumRgbKeyboard};
+
+        lock (Lock)
+        {
+            if (_spectrumRgbKeyboard is not null && !forceRefresh)
+                return new List<SafeFileHandle> { _spectrumRgbKeyboard };
+
+            const ushort vendorId = 0x048D;
+            const ushort productIdMasked = 0xC100;
+            const ushort productIdMask = 0xFF00;
+            const ushort descriptorLength = 0x03C0;
+
+            _spectrumRgbKeyboards = FindHidDevices(vendorId, productIdMask, productIdMasked, descriptorLength);
+        }
+
+        return _spectrumRgbKeyboards;
+    }
+
     private static unsafe SafeFileHandle? FindHidDevice(ushort vendorId, ushort productIdMask, ushort productIdMasked, ushort descriptorLength)
     {
         PInvoke.HidD_GetHidGuid(out var devClassHidGuid);
@@ -370,6 +392,110 @@ public static class Devices
         }
 
         return null;
+    }
+
+    public static unsafe List<SafeFileHandle> FindHidDevices(ushort vendorId, ushort productIdMask, ushort productIdMasked, ushort descriptorLength)
+    {
+        var devices = new List<SafeFileHandle>();
+        PInvoke.HidD_GetHidGuid(out var devClassHidGuid);
+
+        using var deviceHandle = PInvoke.SetupDiGetClassDevs(devClassHidGuid,
+            null,
+            HWND.Null,
+            SETUP_DI_GET_CLASS_DEVS_FLAGS.DIGCF_PRESENT | SETUP_DI_GET_CLASS_DEVS_FLAGS.DIGCF_DEVICEINTERFACE);
+
+        uint index = 0;
+        while (true)
+        {
+            var currentIndex = index;
+            index++;
+
+            var deviceInfoData = new SP_DEVINFO_DATA { cbSize = (uint)Marshal.SizeOf<SP_DEVINFO_DATA>() };
+            var result1 = PInvoke.SetupDiEnumDeviceInfo(deviceHandle, currentIndex, ref deviceInfoData);
+            if (!result1)
+            {
+                var errorCode = Marshal.GetLastWin32Error();
+                if (errorCode == PInvokeExtensions.ERROR_NO_MORE_ITEMS)
+                    break;
+
+                PInvokeExtensions.ThrowIfWin32Error(errorCode, "SetupDiEnumDeviceInfo");
+            }
+
+            var deviceInterfaceData = new SP_DEVICE_INTERFACE_DATA { cbSize = (uint)Marshal.SizeOf<SP_DEVICE_INTERFACE_DATA>() };
+
+            var result2 = PInvoke.SetupDiEnumDeviceInterfaces(deviceHandle, null, devClassHidGuid, currentIndex,
+                ref deviceInterfaceData);
+            if (!result2)
+                PInvokeExtensions.ThrowIfWin32Error("SetupDiEnumDeviceInterfaces");
+
+            var requiredSize = 0u;
+            _ = PInvoke.SetupDiGetDeviceInterfaceDetail(deviceHandle, deviceInterfaceData, null, 0, &requiredSize, null);
+
+            string devicePath;
+            var output = IntPtr.Zero;
+            try
+            {
+                output = Marshal.AllocHGlobal((int)requiredSize);
+                var deviceDetailData = (SP_DEVICE_INTERFACE_DETAIL_DATA_W*)output.ToPointer();
+                deviceDetailData->cbSize = (uint)Marshal.SizeOf<SP_DEVICE_INTERFACE_DETAIL_DATA_W>();
+
+                var result3 = PInvoke.SetupDiGetDeviceInterfaceDetail(deviceHandle, deviceInterfaceData, deviceDetailData, requiredSize, null, null);
+                if (!result3)
+                    PInvokeExtensions.ThrowIfWin32Error("SetupDiEnumDeviceInterfaces");
+
+                fixed (char* e0Ptr = &deviceDetailData->DevicePath.e0)
+                    devicePath = new string(e0Ptr);
+            }
+            finally
+            {
+                Marshal.FreeHGlobal(output);
+            }
+
+            var fileHandle = PInvoke.CreateFile(devicePath,
+                (uint)FILE_ACCESS_RIGHTS.FILE_READ_DATA | (uint)FILE_ACCESS_RIGHTS.FILE_WRITE_DATA,
+                FILE_SHARE_MODE.FILE_SHARE_READ | FILE_SHARE_MODE.FILE_SHARE_WRITE,
+                null,
+                FILE_CREATION_DISPOSITION.OPEN_EXISTING,
+                FILE_FLAGS_AND_ATTRIBUTES.FILE_ATTRIBUTE_NORMAL,
+                null);
+
+            if (fileHandle.IsInvalid)
+                continue;
+
+            if (!PInvoke.HidD_GetAttributes(fileHandle, out var hidAttributes))
+            {
+                fileHandle.Dispose();
+                continue;
+            }
+
+            PHIDP_PREPARSED_DATA preParsedData = default;
+            try
+            {
+                PInvoke.HidD_GetPreparsedData(fileHandle, out preParsedData);
+                PInvoke.HidP_GetCaps(preParsedData, out var caps);
+
+                if (hidAttributes.VendorID == vendorId &&
+                    (hidAttributes.ProductID & productIdMask) == productIdMasked &&
+                    caps.FeatureReportByteLength == descriptorLength)
+                {
+                    if (Log.Instance.IsTraceEnabled)
+                        Log.Instance.Trace($"Found device. [vendorId={hidAttributes.VendorID:X2}, productId={hidAttributes.ProductID:X2}, descriptorLength={caps.FeatureReportByteLength}]");
+
+                    devices.Add(fileHandle);
+                }
+                else
+                {
+                    fileHandle.Dispose();
+                }
+            }
+            finally
+            {
+                if (preParsedData != IntPtr.Zero)
+                    PInvoke.HidD_FreePreparsedData(preParsedData);
+            }
+        }
+
+        return devices;
     }
 
     #endregion
