@@ -169,6 +169,7 @@ public partial class SettingsPage
         _hwinfoIntegrationToggle.IsChecked = _integrationsSettings.Store.HWiNFO;
         _cliInterfaceToggle.IsChecked = _integrationsSettings.Store.CLI;
         _cliPathToggle.IsChecked = SystemPath.HasCLI();
+        _neverCheckForUpdatesToggle.IsChecked = _settings.Store.NeverCheckForUpdates;
         _autoSwitchPowerModeToggle.IsChecked = _settings.Store.AutoSwitchPowerMode;
 
         await loadingTask;
@@ -189,6 +190,7 @@ public partial class SettingsPage
         _cliInterfaceToggle.Visibility = Visibility.Visible;
         _cliPathToggle.Visibility = Visibility.Visible;
         _autoSwitchPowerModeToggle.Visibility = Visibility.Visible;
+        _neverCheckForUpdatesToggle.Visibility = Visibility.Visible;
 
         _isRefreshing = false;
     }
@@ -598,6 +600,14 @@ public partial class SettingsPage
         _updateChecker.UpdateMinimumTimeSpanForRefresh();
     }
 
+    private void NeverCheckForUpdatesToggle_Click(object sender, RoutedEventArgs e)
+    {
+        if (_isRefreshing)
+            return;
+
+        _settings.Store.NeverCheckForUpdates = _neverCheckForUpdatesToggle.IsChecked ?? false;
+        _settings.SynchronizeStore();
+    }
     private async void GodModeFnQSwitchableToggle_Click(object sender, RoutedEventArgs e)
     {
         if (_isRefreshing)

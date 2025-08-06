@@ -239,7 +239,9 @@ public partial class MainWindow
 
     public void CheckForUpdates(bool manualCheck = false)
     {
-        Task.Run(() => _updateChecker.CheckAsync(manualCheck))
+        if (!_applicationSettings.Store.NeverCheckForUpdates)
+        {
+            Task.Run(() => _updateChecker.CheckAsync(manualCheck))
             .ContinueWith(async updatesAvailable =>
             {
                 var result = updatesAvailable.Result;
@@ -275,6 +277,7 @@ public partial class MainWindow
                         MessagingCenter.Publish(new NotificationMessage(NotificationType.UpdateAvailable, versionNumber));
                 }
             }, TaskScheduler.FromCurrentSynchronizationContext());
+        }
     }
 
     private void RestoreSize()

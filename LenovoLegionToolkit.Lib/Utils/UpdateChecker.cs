@@ -35,75 +35,87 @@ public class UpdateChecker
 
     public async Task<Version?> CheckAsync(bool forceCheck)
     {
-        using (await _updateSemaphore.LockAsync().ConfigureAwait(false))
+        ApplicationSettings settings = IoCContainer.Resolve<ApplicationSettings>();
+        if (!settings.Store.NeverCheckForUpdates)
         {
-            if (Disable)
+            using (await _updateSemaphore.LockAsync().ConfigureAwait(false))
             {
-                _lastUpdate = DateTime.UtcNow;
-                _updates = [];
-                return null;
-            }
+                if (Disable)
+                {
+                    _lastUpdate = DateTime.UtcNow;
+                    _updates = [];
+                    return null;
+                }
 
-            try
-            {
-                var timeSpanSinceLastUpdate = DateTime.UtcNow - _lastUpdate;
-                var shouldCheck = timeSpanSinceLastUpdate > _minimumTimeSpanForRefresh;
+                try
+                {
+                    var timeSpanSinceLastUpdate = DateTime.UtcNow - _lastUpdate;
+                    var shouldCheck = timeSpanSinceLastUpdate > _minimumTimeSpanForRefresh;
 
-                if (!forceCheck && !shouldCheck)
+                    if (!forceCheck && !shouldCheck)
+                        return _updates.Length != 0 ? _updates.First().Version : null;
+
+                    if (Log.Instance.IsTraceEnabled)
+                        Log.Instance.Trace($"Checking...");
+
+                    var adapter = new HttpClientAdapter(_httpClientFactory.CreateHandler);
+                    var productInformation = new ProductHeaderValue("LenovoLegionToolkit-UpdateChecker");
+                    var connection = new Connection(productInformation, adapter);
+                    var githubClient = new GitHubClient(connection);
+                    var releases = await githubClient.Repository.Release.GetAll("XKaguya", "LenovoLegionToolkit", new ApiOptions { PageSize = 5 }).ConfigureAwait(false);
+
+                    var thisReleaseVersion = Assembly.GetEntryAssembly()?.GetName().Version;
+                    var thisBuildDate = Assembly.GetEntryAssembly()?.GetBuildDateTime() ?? new DateTime(2000, 1, 1);
+
+                    Log.Instance.Trace($"Found {releases.Count} releases. Current: {thisReleaseVersion} built on {thisBuildDate:yyyy-MM-dd}");
+                    foreach (var r in releases)
+                    {
+                        Log.Instance.Trace($"- {r.TagName} (Draft: {r.Draft}, Pre: {r.Prerelease}, Date: {r.CreatedAt:yyyy-MM-dd})");
+                    }
+
+                    var updates = releases
+                        .Where(r => !r.Draft)
+                        .Where(r => !r.Prerelease)
+                        .Where(r => (r.PublishedAt ?? r.CreatedAt).UtcDateTime >= thisBuildDate)
+                        .Select(r => new Update(r))
+                        .Where(r => r.Version > thisReleaseVersion)
+                        .OrderByDescending(r => r.Version)
+                        .ToArray();
+
+                    if (Log.Instance.IsTraceEnabled)
+                        Log.Instance.Trace($"Checked [updates.Length={updates.Length}]");
+
+                    _updates = updates;
+                    Status = UpdateCheckStatus.Success;
+
                     return _updates.Length != 0 ? _updates.First().Version : null;
+                }
+                catch (RateLimitExceededException ex)
+                {
+                    if (Log.Instance.IsTraceEnabled)
+                        Log.Instance.Trace($"Reached API Rate Limitation.", ex);
 
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Checking...");
+                    Status = UpdateCheckStatus.RateLimitReached;
+                    return null;
+                }
+                catch (Exception ex)
+                {
+                    if (Log.Instance.IsTraceEnabled)
+                        Log.Instance.Trace($"Error checking for updates.", ex);
 
-                var adapter = new HttpClientAdapter(_httpClientFactory.CreateHandler);
-                var productInformation = new ProductHeaderValue("LenovoLegionToolkit-UpdateChecker");
-                var connection = new Connection(productInformation, adapter);
-                var githubClient = new GitHubClient(connection);
-                var releases = await githubClient.Repository.Release.GetAll("XKaguya", "LenovoLegionToolkit", new ApiOptions { PageSize = 5 }).ConfigureAwait(false);
-
-                var thisReleaseVersion = Assembly.GetEntryAssembly()?.GetName().Version;
-                var thisBuildDate = Assembly.GetEntryAssembly()?.GetBuildDateTime() ?? new DateTime(2000, 1, 1);
-
-                var updates = releases
-                    .Where(r => !r.Draft)
-                    .Where(r => !r.Prerelease)
-                    .Where(r => (r.PublishedAt ?? r.CreatedAt).UtcDateTime >= thisBuildDate)
-                    .Select(r => new Update(r))
-                    .Where(r => r.Version > thisReleaseVersion)
-                    .OrderByDescending(r => r.Version)
-                    .ToArray();
-
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Checked [updates.Length={updates.Length}]");
-
-                _updates = updates;
-                Status = UpdateCheckStatus.Success;
-
-                return _updates.Length != 0 ? _updates.First().Version : null;
-            }
-            catch (RateLimitExceededException ex)
-            {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Reached API Rate Limitation.", ex);
-
-                Status = UpdateCheckStatus.RateLimitReached;
-                return null;
-            }
-            catch (Exception ex)
-            {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Error checking for updates.", ex);
-
-                Status = UpdateCheckStatus.Error;
-                return null;
-            }
-            finally
-            {
-                _lastUpdate = DateTime.UtcNow;
-                _updateCheckSettings.Store.LastUpdateCheckDateTime = _lastUpdate;
-                _updateCheckSettings.SynchronizeStore();
+                    Status = UpdateCheckStatus.Error;
+                    return null;
+                }
+                finally
+                {
+                    _lastUpdate = DateTime.UtcNow;
+                    _updateCheckSettings.Store.LastUpdateCheckDateTime = _lastUpdate;
+                    _updateCheckSettings.SynchronizeStore();
+                }
             }
         }
+
+        return null;
     }
 
     public async Task<Update[]> GetUpdatesAsync()
