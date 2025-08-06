@@ -1,9 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Forms;
-using System.Windows.Media;
-using LenovoLegionToolkit.Lib;
+﻿using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Controllers;
 using LenovoLegionToolkit.Lib.Controllers.GodMode;
 using LenovoLegionToolkit.Lib.Extensions;
@@ -11,6 +6,12 @@ using LenovoLegionToolkit.Lib.Features;
 using LenovoLegionToolkit.Lib.System;
 using LenovoLegionToolkit.Lib.Utils;
 using LenovoLegionToolkit.WPF.Extensions;
+using System;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Forms;
+using System.Windows.Input;
+using System.Windows.Media;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Common;
 
@@ -111,6 +112,14 @@ public partial class StatusWindow
         ExtendsContentIntoTitleBar = true;
         ShowInTaskbar = false;
         ShowActivated = false;
+
+        PreviewKeyDown += (s, e) => {
+            if (e.Key == Key.System && e.SystemKey == Key.LeftAlt)
+            {
+                e.Handled = true;
+                Keyboard.ClearFocus();
+            }
+        };
 
 #if DEBUG
         _title.Text += " [DEBUG]";

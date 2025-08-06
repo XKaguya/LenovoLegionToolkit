@@ -15,8 +15,7 @@
     Loaded="SymbolRegularPicker_Loaded"
     ResizeMode="CanMinimize"
     ShowInTaskbar="False"
-    WindowStartupLocation="CenterOwner"
-    Focusable="False">
+    WindowStartupLocation="CenterOwner">
 
     <Grid>
         <Grid.RowDefinitions>

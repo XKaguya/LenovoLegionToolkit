@@ -1,7 +1,8 @@
-﻿using System;
+﻿using LenovoLegionToolkit.Lib;
+using System;
 using System.Threading.Tasks;
 using System.Windows;
-using LenovoLegionToolkit.Lib;
+using System.Windows.Input;
 
 namespace LenovoLegionToolkit.WPF.Windows.Utils;
 
@@ -18,6 +19,14 @@ public partial class UnsupportedWindow
         _vendorText.Text = mi.Vendor;
         _modelText.Text = mi.Model;
         _machineTypeText.Text = mi.MachineType;
+
+        PreviewKeyDown += (s, e) => {
+            if (e.Key == Key.System && e.SystemKey == Key.LeftAlt)
+            {
+                e.Handled = true;
+                Keyboard.ClearFocus();
+            }
+        };
     }
 
     private async void Window_Loaded(object sender, RoutedEventArgs e)

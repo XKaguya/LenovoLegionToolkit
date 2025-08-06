@@ -16,8 +16,7 @@
     Loaded="Window_Loaded"
     ResizeMode="NoResize"
     Topmost="True"
-    WindowStartupLocation="CenterScreen"
-    Focusable="False">
+    WindowStartupLocation="CenterScreen">
 
     <Grid>
         <Grid.RowDefinitions>

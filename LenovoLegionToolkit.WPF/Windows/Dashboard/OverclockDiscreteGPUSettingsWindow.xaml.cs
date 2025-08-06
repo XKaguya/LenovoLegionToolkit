@@ -1,7 +1,8 @@
-﻿using System.Threading.Tasks;
-using System.Windows;
-using LenovoLegionToolkit.Lib;
+﻿using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Controllers;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 
 namespace LenovoLegionToolkit.WPF.Windows.Dashboard;
 
@@ -27,6 +28,14 @@ public partial class OverclockDiscreteGPUSettingsWindow
 
         _coreLabel.Content = $"{(int)_coreSlider.Value:+0;-0;0} {MHZ}";
         _memoryLabel.Content = $"{(int)_memorySlider.Value:+0;-0;0} {MHZ}";
+
+        PreviewKeyDown += (s, e) => {
+            if (e.Key == Key.System && e.SystemKey == Key.LeftAlt)
+            {
+                e.Handled = true;
+                Keyboard.ClearFocus();
+            }
+        };
     }
 
     private void CoreSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) => _coreLabel.Content = $"{(int)_coreSlider.Value:+0;-0;0} {MHZ}";

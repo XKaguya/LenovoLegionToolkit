@@ -1,16 +1,17 @@
-﻿using System;
+﻿using LenovoLegionToolkit.Lib;
+using LenovoLegionToolkit.Lib.Automation;
+using LenovoLegionToolkit.Lib.Automation.Pipeline;
+using LenovoLegionToolkit.Lib.Extensions;
+using LenovoLegionToolkit.Lib.Settings;
+using LenovoLegionToolkit.WPF.Resources;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Automation;
 using System.Windows.Controls;
-using LenovoLegionToolkit.Lib;
-using LenovoLegionToolkit.Lib.Automation;
-using LenovoLegionToolkit.Lib.Automation.Pipeline;
-using LenovoLegionToolkit.Lib.Extensions;
-using LenovoLegionToolkit.Lib.Settings;
-using LenovoLegionToolkit.WPF.Resources;
+using System.Windows.Input;
 
 namespace LenovoLegionToolkit.WPF.Windows.Settings;
 
@@ -46,6 +47,14 @@ public partial class SelectSmartKeyPipelinesWindow
             : Resource.SettingsPage_SmartKeySinglePressAction_Title;
 
         IsVisibleChanged += SelectSmartKeyPipelinesWindow_IsVisibleChanged;
+
+        PreviewKeyDown += (s, e) => {
+            if (e.Key == Key.System && e.SystemKey == Key.LeftAlt)
+            {
+                e.Handled = true;
+                Keyboard.ClearFocus();
+            }
+        };
     }
 
     private async void SelectSmartKeyPipelinesWindow_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)

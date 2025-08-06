@@ -1,10 +1,11 @@
-﻿using System;
+﻿using LenovoLegionToolkit.Lib.Utils;
+using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using LenovoLegionToolkit.Lib.Utils;
+using System.Windows.Input;
 using Wpf.Ui.Common;
 using Button = Wpf.Ui.Controls.Button;
 
@@ -21,6 +22,14 @@ public partial class SymbolRegularPicker
     public SymbolRegularPicker()
     {
         InitializeComponent();
+
+        PreviewKeyDown += (s, e) => {
+            if (e.Key == Key.System && e.SystemKey == Key.LeftAlt)
+            {
+                e.Handled = true;
+                Keyboard.ClearFocus();
+            }
+        };
     }
 
     private void SymbolRegularPicker_Loaded(object sender, RoutedEventArgs e) => Refresh();

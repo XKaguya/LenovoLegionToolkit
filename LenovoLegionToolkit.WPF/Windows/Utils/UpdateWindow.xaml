@@ -18,8 +18,7 @@
     Loaded="UpdateWindow_Loaded"
     ResizeMode="NoResize"
     ShowInTaskbar="False"
-    WindowStartupLocation="CenterOwner"
-    Focusable="False">
+    WindowStartupLocation="CenterOwner">
 
     <Grid>
         <Grid.RowDefinitions>

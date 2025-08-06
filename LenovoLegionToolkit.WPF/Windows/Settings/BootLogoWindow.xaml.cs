@@ -1,10 +1,11 @@
-﻿using System;
-using System.Linq;
-using System.Windows;
-using LenovoLegionToolkit.Lib.System;
+﻿using LenovoLegionToolkit.Lib.System;
 using LenovoLegionToolkit.Lib.Utils;
 using LenovoLegionToolkit.WPF.Resources;
 using Microsoft.Win32;
+using System;
+using System.Linq;
+using System.Windows;
+using System.Windows.Input;
 
 namespace LenovoLegionToolkit.WPF.Windows.Settings;
 
@@ -15,6 +16,14 @@ public partial class BootLogoWindow
         InitializeComponent();
 
         Loaded += BootLogoWindow_Loaded;
+
+        PreviewKeyDown += (s, e) => {
+            if (e.Key == Key.System && e.SystemKey == Key.LeftAlt)
+            {
+                e.Handled = true;
+                Keyboard.ClearFocus();
+            }
+        };
     }
 
     private void BootLogoWindow_Loaded(object sender, RoutedEventArgs e)

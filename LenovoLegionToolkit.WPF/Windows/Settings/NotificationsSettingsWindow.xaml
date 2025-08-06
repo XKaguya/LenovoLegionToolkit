@@ -16,8 +16,7 @@
     FlowDirection="{x:Static utils:LocalizationHelper.Direction}"
     ResizeMode="CanMinimize"
     ShowInTaskbar="False"
-    WindowStartupLocation="CenterOwner"
-    Focusable="False">
+    WindowStartupLocation="CenterOwner">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -49,7 +48,7 @@
                 Text="{x:Static resources:Resource.NotificationsSettingsWindow_Title}" />
         </Grid>
 
-        <wpfui:DynamicScrollViewer Grid.Row="1" Margin="12,0,0,0" Focusable="False">
+        <wpfui:DynamicScrollViewer Grid.Row="1" Margin="12,0,0,0">
             <StackPanel Margin="0,0,16,0">
 
                 <custom:CardControl Margin="0,0,0,8">
