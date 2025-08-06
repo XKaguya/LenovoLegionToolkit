@@ -21,13 +21,7 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 8.0.x
-        
-    - name: Extract version from tag
-      id: version
-      run: |
-        VERSION="${GITHUB_REF#refs/tags/v}"
-        echo "version=$VERSION" >> $GITHUB_OUTPUT
-        
+
     - name: Restore
       run: dotnet restore
       
@@ -44,7 +38,7 @@ jobs:
     - name: Create Release and Upload Installer
       uses: softprops/action-gh-release@v2.0.8
       with:
-        tag_name: ${{ github.ref_name }}
+        tag_name: latest
         name: LenovoLegionToolkit v${{ steps.version.outputs.version }}
         body: |
           ## Release Notes
