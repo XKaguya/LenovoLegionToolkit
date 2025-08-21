@@ -48,6 +48,7 @@ using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
 using WinFormsApp = System.Windows.Forms.Application;
 using WinFormsHighDpiMode = System.Windows.Forms.HighDpiMode;
+using LenovoLegionToolkit.Lib.Controllers.GodMode;
 
 namespace LenovoLegionToolkit.WPF;
 
@@ -439,18 +440,21 @@ public partial class App
         try
         {
             ApplicationSettings settings = IoCContainer.Resolve<ApplicationSettings>();
+            PowerModeFeature powerMode = IoCContainer.Resolve<PowerModeFeature>();
+            var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
+            var state = await powerMode.GetStateAsync().ConfigureAwait(false);
 
-            if (await Power.IsPowerAdapterConnectedAsync() == PowerAdapterStatus.Connected && settings.Store.AutoSwitchPowerMode)
+            if (await Power.IsPowerAdapterConnectedAsync() == PowerAdapterStatus.Connected 
+                && state == PowerModeState.GodMode 
+                && mi.Properties.HasReapplyParameterIssue)
             {
                 if (Log.Instance.IsTraceEnabled)
                 {
-                    Log.Instance.Trace($"Switching power mode to avoid GPU lock.");
+                    Log.Instance.Trace($"Reapplying GodMode parameters...");
                 }
 
-                var feature = IoCContainer.Resolve<PowerModeFeature>();
-                await feature.SetStateAsync(PowerModeState.Balance);
-                await Task.Delay(TimeSpan.FromSeconds(1));
-                await feature.SetStateAsync(PowerModeState.GodMode);
+                GodModeControllerV2 feature = IoCContainer.Resolve<GodModeControllerV2>();
+                await feature.ApplyStateAsync().ConfigureAwait(false);
             }
         }
         catch (Exception ex)
