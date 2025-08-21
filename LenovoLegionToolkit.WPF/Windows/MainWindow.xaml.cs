@@ -247,44 +247,45 @@ public partial class MainWindow
 
     public void CheckForUpdates(bool manualCheck = false)
     {
-        if (!_applicationSettings.Store.NeverCheckForUpdates)
+        UpdateCheckSettings _updateCheckSettings = IoCContainer.Resolve<UpdateCheckSettings>();
+        if (_updateCheckSettings.Store.UpdateCheckFrequency != UpdateCheckFrequency.Never || manualCheck)
         {
             Task.Run(() => _updateChecker.CheckAsync(manualCheck))
-            .ContinueWith(async updatesAvailable =>
-            {
-                var result = updatesAvailable.Result;
-                if (result is null)
-                {
-                    _updateIndicator.Visibility = Visibility.Collapsed;
-
-                    if (manualCheck && WindowState != WindowState.Minimized)
-                    {
-                        switch (_updateChecker.Status)
+                        .ContinueWith(async updatesAvailable =>
                         {
-                            case UpdateCheckStatus.Success:
-                                await SnackbarHelper.ShowAsync(Resource.MainWindow_CheckForUpdates_Success_Title);
-                                break;
-                            case UpdateCheckStatus.RateLimitReached:
-                                await SnackbarHelper.ShowAsync(Resource.MainWindow_CheckForUpdates_Error_Title, Resource.MainWindow_CheckForUpdates_Error_ReachedRateLimit_Message, SnackbarType.Error);
-                                break;
-                            case UpdateCheckStatus.Error:
-                                await SnackbarHelper.ShowAsync(Resource.MainWindow_CheckForUpdates_Error_Title, Resource.MainWindow_CheckForUpdates_Error_Unknown_Message, SnackbarType.Error);
-                                break;
-                        }
-                    }
-                }
-                else
-                {
-                    var versionNumber = result.ToString(3);
+                            var result = updatesAvailable.Result;
+                            if (result is null)
+                            {
+                                _updateIndicator.Visibility = Visibility.Collapsed;
 
-                    _updateIndicatorText.Text =
-                        string.Format(Resource.MainWindow_UpdateAvailableWithVersion, versionNumber);
-                    _updateIndicator.Visibility = Visibility.Visible;
+                                if (manualCheck && WindowState != WindowState.Minimized)
+                                {
+                                    switch (_updateChecker.Status)
+                                    {
+                                        case UpdateCheckStatus.Success:
+                                            await SnackbarHelper.ShowAsync(Resource.MainWindow_CheckForUpdates_Success_Title);
+                                            break;
+                                        case UpdateCheckStatus.RateLimitReached:
+                                            await SnackbarHelper.ShowAsync(Resource.MainWindow_CheckForUpdates_Error_Title, Resource.MainWindow_CheckForUpdates_Error_ReachedRateLimit_Message, SnackbarType.Error);
+                                            break;
+                                        case UpdateCheckStatus.Error:
+                                            await SnackbarHelper.ShowAsync(Resource.MainWindow_CheckForUpdates_Error_Title, Resource.MainWindow_CheckForUpdates_Error_Unknown_Message, SnackbarType.Error);
+                                            break;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                var versionNumber = result.ToString(3);
 
-                    if (WindowState == WindowState.Minimized)
-                        MessagingCenter.Publish(new NotificationMessage(NotificationType.UpdateAvailable, versionNumber));
-                }
-            }, TaskScheduler.FromCurrentSynchronizationContext());
+                                _updateIndicatorText.Text =
+                                    string.Format(Resource.MainWindow_UpdateAvailableWithVersion, versionNumber);
+                                _updateIndicator.Visibility = Visibility.Visible;
+
+                                if (WindowState == WindowState.Minimized)
+                                    MessagingCenter.Publish(new NotificationMessage(NotificationType.UpdateAvailable, versionNumber));
+                            }
+                        }, TaskScheduler.FromCurrentSynchronizationContext());
         }
     }
 

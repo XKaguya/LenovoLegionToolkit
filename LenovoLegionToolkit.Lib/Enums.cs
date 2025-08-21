@@ -570,6 +570,14 @@ public enum SpectrumLayout
     FullAlternative
 }
 
+public enum StatusCode
+{
+    Update = 0,
+    NoUpdate = 1,
+    ForceUpdate = 2,
+    Null = 255,
+}
+
 public enum Theme
 {
     [Display(ResourceType = typeof(Resource), Name = "Theme_System")]
@@ -613,6 +621,8 @@ public enum TouchpadLockState
 
 public enum UpdateCheckFrequency
 {
+    [Display(ResourceType = typeof(Resource), Name = "UpdateCheckFrequency_Never")]
+    Never,
     [Display(ResourceType = typeof(Resource), Name = "UpdateCheckFrequency_PerHour")]
     PerHour,
     [Display(ResourceType = typeof(Resource), Name = "UpdateCheckFrequency_PerThreeHours")]
@@ -632,6 +642,14 @@ public enum UpdateCheckStatus
     Success,
     RateLimitReached,
     Error
+}
+
+public enum UpdateMethod
+{
+    [Display(ResourceType = typeof(Resource), Name = "UpdateMethod_Github")]
+    Github,
+    [Display(ResourceType = typeof(Resource), Name = "UpdateMethod_Server")]
+    Server,
 }
 
 public enum WhiteKeyboardBacklightState

@@ -4921,24 +4921,6 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   查找类似 Automaticlly switch power mode after the startup to avoid GPU performance issue. 的本地化字符串。
-        /// </summary>
-        public static string SettingsPage_AutoSwitchPowerMode_Message {
-            get {
-                return ResourceManager.GetString("SettingsPage_AutoSwitchPowerMode_Message", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Auto Switch Power Mode 的本地化字符串。
-        /// </summary>
-        public static string SettingsPage_AutoSwitchPowerMode_Title {
-            get {
-                return ResourceManager.GetString("SettingsPage_AutoSwitchPowerMode_Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 Customize Boot Logo image, visible during system startup. 的本地化字符串。
         /// </summary>
         public static string SettingsPage_BootLogo_Message {
@@ -5285,24 +5267,6 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   查找类似 Never check for updates 的本地化字符串。
-        /// </summary>
-        public static string SettingsPage_NeverCheckForUpdates_Content {
-            get {
-                return ResourceManager.GetString("SettingsPage_NeverCheckForUpdates_Content", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Never check for updates 的本地化字符串。
-        /// </summary>
-        public static string SettingsPage_NeverCheckForUpdates_Title {
-            get {
-                return ResourceManager.GetString("SettingsPage_NeverCheckForUpdates_Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 Configure which notifications are shown. 的本地化字符串。
         /// </summary>
         public static string SettingsPage_Notifications_Message {
@@ -5497,6 +5461,15 @@ namespace LenovoLegionToolkit.WPF.Resources {
         public static string SettingsPage_UpdateCheckFrequency_Title {
             get {
                 return ResourceManager.GetString("SettingsPage_UpdateCheckFrequency_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Update Method 的本地化字符串。
+        /// </summary>
+        public static string SettingsPage_UpdateMethod_Title {
+            get {
+                return ResourceManager.GetString("SettingsPage_UpdateMethod_Title", resourceCulture);
             }
         }
         

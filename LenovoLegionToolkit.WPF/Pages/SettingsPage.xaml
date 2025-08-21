@@ -249,6 +249,20 @@
                 Visibility="Hidden" />
         </custom:CardControl>
 
+        <custom:CardControl x:Name="_updateMethod" Margin="0,0,0,8">
+            <custom:CardControl.Header>
+                <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_UpdateMethod_Title}" />
+            </custom:CardControl.Header>
+            <ComboBox
+                x:Name="__updateMethodComboBox"
+                MinWidth="160"
+                Margin="0,0,0,8"
+                AutomationProperties.Name="{x:Static resources:Resource.SettingsPage_UpdateMethod_Title}"
+                MaxDropDownHeight="Auto"
+                SelectionChanged="UpdateMethodComboBox_SelectionChanged"
+                Visibility="Hidden" />
+        </custom:CardControl>
+
         <custom:CardControl x:Name="_updateCheckFrequencyCard" Margin="0,0,0,8">
             <custom:CardControl.Header>
                 <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_UpdateCheckFrequency_Title}" />
@@ -260,18 +274,6 @@
                 AutomationProperties.Name="{x:Static resources:Resource.SettingsPage_UpdateCheckFrequency_Title}"
                 MaxDropDownHeight="Auto"
                 SelectionChanged="UpdateCheckFrequencyComboBox_SelectionChanged"
-                Visibility="Hidden" />
-        </custom:CardControl>
-
-        <custom:CardControl Margin="0,0,0,8">
-            <custom:CardControl.Header>
-                <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_NeverCheckForUpdates_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_NeverCheckForUpdates_Content}" />
-            </custom:CardControl.Header>
-            <wpfui:ToggleSwitch
-                x:Name="_neverCheckForUpdatesToggle"
-                Margin="0,0,0,8"
-                AutomationProperties.Name="{x:Static resources:Resource.SettingsPage_NeverCheckForUpdates_Content}"
-                Click="NeverCheckForUpdatesToggle_Click"
                 Visibility="Hidden" />
         </custom:CardControl>
 
@@ -338,17 +340,6 @@
                 Margin="4,0,0,0"
                 FontSize="20"
                 Symbol="Open24" />
-        </custom:CardControl>
-        <custom:CardControl Margin="0,0,0,8">
-            <custom:CardControl.Header>
-                <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_AutoSwitchPowerMode_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_AutoSwitchPowerMode_Message}" />
-            </custom:CardControl.Header>
-            <wpfui:ToggleSwitch
-                x:Name="_autoSwitchPowerModeToggle"
-                Margin="0,0,0,8"
-                AutomationProperties.Name="{x:Static resources:Resource.SettingsPage_AutoSwitchPowerMode_Title}"
-                Click="AutoSwitchPowerModeToggle_Click"
-                Visibility="Hidden" />
         </custom:CardControl>
 
         <custom:CardControl Margin="0,16,0,8">

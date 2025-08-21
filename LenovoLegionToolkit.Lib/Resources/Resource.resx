@@ -395,6 +395,12 @@
     <value>On</value>
     <comment>Informs the user that Touchpad Lock is or will be turned on.</comment>
   </data>
+  <data name="UpdateMethod_Server" xml:space="preserve">
+    <value>Server</value>
+  </data>
+  <data name="UpdateMethod_Github" xml:space="preserve">
+    <value>Github</value>
+  </data>
   <data name="WhiteKeyboardBacklightState_High" xml:space="preserve">
     <value>High</value>
   </data>
