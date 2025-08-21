@@ -1052,6 +1052,7 @@ namespace LenovoLegionToolkit.Lib.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to Daily.
+                return ResourceManager.GetString("UpdateCheckFrequency_PerDay", resourceCulture);
         /// </summary>
         public static string UpdateCheckFrequency_PerDay {
             get {
