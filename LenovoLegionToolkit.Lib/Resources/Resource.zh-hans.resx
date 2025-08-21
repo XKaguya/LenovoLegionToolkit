@@ -395,6 +395,12 @@
     <value>开</value>
     <comment>Informs the user that Touchpad Lock is or will be turned on.</comment>
   </data>
+  <data name="UpdateMethod_Server" xml:space="preserve">
+    <value>服务器</value>
+  </data>
+  <data name="UpdateMethod_Github" xml:space="preserve">
+    <value>Github</value>
+  </data>
   <data name="WhiteKeyboardBacklightState_High" xml:space="preserve">
     <value>高亮度</value>
   </data>
@@ -477,6 +483,9 @@
   </data>
   <data name="RGBKeyboardBacklightPreset_Four" xml:space="preserve">
     <value>预设 4</value>
+  </data>
+  <data name="UpdateCheckFrequency_Never" xml:space="preserve">
+    <value>从不</value>
   </data>
   <data name="UpdateCheckFrequency_PerDay" xml:space="preserve">
     <value>每日</value>

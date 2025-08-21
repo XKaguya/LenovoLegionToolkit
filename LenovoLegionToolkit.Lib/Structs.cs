@@ -874,6 +874,15 @@ public readonly struct Update(Release release)
     #endregion
 }
 
+public struct UpdateFromServer(ProjectInfo projectInfo)
+{
+    public Version Version { get; } = Version.Parse(projectInfo.ProjectNewVersion);
+    public string Title { get; } = "LenovoLegionToolkit Updates available.";
+    public string Description { get; } = "Temporarly empty.";
+    public DateTimeOffset Date { get; } = DateTimeOffset.Now;
+    public string? Url { get; } = "http://kaguya.net.cn:9999/LenovoLegionToolkit/LenovoLegionToolkitSetup.exe";
+}
+
 public readonly struct WarrantyInfo(DateTime? start, DateTime? end, Uri? link)
 {
     public DateTime? Start { get; } = start;
@@ -885,4 +894,32 @@ public readonly struct WindowSize(double width, double height)
 {
     public double Width { get; } = width;
     public double Height { get; } = height;
+}
+
+public struct ProjectEntry()
+{
+    public bool MaintenanceMode { get; set; } = false;
+    public string ProjectName { get; set; } = string.Empty;
+    public string ProjectCurrentVersion { get; set; } = string.Empty;
+    public string ProjectVersion { get; set; } = string.Empty;
+    public bool ProjectForceUpdate { get; set; } = false;
+
+    public bool IsValid()
+    {
+        return !string.IsNullOrWhiteSpace(ProjectName) &&
+               !string.IsNullOrWhiteSpace(ProjectCurrentVersion) &&
+               !string.IsNullOrWhiteSpace(ProjectVersion);
+    }
+}
+
+public struct ProjectInfo
+{
+    public ProjectInfo() { }
+    public string ProjectName { get; set; } = String.Empty;
+    public string ProjectExeName { get; set; } = String.Empty;
+    public string ProjectAuthor { get; set; } = String.Empty;
+    public string ProjectCurrentVersion { get; set; } = String.Empty;
+    public string ProjectCurrentExePath { get; set; } = String.Empty;
+    public string ProjectNewExePath { get; set; } = String.Empty;
+    public string ProjectNewVersion { get; set; } = String.Empty;
 }

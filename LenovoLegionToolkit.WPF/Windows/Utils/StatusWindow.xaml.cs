@@ -3,6 +3,7 @@ using LenovoLegionToolkit.Lib.Controllers;
 using LenovoLegionToolkit.Lib.Controllers.GodMode;
 using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.Features;
+using LenovoLegionToolkit.Lib.Settings;
 using LenovoLegionToolkit.Lib.System;
 using LenovoLegionToolkit.Lib.Utils;
 using LenovoLegionToolkit.WPF.Extensions;
@@ -44,6 +45,7 @@ public partial class StatusWindow
         var gpuController = IoCContainer.Resolve<GPUController>();
         var batteryFeature = IoCContainer.Resolve<BatteryFeature>();
         var updateChecker = IoCContainer.Resolve<UpdateChecker>();
+        var updateCheckerSettings = IoCContainer.Resolve<UpdateCheckSettings>();
 
         PowerModeState? state = null;
         string? godModePresetName = null;
@@ -88,7 +90,10 @@ public partial class StatusWindow
 
         try
         {
-            hasUpdate = await updateChecker.CheckAsync(false) is not null;
+            if (updateCheckerSettings.Store.UpdateCheckFrequency != UpdateCheckFrequency.Never)
+            {
+                hasUpdate = await updateChecker.CheckAsync(false) is not null;
+            }
         }
         catch { /* Ignored */ }
 
