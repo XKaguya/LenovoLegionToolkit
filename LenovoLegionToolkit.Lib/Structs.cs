@@ -437,6 +437,7 @@ public readonly struct MachineInformation
         public bool SupportBootLogoChange { get; init; }
         public bool HasQuietToPerformanceModeSwitchingBug { get; init; }
         public bool HasGodModeToOtherModeSwitchingBug { get; init; }
+        public bool HasReapplyParameterIssue { get; init; }
         public bool IsExcludedFromLenovoLighting { get; init; }
         public bool IsExcludedFromPanelLogoLenovoLighting { get; init; }
         public bool HasAlternativeFullSpectrumLayout { get; init; }

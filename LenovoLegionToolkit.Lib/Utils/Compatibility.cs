@@ -44,6 +44,8 @@ public static partial class Compatibility
         "16IRX",
         "16ITH",
 
+        "NX",
+
         "15ACH",
         "15AHP",
         "15APH",
@@ -129,6 +131,7 @@ public static partial class Compatibility
                 SupportBootLogoChange = GetSupportBootLogoChange(smartFanVersion),
                 HasQuietToPerformanceModeSwitchingBug = GetHasQuietToPerformanceModeSwitchingBug(biosVersion),
                 HasGodModeToOtherModeSwitchingBug = GetHasGodModeToOtherModeSwitchingBug(biosVersion),
+                HasReapplyParameterIssue = GetHasReapplyParameterIssue(model),
                 IsExcludedFromLenovoLighting = GetIsExcludedFromLenovoLighting(biosVersion),
                 IsExcludedFromPanelLogoLenovoLighting = GetIsExcludedFromPanelLenovoLighting(machineType, model),
                 HasAlternativeFullSpectrumLayout = GetHasAlternativeFullSpectrumLayout(machineType),
@@ -156,6 +159,7 @@ public static partial class Compatibility
             Log.Instance.Trace($"     * SupportBootLogoChange: '{machineInformation.Properties.SupportBootLogoChange}'");
             Log.Instance.Trace($"     * HasQuietToPerformanceModeSwitchingBug: '{machineInformation.Properties.HasQuietToPerformanceModeSwitchingBug}'");
             Log.Instance.Trace($"     * HasGodModeToOtherModeSwitchingBug: '{machineInformation.Properties.HasGodModeToOtherModeSwitchingBug}'");
+            Log.Instance.Trace($"     * HasReapplyParameterIssue: '{machineInformation.Properties.HasReapplyParameterIssue}'");
             Log.Instance.Trace($"     * IsExcludedFromLenovoLighting: '{machineInformation.Properties.IsExcludedFromLenovoLighting}'");
             Log.Instance.Trace($"     * IsExcludedFromPanelLogoLenovoLighting: '{machineInformation.Properties.IsExcludedFromPanelLogoLenovoLighting}'");
             Log.Instance.Trace($"     * HasAlternativeFullSpectrumLayout: '{machineInformation.Properties.HasAlternativeFullSpectrumLayout}'");
@@ -383,6 +387,18 @@ public static partial class Compatibility
         };
 
         return affectedBiosVersions.Any(bv => biosVersion?.IsHigherOrEqualThan(bv) ?? false);
+    }
+
+    private static bool GetHasReapplyParameterIssue(string? machineModel)
+    {
+        var affectedModel = new List<string>
+        {
+            "IAX10",
+            "NX",
+            "IRX10",
+        };
+
+        return affectedModel.Any(model => machineModel?.Contains(model) ?? false);
     }
 
     private static bool GetIsExcludedFromLenovoLighting(BiosVersion? biosVersion)

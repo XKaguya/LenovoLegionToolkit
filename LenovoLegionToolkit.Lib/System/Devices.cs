@@ -293,12 +293,26 @@ public static class Devices
             if (_spectrumRgbKeyboard is not null && !forceRefresh)
                 return new List<SafeFileHandle> { _spectrumRgbKeyboard };
 
+            // IAX10H
             const ushort vendorId = 0x048D;
             const ushort productIdMasked = 0xC100;
             const ushort productIdMask = 0xFF00;
             const ushort descriptorLength = 0x03C0;
 
-            _spectrumRgbKeyboards = FindHidDevices(vendorId, productIdMask, productIdMasked, descriptorLength);
+            // NX
+            const ushort productIdMasked_NX = 0xC900;
+            const ushort productIdMask_NX = 0xFF00;
+
+            var (isCompatible, mi) = Compatibility.IsCompatibleAsync().Result;
+
+            if (mi.Model.Contains("NX"))
+            {
+                _spectrumRgbKeyboards = FindHidDevices(vendorId, productIdMask_NX, productIdMasked_NX, descriptorLength);
+            }
+            else
+            {
+                _spectrumRgbKeyboards = FindHidDevices(vendorId, productIdMask, productIdMasked, descriptorLength);
+            }
         }
 
         return _spectrumRgbKeyboards;
