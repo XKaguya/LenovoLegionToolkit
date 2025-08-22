@@ -358,6 +358,9 @@ If you enjoy using the Lenovo Legion Toolkit, consider donating.
 
 <img src="LenovoLegionToolkit.WPF/Assets/Donate/paypal_qr.png" width="200" alt="PayPal QR code" />
 
+> [!NOTE]
+> Though the original author were archived, But i will not delete this part.
+
 ## Credits
 
 Special thanks to:
