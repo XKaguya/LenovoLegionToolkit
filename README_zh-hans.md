@@ -42,26 +42,7 @@
 
 ## 下载
 
-- 你可以在这里下载最新版本：[发行版页面 Releases page](https://github.com/BartoszCichecki/LenovoLegionToolkit/releases/latest)。
-- 使用 [winget](https://github.com/microsoft/winget-cli)：
-
-  ```sh
-  winget install BartoszCichecki.LenovoLegionToolkit
-  ```
-
-- 使用 [Scoop](https://scoop.sh)：
-
-  ```sh
-  scoop bucket add versions
-  ```
-
-  ```sh
-  scoop bucket add extras
-  ```
-
-  ```sh
-  scoop install extras/lenovolegiontoolkit
-  ```
+- 你可以在这里下载最新版本：[发行版页面 Releases page](https://github.com/XKaguya/LenovoLegionToolkit/releases/latest)。
 
 > [!TIP]
 > 如果你正在寻找一个 Lenovo Vantage 在 Linux 系统下的替代品，请查看 [LenovoLegionLinux](https://github.com/johnfanv2/LenovoLegionLinux) 项目。
