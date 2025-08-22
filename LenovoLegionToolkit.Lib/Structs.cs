@@ -691,14 +691,16 @@ public readonly struct SensorData(
         $" {nameof(MaxFanSpeed)}: {MaxFanSpeed}";
 }
 
-public readonly struct SensorsData(SensorData cpu, SensorData gpu)
+public readonly struct SensorsData(SensorData cpu, SensorData gpu, SensorData pch)
 {
-    public static readonly SensorsData Empty = new(SensorData.Empty, SensorData.Empty);
+    public static readonly SensorsData Empty = new(SensorData.Empty, SensorData.Empty, SensorData.Empty);
 
     public SensorData CPU { get; } = cpu;
     public SensorData GPU { get; } = gpu;
 
-    public override string ToString() => $"{nameof(CPU)}: {CPU}, {nameof(GPU)}: {GPU}";
+    public SensorData PCH { get; } = pch;
+
+    public override string ToString() => $"{nameof(CPU)}: {CPU}, {nameof(GPU)}: {GPU}, {nameof(PCH)}: {PCH}";
 }
 
 [method: JsonConstructor]

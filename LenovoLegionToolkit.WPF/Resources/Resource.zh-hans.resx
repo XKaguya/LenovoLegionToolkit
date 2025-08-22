@@ -2261,4 +2261,37 @@
     <value>始终将通知显示在顶部。
 这不会影响其他全屏窗口，但您将无法点击这些通知。</value>
   </data>
+  <data name="SensorsControl_VrTemperature_Title" xml:space="preserve">
+    <value>供电</value>
+  </data>
+  <data name="SensorsControl_GpuMemoryTemperature_Title" xml:space="preserve">
+    <value>显存</value>
+  </data>
+  <data name="SensorsControl_PchTemperature_Title" xml:space="preserve">
+    <value>南桥</value>
+  </data>
+  <data name="SensorsControl_Motherboard_Title" xml:space="preserve">
+    <value>主板</value>
+  </data>
+  <data name="SensorsControl_GpuCore_Title" xml:space="preserve">
+    <value>核心</value>
+  </data>
+  <data name="SensorsControl_Memory_Title" xml:space="preserve">
+    <value>内存</value>
+  </data>
+  <data name="SensorsControl_Disk_Title" xml:space="preserve">
+    <value>磁盘</value>
+  </data>
+  <data name="SensorsControl_Battery_Title" xml:space="preserve">
+    <value>电池</value>
+  </data>
+  <data name="SensorsControl_State_Title" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="SensorsControl_BatteryLevel_Title" xml:space="preserve">
+    <value>电量</value>
+  </data>
+  <data name="BatteryPage_ACAdapterNotConnected" xml:space="preserve">
+    <value>放电中</value>
+  </data>
 </root>

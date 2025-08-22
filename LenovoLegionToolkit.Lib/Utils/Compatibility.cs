@@ -255,7 +255,10 @@ public static partial class Compatibility
             if (result.IsBitSet(2))
                 powerModes.Add(PowerModeState.Performance);
             if (result.IsBitSet(16))
+            {
+                powerModes.Add(PowerModeState.Extreme);
                 powerModes.Add(PowerModeState.GodMode);
+            }
 
             return powerModes;
         }

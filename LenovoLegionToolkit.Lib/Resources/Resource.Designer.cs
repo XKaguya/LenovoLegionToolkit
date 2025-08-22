@@ -1060,6 +1060,15 @@ namespace LenovoLegionToolkit.Lib.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Never 的本地化字符串。
+        /// </summary>
+        public static string UpdateCheckFrequency_Never {
+            get {
+                return ResourceManager.GetString("UpdateCheckFrequency_Never", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Daily 的本地化字符串。
         /// </summary>
         public static string UpdateCheckFrequency_PerDay {

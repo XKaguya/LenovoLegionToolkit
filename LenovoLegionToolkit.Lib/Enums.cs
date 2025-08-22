@@ -74,6 +74,8 @@ public enum CapabilityID
     FanFullSpeed = 0x04020000,
     CpuCurrentFanSpeed = 0x04030001,
     GpuCurrentFanSpeed = 0x04030002,
+    PchCurrentFanSpeed = 0x04030004,
+    PchCurrentTemperature = 0x05010000,
     CpuCurrentTemperature = 0x05040000,
     GpuCurrentTemperature = 0x05050000
 }

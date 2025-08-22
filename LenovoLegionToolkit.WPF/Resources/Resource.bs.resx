@@ -823,5 +823,37 @@ Logiranje će biti automatski omogućeno, ukoliko izaberete da nastavite.</value
   <data name="PoweredOff" xml:space="preserve">
     <value>Isključeno</value>
   </data>
-
+  <data name="SensorsControl_VrTemperature_Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SensorsControl_GpuMemoryTemperature_Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SensorsControl_PchTemperature_Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SensorsControl_Motherboard_Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SensorsControl_GpuCore_Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SensorsControl_Memory_Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SensorsControl_Disk_Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SensorsControl_Battery_Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SensorsControl_State_Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SensorsControl_BatteryLevel_Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BatteryPage_ACAdapterNotConnected" xml:space="preserve">
+    <value />
+  </data>
 </root>

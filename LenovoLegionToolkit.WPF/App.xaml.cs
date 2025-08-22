@@ -1,19 +1,11 @@
 ﻿#if !DEBUG
 using LenovoLegionToolkit.Lib.System;
 #endif
-using System;
-using System.Diagnostics;
-using System.Linq;
-using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Interop;
-using System.Windows.Media;
-using System.Windows.Threading;
 using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Automation;
 using LenovoLegionToolkit.Lib.Controllers;
+using LenovoLegionToolkit.Lib.Controllers.GodMode;
+using LenovoLegionToolkit.Lib.Controllers.Sensors;
 using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.Features;
 using LenovoLegionToolkit.Lib.Features.Hybrid;
@@ -26,6 +18,7 @@ using LenovoLegionToolkit.Lib.Macro;
 using LenovoLegionToolkit.Lib.Settings;
 using LenovoLegionToolkit.Lib.SoftwareDisabler;
 using LenovoLegionToolkit.Lib.System;
+using LenovoLegionToolkit.Lib.System.Management;
 using LenovoLegionToolkit.Lib.Utils;
 using LenovoLegionToolkit.WPF.CLI;
 using LenovoLegionToolkit.WPF.Extensions;
@@ -34,11 +27,20 @@ using LenovoLegionToolkit.WPF.Resources;
 using LenovoLegionToolkit.WPF.Utils;
 using LenovoLegionToolkit.WPF.Windows;
 using LenovoLegionToolkit.WPF.Windows.Utils;
+using System;
+using System.Diagnostics;
+using System.Linq;
+using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Interop;
+using System.Windows.Media;
+using System.Windows.Threading;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
 using WinFormsApp = System.Windows.Forms.Application;
 using WinFormsHighDpiMode = System.Windows.Forms.HighDpiMode;
-using LenovoLegionToolkit.Lib.Controllers.GodMode;
 
 namespace LenovoLegionToolkit.WPF;
 

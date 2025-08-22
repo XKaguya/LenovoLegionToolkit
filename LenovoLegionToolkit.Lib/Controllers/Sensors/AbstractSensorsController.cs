@@ -14,7 +14,7 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors;
 
 public abstract class AbstractSensorsController(GPUController gpuController) : ISensorsController
 {
-    private readonly struct GPUInfo(
+    protected readonly struct GPUInfo(
         int utilization,
         int coreClock,
         int maxCoreClock,
@@ -37,10 +37,11 @@ public abstract class AbstractSensorsController(GPUController gpuController) : I
     private readonly SafePerformanceCounter _percentProcessorPerformanceCounter = new("Processor Information", "% Processor Performance", "_Total");
     private readonly SafePerformanceCounter _percentProcessorUtilityCounter = new("Processor Information", "% Processor Utility", "_Total");
 
-    private int? _cpuBaseClockCache;
-    private int? _cpuMaxCoreClockCache;
-    private int? _cpuMaxFanSpeedCache;
-    private int? _gpuMaxFanSpeedCache;
+    protected int? _cpuBaseClockCache;
+    protected int? _cpuMaxCoreClockCache;
+    protected int? _cpuMaxFanSpeedCache;
+    protected int? _gpuMaxFanSpeedCache;
+    protected int? _pchMaxFanSpeedCache;
 
     public abstract Task<bool> IsSupportedAsync();
 
@@ -51,7 +52,7 @@ public abstract class AbstractSensorsController(GPUController gpuController) : I
         return Task.CompletedTask;
     }
 
-    public async Task<SensorsData> GetDataAsync()
+    public virtual async Task<SensorsData> GetDataAsync()
     {
         const int genericMaxUtilization = 100;
         const int genericMaxTemperature = 100;
@@ -89,7 +90,18 @@ public abstract class AbstractSensorsController(GPUController gpuController) : I
             gpuMaxTemperature,
             gpuCurrentFanSpeed,
             gpuMaxFanSpeed);
-        var result = new SensorsData(cpu, gpu);
+        var pch = new SensorData(
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1);
+        var result = new SensorsData(cpu, gpu, pch);
 
         if (Log.Instance.IsTraceEnabled)
             Log.Instance.Trace($"Current data: {result} [type={GetType().Name}]");
@@ -116,7 +128,7 @@ public abstract class AbstractSensorsController(GPUController gpuController) : I
 
     protected abstract Task<int> GetGpuMaxFanSpeedAsync();
 
-    private int GetCpuUtilization(int maxUtilization)
+    protected int GetCpuUtilization(int maxUtilization)
     {
         var result = (int)_percentProcessorUtilityCounter.NextValue();
         if (result < 0)
@@ -124,7 +136,7 @@ public abstract class AbstractSensorsController(GPUController gpuController) : I
         return Math.Min(result, maxUtilization);
     }
 
-    private int GetCpuCoreClock()
+    protected int GetCpuCoreClock()
     {
         var baseClock = _cpuBaseClockCache ??= GetCpuBaseClock();
         var clock = (int)(baseClock * (_percentProcessorPerformanceCounter.NextValue() / 100f));
@@ -133,7 +145,7 @@ public abstract class AbstractSensorsController(GPUController gpuController) : I
         return clock;
     }
 
-    private static unsafe int GetCpuBaseClock()
+    protected static unsafe int GetCpuBaseClock()
     {
         var ptr = IntPtr.Zero;
         try
@@ -167,9 +179,9 @@ public abstract class AbstractSensorsController(GPUController gpuController) : I
         }
     }
 
-    private static Task<int> GetCpuMaxCoreClockAsync() => WMI.LenovoGameZoneData.GetCPUFrequencyAsync();
+    protected static Task<int> GetCpuMaxCoreClockAsync() => WMI.LenovoGameZoneData.GetCPUFrequencyAsync();
 
-    private async Task<GPUInfo> GetGPUInfoAsync()
+    protected async Task<GPUInfo> GetGPUInfoAsync()
     {
         if (gpuController.IsSupported())
             await gpuController.StartAsync().ConfigureAwait(false);
