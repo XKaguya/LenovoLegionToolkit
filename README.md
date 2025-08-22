@@ -55,26 +55,7 @@ Please be patient and read through this readme carefully - it contains important
 
 You can download the program by the following ways:
 
-- Manually from the [Releases page](https://github.com/BartoszCichecki/LenovoLegionToolkit/releases/latest)
-- Using [winget](https://github.com/microsoft/winget-cli):
-
-  ```sh
-  winget install BartoszCichecki.LenovoLegionToolkit
-  ```
-
-- Using [Scoop](https://scoop.sh):
-
-  ```sh
-  scoop bucket add versions
-  ```
-
-  ```sh
-  scoop bucket add extras
-  ```
-  
-  ```sh
-  scoop install extras/lenovolegiontoolkit
-  ```
+- From the [Releases page](https://github.com/XKaguya/LenovoLegionToolkit/releases/latest)
   
 > [!TIP]
 > If you are looking for a Vantage alternative for Linux, check [LenovoLegionLinux](https://github.com/johnfanv2/LenovoLegionLinux) project out.
