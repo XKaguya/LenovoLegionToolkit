@@ -357,6 +357,9 @@ LLT 会自动在进程运行环境内添加一些可被访问的环境变量。�
 
 <img src="LenovoLegionToolkit.WPF/Assets/Donate/paypal_qr.png" width="200" alt="PayPal QR code" />
 
+> [!NOTE]
+> 虽然原作者已经归档，但是这部分内容我不会进行修改或删除。
+
 ## 贡献者
 
 特别感谢：
