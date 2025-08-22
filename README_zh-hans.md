@@ -17,7 +17,9 @@
 
 加入 Legion Series Discord 频道: https://discord.com/invite/legionseries!
 
-**中文用户可加入[拯救者工具箱 QQ 频道](https://pd.qq.com/s/jj0737)，频道内推送正式版/测试版更新并附带国内镜像加速下载链接。**
+~~**中文用户可加入[拯救者工具箱 QQ 频道](https://pd.qq.com/s/jj0737)，频道内推送正式版/测试版更新并附带国内镜像加速下载链接。**~~
+
+**鉴于原作者已经归档，本仓库不会创建类似渠道。如遇到任何问题请于 Github 进行反馈，谢谢。**
 
 <img src="assets/screenshot_zh_hans.png" width="700" />
 
