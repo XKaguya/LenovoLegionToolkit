@@ -124,6 +124,7 @@ public static partial class Compatibility
             {
                 SupportsAlwaysOnAc = GetAlwaysOnAcStatus(),
                 SupportsGodModeV1 = GetSupportsGodModeV1(supportedPowerModes, smartFanVersion, legionZoneVersion, biosVersion),
+                SupportsExtremeMode = GetSupportsExtremeMode(supportedPowerModes, smartFanVersion, legionZoneVersion),
                 SupportsGodModeV2 = GetSupportsGodModeV2(supportedPowerModes, smartFanVersion, legionZoneVersion),
                 SupportsGSync = await GetSupportsGSyncAsync().ConfigureAwait(false),
                 SupportsIGPUMode = await GetSupportsIGPUModeAsync().ConfigureAwait(false),
@@ -150,6 +151,7 @@ public static partial class Compatibility
             Log.Instance.Trace($" * LegionZoneVersion: '{machineInformation.LegionZoneVersion}'");
             Log.Instance.Trace($" * Features: {machineInformation.Features.Source}:{string.Join(',', machineInformation.Features.All)}");
             Log.Instance.Trace($" * Properties:");
+            Log.Instance.Trace($"     * SupportsExtremeMode: '{machineInformation.Properties.SupportsExtremeMode}'");
             Log.Instance.Trace($"     * SupportsAlwaysOnAc: '{machineInformation.Properties.SupportsAlwaysOnAc.status}, {machineInformation.Properties.SupportsAlwaysOnAc.connectivity}'");
             Log.Instance.Trace($"     * SupportsGodModeV1: '{machineInformation.Properties.SupportsGodModeV1}'");
             Log.Instance.Trace($"     * SupportsGodModeV2: '{machineInformation.Properties.SupportsGodModeV2}'");
@@ -231,7 +233,10 @@ public static partial class Compatibility
             if (value.IsBitSet(2))
                 powerModes.Add(PowerModeState.Performance);
             if (value.IsBitSet(16))
+            {
+                powerModes.Add(PowerModeState.Extreme);
                 powerModes.Add(PowerModeState.GodMode);
+            }
 
             return powerModes;
         }
@@ -302,6 +307,14 @@ public static partial class Compatibility
         return (capabilities.AoAc, capabilities.AoAcConnectivitySupported);
     }
 
+    private static bool GetSupportsExtremeMode(IEnumerable<PowerModeState> supportedPowerModes, int smartFanVersion, int legionZoneVersion)
+    {
+        if (!supportedPowerModes.Contains(PowerModeState.Extreme))
+            return false;
+
+        return smartFanVersion is 7 or 8 || legionZoneVersion is 4 or 5;
+    }
+
     private static bool GetSupportsGodModeV1(IEnumerable<PowerModeState> supportedPowerModes, int smartFanVersion, int legionZoneVersion, BiosVersion? biosVersion)
     {
         if (!supportedPowerModes.Contains(PowerModeState.GodMode))
@@ -367,7 +380,7 @@ public static partial class Compatibility
         }
     }
 
-    private static bool GetSupportBootLogoChange(int smartFanVersion) => smartFanVersion < 8;
+    private static bool GetSupportBootLogoChange(int smartFanVersion) => smartFanVersion < 9;
 
     private static bool GetHasQuietToPerformanceModeSwitchingBug(BiosVersion? biosVersion)
     {

@@ -502,4 +502,7 @@
   <data name="UpdateCheckFrequency_PerWeek" xml:space="preserve">
     <value>Weekly</value>
   </data>
+  <data name="PowerModeState_Extreme" xml:space="preserve">
+    <value>Extreme</value>
+  </data>
 </root>

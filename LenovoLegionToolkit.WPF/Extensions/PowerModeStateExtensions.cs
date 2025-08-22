@@ -10,6 +10,7 @@ public static class PowerModeStateExtensions
         PowerModeState.Quiet => Color.FromRgb(53, 123, 242),
         PowerModeState.Balance => Colors.White,
         PowerModeState.Performance => Color.FromRgb(212, 51, 51),
+        PowerModeState.Extreme => Color.FromRgb(99, 52, 227),
         PowerModeState.GodMode => Color.FromRgb(99, 52, 227),
         _ => Colors.Transparent,
     });

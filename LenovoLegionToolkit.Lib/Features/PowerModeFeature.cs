@@ -29,8 +29,8 @@ public class PowerModeFeature(
     {
         var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
         return mi.Properties.SupportsGodMode
-            ? [PowerModeState.Quiet, PowerModeState.Balance, PowerModeState.Performance, PowerModeState.GodMode]
-            : [PowerModeState.Quiet, PowerModeState.Balance, PowerModeState.Performance];
+            ? [PowerModeState.Quiet, PowerModeState.Balance, PowerModeState.Performance, PowerModeState.Extreme, PowerModeState.GodMode]
+            : [PowerModeState.Quiet, PowerModeState.Balance, PowerModeState.Performance, PowerModeState.Extreme];
     }
 
     public override async Task SetStateAsync(PowerModeState state)
@@ -39,7 +39,7 @@ public class PowerModeFeature(
         if (!allStates.Contains(state))
             throw new InvalidOperationException($"Unsupported power mode {state}");
 
-        if (state is PowerModeState.Performance or PowerModeState.GodMode
+        if (state is PowerModeState.Performance or PowerModeState.GodMode or PowerModeState.Extreme
             && !AllowAllPowerModesOnBattery
             && await Power.IsPowerAdapterConnectedAsync().ConfigureAwait(false) is PowerAdapterStatus.Disconnected)
             throw new PowerModeUnavailableWithoutACException(state);

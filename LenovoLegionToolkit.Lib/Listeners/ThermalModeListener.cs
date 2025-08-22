@@ -52,6 +52,7 @@ public class ThermalModeListener(
             ThermalModeState.Quiet => PowerModeState.Quiet,
             ThermalModeState.Balance => PowerModeState.Balance,
             ThermalModeState.Performance => PowerModeState.Performance,
+            ThermalModeState.Extreme => PowerModeState.Extreme,
             ThermalModeState.GodMode => PowerModeState.GodMode,
             _ => throw new ArgumentOutOfRangeException(nameof(state), state, null)
         };
