@@ -61,9 +61,16 @@
         <wpfui:CardControl.Content>
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Border Style="{StaticResource SensorCardStyle}">
+                    <Border x:Name="_cpuCard" Style="{StaticResource SensorCardStyle}">
                         <StackPanel Margin="12,10">
-                            <TextBlock Style="{StaticResource CardTitleStyle}" Text="{x:Static resources:Resource.SensorsControl_CPU_Title}"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Style="{StaticResource CardTitleStyle}" Text="{x:Static resources:Resource.SensorsControl_CPU_Title}"/>
+                                <TextBlock Grid.Column="1" Style="{StaticResource DataLabelStyle}" Text="Ultra 9 275HX" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="8,0,0,12"/>
+                            </Grid>
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
@@ -110,9 +117,16 @@
                             </Grid>
                         </StackPanel>
                     </Border>
-                    <Border Style="{StaticResource SensorCardStyle}">
+                    <Border x:Name="_gpuCard" Style="{StaticResource SensorCardStyle}">
                         <StackPanel Margin="12,10">
-                            <TextBlock Style="{StaticResource CardTitleStyle}" Text="{x:Static resources:Resource.SensorsControl_GPU_Title}"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Style="{StaticResource CardTitleStyle}" Text="{x:Static resources:Resource.SensorsControl_GPU_Title}"/>
+                                <TextBlock Grid.Column="1" Style="{StaticResource DataLabelStyle}" Text="GeForce RTX 5080" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="8,0,0,12"/>
+                            </Grid>
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
@@ -177,7 +191,7 @@
                             </Grid>
                         </StackPanel>
                     </Border>
-                    <Border Style="{StaticResource SensorCardStyle}">
+                    <Border x:Name="_motherboardCard" Style="{StaticResource SensorCardStyle}">
                         <StackPanel Margin="12,10">
                             <TextBlock Style="{StaticResource CardTitleStyle}" Text="{x:Static resources:Resource.SensorsControl_Motherboard_Title}"/>
                             <Grid>
@@ -215,7 +229,7 @@
                             </Grid>
                         </StackPanel>
                     </Border>
-                    <Border Style="{StaticResource SensorCardStyle}">
+                    <Border x:Name="_memoryBatteryCard" Style="{StaticResource SensorCardStyle}">
                         <StackPanel Margin="12,10">
                             <StackPanel Margin="0,0,0,12">
                                 <TextBlock Style="{StaticResource CardTitleStyle}" Text="{x:Static resources:Resource.SensorsControl_Memory_Title}" Margin="0,0,0,6"/>
