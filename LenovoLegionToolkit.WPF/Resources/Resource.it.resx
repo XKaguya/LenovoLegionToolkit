@@ -1568,4 +1568,7 @@ Spostare il mouse o premere il tasto sulla tastiera per risvegliarli.</value>
   <data name="DashboardBattery_AcDisconnected" xml:space="preserve">
     <value />
   </data>
+  <data name="AboutPage_Log" xml:space="preserve">
+    <value />
+  </data>
 </root>

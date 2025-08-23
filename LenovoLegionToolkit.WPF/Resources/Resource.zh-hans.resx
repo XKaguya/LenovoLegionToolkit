@@ -1589,7 +1589,7 @@
     <value>Data</value>
   </data>
   <data name="AboutPage_Temp" xml:space="preserve">
-    <value>Temp</value>
+    <value>临时文件夹</value>
   </data>
   <data name="SettingsPage_SynchronizeBrightnessToAllPowerPlans_Title" xml:space="preserve">
     <value>固定显示亮度</value>
@@ -2299,5 +2299,8 @@
   </data>
   <data name="DashboardBattery_AcDisconnected" xml:space="preserve">
     <value>放电中</value>
+  </data>
+  <data name="AboutPage_Log" xml:space="preserve">
+    <value>日志文件夹</value>
   </data>
 </root>

@@ -2292,4 +2292,7 @@ No afectará a otras ventanas a pantalla completa, pero no podrá hacer clic en 
   <data name="DashboardBattery_AcDisconnected" xml:space="preserve">
     <value />
   </data>
+  <data name="AboutPage_Log" xml:space="preserve">
+    <value />
+  </data>
 </root>

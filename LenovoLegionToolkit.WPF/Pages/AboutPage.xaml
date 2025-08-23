@@ -111,6 +111,10 @@
             Click="OpenApplicationTempFolder_Click"
             Content="{x:Static resources:Resource.AboutPage_Temp}"
             Icon="Folder24" />
+        <wpfui:Hyperlink
+            Click="OpenLogFolder_Click"
+            Content="{x:Static resources:Resource.AboutPage_Log}"
+            Icon="Folder24" />
 
     </StackPanel>
 </wpfui:UiPage>

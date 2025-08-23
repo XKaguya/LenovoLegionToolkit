@@ -2292,4 +2292,7 @@ It won't affect other full screen windows, but you will not be able to click on 
   <data name="DashboardBattery_AcDisconnected" xml:space="preserve">
     <value>AC Disconnected</value>
   </data>
+  <data name="AboutPage_Log" xml:space="preserve">
+    <value>Log</value>
+  </data>
 </root>

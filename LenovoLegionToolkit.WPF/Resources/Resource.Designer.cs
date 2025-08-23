@@ -115,6 +115,15 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Log 的本地化字符串。
+        /// </summary>
+        public static string AboutPage_Log {
+            get {
+                return ResourceManager.GetString("AboutPage_Log", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Project website on GitHub 的本地化字符串。
         /// </summary>
         public static string AboutPage_ProjectWebsiteOnGitHub {
