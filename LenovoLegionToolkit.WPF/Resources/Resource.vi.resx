@@ -2283,4 +2283,10 @@ Chức năng này không ảnh hưởng các cửa sổ ở chế độ toàn m�
   <data name="BatteryPage_ACAdapterNotConnected" xml:space="preserve">
     <value />
   </data>
+  <data name="DashboardBattery_AcConnected" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DashboardBattery_AcDisconnected" xml:space="preserve">
+    <value />
+  </data>
 </root>

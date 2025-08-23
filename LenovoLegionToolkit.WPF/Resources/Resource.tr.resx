@@ -2284,4 +2284,10 @@ Diğer tam ekran pencereleri etkilemeyecek, ancak bildirimlere tıklayamayacaks�
   <data name="BatteryPage_ACAdapterNotConnected" xml:space="preserve">
     <value />
   </data>
+  <data name="DashboardBattery_AcConnected" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DashboardBattery_AcDisconnected" xml:space="preserve">
+    <value />
+  </data>
 </root>

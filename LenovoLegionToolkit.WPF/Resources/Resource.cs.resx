@@ -1663,4 +1663,10 @@ Toto nastavení se aplikuje jen když je zapnutý vlastní režim.</value>
   <data name="BatteryPage_ACAdapterNotConnected" xml:space="preserve">
     <value />
   </data>
+  <data name="DashboardBattery_AcConnected" xml:space="preserve">
+    <value />
+  </data>
+  <data name="DashboardBattery_AcDisconnected" xml:space="preserve">
+    <value />
+  </data>
 </root>

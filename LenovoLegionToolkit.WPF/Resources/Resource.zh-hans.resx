@@ -2294,4 +2294,10 @@
   <data name="BatteryPage_ACAdapterNotConnected" xml:space="preserve">
     <value>放电中</value>
   </data>
+  <data name="DashboardBattery_AcConnected" xml:space="preserve">
+    <value>交流电</value>
+  </data>
+  <data name="DashboardBattery_AcDisconnected" xml:space="preserve">
+    <value>放电中</value>
+  </data>
 </root>

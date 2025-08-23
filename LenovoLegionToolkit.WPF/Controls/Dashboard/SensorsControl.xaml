@@ -69,7 +69,7 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Grid.Column="0" Style="{StaticResource CardTitleStyle}" Text="{x:Static resources:Resource.SensorsControl_CPU_Title}"/>
-                                <TextBlock Grid.Column="1" Style="{StaticResource DataLabelStyle}" Text="Ultra 9 275HX" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="8,0,0,12"/>
+                                <TextBlock x:Name="_cpuCardName" Grid.Column="1" Style="{StaticResource DataLabelStyle}" Text="-" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="8,0,0,12"/>
                             </Grid>
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -125,7 +125,7 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Grid.Column="0" Style="{StaticResource CardTitleStyle}" Text="{x:Static resources:Resource.SensorsControl_GPU_Title}"/>
-                                <TextBlock Grid.Column="1" Style="{StaticResource DataLabelStyle}" Text="GeForce RTX 5080" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="8,0,0,12"/>
+                                <TextBlock x:Name="_gpuCardName" Grid.Column="1" Style="{StaticResource DataLabelStyle}" Text="-" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="8,0,0,12"/>
                             </Grid>
                             <Grid>
                                 <Grid.ColumnDefinitions>

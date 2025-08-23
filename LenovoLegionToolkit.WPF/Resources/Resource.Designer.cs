@@ -1299,6 +1299,24 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 AC Connected 的本地化字符串。
+        /// </summary>
+        public static string DashboardBattery_AcConnected {
+            get {
+                return ResourceManager.GetString("DashboardBattery_AcConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 AC Disconnected 的本地化字符串。
+        /// </summary>
+        public static string DashboardBattery_AcDisconnected {
+            get {
+                return ResourceManager.GetString("DashboardBattery_AcDisconnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Customize 的本地化字符串。
         /// </summary>
         public static string DashboardPage_Customize {

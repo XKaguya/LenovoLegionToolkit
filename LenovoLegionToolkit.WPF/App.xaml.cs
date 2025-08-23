@@ -400,7 +400,7 @@ public partial class App
                 Log.Instance.Trace($"Initializing hybrid mode...");
 
             var feature = IoCContainer.Resolve<HybridModeFeature>();
-            await feature.EnsureDGPUEjectedIfNeededAsync();
+            await feature.EnsureDGPUEjectedIfNeededAsync(); 
         }
         catch (Exception ex)
         {

@@ -2286,4 +2286,10 @@ It won't affect other full screen windows, but you will not be able to click on 
   <data name="BatteryPage_ACAdapterNotConnected" xml:space="preserve">
     <value>No AC</value>
   </data>
+  <data name="DashboardBattery_AcConnected" xml:space="preserve">
+    <value>AC Connected</value>
+  </data>
+  <data name="DashboardBattery_AcDisconnected" xml:space="preserve">
+    <value>AC Disconnected</value>
+  </data>
 </root>

@@ -7,6 +7,7 @@ using LenovoLegionToolkit.Lib.Utils;
 using LenovoLegionToolkit.WPF.Resources;
 using LenovoLegionToolkit.WPF.Settings;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Management;
 using System.Threading;
@@ -29,8 +30,16 @@ public partial class SensorsControl
     private CancellationTokenSource? _cts;
     private Task? _refreshTask;
 
-    private static double _cachedTotalMB = 0;
-    private static double _lastMemoryUsagePercent = -1;
+    private static readonly Lazy<double> _cachedTotalMB = new(InitializeTotalMemoryCache);
+    private static double _cachedMemoryUsagePercent = -1;
+    private static BatteryInformation? _cachedBatteryInfo;
+
+    private static readonly string _cpuName = GetProcessedCpuName();
+    private static readonly string _gpuName = GetProcessedGpuName();
+
+    private int _refreshCounter;
+    private bool _isCacheExpired = true;
+    private readonly object _updateLock = new();
 
     public SensorsControl()
     {
@@ -57,15 +66,19 @@ public partial class SensorsControl
         {
             var item = new MenuItem
             {
-                SymbolIcon = _dashboardSettings.Store.SensorsRefreshIntervalSeconds == interval ? SymbolRegular.Checkmark24 : SymbolRegular.Empty,
+                SymbolIcon = _dashboardSettings.Store.SensorsRefreshIntervalSeconds == interval
+                    ? SymbolRegular.Checkmark24
+                    : SymbolRegular.Empty,
                 Header = TimeSpan.FromSeconds(interval).Humanize(culture: Resource.Culture)
             };
+
             item.Click += (_, _) =>
             {
                 _dashboardSettings.Store.SensorsRefreshIntervalSeconds = interval;
                 _dashboardSettings.SynchronizeStore();
                 InitializeContextMenu();
             };
+
             ContextMenu.Items.Add(item);
         }
     }
@@ -114,19 +127,14 @@ public partial class SensorsControl
 
             await _controller.PrepareAsync();
 
-            if (_cachedTotalMB == 0)
-            {
-                await InitializeTotalMemoryCacheAsync();
-            }
+            var _ = _cachedTotalMB.Value;
 
             while (!token.IsCancellationRequested)
             {
                 try
                 {
                     var data = await _controller.GetDataAsync();
-                    var memoryUsageTask = UpdateMemoryUsageAsync();
-                    Dispatcher.Invoke(() => UpdateValues(data));
-                    await memoryUsageTask;
+                    await Dispatcher.InvokeAsync(() => UpdateValues(data));
                     await Task.Delay(TimeSpan.FromSeconds(_dashboardSettings.Store.SensorsRefreshIntervalSeconds), token);
                 }
                 catch (OperationCanceledException) { }
@@ -135,7 +143,7 @@ public partial class SensorsControl
                     if (Log.Instance.IsTraceEnabled)
                         Log.Instance.Trace($"Sensors refresh failed.", ex);
 
-                    Dispatcher.Invoke(() => UpdateValues(SensorsData.Empty));
+                    await Dispatcher.InvokeAsync(() => UpdateValues(SensorsData.Empty));
                 }
             }
 
@@ -144,20 +152,22 @@ public partial class SensorsControl
         }, token);
     }
 
-    private async Task InitializeTotalMemoryCacheAsync()
+    private static double InitializeTotalMemoryCache()
     {
-        await Task.Run(() =>
-        {
-            using var searcher = new ManagementObjectSearcher("SELECT TotalPhysicalMemory FROM Win32_ComputerSystem");
-            var totalBytes = searcher.Get().Cast<ManagementObject>()
-                .Select(mo => Convert.ToUInt64(mo["TotalPhysicalMemory"]))
-                .FirstOrDefault();
+        using var searcher = new ManagementObjectSearcher("SELECT TotalPhysicalMemory FROM Win32_ComputerSystem");
+        var totalBytes = searcher.Get().Cast<ManagementObject>()
+            .Select(mo => Convert.ToUInt64(mo["TotalPhysicalMemory"]))
+            .FirstOrDefault();
 
-            if (totalBytes == 0)
-                throw new InvalidOperationException("Failed to get total memory");
+        return totalBytes == 0
+            ? throw new InvalidOperationException("Failed to get total memory")
+            : totalBytes / (1024.0 * 1024);
+    }
 
-            _cachedTotalMB = totalBytes / (1024.0 * 1024);
-        });
+    private void UpdateChipNames()
+    {
+        UpdateValue(_cpuCardName, _cpuName);
+        UpdateValue(_gpuCardName, _gpuName);
     }
 
     private async Task UpdateMemoryUsageAsync()
@@ -175,15 +185,15 @@ public partial class SensorsControl
                     .Sum(val => Convert.ToDouble(val));
             });
 
-            double usedMB = _cachedTotalMB - availableMB;
+            double usedMB = _cachedTotalMB.Value - availableMB;
             if (usedMB < 0) usedMB = 0;
 
-            _lastMemoryUsagePercent = (usedMB / _cachedTotalMB) * 100;
+            _cachedMemoryUsagePercent = (usedMB / _cachedTotalMB.Value) * 100;
 
             Dispatcher.Invoke(() =>
             {
-                UpdateValue(_memoryUtilizationBar, _memoryUtilizationLabel, 100, _lastMemoryUsagePercent,
-                    $"{_lastMemoryUsagePercent:0}%", "100%");
+                UpdateValue(_memoryUtilizationBar, _memoryUtilizationLabel, 100, _cachedMemoryUsagePercent,
+                    $"{_cachedMemoryUsagePercent:0}%", "100%");
             });
         }
         catch (Exception ex)
@@ -195,61 +205,140 @@ public partial class SensorsControl
 
     private void UpdateValues(SensorsData data)
     {
-        // CPU
-        UpdateValue(_cpuUtilizationBar, _cpuUtilizationLabel, data.CPU.MaxUtilization, data.CPU.Utilization,
-            $"{data.CPU.Utilization}%");
-        UpdateValue(_cpuCoreClockBar, _cpuCoreClockLabel, data.CPU.MaxCoreClock, data.CPU.CoreClock,
-            $"{data.CPU.CoreClock / 1000.0:0.0} {Resource.GHz}", $"{data.CPU.MaxCoreClock / 1000.0:0.0} {Resource.GHz}");
-        UpdateValue(_cpuTemperatureBar, _cpuTemperatureLabel, data.CPU.MaxTemperature, data.CPU.Temperature,
-            GetTemperatureText(data.CPU.Temperature), GetTemperatureText(data.CPU.MaxTemperature));
-        UpdateValue(_cpuFanSpeedBar, _cpuFanSpeedLabel, data.CPU.MaxFanSpeed, data.CPU.FanSpeed,
-            $"{data.CPU.FanSpeed} {Resource.RPM}", $"{data.CPU.MaxFanSpeed} {Resource.RPM}");
-
-        // GPU
-        UpdateValue(_gpuUtilizationBar, _gpuUtilizationLabel, data.GPU.MaxUtilization, data.GPU.Utilization,
-            $"{data.GPU.Utilization}%");
-        UpdateValue(_gpuCoreClockBar, _gpuCoreClockLabel, data.GPU.MaxCoreClock, data.GPU.CoreClock,
-            $"{data.GPU.CoreClock} {Resource.MHz}", $"{data.GPU.MaxCoreClock} {Resource.MHz}");
-        UpdateValue(_gpuCoreTemperatureLabel, data.GPU.MaxTemperature, data.GPU.Temperature,
-            GetTemperatureText(data.GPU.Temperature), GetTemperatureText(data.GPU.MaxTemperature));
-        UpdateValue(_gpuMemoryTemperatureLabel, data.GPU.MaxTemperature, data.GPU.Temperature,
-            GetTemperatureText(data.GPU.Temperature), GetTemperatureText(data.GPU.MaxTemperature));
-        UpdateValue(_gpuFanSpeedBar, _gpuFanSpeedLabel, data.GPU.MaxFanSpeed, data.GPU.FanSpeed,
-            $"{data.GPU.FanSpeed} {Resource.RPM}", $"{data.GPU.MaxFanSpeed} {Resource.RPM}");
-
-        // PCH
-        UpdateValue(_pchTemperatureBar, _pchTemperatureLabel, data.PCH.MaxTemperature, data.PCH.Temperature,
-            GetTemperatureText(data.PCH.Temperature), GetTemperatureText(data.PCH.MaxTemperature));
-        UpdateValue(_pchFanSpeedBar, _pchFanSpeedLabel, data.PCH.MaxFanSpeed, data.PCH.FanSpeed,
-            $"{data.PCH.FanSpeed} {Resource.RPM}", $"{data.PCH.MaxFanSpeed} {Resource.RPM}");
-
-        // Memory
-        if (_lastMemoryUsagePercent >= 0)
+        lock (_updateLock)
         {
-            UpdateValue(_memoryUtilizationBar, _memoryUtilizationLabel, 100, _lastMemoryUsagePercent,
-                $"{_lastMemoryUsagePercent:0}%", "100%");
+            UpdateChipNames();
+
+            UpdateValue(_cpuUtilizationBar, _cpuUtilizationLabel, data.CPU.MaxUtilization, data.CPU.Utilization,
+                $"{data.CPU.Utilization}%");
+            UpdateValue(_cpuCoreClockBar, _cpuCoreClockLabel, data.CPU.MaxCoreClock, data.CPU.CoreClock,
+                $"{data.CPU.CoreClock / 1000.0:0.0} {Resource.GHz}", $"{data.CPU.MaxCoreClock / 1000.0:0.0} {Resource.GHz}");
+            UpdateValue(_cpuTemperatureBar, _cpuTemperatureLabel, data.CPU.MaxTemperature, data.CPU.Temperature,
+                GetTemperatureText(data.CPU.Temperature), GetTemperatureText(data.CPU.MaxTemperature));
+            UpdateValue(_cpuFanSpeedBar, _cpuFanSpeedLabel, data.CPU.MaxFanSpeed, data.CPU.FanSpeed,
+                $"{data.CPU.FanSpeed} {Resource.RPM}", $"{data.CPU.MaxFanSpeed} {Resource.RPM}");
+
+            UpdateValue(_gpuUtilizationBar, _gpuUtilizationLabel, data.GPU.MaxUtilization, data.GPU.Utilization,
+                $"{data.GPU.Utilization}%");
+            UpdateValue(_gpuCoreClockBar, _gpuCoreClockLabel, data.GPU.MaxCoreClock, data.GPU.CoreClock,
+                $"{data.GPU.CoreClock} {Resource.MHz}", $"{data.GPU.MaxCoreClock} {Resource.MHz}");
+            UpdateValue(_gpuCoreTemperatureLabel, data.GPU.MaxTemperature, data.GPU.Temperature,
+                GetTemperatureText(data.GPU.Temperature), GetTemperatureText(data.GPU.MaxTemperature));
+            UpdateValue(_gpuMemoryTemperatureLabel, data.GPU.MaxTemperature, data.GPU.Temperature,
+                GetTemperatureText(data.GPU.Temperature), GetTemperatureText(data.GPU.MaxTemperature));
+            UpdateValue(_gpuFanSpeedBar, _gpuFanSpeedLabel, data.GPU.MaxFanSpeed, data.GPU.FanSpeed,
+                $"{data.GPU.FanSpeed} {Resource.RPM}", $"{data.GPU.MaxFanSpeed} {Resource.RPM}");
+
+            UpdateValue(_pchTemperatureBar, _pchTemperatureLabel, data.PCH.MaxTemperature, data.PCH.Temperature,
+                GetTemperatureText(data.PCH.Temperature), GetTemperatureText(data.PCH.MaxTemperature));
+            UpdateValue(_pchFanSpeedBar, _pchFanSpeedLabel, data.PCH.MaxFanSpeed, data.PCH.FanSpeed,
+                $"{data.PCH.FanSpeed} {Resource.RPM}", $"{data.PCH.MaxFanSpeed} {Resource.RPM}");
+
+            if (_refreshCounter >= 10 || _isCacheExpired)
+            {
+                _refreshCounter = 0;
+                _isCacheExpired = false;
+
+                _ = UpdateMemoryUsageAsync();
+
+                _cachedBatteryInfo = Battery.GetBatteryInformation();
+                UpdateBatteryStatus(_batteryStateLabel, _cachedBatteryInfo);
+                UpdateValue(_batteryLevelBar, _batteryLevelLabel, 100, _cachedBatteryInfo?.BatteryPercentage ?? 0,
+                    $"{_cachedBatteryInfo?.BatteryPercentage}%", "100%");
+            }
+            else
+            {
+                _refreshCounter++;
+
+                UpdateValue(_memoryUtilizationBar, _memoryUtilizationLabel, 100,
+                    _cachedMemoryUsagePercent >= 0 ? _cachedMemoryUsagePercent : 0,
+                    _cachedMemoryUsagePercent >= 0 ? $"{_cachedMemoryUsagePercent:0}%" : "-",
+                    "100%");
+
+                UpdateBatteryStatus(_batteryStateLabel, _cachedBatteryInfo);
+                UpdateValue(_batteryLevelBar, _batteryLevelLabel, 100,
+                    _cachedBatteryInfo?.BatteryPercentage ?? 0,
+                    _cachedBatteryInfo != null ? $"{_cachedBatteryInfo.Value.BatteryPercentage}%" : "-",
+                    "100%");
+            }
         }
-        else
-        {
-            UpdateValue(_memoryUtilizationBar, _memoryUtilizationLabel, 100, 0,
-                "-", "100%");
-        }
-
-        // Battery
-        var batteryData = Battery.GetBatteryInformation();
-
-        UpdateBatteryStatus(_batteryStateLabel, batteryData);
-
-        UpdateValue(_batteryLevelBar, _batteryLevelLabel, 100, batteryData.BatteryPercentage,
-            $"{batteryData.BatteryPercentage}%", "100%");
     }
 
+    private static string GetProcessedCpuName()
+    {
+        try
+        {
+            using var searcher = new ManagementObjectSearcher("SELECT Name FROM Win32_Processor");
+            var name = searcher.Get().Cast<ManagementObject>()
+                .Select(obj => obj["Name"]?.ToString()?.Trim())
+                .FirstOrDefault(name => !string.IsNullOrEmpty(name))
+                ?? "Unknown CPU";
+
+            return name
+                .Replace("Intel(R)", "", StringComparison.OrdinalIgnoreCase)
+                .Replace("Core(TM)", "", StringComparison.OrdinalIgnoreCase)
+                .Replace("AMD", "", StringComparison.OrdinalIgnoreCase)
+                .Replace("Ryzen", "", StringComparison.OrdinalIgnoreCase)
+                .Replace("Processor", "", StringComparison.OrdinalIgnoreCase)
+                .Replace("CPU", "", StringComparison.OrdinalIgnoreCase)
+                .Replace("  ", " ")
+                .Trim();
+        }
+        catch
+        {
+            return "Unknown CPU";
+        }
+    }
+
+    private static string GetProcessedGpuName()
+    {
+        try
+        {
+            var gpuNames = new List<string>();
+            using var key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(
+                @"SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}");
+
+            if (key != null)
+            {
+                foreach (var subKeyName in key.GetSubKeyNames().Where(n => n.StartsWith("000")))
+                {
+                    using var subKey = key.OpenSubKey(subKeyName);
+                    var driverDesc = subKey?.GetValue("DriverDesc")?.ToString();
+
+                    if (string.IsNullOrWhiteSpace(driverDesc))
+                        continue;
+
+                    if (driverDesc.Contains("Intel", StringComparison.OrdinalIgnoreCase))
+                        continue;
+
+                    var processedName = driverDesc
+                        .Replace("NVIDIA", "", StringComparison.OrdinalIgnoreCase)
+                        .Replace("AMD", "", StringComparison.OrdinalIgnoreCase)
+                        .Replace("LAPTOP", "", StringComparison.OrdinalIgnoreCase)
+                        .Replace("GPU", "", StringComparison.OrdinalIgnoreCase)
+                        .Trim();
+
+                    if (!string.IsNullOrWhiteSpace(processedName))
+                    {
+                        gpuNames.Add(processedName);
+                    }
+                }
+            }
+
+            return gpuNames.Count > 0
+                ? string.Join(" & ", gpuNames)
+                : "Unknown GPU";
+        }
+        catch
+        {
+            return "Unknown GPU";
+        }
+    }
     private string GetTemperatureText(double temperature)
     {
         if (_applicationSettings.Store.TemperatureUnit == TemperatureUnit.F)
         {
-            temperature *= 9.0 / 5.0;
-            temperature += 32;
+            temperature = temperature * 9 / 5 + 32;
             return $"{temperature:0} {Resource.Fahrenheit}";
         }
 
@@ -294,18 +383,24 @@ public partial class SensorsControl
         }
     }
 
-    private static void UpdateBatteryStatus(TextBlock label, BatteryInformation batteryInfo)
+    private static void UpdateBatteryStatus(TextBlock label, BatteryInformation? batteryInfo)
     {
-        if (batteryInfo.IsCharging)
+        if (batteryInfo is null)
         {
-            if (batteryInfo.DischargeRate > 0)
-                label.Text = Resource.BatteryPage_ACAdapterConnectedAndCharging;
-
-            label.Text = Resource.BatteryPage_ACAdapterConnectedNotCharging;
+            label.Text = "-";
+            label.ToolTip = null;
+            label.Tag = null;
         }
         else
         {
-            label.Text = Resource.BatteryPage_ACAdapterNotConnected;
+            label.Text = batteryInfo.Value.IsCharging
+                ? Resource.DashboardBattery_AcConnected
+                : Resource.DashboardBattery_AcDisconnected;
         }
+    }
+
+    private static void UpdateValue(TextBlock label, string str)
+    {
+        label.Text = str;
     }
 }
