@@ -91,7 +91,7 @@ public class HWiNFOIntegration(SensorsController sensorController, IntegrationsS
         {
             SensorsControllerV5 sensorControllerV5 = (SensorsControllerV5)sensorControllerWrapper;
             (cpuFanSpeed, gpuFanSpeed, pchFanSpeed) = await sensorControllerV5.GetAllFanSpeedsAsync().ConfigureAwait(false);
-            SetValue(SENSOR_TYPE_FAN, 1, PCH_FAN_SENSOR_NAME, pchFanSpeed, firstRun);
+            SetValue(SENSOR_TYPE_FAN, 2, PCH_FAN_SENSOR_NAME, pchFanSpeed, firstRun);
         }
         else
         {
