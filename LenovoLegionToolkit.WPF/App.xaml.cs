@@ -137,6 +137,7 @@ public partial class App
         await InitGpuOverclockControllerAsync();
         await InitHybridModeAsync();
         await InitAutomationProcessorAsync();
+        await InitMemorySensorControllerFeatureAsync();
         InitMacroController();
 
         await IoCContainer.Resolve<AIController>().StartIfNeededAsync();
@@ -182,6 +183,7 @@ public partial class App
 
     private void Application_Exit(object sender, ExitEventArgs e)
     {
+        UnloadDriver();
         _singleInstanceMutex?.Close();
     }
 
@@ -519,6 +521,24 @@ public partial class App
         }
     }
 
+    private static async Task InitMemorySensorControllerFeatureAsync()
+    {
+        try
+        {
+            var feature = IoCContainer.Resolve<SensorsGroupController>();
+            if (await feature.IsSupportedAsync())
+            {
+                if (Log.Instance.IsTraceEnabled)
+                    Log.Instance.Trace($"Init memory sensor control feature. ");
+            }
+        }
+        catch (Exception ex)
+        {
+            if (Log.Instance.IsTraceEnabled)
+                Log.Instance.Trace($"Couldn't ensure correct battery mode.", ex);
+        }
+    }
+
     private static async Task InitRgbKeyboardControllerAsync()
     {
         try
@@ -625,7 +645,7 @@ public partial class App
     {
         try
         {
-            MemorySensorController _memoryControllers = IoCContainer.Resolve<MemorySensorController>();
+            SensorsGroupController _memoryControllers = IoCContainer.Resolve<SensorsGroupController>();
             _memoryControllers.UnloadDriver();
         }
         catch { /* Ignored. */ }

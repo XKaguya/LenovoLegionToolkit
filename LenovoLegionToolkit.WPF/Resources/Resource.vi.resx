@@ -2292,4 +2292,10 @@ Chức năng này không ảnh hưởng các cửa sổ ở chế độ toàn m�
   <data name="AboutPage_Log" xml:space="preserve">
     <value />
   </data>
+  <data name="SensorsControl_CPU_Power" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SensorsControl_GPU_Power" xml:space="preserve">
+    <value />
+  </data>
 </root>

@@ -2295,4 +2295,10 @@ It won't affect other full screen windows, but you will not be able to click on 
   <data name="AboutPage_Log" xml:space="preserve">
     <value>Log</value>
   </data>
+  <data name="SensorsControl_CPU_Power" xml:space="preserve">
+    <value>Power</value>
+  </data>
+  <data name="SensorsControl_GPU_Power" xml:space="preserve">
+    <value>Power</value>
+  </data>
 </root>

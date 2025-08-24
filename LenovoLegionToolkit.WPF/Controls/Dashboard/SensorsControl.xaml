@@ -115,6 +115,16 @@
                                 <TextBlock x:Name="_cpuFanSpeedLabel" Grid.Column="2" Style="{StaticResource DataValueStyle}" Text="-"/>
                                 <ProgressBar x:Name="_cpuFanSpeedBar" Grid.Column="3" Style="{StaticResource CompactProgressBarStyle}" Value="56" Maximum="5000"/>
                             </Grid>
+                            <Grid Margin="0,6,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Style="{StaticResource DataLabelStyle}" Text="{x:Static resources:Resource.SensorsControl_CPU_Power}"/>
+                                <TextBlock x:Name="_cpuPowerLabel" Grid.Column="2" Style="{StaticResource DataLabelStyle}" Text="-"/>
+                            </Grid>
                         </StackPanel>
                     </Border>
                     <Border x:Name="_gpuCard" Style="{StaticResource SensorCardStyle}">
@@ -188,6 +198,16 @@
                                            Text="-"
                                            Margin="4,0,0,0"
                                            VerticalAlignment="Center"/>
+                            </Grid>
+                            <Grid Margin="0,6,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Style="{StaticResource DataLabelStyle}" Text="{x:Static resources:Resource.SensorsControl_GPU_Power}"/>
+                                <TextBlock x:Name="_gpuPowerLabel" Grid.Column="2" Style="{StaticResource DataLabelStyle}" Text="-"/>
                             </Grid>
                         </StackPanel>
                     </Border>

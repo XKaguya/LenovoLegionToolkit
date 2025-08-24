@@ -2276,4 +2276,10 @@ Obsługiwane formaty obrazka: {1}.</value>
   <data name="AboutPage_Log" xml:space="preserve">
     <value />
   </data>
+  <data name="SensorsControl_CPU_Power" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SensorsControl_GPU_Power" xml:space="preserve">
+    <value />
+  </data>
 </root>

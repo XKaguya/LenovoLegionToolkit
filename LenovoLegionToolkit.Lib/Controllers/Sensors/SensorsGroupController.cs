@@ -20,7 +20,7 @@ using System.Threading.Tasks;
 
 namespace LenovoLegionToolkit.Lib.Controllers.Sensors
 {
-    public class MemorySensorController : IDisposable
+    public class SensorsGroupController : IDisposable
     {
         private bool _initialized;
         private readonly List<IThermalSensor> _memorySensors = new();
@@ -35,8 +35,8 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
         {
             try
             {
-                await InitializeAsync().ConfigureAwait(false);
-                GetInterestedHardwares();
+                await InitializeAsync();
+                await GetInterestedHardwaresAsync();
                 return _memorySensors.Count > 0 || _interestedHardwares.Any();
             }
             catch (Exception ex)
@@ -60,29 +60,16 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                         IsCpuEnabled = true,
                         IsGpuEnabled = true,
                         IsMemoryEnabled = true,
-                        IsMotherboardEnabled = true,
-                        IsControllerEnabled = true,
-                        IsNetworkEnabled = true,
+                        IsMotherboardEnabled = false,
+                        IsControllerEnabled = false,
+                        IsNetworkEnabled = false,
                         IsStorageEnabled = true
                     };
 
                     computer.Open();
                     computer.Accept(new UpdateVisitor());
 
-                    var hardwareList = new List<IHardware>(computer.Hardware.Count);
-
-                    foreach (var hardware in computer.Hardware)
-                    {
-                        if (hardware.HardwareType is HardwareType.Memory or HardwareType.Storage)
-                        {
-                            hardwareList.Add(hardware);
-
-                            if (Log.Instance.IsTraceEnabled)
-                                Log.Instance.Trace($"Detected {hardware.HardwareType}: {hardware.Name}");
-                        }
-                    }
-
-                    _interestedHardwares.AddRange(hardwareList);
+                    _interestedHardwares.AddRange(computer.Hardware);
                 }
                 finally
                 {
@@ -91,9 +78,41 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
             }
         }
 
+        public async Task<float> GetCpuPowerAsync()
+        {
+            if (!await IsSupportedAsync().ConfigureAwait(false))
+            {
+                return 0;
+            }
+
+            var cpuHardware = _interestedHardwares
+              .FirstOrDefault(h => h.HardwareType == HardwareType.Cpu);
+
+            var sensor = cpuHardware?.Sensors?
+              .FirstOrDefault(s => s.SensorType == SensorType.Power);
+
+            return sensor?.Value ?? 0;
+        }
+
+        public async Task<float> GetGpuPowerAsync()
+        {
+            if (!await IsSupportedAsync().ConfigureAwait(false))
+            {
+                return 0;
+            }
+            var gpuHardware = _interestedHardwares
+              .FirstOrDefault(h => h.HardwareType == HardwareType.GpuNvidia || h.HardwareType == HardwareType.GpuAmd);
+            var sensor = gpuHardware?.Sensors?
+              .FirstOrDefault(s => s.SensorType == SensorType.Power);
+            return sensor?.Value ?? 0;
+        }
+
         public async Task<(float, float)> GetSSDTemperatures()
         {
-            await GetInterestedHardwaresAsync().ConfigureAwait(false);
+            if (!await IsSupportedAsync().ConfigureAwait(false))
+            {
+                return (0, 0);
+            }
 
             var storageHardwares = _interestedHardwares
               .Where(h => h.HardwareType == HardwareType.Storage)
@@ -104,38 +123,45 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
 
             var temps = new List<float>();
 
-            foreach (var hardware in storageHardwares)
+            foreach (var storage in storageHardwares)
             {
-                var sensor = hardware.Sensors?.FirstOrDefault();
-                if (sensor != null)
+                var tempSensor = storage.Sensors?
+                  .FirstOrDefault(s => s.SensorType == SensorType.Temperature);
+                if (tempSensor?.Value is float value and > 0)
                 {
-                    temps.Add(sensor.Value ?? 0);
+                    temps.Add(value);
                 }
             }
 
-            if (temps.Count == 0) return (0, 0);
+            if (temps.Count == 0)
+                return (0, 0);
 
-            return temps.Count > 1
-              ? (MathF.Round(temps[0], 1), MathF.Round(temps[1], 1))
-              : (MathF.Round(temps[0], 1), 0);
+            return (temps[0], temps[1]);
         }
 
         public async Task<float> GetMemoryUsage()
         {
-            await GetInterestedHardwaresAsync().ConfigureAwait(false);
+            if (!await IsSupportedAsync().ConfigureAwait(false))
+            {
+                return 0;
+            }
 
             var memoryHardware = _interestedHardwares
               .FirstOrDefault(h => h.HardwareType == HardwareType.Memory);
 
             if (memoryHardware == null) return 0;
 
-            var sensor = memoryHardware.Sensors?.ElementAtOrDefault(2);
-            return sensor?.Value ?? 0;
+            return memoryHardware.Sensors?
+              .FirstOrDefault(s => s.SensorType == SensorType.Load)?
+              .Value ?? 0;
         }
 
         public async Task<double> GetHighestMemoryTemperature()
         {
-            await InitializeAsync().ConfigureAwait(false);
+            if (!await IsSupportedAsync().ConfigureAwait(false))
+            {
+                return 0;
+            }
 
             if (_memorySensors.Count == 0)
             {

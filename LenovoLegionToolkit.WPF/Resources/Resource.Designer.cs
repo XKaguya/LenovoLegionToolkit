@@ -4840,6 +4840,15 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Power 的本地化字符串。
+        /// </summary>
+        public static string SensorsControl_CPU_Power {
+            get {
+                return ResourceManager.GetString("SensorsControl_CPU_Power", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 CPU 的本地化字符串。
         /// </summary>
         public static string SensorsControl_CPU_Title {
@@ -4863,6 +4872,15 @@ namespace LenovoLegionToolkit.WPF.Resources {
         public static string SensorsControl_Fan_Title {
             get {
                 return ResourceManager.GetString("SensorsControl_Fan_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Power 的本地化字符串。
+        /// </summary>
+        public static string SensorsControl_GPU_Power {
+            get {
+                return ResourceManager.GetString("SensorsControl_GPU_Power", resourceCulture);
             }
         }
         
