@@ -5,6 +5,7 @@
 // All Rights Reserved.
 
 using LenovoLegionToolkit.Lib.Utils;
+using LibreHardwareMonitor.Hardware;
 using RAMSPDToolkit.I2CSMBus;
 using RAMSPDToolkit.SPD;
 using RAMSPDToolkit.SPD.Interfaces;
@@ -12,7 +13,9 @@ using RAMSPDToolkit.SPD.Interop.Shared;
 using RAMSPDToolkit.Windows.Driver;
 using RAMSPDToolkit.Windows.Driver.Implementations;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace LenovoLegionToolkit.Lib.Controllers.Sensors
@@ -21,14 +24,20 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
     {
         private bool _initialized;
         private readonly List<IThermalSensor> _memorySensors = new();
+        private readonly List<IHardware> _interestedHardwares = new();
         private bool _driverLoaded;
+
+        private readonly object _initLock = new object();
+        private readonly object _hardwareLock = new object();
+        private volatile bool _hardwaresInitialized;
 
         public async Task<bool> IsSupportedAsync()
         {
             try
             {
                 await InitializeAsync().ConfigureAwait(false);
-                return _memorySensors.Count > 0;
+                GetInterestedHardwares();
+                return _memorySensors.Count > 0 || _interestedHardwares.Any();
             }
             catch (Exception ex)
             {
@@ -38,28 +47,133 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
             }
         }
 
+        private void GetInterestedHardwares()
+        {
+            lock (_hardwareLock)
+            {
+                if (_hardwaresInitialized) return;
+
+                try
+                {
+                    var computer = new Computer
+                    {
+                        IsCpuEnabled = true,
+                        IsGpuEnabled = true,
+                        IsMemoryEnabled = true,
+                        IsMotherboardEnabled = true,
+                        IsControllerEnabled = true,
+                        IsNetworkEnabled = true,
+                        IsStorageEnabled = true
+                    };
+
+                    computer.Open();
+                    computer.Accept(new UpdateVisitor());
+
+                    var hardwareList = new List<IHardware>(computer.Hardware.Count);
+
+                    foreach (var hardware in computer.Hardware)
+                    {
+                        if (hardware.HardwareType is HardwareType.Memory or HardwareType.Storage)
+                        {
+                            hardwareList.Add(hardware);
+
+                            if (Log.Instance.IsTraceEnabled)
+                                Log.Instance.Trace($"Detected {hardware.HardwareType}: {hardware.Name}");
+                        }
+                    }
+
+                    _interestedHardwares.AddRange(hardwareList);
+                }
+                finally
+                {
+                    _hardwaresInitialized = true;
+                }
+            }
+        }
+
+        public async Task<(float, float)> GetSSDTemperatures()
+        {
+            await GetInterestedHardwaresAsync().ConfigureAwait(false);
+
+            var storageHardwares = _interestedHardwares
+              .Where(h => h.HardwareType == HardwareType.Storage)
+              .ToList();
+
+            if (storageHardwares.Count == 0)
+                return (0, 0);
+
+            var temps = new List<float>();
+
+            foreach (var hardware in storageHardwares)
+            {
+                var sensor = hardware.Sensors?.FirstOrDefault();
+                if (sensor != null)
+                {
+                    temps.Add(sensor.Value ?? 0);
+                }
+            }
+
+            if (temps.Count == 0) return (0, 0);
+
+            return temps.Count > 1
+              ? (MathF.Round(temps[0], 1), MathF.Round(temps[1], 1))
+              : (MathF.Round(temps[0], 1), 0);
+        }
+
+        public async Task<float> GetMemoryUsage()
+        {
+            await GetInterestedHardwaresAsync().ConfigureAwait(false);
+
+            var memoryHardware = _interestedHardwares
+              .FirstOrDefault(h => h.HardwareType == HardwareType.Memory);
+
+            if (memoryHardware == null) return 0;
+
+            var sensor = memoryHardware.Sensors?.ElementAtOrDefault(2);
+            return sensor?.Value ?? 0;
+        }
+
         public async Task<double> GetHighestMemoryTemperature()
         {
-            if (!await IsSupportedAsync().ConfigureAwait(false))
+            await InitializeAsync().ConfigureAwait(false);
+
+            if (_memorySensors.Count == 0)
+            {
+                await GetInterestedHardwaresAsync().ConfigureAwait(false);
+                var memoryHardware = _interestedHardwares
+                  .FirstOrDefault(h => h.HardwareType == HardwareType.Memory);
+
+                if (memoryHardware != null)
+                {
+                    var tempSensor = memoryHardware.Sensors?
+                      .FirstOrDefault(s => s.SensorType == SensorType.Temperature);
+
+                    return tempSensor?.Value ?? 0;
+                }
+
                 return 0;
+            }
 
             double maxTemp = 0;
             bool anySuccess = false;
 
-            foreach (var sensor in _memorySensors)
+            Parallel.ForEach(_memorySensors, sensor =>
             {
                 try
                 {
                     if (sensor.UpdateTemperature())
                     {
-                        maxTemp = Math.Max(maxTemp, sensor.Temperature);
+                        lock (_memorySensors)
+                        {
+                            maxTemp = Math.Max(maxTemp, sensor.Temperature);
+                        }
                         anySuccess = true;
                     }
                 }
                 catch (Exception ex) when (LogException(ex))
                 {
                 }
-            }
+            });
 
             return anySuccess ? maxTemp : 0;
         }
@@ -68,9 +182,11 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
         {
             if (_initialized) return;
 
-            try
+            lock (_initLock)
             {
-                await Task.Run(() =>
+                if (_initialized) return;
+
+                try
                 {
                     if (OperatingSystem.IsWindows())
                     {
@@ -84,28 +200,32 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
 
                     SMBusManager.DetectSMBuses();
 
-                    foreach (var bus in SMBusManager.RegisteredSMBuses)
+                    var detectedSensors = new ConcurrentBag<IThermalSensor>();
+                    Parallel.ForEach(SMBusManager.RegisteredSMBuses, bus =>
                     {
                         Parallel.For(SPDConstants.SPD_BEGIN, SPDConstants.SPD_END + 1, i =>
                         {
                             var detector = new SPDDetector(bus, (byte)i);
                             if (detector.IsValid && detector.Accessor is IThermalSensor ts)
                             {
-                                lock (_memorySensors)
-                                {
-                                    _memorySensors.Add(ts);
-                                }
+                                detectedSensors.Add(ts);
                                 if (Log.Instance.IsTraceEnabled)
                                     Log.Instance.Trace($"Detected memory sensor on bus {bus} slot {i}");
                             }
                         });
-                    }
-                }).ConfigureAwait(false);
+                    });
+                    _memorySensors.AddRange(detectedSensors);
+                }
+                finally
+                {
+                    _initialized = true;
+                }
             }
-            finally
-            {
-                _initialized = true;
-            }
+        }
+        private async Task GetInterestedHardwaresAsync()
+        {
+            if (_hardwaresInitialized) return;
+            await Task.Run(() => GetInterestedHardwares()).ConfigureAwait(false);
         }
 
         public bool LoadDriver()
@@ -125,10 +245,11 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
 
             return true;
         }
+
         public void UnloadDriver()
         {
             try
-            {                
+            {
                 DriverManager.Driver?.Unload();
             }
             catch

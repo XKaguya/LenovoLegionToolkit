@@ -32,12 +32,10 @@ public partial class SensorsControl
     private CancellationTokenSource? _cts;
     private Task? _refreshTask;
 
-    private static readonly Lazy<double> _cachedTotalMB = new(InitializeTotalMemoryCache);
-    private static double _cachedMemoryUsagePercent = -1;
     private static BatteryInformation? _cachedBatteryInfo;
 
-    private static readonly string _cpuName = GetProcessedCpuName();
-    private static readonly string _gpuName = GetProcessedGpuName();
+    private static readonly Lazy<string> _cpuName = new(() => GetProcessedCpuName());
+    private static readonly Lazy<string> _gpuName = new(() => GetProcessedGpuName());
 
     private int _refreshCounter;
     private bool _isCacheExpired = true;
@@ -69,8 +67,8 @@ public partial class SensorsControl
             var item = new MenuItem
             {
                 SymbolIcon = _dashboardSettings.Store.SensorsRefreshIntervalSeconds == interval
-                    ? SymbolRegular.Checkmark24
-                    : SymbolRegular.Empty,
+                ? SymbolRegular.Checkmark24
+                : SymbolRegular.Empty,
                 Header = TimeSpan.FromSeconds(interval).Humanize(culture: Resource.Culture)
             };
 
@@ -118,7 +116,7 @@ public partial class SensorsControl
             if (Log.Instance.IsTraceEnabled)
                 Log.Instance.Trace($"Sensors refresh started...");
 
-            if (!await _controller.IsSupportedAsync())
+            if (!await _controller.IsSupportedAsync().ConfigureAwait(false))
             {
                 if (Log.Instance.IsTraceEnabled)
                     Log.Instance.Trace($"Sensors not supported.");
@@ -127,15 +125,13 @@ public partial class SensorsControl
                 return;
             }
 
-            await _controller.PrepareAsync();
-
-            var _ = _cachedTotalMB.Value;
+            await _controller.PrepareAsync().ConfigureAwait(false);
 
             while (!token.IsCancellationRequested)
             {
                 try
                 {
-                    var data = await _controller.GetDataAsync();
+                    var data = await _controller.GetDataAsync().ConfigureAwait(false);
                     await Dispatcher.InvokeAsync(() => UpdateValues(data));
                     await Task.Delay(TimeSpan.FromSeconds(_dashboardSettings.Store.SensorsRefreshIntervalSeconds), token);
                 }
@@ -154,48 +150,22 @@ public partial class SensorsControl
         }, token);
     }
 
-    private static double InitializeTotalMemoryCache()
-    {
-        using var searcher = new ManagementObjectSearcher("SELECT TotalPhysicalMemory FROM Win32_ComputerSystem");
-        var totalBytes = searcher.Get().Cast<ManagementObject>()
-            .Select(mo => Convert.ToUInt64(mo["TotalPhysicalMemory"]))
-            .FirstOrDefault();
-
-        return totalBytes == 0
-            ? throw new InvalidOperationException("Failed to get total memory")
-            : totalBytes / (1024.0 * 1024);
-    }
-
     private void UpdateChipNames()
     {
-        UpdateValue(_cpuCardName, _cpuName);
-        UpdateValue(_gpuCardName, _gpuName);
+        UpdateValue(_cpuCardName, _cpuName.Value);
+        UpdateValue(_gpuCardName, _gpuName.Value);
     }
 
     private async Task UpdateMemoryUsageAsync()
     {
         try
         {
-            double availableMB = 0;
-            await Task.Run(() =>
-            {
-                using var memClass = new ManagementClass("Win32_PerfFormattedData_PerfOS_Memory");
-                using var instances = memClass.GetInstances();
-                availableMB = instances.Cast<ManagementObject>()
-                    .Select(mo => mo.Properties["AvailableMBytes"]?.Value)
-                    .Where(val => val != null)
-                    .Sum(val => Convert.ToDouble(val));
-            });
-
-            double usedMB = _cachedTotalMB.Value - availableMB;
-            if (usedMB < 0) usedMB = 0;
-
-            _cachedMemoryUsagePercent = (usedMB / _cachedTotalMB.Value) * 100;
+            var usage = await _memoryControllers.GetMemoryUsage().ConfigureAwait(false);
 
             Dispatcher.Invoke(() =>
             {
-                UpdateValue(_memoryUtilizationBar, _memoryUtilizationLabel, 100, _cachedMemoryUsagePercent,
-                    $"{_cachedMemoryUsagePercent:0}%", "100%");
+                UpdateValue(_memoryUtilizationBar, _memoryUtilizationLabel, 100, usage,
+                  $"{usage:0}%", "100%");
             });
         }
         catch (Exception ex)
@@ -205,14 +175,39 @@ public partial class SensorsControl
         }
     }
 
+    private async Task UpdateDiskTemperatures()
+    {
+        try
+        {
+            var (temp0, temp1) = await _memoryControllers.GetSSDTemperatures().ConfigureAwait(false);
+
+            Dispatcher.Invoke(() =>
+            {
+                UpdateValue(_disk0TemperatureBar, _disk0TemperatureLabel, 100, temp0,
+                GetTemperatureText(temp0), GetTemperatureText(100));
+
+                UpdateValue(_disk1TemperatureBar, _disk1TemperatureLabel, 100, temp1,
+                  GetTemperatureText(temp1), GetTemperatureText(100));
+            });
+        }
+        catch (Exception ex)
+        {
+            if (Log.Instance.IsTraceEnabled)
+                Log.Instance.Trace($"Memory temperatures update failed", ex);
+        }
+    }
+
     private async Task UpdateMemoryTemperatures()
     {
         try
         {
-            double temp = await _memoryControllers.GetHighestMemoryTemperature();
+            double temp = await _memoryControllers.GetHighestMemoryTemperature().ConfigureAwait(false);
 
-            UpdateValue(_memoryTemperatureBar, _memoryTemperatureLabel, 100, temp,
-                GetTemperatureText(temp), GetTemperatureText(100));
+            Dispatcher.Invoke(() =>
+            {
+                UpdateValue(_memoryTemperatureLabel, 100, temp,
+                  GetTemperatureText(temp), GetTemperatureText(100));
+            });
         }
         catch (Exception ex)
         {
@@ -228,31 +223,32 @@ public partial class SensorsControl
             UpdateChipNames();
 
             UpdateValue(_cpuUtilizationBar, _cpuUtilizationLabel, data.CPU.MaxUtilization, data.CPU.Utilization,
-                $"{data.CPU.Utilization}%");
+              $"{data.CPU.Utilization}%");
             UpdateValue(_cpuCoreClockBar, _cpuCoreClockLabel, data.CPU.MaxCoreClock, data.CPU.CoreClock,
-                $"{data.CPU.CoreClock / 1000.0:0.0} {Resource.GHz}", $"{data.CPU.MaxCoreClock / 1000.0:0.0} {Resource.GHz}");
+              $"{data.CPU.CoreClock / 1000.0:0.0} {Resource.GHz}", $"{data.CPU.MaxCoreClock / 1000.0:0.0} {Resource.GHz}");
             UpdateValue(_cpuTemperatureBar, _cpuTemperatureLabel, data.CPU.MaxTemperature, data.CPU.Temperature,
-                GetTemperatureText(data.CPU.Temperature), GetTemperatureText(data.CPU.MaxTemperature));
+              GetTemperatureText(data.CPU.Temperature), GetTemperatureText(data.CPU.MaxTemperature));
             UpdateValue(_cpuFanSpeedBar, _cpuFanSpeedLabel, data.CPU.MaxFanSpeed, data.CPU.FanSpeed,
-                $"{data.CPU.FanSpeed} {Resource.RPM}", $"{data.CPU.MaxFanSpeed} {Resource.RPM}");
+              $"{data.CPU.FanSpeed} {Resource.RPM}", $"{data.CPU.MaxFanSpeed} {Resource.RPM}");
 
             UpdateValue(_gpuUtilizationBar, _gpuUtilizationLabel, data.GPU.MaxUtilization, data.GPU.Utilization,
-                $"{data.GPU.Utilization}%");
+              $"{data.GPU.Utilization}%");
             UpdateValue(_gpuCoreClockBar, _gpuCoreClockLabel, data.GPU.MaxCoreClock, data.GPU.CoreClock,
-                $"{data.GPU.CoreClock} {Resource.MHz}", $"{data.GPU.MaxCoreClock} {Resource.MHz}");
+              $"{data.GPU.CoreClock} {Resource.MHz}", $"{data.GPU.MaxCoreClock} {Resource.MHz}");
             UpdateValue(_gpuCoreTemperatureLabel, data.GPU.MaxTemperature, data.GPU.Temperature,
-                GetTemperatureText(data.GPU.Temperature), GetTemperatureText(data.GPU.MaxTemperature));
+              GetTemperatureText(data.GPU.Temperature), GetTemperatureText(data.GPU.MaxTemperature));
             UpdateValue(_gpuMemoryTemperatureLabel, data.GPU.MaxTemperature, data.GPU.Temperature,
-                GetTemperatureText(data.GPU.Temperature), GetTemperatureText(data.GPU.MaxTemperature));
+              GetTemperatureText(data.GPU.Temperature), GetTemperatureText(data.GPU.MaxTemperature));
             UpdateValue(_gpuFanSpeedBar, _gpuFanSpeedLabel, data.GPU.MaxFanSpeed, data.GPU.FanSpeed,
-                $"{data.GPU.FanSpeed} {Resource.RPM}", $"{data.GPU.MaxFanSpeed} {Resource.RPM}");
+              $"{data.GPU.FanSpeed} {Resource.RPM}", $"{data.GPU.MaxFanSpeed} {Resource.RPM}");
 
             UpdateValue(_pchTemperatureBar, _pchTemperatureLabel, data.PCH.MaxTemperature, data.PCH.Temperature,
-                GetTemperatureText(data.PCH.Temperature), GetTemperatureText(data.PCH.MaxTemperature));
+              GetTemperatureText(data.PCH.Temperature), GetTemperatureText(data.PCH.MaxTemperature));
             UpdateValue(_pchFanSpeedBar, _pchFanSpeedLabel, data.PCH.MaxFanSpeed, data.PCH.FanSpeed,
-                $"{data.PCH.FanSpeed} {Resource.RPM}", $"{data.PCH.MaxFanSpeed} {Resource.RPM}");
+              $"{data.PCH.FanSpeed} {Resource.RPM}", $"{data.PCH.MaxFanSpeed} {Resource.RPM}");
 
             _ = UpdateMemoryTemperatures();
+            _ = UpdateDiskTemperatures();
 
             if (_refreshCounter >= 10 || _isCacheExpired)
             {
@@ -264,22 +260,17 @@ public partial class SensorsControl
                 _cachedBatteryInfo = Battery.GetBatteryInformation();
                 UpdateBatteryStatus(_batteryStateLabel, _cachedBatteryInfo);
                 UpdateValue(_batteryLevelBar, _batteryLevelLabel, 100, _cachedBatteryInfo?.BatteryPercentage ?? 0,
-                    $"{_cachedBatteryInfo?.BatteryPercentage}%", "100%");
+                  $"{_cachedBatteryInfo?.BatteryPercentage}%", "100%");
             }
             else
             {
                 _refreshCounter++;
 
-                UpdateValue(_memoryUtilizationBar, _memoryUtilizationLabel, 100,
-                    _cachedMemoryUsagePercent >= 0 ? _cachedMemoryUsagePercent : 0,
-                    _cachedMemoryUsagePercent >= 0 ? $"{_cachedMemoryUsagePercent:0}%" : "-",
-                    "100%");
-
                 UpdateBatteryStatus(_batteryStateLabel, _cachedBatteryInfo);
                 UpdateValue(_batteryLevelBar, _batteryLevelLabel, 100,
-                    _cachedBatteryInfo?.BatteryPercentage ?? 0,
-                    _cachedBatteryInfo != null ? $"{_cachedBatteryInfo.Value.BatteryPercentage}%" : "-",
-                    "100%");
+                  _cachedBatteryInfo?.BatteryPercentage ?? 0,
+                  _cachedBatteryInfo != null ? $"{_cachedBatteryInfo.Value.BatteryPercentage}%" : "-",
+                  "100%");
             }
         }
     }
@@ -290,19 +281,19 @@ public partial class SensorsControl
         {
             using var searcher = new ManagementObjectSearcher("SELECT Name FROM Win32_Processor");
             var name = searcher.Get().Cast<ManagementObject>()
-                .Select(obj => obj["Name"]?.ToString()?.Trim())
-                .FirstOrDefault(name => !string.IsNullOrEmpty(name))
-                ?? "Unknown CPU";
+              .Select(obj => obj["Name"]?.ToString()?.Trim())
+              .FirstOrDefault(name => !string.IsNullOrEmpty(name))
+              ?? "Unknown CPU";
 
             return name
-                .Replace("Intel(R)", "", StringComparison.OrdinalIgnoreCase)
-                .Replace("Core(TM)", "", StringComparison.OrdinalIgnoreCase)
-                .Replace("AMD", "", StringComparison.OrdinalIgnoreCase)
-                .Replace("Ryzen", "", StringComparison.OrdinalIgnoreCase)
-                .Replace("Processor", "", StringComparison.OrdinalIgnoreCase)
-                .Replace("CPU", "", StringComparison.OrdinalIgnoreCase)
-                .Replace("  ", " ")
-                .Trim();
+              .Replace("Intel(R)", "", StringComparison.OrdinalIgnoreCase)
+              .Replace("Core(TM)", "", StringComparison.OrdinalIgnoreCase)
+              .Replace("AMD", "", StringComparison.OrdinalIgnoreCase)
+              .Replace("Ryzen", "", StringComparison.OrdinalIgnoreCase)
+              .Replace("Processor", "", StringComparison.OrdinalIgnoreCase)
+              .Replace("CPU", "", StringComparison.OrdinalIgnoreCase)
+              .Replace("  ", " ")
+              .Trim();
         }
         catch
         {
@@ -316,7 +307,7 @@ public partial class SensorsControl
         {
             var gpuNames = new List<string>();
             using var key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(
-                @"SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}");
+              @"SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}");
 
             if (key != null)
             {
@@ -332,11 +323,11 @@ public partial class SensorsControl
                         continue;
 
                     var processedName = driverDesc
-                        .Replace("NVIDIA", "", StringComparison.OrdinalIgnoreCase)
-                        .Replace("AMD", "", StringComparison.OrdinalIgnoreCase)
-                        .Replace("LAPTOP", "", StringComparison.OrdinalIgnoreCase)
-                        .Replace("GPU", "", StringComparison.OrdinalIgnoreCase)
-                        .Trim();
+                      .Replace("NVIDIA", "", StringComparison.OrdinalIgnoreCase)
+                      .Replace("AMD", "", StringComparison.OrdinalIgnoreCase)
+                      .Replace("LAPTOP", "", StringComparison.OrdinalIgnoreCase)
+                      .Replace("GPU", "", StringComparison.OrdinalIgnoreCase)
+                      .Trim();
 
                     if (!string.IsNullOrWhiteSpace(processedName))
                     {
@@ -346,8 +337,8 @@ public partial class SensorsControl
             }
 
             return gpuNames.Count > 0
-                ? string.Join(" & ", gpuNames)
-                : "Unknown GPU";
+              ? string.Join(" & ", gpuNames)
+              : "Unknown GPU";
         }
         catch
         {
@@ -414,8 +405,8 @@ public partial class SensorsControl
         else
         {
             label.Text = batteryInfo.Value.IsCharging
-                ? Resource.DashboardBattery_AcConnected
-                : Resource.DashboardBattery_AcDisconnected;
+              ? Resource.DashboardBattery_AcConnected
+              : Resource.DashboardBattery_AcDisconnected;
         }
     }
 
