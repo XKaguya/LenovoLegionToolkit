@@ -7,16 +7,11 @@
 using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.Utils;
 using LibreHardwareMonitor.Hardware;
-using RAMSPDToolkit.I2CSMBus;
-using RAMSPDToolkit.SPD;
-using RAMSPDToolkit.SPD.Interfaces;
-using RAMSPDToolkit.SPD.Interop.Shared;
-using RAMSPDToolkit.Windows.Driver;
-// using RAMSPDToolkit.Windows.Driver.Implementations;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace LenovoLegionToolkit.Lib.Controllers.Sensors
@@ -24,11 +19,12 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
     public class SensorsGroupController : IDisposable
     {
         private bool _initialized;
-        private readonly List<IThermalSensor> _memorySensors = new();
+        private readonly SemaphoreSlim _initSemaphore = new SemaphoreSlim(1, 1);
         private readonly List<IHardware> _interestedHardwares = new();
-        private bool _driverLoaded;
+        private IHardware _cpuHardware;
+        private IHardware _gpuHardware;
+        private IHardware _memoryHardware;
 
-        private readonly object _initLock = new object();
         private readonly object _hardwareLock = new object();
         private volatile bool _hardwaresInitialized;
 
@@ -36,9 +32,7 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
         {
             try
             {
-                // await InitializeAsync();
-                await GetInterestedHardwaresAsync();
-                // return _memorySensors.Count > 0 || _interestedHardwares.Any();
+                await InitializeAsync();
                 return _interestedHardwares.Any();
             }
             catch (Exception ex)
@@ -80,6 +74,9 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                     }
 
                     _interestedHardwares.AddRange(computer.Hardware);
+                    _cpuHardware = _interestedHardwares.FirstOrDefault(h => h.HardwareType == HardwareType.Cpu);
+                    _gpuHardware = _interestedHardwares.FirstOrDefault(h => h.HardwareType == HardwareType.GpuNvidia || h.HardwareType == HardwareType.GpuAmd);
+                    _memoryHardware = _interestedHardwares.FirstOrDefault(h => h.HardwareType == HardwareType.Memory);
                 }
                 finally
                 {
@@ -95,20 +92,12 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                 return "UNKNOWN";
             }
 
-            var cpuHardware = _interestedHardwares
-              .FirstOrDefault(h => h.HardwareType == HardwareType.Cpu);
+            if (_cpuHardware == null)
+            {
+                return "UNKNOWN";
+            }
 
-            var strippedName = cpuHardware.Name;
-            return strippedName
-                .Replace("Intel(R)", "", StringComparison.OrdinalIgnoreCase)
-                .Replace("Core(TM)", "", StringComparison.OrdinalIgnoreCase)
-                .Replace("AMD", "", StringComparison.OrdinalIgnoreCase)
-                .Replace("Ryzen", "", StringComparison.OrdinalIgnoreCase)
-                .Replace("Processor", "", StringComparison.OrdinalIgnoreCase)
-                .Replace("CPU", "", StringComparison.OrdinalIgnoreCase)
-                .Replace("  ", " ")
-                .Trim();
-
+            return StripName(_cpuHardware.Name, "Intel(R)", "Core(TM)", "AMD", "Ryzen", "Processor", "CPU");
         }
 
         public async Task<string> GetGpuNameAsync()
@@ -118,16 +107,12 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                 return "UNKNOWN";
             }
 
-            var gpuHardware = _interestedHardwares
-              .FirstOrDefault(h => h.HardwareType == HardwareType.GpuNvidia || h.HardwareType == HardwareType.GpuAmd);
+            if (_gpuHardware == null)
+            {
+                return "UNKNOWN";
+            }
 
-            var strippedName = gpuHardware.Name;
-            return strippedName
-                .Replace("NVIDIA", "", StringComparison.OrdinalIgnoreCase)
-                .Replace("AMD", "", StringComparison.OrdinalIgnoreCase)
-                .Replace("LAPTOP", "", StringComparison.OrdinalIgnoreCase)
-                .Replace("GPU", "", StringComparison.OrdinalIgnoreCase)
-                .Trim();
+            return StripName(_gpuHardware.Name, "NVIDIA", "AMD", "LAPTOP", "GPU");
         }
 
         public async Task<float> GetCpuPowerAsync()
@@ -137,17 +122,14 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                 return 0;
             }
 
-            var cpuHardware = _interestedHardwares
-              .FirstOrDefault(h => h.HardwareType == HardwareType.Cpu);
-
-            if (cpuHardware == null)
+            if (_cpuHardware == null)
             {
                 return 0;
             }
 
-            cpuHardware.Update();
+            _cpuHardware.Update();
 
-            var sensor = cpuHardware.Sensors?
+            var sensor = _cpuHardware.Sensors?
               .FirstOrDefault(s => s.SensorType == SensorType.Power);
 
             return sensor?.Value ?? 0;
@@ -160,17 +142,14 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                 return 0;
             }
 
-            var gpuHardware = _interestedHardwares
-              .FirstOrDefault(h => h.HardwareType == HardwareType.GpuNvidia || h.HardwareType == HardwareType.GpuAmd);
-
-            if (gpuHardware == null)
+            if (_gpuHardware == null)
             {
                 return 0;
             }
 
-            gpuHardware.Update();
+            _gpuHardware.Update();
 
-            var sensor = gpuHardware.Sensors?
+            var sensor = _gpuHardware.Sensors?
               .FirstOrDefault(s => s.SensorType == SensorType.Power);
             return sensor?.Value ?? 0;
         }
@@ -182,7 +161,6 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                 return (0, 0);
             }
 
-            // Use a List<float> to dynamically collect temperatures
             var temps = new List<float>();
 
             try
@@ -236,14 +214,11 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                 return 0;
             }
 
-            var memoryHardware = _interestedHardwares
-              .FirstOrDefault(h => h.HardwareType == HardwareType.Memory);
+            _memoryHardware?.Update();
 
-            memoryHardware?.Update();
+            if (_memoryHardware == null) return 0;
 
-            if (memoryHardware == null) return 0;
-
-            return memoryHardware.Sensors?
+            return _memoryHardware.Sensors?
               .FirstOrDefault(s => s.SensorType == SensorType.Load)?
               .Value ?? 0;
         }
@@ -255,174 +230,67 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                 return 0;
             }
 
-            //if (_memorySensors.Count == 0)
-            //{
-            //    if (Log.Instance.IsTraceEnabled)
-            //    {
-            //        Log.Instance.Trace($"No memory sensors detected");
-            //    }
-
-            //    return 0;
-            //}
-
             var memoryHardwares = _interestedHardwares
               .Where(h => h.HardwareType == HardwareType.Memory);
 
             if (memoryHardwares == null || !memoryHardwares.Any()) return 0;
 
-            memoryHardwares.ForEach(memoryHardware => memoryHardware.Update());
-
-            float maxTemperature = memoryHardwares
-            .SelectMany(hw => hw.Sensors ?? Enumerable.Empty<ISensor>())
-            .Where(s => s != null && s.SensorType == SensorType.Temperature && s.Value.HasValue && s.Value > 0)
-            .Select(s => s.Value.Value)
-            .DefaultIfEmpty(0)
-            .Max();
-
-            if (maxTemperature > 0)
+            float maxTemperature = 0;
+            foreach (var memoryHardware in memoryHardwares)
             {
-                return maxTemperature;
+                memoryHardware.Update();
+                if (memoryHardware.Sensors == null) continue;
+
+                foreach (var sensor in memoryHardware.Sensors)
+                {
+                    if (sensor.SensorType == SensorType.Temperature && sensor.Value.HasValue && sensor.Value > 0)
+                    {
+                        if (sensor.Value.Value > maxTemperature)
+                        {
+                            maxTemperature = sensor.Value.Value;
+                        }
+                    }
+                }
             }
-
-            double maxTemp = 0;
-            bool anySuccess = false;
-
-            Parallel.ForEach(_memorySensors, sensor =>
-            {
-                try
-                {
-                    if (sensor.UpdateTemperature())
-                    {
-                        lock (_memorySensors)
-                        {
-                            maxTemp = Math.Max(maxTemp, sensor.Temperature);
-                        }
-                        anySuccess = true;
-                    }
-                    else
-                    {
-                        if (Log.Instance.IsTraceEnabled)
-                        {
-                            Log.Instance.Trace($"Failed to update temperature sensor.");
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    if (Log.Instance.IsTraceEnabled)
-                    {
-                        Log.Instance.Trace($"Error when reading memory temperatures. {ex.Message} + {ex.StackTrace}");
-                    }
-                }
-            });
-
-            return anySuccess ? maxTemp : 0;
+            return maxTemperature;
         }
 
         private async Task InitializeAsync()
         {
             if (_initialized) return;
 
-            lock (_initLock)
+            await _initSemaphore.WaitAsync();
+            try
             {
                 if (_initialized) return;
 
-                try
-                {
-                    if (OperatingSystem.IsWindows())
-                    {
-                        //if (!LoadDriver())
-                        //{ 
-                        //    _initialized = true;
-                        //    return;
-                        //}
-                        _driverLoaded = true;
-                    }
-
-                    SMBusManager.DetectSMBuses();
-
-                    var detectedSensors = new ConcurrentBag<IThermalSensor>();
-                    Parallel.ForEach(SMBusManager.RegisteredSMBuses, bus =>
-                    {
-                        Parallel.For(SPDConstants.SPD_BEGIN, SPDConstants.SPD_END + 1, i =>
-                        {
-                            var detector = new SPDDetector(bus, (byte)i);
-                            if (detector.IsValid && detector.Accessor is IThermalSensor ts)
-                            {
-                                detectedSensors.Add(ts);
-                                if (Log.Instance.IsTraceEnabled)
-                                    Log.Instance.Trace($"Detected memory sensor on bus {bus} slot {i}");
-                            }
-                        });
-                    });
-                    _memorySensors.AddRange(detectedSensors);
-                }
-                finally
-                {
-                    _initialized = true;
-                }
+                await Task.Run(() => GetInterestedHardwares()).ConfigureAwait(false);
             }
-        }
-        private async Task GetInterestedHardwaresAsync()
-        {
-            if (_hardwaresInitialized) return;
-            await Task.Run(() => GetInterestedHardwares()).ConfigureAwait(false);
-        }
-
-        //public bool LoadDriver()
-        //{
-        //    DriverManager.InitDriver(InternalDriver.OLS);
-
-        //    if (DriverManager.DriverImplementation != InternalDriver.OLS || !DriverManager.Driver.Load())
-        //    {
-        //        if (Log.Instance.IsTraceEnabled)
-        //            Log.Instance.Trace($"Failed to load driver");
-
-        //        return false;
-        //    }
-
-        //    if (Log.Instance.IsTraceEnabled)
-        //        Log.Instance.Trace($"Driver loaded successfully");
-
-        //    return true;
-        //}
-
-        public void UnloadDriver()
-        {
-            try
+            finally
             {
-                DriverManager.Driver?.Unload();
-            }
-            catch
-            {
-                if (Log.Instance.IsTraceEnabled)
-                {
-                    Log.Instance.Trace($"Failed to unload driver");
-                }
+                _initSemaphore.Release();
+                _initialized = true;
             }
         }
 
-        private bool LogException(Exception ex)
+        private string StripName(string name, params string[] terms)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Memory sensor error: {ex.Message}");
-            return true;
+            if (string.IsNullOrEmpty(name)) return "UNKNOWN";
+
+            var sb = new StringBuilder(name);
+            foreach (var term in terms)
+            {
+                int index;
+                while ((index = sb.ToString().IndexOf(term, StringComparison.OrdinalIgnoreCase)) != -1)
+                {
+                    sb.Remove(index, term.Length);
+                }
+            }
+            return sb.ToString().Replace("  ", " ").Trim();
         }
 
         public void Dispose()
         {
-            if (_driverLoaded && OperatingSystem.IsWindows())
-            {
-                try
-                {
-                    DriverManager.Driver?.Unload();
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Driver unloaded");
-                }
-                catch
-                {
-                }
-            }
             GC.SuppressFinalize(this);
         }
     }

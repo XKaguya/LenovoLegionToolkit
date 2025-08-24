@@ -67,6 +67,7 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
             <StackPanel Grid.Column="0" Margin="0,0,32,0">
@@ -92,6 +93,9 @@
                 <wpfui:Hyperlink Content="WindowsDisplayAPI" NavigateUri="https://github.com/falahati/WindowsDisplayAPI" />
                 <wpfui:Hyperlink Content="wpfui" NavigateUri="https://github.com/lepoco/wpfui" />
                 <wpfui:Hyperlink Content="RAMSPDToolkit" NavigateUri="https://github.com/Blacktempel/RAMSPDToolkit" />
+            </StackPanel>
+            <StackPanel Grid.Column="3">
+                <wpfui:Hyperlink Content="LibreHardwareMonitor" NavigateUri="https://github.com/LibreHardwareMonitor/LibreHardwareMonitor" />
             </StackPanel>
 
         </Grid>

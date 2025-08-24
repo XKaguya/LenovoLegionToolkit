@@ -34,7 +34,7 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <Reference Include="LibreHardwareMonitorLib">
-	    <HintPath>C:\Users\Administrator\Downloads\net8.0\LibreHardwareMonitorLib.dll</HintPath>
+	    <HintPath>..\TemporarySolution\LibreHardwareMonitorLib.dll</HintPath>
 	  </Reference>
 	</ItemGroup>
 	<ItemGroup>

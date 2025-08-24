@@ -1,13 +1,18 @@
-﻿using Humanizer;
+﻿// This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+// If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
+// Copyright (C) RAMSPDToolkit and Contributors.
+// Partial Copyright (C) Michael Möller <mmoeller@openhardwaremonitor.org> and Contributors.
+// All Rights Reserved.
+
+using Humanizer;
 using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Controllers.Sensors;
 using LenovoLegionToolkit.Lib.Settings;
 using LenovoLegionToolkit.Lib.System;
+using LenovoLegionToolkit.Lib.Utils;
 using LenovoLegionToolkit.WPF.Resources;
 using LenovoLegionToolkit.WPF.Settings;
 using System;
-using System.Linq;
-using System.Management;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -98,8 +103,6 @@ public partial class SensorsControl
             await _refreshTask;
 
         _refreshTask = null;
-
-        UpdateValues(SensorsData.Empty);
     }
 
     private async Task RefreshAsync()
@@ -129,14 +132,101 @@ public partial class SensorsControl
                 {
                     try
                     {
-                        var data = await _controller.GetDataAsync().ConfigureAwait(false);
-                        await Dispatcher.InvokeAsync(() => UpdateValues(data));
+                        var dataTask = _controller.GetDataAsync();
+                        var cpuPowerTask = _sensorsGroupControllers.GetCpuPowerAsync();
+                        var gpuPowerTask = _sensorsGroupControllers.GetGpuPowerAsync();
+                        var diskTemperaturesTask = _sensorsGroupControllers.GetSSDTemperaturesAsync();
+                        var memoryUsageTask = _sensorsGroupControllers.GetMemoryUsageAsync();
+                        var memoryTemperaturesTask = _sensorsGroupControllers.GetHighestMemoryTemperatureAsync();
+                        var batteryInfoTask = Task.Run(() => Battery.GetBatteryInformation());
+
+                        await Task.WhenAll(
+                            dataTask,
+                            cpuPowerTask,
+                            gpuPowerTask,
+                            diskTemperaturesTask,
+                            memoryUsageTask,
+                            memoryTemperaturesTask,
+                            batteryInfoTask
+                        ).ConfigureAwait(false);
+
+                        await Dispatcher.InvokeAsync(() =>
+                        {
+                            lock (_updateLock)
+                            {
+                                var data = dataTask.Result;
+                                var (diskTemp0, diskTemp1) = diskTemperaturesTask.Result;
+
+                                UpdateValue(_cpuCardName, _cpuNameTask.Result);
+                                UpdateValue(_gpuCardName, _gpuNameTask.Result);
+
+                                UpdateValue(_cpuUtilizationBar, _cpuUtilizationLabel, data.CPU.MaxUtilization, data.CPU.Utilization, $"{data.CPU.Utilization}%");
+                                UpdateValue(_cpuCoreClockBar, _cpuCoreClockLabel, data.CPU.MaxCoreClock, data.CPU.CoreClock, $"{data.CPU.CoreClock / 1000.0:0.0} {Resource.GHz}", $"{data.CPU.MaxCoreClock / 1000.0:0.0} {Resource.GHz}");
+                                UpdateValue(_cpuTemperatureBar, _cpuTemperatureLabel, data.CPU.MaxTemperature, data.CPU.Temperature, GetTemperatureText(data.CPU.Temperature), GetTemperatureText(data.CPU.MaxTemperature));
+                                UpdateValue(_cpuFanSpeedBar, _cpuFanSpeedLabel, data.CPU.MaxFanSpeed, data.CPU.FanSpeed, $"{data.CPU.FanSpeed} {Resource.RPM}", $"{data.CPU.MaxFanSpeed} {Resource.RPM}");
+                                UpdateValue(_cpuPowerLabel, $"{cpuPowerTask.Result:0}W");
+
+                                UpdateValue(_gpuUtilizationBar, _gpuUtilizationLabel, data.GPU.MaxUtilization, data.GPU.Utilization, $"{data.GPU.Utilization}%");
+                                UpdateValue(_gpuCoreClockBar, _gpuCoreClockLabel, data.GPU.MaxCoreClock, data.GPU.CoreClock, $"{data.GPU.CoreClock} {Resource.MHz}", $"{data.GPU.MaxCoreClock} {Resource.MHz}");
+                                UpdateValue(_gpuCoreTemperatureLabel, data.GPU.MaxTemperature, data.GPU.Temperature, GetTemperatureText(data.GPU.Temperature), GetTemperatureText(data.GPU.MaxTemperature));
+                                UpdateValue(_gpuMemoryTemperatureLabel, data.GPU.MaxTemperature, data.GPU.Temperature, GetTemperatureText(data.GPU.Temperature), GetTemperatureText(data.GPU.MaxTemperature));
+                                UpdateValue(_gpuFanSpeedBar, _gpuFanSpeedLabel, data.GPU.MaxFanSpeed, data.GPU.FanSpeed, $"{data.GPU.FanSpeed} {Resource.RPM}", $"{data.GPU.MaxFanSpeed} {Resource.RPM}");
+                                UpdateValue(_gpuPowerLabel, $"{gpuPowerTask.Result:0}W");
+
+                                UpdateValue(_pchTemperatureBar, _pchTemperatureLabel, data.PCH.MaxTemperature, data.PCH.Temperature, GetTemperatureText(data.PCH.Temperature), GetTemperatureText(data.PCH.MaxTemperature));
+                                UpdateValue(_pchFanSpeedBar, _pchFanSpeedLabel, data.PCH.MaxFanSpeed, data.PCH.FanSpeed, $"{data.PCH.FanSpeed} {Resource.RPM}", $"{data.PCH.MaxFanSpeed} {Resource.RPM}");
+
+                                UpdateValue(_disk0TemperatureBar, _disk0TemperatureLabel, 100, diskTemp0, GetTemperatureText(diskTemp0), GetTemperatureText(100));
+                                UpdateValue(_disk1TemperatureBar, _disk1TemperatureLabel, 100, diskTemp1, GetTemperatureText(diskTemp1), GetTemperatureText(100));
+
+                                UpdateValue(_memoryUtilizationBar, _memoryUtilizationLabel, 100, memoryUsageTask.Result, $"{memoryUsageTask.Result:0}%", "100%");
+                                UpdateValue(_memoryTemperatureBar, _memoryTemperatureLabel, 100, memoryTemperaturesTask.Result, GetTemperatureText(memoryTemperaturesTask.Result), GetTemperatureText(100));
+
+                                _cachedBatteryInfo = batteryInfoTask.Result;
+                                UpdateBatteryStatus(_batteryStateLabel, _cachedBatteryInfo);
+                                UpdateValue(_batteryLevelBar, _batteryLevelLabel, 100, _cachedBatteryInfo?.BatteryPercentage ?? 0, _cachedBatteryInfo != null ? $"{_cachedBatteryInfo.Value.BatteryPercentage}%" : "-", "100%");
+                            }
+                        }, System.Windows.Threading.DispatcherPriority.Background);
+
                         await Task.Delay(TimeSpan.FromSeconds(_dashboardSettings.Store.SensorsRefreshIntervalSeconds), token);
                     }
                     catch (OperationCanceledException) { }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-                        await Dispatcher.InvokeAsync(() => UpdateValues(SensorsData.Empty));
+                        if (Log.Instance.IsTraceEnabled)
+                            Log.Instance.Trace($"Sensor refresh failed: {ex}");
+
+                        await Dispatcher.InvokeAsync(() =>
+                        {
+                            // On error, reset values on UI thread.
+                            lock (_updateLock)
+                            {
+                                UpdateValue(_cpuUtilizationBar, _cpuUtilizationLabel, -1, -1, "");
+                                UpdateValue(_cpuCoreClockBar, _cpuCoreClockLabel, -1, -1, "");
+                                UpdateValue(_cpuTemperatureBar, _cpuTemperatureLabel, -1, -1, "");
+                                UpdateValue(_cpuFanSpeedBar, _cpuFanSpeedLabel, -1, -1, "");
+                                UpdateValue(_cpuPowerLabel, "-");
+
+                                UpdateValue(_gpuUtilizationBar, _gpuUtilizationLabel, -1, -1, "");
+                                UpdateValue(_gpuCoreClockBar, _gpuCoreClockLabel, -1, -1, "");
+                                UpdateValue(_gpuCoreTemperatureLabel, -1, -1, "");
+                                UpdateValue(_gpuMemoryTemperatureLabel, -1, -1, "");
+                                UpdateValue(_gpuFanSpeedBar, _gpuFanSpeedLabel, -1, -1, "");
+                                UpdateValue(_gpuPowerLabel, "-");
+
+                                UpdateValue(_pchTemperatureBar, _pchTemperatureLabel, -1, -1, "");
+                                UpdateValue(_pchFanSpeedBar, _pchFanSpeedLabel, -1, -1, "");
+
+                                UpdateValue(_disk0TemperatureBar, _disk0TemperatureLabel, -1, -1, "");
+                                UpdateValue(_disk1TemperatureBar, _disk1TemperatureLabel, -1, -1, "");
+
+                                UpdateValue(_memoryUtilizationBar, _memoryUtilizationLabel, -1, -1, "");
+                                UpdateValue(_memoryTemperatureBar, _memoryTemperatureLabel, -1, -1, "");
+
+                                UpdateBatteryStatus(_batteryStateLabel, null);
+                                UpdateValue(_batteryLevelBar, _batteryLevelLabel, -1, -1, "-");
+                            }
+                        });
                     }
                 }
             }, token);
@@ -149,12 +239,12 @@ public partial class SensorsControl
 
     private async Task<string> GetProcessedCpuName()
     {
-        return await _sensorsGroupControllers.GetCpuNameAsync();
+        return await _sensorsGroupControllers.GetCpuNameAsync().ConfigureAwait(false);
     }
 
     private async Task<string> GetProcessedGpuName()
     {
-        return await _sensorsGroupControllers.GetGpuNameAsync();
+        return await _sensorsGroupControllers.GetGpuNameAsync().ConfigureAwait(false);
     }
 
     private string GetTemperatureText(double temperature)
@@ -164,7 +254,6 @@ public partial class SensorsControl
             temperature = temperature * 9 / 5 + 32;
             return $"{temperature:0}{Resource.Fahrenheit}";
         }
-
         return $"{temperature:0}{Resource.Celsius}";
     }
 
@@ -225,55 +314,5 @@ public partial class SensorsControl
     private static void UpdateValue(TextBlock label, string str)
     {
         label.Text = str;
-    }
-
-    private async void UpdateValues(SensorsData data)
-    {
-        var memoryTemperaturesTask = _sensorsGroupControllers.GetHighestMemoryTemperatureAsync();
-        var diskTemperaturesTask = _sensorsGroupControllers.GetSSDTemperaturesAsync();
-        var memoryUsageTask = _sensorsGroupControllers.GetMemoryUsageAsync();
-        var batteryInfoTask = Task.Run(() => Battery.GetBatteryInformation());
-        var cpuPowerTask = _sensorsGroupControllers.GetCpuPowerAsync();
-        var gpuPowerTask = _sensorsGroupControllers.GetGpuPowerAsync();
-
-        await Task.WhenAll(memoryTemperaturesTask, diskTemperaturesTask, memoryUsageTask, batteryInfoTask, cpuPowerTask, gpuPowerTask).ConfigureAwait(false);
-
-        Dispatcher.Invoke(() =>
-        {
-            lock (_updateLock)
-            {
-                UpdateValue(_cpuCardName, _cpuNameTask.Result);
-                UpdateValue(_gpuCardName, _gpuNameTask.Result);
-
-                UpdateValue(_cpuUtilizationBar, _cpuUtilizationLabel, data.CPU.MaxUtilization, data.CPU.Utilization, $"{data.CPU.Utilization}%");
-                UpdateValue(_cpuCoreClockBar, _cpuCoreClockLabel, data.CPU.MaxCoreClock, data.CPU.CoreClock, $"{data.CPU.CoreClock / 1000.0:0.0} {Resource.GHz}", $"{data.CPU.MaxCoreClock / 1000.0:0.0} {Resource.GHz}");
-                UpdateValue(_cpuTemperatureBar, _cpuTemperatureLabel, data.CPU.MaxTemperature, data.CPU.Temperature, GetTemperatureText(data.CPU.Temperature), GetTemperatureText(data.CPU.MaxTemperature));
-                UpdateValue(_cpuFanSpeedBar, _cpuFanSpeedLabel, data.CPU.MaxFanSpeed, data.CPU.FanSpeed, $"{data.CPU.FanSpeed} {Resource.RPM}", $"{data.CPU.MaxFanSpeed} {Resource.RPM}");
-                UpdateValue(_cpuPowerLabel, $"{cpuPowerTask.Result:0}W");
-
-                UpdateValue(_gpuUtilizationBar, _gpuUtilizationLabel, data.GPU.MaxUtilization, data.GPU.Utilization, $"{data.GPU.Utilization}%");
-                UpdateValue(_gpuCoreClockBar, _gpuCoreClockLabel, data.GPU.MaxCoreClock, data.GPU.CoreClock, $"{data.GPU.CoreClock} {Resource.MHz}", $"{data.GPU.MaxCoreClock} {Resource.MHz}");
-                UpdateValue(_gpuCoreTemperatureLabel, data.GPU.MaxTemperature, data.GPU.Temperature, GetTemperatureText(data.GPU.Temperature), GetTemperatureText(data.GPU.MaxTemperature));
-                UpdateValue(_gpuMemoryTemperatureLabel, data.GPU.MaxTemperature, data.GPU.Temperature, GetTemperatureText(data.GPU.Temperature), GetTemperatureText(data.GPU.MaxTemperature));
-                UpdateValue(_gpuFanSpeedBar, _gpuFanSpeedLabel, data.GPU.MaxFanSpeed, data.GPU.FanSpeed, $"{data.GPU.FanSpeed} {Resource.RPM}", $"{data.GPU.MaxFanSpeed} {Resource.RPM}");
-                UpdateValue(_gpuPowerLabel, $"{gpuPowerTask.Result:0}W");
-
-                UpdateValue(_pchTemperatureBar, _pchTemperatureLabel, data.PCH.MaxTemperature, data.PCH.Temperature, GetTemperatureText(data.PCH.Temperature), GetTemperatureText(data.PCH.MaxTemperature));
-                UpdateValue(_pchFanSpeedBar, _pchFanSpeedLabel, data.PCH.MaxFanSpeed, data.PCH.FanSpeed, $"{data.PCH.FanSpeed} {Resource.RPM}", $"{data.PCH.MaxFanSpeed} {Resource.RPM}");
-
-                var (diskTemp0, diskTemp1) = diskTemperaturesTask.Result;
-                UpdateValue(_disk0TemperatureBar, _disk0TemperatureLabel, 100, diskTemp0, GetTemperatureText(diskTemp0), GetTemperatureText(100));
-                UpdateValue(_disk1TemperatureBar, _disk1TemperatureLabel, 100, diskTemp1, GetTemperatureText(diskTemp1), GetTemperatureText(100));
-
-                var memoryUsage = memoryUsageTask.Result;
-                UpdateValue(_memoryUtilizationBar, _memoryUtilizationLabel, 100, memoryUsage, $"{memoryUsage:0}%", "100%");
-                var memoryTemp = memoryTemperaturesTask.Result;
-                UpdateValue(_memoryTemperatureBar, _memoryTemperatureLabel, 100, memoryTemp, GetTemperatureText(memoryTemp), GetTemperatureText(100));
-
-                _cachedBatteryInfo = batteryInfoTask.Result;
-                UpdateBatteryStatus(_batteryStateLabel, _cachedBatteryInfo);
-                UpdateValue(_batteryLevelBar, _batteryLevelLabel, 100, _cachedBatteryInfo?.BatteryPercentage ?? 0, _cachedBatteryInfo != null ? $"{_cachedBatteryInfo.Value.BatteryPercentage}%" : "-", "100%");
-            }
-        });
     }
 }

@@ -18,7 +18,6 @@ using LenovoLegionToolkit.Lib.Macro;
 using LenovoLegionToolkit.Lib.Settings;
 using LenovoLegionToolkit.Lib.SoftwareDisabler;
 using LenovoLegionToolkit.Lib.System;
-using LenovoLegionToolkit.Lib.System.Management;
 using LenovoLegionToolkit.Lib.Utils;
 using LenovoLegionToolkit.WPF.CLI;
 using LenovoLegionToolkit.WPF.Extensions;
@@ -183,7 +182,6 @@ public partial class App
 
     private void Application_Exit(object sender, ExitEventArgs e)
     {
-        UnloadDriver();
         _singleInstanceMutex?.Close();
     }
 
@@ -205,7 +203,6 @@ public partial class App
 
     protected override void OnExit(ExitEventArgs e)
     {
-        UnloadDriver();
         base.OnExit(e);
     }
 
@@ -265,7 +262,6 @@ public partial class App
         }
         catch { /* Ignored. */ }
 
-        UnloadDriver();
         Shutdown();
     }
 
@@ -280,7 +276,6 @@ public partial class App
             "Application Domain Error",
             MessageBoxButton.OK,
             MessageBoxImage.Error);
-        UnloadDriver();
         Shutdown(100);
     }
 
@@ -304,7 +299,6 @@ public partial class App
 
         MessageBox.Show(Resource.IncompatibleDevice_Message, Resource.AppName, MessageBoxButton.OK, MessageBoxImage.Error);
 
-        UnloadDriver();
         Shutdown(201);
         return false;
     }
@@ -338,7 +332,6 @@ public partial class App
         if (Log.Instance.IsTraceEnabled)
             Log.Instance.Trace($"Shutting down... [Vendor={mi.Vendor}, Model={mi.Model}, MachineType={mi.MachineType}]");
 
-        UnloadDriver();
         Shutdown(202);
         return false;
     }
@@ -644,16 +637,5 @@ public partial class App
     {
         var controller = IoCContainer.Resolve<MacroController>();
         controller.Start();
-    }
-
-    // This is used to prevent next time LLT startup the memory temperature is missing.
-    private static void UnloadDriver()
-    {
-        try
-        {
-            SensorsGroupController _memoryControllers = IoCContainer.Resolve<SensorsGroupController>();
-            _memoryControllers.UnloadDriver();
-        }
-        catch { /* Ignored. */ }
     }
 }
