@@ -69,6 +69,14 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                     computer.Open();
                     computer.Accept(new UpdateVisitor());
 
+                    if (Log.Instance.IsTraceEnabled)
+                    {
+                        foreach (var hardware in computer.Hardware)
+                        {
+                            Log.Instance.Trace($"Detected hardware: {hardware.HardwareType} - {hardware.Name}");
+                        }
+                    }
+
                     _interestedHardwares.AddRange(computer.Hardware);
                 }
                 finally
@@ -130,9 +138,14 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
             var cpuHardware = _interestedHardwares
               .FirstOrDefault(h => h.HardwareType == HardwareType.Cpu);
 
-            cpuHardware?.Update();
+            if (cpuHardware == null)
+            {
+                return 0;
+            }
 
-            var sensor = cpuHardware?.Sensors?
+            cpuHardware.Update();
+
+            var sensor = cpuHardware.Sensors?
               .FirstOrDefault(s => s.SensorType == SensorType.Power);
 
             return sensor?.Value ?? 0;
@@ -148,9 +161,14 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
             var gpuHardware = _interestedHardwares
               .FirstOrDefault(h => h.HardwareType == HardwareType.GpuNvidia || h.HardwareType == HardwareType.GpuAmd);
 
-            gpuHardware?.Update();
+            if (gpuHardware == null)
+            {
+                return 0;
+            }
 
-            var sensor = gpuHardware?.Sensors?
+            gpuHardware.Update();
+
+            var sensor = gpuHardware.Sensors?
               .FirstOrDefault(s => s.SensorType == SensorType.Power);
             return sensor?.Value ?? 0;
         }
@@ -162,23 +180,37 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                 return (0, 0);
             }
 
-            var storageHardwares = _interestedHardwares
-              .Where(h => h.HardwareType == HardwareType.Storage)
-              .ToList();
+            var temps = new List<float> { 0, 0 };
 
-            if (storageHardwares.Count == 0)
-                return (0, 0);
-
-            var temps = new List<float>();
-
-            foreach (var storage in storageHardwares)
+            try
             {
-                var tempSensor = storage.Sensors?
-                  .FirstOrDefault(s => s.SensorType == SensorType.Temperature);
-                if (tempSensor?.Value is float value and > 0)
+                var storageHardwares = _interestedHardwares
+                              .Where(h => h.HardwareType == HardwareType.Storage)
+                              .ToList();
+
+                if (storageHardwares.Count == 0)
+                    return (0, 0);
+
+                storageHardwares.ForEach(h => h.Update());
+
+                foreach (var storage in storageHardwares)
                 {
-                    temps.Add(value);
+                    var tempSensor = storage.Sensors?
+                      .FirstOrDefault(s => s.SensorType == SensorType.Temperature);
+                    if (tempSensor?.Value is float value and > 0)
+                    {
+                        temps.Add(value);
+                    }
                 }
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                if (Log.Instance.IsTraceEnabled)
+                {
+                    Log.Instance.Trace($"SSD temperature read error: {ex.Message}");
+                }
+
+                return (0, 0);
             }
 
             if (temps.Count == 0)
@@ -215,6 +247,11 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
 
             if (_memorySensors.Count == 0)
             {
+                if (Log.Instance.IsTraceEnabled)
+                {
+                    Log.Instance.Trace($"No memory sensors detected");
+                }
+
                 return 0;
             }
 
@@ -234,8 +271,12 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                         anySuccess = true;
                     }
                 }
-                catch (Exception ex) when (LogException(ex))
+                catch (Exception ex)
                 {
+                    if (Log.Instance.IsTraceEnabled)
+                    {
+                        Log.Instance.Trace($"Error when reading memory temperatures. {ex.Message} + {ex.StackTrace}");
+                    }
                 }
             });
 
