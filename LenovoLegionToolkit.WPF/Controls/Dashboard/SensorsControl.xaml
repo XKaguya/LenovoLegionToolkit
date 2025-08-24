@@ -302,7 +302,7 @@
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Style="{StaticResource DataLabelStyle}" Text="{x:Static resources:Resource.SensorsControl_Temperature_Title}"/>
+                                    <TextBlock Grid.Column="0" Style="{StaticResource DataLabelStyle}" Text="{x:Static resources:Resource.SensorsControl_Disk_1_Temperature}"/>
                                     <TextBlock x:Name="_disk0TemperatureLabel" Grid.Column="2" Style="{StaticResource DataValueStyle}" Text="-"/>
                                     <ProgressBar x:Name="_disk0TemperatureBar" Grid.Column="3" Style="{StaticResource CompactProgressBarStyle}" Value="0" Maximum="100"/>
                                 </Grid>
@@ -313,7 +313,7 @@
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Style="{StaticResource DataLabelStyle}" Text="{x:Static resources:Resource.SensorsControl_Temperature_Title}"/>
+                                    <TextBlock Grid.Column="0" Style="{StaticResource DataLabelStyle}" Text="{x:Static resources:Resource.SensorsControl_Disk_2_Temperature}"/>
                                     <TextBlock x:Name="_disk1TemperatureLabel" Grid.Column="2" Style="{StaticResource DataValueStyle}" Text="-"/>
                                     <ProgressBar x:Name="_disk1TemperatureBar" Grid.Column="3" Style="{StaticResource CompactProgressBarStyle}" Value="0" Maximum="100"/>
                                 </Grid>

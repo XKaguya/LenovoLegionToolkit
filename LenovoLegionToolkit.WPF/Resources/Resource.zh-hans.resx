@@ -2309,4 +2309,10 @@
   <data name="SensorsControl_GPU_Power" xml:space="preserve">
     <value>功耗</value>
   </data>
+  <data name="SensorsControl_Disk_1_Temperature" xml:space="preserve">
+    <value>磁盘1温度</value>
+  </data>
+  <data name="SensorsControl_Disk_2_Temperature" xml:space="preserve">
+    <value>磁盘2温度</value>
+  </data>
 </root>

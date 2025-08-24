@@ -4858,6 +4858,24 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Disk 1 Temperature 的本地化字符串。
+        /// </summary>
+        public static string SensorsControl_Disk_1_Temperature {
+            get {
+                return ResourceManager.GetString("SensorsControl_Disk_1_Temperature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Disk 2 Temperature 的本地化字符串。
+        /// </summary>
+        public static string SensorsControl_Disk_2_Temperature {
+            get {
+                return ResourceManager.GetString("SensorsControl_Disk_2_Temperature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Disk 的本地化字符串。
         /// </summary>
         public static string SensorsControl_Disk_Title {

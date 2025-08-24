@@ -4,6 +4,7 @@
 // Partial Copyright (C) Michael Möller <mmoeller@openhardwaremonitor.org> and Contributors.
 // All Rights Reserved.
 
+using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.Utils;
 using LibreHardwareMonitor.Hardware;
 using RAMSPDToolkit.I2CSMBus;
@@ -11,7 +12,7 @@ using RAMSPDToolkit.SPD;
 using RAMSPDToolkit.SPD.Interfaces;
 using RAMSPDToolkit.SPD.Interop.Shared;
 using RAMSPDToolkit.Windows.Driver;
-using RAMSPDToolkit.Windows.Driver.Implementations;
+// using RAMSPDToolkit.Windows.Driver.Implementations;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -35,9 +36,10 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
         {
             try
             {
-                await InitializeAsync();
+                // await InitializeAsync();
                 await GetInterestedHardwaresAsync();
-                return _memorySensors.Count > 0 || _interestedHardwares.Any();
+                // return _memorySensors.Count > 0 || _interestedHardwares.Any();
+                return _interestedHardwares.Any();
             }
             catch (Exception ex)
             {
@@ -253,14 +255,33 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                 return 0;
             }
 
-            if (_memorySensors.Count == 0)
-            {
-                if (Log.Instance.IsTraceEnabled)
-                {
-                    Log.Instance.Trace($"No memory sensors detected");
-                }
+            //if (_memorySensors.Count == 0)
+            //{
+            //    if (Log.Instance.IsTraceEnabled)
+            //    {
+            //        Log.Instance.Trace($"No memory sensors detected");
+            //    }
 
-                return 0;
+            //    return 0;
+            //}
+
+            var memoryHardwares = _interestedHardwares
+              .Where(h => h.HardwareType == HardwareType.Memory);
+
+            if (memoryHardwares == null || !memoryHardwares.Any()) return 0;
+
+            memoryHardwares.ForEach(memoryHardware => memoryHardware.Update());
+
+            float maxTemperature = memoryHardwares
+            .SelectMany(hw => hw.Sensors ?? Enumerable.Empty<ISensor>())
+            .Where(s => s != null && s.SensorType == SensorType.Temperature && s.Value.HasValue && s.Value > 0)
+            .Select(s => s.Value.Value)
+            .DefaultIfEmpty(0)
+            .Max();
+
+            if (maxTemperature > 0)
+            {
+                return maxTemperature;
             }
 
             double maxTemp = 0;
@@ -310,11 +331,11 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                 {
                     if (OperatingSystem.IsWindows())
                     {
-                        if (!LoadDriver())
-                        {
-                            _initialized = true;
-                            return;
-                        }
+                        //if (!LoadDriver())
+                        //{ 
+                        //    _initialized = true;
+                        //    return;
+                        //}
                         _driverLoaded = true;
                     }
 
@@ -348,23 +369,23 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
             await Task.Run(() => GetInterestedHardwares()).ConfigureAwait(false);
         }
 
-        public bool LoadDriver()
-        {
-            DriverManager.InitDriver(InternalDriver.OLS);
+        //public bool LoadDriver()
+        //{
+        //    DriverManager.InitDriver(InternalDriver.OLS);
 
-            if (DriverManager.DriverImplementation != InternalDriver.OLS || !DriverManager.Driver.Load())
-            {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Failed to load driver");
+        //    if (DriverManager.DriverImplementation != InternalDriver.OLS || !DriverManager.Driver.Load())
+        //    {
+        //        if (Log.Instance.IsTraceEnabled)
+        //            Log.Instance.Trace($"Failed to load driver");
 
-                return false;
-            }
+        //        return false;
+        //    }
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Driver loaded successfully");
+        //    if (Log.Instance.IsTraceEnabled)
+        //        Log.Instance.Trace($"Driver loaded successfully");
 
-            return true;
-        }
+        //    return true;
+        //}
 
         public void UnloadDriver()
         {

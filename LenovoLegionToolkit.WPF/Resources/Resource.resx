@@ -2301,4 +2301,10 @@ It won't affect other full screen windows, but you will not be able to click on 
   <data name="SensorsControl_GPU_Power" xml:space="preserve">
     <value>Power</value>
   </data>
+  <data name="SensorsControl_Disk_1_Temperature" xml:space="preserve">
+    <value>Disk 1 Temperature</value>
+  </data>
+  <data name="SensorsControl_Disk_2_Temperature" xml:space="preserve">
+    <value>Disk 2 Temperature</value>
+  </data>
 </root>
