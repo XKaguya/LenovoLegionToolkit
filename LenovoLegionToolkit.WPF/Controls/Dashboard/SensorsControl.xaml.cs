@@ -320,15 +320,14 @@ public partial class SensorsControl
                 UpdateValue(_pchTemperatureBar, _pchTemperatureLabel, data.PCH.MaxTemperature, data.PCH.Temperature, GetTemperatureText(data.PCH.Temperature), GetTemperatureText(data.PCH.MaxTemperature));
                 UpdateValue(_pchFanSpeedBar, _pchFanSpeedLabel, data.PCH.MaxFanSpeed, data.PCH.FanSpeed, $"{data.PCH.FanSpeed} {Resource.RPM}", $"{data.PCH.MaxFanSpeed} {Resource.RPM}");
 
-                var memoryTemp = memoryTemperaturesTask.Result;
-                UpdateValue(_memoryTemperatureLabel, 100, memoryTemp, GetTemperatureText(memoryTemp), GetTemperatureText(100));
-
                 var (diskTemp0, diskTemp1) = diskTemperaturesTask.Result;
                 UpdateValue(_disk0TemperatureBar, _disk0TemperatureLabel, 100, diskTemp0, GetTemperatureText(diskTemp0), GetTemperatureText(100));
                 UpdateValue(_disk1TemperatureBar, _disk1TemperatureLabel, 100, diskTemp1, GetTemperatureText(diskTemp1), GetTemperatureText(100));
 
                 var memoryUsage = memoryUsageTask.Result;
                 UpdateValue(_memoryUtilizationBar, _memoryUtilizationLabel, 100, memoryUsage, $"{memoryUsage:0}%", "100%");
+                var memoryTemp = memoryTemperaturesTask.Result;
+                UpdateValue(_memoryTemperatureBar, _memoryTemperatureLabel, 100, memoryTemp, GetTemperatureText(memoryTemp), GetTemperatureText(100));
 
                 _cachedBatteryInfo = batteryInfoTask.Result;
                 UpdateBatteryStatus(_batteryStateLabel, _cachedBatteryInfo);

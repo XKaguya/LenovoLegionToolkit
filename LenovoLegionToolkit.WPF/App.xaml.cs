@@ -203,6 +203,12 @@ public partial class App
         mainWindow.Show();
     }
 
+    protected override void OnExit(ExitEventArgs e)
+    {
+        UnloadDriver();
+        base.OnExit(e);
+    }
+
     public async Task ShutdownAsync()
     {
         try
