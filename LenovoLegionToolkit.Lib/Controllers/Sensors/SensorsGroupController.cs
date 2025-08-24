@@ -180,24 +180,27 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                 return (0, 0);
             }
 
-            var temps = new List<float> { 0, 0 };
+            // Use a List<float> to dynamically collect temperatures
+            var temps = new List<float>();
 
             try
             {
                 var storageHardwares = _interestedHardwares
-                              .Where(h => h.HardwareType == HardwareType.Storage)
-                              .ToList();
+                    .Where(h => h.HardwareType == HardwareType.Storage)
+                    .ToList();
 
                 if (storageHardwares.Count == 0)
+                {
                     return (0, 0);
+                }
 
                 storageHardwares.ForEach(h => h.Update());
 
                 foreach (var storage in storageHardwares)
                 {
                     var tempSensor = storage.Sensors?
-                      .FirstOrDefault(s => s.SensorType == SensorType.Temperature);
-                    if (tempSensor?.Value is float value and > 0)
+                        .FirstOrDefault(s => s.SensorType == SensorType.Temperature);
+                    if (tempSensor?.Value is float value && value > 0)
                     {
                         temps.Add(value);
                     }
@@ -213,10 +216,15 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                 return (0, 0);
             }
 
-            if (temps.Count == 0)
-                return (0, 0);
-
-            return (temps[0], temps[1]);
+            switch (temps.Count)
+            {
+                case 0:
+                    return (0, 0);
+                case 1:
+                    return (temps[0], 0);
+                default:
+                    return (temps[0], temps[1]);
+            }
         }
 
         public async Task<float> GetMemoryUsageAsync()
@@ -269,6 +277,13 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                             maxTemp = Math.Max(maxTemp, sensor.Temperature);
                         }
                         anySuccess = true;
+                    }
+                    else
+                    {
+                        if (Log.Instance.IsTraceEnabled)
+                        {
+                            Log.Instance.Trace($"Failed to update temperature sensor.");
+                        }
                     }
                 }
                 catch (Exception ex)
