@@ -108,9 +108,6 @@ public class SensorsControllerV5(GPUController gpuController) : AbstractSensorsC
             pchMaxFanSpeed);
         var result = new SensorsData(cpu, gpu, pch);
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Current data: {result} [type={GetType().Name}]");
-
         return result;
     }
 

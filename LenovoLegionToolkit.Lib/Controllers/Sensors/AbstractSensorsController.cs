@@ -103,9 +103,6 @@ public abstract class AbstractSensorsController(GPUController gpuController) : I
             -1);
         var result = new SensorsData(cpu, gpu, pch);
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Current data: {result} [type={GetType().Name}]");
-
         return result;
     }
 
