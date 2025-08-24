@@ -6,7 +6,6 @@ using LenovoLegionToolkit.Lib.System;
 using LenovoLegionToolkit.WPF.Resources;
 using LenovoLegionToolkit.WPF.Settings;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Management;
 using System.Threading;
@@ -34,8 +33,8 @@ public partial class SensorsControl
 
     private static BatteryInformation? _cachedBatteryInfo;
 
-    private static readonly Lazy<string> _cpuName = new(() => GetProcessedCpuName());
-    private static readonly Lazy<string> _gpuName = new(() => GetProcessedGpuName());
+    private readonly Task<string> _cpuNameTask;
+    private readonly Task<string> _gpuNameTask;
 
     public SensorsControl()
     {
@@ -43,6 +42,9 @@ public partial class SensorsControl
         InitializeContextMenu();
 
         IsVisibleChanged += SensorsControl_IsVisibleChanged;
+
+        _cpuNameTask = GetProcessedCpuName();
+        _gpuNameTask = GetProcessedGpuName();
 
         PreviewKeyDown += (s, e) => {
             if (e.Key == Key.System && e.SystemKey == Key.LeftAlt)
@@ -145,75 +147,14 @@ public partial class SensorsControl
         }
     }
 
-    private static string GetProcessedCpuName()
+    private async Task<string> GetProcessedCpuName()
     {
-        try
-        {
-            using var searcher = new ManagementObjectSearcher("SELECT Name FROM Win32_Processor");
-            var name = searcher.Get().Cast<ManagementObject>()
-                .Select(obj => obj["Name"]?.ToString()?.Trim())
-                .FirstOrDefault(name => !string.IsNullOrEmpty(name))
-                ?? "Unknown CPU";
-
-            return name
-                .Replace("Intel(R)", "", StringComparison.OrdinalIgnoreCase)
-                .Replace("Core(TM)", "", StringComparison.OrdinalIgnoreCase)
-                .Replace("AMD", "", StringComparison.OrdinalIgnoreCase)
-                .Replace("Ryzen", "", StringComparison.OrdinalIgnoreCase)
-                .Replace("Processor", "", StringComparison.OrdinalIgnoreCase)
-                .Replace("CPU", "", StringComparison.OrdinalIgnoreCase)
-                .Replace("  ", " ")
-                .Trim();
-        }
-        catch
-        {
-            return "Unknown CPU";
-        }
+        return await _sensorsGroupControllers.GetCpuNameAsync();
     }
 
-    private static string GetProcessedGpuName()
+    private async Task<string> GetProcessedGpuName()
     {
-        try
-        {
-            var gpuNames = new List<string>();
-            using var key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(
-                @"SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}");
-
-            if (key != null)
-            {
-                foreach (var subKeyName in key.GetSubKeyNames().Where(n => n.StartsWith("000")))
-                {
-                    using var subKey = key.OpenSubKey(subKeyName);
-                    var driverDesc = subKey?.GetValue("DriverDesc")?.ToString();
-
-                    if (string.IsNullOrWhiteSpace(driverDesc))
-                        continue;
-
-                    if (driverDesc.Contains("Intel", StringComparison.OrdinalIgnoreCase))
-                        continue;
-
-                    var processedName = driverDesc
-                        .Replace("NVIDIA", "", StringComparison.OrdinalIgnoreCase)
-                        .Replace("AMD", "", StringComparison.OrdinalIgnoreCase)
-                        .Replace("LAPTOP", "", StringComparison.OrdinalIgnoreCase)
-                        .Replace("GPU", "", StringComparison.OrdinalIgnoreCase)
-                        .Trim();
-
-                    if (!string.IsNullOrWhiteSpace(processedName))
-                    {
-                        gpuNames.Add(processedName);
-                    }
-                }
-            }
-
-            return gpuNames.Count > 0
-                ? string.Join(" & ", gpuNames)
-                : "Unknown GPU";
-        }
-        catch
-        {
-            return "Unknown GPU";
-        }
+        return await _sensorsGroupControllers.GetGpuNameAsync();
     }
 
     private string GetTemperatureText(double temperature)
@@ -288,9 +229,9 @@ public partial class SensorsControl
 
     private async void UpdateValues(SensorsData data)
     {
-        var memoryTemperaturesTask = _sensorsGroupControllers.GetHighestMemoryTemperature();
-        var diskTemperaturesTask = _sensorsGroupControllers.GetSSDTemperatures();
-        var memoryUsageTask = _sensorsGroupControllers.GetMemoryUsage();
+        var memoryTemperaturesTask = _sensorsGroupControllers.GetHighestMemoryTemperatureAsync();
+        var diskTemperaturesTask = _sensorsGroupControllers.GetSSDTemperaturesAsync();
+        var memoryUsageTask = _sensorsGroupControllers.GetMemoryUsageAsync();
         var batteryInfoTask = Task.Run(() => Battery.GetBatteryInformation());
         var cpuPowerTask = _sensorsGroupControllers.GetCpuPowerAsync();
         var gpuPowerTask = _sensorsGroupControllers.GetGpuPowerAsync();
@@ -301,8 +242,8 @@ public partial class SensorsControl
         {
             lock (_updateLock)
             {
-                UpdateValue(_cpuCardName, _cpuName.Value);
-                UpdateValue(_gpuCardName, _gpuName.Value);
+                UpdateValue(_cpuCardName, _cpuNameTask.Result);
+                UpdateValue(_gpuCardName, _gpuNameTask.Result);
 
                 UpdateValue(_cpuUtilizationBar, _cpuUtilizationLabel, data.CPU.MaxUtilization, data.CPU.Utilization, $"{data.CPU.Utilization}%");
                 UpdateValue(_cpuCoreClockBar, _cpuCoreClockLabel, data.CPU.MaxCoreClock, data.CPU.CoreClock, $"{data.CPU.CoreClock / 1000.0:0.0} {Resource.GHz}", $"{data.CPU.MaxCoreClock / 1000.0:0.0} {Resource.GHz}");

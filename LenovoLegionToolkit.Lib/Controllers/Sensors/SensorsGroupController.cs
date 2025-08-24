@@ -78,6 +78,48 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
             }
         }
 
+        public async Task<string> GetCpuNameAsync()
+        {
+            if (!await IsSupportedAsync().ConfigureAwait(false))
+            {
+                return "UNKNOWN";
+            }
+
+            var cpuHardware = _interestedHardwares
+              .FirstOrDefault(h => h.HardwareType == HardwareType.Cpu);
+
+            var strippedName = cpuHardware.Name;
+            return strippedName
+                .Replace("Intel(R)", "", StringComparison.OrdinalIgnoreCase)
+                .Replace("Core(TM)", "", StringComparison.OrdinalIgnoreCase)
+                .Replace("AMD", "", StringComparison.OrdinalIgnoreCase)
+                .Replace("Ryzen", "", StringComparison.OrdinalIgnoreCase)
+                .Replace("Processor", "", StringComparison.OrdinalIgnoreCase)
+                .Replace("CPU", "", StringComparison.OrdinalIgnoreCase)
+                .Replace("  ", " ")
+                .Trim();
+
+        }
+
+        public async Task<string> GetGpuNameAsync()
+        {
+            if (!await IsSupportedAsync().ConfigureAwait(false))
+            {
+                return "UNKNOWN";
+            }
+
+            var gpuHardware = _interestedHardwares
+              .FirstOrDefault(h => h.HardwareType == HardwareType.GpuNvidia || h.HardwareType == HardwareType.GpuAmd);
+
+            var strippedName = gpuHardware.Name;
+            return strippedName
+                .Replace("NVIDIA", "", StringComparison.OrdinalIgnoreCase)
+                .Replace("AMD", "", StringComparison.OrdinalIgnoreCase)
+                .Replace("LAPTOP", "", StringComparison.OrdinalIgnoreCase)
+                .Replace("GPU", "", StringComparison.OrdinalIgnoreCase)
+                .Trim();
+        }
+
         public async Task<float> GetCpuPowerAsync()
         {
             if (!await IsSupportedAsync().ConfigureAwait(false))
@@ -87,6 +129,8 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
 
             var cpuHardware = _interestedHardwares
               .FirstOrDefault(h => h.HardwareType == HardwareType.Cpu);
+
+            cpuHardware?.Update();
 
             var sensor = cpuHardware?.Sensors?
               .FirstOrDefault(s => s.SensorType == SensorType.Power);
@@ -100,14 +144,18 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
             {
                 return 0;
             }
+
             var gpuHardware = _interestedHardwares
               .FirstOrDefault(h => h.HardwareType == HardwareType.GpuNvidia || h.HardwareType == HardwareType.GpuAmd);
+
+            gpuHardware?.Update();
+
             var sensor = gpuHardware?.Sensors?
               .FirstOrDefault(s => s.SensorType == SensorType.Power);
             return sensor?.Value ?? 0;
         }
 
-        public async Task<(float, float)> GetSSDTemperatures()
+        public async Task<(float, float)> GetSSDTemperaturesAsync()
         {
             if (!await IsSupportedAsync().ConfigureAwait(false))
             {
@@ -139,7 +187,7 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
             return (temps[0], temps[1]);
         }
 
-        public async Task<float> GetMemoryUsage()
+        public async Task<float> GetMemoryUsageAsync()
         {
             if (!await IsSupportedAsync().ConfigureAwait(false))
             {
@@ -149,6 +197,8 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
             var memoryHardware = _interestedHardwares
               .FirstOrDefault(h => h.HardwareType == HardwareType.Memory);
 
+            memoryHardware?.Update();
+
             if (memoryHardware == null) return 0;
 
             return memoryHardware.Sensors?
@@ -156,7 +206,7 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
               .Value ?? 0;
         }
 
-        public async Task<double> GetHighestMemoryTemperature()
+        public async Task<double> GetHighestMemoryTemperatureAsync()
         {
             if (!await IsSupportedAsync().ConfigureAwait(false))
             {
@@ -165,18 +215,6 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
 
             if (_memorySensors.Count == 0)
             {
-                await GetInterestedHardwaresAsync().ConfigureAwait(false);
-                var memoryHardware = _interestedHardwares
-                  .FirstOrDefault(h => h.HardwareType == HardwareType.Memory);
-
-                if (memoryHardware != null)
-                {
-                    var tempSensor = memoryHardware.Sensors?
-                      .FirstOrDefault(s => s.SensorType == SensorType.Temperature);
-
-                    return tempSensor?.Value ?? 0;
-                }
-
                 return 0;
             }
 

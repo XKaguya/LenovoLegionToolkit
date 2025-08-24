@@ -9,5 +9,9 @@ This product includes the following third-party components:
    - Source: https://github.com/Blacktempel/RAMSPDToolkit
    - License: MPL-2.0 (full text at [LICENSES/third-party/RAMSPDToolkit-LICENSE](https://github.com/Blacktempel/RAMSPDToolkit/blob/master/LICENSE))
 
+2. LibreHardwareMonitor
+   - Source: https://github.com/LibreHardwareMonitor/LibreHardwareMonitor
+   - License: MPL-2.0 (full text at [LICENSES/third-party/LibreHardwareMonitor-LICENSE](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor/blob/master/LICENSE))
+
 ---------------------------------
 © [2025] [LenovoLegionToolkit]
