@@ -4,13 +4,13 @@
 // Partial Copyright (C) Michael Möller <mmoeller@openhardwaremonitor.org> and Contributors.
 // All Rights Reserved.
 
-using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.Utils;
 using LibreHardwareMonitor.Hardware;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -97,7 +97,7 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                 return "UNKNOWN";
             }
 
-            return StripName(_cpuHardware.Name, "Intel(R)", "Core(TM)", "AMD", "Ryzen", "Processor", "CPU");
+            return StripName(_cpuHardware.Name, "Intel(R)", "Core(TM)", "AMD", "Ryzen", "Processor", "CPU", "Gen");
         }
 
         public async Task<string> GetGpuNameAsync()
@@ -278,6 +278,8 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
             if (string.IsNullOrEmpty(name)) return "UNKNOWN";
 
             var sb = new StringBuilder(name);
+            string cleanedName = Regex.Replace(sb.ToString(), @"\s*\d+(?:th|st|nd|rd)?\s+Gen\b", string.Empty, RegexOptions.IgnoreCase);
+            sb = new StringBuilder(cleanedName);
             foreach (var term in terms)
             {
                 int index;
@@ -286,6 +288,7 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                     sb.Remove(index, term.Length);
                 }
             }
+
             return sb.ToString().Replace("  ", " ").Trim();
         }
 
