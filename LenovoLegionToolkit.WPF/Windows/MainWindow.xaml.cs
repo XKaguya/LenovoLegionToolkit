@@ -68,19 +68,12 @@ public partial class MainWindow
             _title.Text += " [BETA]";
 #endif
 
+        Focusable = false;
         if (Log.Instance.IsTraceEnabled)
         {
             _title.Text += " [LOGGING ENABLED]";
             _openLogIndicator.Visibility = Visibility.Visible;
         }
-
-        PreviewKeyDown += (s, e) => {
-            if (e.Key == Key.System && e.SystemKey == Key.LeftAlt)
-            {
-                e.Handled = true;
-                Keyboard.ClearFocus();
-            }
-        };
 
         Title = _title.Text;
     }

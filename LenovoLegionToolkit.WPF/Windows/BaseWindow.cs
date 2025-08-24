@@ -23,7 +23,7 @@ public class BaseWindow : UiWindow
                 e.Handled = true;
                 Keyboard.ClearFocus();
             }
-        };
+        };  
     }
 
     private void BaseWindow_DpiChanged(object sender, DpiChangedEventArgs e) => VisualTreeHelper.SetRootDpi(this, e.NewDpi);
