@@ -508,4 +508,7 @@
   <data name="UpdateCheckFrequency_Never" xml:space="preserve">
     <value>Never</value>
   </data>
+  <data name="HybridModeState_UMA" xml:space="preserve">
+    <value>UMA</value>
+  </data>
 </root>

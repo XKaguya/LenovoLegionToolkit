@@ -146,6 +146,8 @@ public enum HybridModeState
     OnIGPUOnly,
     [Display(ResourceType = typeof(Resource), Name = "HybridModeState_OnAuto")]
     OnAuto,
+    [Display(ResourceType = typeof(Resource), Name = "HybridModeState_UMA")]
+    UMA,
     [Display(ResourceType = typeof(Resource), Name = "HybridModeState_Off")]
     Off
 }

@@ -17,6 +17,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using Wpf.Ui.Common;
+using static LenovoLegionToolkit.Lib.System.Management.WMI.LenovoDefaultValueInDifferentModeData;
 using MenuItem = Wpf.Ui.Controls.MenuItem;
 
 namespace LenovoLegionToolkit.WPF.Controls.Dashboard;
@@ -24,6 +25,7 @@ namespace LenovoLegionToolkit.WPF.Controls.Dashboard;
 public partial class SensorsControl
 {
     private readonly SensorsController _controller = IoCContainer.Resolve<SensorsController>();
+    private readonly MemorySensorController _memoryControllers = IoCContainer.Resolve<MemorySensorController>();
     private readonly ApplicationSettings _applicationSettings = IoCContainer.Resolve<ApplicationSettings>();
     private readonly DashboardSettings _dashboardSettings = IoCContainer.Resolve<DashboardSettings>();
 
@@ -203,6 +205,22 @@ public partial class SensorsControl
         }
     }
 
+    private async Task UpdateMemoryTemperatures()
+    {
+        try
+        {
+            double temp = await _memoryControllers.GetHighestMemoryTemperature();
+
+            UpdateValue(_memoryTemperatureBar, _memoryTemperatureLabel, 100, temp,
+                GetTemperatureText(temp), GetTemperatureText(100));
+        }
+        catch (Exception ex)
+        {
+            if (Log.Instance.IsTraceEnabled)
+                Log.Instance.Trace($"Memory temperatures update failed", ex);
+        }
+    }
+
     private void UpdateValues(SensorsData data)
     {
         lock (_updateLock)
@@ -233,6 +251,8 @@ public partial class SensorsControl
                 GetTemperatureText(data.PCH.Temperature), GetTemperatureText(data.PCH.MaxTemperature));
             UpdateValue(_pchFanSpeedBar, _pchFanSpeedLabel, data.PCH.MaxFanSpeed, data.PCH.FanSpeed,
                 $"{data.PCH.FanSpeed} {Resource.RPM}", $"{data.PCH.MaxFanSpeed} {Resource.RPM}");
+
+            _ = UpdateMemoryTemperatures();
 
             if (_refreshCounter >= 10 || _isCacheExpired)
             {
@@ -339,10 +359,10 @@ public partial class SensorsControl
         if (_applicationSettings.Store.TemperatureUnit == TemperatureUnit.F)
         {
             temperature = temperature * 9 / 5 + 32;
-            return $"{temperature:0} {Resource.Fahrenheit}";
+            return $"{temperature:0}{Resource.Fahrenheit}";
         }
 
-        return $"{temperature:0} {Resource.Celsius}";
+        return $"{temperature:0}{Resource.Celsius}";
     }
 
     private static void UpdateValue(RangeBase bar, TextBlock label, double max, double value, string text, string? toolTipText = null)

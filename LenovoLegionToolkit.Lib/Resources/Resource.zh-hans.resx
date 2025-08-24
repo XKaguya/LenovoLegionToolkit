@@ -502,10 +502,13 @@
   <data name="UpdateCheckFrequency_PerWeek" xml:space="preserve">
     <value>每周</value>
   </data>
+  <data name="PowerModeState_Extreme" xml:space="preserve">
+    <value>超能模式</value>
+  </data>
   <data name="UpdateCheckFrequency_Never" xml:space="preserve">
     <value>从不</value>
   </data>
-  <data name="PowerModeState_Extreme" xml:space="preserve">
-    <value>超能模式</value>
+  <data name="HybridModeState_UMA" xml:space="preserve">
+    <value>核显直连模式</value>
   </data>
 </root>

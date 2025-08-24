@@ -286,6 +286,15 @@ namespace LenovoLegionToolkit.Lib.Resources {
         }
         
         /// <summary>
+        ///   查找类似 UMA 的本地化字符串。
+        /// </summary>
+        public static string HybridModeState_UMA {
+            get {
+                return ResourceManager.GetString("HybridModeState_UMA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 AC Adapter 的本地化字符串。
         /// </summary>
         public static string InstantBootState_AcAdapter {

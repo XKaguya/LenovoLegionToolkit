@@ -257,6 +257,13 @@ public partial class App
         }
         catch { /* Ignored. */ }
 
+        try
+        {
+            MemorySensorController _memoryControllers = IoCContainer.Resolve<MemorySensorController>();
+            _memoryControllers.UnloadDriver();
+        }
+        catch { /* Ignored. */ }
+
         Shutdown();
     }
 

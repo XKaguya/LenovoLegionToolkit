@@ -91,6 +91,7 @@
                 <wpfui:Hyperlink Content="TaskScheduler" NavigateUri="https://github.com/dahall/TaskScheduler" />
                 <wpfui:Hyperlink Content="WindowsDisplayAPI" NavigateUri="https://github.com/falahati/WindowsDisplayAPI" />
                 <wpfui:Hyperlink Content="wpfui" NavigateUri="https://github.com/lepoco/wpfui" />
+                <wpfui:Hyperlink Content="RAMSPDToolkit" NavigateUri="https://github.com/Blacktempel/RAMSPDToolkit" />
             </StackPanel>
 
         </Grid>

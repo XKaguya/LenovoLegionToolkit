@@ -231,4 +231,7 @@
   <data name="PowerModeState_Extreme" xml:space="preserve">
     <value />
   </data>
+  <data name="HybridModeState_UMA" xml:space="preserve">
+    <value />
+  </data>
 </root>
