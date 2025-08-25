@@ -305,13 +305,20 @@ public static class Devices
 
             var (isCompatible, mi) = Compatibility.IsCompatibleAsync().Result;
 
+            // For NX only.
             if (mi.Model.Contains("NX"))
             {
                 _spectrumRgbKeyboards = FindHidDevices(vendorId, productIdMask_NX, productIdMasked_NX, descriptorLength);
             }
-            else
+            // For Legion Pro 7 Series. (Gen 10 only)
+            else if (mi.Generation == 10)
             {
                 _spectrumRgbKeyboards = FindHidDevices(vendorId, productIdMask, productIdMasked, descriptorLength);
+            }
+            // For Legion Pro 9 Series.
+            else
+            {
+                _spectrumRgbKeyboards = FindHidDevices(vendorId, productIdMask_NX, productIdMasked_NX, descriptorLength);
             }
         }
 

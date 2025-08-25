@@ -115,6 +115,15 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Log 的本地化字符串。
+        /// </summary>
+        public static string AboutPage_Log {
+            get {
+                return ResourceManager.GetString("AboutPage_Log", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Project website on GitHub 的本地化字符串。
         /// </summary>
         public static string AboutPage_ProjectWebsiteOnGitHub {
@@ -746,6 +755,15 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 No AC 的本地化字符串。
+        /// </summary>
+        public static string BatteryPage_ACAdapterNotConnected {
+            get {
+                return ResourceManager.GetString("BatteryPage_ACAdapterNotConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Current temperature of the battery. 的本地化字符串。
         /// </summary>
         public static string BatteryPage_BatteryTemperature_Message {
@@ -1286,6 +1304,24 @@ namespace LenovoLegionToolkit.WPF.Resources {
         public static string CreateAutomationPipelineWindow_Title {
             get {
                 return ResourceManager.GetString("CreateAutomationPipelineWindow_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 AC Connected 的本地化字符串。
+        /// </summary>
+        public static string DashboardBattery_AcConnected {
+            get {
+                return ResourceManager.GetString("DashboardBattery_AcConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 AC Disconnected 的本地化字符串。
+        /// </summary>
+        public static string DashboardBattery_AcDisconnected {
+            get {
+                return ResourceManager.GetString("DashboardBattery_AcDisconnected", resourceCulture);
             }
         }
         
@@ -4777,11 +4813,38 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Battery 的本地化字符串。
+        /// </summary>
+        public static string SensorsControl_Battery_Title {
+            get {
+                return ResourceManager.GetString("SensorsControl_Battery_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Battery Level 的本地化字符串。
+        /// </summary>
+        public static string SensorsControl_BatteryLevel_Title {
+            get {
+                return ResourceManager.GetString("SensorsControl_BatteryLevel_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Core Clock 的本地化字符串。
         /// </summary>
         public static string SensorsControl_CoreClock_Title {
             get {
                 return ResourceManager.GetString("SensorsControl_CoreClock_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Power 的本地化字符串。
+        /// </summary>
+        public static string SensorsControl_CPU_Power {
+            get {
+                return ResourceManager.GetString("SensorsControl_CPU_Power", resourceCulture);
             }
         }
         
@@ -4795,11 +4858,47 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Disk 1 Temperature 的本地化字符串。
+        /// </summary>
+        public static string SensorsControl_Disk_1_Temperature {
+            get {
+                return ResourceManager.GetString("SensorsControl_Disk_1_Temperature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Disk 2 Temperature 的本地化字符串。
+        /// </summary>
+        public static string SensorsControl_Disk_2_Temperature {
+            get {
+                return ResourceManager.GetString("SensorsControl_Disk_2_Temperature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Disk 的本地化字符串。
+        /// </summary>
+        public static string SensorsControl_Disk_Title {
+            get {
+                return ResourceManager.GetString("SensorsControl_Disk_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Fan 的本地化字符串。
         /// </summary>
         public static string SensorsControl_Fan_Title {
             get {
                 return ResourceManager.GetString("SensorsControl_Fan_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Power 的本地化字符串。
+        /// </summary>
+        public static string SensorsControl_GPU_Power {
+            get {
+                return ResourceManager.GetString("SensorsControl_GPU_Power", resourceCulture);
             }
         }
         
@@ -4813,11 +4912,38 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Core 的本地化字符串。
+        /// </summary>
+        public static string SensorsControl_GpuCore_Title {
+            get {
+                return ResourceManager.GetString("SensorsControl_GpuCore_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Vram 的本地化字符串。
+        /// </summary>
+        public static string SensorsControl_GpuMemoryTemperature_Title {
+            get {
+                return ResourceManager.GetString("SensorsControl_GpuMemoryTemperature_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Maximum: {0} 的本地化字符串。
         /// </summary>
         public static string SensorsControl_Maximum {
             get {
                 return ResourceManager.GetString("SensorsControl_Maximum", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Memory 的本地化字符串。
+        /// </summary>
+        public static string SensorsControl_Memory_Title {
+            get {
+                return ResourceManager.GetString("SensorsControl_Memory_Title", resourceCulture);
             }
         }
         
@@ -4831,11 +4957,38 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Motherboard 的本地化字符串。
+        /// </summary>
+        public static string SensorsControl_Motherboard_Title {
+            get {
+                return ResourceManager.GetString("SensorsControl_Motherboard_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 PCH Temperature 的本地化字符串。
+        /// </summary>
+        public static string SensorsControl_PchTemperature_Title {
+            get {
+                return ResourceManager.GetString("SensorsControl_PchTemperature_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Refresh interval 的本地化字符串。
         /// </summary>
         public static string SensorsControl_RefreshInterval {
             get {
                 return ResourceManager.GetString("SensorsControl_RefreshInterval", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 State 的本地化字符串。
+        /// </summary>
+        public static string SensorsControl_State_Title {
+            get {
+                return ResourceManager.GetString("SensorsControl_State_Title", resourceCulture);
             }
         }
         
@@ -4854,6 +5007,15 @@ namespace LenovoLegionToolkit.WPF.Resources {
         public static string SensorsControl_Utilization_Title {
             get {
                 return ResourceManager.GetString("SensorsControl_Utilization_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 VR Temperature 的本地化字符串。
+        /// </summary>
+        public static string SensorsControl_VrTemperature_Title {
+            get {
+                return ResourceManager.GetString("SensorsControl_VrTemperature_Title", resourceCulture);
             }
         }
         

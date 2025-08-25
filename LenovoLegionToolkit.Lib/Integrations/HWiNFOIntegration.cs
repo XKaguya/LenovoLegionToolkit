@@ -18,6 +18,7 @@ public class HWiNFOIntegration(SensorsController sensorController, IntegrationsS
     private const string SENSOR_TYPE_TEMP = "Temp";
     private const string CPU_FAN_SENSOR_NAME = "CPU Fan";
     private const string GPU_FAN_SENSOR_NAME = "GPU Fan";
+    private const string PCH_FAN_SENSOR_NAME = "PCH Fan";
     private const string BATTERY_TEMP_SENSOR_NAME = "Battery Temperature";
 
     private readonly TimeSpan _refreshInterval = TimeSpan.FromSeconds(1);
@@ -81,7 +82,18 @@ public class HWiNFOIntegration(SensorsController sensorController, IntegrationsS
 
     private async Task SetSensorValuesAsync(bool firstRun = true)
     {
-        var (cpuFanSpeed, gpuFanSpeed) = await sensorController.GetFanSpeedsAsync().ConfigureAwait(false);
+        var sensorControllerWrapper = await sensorController.GetControllerAsync();
+        int cpuFanSpeed = 0;
+        int gpuFanSpeed = 0;
+        int pchFanSpeed = 0;
+
+        FanSpeedTable fanSpeedTable = await sensorController.GetFanSpeedsAsync().ConfigureAwait(false);
+
+        if (fanSpeedTable.PchFanSpeed > 0)
+        {
+            SetValue(SENSOR_TYPE_FAN, 2, PCH_FAN_SENSOR_NAME, pchFanSpeed, firstRun);
+        }
+
         var batteryTemp = Battery.GetBatteryTemperatureC();
 
         SetValue(SENSOR_TYPE_FAN, 0, CPU_FAN_SENSOR_NAME, cpuFanSpeed, firstRun);

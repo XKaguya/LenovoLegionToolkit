@@ -7,7 +7,8 @@ public class SensorsController(
     SensorsControllerV1 controllerV1,
     SensorsControllerV2 controllerV2,
     SensorsControllerV3 controllerV3,
-    SensorsControllerV4 controllerV4)
+    SensorsControllerV4 controllerV4,
+    SensorsControllerV5 controllerV5)
     : ISensorsController
 {
     private ISensorsController? _controller;
@@ -26,16 +27,19 @@ public class SensorsController(
         return await controller.GetDataAsync().ConfigureAwait(false);
     }
 
-    public async Task<(int cpuFanSpeed, int gpuFanSpeed)> GetFanSpeedsAsync()
+    public async Task<FanSpeedTable> GetFanSpeedsAsync()
     {
         var controller = await GetControllerAsync().ConfigureAwait(false) ?? throw new InvalidOperationException("No supported controller found");
         return await controller.GetFanSpeedsAsync().ConfigureAwait(false);
     }
 
-    private async Task<ISensorsController?> GetControllerAsync()
+    public async Task<ISensorsController?> GetControllerAsync()
     {
         if (_controller is not null)
             return _controller;
+
+        if (await controllerV5.IsSupportedAsync().ConfigureAwait(false))
+            return _controller = controllerV5;
 
         if (await controllerV4.IsSupportedAsync().ConfigureAwait(false))
             return _controller = controllerV4;

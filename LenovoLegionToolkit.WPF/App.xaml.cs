@@ -1,19 +1,11 @@
 ﻿#if !DEBUG
 using LenovoLegionToolkit.Lib.System;
 #endif
-using System;
-using System.Diagnostics;
-using System.Linq;
-using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Interop;
-using System.Windows.Media;
-using System.Windows.Threading;
 using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Automation;
 using LenovoLegionToolkit.Lib.Controllers;
+using LenovoLegionToolkit.Lib.Controllers.GodMode;
+using LenovoLegionToolkit.Lib.Controllers.Sensors;
 using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.Features;
 using LenovoLegionToolkit.Lib.Features.Hybrid;
@@ -48,7 +40,6 @@ using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
 using WinFormsApp = System.Windows.Forms.Application;
 using WinFormsHighDpiMode = System.Windows.Forms.HighDpiMode;
-using LenovoLegionToolkit.Lib.Controllers.GodMode;
 
 namespace LenovoLegionToolkit.WPF;
 
@@ -145,6 +136,7 @@ public partial class App
         await InitGpuOverclockControllerAsync();
         await InitHybridModeAsync();
         await InitAutomationProcessorAsync();
+        await InitMemorySensorControllerFeatureAsync();
         InitMacroController();
 
         await IoCContainer.Resolve<AIController>().StartIfNeededAsync();
@@ -207,6 +199,11 @@ public partial class App
         };
         MainWindow = mainWindow;
         mainWindow.Show();
+    }
+
+    protected override void OnExit(ExitEventArgs e)
+    {
+        base.OnExit(e);
     }
 
     public async Task ShutdownAsync()
@@ -408,7 +405,7 @@ public partial class App
                 Log.Instance.Trace($"Initializing hybrid mode...");
 
             var feature = IoCContainer.Resolve<HybridModeFeature>();
-            await feature.EnsureDGPUEjectedIfNeededAsync();
+            await feature.EnsureDGPUEjectedIfNeededAsync(); 
         }
         catch (Exception ex)
         {
@@ -454,14 +451,14 @@ public partial class App
                 }
 
                 GodModeControllerV2 feature = IoCContainer.Resolve<GodModeControllerV2>();
-                await feature.ApplyStateAsync().ConfigureAwait(false);
+                await feature.ApplyStateAsync();
             }
         }
         catch (Exception ex)
         {
             if (Log.Instance.IsTraceEnabled)
             {
-                Log.Instance.Trace($"Couldn't switch power mode.", ex);
+                Log.Instance.Trace($"Couldn't reapply parameters.", ex);
             }
         }
     }
@@ -514,6 +511,24 @@ public partial class App
                     Log.Instance.Trace($"Ensuring correct battery mode is set...");
 
                 await feature.EnsureCorrectBatteryModeIsSetAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+            if (Log.Instance.IsTraceEnabled)
+                Log.Instance.Trace($"Couldn't ensure correct battery mode.", ex);
+        }
+    }
+
+    private static async Task InitMemorySensorControllerFeatureAsync()
+    {
+        try
+        {
+            var feature = IoCContainer.Resolve<SensorsGroupController>();
+            if (await feature.IsSupportedAsync())
+            {
+                if (Log.Instance.IsTraceEnabled)
+                    Log.Instance.Trace($"Init memory sensor control feature. ");
             }
         }
         catch (Exception ex)

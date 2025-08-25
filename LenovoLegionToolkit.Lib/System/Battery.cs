@@ -181,15 +181,16 @@ public static class Battery
     {
         for (uint index = 0; index < 3; index++)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Checking battery data at index {index}...");
+            // if (Log.Instance.IsTraceEnabled)
+                // Log.Instance.Trace($"Checking battery data at index {index}...");
 
             var info = GetLenovoBatteryInformation(index);
             if (info.Temperature is ushort.MinValue or ushort.MaxValue)
                 continue;
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Battery data found at index {index}.");
+            // Noisy when debug.
+            // if (Log.Instance.IsTraceEnabled)
+                // Log.Instance.Trace($"Battery data found at index {index}.");
 
             return info;
         }

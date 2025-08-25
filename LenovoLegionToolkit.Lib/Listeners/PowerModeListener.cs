@@ -62,6 +62,9 @@ public class PowerModeListener(
             case PowerModeState.Performance:
                 MessagingCenter.Publish(new NotificationMessage(NotificationType.PowerModePerformance, value.GetDisplayName()));
                 break;
+            case PowerModeState.Extreme:
+                MessagingCenter.Publish(new NotificationMessage(NotificationType.PowerModeExtreme, value.GetDisplayName()));
+                break;
             case PowerModeState.GodMode:
                 MessagingCenter.Publish(new NotificationMessage(NotificationType.PowerModeGodMode, value.GetDisplayName()));
                 break;

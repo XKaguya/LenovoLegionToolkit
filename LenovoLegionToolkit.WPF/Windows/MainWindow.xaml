@@ -13,7 +13,8 @@
     Height="750"
     MinWidth="650"
     MinHeight="600"
-    FlowDirection="{x:Static utils:LocalizationHelper.Direction}">
+    FlowDirection="{x:Static utils:LocalizationHelper.Direction}"
+>
 
     <Grid>
         <Grid.RowDefinitions>

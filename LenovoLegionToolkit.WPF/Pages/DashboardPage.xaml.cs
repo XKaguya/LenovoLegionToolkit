@@ -1,15 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using LenovoLegionToolkit.Lib;
+﻿using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Utils;
 using LenovoLegionToolkit.WPF.Controls.Dashboard;
 using LenovoLegionToolkit.WPF.Resources;
 using LenovoLegionToolkit.WPF.Settings;
 using LenovoLegionToolkit.WPF.Windows.Dashboard;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using Wpf.Ui.Common;
 using Wpf.Ui.Controls;
 
@@ -21,7 +22,18 @@ public partial class DashboardPage
 
     private readonly List<DashboardGroupControl> _dashboardGroupControls = [];
 
-    public DashboardPage() => InitializeComponent();
+    public DashboardPage()
+    {
+        InitializeComponent();
+
+        PreviewKeyDown += (s, e) => {
+            if (e.Key == Key.System && e.SystemKey == Key.LeftAlt)
+            {
+                e.Handled = true;
+                Keyboard.ClearFocus();
+            }
+        };
+    }
 
     private async void DashboardPage_Initialized(object? sender, EventArgs e)
     {

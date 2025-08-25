@@ -286,6 +286,15 @@ namespace LenovoLegionToolkit.Lib.Resources {
         }
         
         /// <summary>
+        ///   查找类似 UMA 的本地化字符串。
+        /// </summary>
+        public static string HybridModeState_UMA {
+            get {
+                return ResourceManager.GetString("HybridModeState_UMA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 AC Adapter 的本地化字符串。
         /// </summary>
         public static string InstantBootState_AcAdapter {
@@ -579,6 +588,15 @@ namespace LenovoLegionToolkit.Lib.Resources {
         public static string PowerModeState_Balance {
             get {
                 return ResourceManager.GetString("PowerModeState_Balance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Extreme 的本地化字符串。
+        /// </summary>
+        public static string PowerModeState_Extreme {
+            get {
+                return ResourceManager.GetString("PowerModeState_Extreme", resourceCulture);
             }
         }
         
@@ -1049,18 +1067,16 @@ namespace LenovoLegionToolkit.Lib.Resources {
                 return ResourceManager.GetString("TouchpadLockState_On", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   查找类似 Never 的本地化字符串。
         /// </summary>
-        public static string UpdateCheckFrequency_Never
-        {
-            get
-            {
+        public static string UpdateCheckFrequency_Never {
+            get {
                 return ResourceManager.GetString("UpdateCheckFrequency_Never", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   查找类似 Daily 的本地化字符串。
         /// </summary>

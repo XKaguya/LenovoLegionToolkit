@@ -74,6 +74,8 @@ public enum CapabilityID
     FanFullSpeed = 0x04020000,
     CpuCurrentFanSpeed = 0x04030001,
     GpuCurrentFanSpeed = 0x04030002,
+    PchCurrentFanSpeed = 0x04030004,
+    PchCurrentTemperature = 0x05010000,
     CpuCurrentTemperature = 0x05040000,
     GpuCurrentTemperature = 0x05050000
 }
@@ -144,6 +146,8 @@ public enum HybridModeState
     OnIGPUOnly,
     [Display(ResourceType = typeof(Resource), Name = "HybridModeState_OnAuto")]
     OnAuto,
+    [Display(ResourceType = typeof(Resource), Name = "HybridModeState_UMA")]
+    UMA,
     [Display(ResourceType = typeof(Resource), Name = "HybridModeState_Off")]
     Off
 }
@@ -259,6 +263,7 @@ public enum NotificationType
     PowerModeQuiet,
     PowerModeBalance,
     PowerModePerformance,
+    PowerModeExtreme,
     PowerModeGodMode,
     RefreshRate,
     RGBKeyboardBacklightChanged,
@@ -366,6 +371,8 @@ public enum PowerModeState
     Balance,
     [Display(ResourceType = typeof(Resource), Name = "PowerModeState_Performance")]
     Performance,
+    [Display(ResourceType = typeof(Resource), Name = "PowerModeState_Extreme")]
+    Extreme = 223,
     [Display(ResourceType = typeof(Resource), Name = "PowerModeState_GodMode")]
     GodMode = 254
 }
@@ -608,6 +615,7 @@ public enum ThermalModeState
     Quiet,
     Balance,
     Performance,
+    Extreme = 224,
     GodMode = 255
 }
 
