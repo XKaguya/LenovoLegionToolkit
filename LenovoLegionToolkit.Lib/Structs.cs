@@ -247,6 +247,13 @@ public readonly struct FanTableInfo(FanTableData[] data, FanTable table)
         $" {nameof(Table)}: {Table}";
 }
 
+public readonly struct FanSpeedTable(int cpuFanSpeed, int gpuFanSpeed, int pchFanSpeed)
+{
+    public int CpuFanSpeed { get; } = cpuFanSpeed;
+    public int GpuFanSpeed { get; } = gpuFanSpeed;
+    public int PchFanSpeed { get; } = pchFanSpeed;
+}
+
 public readonly struct GPUOverclockInfo(int coreDeltaMhz, int memoryDeltaMhz)
 {
     public static readonly GPUOverclockInfo Zero = new();
@@ -426,6 +433,7 @@ public readonly struct MachineInformation
 
     public readonly struct PropertyData
     {
+
         public bool SupportsGodMode => SupportsGodModeV1 || SupportsGodModeV2;
 
         public (bool status, bool connectivity) SupportsAlwaysOnAc { get; init; }
@@ -445,6 +453,7 @@ public readonly struct MachineInformation
         public bool HasAlternativeFullSpectrumLayout { get; init; }
     }
 
+    public int Generation { get; init; }
     public string Vendor { get; init; }
     public string MachineType { get; init; }
     public string Model { get; init; }

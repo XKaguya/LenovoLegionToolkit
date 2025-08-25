@@ -70,6 +70,11 @@ public abstract class AbstractSensorsController(GPUController gpuController) : I
         var gpuCurrentFanSpeed = await GetGpuCurrentFanSpeedAsync().ConfigureAwait(false);
         var gpuMaxFanSpeed = _gpuMaxFanSpeedCache ??= await GetGpuMaxFanSpeedAsync().ConfigureAwait(false);
 
+        var pchCurrentTemperature = await GetPchCurrentTemperatureAsync().ConfigureAwait(false);
+        var pchMaxTemperature = genericMaxTemperature;
+        var pchCurrentFanSpeed = await GetPchCurrentFanSpeedAsync().ConfigureAwait(false);
+        var pchMaxFanSpeed = _pchMaxFanSpeedCache ??= await GetPchMaxFanSpeedAsync().ConfigureAwait(false);
+
         var cpu = new SensorData(cpuUtilization,
             genericMaxUtilization,
             cpuCoreClock,
@@ -97,33 +102,40 @@ public abstract class AbstractSensorsController(GPUController gpuController) : I
             -1,
             -1,
             -1,
-            -1,
-            -1,
-            -1,
-            -1);
+            pchCurrentTemperature,
+            pchMaxTemperature,
+            pchCurrentFanSpeed,
+            pchMaxFanSpeed);
         var result = new SensorsData(cpu, gpu, pch);
 
         return result;
     }
 
-    public async Task<(int cpuFanSpeed, int gpuFanSpeed)> GetFanSpeedsAsync()
+    public async Task<FanSpeedTable> GetFanSpeedsAsync()
     {
         var cpuFanSpeed = await GetCpuCurrentFanSpeedAsync().ConfigureAwait(false);
         var gpuFanSpeed = await GetGpuCurrentFanSpeedAsync().ConfigureAwait(false);
-        return (cpuFanSpeed, gpuFanSpeed);
+        var pchFanSpeed = await GetPchCurrentFanSpeedAsync().ConfigureAwait(false);
+        return new FanSpeedTable(cpuFanSpeed, gpuFanSpeed, pchFanSpeed);
     }
 
     protected abstract Task<int> GetCpuCurrentTemperatureAsync();
 
     protected abstract Task<int> GetGpuCurrentTemperatureAsync();
 
+    protected virtual Task<int> GetPchCurrentTemperatureAsync() => Task.FromResult(0);
+
     protected abstract Task<int> GetCpuCurrentFanSpeedAsync();
 
     protected abstract Task<int> GetGpuCurrentFanSpeedAsync();
 
+    protected virtual Task<int> GetPchCurrentFanSpeedAsync() => Task.FromResult(0);
+
     protected abstract Task<int> GetCpuMaxFanSpeedAsync();
 
     protected abstract Task<int> GetGpuMaxFanSpeedAsync();
+
+    protected virtual Task<int> GetPchMaxFanSpeedAsync() => Task.FromResult(0);
 
     protected int GetCpuUtilization(int maxUtilization)
     {

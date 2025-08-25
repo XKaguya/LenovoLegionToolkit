@@ -9,6 +9,7 @@ public class SensorsControllerV4(GPUController gpuController) : AbstractSensorsC
 {
     private const int CPU_SENSOR_ID = 1;
     private const int GPU_SENSOR_ID = 5;
+    private const int PCH_SENSOR_ID = 4;
     private const int CPU_FAN_ID = 1;
     private const int GPU_FAN_ID = 2;
 
@@ -18,6 +19,7 @@ public class SensorsControllerV4(GPUController gpuController) : AbstractSensorsC
         {
             var result = await WMI.LenovoFanTableData.ExistsAsync(CPU_SENSOR_ID, CPU_FAN_ID).ConfigureAwait(false);
             result &= await WMI.LenovoFanTableData.ExistsAsync(GPU_SENSOR_ID, GPU_FAN_ID).ConfigureAwait(false);
+            result &= await WMI.LenovoFanTableData.ExistsAsync(PCH_SENSOR_ID, CPU_SENSOR_ID).ConfigureAwait(false);
 
             if (result)
                 _ = await GetDataAsync().ConfigureAwait(false);
@@ -42,6 +44,12 @@ public class SensorsControllerV4(GPUController gpuController) : AbstractSensorsC
     protected override async Task<int> GetGpuCurrentTemperatureAsync()
     {
         var value = await WMI.LenovoOtherMethod.GetFeatureValueAsync(CapabilityID.GpuCurrentTemperature).ConfigureAwait(false);
+        return value < 1 ? -1 : value;
+    }
+
+    protected override async Task<int> GetPchCurrentTemperatureAsync()
+    {
+        var value = await WMI.LenovoOtherMethod.GetFeatureValueAsync(CapabilityID.PchCurrentTemperature).ConfigureAwait(false);
         return value < 1 ? -1 : value;
     }
 

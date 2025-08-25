@@ -27,7 +27,7 @@ public class SensorsController(
         return await controller.GetDataAsync().ConfigureAwait(false);
     }
 
-    public async Task<(int cpuFanSpeed, int gpuFanSpeed)> GetFanSpeedsAsync()
+    public async Task<FanSpeedTable> GetFanSpeedsAsync()
     {
         var controller = await GetControllerAsync().ConfigureAwait(false) ?? throw new InvalidOperationException("No supported controller found");
         return await controller.GetFanSpeedsAsync().ConfigureAwait(false);

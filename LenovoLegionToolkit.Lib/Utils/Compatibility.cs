@@ -110,6 +110,7 @@ public static partial class Compatibility
 
         var machineInformation = new MachineInformation
         {
+            Generation = GetMachineGeneration(model),
             Vendor = vendor,
             MachineType = machineType,
             Model = model,
@@ -143,6 +144,7 @@ public static partial class Compatibility
         if (Log.Instance.IsTraceEnabled)
         {
             Log.Instance.Trace($"Retrieved machine information:");
+            Log.Instance.Trace($" * Generation: '{machineInformation.Generation}'");
             Log.Instance.Trace($" * Vendor: '{machineInformation.Vendor}'");
             Log.Instance.Trace($" * Machine Type: '{machineInformation.MachineType}'");
             Log.Instance.Trace($" * Model: '{machineInformation.Model}'");
@@ -385,6 +387,20 @@ public static partial class Compatibility
     }
 
     private static bool GetSupportBootLogoChange(int smartFanVersion) => smartFanVersion < 9;
+
+    private static int GetMachineGeneration(string model)
+    {
+        Match match = Regex.Match(model, @"\d+(?=[A-Z]?H?$)");
+
+        if (match.Success)
+        {
+            return Int32.Parse(match.Value);
+        }
+        else
+        {
+            return 0;
+        }
+    }
 
     private static bool GetHasQuietToPerformanceModeSwitchingBug(BiosVersion? biosVersion)
     {
