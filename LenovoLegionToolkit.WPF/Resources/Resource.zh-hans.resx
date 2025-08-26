@@ -1740,7 +1740,7 @@
     <value>超频独立显卡</value>
   </data>
   <data name="OverclockDiscreteGPUControl_Message" xml:space="preserve">
-    <value>超频独立显卡以提升性能。</value>
+    <value>超频独立显卡以提升性能。(建议使用 MSI Afterburner 进行超频操作)</value>
   </data>
   <data name="OverclockDiscreteGPUAutomationStepControl_Title" xml:space="preserve">
     <value>超频独立显卡</value>

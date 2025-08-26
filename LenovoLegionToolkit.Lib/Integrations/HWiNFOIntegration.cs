@@ -83,21 +83,18 @@ public class HWiNFOIntegration(SensorsController sensorController, IntegrationsS
     private async Task SetSensorValuesAsync(bool firstRun = true)
     {
         var sensorControllerWrapper = await sensorController.GetControllerAsync();
-        int cpuFanSpeed = 0;
-        int gpuFanSpeed = 0;
-        int pchFanSpeed = 0;
 
         FanSpeedTable fanSpeedTable = await sensorController.GetFanSpeedsAsync().ConfigureAwait(false);
 
         if (fanSpeedTable.PchFanSpeed > 0)
         {
-            SetValue(SENSOR_TYPE_FAN, 2, PCH_FAN_SENSOR_NAME, pchFanSpeed, firstRun);
+            SetValue(SENSOR_TYPE_FAN, 2, PCH_FAN_SENSOR_NAME, fanSpeedTable.PchFanSpeed, firstRun);
         }
 
         var batteryTemp = Battery.GetBatteryTemperatureC();
 
-        SetValue(SENSOR_TYPE_FAN, 0, CPU_FAN_SENSOR_NAME, cpuFanSpeed, firstRun);
-        SetValue(SENSOR_TYPE_FAN, 1, GPU_FAN_SENSOR_NAME, gpuFanSpeed, firstRun);
+        SetValue(SENSOR_TYPE_FAN, 0, CPU_FAN_SENSOR_NAME, fanSpeedTable.CpuFanSpeed, firstRun);
+        SetValue(SENSOR_TYPE_FAN, 1, GPU_FAN_SENSOR_NAME, fanSpeedTable.GpuFanSpeed, firstRun);
 
         var batteryTempString = batteryTemp.HasValue
             ? batteryTemp.Value.ToString(new NumberFormatInfo { NumberDecimalSeparator = "." })

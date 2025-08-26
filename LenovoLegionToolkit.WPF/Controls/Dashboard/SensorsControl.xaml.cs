@@ -19,6 +19,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using System.Windows.Threading;
 using Wpf.Ui.Common;
 using MenuItem = Wpf.Ui.Controls.MenuItem;
 
@@ -186,7 +187,7 @@ public partial class SensorsControl
                                 UpdateBatteryStatus(_batteryStateLabel, _cachedBatteryInfo);
                                 UpdateValue(_batteryLevelBar, _batteryLevelLabel, 100, _cachedBatteryInfo?.BatteryPercentage ?? 0, _cachedBatteryInfo != null ? $"{_cachedBatteryInfo.Value.BatteryPercentage}%" : "-", "100%");
                             }
-                        }, System.Windows.Threading.DispatcherPriority.Background);
+                        }, DispatcherPriority.Render);
 
                         await Task.Delay(TimeSpan.FromSeconds(_dashboardSettings.Store.SensorsRefreshIntervalSeconds), token);
                     }
@@ -198,7 +199,6 @@ public partial class SensorsControl
 
                         await Dispatcher.InvokeAsync(() =>
                         {
-                            // On error, reset values on UI thread.
                             lock (_updateLock)
                             {
                                 UpdateValue(_cpuUtilizationBar, _cpuUtilizationLabel, -1, -1, "");
