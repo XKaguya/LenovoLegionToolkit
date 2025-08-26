@@ -187,7 +187,7 @@ public partial class SensorsControl
                                 UpdateBatteryStatus(_batteryStateLabel, _cachedBatteryInfo);
                                 UpdateValue(_batteryLevelBar, _batteryLevelLabel, 100, _cachedBatteryInfo?.BatteryPercentage ?? 0, _cachedBatteryInfo != null ? $"{_cachedBatteryInfo.Value.BatteryPercentage}%" : "-", "100%");
                             }
-                        }, DispatcherPriority.Render);
+                        }, DispatcherPriority.Background);
 
                         await Task.Delay(TimeSpan.FromSeconds(_dashboardSettings.Store.SensorsRefreshIntervalSeconds), token);
                     }

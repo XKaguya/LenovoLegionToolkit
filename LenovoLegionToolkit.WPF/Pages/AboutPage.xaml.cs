@@ -21,7 +21,7 @@ public partial class AboutPage
                 return string.Empty;
             if (version.IsBeta())
                 return "BETA";
-            return version.ToString(3);
+            return version.ToString();
         }
     }
 
