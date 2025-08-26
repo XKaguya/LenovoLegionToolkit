@@ -21,9 +21,9 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
         private bool _initialized;
         private readonly SemaphoreSlim _initSemaphore = new SemaphoreSlim(1, 1);
         private readonly List<IHardware> _interestedHardwares = new();
-        private IHardware _cpuHardware;
-        private IHardware _gpuHardware;
-        private IHardware _memoryHardware;
+        private IHardware? _cpuHardware;
+        private IHardware? _gpuHardware;
+        private IHardware? _memoryHardware;
 
         private readonly object _hardwareLock = new object();
         private volatile bool _hardwaresInitialized;

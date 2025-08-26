@@ -112,17 +112,17 @@ public partial class App
         AutomationPage.EnableHybridModeAutomation = flags.EnableHybridModeAutomation;
 
         var initTasks = new List<Task>
-    {
-        LogSoftwareStatusAsync(),
-        InitPowerModeFeatureAsync(),
-        InitBatteryFeatureAsync(),
-        InitRgbKeyboardControllerAsync(),
-        InitSpectrumKeyboardControllerAsync(),
-        InitGpuOverclockControllerAsync(),
-        InitHybridModeAsync(),
-        InitAutomationProcessorAsync(),
-        InitMemorySensorControllerFeatureAsync()
-    };
+        {
+            InitSensorsGroupControllerFeatureAsync(),
+            LogSoftwareStatusAsync(),
+            InitPowerModeFeatureAsync(),
+            InitBatteryFeatureAsync(),
+            InitRgbKeyboardControllerAsync(),
+            InitSpectrumKeyboardControllerAsync(),
+            InitGpuOverclockControllerAsync(),
+            InitHybridModeAsync(),
+            InitAutomationProcessorAsync()
+        };
 
         await Task.WhenAll(initTasks);
 
@@ -535,7 +535,7 @@ public partial class App
         }
     }
 
-    private static async Task InitMemorySensorControllerFeatureAsync()
+    private static async Task InitSensorsGroupControllerFeatureAsync()
     {
         try
         {
