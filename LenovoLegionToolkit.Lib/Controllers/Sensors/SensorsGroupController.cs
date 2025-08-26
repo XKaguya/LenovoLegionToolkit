@@ -25,6 +25,9 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
         private IHardware? _gpuHardware;
         private IHardware? _memoryHardware;
 
+        private string _cachedCpuName = string.Empty;
+        private string _cachedGpuName = string.Empty;
+
         private readonly object _hardwareLock = new object();
         private volatile bool _hardwaresInitialized;
 
@@ -97,7 +100,13 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                 return "UNKNOWN";
             }
 
-            return StripName(_cpuHardware.Name, "Intel(R)", "Core(TM)", "AMD", "Ryzen", "Processor", "CPU", "Gen");
+            if (!string.IsNullOrEmpty(_cachedCpuName))
+            {
+                return _cachedCpuName;
+            }
+
+            _cachedCpuName = StripName(_cpuHardware.Name, "Intel(R)", "Core(TM)", "AMD", "Ryzen", "Processor", "CPU", "Gen");
+            return _cachedCpuName;
         }
 
         public async Task<string> GetGpuNameAsync()
@@ -112,7 +121,13 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                 return "UNKNOWN";
             }
 
-            return StripName(_gpuHardware.Name, "NVIDIA", "AMD", "LAPTOP", "GPU");
+            if (!string.IsNullOrEmpty(_cachedGpuName))
+            {
+                return _cachedGpuName;
+            }
+
+            _cachedGpuName = StripName(_gpuHardware.Name, "NVIDIA", "AMD", "LAPTOP", "GPU");
+            return _cachedGpuName;
         }
 
         public async Task<float> GetCpuPowerAsync()
