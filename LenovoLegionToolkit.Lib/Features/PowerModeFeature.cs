@@ -24,6 +24,7 @@ public class PowerModeFeature(
     : AbstractWmiFeature<PowerModeState>(WMI.LenovoGameZoneData.GetSmartFanModeAsync, WMI.LenovoGameZoneData.SetSmartFanModeAsync, WMI.LenovoGameZoneData.IsSupportSmartFanAsync, 1)
 {
     public bool AllowAllPowerModesOnBattery { get; set; }
+    public PowerModeState LastPowerModeState { get; set; }
 
     public override async Task<PowerModeState[]> GetAllStatesAsync()
     {
@@ -73,13 +74,19 @@ public class PowerModeFeature(
             }
 
             await Task.Delay(TimeSpan.FromMilliseconds(500)).ConfigureAwait(false);
-
         }
 
         thermalModeListener.SuppressNext();
         await base.SetStateAsync(state).ConfigureAwait(false);
 
         await powerModeListener.NotifyAsync(state).ConfigureAwait(false);
+    }
+
+    public async Task SuspendMode(PowerModeState state)
+    {
+        LastPowerModeState = await GetStateAsync().ConfigureAwait(false);
+
+        await SetStateAsync(state).ConfigureAwait(false);
     }
 
     public async Task EnsureCorrectWindowsPowerSettingsAreSetAsync()

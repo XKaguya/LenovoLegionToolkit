@@ -39,7 +39,6 @@ public abstract class AbstractWmiFeature<T>(Func<Task<int>> getValue, Func<int, 
 
     public virtual async Task SetStateAsync(T state)
     {
-
         if (Log.Instance.IsTraceEnabled)
             Log.Instance.Trace($"Setting state to {state}... [feature={GetType().Name}]");
 

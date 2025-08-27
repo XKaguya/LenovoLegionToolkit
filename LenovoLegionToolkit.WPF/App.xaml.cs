@@ -135,6 +135,8 @@ public partial class App
             await IoCContainer.Resolve<IpcServer>().StartStopIfNeededAsync();
         });
 
+        await InitSetPowerMode();
+
 #if !DEBUG
     Autorun.Validate();
 #endif
@@ -167,7 +169,6 @@ public partial class App
         }
 
         await deferredInitTask;
-        await InitSetPowerMode();
 
         if (Log.Instance.IsTraceEnabled)
             Log.Instance.Trace($"Start up complete");
@@ -451,10 +452,9 @@ public partial class App
     {
         try
         {
-            ApplicationSettings settings = IoCContainer.Resolve<ApplicationSettings>();
-            PowerModeFeature powerMode = IoCContainer.Resolve<PowerModeFeature>();
+            PowerModeFeature feature = IoCContainer.Resolve<PowerModeFeature>();
             var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
-            var state = await powerMode.GetStateAsync().ConfigureAwait(false);
+            var state = await feature.GetStateAsync().ConfigureAwait(false);
 
             if (await Power.IsPowerAdapterConnectedAsync() == PowerAdapterStatus.Connected 
                 && state == PowerModeState.GodMode 
@@ -462,11 +462,12 @@ public partial class App
             {
                 if (Log.Instance.IsTraceEnabled)
                 {
-                    Log.Instance.Trace($"Reapplying GodMode parameters...");
+                    Log.Instance.Trace($"Reapplying GodMode...");
                 }
 
-                GodModeControllerV2 feature = IoCContainer.Resolve<GodModeControllerV2>();
-                await feature.ApplyStateAsync();
+                await feature.SetStateAsync(PowerModeState.Balance).ConfigureAwait(false);
+                await Task.Delay(TimeSpan.FromMilliseconds(500)).ConfigureAwait(false);
+                await feature.SetStateAsync(PowerModeState.GodMode).ConfigureAwait(false);
             }
         }
         catch (Exception ex)

@@ -105,6 +105,39 @@ public class PowerStateListener : IListener<PowerStateListener.ChangedEventArgs>
     private async Task CallbackAsync(uint type)
     {
         var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
+        var powerMode = type switch
+        {
+            PInvoke.PBT_APMSUSPEND => PowerStateEvent.Suspend,
+            PInvoke.PBT_APMRESUMEAUTOMATIC => PowerStateEvent.Resume,
+            PInvoke.PBT_APMPOWERSTATUSCHANGE => PowerStateEvent.StatusChange,
+            _ => PowerStateEvent.Unknown
+        };
+
+        if (mi.Generation == 10)
+        {
+            if (Log.Instance.IsTraceEnabled)
+            {
+                Log.Instance.Trace($"Machine is Generation 10. Have custom issue. PowerMode {powerMode.ToString()}");
+            }
+            PowerModeFeature feature = IoCContainer.Resolve<PowerModeFeature>();
+            if (powerMode == PowerStateEvent.Suspend)
+            {
+                if (Log.Instance.IsTraceEnabled)
+                {
+                    Log.Instance.Trace($"Going to dark.");
+                }
+                await feature.SuspendMode(PowerModeState.Balance).ConfigureAwait(false);
+            }
+            else if (powerMode == PowerStateEvent.Resume)
+            {
+                if (Log.Instance.IsTraceEnabled)
+                {
+                    Log.Instance.Trace($"Restore to {feature.LastPowerModeState}");
+                }
+                await feature.SetStateAsync(feature.LastPowerModeState).ConfigureAwait(false);
+            }
+        }
+
         if (!mi.Properties.SupportsAlwaysOnAc.status)
         {
             if (Log.Instance.IsTraceEnabled)
@@ -115,12 +148,6 @@ public class PowerStateListener : IListener<PowerStateListener.ChangedEventArgs>
 
         if (Log.Instance.IsTraceEnabled)
             Log.Instance.Trace($"Event value: {type}");
-
-        var powerMode = type switch
-        {
-            PInvoke.PBT_APMRESUMEAUTOMATIC => PowerStateEvent.Resume,
-            _ => PowerStateEvent.Unknown
-        };
 
         if (powerMode is not PowerStateEvent.Resume)
             return;
