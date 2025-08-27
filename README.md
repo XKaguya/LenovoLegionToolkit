@@ -29,7 +29,7 @@ It runs no background services, uses less memory, uses virtually no CPU, and con
 
 _Join the Legion Series Discord: https://discord.com/invite/legionseries!_
 
-<img src="assets/screenshot_main.png" width="700" />
+<img src="https://github.com/user-attachments/assets/9261f768-191c-4dcb-a603-8fa2d144b049" width="700" />
 
 &nbsp;
 
