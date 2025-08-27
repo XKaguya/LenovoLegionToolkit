@@ -60,6 +60,7 @@ public class AutomationEnvironment
                 PowerModeState.Quiet => "1",
                 PowerModeState.Balance => "2",
                 PowerModeState.Performance => "3",
+                PowerModeState.Extreme => "223",
                 PowerModeState.GodMode => "255",
                 _ => string.Empty
             };
@@ -68,6 +69,7 @@ public class AutomationEnvironment
                 PowerModeState.Quiet => "QUIET",
                 PowerModeState.Balance => "BALANCE",
                 PowerModeState.Performance => "PERFORMANCE",
+                PowerModeState.Extreme => "EXTREME",
                 PowerModeState.GodMode => "CUSTOM",
                 _ => string.Empty
             };

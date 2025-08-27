@@ -57,7 +57,8 @@ public class GodModeControllerV2(
         };
 
         var defaultPresets = await GetDefaultsInOtherPowerModesAsync().ConfigureAwait(false);
-        var defaultPerformancePreset = defaultPresets.GetValueOrNull(PowerModeState.Performance);
+        // var defaultPerformancePreset = defaultPresets.GetValueOrNull(PowerModeState.Performance);
+        var defaultPerformancePreset = defaultPresets.GetValueOrNull(PowerModeState.Extreme);
 
         var defaultPerformanceSettings = new Dictionary<CapabilityID, int?>
         {
@@ -211,7 +212,7 @@ public class GodModeControllerV2(
             var allCapabilityData = await WMI.LenovoCapabilityData01.ReadAsync().ConfigureAwait(false);
             allCapabilityData = allCapabilityData.ToArray();
 
-            foreach (var powerMode in new[] { PowerModeState.Quiet, PowerModeState.Balance, PowerModeState.Performance })
+            foreach (var powerMode in new[] { PowerModeState.Quiet, PowerModeState.Balance, PowerModeState.Performance, PowerModeState.Extreme })
             {
                 var defaults = new GodModeDefaults
                 {

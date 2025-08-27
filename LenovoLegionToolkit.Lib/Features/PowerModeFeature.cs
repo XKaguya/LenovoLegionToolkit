@@ -24,13 +24,14 @@ public class PowerModeFeature(
     : AbstractWmiFeature<PowerModeState>(WMI.LenovoGameZoneData.GetSmartFanModeAsync, WMI.LenovoGameZoneData.SetSmartFanModeAsync, WMI.LenovoGameZoneData.IsSupportSmartFanAsync, 1)
 {
     public bool AllowAllPowerModesOnBattery { get; set; }
+    public PowerModeState LastPowerModeState { get; set; }
 
     public override async Task<PowerModeState[]> GetAllStatesAsync()
     {
         var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
         return mi.Properties.SupportsGodMode
-            ? [PowerModeState.Quiet, PowerModeState.Balance, PowerModeState.Performance, PowerModeState.GodMode]
-            : [PowerModeState.Quiet, PowerModeState.Balance, PowerModeState.Performance];
+            ? [PowerModeState.Quiet, PowerModeState.Balance, PowerModeState.Performance, PowerModeState.Extreme, PowerModeState.GodMode]
+            : [PowerModeState.Quiet, PowerModeState.Balance, PowerModeState.Performance, PowerModeState.Extreme];
     }
 
     public override async Task SetStateAsync(PowerModeState state)
@@ -39,7 +40,7 @@ public class PowerModeFeature(
         if (!allStates.Contains(state))
             throw new InvalidOperationException($"Unsupported power mode {state}");
 
-        if (state is PowerModeState.Performance or PowerModeState.GodMode
+        if (state is PowerModeState.Performance or PowerModeState.GodMode or PowerModeState.Extreme
             && !AllowAllPowerModesOnBattery
             && await Power.IsPowerAdapterConnectedAsync().ConfigureAwait(false) is PowerAdapterStatus.Disconnected)
             throw new PowerModeUnavailableWithoutACException(state);
@@ -73,13 +74,19 @@ public class PowerModeFeature(
             }
 
             await Task.Delay(TimeSpan.FromMilliseconds(500)).ConfigureAwait(false);
-
         }
 
         thermalModeListener.SuppressNext();
         await base.SetStateAsync(state).ConfigureAwait(false);
 
         await powerModeListener.NotifyAsync(state).ConfigureAwait(false);
+    }
+
+    public async Task SuspendMode(PowerModeState state)
+    {
+        LastPowerModeState = await GetStateAsync().ConfigureAwait(false);
+
+        await SetStateAsync(state).ConfigureAwait(false);
     }
 
     public async Task EnsureCorrectWindowsPowerSettingsAreSetAsync()

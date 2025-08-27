@@ -63,6 +63,11 @@ public partial class WindowsPowerPlansWindow
         Refresh(_performanceModeComboBox, powerPlans, PowerModeState.Performance);
 
         var allStates = await _powerModeFeature.GetAllStatesAsync();
+        if (allStates.Contains(PowerModeState.Extreme))
+            Refresh(_godModeComboBox, powerPlans, PowerModeState.Extreme);
+        else
+            _godModeCardControl.Visibility = Visibility.Collapsed;
+
         if (allStates.Contains(PowerModeState.GodMode))
             Refresh(_godModeComboBox, powerPlans, PowerModeState.GodMode);
         else
@@ -107,6 +112,12 @@ public partial class WindowsPowerPlansWindow
     {
         if (_performanceModeComboBox.TryGetSelectedItem(out WindowsPowerPlan windowsPowerPlan))
             await WindowsPowerPlanChangedAsync(windowsPowerPlan, PowerModeState.Performance);
+    }
+
+    private async void ExtremeModeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (_performanceModeComboBox.TryGetSelectedItem(out WindowsPowerPlan windowsPowerPlan))
+            await WindowsPowerPlanChangedAsync(windowsPowerPlan, PowerModeState.Extreme);
     }
 
     private async void GodModeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

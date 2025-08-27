@@ -63,7 +63,7 @@ public class Log
         {
             var lines = new List<string>
             {
-                $"[{DateTime.UtcNow:dd/MM/yyyy HH:mm:ss.fff}] [{Environment.CurrentManagedThreadId}] [{Path.GetFileName(file)}#{lineNumber}:{caller}] {message}"
+                $"[{DateTime.Now:dd/MM/yyyy HH:mm:ss.fff}] [{Environment.CurrentManagedThreadId}] [{Path.GetFileName(file)}#{lineNumber}:{caller}] {message}"
             };
             if (ex is not null)
                 lines.Add(Serialize(ex));

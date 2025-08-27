@@ -5,13 +5,14 @@ using LenovoLegionToolkit.Lib.Utils;
 
 namespace LenovoLegionToolkit.Lib.Controllers.Sensors;
 
-public class SensorsControllerV4(GPUController gpuController) : AbstractSensorsController(gpuController)
+public class SensorsControllerV5(GPUController gpuController) : AbstractSensorsController(gpuController)
 {
     private const int CPU_SENSOR_ID = 1;
     private const int GPU_SENSOR_ID = 5;
     private const int PCH_SENSOR_ID = 4;
     private const int CPU_FAN_ID = 1;
     private const int GPU_FAN_ID = 2;
+    private const int PCH_FAN_ID = 4;
 
     public override async Task<bool> IsSupportedAsync()
     {
@@ -19,7 +20,7 @@ public class SensorsControllerV4(GPUController gpuController) : AbstractSensorsC
         {
             var result = await WMI.LenovoFanTableData.ExistsAsync(CPU_SENSOR_ID, CPU_FAN_ID).ConfigureAwait(false);
             result &= await WMI.LenovoFanTableData.ExistsAsync(GPU_SENSOR_ID, GPU_FAN_ID).ConfigureAwait(false);
-            result &= await WMI.LenovoFanTableData.ExistsAsync(PCH_SENSOR_ID, CPU_SENSOR_ID).ConfigureAwait(false);
+            result &= await WMI.LenovoFanTableData.ExistsAsync(PCH_SENSOR_ID, PCH_FAN_ID).ConfigureAwait(false);
 
             if (result)
                 _ = await GetDataAsync().ConfigureAwait(false);
@@ -46,7 +47,6 @@ public class SensorsControllerV4(GPUController gpuController) : AbstractSensorsC
         var value = await WMI.LenovoOtherMethod.GetFeatureValueAsync(CapabilityID.GpuCurrentTemperature).ConfigureAwait(false);
         return value < 1 ? -1 : value;
     }
-
     protected override async Task<int> GetPchCurrentTemperatureAsync()
     {
         var value = await WMI.LenovoOtherMethod.GetFeatureValueAsync(CapabilityID.PchCurrentTemperature).ConfigureAwait(false);
@@ -56,8 +56,10 @@ public class SensorsControllerV4(GPUController gpuController) : AbstractSensorsC
     protected override Task<int> GetCpuCurrentFanSpeedAsync() => WMI.LenovoOtherMethod.GetFeatureValueAsync(CapabilityID.CpuCurrentFanSpeed);
 
     protected override Task<int> GetGpuCurrentFanSpeedAsync() => WMI.LenovoOtherMethod.GetFeatureValueAsync(CapabilityID.GpuCurrentFanSpeed);
+    protected override Task<int> GetPchCurrentFanSpeedAsync() => WMI.LenovoOtherMethod.GetFeatureValueAsync(CapabilityID.PchCurrentFanSpeed);
 
     protected override Task<int> GetCpuMaxFanSpeedAsync() => WMI.LenovoFanMethod.GetCurrentFanMaxSpeedAsync(CPU_SENSOR_ID, CPU_FAN_ID);
 
     protected override Task<int> GetGpuMaxFanSpeedAsync() => WMI.LenovoFanMethod.GetCurrentFanMaxSpeedAsync(GPU_SENSOR_ID, GPU_FAN_ID);
+    protected override Task<int> GetPchMaxFanSpeedAsync() => WMI.LenovoFanMethod.GetCurrentFanMaxSpeedAsync(PCH_SENSOR_ID, PCH_FAN_ID);
 }

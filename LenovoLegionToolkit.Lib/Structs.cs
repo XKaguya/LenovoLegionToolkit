@@ -247,6 +247,13 @@ public readonly struct FanTableInfo(FanTableData[] data, FanTable table)
         $" {nameof(Table)}: {Table}";
 }
 
+public readonly struct FanSpeedTable(int cpuFanSpeed, int gpuFanSpeed, int pchFanSpeed)
+{
+    public int CpuFanSpeed { get; } = cpuFanSpeed;
+    public int GpuFanSpeed { get; } = gpuFanSpeed;
+    public int PchFanSpeed { get; } = pchFanSpeed;
+}
+
 public readonly struct GPUOverclockInfo(int coreDeltaMhz, int memoryDeltaMhz)
 {
     public static readonly GPUOverclockInfo Zero = new();
@@ -426,9 +433,12 @@ public readonly struct MachineInformation
 
     public readonly struct PropertyData
     {
+
         public bool SupportsGodMode => SupportsGodModeV1 || SupportsGodModeV2;
 
         public (bool status, bool connectivity) SupportsAlwaysOnAc { get; init; }
+        public bool SupportsDIGPUMode { get; init; }
+        public bool SupportsExtremeMode { get; init; }
         public bool SupportsGodModeV1 { get; init; }
         public bool SupportsGodModeV2 { get; init; }
         public bool SupportsGSync { get; init; }
@@ -443,6 +453,7 @@ public readonly struct MachineInformation
         public bool HasAlternativeFullSpectrumLayout { get; init; }
     }
 
+    public int Generation { get; init; }
     public string Vendor { get; init; }
     public string MachineType { get; init; }
     public string Model { get; init; }
@@ -690,14 +701,16 @@ public readonly struct SensorData(
         $" {nameof(MaxFanSpeed)}: {MaxFanSpeed}";
 }
 
-public readonly struct SensorsData(SensorData cpu, SensorData gpu)
+public readonly struct SensorsData(SensorData cpu, SensorData gpu, SensorData pch)
 {
-    public static readonly SensorsData Empty = new(SensorData.Empty, SensorData.Empty);
+    public static readonly SensorsData Empty = new(SensorData.Empty, SensorData.Empty, SensorData.Empty);
 
     public SensorData CPU { get; } = cpu;
     public SensorData GPU { get; } = gpu;
 
-    public override string ToString() => $"{nameof(CPU)}: {CPU}, {nameof(GPU)}: {GPU}";
+    public SensorData PCH { get; } = pch;
+
+    public override string ToString() => $"{nameof(CPU)}: {CPU}, {nameof(GPU)}: {GPU}, {nameof(PCH)}: {PCH}";
 }
 
 [method: JsonConstructor]
