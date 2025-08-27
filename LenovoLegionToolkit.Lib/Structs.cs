@@ -865,7 +865,7 @@ public readonly struct Time(int hour, int minute)
 
 public readonly struct Update(Release release)
 {
-    public Version Version { get; } = Version.Parse(release.TagName);
+    public Version Version { get; } = Version.Parse(release.TagName.TrimStart('v'));
     public string Title { get; } = release.Name;
     public string Description { get; } = release.Body;
     public DateTimeOffset Date { get; } = release.PublishedAt ?? release.CreatedAt;
