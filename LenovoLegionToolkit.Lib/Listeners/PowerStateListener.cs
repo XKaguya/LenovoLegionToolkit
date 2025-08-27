@@ -126,7 +126,7 @@ public class PowerStateListener : IListener<PowerStateListener.ChangedEventArgs>
                 {
                     Log.Instance.Trace($"Going to dark.");
                 }
-                await feature.SuspendMode(PowerModeState.Balance).ConfigureAwait(false);
+                await feature.SuspendMode(PowerModeState.Quiet).ConfigureAwait(false);
             }
             else if (powerMode == PowerStateEvent.Resume)
             {
