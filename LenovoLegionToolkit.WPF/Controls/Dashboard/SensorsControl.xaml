@@ -60,7 +60,7 @@
     <wpfui:CardControl HorizontalAlignment="Center">
         <wpfui:CardControl.Content>
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" behaviors:DragDropBehavior.IsEnabled="True">
                     <Border x:Name="_cpuCard" Style="{StaticResource SensorCardStyle}">
                         <StackPanel Margin="12,10">
                             <Grid>
@@ -303,8 +303,8 @@
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Grid.Column="0" Style="{StaticResource DataLabelStyle}" Text="{x:Static resources:Resource.SensorsControl_Disk_1_Temperature}"/>
-                                    <TextBlock x:Name="_disk0TemperatureLabel" Grid.Column="2" Style="{StaticResource DataValueStyle}" Text="-"/>
-                                    <ProgressBar x:Name="_disk0TemperatureBar" Grid.Column="3" Style="{StaticResource CompactProgressBarStyle}" Value="0" Maximum="100"/>
+                                    <TextBlock x:Name="_disk1TemperatureLabel" Grid.Column="2" Style="{StaticResource DataValueStyle}" Text="-"/>
+                                    <ProgressBar x:Name="_disk1TemperatureBar" Grid.Column="3" Style="{StaticResource CompactProgressBarStyle}" Value="0" Maximum="100"/>
                                 </Grid>
                                 <Grid Margin="0,6,0,0">
                                     <Grid.ColumnDefinitions>
@@ -314,8 +314,8 @@
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Grid.Column="0" Style="{StaticResource DataLabelStyle}" Text="{x:Static resources:Resource.SensorsControl_Disk_2_Temperature}"/>
-                                    <TextBlock x:Name="_disk1TemperatureLabel" Grid.Column="2" Style="{StaticResource DataValueStyle}" Text="-"/>
-                                    <ProgressBar x:Name="_disk1TemperatureBar" Grid.Column="3" Style="{StaticResource CompactProgressBarStyle}" Value="0" Maximum="100"/>
+                                    <TextBlock x:Name="_disk2TemperatureLabel" Grid.Column="2" Style="{StaticResource DataValueStyle}" Text="-"/>
+                                    <ProgressBar x:Name="_disk2TemperatureBar" Grid.Column="3" Style="{StaticResource CompactProgressBarStyle}" Value="0" Maximum="100"/>
                                 </Grid>
                             </StackPanel>
                         </StackPanel>

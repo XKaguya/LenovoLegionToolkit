@@ -156,7 +156,7 @@ public partial class SensorsControl
                             lock (_updateLock)
                             {
                                 var data = dataTask.Result;
-                                var (diskTemp0, diskTemp1) = diskTemperaturesTask.Result;
+                                var (diskTemp1, diskTemp2) = diskTemperaturesTask.Result;
 
                                 UpdateValue(_cpuCardName, _cpuNameTask.Result);
                                 UpdateValue(_gpuCardName, _gpuNameTask.Result);
@@ -177,8 +177,8 @@ public partial class SensorsControl
                                 UpdateValue(_pchTemperatureBar, _pchTemperatureLabel, data.PCH.MaxTemperature, data.PCH.Temperature, GetTemperatureText(data.PCH.Temperature), GetTemperatureText(data.PCH.MaxTemperature));
                                 UpdateValue(_pchFanSpeedBar, _pchFanSpeedLabel, data.PCH.MaxFanSpeed, data.PCH.FanSpeed, $"{data.PCH.FanSpeed} {Resource.RPM}", $"{data.PCH.MaxFanSpeed} {Resource.RPM}");
 
-                                UpdateValue(_disk0TemperatureBar, _disk0TemperatureLabel, 100, diskTemp0, GetTemperatureText(diskTemp0), GetTemperatureText(100));
                                 UpdateValue(_disk1TemperatureBar, _disk1TemperatureLabel, 100, diskTemp1, GetTemperatureText(diskTemp1), GetTemperatureText(100));
+                                UpdateValue(_disk2TemperatureBar, _disk2TemperatureLabel, 100, diskTemp2, GetTemperatureText(diskTemp2), GetTemperatureText(100));
 
                                 UpdateValue(_memoryUtilizationBar, _memoryUtilizationLabel, 100, memoryUsageTask.Result, $"{memoryUsageTask.Result:0}%", "100%");
                                 UpdateValue(_memoryTemperatureBar, _memoryTemperatureLabel, 100, memoryTemperaturesTask.Result, GetTemperatureText(memoryTemperaturesTask.Result), GetTemperatureText(100));
@@ -217,8 +217,8 @@ public partial class SensorsControl
                                 UpdateValue(_pchTemperatureBar, _pchTemperatureLabel, -1, -1, "");
                                 UpdateValue(_pchFanSpeedBar, _pchFanSpeedLabel, -1, -1, "");
 
-                                UpdateValue(_disk0TemperatureBar, _disk0TemperatureLabel, -1, -1, "");
                                 UpdateValue(_disk1TemperatureBar, _disk1TemperatureLabel, -1, -1, "");
+                                UpdateValue(_disk2TemperatureBar, _disk2TemperatureLabel, -1, -1, "");
 
                                 UpdateValue(_memoryUtilizationBar, _memoryUtilizationLabel, -1, -1, "");
                                 UpdateValue(_memoryTemperatureBar, _memoryTemperatureLabel, -1, -1, "");
