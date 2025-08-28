@@ -2315,4 +2315,10 @@
   <data name="SensorsControl_Disk_2_Temperature" xml:space="preserve">
     <value>磁盘2温度</value>
   </data>
+  <data name="SettingsPage_EnableLogging_Title" xml:space="preserve">
+    <value>启用日志</value>
+  </data>
+  <data name="SettingsPage_EnableLogging_Message" xml:space="preserve">
+    <value>启用日志以方便错误追踪</value>
+  </data>
 </root>

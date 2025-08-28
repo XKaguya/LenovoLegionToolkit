@@ -5312,6 +5312,24 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Enable logging for debug. 的本地化字符串。
+        /// </summary>
+        public static string SettingsPage_EnableLogging_Message {
+            get {
+                return ResourceManager.GetString("SettingsPage_EnableLogging_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Enable Logging 的本地化字符串。
+        /// </summary>
+        public static string SettingsPage_EnableLogging_Title {
+            get {
+                return ResourceManager.GetString("SettingsPage_EnableLogging_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Lenovo Vantage and/or ImController may have not been enabled correctly 的本地化字符串。
         /// </summary>
         public static string SettingsPage_EnableVantage_Error_Message {

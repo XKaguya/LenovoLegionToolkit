@@ -287,7 +287,7 @@
                             AutomationProperties.Name="{x:Static resources:Resource.GodModeSettingsWindow_Advanced_MaxOffset_Title}"
                             ClearButtonEnabled="False"
                             MaxDecimalPlaces="0"
-                            Maximum="100"
+                            Maximum="115"
                             Minimum="0" />
                     </custom:CardControl>
 

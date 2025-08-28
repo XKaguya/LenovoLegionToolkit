@@ -1684,4 +1684,10 @@ Toto nastavení se aplikuje jen když je zapnutý vlastní režim.</value>
   <data name="SensorsControl_Disk_2_Temperature" xml:space="preserve">
     <value />
   </data>
+  <data name="SettingsPage_EnableLogging_Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SettingsPage_EnableLogging_Message" xml:space="preserve">
+    <value />
+  </data>
 </root>

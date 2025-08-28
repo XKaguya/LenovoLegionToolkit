@@ -2304,4 +2304,10 @@ Chức năng này không ảnh hưởng các cửa sổ ở chế độ toàn m�
   <data name="SensorsControl_Disk_2_Temperature" xml:space="preserve">
     <value />
   </data>
+  <data name="SettingsPage_EnableLogging_Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SettingsPage_EnableLogging_Message" xml:space="preserve">
+    <value />
+  </data>
 </root>

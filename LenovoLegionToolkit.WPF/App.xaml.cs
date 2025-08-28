@@ -52,6 +52,8 @@ public partial class App
     private Mutex? _singleInstanceMutex;
     private EventWaitHandle? _singleInstanceWaitHandle;
 
+    public static MainWindow? MainWindowInstance;
+
     public new static App Current => (App)Application.Current;
 
     private async void Application_Startup(object sender, StartupEventArgs e)
@@ -141,13 +143,13 @@ public partial class App
     Autorun.Validate();
 #endif
 
-        var mainWindow = new MainWindow
+        MainWindowInstance = new MainWindow
         {
             WindowStartupLocation = WindowStartupLocation.CenterScreen,
             TrayTooltipEnabled = !flags.DisableTrayTooltip,
             DisableConflictingSoftwareWarning = flags.DisableConflictingSoftwareWarning
         };
-        MainWindow = mainWindow;
+        MainWindow = MainWindowInstance;
 
         IoCContainer.Resolve<ThemeManager>().Apply();
 
@@ -156,16 +158,16 @@ public partial class App
             if (Log.Instance.IsTraceEnabled)
                 Log.Instance.Trace($"Sending MainWindow to tray...");
 
-            mainWindow.WindowState = WindowState.Minimized;
-            mainWindow.Show();
-            mainWindow.SendToTray();
+            MainWindowInstance.WindowState = WindowState.Minimized;
+            MainWindowInstance.Show();
+            MainWindowInstance.SendToTray();
         }
         else
         {
             if (Log.Instance.IsTraceEnabled)
                 Log.Instance.Trace($"Showing MainWindow...");
 
-            mainWindow.Show();
+            MainWindowInstance.Show();
         }
 
         await deferredInitTask;

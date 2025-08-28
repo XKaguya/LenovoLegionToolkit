@@ -2307,4 +2307,10 @@ It won't affect other full screen windows, but you will not be able to click on 
   <data name="SensorsControl_Disk_2_Temperature" xml:space="preserve">
     <value>Disk 2 Temperature</value>
   </data>
+  <data name="SettingsPage_EnableLogging_Title" xml:space="preserve">
+    <value>Enable Logging</value>
+  </data>
+  <data name="SettingsPage_EnableLogging_Message" xml:space="preserve">
+    <value>Enable logging for debug.</value>
+  </data>
 </root>
