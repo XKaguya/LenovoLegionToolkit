@@ -293,7 +293,23 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
             if (string.IsNullOrEmpty(name)) return "UNKNOWN";
 
             var sb = new StringBuilder(name);
-            string cleanedName = Regex.Replace(sb.ToString(), @"\s*\d+(?:th|st|nd|rd)?\s+Gen\b", string.Empty, RegexOptions.IgnoreCase);
+            string intelPattern = @"\s*\d+(?:th|st|nd|rd)?\s+Gen\b";
+            string amdPattern = @"\s+with\s+Radeon\s+Graphics$";
+            string cleanedName;
+
+            if (name.Contains("AMD", StringComparison.OrdinalIgnoreCase))
+            {
+                cleanedName = Regex.Replace(sb.ToString(), intelPattern, string.Empty, RegexOptions.IgnoreCase);
+            }
+            else if (name.Contains("Intel", StringComparison.OrdinalIgnoreCase))
+            {
+                cleanedName = Regex.Replace(sb.ToString(), amdPattern, string.Empty, RegexOptions.IgnoreCase);
+            }
+            else
+            {
+                cleanedName = name;
+            }
+
             sb = new StringBuilder(cleanedName);
             foreach (var term in terms)
             {
