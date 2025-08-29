@@ -95,7 +95,7 @@ public partial class DashboardPage
 
         Grid.SetRow(editDashboardHyperlink, groups.Length);
         Grid.SetColumn(editDashboardHyperlink, 0);
-        Grid.SetColumnSpan(editDashboardHyperlink, 2);
+        Grid.SetColumnSpan(editDashboardHyperlink, 1);
         _content.Children.Add(editDashboardHyperlink);
 
         var editSensorGroupHyperlink = new Hyperlink
@@ -113,8 +113,8 @@ public partial class DashboardPage
         };
 
         Grid.SetRow(editSensorGroupHyperlink, groups.Length);
-        Grid.SetColumn(editSensorGroupHyperlink, 1);
-        Grid.SetColumnSpan(editSensorGroupHyperlink, 2);
+        Grid.SetColumn(editSensorGroupHyperlink, 0);
+        Grid.SetColumnSpan(editSensorGroupHyperlink, 4);
         _content.Children.Add(editSensorGroupHyperlink);
 
         LayoutGroups(ActualWidth);
