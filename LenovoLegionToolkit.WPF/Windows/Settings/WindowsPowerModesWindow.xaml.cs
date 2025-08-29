@@ -53,6 +53,11 @@ public partial class WindowsPowerModesWindow
         Refresh(_performanceModeComboBox, powerModes, PowerModeState.Performance);
 
         var allStates = await _powerModeFeature.GetAllStatesAsync();
+        if (allStates.Contains(PowerModeState.Extreme))
+            Refresh(_extremeModeComboBox, powerModes, PowerModeState.Extreme);
+        else
+            _extremeModeComboBox.Visibility = Visibility.Collapsed;
+
         if (allStates.Contains(PowerModeState.GodMode))
             Refresh(_godModeComboBox, powerModes, PowerModeState.GodMode);
         else
@@ -96,6 +101,12 @@ public partial class WindowsPowerModesWindow
     {
         if (_performanceModeComboBox.TryGetSelectedItem(out WindowsPowerMode windowsPowerMode))
             await WindowsPowerModeChangedAsync(windowsPowerMode, PowerModeState.Performance);
+    }
+
+    private async void ExtremeModeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (_extremeModeComboBox.TryGetSelectedItem(out WindowsPowerMode windowsPowerMode))
+            await WindowsPowerModeChangedAsync(windowsPowerMode, PowerModeState.Extreme);
     }
 
     private async void GodModeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
