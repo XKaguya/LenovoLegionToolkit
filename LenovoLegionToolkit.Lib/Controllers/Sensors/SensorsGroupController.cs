@@ -111,7 +111,7 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                 return _cachedCpuName;
             }
 
-            _cachedCpuName = StripName(_cpuHardware.Name, "Intel(R)", "Core(TM)", "AMD", "Ryzen", "Processor", "CPU", "Gen");
+            _cachedCpuName = StripName(_cpuHardware.Name);
             return _cachedCpuName;
         }
 
@@ -132,7 +132,7 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                 return _cachedGpuName;
             }
 
-            _cachedGpuName = StripName(_gpuHardware.Name, "NVIDIA", "AMD", "LAPTOP", "GPU");
+            _cachedGpuName = StripName(_gpuHardware.Name);
             return _cachedGpuName;
         }
 
@@ -347,39 +347,35 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
             }
         }
 
-        private string StripName(string name, params string[] terms)
+        private string StripName(string name)
         {
-            if (string.IsNullOrEmpty(name)) return "UNKNOWN";
+            if (string.IsNullOrEmpty(name))
+                return "UNKNOWN";
 
-            var sb = new StringBuilder(name);
-            string intelPattern = @"\s*\d+(?:th|st|nd|rd)?\s+Gen\b";
-            string amdPattern = @"\s+with\s+Radeon\s+Graphics$";
-            string cleanedName;
+            string cleanedName = name.Trim();
 
-            if (name.Contains("AMD", StringComparison.OrdinalIgnoreCase))
+            if (cleanedName.Contains("AMD", StringComparison.OrdinalIgnoreCase))
             {
-                cleanedName = Regex.Replace(sb.ToString(), intelPattern, string.Empty, RegexOptions.IgnoreCase);
+                cleanedName = Regex.Replace(cleanedName, @"\s+with\s+Radeon\s+Graphics$", "",
+                                            RegexOptions.IgnoreCase);
             }
-            else if (name.Contains("Intel", StringComparison.OrdinalIgnoreCase))
+            else if (cleanedName.Contains("Intel", StringComparison.OrdinalIgnoreCase))
             {
-                cleanedName = Regex.Replace(sb.ToString(), amdPattern, string.Empty, RegexOptions.IgnoreCase);
+                cleanedName = Regex.Replace(cleanedName, @"\s*\d+(?:th|st|nd|rd)?\s+Gen\b", "",
+                                            RegexOptions.IgnoreCase);
             }
-            else
+            else if (cleanedName.Contains("Nvidia", StringComparison.OrdinalIgnoreCase) ||
+                     cleanedName.Contains("GeForce", StringComparison.OrdinalIgnoreCase))
             {
-                cleanedName = name;
-            }
-
-            sb = new StringBuilder(cleanedName);
-            foreach (var term in terms)
-            {
-                int index;
-                while ((index = sb.ToString().IndexOf(term, StringComparison.OrdinalIgnoreCase)) != -1)
+                var match = Regex.Match(cleanedName,
+                    @"(?i)\b(?:Nvidia\s+)?(GeForce\s+RTX\s+5080)\b(?:\s+Laptop\s+GPU)?");
+                if (match.Success)
                 {
-                    sb.Remove(index, term.Length);
+                    cleanedName = match.Groups[1].Value;
                 }
             }
 
-            return sb.ToString().Replace("  ", " ").Trim();
+            return Regex.Replace(cleanedName, @"\s+", " ").Trim();
         }
 
         public void Dispose()
