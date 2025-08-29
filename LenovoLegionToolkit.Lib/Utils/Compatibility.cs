@@ -33,6 +33,7 @@ public static partial class Compatibility
         "17IMH",
 
         "16ACH",
+        "16AFR",
         "16AHP",
         "16APH",
         "16ARH",

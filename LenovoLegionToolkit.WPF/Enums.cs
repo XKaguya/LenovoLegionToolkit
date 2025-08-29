@@ -35,6 +35,40 @@ public enum DashboardItem
     WhiteKeyboardBacklight
 }
 
+public enum SensorGroupType
+{
+    CPU,
+    GPU,
+    Motherboard,
+    Battery,
+    Memory,
+    Disk
+}
+
+public enum SensorItem
+{
+    CpuUtilization,
+    CpuFrequency,
+    CpuFanSpeed,
+    CpuTemperature,
+    CpuPower,
+    GpuUtilization,
+    GpuFrequency,
+    GpuFanSpeed,
+    GpuCoreTemperature,
+    GpuVramTemperature,
+    GpuTemperatures,
+    GpuPower,
+    PchFanSpeed,
+    PchTemperature,
+    BatteryState,
+    BatteryLevel,
+    MemoryUtilization,
+    MemoryTemperature,
+    Disk1Temperature,
+    Disk2Temperature
+}
+
 public enum SnackbarType
 {
     Success,

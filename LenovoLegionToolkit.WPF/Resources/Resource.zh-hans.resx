@@ -2321,4 +2321,58 @@
   <data name="SettingsPage_EnableLogging_Message" xml:space="preserve">
     <value>启用日志以方便错误追踪</value>
   </data>
+  <data name="SensorItem_CpuUtilitzation" xml:space="preserve">
+    <value>CPU 利用率</value>
+  </data>
+  <data name="SensorItem_CpuFrequency" xml:space="preserve">
+    <value>CPU 频率</value>
+  </data>
+  <data name="SensorItem_CpuFanSpeed" xml:space="preserve">
+    <value>CPU 风扇转速</value>
+  </data>
+  <data name="SensorItem_CpuTemperature" xml:space="preserve">
+    <value>CPU 温度</value>
+  </data>
+  <data name="SensorItem_CpuPower" xml:space="preserve">
+    <value>CPU 功耗</value>
+  </data>
+  <data name="SensorItem_GpuUtilization" xml:space="preserve">
+    <value>GPU 利用率</value>
+  </data>
+  <data name="SensorItem_GpuFrequency" xml:space="preserve">
+    <value>GPU 频率</value>
+  </data>
+  <data name="SensorItem_GpuFanSpeed" xml:space="preserve">
+    <value>GPU 风扇转速</value>
+  </data>
+  <data name="SensorItem_PchFanSpeed" xml:space="preserve">
+    <value>系统风扇转速</value>
+  </data>
+  <data name="SensorItem_PchTemperature" xml:space="preserve">
+    <value>南桥温度</value>
+  </data>
+  <data name="SensorItem_BatteryState" xml:space="preserve">
+    <value>电池状态</value>
+  </data>
+  <data name="SensorItem_BatteryLevel" xml:space="preserve">
+    <value>当前电量</value>
+  </data>
+  <data name="SensorItem_MemoryUtilization" xml:space="preserve">
+    <value>内存利用率</value>
+  </data>
+  <data name="SensorItem_MemoryTemperature" xml:space="preserve">
+    <value>内存温度</value>
+  </data>
+  <data name="SensorItem_Disk1Temperature" xml:space="preserve">
+    <value>磁盘 1 温度</value>
+  </data>
+  <data name="SensorItem_Disk2Temperature" xml:space="preserve">
+    <value>磁盘 2 温度</value>
+  </data>
+  <data name="EditSensorWindow_Title" xml:space="preserve">
+    <value>编辑传感器</value>
+  </data>
+  <data name="SensorItem_GpuTemperatures" xml:space="preserve">
+    <value>GPU 温度</value>
+  </data>
 </root>

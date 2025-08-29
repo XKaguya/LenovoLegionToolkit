@@ -2313,4 +2313,58 @@ It won't affect other full screen windows, but you will not be able to click on 
   <data name="SettingsPage_EnableLogging_Message" xml:space="preserve">
     <value>Enable logging for debug.</value>
   </data>
+  <data name="SensorItem_CpuUtilitzation" xml:space="preserve">
+    <value>CPU Utilitazion</value>
+  </data>
+  <data name="SensorItem_CpuFrequency" xml:space="preserve">
+    <value>CPU Frequency</value>
+  </data>
+  <data name="SensorItem_CpuFanSpeed" xml:space="preserve">
+    <value>CPU Fan Speed</value>
+  </data>
+  <data name="SensorItem_CpuTemperature" xml:space="preserve">
+    <value>CPU Temperature</value>
+  </data>
+  <data name="SensorItem_CpuPower" xml:space="preserve">
+    <value>CPU Power</value>
+  </data>
+  <data name="SensorItem_GpuUtilization" xml:space="preserve">
+    <value>GPU Utilization</value>
+  </data>
+  <data name="SensorItem_GpuFrequency" xml:space="preserve">
+    <value>GPU Frequency</value>
+  </data>
+  <data name="SensorItem_GpuFanSpeed" xml:space="preserve">
+    <value>GPU Fan Speed</value>
+  </data>
+  <data name="SensorItem_PchFanSpeed" xml:space="preserve">
+    <value>PCH Fan Speed</value>
+  </data>
+  <data name="SensorItem_PchTemperature" xml:space="preserve">
+    <value>PCH Temperature</value>
+  </data>
+  <data name="SensorItem_BatteryState" xml:space="preserve">
+    <value>Battery State</value>
+  </data>
+  <data name="SensorItem_BatteryLevel" xml:space="preserve">
+    <value>Battery Level</value>
+  </data>
+  <data name="SensorItem_MemoryUtilization" xml:space="preserve">
+    <value>Memory Utilization</value>
+  </data>
+  <data name="SensorItem_MemoryTemperature" xml:space="preserve">
+    <value>Memory Temperature</value>
+  </data>
+  <data name="SensorItem_Disk1Temperature" xml:space="preserve">
+    <value>Disk 1 Temperature</value>
+  </data>
+  <data name="SensorItem_Disk2Temperature" xml:space="preserve">
+    <value>Disk 2 Temperature</value>
+  </data>
+  <data name="EditSensorWindow_Title" xml:space="preserve">
+    <value>Edit Sensor</value>
+  </data>
+  <data name="SensorItem_GpuTemperatures" xml:space="preserve">
+    <value>GPU Temperature</value>
+  </data>
 </root>

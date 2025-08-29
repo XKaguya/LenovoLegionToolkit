@@ -58,6 +58,57 @@ public readonly struct DashboardGroup(DashboardGroupType type, string? customNam
         $" {nameof(Items)}: {string.Join(",", Items)}";
 }
 
+public readonly struct SensorGroup(SensorGroupType type, params SensorItem[] items)
+{
+    public static readonly SensorGroup[] DefaultGroups =
+    [
+        new(SensorGroupType.CPU,
+            SensorItem.CpuUtilization,
+            SensorItem.CpuFrequency,
+            SensorItem.CpuFanSpeed,
+            SensorItem.CpuTemperature,
+            SensorItem.CpuPower),
+        new(SensorGroupType.GPU,
+            SensorItem.GpuUtilization,
+            SensorItem.GpuFrequency,
+            SensorItem.GpuFanSpeed,
+            SensorItem.GpuCoreTemperature,
+            SensorItem.GpuVramTemperature,
+            SensorItem.GpuTemperatures,
+            SensorItem.GpuPower),
+        new(SensorGroupType.Motherboard,
+            SensorItem.PchFanSpeed,
+            SensorItem.PchTemperature),
+        new(SensorGroupType.Battery,
+            SensorItem.BatteryState,
+            SensorItem.BatteryLevel),
+        new(SensorGroupType.Memory,
+            SensorItem.MemoryUtilization,
+            SensorItem.MemoryTemperature),
+        new(SensorGroupType.Disk,
+            SensorItem.Disk1Temperature,
+            SensorItem.Disk2Temperature)
+    ];
+
+    public SensorGroupType Type { get; } = type;
+
+    public SensorItem[] Items { get; } = items;
+
+    public string GetName() => Type switch
+    {
+        SensorGroupType.CPU => "CPU",
+        SensorGroupType.GPU => "GPU",
+        SensorGroupType.Motherboard => "Motherboard",
+        SensorGroupType.Battery => "Battery",
+        SensorGroupType.Memory => "Memory",
+        SensorGroupType.Disk => "Disk",
+        _ => throw new InvalidOperationException($"Invalid type {Type}")
+    };
+
+    public override string ToString() =>
+        $"{nameof(Type)}: {Type}, {nameof(Items)}: [{string.Join(", ", Items)}]";
+}
+
 public readonly struct ScreenInfo(Rect workArea, uint dpiX, uint dpiY, bool isPrimary)
 {
     public Rect WorkArea { get; } = workArea;

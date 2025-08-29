@@ -1858,6 +1858,15 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Edit Sensor 的本地化字符串。
+        /// </summary>
+        public static string EditSensorWindow_Title {
+            get {
+                return ResourceManager.GetString("EditSensorWindow_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Uncheck refresh rates that you do not want to use when Fn+R shortcut is used. 的本地化字符串。
         /// </summary>
         public static string ExcludeRefreshRatesWindow_Description {
@@ -4809,6 +4818,159 @@ namespace LenovoLegionToolkit.WPF.Resources {
         public static string SelectSmartKeyPipelinesWindow_ShowThisApp {
             get {
                 return ResourceManager.GetString("SelectSmartKeyPipelinesWindow_ShowThisApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Battery Level 的本地化字符串。
+        /// </summary>
+        public static string SensorItem_BatteryLevel {
+            get {
+                return ResourceManager.GetString("SensorItem_BatteryLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Battery State 的本地化字符串。
+        /// </summary>
+        public static string SensorItem_BatteryState {
+            get {
+                return ResourceManager.GetString("SensorItem_BatteryState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 CPU Fan Speed 的本地化字符串。
+        /// </summary>
+        public static string SensorItem_CpuFanSpeed {
+            get {
+                return ResourceManager.GetString("SensorItem_CpuFanSpeed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 CPU Frequency 的本地化字符串。
+        /// </summary>
+        public static string SensorItem_CpuFrequency {
+            get {
+                return ResourceManager.GetString("SensorItem_CpuFrequency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 CPU Power 的本地化字符串。
+        /// </summary>
+        public static string SensorItem_CpuPower {
+            get {
+                return ResourceManager.GetString("SensorItem_CpuPower", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 CPU Temperature 的本地化字符串。
+        /// </summary>
+        public static string SensorItem_CpuTemperature {
+            get {
+                return ResourceManager.GetString("SensorItem_CpuTemperature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 CPU Utilitazion 的本地化字符串。
+        /// </summary>
+        public static string SensorItem_CpuUtilitzation {
+            get {
+                return ResourceManager.GetString("SensorItem_CpuUtilitzation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Disk 1 Temperature 的本地化字符串。
+        /// </summary>
+        public static string SensorItem_Disk1Temperature {
+            get {
+                return ResourceManager.GetString("SensorItem_Disk1Temperature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Disk 2 Temperature 的本地化字符串。
+        /// </summary>
+        public static string SensorItem_Disk2Temperature {
+            get {
+                return ResourceManager.GetString("SensorItem_Disk2Temperature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 GPU Fan Speed 的本地化字符串。
+        /// </summary>
+        public static string SensorItem_GpuFanSpeed {
+            get {
+                return ResourceManager.GetString("SensorItem_GpuFanSpeed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 GPU Frequency 的本地化字符串。
+        /// </summary>
+        public static string SensorItem_GpuFrequency {
+            get {
+                return ResourceManager.GetString("SensorItem_GpuFrequency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 GPU Temperature 的本地化字符串。
+        /// </summary>
+        public static string SensorItem_GpuTemperatures {
+            get {
+                return ResourceManager.GetString("SensorItem_GpuTemperatures", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 GPU Utilization 的本地化字符串。
+        /// </summary>
+        public static string SensorItem_GpuUtilization {
+            get {
+                return ResourceManager.GetString("SensorItem_GpuUtilization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Memory Temperature 的本地化字符串。
+        /// </summary>
+        public static string SensorItem_MemoryTemperature {
+            get {
+                return ResourceManager.GetString("SensorItem_MemoryTemperature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Memory Utilization 的本地化字符串。
+        /// </summary>
+        public static string SensorItem_MemoryUtilization {
+            get {
+                return ResourceManager.GetString("SensorItem_MemoryUtilization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 PCH Fan Speed 的本地化字符串。
+        /// </summary>
+        public static string SensorItem_PchFanSpeed {
+            get {
+                return ResourceManager.GetString("SensorItem_PchFanSpeed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 PCH Temperature 的本地化字符串。
+        /// </summary>
+        public static string SensorItem_PchTemperature {
+            get {
+                return ResourceManager.GetString("SensorItem_PchTemperature", resourceCulture);
             }
         }
         
