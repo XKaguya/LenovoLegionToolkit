@@ -269,7 +269,7 @@ public partial class MainWindow
                             }
                             else
                             {
-                                var versionNumber = result.ToString(3);
+                                var versionNumber = result.ToString();
 
                                 _updateIndicatorText.Text =
                                     string.Format(Resource.MainWindow_UpdateAvailableWithVersion, versionNumber);
