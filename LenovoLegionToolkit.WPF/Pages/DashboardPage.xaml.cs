@@ -79,12 +79,18 @@ public partial class DashboardPage
 
         _content.RowDefinitions.Add(new RowDefinition { Height = new(1, GridUnitType.Auto) });
 
+        var hyperlinksPanel = new StackPanel
+        {
+            Orientation = Orientation.Horizontal,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            Margin = new(0, 16, 0, 0)
+        };
+
         var editDashboardHyperlink = new Hyperlink
         {
             Icon = SymbolRegular.Edit24,
             Content = Resource.DashboardPage_Customize,
-            Margin = new(0, 16, 0, 0),
-            HorizontalAlignment = HorizontalAlignment.Center
+            Margin = new(0, 0, 8, 0)
         };
         editDashboardHyperlink.Click += (_, _) =>
         {
@@ -92,18 +98,13 @@ public partial class DashboardPage
             window.Apply += async (_, _) => await RefreshAsync();
             window.ShowDialog();
         };
-
-        Grid.SetRow(editDashboardHyperlink, groups.Length);
-        Grid.SetColumn(editDashboardHyperlink, 0);
-        Grid.SetColumnSpan(editDashboardHyperlink, 1);
-        _content.Children.Add(editDashboardHyperlink);
+        hyperlinksPanel.Children.Add(editDashboardHyperlink);
 
         var editSensorGroupHyperlink = new Hyperlink
         {
             Icon = SymbolRegular.Edit24,
             Content = Resource.DashboardPage_Customize,
-            Margin = new(0, 16, 0, 0),
-            HorizontalAlignment = HorizontalAlignment.Center
+            Margin = new(8, 0, 0, 0)
         };
         editSensorGroupHyperlink.Click += (_, _) =>
         {
@@ -111,11 +112,12 @@ public partial class DashboardPage
             window.Apply += async (_, _) => await RefreshAsync();
             window.ShowDialog();
         };
+        hyperlinksPanel.Children.Add(editSensorGroupHyperlink);
 
-        Grid.SetRow(editSensorGroupHyperlink, groups.Length);
-        Grid.SetColumn(editSensorGroupHyperlink, 0);
-        Grid.SetColumnSpan(editSensorGroupHyperlink, 4);
-        _content.Children.Add(editSensorGroupHyperlink);
+        Grid.SetRow(hyperlinksPanel, groups.Length);
+        Grid.SetColumn(hyperlinksPanel, 0);
+        Grid.SetColumnSpan(hyperlinksPanel, 2);
+        _content.Children.Add(hyperlinksPanel);
 
         LayoutGroups(ActualWidth);
 
