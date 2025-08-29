@@ -368,7 +368,7 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                      cleanedName.Contains("GeForce", StringComparison.OrdinalIgnoreCase))
             {
                 var match = Regex.Match(cleanedName,
-                    @"(?i)\b(?:Nvidia\s+)?GeForce\s+(?:RTX|GTX)\s+(\d{3,4})(?:\s+(Ti|SUPER|Ti\s+SUPER|M))?\b(?:\s+Laptop\s+GPU)?(?!\S)";
+                    @"(?i)\b(?:Nvidia\s+)?(GeForce\s+(?:RTX|GTX)\s+\d{3,4}(?:\s+(Ti|SUPER|Ti\s+SUPER|M))?)\b(?:\s+Laptop\s+GPU)?(?!\S)");
                 if (match.Success)
                 {
                     cleanedName = match.Groups[1].Value;
