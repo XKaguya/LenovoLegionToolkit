@@ -11,12 +11,15 @@ public abstract class AbstractSettings<T> where T : class, new()
     protected readonly JsonSerializerSettings JsonSerializerSettings;
     private readonly string _settingsStorePath;
     private readonly string _fileName;
+    private T? _store;
 
     protected virtual T Default => new();
 
-    public T Store => _store ??= LoadStore() ?? Default;
-
-    private T? _store;
+    public T Store
+    {
+        get => _store ??= LoadStore() ?? Default;
+        protected set => _store = value;
+    }
 
     protected AbstractSettings(string filename)
     {
@@ -32,10 +35,15 @@ public abstract class AbstractSettings<T> where T : class, new()
         _settingsStorePath = Path.Combine(Folders.AppData, _fileName);
     }
 
-    public void SynchronizeStore()
+    public void Save()
     {
-        var settingsSerialized = JsonConvert.SerializeObject(_store, JsonSerializerSettings);
+        var settingsSerialized = JsonConvert.SerializeObject(Store, JsonSerializerSettings);
         File.WriteAllText(_settingsStorePath, settingsSerialized);
+    }
+
+    public void Reset()
+    {
+        _store = null;
     }
 
     public virtual T? LoadStore()
@@ -43,6 +51,8 @@ public abstract class AbstractSettings<T> where T : class, new()
         T? store = null;
         try
         {
+            if (!File.Exists(_settingsStorePath)) return null;
+
             var settingsSerialized = File.ReadAllText(_settingsStorePath);
             store = JsonConvert.DeserializeObject<T>(settingsSerialized, JsonSerializerSettings);
 
@@ -55,6 +65,12 @@ public abstract class AbstractSettings<T> where T : class, new()
         }
 
         return store;
+    }
+
+    public void SynchronizeStore()
+    {
+        var settingsSerialized = JsonConvert.SerializeObject(_store, JsonSerializerSettings);
+        File.WriteAllText(_settingsStorePath, settingsSerialized);
     }
 
     private void TryBackup()

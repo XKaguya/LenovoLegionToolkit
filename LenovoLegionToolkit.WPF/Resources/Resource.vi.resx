@@ -2304,4 +2304,64 @@ Chức năng này không ảnh hưởng các cửa sổ ở chế độ toàn m�
   <data name="SensorsControl_Disk_2_Temperature" xml:space="preserve">
     <value />
   </data>
+  <data name="SettingsPage_EnableLogging_Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SettingsPage_EnableLogging_Message" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SensorItem_CpuUtilitzation" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SensorItem_CpuFrequency" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SensorItem_CpuFanSpeed" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SensorItem_CpuTemperature" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SensorItem_CpuPower" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SensorItem_GpuUtilization" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SensorItem_GpuFrequency" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SensorItem_GpuFanSpeed" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SensorItem_PchFanSpeed" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SensorItem_PchTemperature" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SensorItem_BatteryState" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SensorItem_BatteryLevel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SensorItem_MemoryUtilization" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SensorItem_MemoryTemperature" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SensorItem_Disk1Temperature" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SensorItem_Disk2Temperature" xml:space="preserve">
+    <value />
+  </data>
+  <data name="EditSensorWindow_Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SensorItem_GpuTemperatures" xml:space="preserve">
+    <value />
+  </data>
 </root>

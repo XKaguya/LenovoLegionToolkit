@@ -4,8 +4,10 @@
 // Partial Copyright (C) Michael Möller <mmoeller@openhardwaremonitor.org> and Contributors.
 // All Rights Reserved.
 
+using LenovoLegionToolkit.Lib.System;
 using LenovoLegionToolkit.Lib.Utils;
 using LibreHardwareMonitor.Hardware;
+using NvAPIWrapper.GPU;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +26,8 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
         private IHardware? _cpuHardware;
         private IHardware? _gpuHardware;
         private IHardware? _memoryHardware;
+        private PhysicalGPU? _gpuHardwareNVAPI;
+        private GPUThermalSensor? _gpuThermalSensor;
 
         private string _cachedCpuName = string.Empty;
         private string _cachedGpuName = string.Empty;
@@ -80,6 +84,8 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                     _cpuHardware = _interestedHardwares.FirstOrDefault(h => h.HardwareType == HardwareType.Cpu);
                     _gpuHardware = _interestedHardwares.FirstOrDefault(h => h.HardwareType == HardwareType.GpuNvidia || h.HardwareType == HardwareType.GpuAmd);
                     _memoryHardware = _interestedHardwares.FirstOrDefault(h => h.HardwareType == HardwareType.Memory);
+                    _gpuHardwareNVAPI = NVAPI.GetGPU();
+                    _gpuThermalSensor = _gpuHardwareNVAPI.ThermalInformation.ThermalSensors.FirstOrDefault(s => s.Target.HasFlag(NvAPIWrapper.Native.GPU.ThermalSettingsTarget.Memory));
                 }
                 finally
                 {
@@ -167,6 +173,59 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
             var sensor = _gpuHardware.Sensors?
               .FirstOrDefault(s => s.SensorType == SensorType.Power);
             return sensor?.Value ?? 0;
+        }
+
+        public async Task<float> GetGpuVramTemperatureAsync()
+        {
+            throw new NotImplementedException();
+
+            /*if (!await IsSupportedAsync().ConfigureAwait(false))
+            {
+                return 0;
+            }
+
+            if (_gpuThermalSensor != null)
+            {
+                try
+                {
+                    return _gpuThermalSensor.CurrentTemperature;
+                }
+                catch (Exception ex)
+                {
+                    Log.Instance.Trace($"GPU VRAM temperature read error: {ex.Message}");
+                    return 0;
+                }
+            }
+
+            if (_gpuHardwareNVAPI == null)
+            {
+                try
+                {
+                    _gpuHardwareNVAPI = NVAPI.GetGPU();
+                }
+                catch (Exception ex)
+                {
+                    Log.Instance.Trace($"NVAPI initialization error: {ex.Message}");
+                    return 0;
+                }
+            }
+
+            if (_gpuHardwareNVAPI == null)
+            {
+                Log.Instance.Trace($"No NVIDIA GPU found via NVAPI.");
+                return 0;
+            }
+
+            try
+            {
+                _gpuThermalSensor = _gpuHardwareNVAPI.ThermalInformation.ThermalSensors.FirstOrDefault(s => s.Target.HasFlag(NvAPIWrapper.Native.GPU.ThermalSettingsTarget.Memory));
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.Trace($"Error finding VRAM temperature sensor: {ex.Message}");
+            }
+
+            return 0;*/
         }
 
         public async Task<(float, float)> GetSSDTemperaturesAsync()
@@ -293,7 +352,23 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
             if (string.IsNullOrEmpty(name)) return "UNKNOWN";
 
             var sb = new StringBuilder(name);
-            string cleanedName = Regex.Replace(sb.ToString(), @"\s*\d+(?:th|st|nd|rd)?\s+Gen\b", string.Empty, RegexOptions.IgnoreCase);
+            string intelPattern = @"\s*\d+(?:th|st|nd|rd)?\s+Gen\b";
+            string amdPattern = @"\s+with\s+Radeon\s+Graphics$";
+            string cleanedName;
+
+            if (name.Contains("AMD", StringComparison.OrdinalIgnoreCase))
+            {
+                cleanedName = Regex.Replace(sb.ToString(), intelPattern, string.Empty, RegexOptions.IgnoreCase);
+            }
+            else if (name.Contains("Intel", StringComparison.OrdinalIgnoreCase))
+            {
+                cleanedName = Regex.Replace(sb.ToString(), amdPattern, string.Empty, RegexOptions.IgnoreCase);
+            }
+            else
+            {
+                cleanedName = name;
+            }
+
             sb = new StringBuilder(cleanedName);
             foreach (var term in terms)
             {

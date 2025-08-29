@@ -95,6 +95,7 @@ public partial class SettingsPage
         _autorunComboBox.SetItems(Enum.GetValues<AutorunState>(), Autorun.State, t => t.GetDisplayName());
         _minimizeToTrayToggle.IsChecked = _settings.Store.MinimizeToTray;
         _minimizeOnCloseToggle.IsChecked = _settings.Store.MinimizeOnClose;
+        _enableLoggingToggle.IsChecked = Log.Instance.IsTraceEnabled;
 
         var vantageStatus = await _vantageDisabler.GetStatusAsync();
         _vantageCard.Visibility = vantageStatus != SoftwareStatus.NotFound ? Visibility.Visible : Visibility.Collapsed;
@@ -179,6 +180,7 @@ public partial class SettingsPage
         _autorunComboBox.Visibility = Visibility.Visible;
         _minimizeToTrayToggle.Visibility = Visibility.Visible;
         _minimizeOnCloseToggle.Visibility = Visibility.Visible;
+        _enableLoggingToggle.Visibility = Visibility.Visible;
         _vantageToggle.Visibility = Visibility.Visible;
         _legionZoneToggle.Visibility = Visibility.Visible;
         _fnKeysToggle.Visibility = Visibility.Visible;
@@ -320,6 +322,20 @@ public partial class SettingsPage
 
         _settings.Store.MinimizeToTray = state.Value;
         _settings.SynchronizeStore();
+    }
+
+    private void EnableLoggingToggle_Click(object sender, RoutedEventArgs e)
+    {
+        if (_isRefreshing)
+            return;
+
+        var state = _enableLoggingToggle.IsChecked;
+        if (state is null)
+            return;
+
+        Log.Instance.IsTraceEnabled = state.Value;
+
+        App.MainWindowInstance._openLogIndicator.Visibility = Utils.BooleanToVisibilityConverter.Convert(Log.Instance.IsTraceEnabled);
     }
 
     private void MinimizeOnCloseToggle_Click(object sender, RoutedEventArgs e)

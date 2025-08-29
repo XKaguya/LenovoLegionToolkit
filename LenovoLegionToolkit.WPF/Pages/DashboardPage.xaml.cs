@@ -95,9 +95,27 @@ public partial class DashboardPage
 
         Grid.SetRow(editDashboardHyperlink, groups.Length);
         Grid.SetColumn(editDashboardHyperlink, 0);
-        Grid.SetColumnSpan(editDashboardHyperlink, 2);
-
+        Grid.SetColumnSpan(editDashboardHyperlink, 1);
         _content.Children.Add(editDashboardHyperlink);
+
+        var editSensorGroupHyperlink = new Hyperlink
+        {
+            Icon = SymbolRegular.Edit24,
+            Content = Resource.DashboardPage_Customize,
+            Margin = new(0, 16, 0, 0),
+            HorizontalAlignment = HorizontalAlignment.Center
+        };
+        editSensorGroupHyperlink.Click += (_, _) =>
+        {
+            var window = new EditSensorGroupWindow { Owner = Window.GetWindow(this) };
+            window.Apply += async (_, _) => await RefreshAsync();
+            window.ShowDialog();
+        };
+
+        Grid.SetRow(editSensorGroupHyperlink, groups.Length);
+        Grid.SetColumn(editSensorGroupHyperlink, 0);
+        Grid.SetColumnSpan(editSensorGroupHyperlink, 4);
+        _content.Children.Add(editSensorGroupHyperlink);
 
         LayoutGroups(ActualWidth);
 
