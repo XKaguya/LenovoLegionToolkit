@@ -32,6 +32,8 @@ public partial class CreateAutomationPipelineWindow
         new ProcessesStopRunningAutomationPipelineTrigger([]),
         new UserInactivityAutomationPipelineTrigger(TimeSpan.Zero),
         new UserInactivityAutomationPipelineTrigger(TimeSpan.FromMinutes(1)),
+        new SessionLockAutomationPipelineTrigger(),
+        new SessionUnlockAutomationPipelineTrigger(),
         new LidOpenedAutomationPipelineTrigger(),
         new LidClosedAutomationPipelineTrigger(),
         new DisplayOnAutomationPipelineTrigger(),
