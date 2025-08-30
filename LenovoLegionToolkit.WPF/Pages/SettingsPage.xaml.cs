@@ -128,6 +128,8 @@ public partial class SettingsPage
             _updateTextBlock.Visibility = Visibility.Collapsed;
             _checkUpdatesCard.Visibility = Visibility.Collapsed;
             _updateCheckFrequencyCard.Visibility = Visibility.Collapsed;
+            _updateMethodCard.Visibility = Visibility.Collapsed;
+            __updateMethodComboBox.Visibility = Visibility.Collapsed;
         }
         else
         {
