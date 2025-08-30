@@ -264,6 +264,15 @@ public partial class App
 
         try
         {
+            if (IoCContainer.TryResolve<SessionLockUnlockListener>() is { } sessionLockUnlockListener)
+            {
+                await sessionLockUnlockListener.StopAsync();
+            }
+        }
+        catch { /* Ignored. */ }
+
+        try
+        {
             if (IoCContainer.TryResolve<HWiNFOIntegration>() is { } hwinfoIntegration)
             {
                 await hwinfoIntegration.StopAsync();
@@ -276,6 +285,15 @@ public partial class App
             if (IoCContainer.TryResolve<IpcServer>() is { } ipcServer)
             {
                 await ipcServer.StopAsync();
+            }
+        }
+        catch { /* Ignored. */ }
+
+        try
+        {
+            if (IoCContainer.TryResolve<BatteryDischargeRateMonitorService>() is { } batteryDischargeMon)
+            {
+                await batteryDischargeMon.StopAsync();
             }
         }
         catch { /* Ignored. */ }

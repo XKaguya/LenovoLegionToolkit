@@ -15,6 +15,7 @@ using LenovoLegionToolkit.Lib.Features.WhiteKeyboardBacklight;
 using LenovoLegionToolkit.Lib.Integrations;
 using LenovoLegionToolkit.Lib.Listeners;
 using LenovoLegionToolkit.Lib.PackageDownloader;
+using LenovoLegionToolkit.Lib.Services;
 using LenovoLegionToolkit.Lib.Settings;
 using LenovoLegionToolkit.Lib.SoftwareDisabler;
 using LenovoLegionToolkit.Lib.Utils;
@@ -92,6 +93,7 @@ public class IoCModule : Module
         builder.Register<PowerModeListener>().AutoActivateListener();
         builder.Register<PowerStateListener>().AutoActivateListener();
         builder.Register<RGBKeyboardBacklightListener>().AutoActivateListener();
+        builder.Register<SessionLockUnlockListener>().AutoActivateListener();
         builder.Register<SpecialKeyListener>().AutoActivateListener();
         builder.Register<SystemThemeListener>().AutoActivateListener();
         builder.Register<ThermalModeListener>().AutoActivateListener();
@@ -135,5 +137,7 @@ public class IoCModule : Module
         builder.Register<HWiNFOIntegration>();
 
         builder.Register<SunriseSunset>();
+
+        builder.Register<BatteryDischargeRateMonitorService>();
     }
 }
