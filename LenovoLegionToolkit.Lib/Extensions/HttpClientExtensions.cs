@@ -8,9 +8,15 @@ namespace LenovoLegionToolkit.Lib.Extensions;
 
 public static class HttpClientExtensions
 {
-    public static async Task DownloadAsync(this HttpClient client, string requestUri, Stream destination, IProgress<float>? progress = null, CancellationToken cancellationToken = default)
+    public static async Task DownloadAsync(this HttpClient client, string requestUri, Stream destination, IProgress<float>? progress = null, CancellationToken cancellationToken = default, bool isServer = false)
     {
+        if (isServer)
+        {
+            client.DefaultRequestHeaders.UserAgent.ParseAdd("CommonUpdater");
+        }
+
         using var response = await client.GetAsync(requestUri, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+        
         var contentLength = response.Content.Headers.ContentLength;
 
         await using var download = await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);

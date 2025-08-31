@@ -204,17 +204,29 @@ public class UpdateChecker
             var tempPath = Path.Combine(Folders.Temp, $"LenovoLegionToolkitSetup_{Guid.NewGuid()}.exe");
             var latestUpdate = _updates.OrderByDescending(u => u.Version).FirstOrDefault();
 
-            if (latestUpdate.Equals(default))
-                throw new InvalidOperationException("No updates available");
+            if (latestUpdate.Url != null)
+            {
+                if (latestUpdate.Equals(default))
+                    throw new InvalidOperationException("No updates available");
 
-            if (latestUpdate.Url is null)
-                throw new InvalidOperationException("Setup file URL could not be found");
+                await using var fileStream = File.OpenWrite(tempPath);
+                using var httpClient = _httpClientFactory.Create();
+                await httpClient.DownloadAsync(latestUpdate.Url, fileStream, progress, cancellationToken).ConfigureAwait(false);
+            }
+            else
+            {
+                if (_updateFromServer.Equals(default))
+                    throw new InvalidOperationException("No updates available");
 
-            await using var fileStream = File.OpenWrite(tempPath);
-            using var httpClient = _httpClientFactory.Create();
-            await httpClient.DownloadAsync(latestUpdate.Url, fileStream, progress, cancellationToken).ConfigureAwait(false);
+                if (_updateFromServer.Url is null)
+                    throw new InvalidOperationException("Setup file URL could not be found");
 
-            return tempPath;
+                await using var fileStream = File.OpenWrite(tempPath);
+                using var httpClient = _httpClientFactory.Create();
+                await httpClient.DownloadAsync(_updateFromServer.Url, fileStream, progress, cancellationToken, true).ConfigureAwait(false);
+            }
+
+             return tempPath;
         }
     }
 
