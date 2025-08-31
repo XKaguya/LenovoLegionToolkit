@@ -904,7 +904,7 @@ public class SpectrumKeyboardBacklightController
             LENOVO_SPECTRUM_EFFECT_TYPE.Ripple => SpectrumKeyboardBacklightEffectType.Ripple,
             LENOVO_SPECTRUM_EFFECT_TYPE.Smooth => SpectrumKeyboardBacklightEffectType.Smooth,
             LENOVO_SPECTRUM_EFFECT_TYPE.TypeLighting => SpectrumKeyboardBacklightEffectType.Type,
-            _ => throw new ArgumentException($"Effect index: {effect.EffectNo}, {nameof(effect.EffectHeader.EffectType)}")
+            _ => throw new ArgumentException($"Effect: {effect}, {nameof(effect.EffectHeader.EffectType)}")
         };
 
         var speed = effect.EffectHeader.Speed switch
@@ -965,7 +965,7 @@ public class SpectrumKeyboardBacklightController
             SpectrumKeyboardBacklightEffectType.Ripple => LENOVO_SPECTRUM_EFFECT_TYPE.Ripple,
             SpectrumKeyboardBacklightEffectType.Smooth => LENOVO_SPECTRUM_EFFECT_TYPE.Smooth,
             SpectrumKeyboardBacklightEffectType.Type => LENOVO_SPECTRUM_EFFECT_TYPE.TypeLighting,
-            _ => throw new ArgumentException(nameof(effect.Type))
+            _ => throw new ArgumentException($"Index: {index} Effect: {index}, {nameof(effect.Type)}")
         };
 
         var speed = effect.Speed switch
