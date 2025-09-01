@@ -1,11 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using LenovoLegionToolkit.Lib;
+﻿using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Controllers;
 using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.Listeners;
@@ -20,6 +13,14 @@ using LenovoLegionToolkit.WPF.Utils;
 using LenovoLegionToolkit.WPF.Windows.KeyboardBacklight.Spectrum;
 using Microsoft.Win32;
 using NeoSmart.AsyncLock;
+using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
 
 namespace LenovoLegionToolkit.WPF.Controls.KeyboardBacklight.Spectrum;
 
@@ -58,6 +59,16 @@ public partial class SpectrumKeyboardBacklightControl
 
         _listener.Changed += Listener_Changed;
 
+        Focusable = false;
+        PreviewKeyDown += (s, e) =>
+        {
+            if (e.Key == Key.System && e.SystemKey == Key.LeftAlt)
+            {
+                e.Handled = true;
+                Keyboard.ClearFocus();
+            }
+        };
+
         MessagingCenter.Subscribe<SpectrumBacklightChangedMessage>(this, () => Dispatcher.InvokeTask(async () =>
         {
             if (!IsVisible)
@@ -71,6 +82,17 @@ public partial class SpectrumKeyboardBacklightControl
 
     private async void SpectrumKeyboardBacklightControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
+        // Temporary set to collapsed to avoid profile switching issue.
+        var mi = Compatibility.GetMachineInformationAsync().Result;
+        if (mi.Properties.HasSpectrumProfileSwitchingBug)
+        {
+            _profileButton2.Visibility = Visibility.Collapsed;
+            _profileButton3.Visibility = Visibility.Collapsed;
+            _profileButton4.Visibility = Visibility.Collapsed;
+            _profileButton5.Visibility = Visibility.Collapsed;
+            _profileButton6.Visibility = Visibility.Collapsed;
+        }
+
         if (IsVisible)
             return;
 

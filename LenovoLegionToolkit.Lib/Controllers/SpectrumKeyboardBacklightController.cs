@@ -883,8 +883,25 @@ public class SpectrumKeyboardBacklightController
     private static (int Profile, SpectrumKeyboardBacklightEffect[] Effects) Convert(LENOVO_SPECTRUM_EFFECT_DESCRIPTION description)
     {
         var profile = description.Profile;
-        var effects = description.Effects.Select(Convert).ToArray();
-        return (profile, effects);
+        var successfulEffects = new List<SpectrumKeyboardBacklightEffect>();
+
+        // Add try-catch to avoid failing the whole conversion if one effect is unsupported.
+        foreach (var effect in description.Effects)
+        {
+            try
+            {
+                var convertedEffect = Convert(effect);
+                successfulEffects.Add(convertedEffect);
+            }
+            catch (ArgumentException ex)
+            {
+                if (Log.Instance.IsTraceEnabled)
+                {
+                    Log.Instance.Trace($"Failed to convert effect: {ex.Message}");
+                }
+            }
+        }
+        return (profile, successfulEffects.ToArray());
     }
 
     private static SpectrumKeyboardBacklightEffect Convert(LENOVO_SPECTRUM_EFFECT effect)
@@ -904,7 +921,7 @@ public class SpectrumKeyboardBacklightController
             LENOVO_SPECTRUM_EFFECT_TYPE.Ripple => SpectrumKeyboardBacklightEffectType.Ripple,
             LENOVO_SPECTRUM_EFFECT_TYPE.Smooth => SpectrumKeyboardBacklightEffectType.Smooth,
             LENOVO_SPECTRUM_EFFECT_TYPE.TypeLighting => SpectrumKeyboardBacklightEffectType.Type,
-            _ => throw new ArgumentException($"Effect: {effect}, {nameof(effect.EffectHeader.EffectType)}")
+            _ => throw new ArgumentException("Unsupported Lenovo Spectrum Effect Preset.")
         };
 
         var speed = effect.EffectHeader.Speed switch
@@ -943,8 +960,29 @@ public class SpectrumKeyboardBacklightController
     private static LENOVO_SPECTRUM_EFFECT_DESCRIPTION Convert(int profile, SpectrumKeyboardBacklightEffect[] effects)
     {
         var header = new LENOVO_SPECTRUM_HEADER(LENOVO_SPECTRUM_OPERATION_TYPE.EffectChange, 0); // Size will be set on serialization
-        var str = effects.Select((e, i) => Convert(i, e)).ToArray();
-        var result = new LENOVO_SPECTRUM_EFFECT_DESCRIPTION(header, (byte)profile, str);
+        var convertedEffects = new List<LENOVO_SPECTRUM_EFFECT>();
+
+        if (effects != null)
+        {
+            for (int i = 0; i < effects.Length; i++)
+            {
+                var effect = effects[i];
+                try
+                {
+                    var convertedEffect = Convert(i, effect);
+                    convertedEffects.Add(convertedEffect);
+                }
+                catch (ArgumentException ex)
+                {
+                    if (Log.Instance.IsTraceEnabled)
+                    {
+                        Log.Instance.Trace($"Failed to convert effect: {ex.Message}");
+                    }
+                }
+            }
+        }
+
+        var result = new LENOVO_SPECTRUM_EFFECT_DESCRIPTION(header, (byte)profile, convertedEffects.ToArray());
         return result;
     }
 
@@ -965,7 +1003,7 @@ public class SpectrumKeyboardBacklightController
             SpectrumKeyboardBacklightEffectType.Ripple => LENOVO_SPECTRUM_EFFECT_TYPE.Ripple,
             SpectrumKeyboardBacklightEffectType.Smooth => LENOVO_SPECTRUM_EFFECT_TYPE.Smooth,
             SpectrumKeyboardBacklightEffectType.Type => LENOVO_SPECTRUM_EFFECT_TYPE.TypeLighting,
-            _ => throw new ArgumentException($"Index: {index} Effect: {index}, {nameof(effect.Type)}")
+            _ => throw new ArgumentException("Unsupported Spectrum Keyboard Effect Preset.")
         };
 
         var speed = effect.Speed switch

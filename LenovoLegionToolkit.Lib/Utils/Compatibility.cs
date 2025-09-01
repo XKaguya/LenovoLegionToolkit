@@ -57,6 +57,7 @@ public static partial class Compatibility
         "15IHU",
         "15IMH",
         "15IRH",
+        "15IRX",
         "15ITH",
 
         "14APH",
@@ -136,6 +137,7 @@ public static partial class Compatibility
                 HasQuietToPerformanceModeSwitchingBug = GetHasQuietToPerformanceModeSwitchingBug(biosVersion),
                 HasGodModeToOtherModeSwitchingBug = GetHasGodModeToOtherModeSwitchingBug(biosVersion),
                 HasReapplyParameterIssue = GetHasReapplyParameterIssue(model),
+                HasSpectrumProfileSwitchingBug = GetHasSpectrumProfileSwitchingBug(model),
                 IsExcludedFromLenovoLighting = GetIsExcludedFromLenovoLighting(biosVersion),
                 IsExcludedFromPanelLogoLenovoLighting = GetIsExcludedFromPanelLenovoLighting(machineType, model),
                 HasAlternativeFullSpectrumLayout = GetHasAlternativeFullSpectrumLayout(machineType),
@@ -430,6 +432,17 @@ public static partial class Compatibility
             "IAX10",
             "NX",
             "IRX10",
+        };
+
+        return affectedModel.Any(model => machineModel?.Contains(model) ?? false);
+    }
+
+    private static bool GetHasSpectrumProfileSwitchingBug(string? machineModel)
+    {
+        var affectedModel = new List<string>
+        {
+            "15IRX10",
+            "15AHP10"
         };
 
         return affectedModel.Any(model => machineModel?.Contains(model) ?? false);
