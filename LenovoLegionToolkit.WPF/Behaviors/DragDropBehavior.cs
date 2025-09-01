@@ -13,6 +13,7 @@ namespace LenovoLegionToolkit.WPF.Behaviors
 
         public static bool GetIsEnabled(DependencyObject obj) => (bool)obj.GetValue(IsEnabledProperty);
         public static void SetIsEnabled(DependencyObject obj, bool value) => obj.SetValue(IsEnabledProperty, value);
+
         private static Point _startPoint;
         private static FrameworkElement? _draggedElement;
         private static Panel? _sourcePanel;
@@ -25,20 +26,20 @@ namespace LenovoLegionToolkit.WPF.Behaviors
             if ((bool)e.NewValue)
             {
                 panel.AllowDrop = true;
-                panel.PreviewMouseLeftButtonDown += OnPreviewMouseLeftButtonDown;
-                panel.PreviewMouseMove += OnPreviewMouseMove;
+                panel.MouseLeftButtonDown += OnMouseLeftButtonDown;
+                panel.MouseMove += OnMouseMove;
                 panel.Drop += OnDrop;
             }
             else
             {
                 panel.AllowDrop = false;
-                panel.PreviewMouseLeftButtonDown -= OnPreviewMouseLeftButtonDown;
-                panel.PreviewMouseMove -= OnPreviewMouseMove;
+                panel.MouseLeftButtonDown -= OnMouseLeftButtonDown;
+                panel.MouseMove -= OnMouseMove;
                 panel.Drop -= OnDrop;
             }
         }
 
-        private static void OnPreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private static void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (sender is not Panel panel)
                 return;
@@ -49,14 +50,18 @@ namespace LenovoLegionToolkit.WPF.Behaviors
             if (e.OriginalSource is FrameworkElement element && panel.Children.Contains(element))
             {
                 _draggedElement = element;
+                Console.WriteLine($"Element to drag: {_draggedElement}");
+                e.Handled = true;
             }
             else if (e.OriginalSource is Visual visual)
             {
                 _draggedElement = FindParentInPanel(panel, visual);
+                Console.WriteLine($"Element to drag: {_draggedElement}");
+                e.Handled = true;
             }
         }
 
-        private static void OnPreviewMouseMove(object sender, MouseEventArgs e)
+        private static void OnMouseMove(object sender, MouseEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed && _draggedElement != null)
             {

@@ -254,12 +254,6 @@ public partial class SensorsControl
         card.Visibility = hasVisibleItems ? Visibility.Visible : Visibility.Collapsed;
     }
 
-    private void OnRootPreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-    {
-        // 强制事件继续传递给子元素
-        e.Handled = false;
-    }
-
     private void UpdateMotherboardCardVisibility()
     {
         bool pchVisible = _activeSensorItems.Contains(SensorItem.PchFanSpeed) || _activeSensorItems.Contains(SensorItem.PchTemperature);

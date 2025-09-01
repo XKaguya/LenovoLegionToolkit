@@ -60,8 +60,7 @@
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
             <wpfui:CardControl HorizontalAlignment="Center">
                 <wpfui:CardControl.Content>
-                    <StackPanel Orientation="Horizontal">
-
+                    <StackPanel Orientation="Horizontal" behaviors:DragDropBehavior.IsEnabled="True">
                         <Border x:Name="_cpuCard" Style="{StaticResource SensorCardStyle}">
                             <StackPanel Margin="12,10">
                                 <Grid>
