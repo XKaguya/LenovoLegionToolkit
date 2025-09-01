@@ -8,6 +8,7 @@ using LenovoLegionToolkit.WPF.Resources;
 using LenovoLegionToolkit.WPF.Settings;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -19,6 +20,7 @@ using Wpf.Ui.Common;
 using MenuItem = Wpf.Ui.Controls.MenuItem;
 
 namespace LenovoLegionToolkit.WPF.Controls.Dashboard;
+
 public partial class SensorsControl
 {
     private readonly SensorsController _controller = IoCContainer.Resolve<SensorsController>();
@@ -34,6 +36,7 @@ public partial class SensorsControl
     private readonly Task<string> _gpuNameTask;
     private HashSet<SensorItem> _activeSensorItems = new();
     private Dictionary<SensorItem, FrameworkElement> _sensorItemToControlMap;
+
     public SensorsControl()
     {
         InitializeComponent();
@@ -41,7 +44,8 @@ public partial class SensorsControl
         IsVisibleChanged += SensorsControl_IsVisibleChanged;
         _cpuNameTask = GetProcessedCpuName();
         _gpuNameTask = GetProcessedGpuName();
-        PreviewKeyDown += (s, e) => {
+        PreviewKeyDown += (s, e) =>
+        {
             if (e.Key == Key.System && e.SystemKey == Key.LeftAlt)
             {
                 e.Handled = true;
@@ -70,6 +74,7 @@ public partial class SensorsControl
             { SensorItem.Disk2Temperature, _disk2TemperatureGrid }
         };
     }
+
     private void InitializeContextMenu()
     {
         ContextMenu = new ContextMenu();
@@ -92,6 +97,7 @@ public partial class SensorsControl
             ContextMenu.Items.Add(item);
         }
     }
+
     private async void SensorsControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
         if (IsVisible)
@@ -108,6 +114,7 @@ public partial class SensorsControl
             await StopRefreshLoop();
         }
     }
+
     private async Task StartRefreshLoop()
     {
         if (!await _refreshLock.WaitAsync(0)) return;
@@ -164,6 +171,7 @@ public partial class SensorsControl
             _refreshLock.Release();
         }
     }
+
     private async Task StopRefreshLoop()
     {
         if (_cts is not null)
@@ -173,6 +181,7 @@ public partial class SensorsControl
             await _refreshTask;
         _refreshTask = null;
     }
+
     private void ClearAllSensorValues()
     {
         lock (_updateLock)
@@ -185,6 +194,7 @@ public partial class SensorsControl
             UpdateValue(_gpuUtilizationBar, _gpuUtilizationLabel, -1, -1, "");
             UpdateValue(_gpuCoreClockBar, _gpuCoreClockLabel, -1, -1, "");
             UpdateValue(_gpuFanSpeedBar, _gpuFanSpeedLabel, -1, -1, "");
+            UpdateValue(_gpuCoreTemperatureBar, _gpuCoreTemperatureLabel, -1, -1, "");
             UpdateValue(_gpuPowerLabel, "-");
             UpdateValue(_pchTemperatureBar, _pchTemperatureLabel, -1, -1, "");
             UpdateValue(_pchFanSpeedBar, _pchFanSpeedLabel, -1, -1, "");
@@ -196,6 +206,7 @@ public partial class SensorsControl
             UpdateValue(_batteryLevelBar, _batteryLevelLabel, -1, -1, "-");
         }
     }
+
     private void UpdateAllSensorValues(SensorsData data, float cpuPower, float gpuPower, (float, float) diskTemps, float memoryUsage, double memoryTemp, BatteryInformation? batteryInfo)
     {
         lock (_updateLock)
@@ -205,6 +216,7 @@ public partial class SensorsControl
                 var control = kv.Value;
                 control.Visibility = _activeSensorItems.Contains(kv.Key) ? Visibility.Visible : Visibility.Collapsed;
             }
+
             UpdateValue(_cpuCardName, _cpuNameTask.Result);
             UpdateValue(_gpuCardName, _gpuNameTask.Result);
             if (_activeSensorItems.Contains(SensorItem.CpuUtilization)) UpdateValue(_cpuUtilizationBar, _cpuUtilizationLabel, data.CPU.MaxUtilization, data.CPU.Utilization, $"{data.CPU.Utilization}%");
@@ -228,16 +240,65 @@ public partial class SensorsControl
             if (_activeSensorItems.Contains(SensorItem.MemoryTemperature)) UpdateValue(_memoryTemperatureBar, _memoryTemperatureLabel, 100, memoryTemp, GetTemperatureText(memoryTemp), GetTemperatureText(100));
             if (_activeSensorItems.Contains(SensorItem.BatteryState)) UpdateBatteryStatus(_batteryStateLabel, batteryInfo);
             if (_activeSensorItems.Contains(SensorItem.BatteryLevel)) UpdateValue(_batteryLevelBar, _batteryLevelLabel, 100, batteryInfo?.BatteryPercentage ?? 0, batteryInfo != null ? $"{batteryInfo.Value.BatteryPercentage}%" : "-", "100%");
+
+            UpdateCardVisibility(_cpuCard, new[] { SensorItem.CpuUtilization, SensorItem.CpuFrequency, SensorItem.CpuFanSpeed, SensorItem.CpuTemperature, SensorItem.CpuPower });
+            UpdateCardVisibility(_gpuCard, new[] { SensorItem.GpuUtilization, SensorItem.GpuFrequency, SensorItem.GpuFanSpeed, SensorItem.GpuTemperatures, SensorItem.GpuPower });
+            UpdateMotherboardCardVisibility();
+            UpdateMemoryDiskCardVisibility();
         }
     }
+
+    private void UpdateCardVisibility(FrameworkElement card, IEnumerable<SensorItem> sensorItems)
+    {
+        bool hasVisibleItems = sensorItems.Any(item => _activeSensorItems.Contains(item));
+        card.Visibility = hasVisibleItems ? Visibility.Visible : Visibility.Collapsed;
+    }
+
+    private void OnRootPreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    {
+        // 强制事件继续传递给子元素
+        e.Handled = false;
+    }
+
+    private void UpdateMotherboardCardVisibility()
+    {
+        bool pchVisible = _activeSensorItems.Contains(SensorItem.PchFanSpeed) || _activeSensorItems.Contains(SensorItem.PchTemperature);
+        bool batteryVisible = _activeSensorItems.Contains(SensorItem.BatteryState) || _activeSensorItems.Contains(SensorItem.BatteryLevel);
+
+        _pchStackPanel.Visibility = pchVisible ? Visibility.Visible : Visibility.Collapsed;
+        _batteryGrid.Visibility = batteryVisible ? Visibility.Visible : Visibility.Collapsed;
+
+        _seperator1.Visibility = (pchVisible && batteryVisible) ? Visibility.Visible : Visibility.Collapsed;
+
+        _motherboardCard.Visibility = (pchVisible || batteryVisible) ? Visibility.Visible : Visibility.Collapsed;
+    }
+
+    private void UpdateMemoryDiskCardVisibility()
+    {
+        var memoryItems = new[] { SensorItem.MemoryUtilization, SensorItem.MemoryTemperature };
+        var diskItems = new[] { SensorItem.Disk1Temperature, SensorItem.Disk2Temperature };
+
+        bool memoryVisible = memoryItems.Any(item => _activeSensorItems.Contains(item));
+        bool diskVisible = diskItems.Any(item => _activeSensorItems.Contains(item));
+
+        _memoryGrid.Visibility = memoryVisible ? Visibility.Visible : Visibility.Collapsed;
+        _diskGrid.Visibility = diskVisible ? Visibility.Visible : Visibility.Collapsed;
+
+        _seperator2.Visibility = (memoryVisible && diskVisible) ? Visibility.Visible : Visibility.Collapsed;
+
+        _memoryDiskCard.Visibility = (memoryVisible || diskVisible) ? Visibility.Visible : Visibility.Collapsed;
+    }
+
     private async Task<string> GetProcessedCpuName()
     {
         return await _sensorsGroupControllers.GetCpuNameAsync().ConfigureAwait(false);
     }
+
     private async Task<string> GetProcessedGpuName()
     {
         return await _sensorsGroupControllers.GetGpuNameAsync().ConfigureAwait(false);
     }
+
     private string GetTemperatureText(double temperature)
     {
         if (temperature < 0) return "-";
@@ -248,6 +309,7 @@ public partial class SensorsControl
         }
         return $"{temperature:0}{Resource.Celsius}";
     }
+
     private static void UpdateValue(RangeBase bar, TextBlock label, double max, double value, string text, string? toolTipText = null)
     {
         if (max < 0 || value < 0)
@@ -269,6 +331,7 @@ public partial class SensorsControl
             label.Tag = value;
         }
     }
+
     private static void UpdateValue(TextBlock label, double max, double value, string text, string? toolTipText = null)
     {
         if (max < 0 || value < 0)
@@ -284,6 +347,7 @@ public partial class SensorsControl
             label.Tag = value;
         }
     }
+
     private static void UpdateBatteryStatus(TextBlock label, BatteryInformation? batteryInfo)
     {
         if (batteryInfo is null)
@@ -299,6 +363,7 @@ public partial class SensorsControl
                 : Resource.DashboardBattery_AcDisconnected;
         }
     }
+
     private static void UpdateValue(TextBlock label, string str)
     {
         label.Text = str;

@@ -60,9 +60,7 @@
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
             <wpfui:CardControl HorizontalAlignment="Center">
                 <wpfui:CardControl.Content>
-                    <StackPanel
-                        Orientation="Horizontal" 
-                        behaviors:DragDropBehavior.IsEnabled="True">
+                    <StackPanel Orientation="Horizontal">
 
                         <Border x:Name="_cpuCard" Style="{StaticResource SensorCardStyle}">
                             <StackPanel Margin="12,10">
@@ -198,7 +196,7 @@
                         </Border>
                         <Border x:Name="_motherboardCard" Style="{StaticResource SensorCardStyle}">
                             <StackPanel Margin="12,10">
-                                <StackPanel Margin="0,0,0,12">
+                                <StackPanel x:Name="_pchStackPanel" Margin="0,0,0,12">
                                     <TextBlock Style="{StaticResource CardTitleStyle}" Text="{x:Static resources:Resource.SensorsControl_Motherboard_Title}" Margin="0,0,0,6"/>
                                     <Grid x:Name="_pchFanSpeedGrid">
                                         <Grid.ColumnDefinitions>
