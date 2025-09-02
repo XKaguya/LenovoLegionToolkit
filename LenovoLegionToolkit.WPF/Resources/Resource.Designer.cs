@@ -5627,6 +5627,24 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Lock LLT&apos;s window size. To prevent something change it. 的本地化字符串。
+        /// </summary>
+        public static string SettingsPage_LockWindowSize_Message {
+            get {
+                return ResourceManager.GetString("SettingsPage_LockWindowSize_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Lock Window Size 的本地化字符串。
+        /// </summary>
+        public static string SettingsPage_LockWindowSize_Title {
+            get {
+                return ResourceManager.GetString("SettingsPage_LockWindowSize_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Always minimize to tray. Close with right click on tray icon. 的本地化字符串。
         /// </summary>
         public static string SettingsPage_MinimizeOnClose_Message {

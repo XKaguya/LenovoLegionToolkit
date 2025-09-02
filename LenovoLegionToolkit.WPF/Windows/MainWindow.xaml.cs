@@ -1,13 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
-using LenovoLegionToolkit.Lib;
+﻿using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Listeners;
 using LenovoLegionToolkit.Lib.Messaging;
 using LenovoLegionToolkit.Lib.Messaging.Messages;
@@ -20,6 +11,16 @@ using LenovoLegionToolkit.WPF.Resources;
 using LenovoLegionToolkit.WPF.Utils;
 using LenovoLegionToolkit.WPF.Windows.Utils;
 using Microsoft.Xaml.Behaviors.Core;
+using System;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Runtime;
+using System.Runtime.InteropServices;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 using Windows.Win32;
 using Windows.Win32.System.Threading;
 using Wpf.Ui.Controls;
@@ -164,6 +165,13 @@ public partial class MainWindow
 
     private void MainWindow_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
+        var settings = IoCContainer.Resolve<ApplicationSettings>();
+        if (settings.Store.LockWindowSize)
+        {
+            ResizeMode = ResizeMode.NoResize;
+            SizeToContent = SizeToContent.Manual;
+        }
+
         if (!IsVisible)
             return;
 

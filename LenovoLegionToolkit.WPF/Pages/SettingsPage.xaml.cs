@@ -97,6 +97,7 @@ public partial class SettingsPage
         _minimizeOnCloseToggle.IsChecked = _settings.Store.MinimizeOnClose;
         _enableLoggingToggle.IsChecked = Log.Instance.IsTraceEnabled;
         _useLegacySensorDashboardToggle.IsChecked = _settings.Store.UseLegacySensorDashboard;
+        _lockWindowSizeToggle.IsChecked = _settings.Store.LockWindowSize;
 
         var vantageStatus = await _vantageDisabler.GetStatusAsync();
         _vantageCard.Visibility = vantageStatus != SoftwareStatus.NotFound ? Visibility.Visible : Visibility.Collapsed;
@@ -185,6 +186,7 @@ public partial class SettingsPage
         _minimizeOnCloseToggle.Visibility = Visibility.Visible;
         _enableLoggingToggle.Visibility = Visibility.Visible;
         _useLegacySensorDashboardToggle.Visibility = Visibility.Visible;
+        _lockWindowSizeToggle.Visibility = Visibility.Visible;
         _vantageToggle.Visibility = Visibility.Visible;
         _legionZoneToggle.Visibility = Visibility.Visible;
         _fnKeysToggle.Visibility = Visibility.Visible;
@@ -353,6 +355,19 @@ public partial class SettingsPage
         Log.Instance.IsTraceEnabled = state.Value;
 
         App.MainWindowInstance._openLogIndicator.Visibility = Utils.BooleanToVisibilityConverter.Convert(Log.Instance.IsTraceEnabled);
+    }
+
+    private void LockWindowSizeToggle_Click(object sender, RoutedEventArgs e)
+    {
+        if (_isRefreshing)
+            return;
+
+        var state = _lockWindowSizeToggle.IsChecked;
+        if (state is null)
+            return;
+
+        _settings.Store.LockWindowSize = state.Value;
+        _settings.SynchronizeStore();
     }
 
     private void MinimizeOnCloseToggle_Click(object sender, RoutedEventArgs e)

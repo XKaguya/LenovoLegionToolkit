@@ -2371,4 +2371,10 @@ Diğer tam ekran pencereleri etkilemeyecek, ancak bildirimlere tıklayamayacaks�
   <data name="SettingsPage_UseLegacySensorDashboard_Message" xml:space="preserve">
     <value />
   </data>
+  <data name="SettingsPage_LockWindowSize_Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SettingsPage_LockWindowSize_Message" xml:space="preserve">
+    <value />
+  </data>
 </root>
