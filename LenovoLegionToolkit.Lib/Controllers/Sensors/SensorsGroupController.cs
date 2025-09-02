@@ -85,7 +85,6 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                     _gpuHardware = _interestedHardwares.FirstOrDefault(h => h.HardwareType == HardwareType.GpuNvidia);
                     _memoryHardware = _interestedHardwares.FirstOrDefault(h => h.HardwareType == HardwareType.Memory);
                     _gpuHardwareNVAPI = NVAPI.GetGPU();
-                    _gpuThermalSensor = _gpuHardwareNVAPI.ThermalInformation.ThermalSensors.FirstOrDefault(s => s.Target.HasFlag(NvAPIWrapper.Native.GPU.ThermalSettingsTarget.Memory));
                 }
                 finally
                 {
