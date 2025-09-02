@@ -17,8 +17,8 @@
         x:Name="_loader"
         Margin="0,0,0,12"
         IndicatorMargin="0,64,0,0">
-        <StackPanel>
-            <dashboard:SensorsControl x:Name="_sensors" Margin="0,16,16,0" />
+        <StackPanel x:Name="_panel">
+            <!-- <dashboard:SensorsControl x:Name="_sensors" Margin="0,16,16,0" /> !-->
             <Grid x:Name="_content" />
         </StackPanel>
     </controls:LoadableControl>

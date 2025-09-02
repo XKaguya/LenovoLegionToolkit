@@ -755,7 +755,16 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Battery maximum charge capacity..
+        ///   查找类似 No AC 的本地化字符串。
+        /// </summary>
+        public static string BatteryPage_ACAdapterNotConnected {
+            get {
+                return ResourceManager.GetString("BatteryPage_ACAdapterNotConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Battery maximum charge capacity. 的本地化字符串。
         /// </summary>
         public static string BatteryPage_BatteryHealth_Message {
             get {
@@ -764,21 +773,11 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Battery health.
+        ///   查找类似 Battery health 的本地化字符串。
         /// </summary>
         public static string BatteryPage_BatteryHealth_Title {
             get {
                 return ResourceManager.GetString("BatteryPage_BatteryHealth_Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Current temperature of the battery..
-        ///   查找类似 No AC 的本地化字符串。
-        /// </summary>
-        public static string BatteryPage_ACAdapterNotConnected {
-            get {
-                return ResourceManager.GetString("BatteryPage_ACAdapterNotConnected", resourceCulture);
             }
         }
         
@@ -963,7 +962,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Maximum rate at which battery is charged (+), or discharged (-)..
+        ///   查找类似 Maximum rate at which battery is charged (+), or discharged (-). 的本地化字符串。
         /// </summary>
         public static string BatteryPage_MaxDischargeRate_Message {
             get {
@@ -972,7 +971,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Maximum discharge rate.
+        ///   查找类似 Maximum discharge rate 的本地化字符串。
         /// </summary>
         public static string BatteryPage_MaxDischargeRate_Title {
             get {
@@ -981,7 +980,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Minimum rate at which battery is charged (+), or discharged (-)..
+        ///   查找类似 Minimum rate at which battery is charged (+), or discharged (-). 的本地化字符串。
         /// </summary>
         public static string BatteryPage_MinDischargeRate_Message {
             get {
@@ -990,7 +989,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Minimum discharge rate.
+        ///   查找类似 Minimum discharge rate 的本地化字符串。
         /// </summary>
         public static string BatteryPage_MinDischargeRate_Title {
             get {
@@ -999,8 +998,8 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Time since laptop was last connected to AC power.
-        ///This time might not be accurate, if laptop was charged when sleeping or off..
+        ///   查找类似 Time since laptop was last connected to AC power.
+        ///This time might not be accurate, if laptop was charged when sleeping or off. 的本地化字符串。
         /// </summary>
         public static string BatteryPage_OnBatterySince_Message {
             get {
@@ -5871,6 +5870,24 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Use legacy sensor dashboard instead of the new one. 的本地化字符串。
+        /// </summary>
+        public static string SettingsPage_UseLegacySensorDashboard_Message {
+            get {
+                return ResourceManager.GetString("SettingsPage_UseLegacySensorDashboard_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Use Legacy Sensor Dashboard 的本地化字符串。
+        /// </summary>
+        public static string SettingsPage_UseLegacySensorDashboard_Title {
+            get {
+                return ResourceManager.GetString("SettingsPage_UseLegacySensorDashboard_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Select Windows Power Mode to apply when Power Mode changes. 的本地化字符串。
         /// </summary>
         public static string SettingsPage_WindowsPowerModes_Message {
@@ -6267,7 +6284,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Max discharge rate.
+        ///   查找类似 Max discharge rate 的本地化字符串。
         /// </summary>
         public static string StatusTrayPopup_MaxDischargeRate {
             get {
@@ -6276,7 +6293,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Min discharge rate.
+        ///   查找类似 Min discharge rate 的本地化字符串。
         /// </summary>
         public static string StatusTrayPopup_MinDischargeRate {
             get {
@@ -6285,7 +6302,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mode.
+        ///   查找类似 Mode 的本地化字符串。
         /// </summary>
         public static string StatusTrayPopup_Mode {
             get {

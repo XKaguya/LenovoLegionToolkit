@@ -1987,4 +1987,10 @@ Nepieciešama restartēšana.</value>
   <data name="SensorItem_GpuTemperatures" xml:space="preserve">
     <value />
   </data>
+  <data name="SettingsPage_UseLegacySensorDashboard_Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SettingsPage_UseLegacySensorDashboard_Message" xml:space="preserve">
+    <value />
+  </data>
 </root>

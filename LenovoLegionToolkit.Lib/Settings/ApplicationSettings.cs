@@ -50,6 +50,7 @@ public class ApplicationSettings : AbstractSettings<ApplicationSettings.Applicat
         public ModifierKey SmartFnLockFlags { get; set; }
         public bool ResetBatteryOnSinceTimerOnReboot { get; set; }
         public UpdateMethod UpdateMethod { get; set; }
+        public bool UseLegacySensorDashboard { get; set; }
     }
 
     public ApplicationSettings() : base("settings.json")

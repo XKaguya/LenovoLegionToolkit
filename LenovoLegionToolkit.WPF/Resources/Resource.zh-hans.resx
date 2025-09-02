@@ -2375,4 +2375,10 @@
   <data name="SensorItem_GpuTemperatures" xml:space="preserve">
     <value>GPU 温度</value>
   </data>
+  <data name="SettingsPage_UseLegacySensorDashboard_Title" xml:space="preserve">
+    <value>使用旧的状态面板</value>
+  </data>
+  <data name="SettingsPage_UseLegacySensorDashboard_Message" xml:space="preserve">
+    <value>使用旧的状态面板，此项可以加快 LLT 的启动速度。</value>
+  </data>
 </root>

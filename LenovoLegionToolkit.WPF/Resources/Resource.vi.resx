@@ -2388,4 +2388,10 @@ Chức năng này không ảnh hưởng các cửa sổ ở chế độ toàn m�
   <data name="SensorItem_GpuTemperatures" xml:space="preserve">
     <value />
   </data>
+  <data name="SettingsPage_UseLegacySensorDashboard_Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SettingsPage_UseLegacySensorDashboard_Message" xml:space="preserve">
+    <value />
+  </data>
 </root>
