@@ -562,7 +562,7 @@ public partial class App
         try
         {
             var settings = IoCContainer.Resolve<ApplicationSettings>();
-            if (!settings.Store.UseLegacySensorDashboard)
+            if (settings.Store.UseNewSensorDashboard)
             {
                 var feature = IoCContainer.Resolve<SensorsGroupController>();
                 if (await feature.IsSupportedAsync())

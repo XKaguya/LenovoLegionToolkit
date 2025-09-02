@@ -2363,10 +2363,10 @@
   <data name="SensorItem_GpuTemperatures" xml:space="preserve">
     <value />
   </data>
-  <data name="SettingsPage_UseLegacySensorDashboard_Title" xml:space="preserve">
+  <data name="SettingsPage_UseNewSensorDashboard_Title" xml:space="preserve">
     <value />
   </data>
-  <data name="SettingsPage_UseLegacySensorDashboard_Message" xml:space="preserve">
+  <data name="SettingsPage_UseNewSensorDashboard_Message" xml:space="preserve">
     <value />
   </data>
   <data name="SettingsPage_LockWindowSize_Title" xml:space="preserve">

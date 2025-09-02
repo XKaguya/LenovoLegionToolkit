@@ -37,7 +37,7 @@ public partial class DashboardPage
             }
         };
 
-        if (_settings.Store.UseLegacySensorDashboard)
+        if (!_settings.Store.UseNewSensorDashboard)
         {
             sensorControl = new SensorsControl();
         }

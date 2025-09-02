@@ -5890,18 +5890,18 @@ namespace LenovoLegionToolkit.WPF.Resources {
         /// <summary>
         ///   查找类似 Use legacy sensor dashboard instead of the new one. 的本地化字符串。
         /// </summary>
-        public static string SettingsPage_UseLegacySensorDashboard_Message {
+        public static string SettingsPage_UseNewSensorDashboard_Message {
             get {
-                return ResourceManager.GetString("SettingsPage_UseLegacySensorDashboard_Message", resourceCulture);
+                return ResourceManager.GetString("SettingsPage_UseNewSensorDashboard_Message", resourceCulture);
             }
         }
         
         /// <summary>
         ///   查找类似 Use Legacy Sensor Dashboard 的本地化字符串。
         /// </summary>
-        public static string SettingsPage_UseLegacySensorDashboard_Title {
+        public static string SettingsPage_UseNewSensorDashboard_Title {
             get {
-                return ResourceManager.GetString("SettingsPage_UseLegacySensorDashboard_Title", resourceCulture);
+                return ResourceManager.GetString("SettingsPage_UseNewSensorDashboard_Title", resourceCulture);
             }
         }
         

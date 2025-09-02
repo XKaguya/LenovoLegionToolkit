@@ -96,7 +96,7 @@ public partial class SettingsPage
         _minimizeToTrayToggle.IsChecked = _settings.Store.MinimizeToTray;
         _minimizeOnCloseToggle.IsChecked = _settings.Store.MinimizeOnClose;
         _enableLoggingToggle.IsChecked = Log.Instance.IsTraceEnabled;
-        _useLegacySensorDashboardToggle.IsChecked = _settings.Store.UseLegacySensorDashboard;
+        _useNewSensorDashboardToggle.IsChecked = _settings.Store.UseNewSensorDashboard;
         _lockWindowSizeToggle.IsChecked = _settings.Store.LockWindowSize;
 
         var vantageStatus = await _vantageDisabler.GetStatusAsync();
@@ -185,7 +185,7 @@ public partial class SettingsPage
         _minimizeToTrayToggle.Visibility = Visibility.Visible;
         _minimizeOnCloseToggle.Visibility = Visibility.Visible;
         _enableLoggingToggle.Visibility = Visibility.Visible;
-        _useLegacySensorDashboardToggle.Visibility = Visibility.Visible;
+        _useNewSensorDashboardToggle.Visibility = Visibility.Visible;
         _lockWindowSizeToggle.Visibility = Visibility.Visible;
         _vantageToggle.Visibility = Visibility.Visible;
         _legionZoneToggle.Visibility = Visibility.Visible;
@@ -330,16 +330,16 @@ public partial class SettingsPage
         _settings.SynchronizeStore();
     }
 
-    private void UseLegacySensorDashboard_Toggle(object sender, RoutedEventArgs e)
+    private void UseNewSensorDashboard_Toggle(object sender, RoutedEventArgs e)
     {
         if (_isRefreshing)
             return;
 
-        var state = _useLegacySensorDashboardToggle.IsChecked;
+        var state = _useNewSensorDashboardToggle.IsChecked;
         if (state is null)
             return;
 
-        _settings.Store.UseLegacySensorDashboard = state.Value;
+        _settings.Store.UseNewSensorDashboard = state.Value;
         _settings.SynchronizeStore();
     }
 

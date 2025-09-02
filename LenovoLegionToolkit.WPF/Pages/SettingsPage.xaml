@@ -146,13 +146,13 @@
 
         <custom:CardControl Margin="0,0,0,24">
             <custom:CardControl.Header>
-                <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_UseLegacySensorDashboard_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_UseLegacySensorDashboard_Message}" />
+                <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_UseNewSensorDashboard_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_UseNewSensorDashboard_Message}" />
             </custom:CardControl.Header>
             <wpfui:ToggleSwitch
-                x:Name="_useLegacySensorDashboardToggle"
+                x:Name="_useNewSensorDashboardToggle"
                 Margin="0,0,0,8"
-                AutomationProperties.Name="{x:Static resources:Resource.SettingsPage_UseLegacySensorDashboard_Title}"
-                Click="UseLegacySensorDashboard_Toggle"
+                AutomationProperties.Name="{x:Static resources:Resource.SettingsPage_UseNewSensorDashboard_Title}"
+                Click="UseNewSensorDashboard_Toggle"
                 Visibility="Hidden" />
         </custom:CardControl>
 
