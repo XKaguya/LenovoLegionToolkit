@@ -2308,10 +2308,10 @@ No afectará a otras ventanas a pantalla completa, pero no podrá hacer clic en 
     <value />
   </data>
   <data name="SettingsPage_EnableLogging_Title" xml:space="preserve">
-    <value />
+    <value>Habilitar registros de depuración</value>
   </data>
   <data name="SettingsPage_EnableLogging_Message" xml:space="preserve">
-    <value />
+    <value>Habilita los registros de depuración para investigar problemas de la aplicación.</value>
   </data>
   <data name="SensorItem_CpuUtilitzation" xml:space="preserve">
     <value />
@@ -2368,15 +2368,15 @@ No afectará a otras ventanas a pantalla completa, pero no podrá hacer clic en 
     <value />
   </data>
   <data name="SettingsPage_UseNewSensorDashboard_Title" xml:space="preserve">
-    <value />
+    <value>Utiliza el nuevo panel de métricas</value>
   </data>
   <data name="SettingsPage_UseNewSensorDashboard_Message" xml:space="preserve">
-    <value />
+    <value>Utiliza el nuevo panel de métricas en lugar del antiguo. Nota: El uso del nuevo panel de métricas puede provocar que algunos programas antivirus muestren una ventana emergente de advertencia. Para obtener más información, consulte: LibreHardwareMonitor/LibreHardwareMonitor#984</value>
   </data>
   <data name="SettingsPage_LockWindowSize_Title" xml:space="preserve">
-    <value />
+    <value>Bloquear el tamaño de ventana</value>
   </data>
   <data name="SettingsPage_LockWindowSize_Message" xml:space="preserve">
-    <value />
+    <value>Bloquea el tamaño de la ventana de LTT. Para así evitar que algo lo modifique.</value>
   </data>
 </root>
