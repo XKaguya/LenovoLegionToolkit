@@ -2376,4 +2376,7 @@ Andere Vollbildfenster werden dadurch nicht beeinträchtigt, aber Sie können ni
   <data name="SettingsPage_LockWindowSize_Message" xml:space="preserve">
     <value />
   </data>
+  <data name="FanCurveControl_PCH" xml:space="preserve">
+    <value />
+  </data>
 </root>

@@ -2128,6 +2128,15 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 PCH 的本地化字符串。
+        /// </summary>
+        public static string FanCurveControl_PCH {
+            get {
+                return ResourceManager.GetString("FanCurveControl_PCH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Filter... 的本地化字符串。
         /// </summary>
         public static string Filter {

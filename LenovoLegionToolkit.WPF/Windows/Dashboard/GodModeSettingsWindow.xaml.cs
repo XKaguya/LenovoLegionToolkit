@@ -30,6 +30,8 @@ public partial class GodModeSettingsWindow
     private Dictionary<PowerModeState, GodModeDefaults>? _defaults;
     private bool _isRefreshing;
 
+    private dynamic _fanCurveControl;
+
     public GodModeSettingsWindow()
     {
         InitializeComponent();
@@ -43,6 +45,20 @@ public partial class GodModeSettingsWindow
                 Keyboard.ClearFocus();
             }
         };
+
+        var mi = Compatibility.GetMachineInformationAsync().Result;
+        if (mi.Properties.SupportsGodModeV3)
+        {
+            _fanCurveControl = new Controls.FanCurveControlV2();
+            int contentIndex = _fanCurveControlStackPanel.Children.IndexOf(_fanCurveButton);
+            _fanCurveControlStackPanel.Children.Insert(contentIndex, _fanCurveControl);
+        }
+        else
+        {
+            _fanCurveControl = new Controls.FanCurveControl();
+            int contentIndex = _fanCurveControlStackPanel.Children.IndexOf(_fanCurveButton);
+            _fanCurveControlStackPanel.Children.Insert(contentIndex, _fanCurveControl);
+        }
     }
 
     private async void GodModeSettingsWindow_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)

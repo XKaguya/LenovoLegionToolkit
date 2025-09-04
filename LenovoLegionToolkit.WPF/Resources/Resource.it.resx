@@ -1655,4 +1655,7 @@ Spostare il mouse o premere il tasto sulla tastiera per risvegliarli.</value>
   <data name="SettingsPage_LockWindowSize_Message" xml:space="preserve">
     <value />
   </data>
+  <data name="FanCurveControl_PCH" xml:space="preserve">
+    <value />
+  </data>
 </root>

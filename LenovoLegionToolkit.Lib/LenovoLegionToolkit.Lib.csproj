@@ -10,6 +10,9 @@
 		<UseWindowsForms>true</UseWindowsForms>
 	</PropertyGroup>
 	<ItemGroup>
+	  <None Include="Controllers\GodMode\GodModeControllerV3.cs" />
+	</ItemGroup>
+	<ItemGroup>
 		<PackageReference Include="Autofac" Version="8.2.0" />
 		<PackageReference Include="Ben.Demystifier" Version="0.4.1" />
 		<PackageReference Include="CoordinateSharp" Version="3.1.1.1" />

@@ -2404,4 +2404,7 @@ Note: Using the new sensor dashboard may cause some antivirus programmes to disp
   <data name="SettingsPage_LockWindowSize_Message" xml:space="preserve">
     <value>Lock LLT's window size. To prevent something change it.</value>
   </data>
+  <data name="FanCurveControl_PCH" xml:space="preserve">
+    <value>PCH</value>
+  </data>
 </root>
