@@ -207,7 +207,7 @@
     <value>Si el Wi-Fi está desconectado</value>
   </data>
   <data name="OnResumeAutomationPipelineTrigger_DisplayName" xml:space="preserve">
-    <value>En resumen</value>
+    <value>Al reanudar</value>
   </data>
   <data name="HDROffAutomationPipelineTrigger_DisplayName" xml:space="preserve">
     <value>Cuando se apaga HDR</value>
@@ -226,5 +226,11 @@
   </data>
   <data name="DeviceConnectedAutomationPipelineTrigger_DisplayName" xml:space="preserve">
     <value>Cuando el dispositivo está conectado</value>
+  </data>
+  <data name="SessionLockAutomationPipelineTrigger_DisplayName" xml:space="preserve">
+    <value>Sesión bloqueada</value>
+  </data>
+  <data name="SessionUnlockAutomationPipelineTrigger_DisplayName" xml:space="preserve">
+    <value>Sesión desbloqueada</value>
   </data>
 </root>

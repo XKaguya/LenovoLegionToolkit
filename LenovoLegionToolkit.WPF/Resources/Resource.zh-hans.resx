@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -336,6 +336,18 @@
   <data name="BatteryPage_DischargeRate_Title" xml:space="preserve">
     <value>电池充放电功率</value>
   </data>
+  <data name="BatteryPage_MinDischargeRate_Message" xml:space="preserve">
+    <value>Minimum rate at which battery is charged (+), or discharged (-).</value>
+  </data>
+  <data name="BatteryPage_MinDischargeRate_Title" xml:space="preserve">
+    <value>Minimum discharge rate</value>
+  </data>
+  <data name="BatteryPage_MaxDischargeRate_Message" xml:space="preserve">
+    <value>Maximum rate at which battery is charged (+), or discharged (-).</value>
+  </data>
+  <data name="BatteryPage_MaxDischargeRate_Title" xml:space="preserve">
+    <value>Maximum discharge rate</value>
+  </data>
   <data name="BatteryPage_EstimatedBatteryLifeRemaining" xml:space="preserve">
     <value>预估剩余时间：{0}</value>
   </data>
@@ -353,6 +365,12 @@
   </data>
   <data name="BatteryPage_FullChargeCapacity_Title" xml:space="preserve">
     <value>满电容量</value>
+  </data>
+  <data name="BatteryPage_BatteryHealth_Message" xml:space="preserve">
+    <value>Battery maximum charge capacity.</value>
+  </data>
+  <data name="BatteryPage_BatteryHealth_Title" xml:space="preserve">
+    <value>Battery health</value>
   </data>
   <data name="BatteryPage_LowWattageChargerConnected" xml:space="preserve">
     <value>已插入较低功率电源适配器</value>
@@ -1677,6 +1695,12 @@
   </data>
   <data name="StatusTrayPopup_DischargeRate" xml:space="preserve">
     <value>电池充放电功率</value>
+  </data>
+  <data name="StatusTrayPopup_MinDischargeRate" xml:space="preserve">
+    <value>Min discharge rate</value>
+  </data>
+  <data name="StatusTrayPopup_MaxDischargeRate" xml:space="preserve">
+    <value>Max discharge rate</value>
   </data>
   <data name="StatusTrayPopup_UpdateAvailable" xml:space="preserve">
     <value>新版本可用！</value>
