@@ -336,13 +336,13 @@ Sólo se ejecutarán las acciones que coincidan con el estado actual.</value>
     <value>Velocidad de descarga</value>
   </data>
   <data name="BatteryPage_MinDischargeRate_Message" xml:space="preserve">
-    <value>Velocidad mínima a la que se carga (+) o descarga (-) la batería.</value>
+    <value>Velocidad mínima a la que la batería se carga (+) o descarga (-).</value>
   </data>
   <data name="BatteryPage_MinDischargeRate_Title" xml:space="preserve">
     <value>Velocidad mínima de descarga</value>
   </data>
   <data name="BatteryPage_MaxDischargeRate_Message" xml:space="preserve">
-    <value>Velocidad máxima a la que se carga (+) o descarga (-) la batería.</value>
+    <value>Velocidad máxima a la que la batería se carga (+) o descarga (-).</value>
   </data>
   <data name="BatteryPage_MaxDischargeRate_Title" xml:space="preserve">
     <value>Velocidad de descarga máxima</value>
