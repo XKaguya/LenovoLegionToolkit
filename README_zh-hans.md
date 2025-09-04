@@ -366,6 +366,7 @@ LLT 会自动在进程运行环境内添加一些可被访问的环境变量。�
 
 * [ViRb3](https://github.com/ViRb3) 创建了 [Lenovo Controller](https://github.com/ViRb3/LenovoController)，这是拯救者工具箱的基础。
 * [falahati](https://github.com/falahati) 创建了 [NvAPIWrapper](https://github.com/falahati/NvAPIWrapper) 和 [WindowsDisplayAPI](https://github.com/falahati/WindowsDisplayAPI)
+* [tebjan](https://github.com/tebjan/NvAPIWrapper) 更新了 NVAPIWrapper
 * [SmokelessCPU](https://github.com/SmokelessCPU) 帮助我适配了四分区 RGB 键盘背光。
 * [Mario Bălănică](https://github.com/mariobalanica) 的所有贡献。
 * [Ace-Radom](https://github.com/Ace-Radom) 的所有贡献。
