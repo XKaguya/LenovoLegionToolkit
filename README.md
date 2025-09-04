@@ -367,6 +367,7 @@ Special thanks to:
 
 * [ViRb3](https://github.com/ViRb3), for creating [Lenovo Controller](https://github.com/ViRb3/LenovoController), which was used as a base for this tool
 * [falahati](https://github.com/falahati), for creating [NvAPIWrapper](https://github.com/falahati/NvAPIWrapper) and [WindowsDisplayAPI](https://github.com/falahati/WindowsDisplayAPI)
+* [tebjan](https://github.com/tebjan/NvAPIWrapper), for upgrading the NVAPIWrapper to newest NVAPI.
 * [SmokelessCPU](https://github.com/SmokelessCPU), for help with 4-zone RGB and Sprectrum keyboard support
 * [Mario Bălănică](https://github.com/mariobalanica), for all contributions
 * [Ace-Radom](https://github.com/Ace-Radom), for all contributions
