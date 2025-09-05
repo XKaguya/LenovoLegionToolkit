@@ -339,13 +339,13 @@ Sólo se ejecutarán las acciones que coincidan con el estado actual.</value>
     <value>Velocidad mínima a la que la batería se carga (+) o descarga (-).</value>
   </data>
   <data name="BatteryPage_MinDischargeRate_Title" xml:space="preserve">
-    <value>Velocidad mínima de descarga</value>
+    <value>Velocidad mínima de carga/descarga</value>
   </data>
   <data name="BatteryPage_MaxDischargeRate_Message" xml:space="preserve">
     <value>Velocidad máxima a la que la batería se carga (+) o descarga (-).</value>
   </data>
   <data name="BatteryPage_MaxDischargeRate_Title" xml:space="preserve">
-    <value>Velocidad de descarga máxima</value>
+    <value>Velocidad máxima de carga/descarga</value>
   </data>
   <data name="BatteryPage_EstimatedBatteryLifeRemaining" xml:space="preserve">
     <value>Tiempo restante estimado: {0}</value>
@@ -1693,10 +1693,10 @@ Esta configuración sólo tiene efecto si el modo personalizado está activado.<
     <value>Velocidad de descarga</value>
   </data>
   <data name="StatusTrayPopup_MinDischargeRate" xml:space="preserve">
-    <value>Velocidad de descarga mínima</value>
+    <value>Velocidad mínima de descarga</value>
   </data>
   <data name="StatusTrayPopup_MaxDischargeRate" xml:space="preserve">
-    <value>Velocidad de descarga máxima</value>
+    <value>Velocidad máxima de descarga</value>
   </data>
   <data name="StatusTrayPopup_UpdateAvailable" xml:space="preserve">
     <value>¡Actualización disponible!</value>
