@@ -1987,4 +1987,19 @@ Nepieciešama restartēšana.</value>
   <data name="SensorItem_GpuTemperatures" xml:space="preserve">
     <value />
   </data>
+  <data name="SettingsPage_UseNewSensorDashboard_Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SettingsPage_UseNewSensorDashboard_Message" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SettingsPage_LockWindowSize_Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SettingsPage_LockWindowSize_Message" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FanCurveControl_PCH" xml:space="preserve">
+    <value />
+  </data>
 </root>

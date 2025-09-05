@@ -10,7 +10,7 @@ using LenovoLegionToolkit.Lib.Utils;
 
 namespace LenovoLegionToolkit.Lib.Controllers.GodMode;
 
-public class GodModeControllerV2(
+public class GodModeControllerV3(
     GodModeSettings settings,
     VantageDisabler vantageDisabler,
     LegionZoneDisabler legionZoneDisabler)
@@ -57,7 +57,7 @@ public class GodModeControllerV2(
         };
 
         var defaultPresets = await GetDefaultsInOtherPowerModesAsync().ConfigureAwait(false);
-        var defaultPerformancePreset = defaultPresets.GetValueOrNull(PowerModeState.Performance);
+        var defaultPerformancePreset = defaultPresets.GetValueOrNull(PowerModeState.Extreme);
 
         var defaultPerformanceSettings = new Dictionary<CapabilityID, int?>
         {
@@ -372,15 +372,11 @@ public class GodModeControllerV2(
             .Where(d => d.mode == (int)powerModeState + 1)
             .Select(d =>
             {
-                var type = (d.fanId, d.sensorId, mi.SmartFanVersion) switch
+                var type = (d.fanId, d.sensorId) switch
                 {
-                    (1, 1, 8) => FanTableType.CPU,
-                    (2, 5, 8) => FanTableType.GPU,
-                    (4, 4, 8) => FanTableType.GPU2,
-                    (1, 4, <= 8) => FanTableType.CPU,
-                    (1, 1, <= 8) => FanTableType.CPUSensor,
-                    (2, 5, <= 8) => FanTableType.GPU,
-                    (3, 5, <= 8) => FanTableType.GPU2,
+                    (1, 1) => FanTableType.CPU,
+                    (2, 5) => FanTableType.GPU,
+                    (4, 4) => FanTableType.PCH,
                     _ => FanTableType.Unknown,
                 };
                 return new FanTableData(type, d.fanId, d.sensorId, d.fanTableData, d.sensorTableData);

@@ -5,11 +5,12 @@ using LenovoLegionToolkit.Lib.Utils;
 
 namespace LenovoLegionToolkit.Lib.Controllers.GodMode;
 
-public class GodModeController(GodModeControllerV1 controllerV1, GodModeControllerV2 controllerV2)
+public class GodModeController(GodModeControllerV1 controllerV1, GodModeControllerV2 controllerV2, GodModeControllerV3 controllerV3)
     : IGodModeController
 {
     private IGodModeController ControllerV1 => controllerV1;
     private IGodModeController ControllerV2 => controllerV2;
+    private IGodModeController ControllerV3 => controllerV3;
 
     public event EventHandler<Guid>? PresetChanged
     {
@@ -17,11 +18,13 @@ public class GodModeController(GodModeControllerV1 controllerV1, GodModeControll
         {
             ControllerV1.PresetChanged += value;
             ControllerV2.PresetChanged += value;
+            ControllerV3.PresetChanged += value;
         }
         remove
         {
             ControllerV1.PresetChanged -= value;
             ControllerV2.PresetChanged -= value;
+            ControllerV3.PresetChanged -= value;
         }
     }
 
@@ -100,6 +103,9 @@ public class GodModeController(GodModeControllerV1 controllerV1, GodModeControll
 
         if (mi.Properties.SupportsGodModeV2)
             return controllerV2;
+
+        if (mi.Properties.SupportsGodModeV3)
+            return controllerV3;
 
         throw new InvalidOperationException("No supported version found");
     }

@@ -82,6 +82,18 @@
             </StackPanel>
         </custom:CardControl>
 
+        <custom:CardControl Margin="0,0,0,24">
+            <custom:CardControl.Header>
+                <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_LockWindowSize_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_LockWindowSize_Message}" />
+            </custom:CardControl.Header>
+            <wpfui:ToggleSwitch
+                x:Name="_lockWindowSizeToggle"
+                Margin="0,0,0,8"
+                AutomationProperties.Name="{x:Static resources:Resource.SettingsPage_LockWindowSize_Title}"
+                Click="LockWindowSizeToggle_Click"
+                Visibility="Hidden" />
+        </custom:CardControl>
+
         <custom:CardControl Margin="0,0,0,8">
             <custom:CardControl.Header>
                 <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_EnableLogging_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_EnableLogging_Message}" />
@@ -129,6 +141,18 @@
                 Margin="0,0,0,8"
                 AutomationProperties.Name="{x:Static resources:Resource.SettingsPage_MinimizeOnClose_Title}"
                 Click="MinimizeOnCloseToggle_Click"
+                Visibility="Hidden" />
+        </custom:CardControl>
+
+        <custom:CardControl Margin="0,0,0,24">
+            <custom:CardControl.Header>
+                <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_UseNewSensorDashboard_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_UseNewSensorDashboard_Message}" />
+            </custom:CardControl.Header>
+            <wpfui:ToggleSwitch
+                x:Name="_useNewSensorDashboardToggle"
+                Margin="0,0,0,8"
+                AutomationProperties.Name="{x:Static resources:Resource.SettingsPage_UseNewSensorDashboard_Title}"
+                Click="UseNewSensorDashboard_Toggle"
                 Visibility="Hidden" />
         </custom:CardControl>
 

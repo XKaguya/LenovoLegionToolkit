@@ -24,6 +24,7 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
         private readonly SemaphoreSlim _initSemaphore = new SemaphoreSlim(1, 1);
         private readonly List<IHardware> _interestedHardwares = new();
         private IHardware? _cpuHardware;
+        private IHardware? _amdGpuHardware;
         private IHardware? _gpuHardware;
         private IHardware? _memoryHardware;
         private PhysicalGPU? _gpuHardwareNVAPI;
@@ -82,10 +83,10 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
 
                     _interestedHardwares.AddRange(computer.Hardware);
                     _cpuHardware = _interestedHardwares.FirstOrDefault(h => h.HardwareType == HardwareType.Cpu);
+                    _amdGpuHardware = _interestedHardwares.FirstOrDefault(h => h.HardwareType == HardwareType.GpuAmd);
                     _gpuHardware = _interestedHardwares.FirstOrDefault(h => h.HardwareType == HardwareType.GpuNvidia);
                     _memoryHardware = _interestedHardwares.FirstOrDefault(h => h.HardwareType == HardwareType.Memory);
                     _gpuHardwareNVAPI = NVAPI.GetGPU();
-                    _gpuThermalSensor = _gpuHardwareNVAPI.ThermalInformation.ThermalSensors.FirstOrDefault(s => s.Target.HasFlag(NvAPIWrapper.Native.GPU.ThermalSettingsTarget.Memory));
                 }
                 finally
                 {
@@ -122,14 +123,20 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                 return "UNKNOWN";
             }
 
-            if (_gpuHardware == null)
-            {
-                return "UNKNOWN";
-            }
-
             if (!string.IsNullOrEmpty(_cachedGpuName))
             {
                 return _cachedGpuName;
+            }
+
+            if (_gpuHardware == null)
+            {
+                if (_amdGpuHardware != null)
+                {
+                    _cachedGpuName = StripName(_amdGpuHardware.Name);
+                    return _cachedGpuName;
+                }
+
+                return "UNKNOWN";
             }
 
             _cachedGpuName = StripName(_gpuHardware.Name);

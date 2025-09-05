@@ -234,13 +234,16 @@
                         Margin="0,0,0,8"
                         AutomationProperties.Name="{x:Static resources:Resource.GodModeSettingsWindow_Fans_Curve_Title}">
                         <custom:CardControl.Header>
-                            <StackPanel>
+                            <StackPanel x:Name="_fanCurveControlStackPanel">
                                 <controls:CardHeaderControl Title="{x:Static resources:Resource.GodModeSettingsWindow_Fans_Curve_Title}" Subtitle="{x:Static resources:Resource.GodModeSettingsWindow_Fans_Curve_Message}" />
+                                <!--
                                 <controls:FanCurveControl
                                     x:Name="_fanCurveControl"
                                     MaxWidth="700"
                                     Margin="0,32,0,0" />
+                                -->
                                 <wpfui:Button
+                                    x:Name="_fanCurveButton"
                                     MinWidth="120"
                                     HorizontalAlignment="Right"
                                     Click="DefaultFanCurve_Click"

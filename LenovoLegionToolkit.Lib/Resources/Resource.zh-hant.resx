@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -280,25 +280,25 @@
     <value>平滑</value>
   </data>
   <data name="RGBKeyboardBacklightEffect_Static" xml:space="preserve">
-    <value>靜態</value>
+    <value>静态</value>
   </data>
   <data name="RGBKeyboardBacklightEffect_WaveLTR" xml:space="preserve">
-    <value>從左向右波浪</value>
+    <value>从左向右</value>
   </data>
   <data name="RGBKeyboardBacklightEffect_WaveRTL" xml:space="preserve">
-    <value>從右向左波浪</value>
+    <value>从右向左</value>
   </data>
   <data name="RGBKeyboardBacklightPreset_Off" xml:space="preserve">
-    <value>關閉</value>
+    <value>关闭</value>
   </data>
   <data name="RGBKeyboardBacklightPreset_One" xml:space="preserve">
-    <value>預設 1</value>
+    <value>预设 1</value>
   </data>
   <data name="RGBKeyboardBacklightPreset_Three" xml:space="preserve">
-    <value>預設 3</value>
+    <value>预设 3</value>
   </data>
   <data name="RGBKeyboardBacklightPreset_Two" xml:space="preserve">
-    <value>預設 2</value>
+    <value>预设 2</value>
   </data>
   <data name="SpectrumKeyboardBacklightBrightness_High" xml:space="preserve">
     <value>高</value>
@@ -310,46 +310,46 @@
     <value>中</value>
   </data>
   <data name="SpectrumKeyboardBacklightBrightness_Off" xml:space="preserve">
-    <value>關閉</value>
+    <value>关</value>
   </data>
   <data name="SpectrumKeyboardBacklightDirection_BottomToTop" xml:space="preserve">
-    <value>從底部到頂部</value>
+    <value>从下到上</value>
   </data>
   <data name="SpectrumKeyboardBacklightDirection_Clockwise" xml:space="preserve">
-    <value>順時針</value>
+    <value>顺时针</value>
   </data>
   <data name="SpectrumKeyboardBacklightDirection_CounterClockwise" xml:space="preserve">
-    <value>逆時針</value>
+    <value>逆时针</value>
   </data>
   <data name="SpectrumKeyboardBacklightDirection_LeftToRight" xml:space="preserve">
-    <value>從左到右</value>
+    <value>从左到右</value>
   </data>
   <data name="SpectrumKeyboardBacklightDirection_RightToLeft" xml:space="preserve">
-    <value>從又到左</value>
+    <value>从右到左</value>
   </data>
   <data name="SpectrumKeyboardBacklightDirection_TopToBottom" xml:space="preserve">
-    <value>從頂部到底部</value>
+    <value>从上到下</value>
   </data>
   <data name="SpectrumKeyboardBacklightEffectType_Always" xml:space="preserve">
     <value>照明</value>
   </data>
   <data name="SpectrumKeyboardBacklightEffectType_AudioBounce" xml:space="preserve">
-    <value>韻律跳動</value>
+    <value>音律跳动</value>
   </data>
   <data name="SpectrumKeyboardBacklightEffectType_AudioRipple" xml:space="preserve">
-    <value>韻律漣漪</value>
+    <value>音律涟漪</value>
   </data>
   <data name="SpectrumKeyboardBacklightEffectType_AuroraSync" xml:space="preserve">
-    <value>Aurora Sync（顯示器燈光同步）</value>
+    <value>屏光同步</value>
   </data>
   <data name="SpectrumKeyboardBacklightEffectType_ColorChange" xml:space="preserve">
-    <value>光譜循環</value>
+    <value>光谱循环</value>
   </data>
   <data name="SpectrumKeyboardBacklightEffectType_ColorPulse" xml:space="preserve">
-    <value>色彩脈衝</value>
+    <value>色彩脉冲</value>
   </data>
   <data name="SpectrumKeyboardBacklightEffectType_ColorWave" xml:space="preserve">
-    <value>色彩波浪</value>
+    <value>波浪</value>
   </data>
   <data name="SpectrumKeyboardBacklightEffectType_Rain" xml:space="preserve">
     <value>雨滴</value>
@@ -358,16 +358,16 @@
     <value>螺旋彩虹</value>
   </data>
   <data name="SpectrumKeyboardBacklightEffectType_RainbowWave" xml:space="preserve">
-    <value>彩虹波浪</value>
+    <value>彩虹波</value>
   </data>
   <data name="SpectrumKeyboardBacklightEffectType_Ripple" xml:space="preserve">
-    <value>漣漪</value>
+    <value>涟漪</value>
   </data>
   <data name="SpectrumKeyboardBacklightEffectType_Smooth" xml:space="preserve">
-    <value>平滑</value>
+    <value>晴朗</value>
   </data>
   <data name="SpectrumKeyboardBacklightEffectType_Type" xml:space="preserve">
-    <value>輸入</value>
+    <value>键入</value>
   </data>
   <data name="SpectrumKeyboardBacklightSpeed_Speed1" xml:space="preserve">
     <value>慢</value>
@@ -382,18 +382,24 @@
     <value>深色模式</value>
   </data>
   <data name="Theme_Light" xml:space="preserve">
-    <value>淺色模式</value>
+    <value>浅色模式</value>
   </data>
   <data name="Theme_System" xml:space="preserve">
-    <value>跟隨系統</value>
+    <value>跟随系统</value>
   </data>
   <data name="TouchpadLockState_Off" xml:space="preserve">
-    <value>關閉</value>
+    <value>关</value>
     <comment>Informs the user that Touchpad Lock is or will be turned off.</comment>
   </data>
   <data name="TouchpadLockState_On" xml:space="preserve">
-    <value>開啟</value>
+    <value>开</value>
     <comment>Informs the user that Touchpad Lock is or will be turned on.</comment>
+  </data>
+  <data name="UpdateMethod_Server" xml:space="preserve">
+    <value>服务器</value>
+  </data>
+  <data name="UpdateMethod_Github" xml:space="preserve">
+    <value>Github</value>
   </data>
   <data name="WhiteKeyboardBacklightState_High" xml:space="preserve">
     <value>高亮度</value>
@@ -402,48 +408,48 @@
     <value>低亮度</value>
   </data>
   <data name="WhiteKeyboardBacklightState_Off" xml:space="preserve">
-    <value>關閉</value>
+    <value>关闭</value>
   </data>
   <data name="WinKeyState_Off" xml:space="preserve">
-    <value>關閉</value>
+    <value>关</value>
     <comment>Informs the user that WinLock is or will be turned on.</comment>
   </data>
   <data name="WinKeyState_On" xml:space="preserve">
-    <value>開啟</value>
+    <value>开</value>
     <comment>Informs the user that WinLock is or will be turned on.</comment>
   </data>
   <data name="PortsBacklightState_Off" xml:space="preserve">
-    <value>關閉</value>
+    <value>关</value>
   </data>
   <data name="PortsBacklightState_On" xml:space="preserve">
-    <value>開啟</value>
+    <value>开</value>
   </data>
   <data name="PanelLogoBacklightState_On" xml:space="preserve">
-    <value>開啟</value>
+    <value>开</value>
   </data>
   <data name="PanelLogoBacklightState_Off" xml:space="preserve">
-    <value>關閉</value>
+    <value>关</value>
   </data>
   <data name="InstantBootState_Off" xml:space="preserve">
-    <value>關閉</value>
+    <value>关闭</value>
   </data>
   <data name="InstantBootState_AcAdapter" xml:space="preserve">
-    <value>AC 方形電源孔</value>
+    <value>方形电源口</value>
   </data>
   <data name="InstantBootState_UsbPowerDelivery" xml:space="preserve">
-    <value>USB PD 充電孔</value>
+    <value>USB PD 充电口</value>
   </data>
   <data name="InstantBootState_AcAdapterAndUsbPowerDelivery" xml:space="preserve">
-    <value>AC 方形電源孔和 USB PD 電源孔</value>
+    <value>方形电源口与 PD 充电口</value>
   </data>
   <data name="NotificationDuration_Long" xml:space="preserve">
-    <value>長</value>
+    <value>较长</value>
   </data>
   <data name="NotificationDuration_Normal" xml:space="preserve">
-    <value>一般</value>
+    <value>默认</value>
   </data>
   <data name="NotificationDuration_Short" xml:space="preserve">
-    <value>短</value>
+    <value>较短</value>
   </data>
   <data name="ModifierKey_Shift" xml:space="preserve">
     <value>Shift</value>
@@ -455,51 +461,54 @@
     <value>Alt</value>
   </data>
   <data name="BatteryNightChargeState_On" xml:space="preserve">
-    <value>開啟</value>
+    <value>开</value>
   </data>
   <data name="BatteryNightChargeState_Off" xml:space="preserve">
-    <value>關閉</value>
+    <value>关</value>
   </data>
   <data name="SpeakerState_Mute" xml:space="preserve">
-    <value>靜音</value>
+    <value>静音</value>
   </data>
   <data name="SpeakerState_Unmute" xml:space="preserve">
-    <value>解除靜音</value>
+    <value>解除静音</value>
   </data>
   <data name="PowerModeMappingMode_Disabled" xml:space="preserve">
-    <value>已停用</value>
+    <value>禁用</value>
   </data>
   <data name="PowerModeMappingMode_WindowsPowerMode" xml:space="preserve">
-    <value>Windows 電源模式</value>
+    <value>Windows 电源模式</value>
   </data>
   <data name="PowerModeMappingMode_WindowsPowerPlan" xml:space="preserve">
-    <value>Windows 電源計劃</value>
+    <value>Windows 电源计划</value>
   </data>
   <data name="RGBKeyboardBacklightPreset_Four" xml:space="preserve">
-    <value>預設 4</value>
+    <value>预设 4</value>
   </data>
   <data name="UpdateCheckFrequency_PerDay" xml:space="preserve">
-    <value>每天</value>
+    <value>每日</value>
   </data>
   <data name="UpdateCheckFrequency_PerHour" xml:space="preserve">
-    <value>每小時</value>
+    <value>每小时</value>
   </data>
   <data name="UpdateCheckFrequency_PerMonth" xml:space="preserve">
     <value>每月</value>
   </data>
   <data name="UpdateCheckFrequency_PerThreeHours" xml:space="preserve">
-    <value>每 3 小時</value>
+    <value>每三小时</value>
   </data>
   <data name="UpdateCheckFrequency_PerTwelveHours" xml:space="preserve">
-    <value>每 12 小時</value>
+    <value>每十二小时</value>
   </data>
   <data name="UpdateCheckFrequency_PerWeek" xml:space="preserve">
-    <value>每週</value>
+    <value>每周</value>
   </data>
   <data name="PowerModeState_Extreme" xml:space="preserve">
-    <value />
+    <value>超能模式</value>
+  </data>
+  <data name="UpdateCheckFrequency_Never" xml:space="preserve">
+    <value>从不</value>
   </data>
   <data name="HybridModeState_UMA" xml:space="preserve">
-    <value />
+    <value>核显直连模式</value>
   </data>
 </root>

@@ -1,4 +1,5 @@
 ﻿using LenovoLegionToolkit.Lib;
+using LenovoLegionToolkit.Lib.Settings;
 using LenovoLegionToolkit.Lib.Utils;
 using LenovoLegionToolkit.WPF.Controls.Dashboard;
 using LenovoLegionToolkit.WPF.Resources;
@@ -18,9 +19,11 @@ namespace LenovoLegionToolkit.WPF.Pages;
 
 public partial class DashboardPage
 {
+    private readonly ApplicationSettings _settings = IoCContainer.Resolve<ApplicationSettings>();
     private readonly DashboardSettings _dashboardSettings = IoCContainer.Resolve<DashboardSettings>();
 
     private readonly List<DashboardGroupControl> _dashboardGroupControls = [];
+    private FrameworkElement sensorControl;
 
     public DashboardPage()
     {
@@ -33,6 +36,20 @@ public partial class DashboardPage
                 Keyboard.ClearFocus();
             }
         };
+
+        if (!_settings.Store.UseNewSensorDashboard)
+        {
+            sensorControl = new SensorsControl();
+        }
+        else
+        {
+            sensorControl = new SensorsControlV2();
+        }
+
+        sensorControl.Margin = new Thickness(0, 16, 16, 0);
+
+        int contentIndex = _panel.Children.IndexOf(_content);
+        _panel.Children.Insert(contentIndex, sensorControl);
     }
 
     private async void DashboardPage_Initialized(object? sender, EventArgs e)
@@ -48,7 +65,10 @@ public partial class DashboardPage
 
         ScrollHost?.ScrollToTop();
 
-        _sensors.Visibility = _dashboardSettings.Store.ShowSensors ? Visibility.Visible : Visibility.Collapsed;
+        if (sensorControl != null)
+        {
+            sensorControl.Visibility = _dashboardSettings.Store.ShowSensors ? Visibility.Visible : Visibility.Collapsed;
+        }
 
         _dashboardGroupControls.Clear();
         _content.ColumnDefinitions.Clear();

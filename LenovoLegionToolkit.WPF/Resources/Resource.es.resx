@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -133,13 +133,13 @@
     <value>Sitio web del proyecto en GitHub</value>
   </data>
   <data name="AboutPage_ThirdPartyLibraries" xml:space="preserve">
-    <value>Librerías de terceros</value>
+    <value>Bibliotecas de terceros</value>
   </data>
   <data name="AboutPage_Title" xml:space="preserve">
     <value>Acerca de</value>
   </data>
   <data name="AboutPage_TranslationCredit" xml:space="preserve">
-    <value>Traducido al español por: M.A.G.</value>
+    <value>Traducido al español por: M.A.G e I.A.A.</value>
     <comment>Please replace this text with something like "Translated into &lt;language&gt; by &lt;your name&gt;."</comment>
   </data>
   <data name="AboutPage_Version" xml:space="preserve">
@@ -210,7 +210,7 @@ Sólo se ejecutarán las acciones que coincidan con el estado actual.</value>
     <value>Renombrar</value>
   </data>
   <data name="AutomationPage_Reverted_Message" xml:space="preserve">
-    <value>¡Todos los cambios revertidos!</value>
+    <value>¡Todos los cambios han sido revertidos!</value>
   </data>
   <data name="AutomationPage_Reverted_Title" xml:space="preserve">
     <value>Revertido</value>
@@ -282,10 +282,10 @@ Sólo se ejecutarán las acciones que coincidan con el estado actual.</value>
     <value>Detecta automáticamente cuando se ejecutan determinados juegos y ajusta el rendimiento de la CPU y la GPU. Las temperaturas y el ruido del ventilador pueden aumentar.</value>
   </data>
   <data name="BalanceModeSettingsWindow_AIEngine_Title" xml:space="preserve">
-    <value>Activar el motor de Inteligencia artificiaI</value>
+    <value>Activar el motor de Inteligencia Artificial</value>
   </data>
   <data name="BalanceModeSettingsWindow_Title" xml:space="preserve">
-    <value>Ajustes del modo equilibrado</value>
+    <value>Ajustes del modo Equilibrado</value>
   </data>
   <data name="BatteryAutomationStepControl_Message" xml:space="preserve">
     <value>Elegir como se carga la batería.</value>
@@ -333,7 +333,19 @@ Sólo se ejecutarán las acciones que coincidan con el estado actual.</value>
     <value>Velocidad de carga (+) o descarga (-) de la batería.</value>
   </data>
   <data name="BatteryPage_DischargeRate_Title" xml:space="preserve">
-    <value>Índice de descarga</value>
+    <value>Velocidad de descarga</value>
+  </data>
+  <data name="BatteryPage_MinDischargeRate_Message" xml:space="preserve">
+    <value>Velocidad mínima a la que la batería se carga (+) o descarga (-).</value>
+  </data>
+  <data name="BatteryPage_MinDischargeRate_Title" xml:space="preserve">
+    <value>Velocidad mínima de carga/descarga</value>
+  </data>
+  <data name="BatteryPage_MaxDischargeRate_Message" xml:space="preserve">
+    <value>Velocidad máxima a la que la batería se carga (+) o descarga (-).</value>
+  </data>
+  <data name="BatteryPage_MaxDischargeRate_Title" xml:space="preserve">
+    <value>Velocidad máxima de carga/descarga</value>
   </data>
   <data name="BatteryPage_EstimatedBatteryLifeRemaining" xml:space="preserve">
     <value>Tiempo restante estimado: {0}</value>
@@ -352,6 +364,12 @@ Sólo se ejecutarán las acciones que coincidan con el estado actual.</value>
   </data>
   <data name="BatteryPage_FullChargeCapacity_Title" xml:space="preserve">
     <value>Capacidad de carga total</value>
+  </data>
+  <data name="BatteryPage_BatteryHealth_Message" xml:space="preserve">
+    <value>Capacidad máxima de carga de la batería.</value>
+  </data>
+  <data name="BatteryPage_BatteryHealth_Title" xml:space="preserve">
+    <value>Salud de la batería</value>
   </data>
   <data name="BatteryPage_LowWattageChargerConnected" xml:space="preserve">
     <value>Cargador de bajo consumo conectado</value>
@@ -427,7 +445,7 @@ El cambio de modo puede requerir un reinicio.</value>
   <data name="DeactivateGPUAutomationStepControl_Message" xml:space="preserve">
     <value>Desactivar la GPU dedicada si está activa innecesariamente.
 
-AVISO: Esta acción no se ejecutará correctamente, si la pantalla interna está apagada o el modo híbrido no está activo.</value>
+AVISO: Esta acción no se ejecutará correctamente, si la pantalla interna está apagada o el modo Híbrido no está activo.</value>
   </data>
   <data name="DeactivateGPUAutomationStepControl_Title" xml:space="preserve">
     <value>Desactivar la GPU</value>
@@ -442,16 +460,16 @@ AVISO: Esta acción no se ejecutará correctamente, si la pantalla interna está
     <value>Eliminar</value>
   </data>
   <data name="DeviceInformationWindow_BiosVersion_Title" xml:space="preserve">
-    <value>Versión de BIOS</value>
+    <value>Versión de la BIOS</value>
   </data>
   <data name="CopiedToClipboard_Message" xml:space="preserve">
     <value>Texto copiado al portapapeles.</value>
   </data>
   <data name="CopiedToClipboard_Message_WithParam" xml:space="preserve">
-    <value>"{0}" copiado(s) al portapapeles.</value>
+    <value>"{0}" copiado al portapapeles.</value>
   </data>
   <data name="CopiedToClipboard_Title" xml:space="preserve">
-    <value>¡Copiado(s)!</value>
+    <value>¡Copiado!</value>
   </data>
   <data name="DeviceInformationWindow_Device_Title" xml:space="preserve">
     <value>Dispositivo</value>
@@ -460,7 +478,7 @@ AVISO: Esta acción no se ejecutará correctamente, si la pantalla interna está
     <value>Soporte de Lenovo</value>
   </data>
   <data name="DeviceInformationWindow_MachineType_Title" xml:space="preserve">
-    <value>Tipo de máquina</value>
+    <value>Tipo de modelo</value>
   </data>
   <data name="DeviceInformationWindow_Manufacturer_Title" xml:space="preserve">
     <value>Fabricante</value>
@@ -536,7 +554,7 @@ AVISO: Esta acción no se ejecutará correctamente, si la pantalla interna está
 
 Haga clic en el logo o escanee el código QR para donar con PayPal.
 
-¡Gracias anticipadas!</value>
+¡Gracias de antemano!</value>
   </data>
   <data name="DonatePage_Title" xml:space="preserve">
     <value>Donar</value>
@@ -564,10 +582,10 @@ Haga clic en el logo o escanee el código QR para donar con PayPal.
   </data>
   <data name="ExtendedHybridModeInfoWindow_Auto_Message" xml:space="preserve">
     <value>Utilizar la GPU integrada sólo si está en modo batería. 
-Utilizar la GPU integrada y dedicada si el adaptador de CA está conectado. Si se conecta un adaptador no estándar, el sistema cambiará sólo al modo híbrido-iGPU.</value>
+Utilizar la GPU integrada y dedicada si el adaptador de CA está conectado. Si se conecta un adaptador no estándar, el sistema cambiará sólo al modo Híbrido-iGPU.</value>
   </data>
   <data name="ExtendedHybridModeInfoWindow_Auto_Title" xml:space="preserve">
-    <value>Modo híbrido-automático</value>
+    <value>Modo Híbrido-Automático</value>
   </data>
   <data name="ExtendedHybridModeInfoWindow_DGPU_Disclaimer" xml:space="preserve">
     <value>El cambio a/desde este modo requiere un reinicio.</value>
@@ -592,7 +610,7 @@ El sistema alternará automáticamente entre ellas, en función de sus necesidad
     <value>Utilizar sólo la GPU integrada. Este modo minimiza el consumo de energía y el ruido.</value>
   </data>
   <data name="ExtendedHybridModeInfoWindow_IGPU_Title" xml:space="preserve">
-    <value>Modo híbrido-iGPU sólo</value>
+    <value>Modo sólo Híbrido-iGPU (GPU integrada)</value>
   </data>
   <data name="ExtendedHybridModeInfoWindow_Title" xml:space="preserve">
     <value>Acerca de los modos de trabajo de la GPU</value>
@@ -601,7 +619,7 @@ El sistema alternará automáticamente entre ellas, en función de sus necesidad
     <value>ºF</value>
   </data>
   <data name="FanCurveControl_CPU" xml:space="preserve">
-    <value>Unidad de control de potencia </value>
+    <value>CPU</value>
   </data>
   <data name="FanCurveControl_CPUSensor" xml:space="preserve">
     <value>Sensor de la CPU</value>
@@ -616,7 +634,7 @@ El sistema alternará automáticamente entre ellas, en función de sus necesidad
     <value>GPU #2</value>
   </data>
   <data name="RPM" xml:space="preserve">
-    <value>Revoluciones por minuto</value>
+    <value>RPM</value>
   </data>
   <data name="FlipToStartAutomationStepControl_Message" xml:space="preserve">
     <value>Encender el portátil al abrir la tapa.</value>
@@ -760,7 +778,7 @@ AVISO: Esta acción no se ejecutará correctamente si la pantalla interna está 
     <value>Batería</value>
   </data>
   <data name="MainWindow_NavigationItem_Dashboard" xml:space="preserve">
-    <value>Cuadro de control</value>
+    <value>Panel de control</value>
   </data>
   <data name="MainWindow_NavigationItem_Donate" xml:space="preserve">
     <value>Donar</value>
@@ -957,7 +975,7 @@ Asegúrese de instalar siempre los paquetes correctos.</value>
     <value>Filtro...</value>
   </data>
   <data name="PackagesPage_MachineType" xml:space="preserve">
-    <value>Tipo de máquina</value>
+    <value>Tipo de modelo</value>
   </data>
   <data name="PackagesPage_OperatingSystem" xml:space="preserve">
     <value>Sistema operativo</value>
@@ -1117,7 +1135,7 @@ Asegúrese primero de que su script se ejecuta correctamente.</value>
     <value>Ninguna acción rápida definida.</value>
   </data>
   <data name="SelectSmartKeyPipelinesWindow_ShowThisApp" xml:space="preserve">
-    <value>Mostrar está aplicacion</value>
+    <value>Mostrar esta aplicación</value>
   </data>
   <data name="SettingsPage_AccentColor_Description" xml:space="preserve">
     <value>Cambiar el color característico de la aplicación.</value>
@@ -1213,6 +1231,9 @@ Se recomienda reiniciar después de cambiar esta opción.</value>
   </data>
   <data name="SettingsPage_Notifications_Title" xml:space="preserve">
     <value>Notificaciones</value>
+  </data>
+  <data name="SettingsPage_UpdateMethod_Title" xml:space="preserve">
+    <value>Modo de actualización</value>
   </data>
   <data name="SettingsPage_WindowsPowerPlans_Title" xml:space="preserve">
     <value>Planes de energía de Windows</value>
@@ -1342,13 +1363,13 @@ Se recomienda reiniciar después de cambiar esta opción.</value>
 Requiere un reinicio.</value>
   </data>
   <data name="ToggleHybridModeControl_RestartRequired_Message" xml:space="preserve">
-    <value>El cambio de modo híbrido requiere un reinicio. ¿Desea reiniciar ahora?</value>
+    <value>El cambio de Modo Híbrido requiere un reinicio. ¿Desea reiniciar ahora?</value>
   </data>
   <data name="ToggleHybridModeControl_RestartRequired_Title" xml:space="preserve">
     <value>Se requiere un reinicio</value>
   </data>
   <data name="ToggleHybridModeControl_Title" xml:space="preserve">
-    <value>Modo híbrido</value>
+    <value>Modo Híbrido</value>
   </data>
   <data name="TouchpadLockAutomationStepControl_Message" xml:space="preserve">
     <value>Desactivar el panel táctil.</value>
@@ -1669,7 +1690,13 @@ Esta configuración sólo tiene efecto si el modo personalizado está activado.<
     <value>Modo</value>
   </data>
   <data name="StatusTrayPopup_DischargeRate" xml:space="preserve">
-    <value>Índice de descarga</value>
+    <value>Velocidad de descarga</value>
+  </data>
+  <data name="StatusTrayPopup_MinDischargeRate" xml:space="preserve">
+    <value>Velocidad mínima de descarga</value>
+  </data>
+  <data name="StatusTrayPopup_MaxDischargeRate" xml:space="preserve">
+    <value>Velocidad máxima de descarga</value>
   </data>
   <data name="StatusTrayPopup_UpdateAvailable" xml:space="preserve">
     <value>¡Actualización disponible!</value>
@@ -1777,13 +1804,13 @@ AVISO: Esta acción no se ejecutará correctamente si no se dispone de una GPU e
     <value>Máximo: {0}</value>
   </data>
   <data name="SensorsControl_CPU_Title" xml:space="preserve">
-    <value>Unidad de control de potencia (CPU)</value>
+    <value>CPU</value>
   </data>
   <data name="SensorsControl_Utilization_Title" xml:space="preserve">
     <value>Uso</value>
   </data>
   <data name="SensorsControl_CoreClock_Title" xml:space="preserve">
-    <value>Reloj del procesador</value>
+    <value>Reloj del núcleo</value>
   </data>
   <data name="SensorsControl_Temperature_Title" xml:space="preserve">
     <value>Temperatura</value>
@@ -1792,7 +1819,7 @@ AVISO: Esta acción no se ejecutará correctamente si no se dispone de una GPU e
     <value>Ventilador</value>
   </data>
   <data name="SensorsControl_GPU_Title" xml:space="preserve">
-    <value>Unidad de procesamiento gráfico (GPU)</value>
+    <value>GPU</value>
   </data>
   <data name="SensorsControl_MemoryClock_Title" xml:space="preserve">
     <value>Reloj de memoria</value>
@@ -1861,7 +1888,7 @@ Si la dGPU no responde del todo, reinicie su portátil.</value>
 El cambio de modo puede requerir un reinicio.</value>
   </data>
   <data name="ToggleHybridModeAutomationStepControl_Title" xml:space="preserve">
-    <value>Modo híbrido</value>
+    <value>Modo Híbrido</value>
   </data>
   <data name="ToggleHybridModeAutomationStepControl_Message" xml:space="preserve">
     <value>Permitir cambiar entre la GPU integrada y la GPU dedicada.
@@ -2254,117 +2281,132 @@ Requiere un reinicio.</value>
 No afectará a otras ventanas a pantalla completa, pero no podrá hacer clic en las notificaciones.</value>
   </data>
   <data name="SensorsControl_VrTemperature_Title" xml:space="preserve">
-    <value />
+    <value>Temperatura VR</value>
   </data>
   <data name="SensorsControl_GpuMemoryTemperature_Title" xml:space="preserve">
-    <value />
+    <value>VRAM</value>
   </data>
   <data name="SensorsControl_PchTemperature_Title" xml:space="preserve">
-    <value />
+    <value>Temperatura PCH</value>
   </data>
   <data name="SensorsControl_Motherboard_Title" xml:space="preserve">
-    <value />
+    <value>Placa base</value>
   </data>
   <data name="SensorsControl_GpuCore_Title" xml:space="preserve">
-    <value />
+    <value>Núcleo</value>
   </data>
   <data name="SensorsControl_Memory_Title" xml:space="preserve">
-    <value />
+    <value>Memoria</value>
   </data>
   <data name="SensorsControl_Disk_Title" xml:space="preserve">
-    <value />
+    <value>Disco</value>
   </data>
   <data name="SensorsControl_Battery_Title" xml:space="preserve">
-    <value />
+    <value>Batería</value>
   </data>
   <data name="SensorsControl_State_Title" xml:space="preserve">
-    <value />
+    <value>Estado</value>
   </data>
   <data name="SensorsControl_BatteryLevel_Title" xml:space="preserve">
-    <value />
+    <value>Nivel de Batería</value>
   </data>
   <data name="BatteryPage_ACAdapterNotConnected" xml:space="preserve">
-    <value />
+    <value>Sin corriente alterna</value>
   </data>
   <data name="DashboardBattery_AcConnected" xml:space="preserve">
-    <value />
+    <value>Conectado a CA</value>
   </data>
   <data name="DashboardBattery_AcDisconnected" xml:space="preserve">
-    <value />
+    <value>Desconectado de CA</value>
   </data>
   <data name="AboutPage_Log" xml:space="preserve">
-    <value />
+    <value>Registro</value>
   </data>
   <data name="SensorsControl_CPU_Power" xml:space="preserve">
-    <value />
+    <value>Consumo</value>
   </data>
   <data name="SensorsControl_GPU_Power" xml:space="preserve">
-    <value />
+    <value>Consumo</value>
   </data>
   <data name="SensorsControl_Disk_1_Temperature" xml:space="preserve">
-    <value />
+    <value>Temperatura disco 1</value>
   </data>
   <data name="SensorsControl_Disk_2_Temperature" xml:space="preserve">
-    <value />
+    <value>Temperatura disco 2</value>
   </data>
   <data name="SettingsPage_EnableLogging_Title" xml:space="preserve">
-    <value />
+    <value>Habilitar registros de depuración</value>
   </data>
   <data name="SettingsPage_EnableLogging_Message" xml:space="preserve">
-    <value />
+    <value>Habilita los registros de depuración para investigar problemas de la aplicación.</value>
   </data>
   <data name="SensorItem_CpuUtilitzation" xml:space="preserve">
-    <value />
+    <value>Uso de la CPU</value>
   </data>
   <data name="SensorItem_CpuFrequency" xml:space="preserve">
-    <value />
+    <value>Frecuencia de la CPU</value>
   </data>
   <data name="SensorItem_CpuFanSpeed" xml:space="preserve">
-    <value />
+    <value>Velocidad del ventilador de la CPU</value>
   </data>
   <data name="SensorItem_CpuTemperature" xml:space="preserve">
-    <value />
+    <value>Temperatura de la CPU</value>
   </data>
   <data name="SensorItem_CpuPower" xml:space="preserve">
-    <value />
+    <value>Consumo de la CPU</value>
   </data>
   <data name="SensorItem_GpuUtilization" xml:space="preserve">
-    <value />
+    <value>Uso de la GPU</value>
   </data>
   <data name="SensorItem_GpuFrequency" xml:space="preserve">
-    <value />
+    <value>Frecuencia de la GPU</value>
   </data>
   <data name="SensorItem_GpuFanSpeed" xml:space="preserve">
-    <value />
+    <value>Velocidad del ventilador de la GPU</value>
   </data>
   <data name="SensorItem_PchFanSpeed" xml:space="preserve">
-    <value />
+    <value>Velocidad del ventilador del PCH</value>
   </data>
   <data name="SensorItem_PchTemperature" xml:space="preserve">
-    <value />
+    <value>Temperatura del PCH</value>
   </data>
   <data name="SensorItem_BatteryState" xml:space="preserve">
-    <value />
+    <value>Estado de la batería</value>
   </data>
   <data name="SensorItem_BatteryLevel" xml:space="preserve">
-    <value />
+    <value>Nivel de la batería</value>
   </data>
   <data name="SensorItem_MemoryUtilization" xml:space="preserve">
-    <value />
+    <value>Uso de memoria</value>
   </data>
   <data name="SensorItem_MemoryTemperature" xml:space="preserve">
-    <value />
+    <value>Temperatura de la memoria</value>
   </data>
   <data name="SensorItem_Disk1Temperature" xml:space="preserve">
-    <value />
+    <value>Temperatura del disco 1</value>
   </data>
   <data name="SensorItem_Disk2Temperature" xml:space="preserve">
-    <value />
+    <value>Temperatura del disco 2</value>
   </data>
   <data name="EditSensorWindow_Title" xml:space="preserve">
-    <value />
+    <value>Editar sensor</value>
   </data>
   <data name="SensorItem_GpuTemperatures" xml:space="preserve">
-    <value />
+    <value>Temperatura de la GPU</value>
+  </data>
+  <data name="SettingsPage_UseNewSensorDashboard_Title" xml:space="preserve">
+    <value>Utiliza el nuevo panel de control</value>
+  </data>
+  <data name="SettingsPage_UseNewSensorDashboard_Message" xml:space="preserve">
+    <value>Utiliza el nuevo panel de control en lugar del antiguo. Nota: El uso del nuevo panel de control puede provocar que algunos programas antivirus muestren una ventana emergente de advertencia. Para obtener más información, consulte: LibreHardwareMonitor/LibreHardwareMonitor#984</value>
+  </data>
+  <data name="SettingsPage_LockWindowSize_Title" xml:space="preserve">
+    <value>Bloquear el tamaño de ventana</value>
+  </data>
+  <data name="SettingsPage_LockWindowSize_Message" xml:space="preserve">
+    <value>Bloquea el tamaño de la ventana de LTT. Para así evitar que algo lo modifique.</value>
+  </data>
+  <data name="FanCurveControl_PCH" xml:space="preserve">
+    <value>PCH</value>
   </data>
 </root>

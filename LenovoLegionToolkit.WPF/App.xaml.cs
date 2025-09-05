@@ -561,11 +561,15 @@ public partial class App
     {
         try
         {
-            var feature = IoCContainer.Resolve<SensorsGroupController>();
-            if (await feature.IsSupportedAsync())
+            var settings = IoCContainer.Resolve<ApplicationSettings>();
+            if (settings.Store.UseNewSensorDashboard)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Init memory sensor control feature. ");
+                var feature = IoCContainer.Resolve<SensorsGroupController>();
+                if (await feature.IsSupportedAsync())
+                {
+                    if (Log.Instance.IsTraceEnabled)
+                        Log.Instance.Trace($"Init memory sensor control feature.");
+                }
             }
         }
         catch (Exception ex)

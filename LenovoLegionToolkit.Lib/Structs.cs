@@ -442,13 +442,14 @@ public readonly struct MachineInformation
     public readonly struct PropertyData
     {
 
-        public bool SupportsGodMode => SupportsGodModeV1 || SupportsGodModeV2;
+        public bool SupportsGodMode => SupportsGodModeV1 || SupportsGodModeV2 || SupportsGodModeV3;
 
         public (bool status, bool connectivity) SupportsAlwaysOnAc { get; init; }
         public bool SupportsDIGPUMode { get; init; }
         public bool SupportsExtremeMode { get; init; }
         public bool SupportsGodModeV1 { get; init; }
         public bool SupportsGodModeV2 { get; init; }
+        public bool SupportsGodModeV3 { get; init; }
         public bool SupportsGSync { get; init; }
         public bool SupportsIGPUMode { get; init; }
         public bool SupportsAIMode { get; init; }
@@ -456,6 +457,7 @@ public readonly struct MachineInformation
         public bool HasQuietToPerformanceModeSwitchingBug { get; init; }
         public bool HasGodModeToOtherModeSwitchingBug { get; init; }
         public bool HasReapplyParameterIssue { get; init; }
+        public bool HasSpectrumProfileSwitchingBug { get; init; }
         public bool IsExcludedFromLenovoLighting { get; init; }
         public bool IsExcludedFromPanelLogoLenovoLighting { get; init; }
         public bool HasAlternativeFullSpectrumLayout { get; init; }
