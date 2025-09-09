@@ -25,7 +25,7 @@
 		</PackageReference>
 		<PackageReference Include="NAudio.Wasapi" Version="2.2.1" />
 		<PackageReference Include="PubSub" Version="4.0.2" />
-		<PackageReference Include="RAMSPDToolkit-NDD" Version="1.1.3" />
+		<PackageReference Include="RAMSPDToolkit-NDD" Version="1.2.2" />
 		<PackageReference Include="System.Management" Version="9.0.8" />
 		<PackageReference Include="System.ServiceProcess.ServiceController" Version="9.0.2" />
 		<PackageReference Include="NeoSmart.AsyncLock" Version="3.2.1" />
@@ -36,10 +36,10 @@
 	</ItemGroup>
 	<ItemGroup>
 		<Reference Include="LibreHardwareMonitorLib">
-			<HintPath>..\TemporarySolution\LibreHardwareMonitorLib.dll</HintPath>
+		  <HintPath>..\..\LibreHardwareMonitor-master\bin\Debug\net8.0\LibreHardwareMonitorLib.dll</HintPath>
 		</Reference>
 		<Reference Include="NvAPIWrapper">
-		  <HintPath>..\..\NvAPIWrapper-main\Debug\net8.0\NvAPIWrapper.dll</HintPath>
+		  <HintPath>..\..\NvAPIWrapper-main\Debug\net8\NvAPIWrapper.dll</HintPath>
 		</Reference>
 	</ItemGroup>
 	<ItemGroup>
