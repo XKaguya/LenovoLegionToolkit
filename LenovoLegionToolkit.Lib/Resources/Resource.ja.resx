@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -333,11 +333,35 @@
   <data name="SpectrumKeyboardBacklightEffectType_Always" xml:space="preserve">
     <value>常時</value>
   </data>
+  <data name="SpectrumKeyboardBacklightEffectType_AudioBounce" xml:space="preserve">
+    <value>Audio Bounce</value>
+  </data>
+  <data name="SpectrumKeyboardBacklightEffectType_AudioRipple" xml:space="preserve">
+    <value>Audio Ripple</value>
+  </data>
+  <data name="SpectrumKeyboardBacklightEffectType_AuroraSync" xml:space="preserve">
+    <value>Aurora Sync</value>
+  </data>
   <data name="SpectrumKeyboardBacklightEffectType_ColorChange" xml:space="preserve">
     <value>色を変更</value>
   </data>
+  <data name="SpectrumKeyboardBacklightEffectType_ColorPulse" xml:space="preserve">
+    <value>Color Pulse</value>
+  </data>
+  <data name="SpectrumKeyboardBacklightEffectType_ColorWave" xml:space="preserve">
+    <value>Color Wave</value>
+  </data>
   <data name="SpectrumKeyboardBacklightEffectType_Rain" xml:space="preserve">
     <value>雨</value>
+  </data>
+  <data name="SpectrumKeyboardBacklightEffectType_RainbowScrew" xml:space="preserve">
+    <value>Rainbow Screw</value>
+  </data>
+  <data name="SpectrumKeyboardBacklightEffectType_RainbowWave" xml:space="preserve">
+    <value>Rainbow Wave</value>
+  </data>
+  <data name="SpectrumKeyboardBacklightEffectType_Ripple" xml:space="preserve">
+    <value>Ripple</value>
   </data>
   <data name="SpectrumKeyboardBacklightEffectType_Smooth" xml:space="preserve">
     <value>グラデーション</value>
@@ -370,6 +394,12 @@
   <data name="TouchpadLockState_On" xml:space="preserve">
     <value>オン</value>
     <comment>Informs the user that Touchpad Lock is or will be turned on.</comment>
+  </data>
+  <data name="UpdateMethod_Server" xml:space="preserve">
+    <value>Server</value>
+  </data>
+  <data name="UpdateMethod_Github" xml:space="preserve">
+    <value>Github</value>
   </data>
   <data name="WhiteKeyboardBacklightState_High" xml:space="preserve">
     <value>明るい</value>
@@ -473,9 +503,12 @@
     <value>毎週</value>
   </data>
   <data name="PowerModeState_Extreme" xml:space="preserve">
-    <value />
+    <value>Extreme</value>
+  </data>
+  <data name="UpdateCheckFrequency_Never" xml:space="preserve">
+    <value>Never</value>
   </data>
   <data name="HybridModeState_UMA" xml:space="preserve">
-    <value />
+    <value>UMA</value>
   </data>
 </root>
