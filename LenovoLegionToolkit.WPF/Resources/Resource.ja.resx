@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -230,6 +230,9 @@
   <data name="AutomationPipelineControl_Configure" xml:space="preserve">
     <value>設定</value>
   </data>
+  <data name="AutomationPipelineControl_Exclusive" xml:space="preserve">
+    <value>Exclusive</value>
+  </data>
   <data name="AutomationPipelineControl_Exclusive_ToolTip" xml:space="preserve">
     <value>このアクションの実行中は、それ以外のアクションを実行しないでください。</value>
   </data>
@@ -332,6 +335,18 @@
   <data name="BatteryPage_DischargeRate_Title" xml:space="preserve">
     <value>出力量</value>
   </data>
+  <data name="BatteryPage_MinDischargeRate_Message" xml:space="preserve">
+    <value>Minimum rate at which battery is charged (+), or discharged (-).</value>
+  </data>
+  <data name="BatteryPage_MinDischargeRate_Title" xml:space="preserve">
+    <value>Minimum discharge rate</value>
+  </data>
+  <data name="BatteryPage_MaxDischargeRate_Message" xml:space="preserve">
+    <value>Maximum rate at which battery is charged (+), or discharged (-).</value>
+  </data>
+  <data name="BatteryPage_MaxDischargeRate_Title" xml:space="preserve">
+    <value>Maximum discharge rate</value>
+  </data>
   <data name="BatteryPage_EstimatedBatteryLifeRemaining" xml:space="preserve">
     <value>推定残り時間: {0}</value>
   </data>
@@ -349,6 +364,12 @@
   </data>
   <data name="BatteryPage_FullChargeCapacity_Title" xml:space="preserve">
     <value>バッテリーの最大容量</value>
+  </data>
+  <data name="BatteryPage_BatteryHealth_Message" xml:space="preserve">
+    <value>Battery maximum charge capacity.</value>
+  </data>
+  <data name="BatteryPage_BatteryHealth_Title" xml:space="preserve">
+    <value>Battery health</value>
   </data>
   <data name="BatteryPage_LowWattageChargerConnected" xml:space="preserve">
     <value>低出力な電源が接続されています。</value>
@@ -933,8 +954,14 @@ PayPal で寄付するには、下の PayPal ロゴをクリックするかQR �
     <value>以下はこのデバイスと互換性があるとマークされているソフトウェアパッケージのリストです。
 常に正しいパッケージをインストールしていることを確認してください。</value>
   </data>
+  <data name="PackagesPage_DownloadFailed_Message" xml:space="preserve">
+    <value>Check if Machine Type and OS are set correctly.</value>
+  </data>
   <data name="PackagesPage_DownloadFailed_Title" xml:space="preserve">
     <value>エラーが発生しました</value>
+  </data>
+  <data name="PackagesPage_DownloadInProgress_Message" xml:space="preserve">
+    <value>Changing sorting, filtering results, hiding packages or refreshing the list will stop the download. Do you want to continue?</value>
   </data>
   <data name="PackagesPage_DownloadInProgress_Title" xml:space="preserve">
     <value>ダウンロードが進行中です</value>
@@ -1117,6 +1144,9 @@ PayPal で寄付するには、下の PayPal ロゴをクリックするかQR �
   <data name="SettingsPage_Autorun_Title" xml:space="preserve">
     <value>自動起動</value>
   </data>
+  <data name="SettingsPage_DisableLegionZone_Error_Message" xml:space="preserve">
+    <value>Legion Zone may have not been disabled correctly</value>
+  </data>
   <data name="SettingsPage_DisableLegionZone_Error_Title" xml:space="preserve">
     <value>Legion Zoneを無効にできませんでした</value>
   </data>
@@ -1154,11 +1184,17 @@ PayPal で寄付するには、下の PayPal ロゴをクリックするかQR �
   <data name="SettingsPage_DisableVantage_Title" xml:space="preserve">
     <value>Lenovo Vantage と ImController を無効化</value>
   </data>
+  <data name="SettingsPage_EnableLegionZone_Error_Message" xml:space="preserve">
+    <value>Legion Zone may have not been enabled correctly</value>
+  </data>
   <data name="SettingsPage_EnableLegionZone_Error_Title" xml:space="preserve">
     <value>Legion Zoneを有効にできませんでした</value>
   </data>
   <data name="SettingsPage_EnableLenovoHotkeys_Error_Message" xml:space="preserve">
     <value>Lenovo Hotkeys は正しく有効になっていない可能性があります</value>
+  </data>
+  <data name="SettingsPage_EnableLenovoHotkeys_Error_Title" xml:space="preserve">
+    <value>Couldn't enable Lenovo Hotkeys Keys</value>
   </data>
   <data name="SettingsPage_EnableVantage_Error_Message" xml:space="preserve">
     <value>Lenovo VantageとImControllerの両方またはいずれか一方が正しく有効になっていない可能性があります</value>
@@ -1189,6 +1225,9 @@ PayPal で寄付するには、下の PayPal ロゴをクリックするかQR �
   </data>
   <data name="SettingsPage_Notifications_Title" xml:space="preserve">
     <value>通知</value>
+  </data>
+  <data name="SettingsPage_UpdateMethod_Title" xml:space="preserve">
+    <value>Update Method</value>
   </data>
   <data name="SettingsPage_WindowsPowerPlans_Title" xml:space="preserve">
     <value>Windows電源プラン</value>
@@ -1280,6 +1319,9 @@ PayPal で寄付するには、下の PayPal ロゴをクリックするかQR �
   <data name="SpectrumKeyboardBacklightEditEffectWindow_Effect_Title" xml:space="preserve">
     <value>エフェクト</value>
   </data>
+  <data name="SpectrumKeyboardBacklightEditEffectWindow_Effect_Warning" xml:space="preserve">
+    <value>This effect will be applied to the whole keyboard and will replace all other effects.</value>
+  </data>
   <data name="SpectrumKeyboardBacklightEditEffectWindow_Speed_Title" xml:space="preserve">
     <value>速度</value>
   </data>
@@ -1288,6 +1330,9 @@ PayPal で寄付するには、下の PayPal ロゴをクリックするかQR �
   </data>
   <data name="SpectrumKeyboardBacklightEditEffectWindow_Title_Edit" xml:space="preserve">
     <value>エフェクトを編集</value>
+  </data>
+  <data name="SpectrumKeyboardBacklightProfileAutomationStepControl_Message" xml:space="preserve">
+    <value>Adjust keyboard backlight profile.</value>
   </data>
   <data name="SpectrumKeyboardBacklightProfileAutomationStepControl_Title" xml:space="preserve">
     <value>キーボードのバックライトのプロファイル</value>
@@ -1306,6 +1351,13 @@ PayPal で寄付するには、下の PayPal ロゴをクリックするかQR �
   </data>
   <data name="TimeAutomationPipelineTriggerTabItemContent_Time" xml:space="preserve">
     <value>時間</value>
+  </data>
+  <data name="ToggleHybridModeControl_Message" xml:space="preserve">
+    <value>Allow switching between integrated and discrete GPU.
+Requires restart.</value>
+  </data>
+  <data name="ToggleHybridModeControl_RestartRequired_Message" xml:space="preserve">
+    <value>Changing Hybrid Mode requires restart. Do you want to restart now?</value>
   </data>
   <data name="ToggleHybridModeControl_RestartRequired_Title" xml:space="preserve">
     <value>再起動が必要です</value>
@@ -1328,6 +1380,10 @@ PayPal で寄付するには、下の PayPal ロゴをクリックするかQR �
   <data name="TryAgain" xml:space="preserve">
     <value>もう一度試してください</value>
   </data>
+  <data name="UnexpectedException" xml:space="preserve">
+    <value>Unexpected exception occurred:
+{0}</value>
+  </data>
   <data name="Unnamed" xml:space="preserve">
     <value>名前なし</value>
   </data>
@@ -1335,6 +1391,9 @@ PayPal で寄付するには、下の PayPal ロゴをクリックするかQR �
     <value>ご自身の責任で続行することもできますが、一部の機能が利用できなくなったり、正しく動作しない可能性があることに注意してください。
 
 続行することを選択すると、ログは自動的に有効になります。</value>
+  </data>
+  <data name="UnsupportedWindow_Disclaimer_GitHub" xml:space="preserve">
+    <value>Check out project page on GitHub for more information.</value>
   </data>
   <data name="UnsupportedWindow_Disclaimer_Logs" xml:space="preserve">
     <value>ログフォルダ</value>
@@ -1363,8 +1422,14 @@ PayPal で寄付するには、下の PayPal ロゴをクリックするかQR �
   <data name="UpdateWindow_WhatsNew" xml:space="preserve">
     <value>新着情報</value>
   </data>
+  <data name="WhiteKeyboardBacklightAutomationStepControl_Message" xml:space="preserve">
+    <value>Adjust keyboard backlight brightness.</value>
+  </data>
   <data name="WhiteKeyboardBacklightAutomationStepControl_Title" xml:space="preserve">
     <value>キーボードバックライト</value>
+  </data>
+  <data name="WhiteKeyboardBacklightControl_Message" xml:space="preserve">
+    <value>You can change brightness with Fn+Space</value>
   </data>
   <data name="WhiteKeyboardBacklightControl_Title" xml:space="preserve">
     <value>キーボードバックライト</value>
@@ -1430,8 +1495,14 @@ PayPal で寄付するには、下の PayPal ロゴをクリックするかQR �
   <data name="OneLevelWhiteKeyboardBacklightControl_Title" xml:space="preserve">
     <value>キーボードバックライト</value>
   </data>
+  <data name="OneLevelWhiteKeyboardBacklightControl_Message" xml:space="preserve">
+    <value>You can turn backlight on or off with Fn+Space.</value>
+  </data>
   <data name="OneLevelWhiteKeyboardBacklightAutomationStepControl_Title" xml:space="preserve">
     <value>キーボードバックライト</value>
+  </data>
+  <data name="OneLevelWhiteKeyboardBacklightAutomationStepControl_Message" xml:space="preserve">
+    <value>Turn backlight on or off.</value>
   </data>
   <data name="PackagesPage_NoMatchingDownloads" xml:space="preserve">
     <value>一致するダウンロードは見つかりませんでした</value>
@@ -1543,8 +1614,47 @@ PayPal で寄付するには、下の PayPal ロゴをクリックするかQR �
   <data name="GodModeSettingsWindow_CPU_APUsPPT_PL" xml:space="preserve">
     <value>APU sPPTの電力制限</value>
   </data>
+  <data name="GodModeSettingsWindow_CPU_LongTermPL_Description" xml:space="preserve">
+    <value>The continuous power consumption that can be reached by the CPU.</value>
+  </data>
+  <data name="GodModeSettingsWindow_CPU_ShortTermPL_Description" xml:space="preserve">
+    <value>The peak power consumption that can be reached by the CPU within a short amount time.</value>
+  </data>
+  <data name="GodModeSettingsWindow_CPU_PeakPL_Description" xml:space="preserve">
+    <value>The maximum instantaneous power consumption that can be reached by the CPU.</value>
+  </data>
+  <data name="GodModeSettingsWindow_CPU_CrossLoading_Description" xml:space="preserve">
+    <value>The maximum power consumption that can be reached by the CPU when both CPU and GPU are fully utilized.</value>
+  </data>
+  <data name="GodModeSettingsWindow_CPU_APUsPPT_PL_Description" xml:space="preserve">
+    <value>The peak power consumption that can be reached by the CPU with a minor delay.</value>
+  </data>
+  <data name="GodModeSettingsWindow_CPU_TempLimit_Description" xml:space="preserve">
+    <value>The maximum temperature that can be reached by the CPU before frequency and power is reduced.</value>
+  </data>
+  <data name="GodModeSettingsWindow_GPU_DynamicBoost_Description" xml:space="preserve">
+    <value>The additional maximum power that can be allocated to the GPU based on the power consumption of the CPU.</value>
+  </data>
+  <data name="GodModeSettingsWindow_GPU_CTGP_Description" xml:space="preserve">
+    <value>The additional amount of power that can be allocated to the GPU on top of base power consumption.</value>
+  </data>
+  <data name="GodModeSettingsWindow_GPU_TempLimit_Description" xml:space="preserve">
+    <value>The maximum temperature that can be reached by the GPU before frequency and power is reduced.</value>
+  </data>
   <data name="Default" xml:space="preserve">
     <value>デフォルト</value>
+  </data>
+  <data name="GodModeSettingsWindow_CPU_PL1Tau" xml:space="preserve">
+    <value>Short Term Power Limit Duration</value>
+  </data>
+  <data name="GodModeSettingsWindow_CPU_PL1Tau_Description" xml:space="preserve">
+    <value>The amount of time the CPU is allowed to boost and use Short Term Power Limit for. When Tau expires, Long Term Power Limit is used.</value>
+  </data>
+  <data name="GodModeSettingsWindow_GPU_TotalProcessingPowerTargetOnAcOffsetFromBaselineControl" xml:space="preserve">
+    <value>Total Processor Power Target In AC</value>
+  </data>
+  <data name="GodModeSettingsWindow_GPU_TotalProcessingPowerTargetOnAcOffsetFromBaselineControl_Description" xml:space="preserve">
+    <value>The point at which the CPU triggers dynamic power consumption adjustment for the GPU.</value>
   </data>
   <data name="Create" xml:space="preserve">
     <value>作成</value>
@@ -1576,6 +1686,12 @@ PayPal で寄付するには、下の PayPal ロゴをクリックするかQR �
   <data name="StatusTrayPopup_DischargeRate" xml:space="preserve">
     <value>出力量</value>
   </data>
+  <data name="StatusTrayPopup_MinDischargeRate" xml:space="preserve">
+    <value>Min discharge rate</value>
+  </data>
+  <data name="StatusTrayPopup_MaxDischargeRate" xml:space="preserve">
+    <value>Max discharge rate</value>
+  </data>
   <data name="StatusTrayPopup_UpdateAvailable" xml:space="preserve">
     <value>更新があります！</value>
   </data>
@@ -1591,8 +1707,20 @@ PayPal で寄付するには、下の PayPal ロゴをクリックするかQR �
   <data name="AutomationPipelineTriggerConfigurationWindow_Title" xml:space="preserve">
     <value>設定</value>
   </data>
+  <data name="PowerPlansWindow_AoAcWarning_Title" xml:space="preserve">
+    <value>S0 Lower Power Model detected</value>
+  </data>
+  <data name="PowerPlansWindow_AoAcWarning_Message" xml:space="preserve">
+    <value>Windows reports that this laptop supports Modern Standby. Using power plans other than Balanced may cause unexpected behavior.</value>
+  </data>
+  <data name="SettingsPage_WindowsPowerPlans_Message" xml:space="preserve">
+    <value>Select Windows Power Plans to apply when Power Mode changes.</value>
+  </data>
   <data name="SettingsPage_Power_Title" xml:space="preserve">
     <value>電源</value>
+  </data>
+  <data name="SettingsPage_WindowsPowerPlansControlPanel_Title" xml:space="preserve">
+    <value>Power Plan options in Windows Control Panel</value>
   </data>
   <data name="PoweredOff" xml:space="preserve">
     <value>電源オフ</value>
@@ -1600,8 +1728,14 @@ PayPal で寄付するには、下の PayPal ロゴをクリックするかQR �
   <data name="SpectrumKeyboardBacklightImportProfileAutomationStepControl_Title" xml:space="preserve">
     <value>キーボードのバックライトのプロファイルをインポート</value>
   </data>
+  <data name="SpectrumKeyboardBacklightImportProfileAutomationStepControl_Message" xml:space="preserve">
+    <value>Import and apply backlight configuration to the current profile.</value>
+  </data>
   <data name="SpectrumKeyboardBacklightImportProfileAutomationStepControl_Path" xml:space="preserve">
     <value>パス</value>
+  </data>
+  <data name="AutomationPipelineControl_SubtitlePart_After" xml:space="preserve">
+    <value>After {0}</value>
   </data>
   <data name="MultipleTriggersAutomationPipelineTrigger_DisplayName" xml:space="preserve">
     <value>複数のトリガー...</value>
@@ -1609,6 +1743,12 @@ PayPal で寄付するには、下の PayPal ロゴをクリックするかQR �
   </data>
   <data name="OverclockDiscreteGPUSettingsWindow_Title" xml:space="preserve">
     <value>オーバークロックGPUの設定</value>
+  </data>
+  <data name="OverclockDiscreteGPUSettingsWindow_CoreFrequencyOffset_Title" xml:space="preserve">
+    <value>Core Frequency Offset</value>
+  </data>
+  <data name="OverclockDiscreteGPUSettingsWindow_MemoryFrequencyOffset_Title" xml:space="preserve">
+    <value>Memory Frequency Offset</value>
   </data>
   <data name="OverclockDiscreteGPUControl_Title" xml:space="preserve">
     <value>オーバークロックGPU</value>
@@ -1627,8 +1767,14 @@ PayPal で寄付するには、下の PayPal ロゴをクリックするかQR �
   <data name="PortsBacklightControl_Title" xml:space="preserve">
     <value>ポートのバックライト</value>
   </data>
+  <data name="PortsBacklightControl_Message" xml:space="preserve">
+    <value>Turn on or off backlight of the ports on the back of the laptop.</value>
+  </data>
   <data name="PortsBacklightAutomationStepControl_Title" xml:space="preserve">
     <value>ポートのバックライト</value>
+  </data>
+  <data name="PortsBacklightAutomationStepControl_Message" xml:space="preserve">
+    <value>Turn on or off the backlight of the ports on the back of the laptop.</value>
   </data>
   <data name="PanelLogoBacklightControl_Title" xml:space="preserve">
     <value>パネルのロゴのバックライト</value>
@@ -1690,11 +1836,37 @@ PayPal で寄付するには、下の PayPal ロゴをクリックするかQR �
   <data name="PowerModeUnavailableWithoutACException_Title" xml:space="preserve">
     <value>電源モードを変更できません</value>
   </data>
+  <data name="PowerModeUnavailableWithoutACException_Message" xml:space="preserve">
+    <value>{0} power mode is not available without AC power.</value>
+    <comment>For example: "{Performance} power mode is not available without AC power."</comment>
+  </data>
   <data name="EditDashboardWindow_Sensors" xml:space="preserve">
     <value>センサー</value>
   </data>
+  <data name="IGPUModeChangeException_Title" xml:space="preserve">
+    <value>Could not change GPU Working Mode</value>
+  </data>
+  <data name="IGPUModeChangeException_Message" xml:space="preserve">
+    <value>Try changing the mode again in a couple of seconds, if you do not see expected result.
+If dGPU does not respond at all, please restart your laptop.</value>
+  </data>
   <data name="IGPUModeChangeException_Title_IGPUOnly" xml:space="preserve">
     <value>dGPUは現在使用中です</value>
+  </data>
+  <data name="IGPUModeChangeException_Message_IGPUOnly" xml:space="preserve">
+    <value>dGPU will disconnect automatically when not in use.</value>
+  </data>
+  <data name="IGPUModeChangeException_Title_Auto" xml:space="preserve">
+    <value>dGPU is currently in use or laptop is not on battery power</value>
+  </data>
+  <data name="IGPUModeChangeException_Message_Auto" xml:space="preserve">
+    <value>dGPU will disconnect automatically when not in use and laptop is on battery power.</value>
+  </data>
+  <data name="GodModeSettingsWindow_VantageWarning_Title" xml:space="preserve">
+    <value>Custom Mode settings will not be applied correctly when Lenovo Vantage or its services are running.</value>
+  </data>
+  <data name="GodModeSettingsWindow_LegionZoneWarning_Title" xml:space="preserve">
+    <value>Custom Mode settings will not be applied correctly when Legion Zone or its services are running.</value>
   </data>
   <data name="DGPU_Connected_Title" xml:space="preserve">
     <value>dGPUが接続されました</value>
@@ -1702,14 +1874,31 @@ PayPal で寄付するには、下の PayPal ロゴをクリックするかQR �
   <data name="DGPU_Disconnected_Title" xml:space="preserve">
     <value>dGPUが切断されました</value>
   </data>
+  <data name="ComboBoxHybridModeAutomationStepControl_Title" xml:space="preserve">
+    <value>GPU Working Mode</value>
+  </data>
+  <data name="ComboBoxHybridModeAutomationStepControl_Message" xml:space="preserve">
+    <value>Select GPU operating mode based on your computer's usage and power conditions.
+Switching modes may require restart.</value>
+  </data>
   <data name="ToggleHybridModeAutomationStepControl_Title" xml:space="preserve">
     <value>ハイブリッドモード</value>
+  </data>
+  <data name="ToggleHybridModeAutomationStepControl_Message" xml:space="preserve">
+    <value>Allow switching between integrated and discrete GPU.
+Requires restart.</value>
   </data>
   <data name="NotificationsSettingsWindow_NotificationDuration_Title" xml:space="preserve">
     <value>長さ</value>
   </data>
   <data name="NotificationsSettingsWindow_Updates_Title" xml:space="preserve">
     <value>更新</value>
+  </data>
+  <data name="GodModeSettingsWindow_GPU_ToCpuDynamicBoostControl" xml:space="preserve">
+    <value>GPU to CPU Dynamic Boost</value>
+  </data>
+  <data name="GodModeSettingsWindow_GPU_ToCpuDynamicBoostControl_Description" xml:space="preserve">
+    <value>This is the maximum additional power that can be allocated to the CPU from the GPU based on CPU usage. The higher the value, the better the performance of applications that use the CPU.</value>
   </data>
   <data name="SettingsPage_BootLogo_Title" xml:space="preserve">
     <value>ブートロゴ</value>
@@ -1766,6 +1955,12 @@ PayPal で寄付するには、下の PayPal ロゴをクリックするかQR �
   <data name="BatteryNightChargeModeControl_Message" xml:space="preserve">
     <value>有効にすると、夜間にこのデバイスに電源を接続した場合80%まで充電され、翌朝このデバイスを使用するまでに100%まで充電が完了します。</value>
   </data>
+  <data name="BatteryNightChargeAutomationStepControl_Title" xml:space="preserve">
+    <value>Overnight Battery Charging</value>
+  </data>
+  <data name="BatteryNightChargeAutomationStepControl_Message" xml:space="preserve">
+    <value>When enabled, this device will charge to 80% when plugged in overnight and finish charging to 100% by the time you use this device in the morning.</value>
+  </data>
   <data name="BootLogoWindow_SetError_Invalid_Image_Size" xml:space="preserve">
     <value>無効な画像サイズです。</value>
   </data>
@@ -1796,8 +1991,17 @@ PayPal で寄付するには、下の PayPal ロゴをクリックするかQR �
   <data name="WiFiConnectedPipelineTriggerTabItemContent_NetworkName" xml:space="preserve">
     <value>ネットワーク名 (SSID)</value>
   </data>
+  <data name="WiFiConnectedPipelineTriggerTabItemContent_CopyCurrentNetworkName" xml:space="preserve">
+    <value>Copy current network name</value>
+  </data>
+  <data name="WiFiConnectedPipelineTriggerTabItemContent_LeaveEmptyForAnyNetwork" xml:space="preserve">
+    <value>Leave empty for any Wi-Fi network.</value>
+  </data>
   <data name="SettingsPage_HWiNFO_Title" xml:space="preserve">
     <value>HWiNFO64</value>
+  </data>
+  <data name="SettingsPage_HWiNFO_Message" xml:space="preserve">
+    <value>Share fan speed, battery temperature etc. with HWiNFO64. You may need to restart HWiNFO64 after changing this option.</value>
   </data>
   <data name="SettingsPage_Integrations_Title" xml:space="preserve">
     <value>統合</value>
@@ -1872,6 +2076,12 @@ PayPal で寄付するには、下の PayPal ロゴをクリックするかQR �
   <data name="WindowsPowerModesWindow_Title" xml:space="preserve">
     <value>Windows電源モード</value>
   </data>
+  <data name="Settings_GodModeFnQSwitchable_Title" xml:space="preserve">
+    <value>Switch to Custom Mode with Fn+Q</value>
+  </data>
+  <data name="Settings_GodModeFnQSwitchable_Message" xml:space="preserve">
+    <value>Allow quick switching to Custom Mode with Fn+Q.</value>
+  </data>
   <data name="SettingsPage_PowerModeMapping_Title" xml:space="preserve">
     <value>電源モードの同期</value>
   </data>
@@ -1883,6 +2093,9 @@ PayPal で寄付するには、下の PayPal ロゴをクリックするかQR �
   </data>
   <data name="SettingsPage_WindowsPowerModes_Message" xml:space="preserve">
     <value>電源モードが変更されたときに適用する、Windows電源モードを選択します。</value>
+  </data>
+  <data name="CompatibilityCheckError_Message" xml:space="preserve">
+    <value>Error occured when reading device information.</value>
   </data>
   <data name="MainWindow_NavigationItem_Macro" xml:space="preserve">
     <value>マクロ</value>
@@ -1926,6 +2139,21 @@ PayPal で寄付するには、下の PayPal ロゴをクリックするかQR �
   <data name="MacroSequenceControl_InterruptOnOtherKey_Title" xml:space="preserve">
     <value>別のキーが押された時に中断する</value>
   </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Hide</value>
+  </data>
+  <data name="HideAll" xml:space="preserve">
+    <value>Hide all</value>
+  </data>
+  <data name="DevicePipelineTriggerTabItemContent_Devices" xml:space="preserve">
+    <value>Devices</value>
+  </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>Deselect all</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Select all</value>
+  </data>
   <data name="MacroSequenceControl_Keyboard" xml:space="preserve">
     <value>キーボードのみ</value>
   </data>
@@ -1947,8 +2175,20 @@ PayPal で寄付するには、下の PayPal ロゴをクリックするかQR �
   <data name="MacroRecordingWindow_Recording_Message" xml:space="preserve">
     <value>ESCを押して停止します。</value>
   </data>
+  <data name="DeviceAutomationPipelineTriggerTabItemContent_OnlySelected" xml:space="preserve">
+    <value>Show selected devices only</value>
+  </data>
+  <data name="DeviceAutomationPipelineTriggerTabItemContent_OnlyRemovable" xml:space="preserve">
+    <value>Show removable devices only</value>
+  </data>
+  <data name="DeviceAutomationPipelineTriggerTabItemContent_OnlyConnected" xml:space="preserve">
+    <value>Show connected devices only</value>
+  </data>
   <data name="SettingsPage_CLI_Title" xml:space="preserve">
     <value>CLI</value>
+  </data>
+  <data name="SettingsPage_CLI_Message" xml:space="preserve">
+    <value>Enable Command Line Interface that allows control from command line.</value>
   </data>
   <data name="SettingsPage_CLIAddToPath_Title" xml:space="preserve">
     <value>CLIをPATHに追加</value>
@@ -1962,8 +2202,20 @@ PayPal で寄付するには、下の PayPal ロゴをクリックするかQR �
   <data name="SettingsPage_Temperature_Message" xml:space="preserve">
     <value>温度センサーの単位を選択します。</value>
   </data>
+  <data name="MainWindows_FnKeysRunning" xml:space="preserve">
+    <value>Lenovo Hotkeys is running in the background.</value>
+  </data>
+  <data name="MainWindow_LegionZoneRunning" xml:space="preserve">
+    <value>Legion Zone is running in the background.</value>
+  </data>
   <data name="MainWindows_VantageRunning" xml:space="preserve">
     <value>Lenovo VantageとImControllerの両方またはいずれか一方がバックグラウンドで実行されています。</value>
+  </data>
+  <data name="NotificationsSettingsWindow_NotificationOnAllScreens_Message" xml:space="preserve">
+    <value>Show notification on all screens connected to your device.</value>
+  </data>
+  <data name="NotificationsSettingsWindow_NotificationOnAllScreens_Title" xml:space="preserve">
+    <value>Notification on all screens</value>
   </data>
   <data name="SettingsPage_CheckUpdatesButton_Content" xml:space="preserve">
     <value>確認</value>
@@ -1998,133 +2250,159 @@ PayPal で寄付するには、下の PayPal ロゴをクリックするかQR �
   <data name="PackagesPage_UpdateCatalogNotFound_Message" xml:space="preserve">
     <value>他のソースから更新を取得してください。</value>
   </data>
+  <data name="PackagesPage_Error_Title" xml:space="preserve">
+    <value>Something went wrong</value>
+  </data>
+  <data name="PackagesPage_Error_CheckInternet_Message" xml:space="preserve">
+    <value>Check if your internet connection is up and running.</value>
+  </data>
+  <data name="PlaySoundAutomationStepControl_Title" xml:space="preserve">
+    <value>Play sound</value>
+  </data>
+  <data name="PlaySoundAutomationStepControl_Message" xml:space="preserve">
+    <value>Common music formats like wav or mp3 are supported.</value>
+  </data>
+  <data name="QuickActionAutomationStepControl_Title" xml:space="preserve">
+    <value>Quick Action</value>
+  </data>
+  <data name="QuickActionAutomationStepControl_Message" xml:space="preserve">
+    <value>Run a saved quick action.</value>
+  </data>
+  <data name="NotificationsSettingsWindow_NotificationAlwaysOnTop_Title" xml:space="preserve">
+    <value>Notification always on top</value>
+  </data>
+  <data name="NotificationsSettingsWindow_NotificationAlwaysOnTop_Message" xml:space="preserve">
+    <value>Always put notification at the top.
+It won't affect other full screen windows, but you will not be able to click on the notifications.</value>
+  </data>
   <data name="SensorsControl_VrTemperature_Title" xml:space="preserve">
-    <value />
+    <value>VR Temperature</value>
   </data>
   <data name="SensorsControl_GpuMemoryTemperature_Title" xml:space="preserve">
-    <value />
+    <value>Vram</value>
   </data>
   <data name="SensorsControl_PchTemperature_Title" xml:space="preserve">
-    <value />
+    <value>PCH Temperature</value>
   </data>
   <data name="SensorsControl_Motherboard_Title" xml:space="preserve">
-    <value />
+    <value>Motherboard</value>
   </data>
   <data name="SensorsControl_GpuCore_Title" xml:space="preserve">
-    <value />
+    <value>Core</value>
   </data>
   <data name="SensorsControl_Memory_Title" xml:space="preserve">
-    <value />
+    <value>Memory</value>
   </data>
   <data name="SensorsControl_Disk_Title" xml:space="preserve">
-    <value />
+    <value>Disk</value>
   </data>
   <data name="SensorsControl_Battery_Title" xml:space="preserve">
-    <value />
+    <value>Battery</value>
   </data>
   <data name="SensorsControl_State_Title" xml:space="preserve">
-    <value />
+    <value>State</value>
   </data>
   <data name="SensorsControl_BatteryLevel_Title" xml:space="preserve">
-    <value />
+    <value>Battery Level</value>
   </data>
   <data name="BatteryPage_ACAdapterNotConnected" xml:space="preserve">
-    <value />
+    <value>No AC</value>
   </data>
   <data name="DashboardBattery_AcConnected" xml:space="preserve">
-    <value />
+    <value>AC Connected</value>
   </data>
   <data name="DashboardBattery_AcDisconnected" xml:space="preserve">
-    <value />
+    <value>AC Disconnected</value>
   </data>
   <data name="AboutPage_Log" xml:space="preserve">
-    <value />
+    <value>Log</value>
   </data>
   <data name="SensorsControl_CPU_Power" xml:space="preserve">
-    <value />
+    <value>Power</value>
   </data>
   <data name="SensorsControl_GPU_Power" xml:space="preserve">
-    <value />
+    <value>Power</value>
   </data>
   <data name="SensorsControl_Disk_1_Temperature" xml:space="preserve">
-    <value />
+    <value>Disk 1 Temperature</value>
   </data>
   <data name="SensorsControl_Disk_2_Temperature" xml:space="preserve">
-    <value />
+    <value>Disk 2 Temperature</value>
   </data>
   <data name="SettingsPage_EnableLogging_Title" xml:space="preserve">
-    <value />
+    <value>Enable Logging</value>
   </data>
   <data name="SettingsPage_EnableLogging_Message" xml:space="preserve">
-    <value />
+    <value>Enable logging for debug.</value>
   </data>
   <data name="SensorItem_CpuUtilitzation" xml:space="preserve">
-    <value />
+    <value>CPU Utilitazion</value>
   </data>
   <data name="SensorItem_CpuFrequency" xml:space="preserve">
-    <value />
+    <value>CPU Frequency</value>
   </data>
   <data name="SensorItem_CpuFanSpeed" xml:space="preserve">
-    <value />
+    <value>CPU Fan Speed</value>
   </data>
   <data name="SensorItem_CpuTemperature" xml:space="preserve">
-    <value />
+    <value>CPU Temperature</value>
   </data>
   <data name="SensorItem_CpuPower" xml:space="preserve">
-    <value />
+    <value>CPU Power</value>
   </data>
   <data name="SensorItem_GpuUtilization" xml:space="preserve">
-    <value />
+    <value>GPU Utilization</value>
   </data>
   <data name="SensorItem_GpuFrequency" xml:space="preserve">
-    <value />
+    <value>GPU Frequency</value>
   </data>
   <data name="SensorItem_GpuFanSpeed" xml:space="preserve">
-    <value />
+    <value>GPU Fan Speed</value>
   </data>
   <data name="SensorItem_PchFanSpeed" xml:space="preserve">
-    <value />
+    <value>PCH Fan Speed</value>
   </data>
   <data name="SensorItem_PchTemperature" xml:space="preserve">
-    <value />
+    <value>PCH Temperature</value>
   </data>
   <data name="SensorItem_BatteryState" xml:space="preserve">
-    <value />
+    <value>Battery State</value>
   </data>
   <data name="SensorItem_BatteryLevel" xml:space="preserve">
-    <value />
+    <value>Battery Level</value>
   </data>
   <data name="SensorItem_MemoryUtilization" xml:space="preserve">
-    <value />
+    <value>Memory Utilization</value>
   </data>
   <data name="SensorItem_MemoryTemperature" xml:space="preserve">
-    <value />
+    <value>Memory Temperature</value>
   </data>
   <data name="SensorItem_Disk1Temperature" xml:space="preserve">
-    <value />
+    <value>Disk 1 Temperature</value>
   </data>
   <data name="SensorItem_Disk2Temperature" xml:space="preserve">
-    <value />
+    <value>Disk 2 Temperature</value>
   </data>
   <data name="EditSensorWindow_Title" xml:space="preserve">
-    <value />
+    <value>Edit Sensor</value>
   </data>
   <data name="SensorItem_GpuTemperatures" xml:space="preserve">
-    <value />
+    <value>GPU Temperature</value>
   </data>
   <data name="SettingsPage_UseNewSensorDashboard_Title" xml:space="preserve">
-    <value />
+    <value>Use New Sensor Dashboard</value>
   </data>
   <data name="SettingsPage_UseNewSensorDashboard_Message" xml:space="preserve">
-    <value />
+    <value>Use new sensor dashboard instead of the old one. 
+Note: Using the new sensor dashboard may cause some antivirus programmes to display a warning pop-up. For more information, see: LibreHardwareMonitor/LibreHardwareMonitor#984</value>
   </data>
   <data name="SettingsPage_LockWindowSize_Title" xml:space="preserve">
-    <value />
+    <value>Lock Window Size</value>
   </data>
   <data name="SettingsPage_LockWindowSize_Message" xml:space="preserve">
-    <value />
+    <value>Lock LLT's window size. To prevent something change it.</value>
   </data>
   <data name="FanCurveControl_PCH" xml:space="preserve">
-    <value />
+    <value>PCH</value>
   </data>
 </root>
