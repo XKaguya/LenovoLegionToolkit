@@ -193,6 +193,7 @@ public partial class SettingsPage
         _useNewSensorDashboardToggle.Visibility = Visibility.Visible;
         _lockWindowSizeToggle.Visibility = Visibility.Visible;
         _vantageToggle.Visibility = Visibility.Visible;
+        _legionSpaceToggle.Visibility = Visibility.Visible;
         _legionZoneToggle.Visibility = Visibility.Visible;
         _fnKeysToggle.Visibility = Visibility.Visible;
         _smartFnLockComboBox.Visibility = Visibility.Visible;
