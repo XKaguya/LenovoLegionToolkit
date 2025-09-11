@@ -1138,6 +1138,10 @@ Először győződjön meg róla, hogy a szkript helyesen fut.</value>
     <value>Tiltja le a Legion Zone-t és szolgáltatását anélkül, hogy eltávolítaná.
 Az opció módosítása után ajánlott az újraindítás.</value>
   </data>
+  <data name="SettingsPage_DisableLegionSpace_Message" xml:space="preserve">
+    <value>Tiltja le a Legion Zone-t és szolgáltatását anélkül, hogy eltávolítaná.
+Az opció módosítása után ajánlott az újraindítás.</value>
+  </data>
   <data name="SettingsPage_DisableLegionZone_Title" xml:space="preserve">
     <value>Legion Zone letiltása</value>
   </data>
@@ -2398,6 +2402,12 @@ Nincs hatással a többi teljes képernyős ablakokra, de nem lehet kattintani a
     <value />
   </data>
   <data name="SettingsPage_DisableLegionSpace_Error_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="SettingsPage_UseNewDashboard_Restart_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="SettingsPage_UseNewDashboard_Switch_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
 </root>

@@ -345,6 +345,7 @@ public partial class SettingsPage
         if (state is null)
             return;
 
+        SnackbarHelper.Show(Resource.SettingsPage_UseNewDashboard_Switch_Title, Resource.SettingsPage_UseNewDashboard_Restart_Message, SnackbarType.Success);
         _settings.Store.UseNewSensorDashboard = state.Value;
         _settings.SynchronizeStore();
     }

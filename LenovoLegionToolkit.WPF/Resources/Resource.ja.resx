@@ -1124,6 +1124,10 @@ PayPal で寄付するには、下の PayPal ロゴをクリックするかQR �
     <value>Legion Zoneとそのサービスをアンインストールせずに無効にします。
 このオプションを変更した後はデバイスを再起動することをお勧めします。</value>
   </data>
+  <data name="SettingsPage_DisableLegionSpace_Message" xml:space="preserve">
+    <value>Legion Zoneとそのサービスをアンインストールせずに無効にします。
+このオプションを変更した後はデバイスを再起動することをお勧めします。</value>
+  </data>
   <data name="SettingsPage_DisableLegionZone_Title" xml:space="preserve">
     <value>Legion Zoneを無効化</value>
   </data>
@@ -2147,6 +2151,12 @@ PayPal で寄付するには、下の PayPal ロゴをクリックするかQR �
     <value />
   </data>
   <data name="SettingsPage_DisableLegionSpace_Error_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="SettingsPage_UseNewDashboard_Restart_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="SettingsPage_UseNewDashboard_Switch_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
 </root>

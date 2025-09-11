@@ -1113,6 +1113,10 @@ Prv sa uistite, že váš skript beží správne.</value>
     <value>Zakázať Legion Zone a jeho služby bez odinštalovania.
 Po zmene tejto možnosti sa odporúča reštart.</value>
   </data>
+  <data name="SettingsPage_DisableLegionSpace_Message" xml:space="preserve">
+    <value>Zakázať Legion Zone a jeho služby bez odinštalovania.
+Po zmene tejto možnosti sa odporúča reštart.</value>
+  </data>
   <data name="SettingsPage_DisableLegionZone_Title" xml:space="preserve">
     <value>Zakázať Legion Zone</value>
   </data>
@@ -1868,6 +1872,12 @@ VAROVANIE: Táto akcia neprebehne správne, ak je dedikovaná GPU nedostupná.</
     <value />
   </data>
   <data name="SettingsPage_DisableLegionSpace_Error_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="SettingsPage_UseNewDashboard_Restart_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="SettingsPage_UseNewDashboard_Switch_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
 </root>

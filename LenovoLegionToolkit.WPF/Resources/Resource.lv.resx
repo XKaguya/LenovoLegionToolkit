@@ -1126,6 +1126,10 @@ Vispirms pārliecinieties, vai skripts darbojas pareizi.</value>
     <value>Atspējojiet Legion Zone un tās pakalpojumu, neatinstalējot to.
 Pēc šīs opcijas maiņas ieteicams restartēt datoru.</value>
   </data>
+  <data name="SettingsPage_DisableLegionSpace_Message" xml:space="preserve">
+    <value>Atspējojiet Legion Zone un tās pakalpojumu, neatinstalējot to.
+Pēc šīs opcijas maiņas ieteicams restartēt datoru.</value>
+  </data>
   <data name="SettingsPage_DisableLegionZone_Title" xml:space="preserve">
     <value>Atspējot Legion Zone</value>
   </data>
@@ -2022,6 +2026,12 @@ Nepieciešama restartēšana.</value>
     <value />
   </data>
   <data name="SettingsPage_DisableLegionSpace_Error_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="SettingsPage_UseNewDashboard_Restart_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="SettingsPage_UseNewDashboard_Switch_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
 </root>

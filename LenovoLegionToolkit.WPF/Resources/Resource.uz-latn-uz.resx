@@ -1119,6 +1119,10 @@ Siziń skriptińiz durıs orınlanıp atırǵanına isenim kámil etiń.</value>
     <value>Legion Zone hám onıń xızmetleriniń iskerligin toqtatıp, ózin óshirmew.
 Bul varianttı ózgertkennen keyin, qayta iske túsiriw usınıs etiledi.</value>
   </data>
+  <data name="SettingsPage_DisableLegionSpace_Message" xml:space="preserve">
+    <value>Legion Zone hám onıń xızmetleriniń iskerligin toqtatıp, ózin óshirmew.
+Bul varianttı ózgertkennen keyin, qayta iske túsiriw usınıs etiledi.</value>
+  </data>
   <data name="SettingsPage_DisableLegionZone_Title" xml:space="preserve">
     <value>Legion Zonedi óshiriw</value>
   </data>
@@ -2046,6 +2050,12 @@ Qollap - quwatlanatuǵın formatlar: {1}.</value>
     <value />
   </data>
   <data name="SettingsPage_DisableLegionSpace_Error_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="SettingsPage_UseNewDashboard_Restart_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="SettingsPage_UseNewDashboard_Switch_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
 </root>

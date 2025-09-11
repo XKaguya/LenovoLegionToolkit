@@ -1157,6 +1157,10 @@ Hãy đảm bảo chương trình hoặc script của bạn chạy đúng trư�
     <value>Ngắt kích hoạt Legion Zone và các dịch vụ con mà không cần gỡ cài đặt.
 Nên khởi động lại sau khi thay đổi tùy chọn này.</value>
   </data>
+  <data name="SettingsPage_DisableLegionSpace_Message" xml:space="preserve">
+    <value>Ngắt kích hoạt Legion Zone và các dịch vụ con mà không cần gỡ cài đặt.
+Nên khởi động lại sau khi thay đổi tùy chọn này.</value>
+  </data>
   <data name="SettingsPage_DisableLegionZone_Title" xml:space="preserve">
     <value>Ngắt kích hoạt Legion Zone</value>
   </data>
@@ -2423,6 +2427,12 @@ Chức năng này không ảnh hưởng các cửa sổ ở chế độ toàn m�
     <value />
   </data>
   <data name="SettingsPage_DisableLegionSpace_Error_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="SettingsPage_UseNewDashboard_Restart_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="SettingsPage_UseNewDashboard_Switch_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
 </root>

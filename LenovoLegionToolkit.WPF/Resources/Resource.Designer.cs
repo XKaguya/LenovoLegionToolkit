@@ -5425,6 +5425,16 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Disable Legion Space and its service without uninstalling it.
+        ///Restart is recommended after changing this option. 的本地化字符串。
+        /// </summary>
+        public static string SettingsPage_DisableLegionSpace_Message {
+            get {
+                return ResourceManager.GetString("SettingsPage_DisableLegionSpace_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Disable Legion Space 的本地化字符串。
         /// </summary>
         public static string SettingsPage_DisableLegionSpace_Title {
@@ -5956,6 +5966,24 @@ namespace LenovoLegionToolkit.WPF.Resources {
         public static string SettingsPage_UpdateMethod_Title {
             get {
                 return ResourceManager.GetString("SettingsPage_UpdateMethod_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Restart to apply changes. 的本地化字符串。
+        /// </summary>
+        public static string SettingsPage_UseNewDashboard_Restart_Message {
+            get {
+                return ResourceManager.GetString("SettingsPage_UseNewDashboard_Restart_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Dashboard changed 的本地化字符串。
+        /// </summary>
+        public static string SettingsPage_UseNewDashboard_Switch_Title {
+            get {
+                return ResourceManager.GetString("SettingsPage_UseNewDashboard_Switch_Title", resourceCulture);
             }
         }
         

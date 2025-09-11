@@ -1140,6 +1140,10 @@ Assurez-vous d'abord que votre script s'exécute correctement.</value>
     <value>Désactiver Legion Zone et son service sans le désinstaller.
 Un redémarrage est recommandé après avoir modifié cette option.</value>
   </data>
+  <data name="SettingsPage_DisableLegionSpace_Message" xml:space="preserve">
+    <value>Désactiver Legion Zone et son service sans le désinstaller.
+Un redémarrage est recommandé après avoir modifié cette option.</value>
+  </data>
   <data name="SettingsPage_DisableLegionZone_Title" xml:space="preserve">
     <value>Désactiver Legion Zone</value>
   </data>
@@ -2358,6 +2362,12 @@ Nécessite un redémarrage.</value>
     <value />
   </data>
   <data name="SettingsPage_DisableLegionSpace_Error_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="SettingsPage_UseNewDashboard_Restart_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="SettingsPage_UseNewDashboard_Switch_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
 </root>

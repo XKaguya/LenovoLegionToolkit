@@ -1136,6 +1136,10 @@
     <value>Вимкнути Legion Zone та його служби без деінсталяції.
 Перезавантаження рекомендоване після зміни цієї опції.</value>
   </data>
+  <data name="SettingsPage_DisableLegionSpace_Message" xml:space="preserve">
+    <value>Вимкнути Legion Zone та його служби без деінсталяції.
+Перезавантаження рекомендоване після зміни цієї опції.</value>
+  </data>
   <data name="SettingsPage_DisableLegionZone_Title" xml:space="preserve">
     <value>Вимкнути зони Legion</value>
   </data>
@@ -2389,6 +2393,12 @@
     <value />
   </data>
   <data name="SettingsPage_DisableLegionSpace_Error_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="SettingsPage_UseNewDashboard_Restart_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="SettingsPage_UseNewDashboard_Switch_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
 </root>
