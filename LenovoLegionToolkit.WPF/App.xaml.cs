@@ -309,7 +309,7 @@ public partial class App
         Log.Instance.ErrorReport("AppDomain_UnhandledException", exception ?? new Exception($"Unknown exception caught: {e.ExceptionObject}"));
         Log.Instance.Trace($"Unhandled exception occurred.", exception);
 
-        SnackbarHelper.Show("A critical error occurred.", exception?.Message, SnackbarType.Error);
+        SnackbarHelper.Show(Resource.UnexpectedException, string.Format(Resource.UnexpectedException, exception?.ToStringDemystified() ?? "Unknown exception."), SnackbarType.Error);
     }
 
     private void Application_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
@@ -317,7 +317,7 @@ public partial class App
         Log.Instance.ErrorReport("Application_DispatcherUnhandledException", e.Exception);
         Log.Instance.Trace($"Unhandled exception occurred.", e.Exception);
 
-        SnackbarHelper.Show("A critical error occurred.", e.Exception?.Message, SnackbarType.Error);
+        SnackbarHelper.Show(Resource.UnexpectedException, e.Exception?.ToStringDemystified() ?? "Unknown exception.", SnackbarType.Error);
     }
 
     private async Task<bool> CheckBasicCompatibilityAsync()
