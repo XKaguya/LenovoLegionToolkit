@@ -27,8 +27,6 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
         private IHardware? _amdGpuHardware;
         private IHardware? _gpuHardware;
         private IHardware? _memoryHardware;
-        private PhysicalGPU? _gpuHardwareNVAPI;
-        private GPUThermalSensor? _gpuThermalSensor;
 
         private string _cachedCpuName = string.Empty;
         private string _cachedGpuName = string.Empty;
@@ -86,7 +84,6 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                     _amdGpuHardware = _interestedHardwares.FirstOrDefault(h => h.HardwareType == HardwareType.GpuAmd);
                     _gpuHardware = _interestedHardwares.FirstOrDefault(h => h.HardwareType == HardwareType.GpuNvidia);
                     _memoryHardware = _interestedHardwares.FirstOrDefault(h => h.HardwareType == HardwareType.Memory);
-                    _gpuHardwareNVAPI = NVAPI.GetGPU();
                 }
                 finally
                 {
@@ -180,59 +177,6 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
             var sensor = _gpuHardware.Sensors?
               .FirstOrDefault(s => s.SensorType == SensorType.Power);
             return sensor?.Value ?? 0;
-        }
-
-        public async Task<float> GetGpuVramTemperatureAsync()
-        {
-            throw new NotImplementedException();
-
-            /*if (!await IsSupportedAsync().ConfigureAwait(false))
-            {
-                return 0;
-            }
-
-            if (_gpuThermalSensor != null)
-            {
-                try
-                {
-                    return _gpuThermalSensor.CurrentTemperature;
-                }
-                catch (Exception ex)
-                {
-                    Log.Instance.Trace($"GPU VRAM temperature read error: {ex.Message}");
-                    return 0;
-                }
-            }
-
-            if (_gpuHardwareNVAPI == null)
-            {
-                try
-                {
-                    _gpuHardwareNVAPI = NVAPI.GetGPU();
-                }
-                catch (Exception ex)
-                {
-                    Log.Instance.Trace($"NVAPI initialization error: {ex.Message}");
-                    return 0;
-                }
-            }
-
-            if (_gpuHardwareNVAPI == null)
-            {
-                Log.Instance.Trace($"No NVIDIA GPU found via NVAPI.");
-                return 0;
-            }
-
-            try
-            {
-                _gpuThermalSensor = _gpuHardwareNVAPI.ThermalInformation.ThermalSensors.FirstOrDefault(s => s.Target.HasFlag(NvAPIWrapper.Native.GPU.ThermalSettingsTarget.Memory));
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.Trace($"Error finding VRAM temperature sensor: {ex.Message}");
-            }
-
-            return 0;*/
         }
 
         public async Task<(float, float)> GetSSDTemperaturesAsync()

@@ -17,6 +17,8 @@ public abstract class AbstractGodModeController(GodModeSettings settings)
 
     public abstract Task<bool> NeedsLegionZoneDisabledAsync();
 
+    public abstract Task<bool> NeedsLegionSpaceDisabledAsync();
+
     public Task<Guid> GetActivePresetIdAsync() => Task.FromResult(settings.Store.ActivePresetId);
 
     public Task<string?> GetActivePresetNameAsync()

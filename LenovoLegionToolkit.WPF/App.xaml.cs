@@ -141,7 +141,7 @@ public partial class App
         await InitSetPowerMode();
 
 #if !DEBUG
-    Autorun.Validate();
+        Autorun.Validate();
 #endif
 
         MainWindowInstance = new MainWindow
@@ -309,11 +309,7 @@ public partial class App
         Log.Instance.ErrorReport("AppDomain_UnhandledException", exception ?? new Exception($"Unknown exception caught: {e.ExceptionObject}"));
         Log.Instance.Trace($"Unhandled exception occurred.", exception);
 
-        MessageBox.Show(string.Format(Resource.UnexpectedException, exception?.ToStringDemystified() ?? "Unknown exception."),
-            "Application Domain Error",
-            MessageBoxButton.OK,
-            MessageBoxImage.Error);
-        Shutdown(100);
+        SnackbarHelper.Show("A critical error occurred.", exception?.Message, SnackbarType.Error);
     }
 
     private void Application_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
@@ -321,11 +317,7 @@ public partial class App
         Log.Instance.ErrorReport("Application_DispatcherUnhandledException", e.Exception);
         Log.Instance.Trace($"Unhandled exception occurred.", e.Exception);
 
-        MessageBox.Show(string.Format(Resource.UnexpectedException, e.Exception.ToStringDemystified()),
-            "Application Error",
-            MessageBoxButton.OK,
-            MessageBoxImage.Error);
-        Shutdown(101);
+        SnackbarHelper.Show("A critical error occurred.", e.Exception?.Message, SnackbarType.Error);
     }
 
     private async Task<bool> CheckBasicCompatibilityAsync()
@@ -426,6 +418,9 @@ public partial class App
 
         var vantageStatus = await IoCContainer.Resolve<VantageDisabler>().GetStatusAsync();
         Log.Instance.Trace($"Vantage status: {vantageStatus}");
+
+        var legionSpaceStatus = await IoCContainer.Resolve<LegionSpaceDisabler>().GetStatusAsync();
+        Log.Instance.Trace($"LegionSpace status: {legionSpaceStatus}");
 
         var legionZoneStatus = await IoCContainer.Resolve<LegionZoneDisabler>().GetStatusAsync();
         Log.Instance.Trace($"LegionZone status: {legionZoneStatus}");

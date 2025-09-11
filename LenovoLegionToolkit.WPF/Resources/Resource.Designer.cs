@@ -2630,6 +2630,15 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Custom Mode settings will not be applied correctly when Legion Space or its services are running. 的本地化字符串。
+        /// </summary>
+        public static string GodModeSettingsWindow_LegionSpaceWarning_Title {
+            get {
+                return ResourceManager.GetString("GodModeSettingsWindow_LegionSpaceWarning_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Custom Mode settings will not be applied correctly when Legion Zone or its services are running. 的本地化字符串。
         /// </summary>
         public static string GodModeSettingsWindow_LegionZoneWarning_Title {
@@ -3097,6 +3106,15 @@ namespace LenovoLegionToolkit.WPF.Resources {
         public static string MainWindow_CheckForUpdates_Success_Title {
             get {
                 return ResourceManager.GetString("MainWindow_CheckForUpdates_Success_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Legion Space is running in the background. 的本地化字符串。
+        /// </summary>
+        public static string MainWindow_LegionSpaceRunning {
+            get {
+                return ResourceManager.GetString("MainWindow_LegionSpaceRunning", resourceCulture);
             }
         }
         
@@ -5389,6 +5407,33 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Legion Space may have not been disabled correctly 的本地化字符串。
+        /// </summary>
+        public static string SettingsPage_DisableLegionSpace_Error_Message {
+            get {
+                return ResourceManager.GetString("SettingsPage_DisableLegionSpace_Error_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Couldn&apos;t disable Legion Space 的本地化字符串。
+        /// </summary>
+        public static string SettingsPage_DisableLegionSpace_Error_Title {
+            get {
+                return ResourceManager.GetString("SettingsPage_DisableLegionSpace_Error_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Disable Legion Space 的本地化字符串。
+        /// </summary>
+        public static string SettingsPage_DisableLegionSpace_Title {
+            get {
+                return ResourceManager.GetString("SettingsPage_DisableLegionSpace_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Legion Zone may have not been disabled correctly 的本地化字符串。
         /// </summary>
         public static string SettingsPage_DisableLegionZone_Error_Message {
@@ -5497,6 +5542,24 @@ namespace LenovoLegionToolkit.WPF.Resources {
         public static string SettingsPage_DisableVantage_Title {
             get {
                 return ResourceManager.GetString("SettingsPage_DisableVantage_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Legion Space may have not been enabled correctly 的本地化字符串。
+        /// </summary>
+        public static string SettingsPage_EnableLegionSpace_Error_Message {
+            get {
+                return ResourceManager.GetString("SettingsPage_EnableLegionSpace_Error_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Couldn&apos;t enable Legion Space 的本地化字符串。
+        /// </summary>
+        public static string SettingsPage_EnableLegionSpace_Error_Title {
+            get {
+                return ResourceManager.GetString("SettingsPage_EnableLegionSpace_Error_Title", resourceCulture);
             }
         }
         

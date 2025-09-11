@@ -24,6 +24,7 @@ public partial class GodModeSettingsWindow
     private readonly GodModeController _godModeController = IoCContainer.Resolve<GodModeController>();
 
     private readonly VantageDisabler _vantageDisabler = IoCContainer.Resolve<VantageDisabler>();
+    private readonly LegionSpaceDisabler _legionSpaceDisabler = IoCContainer.Resolve<LegionSpaceDisabler>();
     private readonly LegionZoneDisabler _legionZoneDisabler = IoCContainer.Resolve<LegionZoneDisabler>();
 
     private GodModeState? _state;
@@ -79,8 +80,9 @@ public partial class GodModeSettingsWindow
             var loadingTask = Task.Delay(TimeSpan.FromMilliseconds(500));
 
             _vantageRunningWarningInfoBar.IsOpen = await _godModeController.NeedsVantageDisabledAsync() && await _vantageDisabler.GetStatusAsync() == SoftwareStatus.Enabled;
+            _legionSpaceRunningWarningInfoBar.IsOpen = await _godModeController.NeedsLegionSpaceDisabledAsync() && await _legionSpaceDisabler.GetStatusAsync() == SoftwareStatus.Enabled;
             _legionZoneRunningWarningInfoBar.IsOpen = await _godModeController.NeedsLegionZoneDisabledAsync() && await _legionZoneDisabler.GetStatusAsync() == SoftwareStatus.Enabled;
-
+            
             _state = await _godModeController.GetStateAsync();
             _defaults = await _godModeController.GetDefaultsInOtherPowerModesAsync();
 

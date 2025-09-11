@@ -38,6 +38,7 @@ public partial class MainWindow
     private readonly ApplicationSettings _applicationSettings = IoCContainer.Resolve<ApplicationSettings>();
     private readonly SpecialKeyListener _specialKeyListener = IoCContainer.Resolve<SpecialKeyListener>();
     private readonly VantageDisabler _vantageDisabler = IoCContainer.Resolve<VantageDisabler>();
+    private readonly LegionSpaceDisabler _legionSpaceDisabler = IoCContainer.Resolve<LegionSpaceDisabler>();
     private readonly LegionZoneDisabler _legionZoneDisabler = IoCContainer.Resolve<LegionZoneDisabler>();
     private readonly FnKeysDisabler _fnKeysDisabler = IoCContainer.Resolve<FnKeysDisabler>();
     private readonly UpdateChecker _updateChecker = IoCContainer.Resolve<UpdateChecker>();
@@ -228,6 +229,11 @@ public partial class MainWindow
             _vantageIndicator.Visibility = e.Status == SoftwareStatus.Enabled ? Visibility.Visible : Visibility.Collapsed;
         });
 
+        _legionSpaceDisabler.OnRefreshed += (_, e) => Dispatcher.Invoke(() =>
+        {
+            _legionSpaceIndicator.Visibility = e.Status == SoftwareStatus.Enabled ? Visibility.Visible : Visibility.Collapsed;
+        });
+
         _legionZoneDisabler.OnRefreshed += (_, e) => Dispatcher.Invoke(() =>
         {
             _legionZoneIndicator.Visibility = e.Status == SoftwareStatus.Enabled ? Visibility.Visible : Visibility.Collapsed;
@@ -241,6 +247,7 @@ public partial class MainWindow
         Task.Run(async () =>
         {
             _ = await _vantageDisabler.GetStatusAsync().ConfigureAwait(false);
+            _ = await _legionSpaceDisabler.GetStatusAsync().ConfigureAwait(false);
             _ = await _legionZoneDisabler.GetStatusAsync().ConfigureAwait(false);
             _ = await _fnKeysDisabler.GetStatusAsync().ConfigureAwait(false);
         });

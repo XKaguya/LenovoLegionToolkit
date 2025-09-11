@@ -29,6 +29,7 @@ public class IoCModule : Module
         builder.Register<HttpClientFactory>();
 
         builder.Register<FnKeysDisabler>();
+        builder.Register<LegionSpaceDisabler>();
         builder.Register<LegionZoneDisabler>();
         builder.Register<VantageDisabler>();
 
