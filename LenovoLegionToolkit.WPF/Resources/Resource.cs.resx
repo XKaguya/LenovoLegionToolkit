@@ -121,7 +121,7 @@
     <value>Lenovo Legion Toolkit</value>
   </data>
   <data name="AboutPage_Build" xml:space="preserve">
-    <value>Build</value>
+    <value>Sestavení</value>
   </data>
   <data name="AboutPage_LatestReleaseOnGitHub" xml:space="preserve">
     <value>Poslední verze na GitHubu</value>
@@ -133,7 +133,7 @@
     <value>Stránka projektu na GitHubu</value>
   </data>
   <data name="AboutPage_ThirdPartyLibraries" xml:space="preserve">
-    <value>Third-party libraries</value>
+    <value>Knihovny třetích stran</value>
   </data>
   <data name="AboutPage_Title" xml:space="preserve">
     <value>O aplikaci</value>
@@ -336,16 +336,16 @@ Spustí se pouze akce, které odpovídají aktuálnímu stavu.</value>
     <value>Rychlost vybíjení</value>
   </data>
   <data name="BatteryPage_MinDischargeRate_Message" xml:space="preserve">
-    <value>Minimum rate at which battery is charged (+), or discharged (-).</value>
+    <value>Minimální rychlost, při které je baterie nabíjena(+), nebo vybíjena(-).</value>
   </data>
   <data name="BatteryPage_MinDischargeRate_Title" xml:space="preserve">
-    <value>Minimum discharge rate</value>
+    <value>Nejnižší rychlost vybíjení</value>
   </data>
   <data name="BatteryPage_MaxDischargeRate_Message" xml:space="preserve">
-    <value>Maximum rate at which battery is charged (+), or discharged (-).</value>
+    <value>Maximální rychlost, při které je baterie nabíjena(+), nebo vybíjena(-).</value>
   </data>
   <data name="BatteryPage_MaxDischargeRate_Title" xml:space="preserve">
-    <value>Maximum discharge rate</value>
+    <value>Nejvyšší rychlost vybíjení</value>
   </data>
   <data name="BatteryPage_EstimatedBatteryLifeRemaining" xml:space="preserve">
     <value>Odhadovaný zbývající čas: {0}</value>
@@ -366,10 +366,10 @@ Spustí se pouze akce, které odpovídají aktuálnímu stavu.</value>
     <value>Plně nabitá kapacita</value>
   </data>
   <data name="BatteryPage_BatteryHealth_Message" xml:space="preserve">
-    <value>Battery maximum charge capacity.</value>
+    <value>Maximální kapacita nabití baterie.</value>
   </data>
   <data name="BatteryPage_BatteryHealth_Title" xml:space="preserve">
-    <value>Battery health</value>
+    <value>Zdraví baterie</value>
   </data>
   <data name="BatteryPage_LowWattageChargerConnected" xml:space="preserve">
     <value>Připojena nabíječka s nízkým výkonem</value>
@@ -632,7 +632,7 @@ Díky předem!</value>
     <value>GPU #2</value>
   </data>
   <data name="RPM" xml:space="preserve">
-    <value>RPM</value>
+    <value>Otáčky/min.</value>
   </data>
   <data name="FlipToStartAutomationStepControl_Message" xml:space="preserve">
     <value>Při otevření víka zapnout notebook.</value>
@@ -650,13 +650,13 @@ Díky předem!</value>
     <value>Používat sekundární funkce kláves F1-F12 bez držení klávesy Fn.</value>
   </data>
   <data name="FnLockAutomationStepControl_Title" xml:space="preserve">
-    <value>Fn Lock</value>
+    <value>Zámek Fn</value>
   </data>
   <data name="FnLockControl_Message" xml:space="preserve">
     <value>Používat sekundární funkce kláves F1-F12 bez držení klávesy Fn.</value>
   </data>
   <data name="FnLockControl_Title" xml:space="preserve">
-    <value>Fn Lock</value>
+    <value>Zámek Fn</value>
   </data>
   <data name="GodModeSettingsWindow_Advanced_MinOffset_Message" xml:space="preserve">
     <value>WARNING!
@@ -691,7 +691,7 @@ Some laptops may accept higher values than they indicate, but be careful. This o
     <value>Teplotní limit CPU</value>
   </data>
   <data name="GodModeSettingsWindow_CPU_Title" xml:space="preserve">
-    <value>CPU</value>
+    <value>Procesor</value>
   </data>
   <data name="GodModeSettingsWindow_Error_Apply_Title" xml:space="preserve">
     <value>Nastavení nelze použít</value>
@@ -1804,22 +1804,22 @@ WARNING: This action will not run correctly, if discrete GPU is not available.</
     <value>CPU</value>
   </data>
   <data name="SensorsControl_Utilization_Title" xml:space="preserve">
-    <value>Utilization</value>
+    <value>Využití</value>
   </data>
   <data name="SensorsControl_CoreClock_Title" xml:space="preserve">
-    <value>Core Clock</value>
+    <value>Frekvence jádra</value>
   </data>
   <data name="SensorsControl_Temperature_Title" xml:space="preserve">
-    <value>Temperature</value>
+    <value>Teplota</value>
   </data>
   <data name="SensorsControl_Fan_Title" xml:space="preserve">
-    <value>Fan</value>
+    <value>Větrák</value>
   </data>
   <data name="SensorsControl_GPU_Title" xml:space="preserve">
     <value>GPU</value>
   </data>
   <data name="SensorsControl_MemoryClock_Title" xml:space="preserve">
-    <value>Memory Clock</value>
+    <value>Frekvence paměti</value>
   </data>
   <data name="SensorsControl_RefreshInterval" xml:space="preserve">
     <value>Refresh interval</value>
