@@ -151,7 +151,7 @@
     <value>Rapidní nabíjení</value>
   </data>
   <data name="FlipToStartState_Off" xml:space="preserve">
-    <value>Off</value>
+    <value>Vypnuto</value>
     <comment>Informs the user that Flip to Start is or will be turned off.</comment>
   </data>
   <data name="FlipToStartState_On" xml:space="preserve">
@@ -503,7 +503,7 @@
     <value>Weekly</value>
   </data>
   <data name="PowerModeState_Extreme" xml:space="preserve">
-    <value>Extreme</value>
+    <value></value>
   </data>
   <data name="UpdateCheckFrequency_Never" xml:space="preserve">
     <value>Never</value>
