@@ -1028,7 +1028,7 @@ Režim můžeš přepínat pomocí Fn+Q.</value>
     <value>Vybraný režim výkonu nemusí fungovat správně bez připojené nabíječky.</value>
   </data>
   <data name="WindowsPowerPlansWindow_DefaultPowerPlan" xml:space="preserve">
-    <value>Default</value>
+    <value>Výchozí</value>
   </data>
   <data name="WindowsPowerPlansWindow_Title" xml:space="preserve">
     <value>Windows Power Plans</value>
@@ -1052,7 +1052,7 @@ Režim můžeš přepínat pomocí Fn+Q.</value>
     <value>Předvolba 3</value>
   </data>
   <data name="RGBKeyboardBacklightControl_Preset4" xml:space="preserve">
-    <value>Preset 4</value>
+    <value>Předvolba 4</value>
   </data>
   <data name="RGBKeyboardBacklightControl_PresetOff" xml:space="preserve">
     <value>Vypnut</value>
@@ -1745,7 +1745,7 @@ Toto nastavení se aplikuje jen když je zapnutý vlastní režim.</value>
     <comment>Allows the user to merge multiple triggers for the execution of selected actions.</comment>
   </data>
   <data name="OverclockDiscreteGPUSettingsWindow_Title" xml:space="preserve">
-    <value>Overclock GPU Settings</value>
+    <value>Nastavení přetaktování GPU</value>
   </data>
   <data name="OverclockDiscreteGPUSettingsWindow_CoreFrequencyOffset_Title" xml:space="preserve">
     <value>Core Frequency Offset</value>
@@ -1754,13 +1754,13 @@ Toto nastavení se aplikuje jen když je zapnutý vlastní režim.</value>
     <value>Memory Frequency Offset</value>
   </data>
   <data name="OverclockDiscreteGPUControl_Title" xml:space="preserve">
-    <value>Overclock GPU</value>
+    <value>Přetaktovat GPU</value>
   </data>
   <data name="OverclockDiscreteGPUControl_Message" xml:space="preserve">
     <value>Increase performance by overclocking discrete GPU.</value>
   </data>
   <data name="OverclockDiscreteGPUAutomationStepControl_Title" xml:space="preserve">
-    <value>Overclock GPU</value>
+    <value>Přetaktovat GPU</value>
   </data>
   <data name="OverclockDiscreteGPUAutomationStepControl_Message" xml:space="preserve">
     <value>Increase performance by overclocking discrete GPU.
@@ -1822,16 +1822,16 @@ WARNING: This action will not run correctly, if discrete GPU is not available.</
     <value>Frekvence paměti</value>
   </data>
   <data name="SensorsControl_RefreshInterval" xml:space="preserve">
-    <value>Refresh interval</value>
+    <value>Interval obnovení</value>
   </data>
   <data name="InstantBootControl_Title" xml:space="preserve">
-    <value>Instant Boot</value>
+    <value>Okamžité spuštění</value>
   </data>
   <data name="InstantBootControl_Message" xml:space="preserve">
     <value>Turn on the laptop when a charger is connected.</value>
   </data>
   <data name="InstantBootAutomationStepControl_Title" xml:space="preserve">
-    <value>Instant Boot</value>
+    <value>Okamžité spuštění</value>
   </data>
   <data name="InstantBootAutomationStepControl_Message" xml:space="preserve">
     <value>Turn on the laptop when a charger is connected.</value>
@@ -1844,7 +1844,7 @@ WARNING: This action will not run correctly, if discrete GPU is not available.</
     <comment>For example: "{Performance} power mode is not available without AC power."</comment>
   </data>
   <data name="EditDashboardWindow_Sensors" xml:space="preserve">
-    <value>Sensors</value>
+    <value>Senzory</value>
   </data>
   <data name="IGPUModeChangeException_Title" xml:space="preserve">
     <value>Could not change GPU Working Mode</value>
@@ -1904,7 +1904,7 @@ Requires restart.</value>
     <value>This is the maximum additional power that can be allocated to the CPU from the GPU based on CPU usage. The higher the value, the better the performance of applications that use the CPU.</value>
   </data>
   <data name="SettingsPage_BootLogo_Title" xml:space="preserve">
-    <value>Boot Logo</value>
+    <value>Logo při spuštění</value>
   </data>
   <data name="SettingsPage_BootLogo_Message" xml:space="preserve">
     <value>Customize Boot Logo image, visible during system startup.</value>
@@ -1919,16 +1919,16 @@ Requires restart.</value>
     <value>Custom Boot Logo is set</value>
   </data>
   <data name="BootLogoWindow_Status" xml:space="preserve">
-    <value>Status</value>
+    <value>Stav</value>
   </data>
   <data name="RevertToDefault" xml:space="preserve">
     <value>Revert to default</value>
   </data>
   <data name="BootLogoWindow_Customize" xml:space="preserve">
-    <value>Customize</value>
+    <value>Upravit</value>
   </data>
   <data name="NotificationsSettingsWindow_Automation" xml:space="preserve">
-    <value>Actions</value>
+    <value>Akce</value>
   </data>
   <data name="NotificationAutomationStepControl_NotificationText" xml:space="preserve">
     <value>Notification Text</value>
@@ -1937,7 +1937,7 @@ Requires restart.</value>
     <value>Show notification</value>
   </data>
   <data name="AutomationPipelineControl_SubtitlePart_Preset" xml:space="preserve">
-    <value>Preset</value>
+    <value>Předvolba</value>
   </data>
   <data name="SettingsPage_SmartFnLock_Title" xml:space="preserve">
     <value>Smart Fn Lock</value>
@@ -1992,7 +1992,7 @@ Supported formats are: {1}.</value>
     <value>Custom boot logo set.</value>
   </data>
   <data name="WiFiConnectedPipelineTriggerTabItemContent_NetworkName" xml:space="preserve">
-    <value>Network name (SSID)</value>
+    <value>Název sítě (SSID)</value>
   </data>
   <data name="WiFiConnectedPipelineTriggerTabItemContent_CopyCurrentNetworkName" xml:space="preserve">
     <value>Copy current network name</value>
@@ -2010,10 +2010,10 @@ Supported formats are: {1}.</value>
     <value>Integrations</value>
   </data>
   <data name="Settings" xml:space="preserve">
-    <value>Settings</value>
+    <value>Nastavení</value>
   </data>
   <data name="Information" xml:space="preserve">
-    <value>Information</value>
+    <value>Informace</value>
   </data>
   <data name="PackagesPage_DownloadTo" xml:space="preserve">
     <value>Download folder</value>
@@ -2200,7 +2200,7 @@ Supported formats are: {1}.</value>
     <value>Add CLI to user's PATH environment variable.</value>
   </data>
   <data name="SettingsPage_Temperature_Title" xml:space="preserve">
-    <value>Temperature</value>
+    <value>Teplota</value>
   </data>
   <data name="SettingsPage_Temperature_Message" xml:space="preserve">
     <value>Select units for temperature sensors.</value>
@@ -2230,7 +2230,7 @@ Supported formats are: {1}.</value>
     <value>Check for updates</value>
   </data>
   <data name="SettingsPage_Update_Title" xml:space="preserve">
-    <value>Update</value>
+    <value>Obnovit</value>
   </data>
   <data name="MainWindow_CheckForUpdates_Error_ReachedRateLimit_Message" xml:space="preserve">
     <value>API rate limit reached, please try again later.</value>
@@ -2266,7 +2266,7 @@ Supported formats are: {1}.</value>
     <value>Common music formats like wav or mp3 are supported.</value>
   </data>
   <data name="QuickActionAutomationStepControl_Title" xml:space="preserve">
-    <value>Quick Action</value>
+    <value>Rychlá akce</value>
   </data>
   <data name="QuickActionAutomationStepControl_Message" xml:space="preserve">
     <value>Run a saved quick action.</value>
@@ -2288,34 +2288,34 @@ It won't affect other full screen windows, but you will not be able to click on 
     <value>PCH Temperature</value>
   </data>
   <data name="SensorsControl_Motherboard_Title" xml:space="preserve">
-    <value>Motherboard</value>
+    <value>Základní deska</value>
   </data>
   <data name="SensorsControl_GpuCore_Title" xml:space="preserve">
-    <value>Core</value>
+    <value>Jádro</value>
   </data>
   <data name="SensorsControl_Memory_Title" xml:space="preserve">
-    <value>Memory</value>
+    <value>Paměť</value>
   </data>
   <data name="SensorsControl_Disk_Title" xml:space="preserve">
     <value>Disk</value>
   </data>
   <data name="SensorsControl_Battery_Title" xml:space="preserve">
-    <value>Battery</value>
+    <value>Baterie</value>
   </data>
   <data name="SensorsControl_State_Title" xml:space="preserve">
-    <value>State</value>
+    <value>Stav</value>
   </data>
   <data name="SensorsControl_BatteryLevel_Title" xml:space="preserve">
-    <value>Battery Level</value>
+    <value>Úroveň baterie</value>
   </data>
   <data name="BatteryPage_ACAdapterNotConnected" xml:space="preserve">
     <value>No AC</value>
   </data>
   <data name="DashboardBattery_AcConnected" xml:space="preserve">
-    <value>AC Connected</value>
+    <value>Nabíječka připojena</value>
   </data>
   <data name="DashboardBattery_AcDisconnected" xml:space="preserve">
-    <value>AC Disconnected</value>
+    <value>Nabíječka odpojena</value>
   </data>
   <data name="AboutPage_Log" xml:space="preserve">
     <value>Log</value>
@@ -2339,25 +2339,25 @@ It won't affect other full screen windows, but you will not be able to click on 
     <value>Enable logging for debug.</value>
   </data>
   <data name="SensorItem_CpuUtilitzation" xml:space="preserve">
-    <value>CPU Utilitazion</value>
+    <value>Využití CPU</value>
   </data>
   <data name="SensorItem_CpuFrequency" xml:space="preserve">
-    <value>CPU Frequency</value>
+    <value>Frekvence CPU</value>
   </data>
   <data name="SensorItem_CpuFanSpeed" xml:space="preserve">
     <value>CPU Fan Speed</value>
   </data>
   <data name="SensorItem_CpuTemperature" xml:space="preserve">
-    <value>CPU Temperature</value>
+    <value>Teplota CPU</value>
   </data>
   <data name="SensorItem_CpuPower" xml:space="preserve">
-    <value>CPU Power</value>
+    <value>Výkon CPU</value>
   </data>
   <data name="SensorItem_GpuUtilization" xml:space="preserve">
-    <value>GPU Utilization</value>
+    <value>Využití GPU</value>
   </data>
   <data name="SensorItem_GpuFrequency" xml:space="preserve">
-    <value>GPU Frequency</value>
+    <value>Frekvence GPU</value>
   </data>
   <data name="SensorItem_GpuFanSpeed" xml:space="preserve">
     <value>GPU Fan Speed</value>
@@ -2366,31 +2366,31 @@ It won't affect other full screen windows, but you will not be able to click on 
     <value>PCH Fan Speed</value>
   </data>
   <data name="SensorItem_PchTemperature" xml:space="preserve">
-    <value>PCH Temperature</value>
+    <value>Teplota PCH</value>
   </data>
   <data name="SensorItem_BatteryState" xml:space="preserve">
-    <value>Battery State</value>
+    <value>Stav baterie</value>
   </data>
   <data name="SensorItem_BatteryLevel" xml:space="preserve">
-    <value>Battery Level</value>
+    <value>Úroveň baterie</value>
   </data>
   <data name="SensorItem_MemoryUtilization" xml:space="preserve">
-    <value>Memory Utilization</value>
+    <value>Využití paměti</value>
   </data>
   <data name="SensorItem_MemoryTemperature" xml:space="preserve">
-    <value>Memory Temperature</value>
+    <value>Teplota paměti</value>
   </data>
   <data name="SensorItem_Disk1Temperature" xml:space="preserve">
-    <value>Disk 1 Temperature</value>
+    <value>Teplota disku 1</value>
   </data>
   <data name="SensorItem_Disk2Temperature" xml:space="preserve">
-    <value>Disk 2 Temperature</value>
+    <value>Teplota disku 2</value>
   </data>
   <data name="EditSensorWindow_Title" xml:space="preserve">
-    <value>Edit Sensor</value>
+    <value>Upravit senzor</value>
   </data>
   <data name="SensorItem_GpuTemperatures" xml:space="preserve">
-    <value>GPU Temperature</value>
+    <value>Teplota GPU</value>
   </data>
   <data name="SettingsPage_UseNewSensorDashboard_Title" xml:space="preserve">
     <value>Use New Sensor Dashboard</value>
@@ -2400,7 +2400,7 @@ It won't affect other full screen windows, but you will not be able to click on 
 Note: Using the new sensor dashboard may cause some antivirus programmes to display a warning pop-up. For more information, see: LibreHardwareMonitor/LibreHardwareMonitor#984</value>
   </data>
   <data name="SettingsPage_LockWindowSize_Title" xml:space="preserve">
-    <value>Lock Window Size</value>
+    <value>Uzamknout velikost okna</value>
   </data>
   <data name="SettingsPage_LockWindowSize_Message" xml:space="preserve">
     <value>Lock LLT's window size. To prevent something change it.</value>
