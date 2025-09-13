@@ -764,7 +764,7 @@ VAROVÁNÍ: Tato akce neproběhne správně, pokud je interní displej vypnutý.
     <value>Keyboard backlight cannot be controlled in here when Lenovo Vantage or its services are running.</value>
   </data>
   <data name="Keyboard_VantageEnabledWarning_Title" xml:space="preserve">
-    <value>Lenovo Vantage or its services are running</value>
+    <value>Lenovo Vantage nebo jeho služby jsou aktivní</value>
   </data>
   <data name="MainWindow_NavigationItem_About" xml:space="preserve">
     <value>O aplikaci</value>
@@ -1111,7 +1111,7 @@ VAROVÁNÍ: Tato akce neproběhne správně, pokud je interní displej vypnutý.
     <value>Parametry</value>
   </data>
   <data name="RunAutomationStepControl_ExePath" xml:space="preserve">
-    <value>Executable Path</value>
+    <value>Umístění spustitelného souboru</value>
   </data>
   <data name="RunAutomationStepControl_Message" xml:space="preserve">
     <value>Spusť skript nebo program.
@@ -1178,14 +1178,14 @@ Po změně této možnosti se doporučuje restartovat.</value>
     <value>Lenovo Vantage and/or ImController may have not been disabled correctly</value>
   </data>
   <data name="SettingsPage_DisableVantage_Error_Title" xml:space="preserve">
-    <value>Couldn't disable Lenovo Vantage and/or ImController</value>
+    <value>Nelze zakázat Lenovo Vantage a/nebo ImController</value>
   </data>
   <data name="SettingsPage_DisableVantage_Message" xml:space="preserve">
-    <value>Disable Lenovo Vantage and ImController without uninstalling them.
-Restart is recommended after changing this option.</value>
+    <value>Zakázat Lenovo Vantage a ImController bez jejich odinstalace.
+Po změně této volby je doporučen restart.</value>
   </data>
   <data name="SettingsPage_DisableVantage_Title" xml:space="preserve">
-    <value>Disable Lenovo Vantage and ImController</value>
+    <value>Zakázat Lenovo Vantage a ImController</value>
   </data>
   <data name="SettingsPage_EnableLegionZone_Error_Message" xml:space="preserve">
     <value>Legion Zone možná nebyla správně aktivována</value>
@@ -1200,10 +1200,10 @@ Restart is recommended after changing this option.</value>
     <value>Lenovo Hotkeys se nepodařilo aktivovat</value>
   </data>
   <data name="SettingsPage_EnableVantage_Error_Message" xml:space="preserve">
-    <value>Lenovo Vantage and/or ImController may have not been enabled correctly</value>
+    <value>Lenovo Vantage a/nebo ImController nemusí být správně povolen</value>
   </data>
   <data name="SettingsPage_EnableVantage_Error_Title" xml:space="preserve">
-    <value>Couldn't enable Lenovo Vantage and/or ImController</value>
+    <value>Nelze povolit Lenovo Vantage a/nebo ImController</value>
   </data>
   <data name="SettingsPage_ExcludeRefreshRates_Message" xml:space="preserve">
     <value>Můžeš vyloučit obnovovací frekvence, aby byla zkratka Fn+R užitečnější.</value>
@@ -1230,7 +1230,7 @@ Restart is recommended after changing this option.</value>
     <value>Notifikace</value>
   </data>
   <data name="SettingsPage_UpdateMethod_Title" xml:space="preserve">
-    <value>Update Method</value>
+    <value>Způsob aktualizace</value>
   </data>
   <data name="SettingsPage_WindowsPowerPlans_Title" xml:space="preserve">
     <value>Plány napájení</value>
@@ -1384,7 +1384,7 @@ Vyžaduje restart.</value>
     <value>Zkusit znovu</value>
   </data>
   <data name="UnexpectedException" xml:space="preserve">
-    <value>Unexpected exception occurred:
+    <value>Došlo k neočekávané výjimce:
 {0}</value>
   </data>
   <data name="Unnamed" xml:space="preserve">
@@ -1438,10 +1438,10 @@ Pokud se rozhodneš pokračovat, protokolování bude automaticky povoleno.</val
     <value>Podsvícení klávesnice</value>
   </data>
   <data name="WinKeyAutomationStepControl_Message" xml:space="preserve">
-    <value>Disable Windows key on built-in keyboard.</value>
+    <value>Zakázat klávesu Windows na vestavěné klávesnici.</value>
   </data>
   <data name="WinKeyAutomationStepControl_Title" xml:space="preserve">
-    <value>Windows Key Lock</value>
+    <value>Zámek tlačítka Windows</value>
   </data>
   <data name="WinKeyControl_Message" xml:space="preserve">
     <value>Funguje pouze na klávesnici notebooku.</value>
@@ -1690,10 +1690,10 @@ Toto nastavení se aplikuje jen když je zapnutý vlastní režim.</value>
     <value>Rychlost vybíjení</value>
   </data>
   <data name="StatusTrayPopup_MinDischargeRate" xml:space="preserve">
-    <value>Min discharge rate</value>
+    <value>Nejnižší rychlost vybíjení</value>
   </data>
   <data name="StatusTrayPopup_MaxDischargeRate" xml:space="preserve">
-    <value>Max discharge rate</value>
+    <value>Nejvyšší rychlost vybíjení</value>
   </data>
   <data name="StatusTrayPopup_UpdateAvailable" xml:space="preserve">
     <value>Aktualizace k dispozici!</value>
@@ -1729,19 +1729,19 @@ Toto nastavení se aplikuje jen když je zapnutý vlastní režim.</value>
     <value>Vypnut</value>
   </data>
   <data name="SpectrumKeyboardBacklightImportProfileAutomationStepControl_Title" xml:space="preserve">
-    <value>Import keyboard backlight profile</value>
+    <value>Importovat profil podsvícení klávesnice</value>
   </data>
   <data name="SpectrumKeyboardBacklightImportProfileAutomationStepControl_Message" xml:space="preserve">
-    <value>Import and apply backlight configuration to the current profile.</value>
+    <value>Importovat a použít nastavení podsvícení pro aktuální profil.</value>
   </data>
   <data name="SpectrumKeyboardBacklightImportProfileAutomationStepControl_Path" xml:space="preserve">
-    <value>Path</value>
+    <value>Cesta</value>
   </data>
   <data name="AutomationPipelineControl_SubtitlePart_After" xml:space="preserve">
-    <value>After {0}</value>
+    <value>Po {0}</value>
   </data>
   <data name="MultipleTriggersAutomationPipelineTrigger_DisplayName" xml:space="preserve">
-    <value>Multiple triggers...</value>
+    <value>Několik spouštěčů...</value>
     <comment>Allows the user to merge multiple triggers for the execution of selected actions.</comment>
   </data>
   <data name="OverclockDiscreteGPUSettingsWindow_Title" xml:space="preserve">
@@ -1768,28 +1768,28 @@ Toto nastavení se aplikuje jen když je zapnutý vlastní režim.</value>
 WARNING: This action will not run correctly, if discrete GPU is not available.</value>
   </data>
   <data name="PortsBacklightControl_Title" xml:space="preserve">
-    <value>Ports backlight</value>
+    <value>Podsvícení portů</value>
   </data>
   <data name="PortsBacklightControl_Message" xml:space="preserve">
-    <value>Turn on or off backlight of the ports on the back of the laptop.</value>
+    <value>Zapnout nebo vypnout podsvícení portů na zadní straně notebooku.</value>
   </data>
   <data name="PortsBacklightAutomationStepControl_Title" xml:space="preserve">
-    <value>Ports backlight</value>
+    <value>Podsvícení portů</value>
   </data>
   <data name="PortsBacklightAutomationStepControl_Message" xml:space="preserve">
-    <value>Turn on or off the backlight of the ports on the back of the laptop.</value>
+    <value>Zapnout nebo vypnout podsvícení portů na zadní straně notebooku.</value>
   </data>
   <data name="PanelLogoBacklightControl_Title" xml:space="preserve">
-    <value>Panel logo backlight</value>
+    <value>Podsvícení loga na panelu</value>
   </data>
   <data name="PanelLogoBacklightControl_Message" xml:space="preserve">
-    <value>Turn on or off the backlight on the lid of the laptop.</value>
+    <value>Zapnout nebo vypnout podsvícení na víku notebooku.</value>
   </data>
   <data name="PanelLogoBacklightAutomationStepControl_Title" xml:space="preserve">
-    <value>Panel logo backlight</value>
+    <value>Podsvícení loga na panelu</value>
   </data>
   <data name="PanelLogoBacklightAutomationStepControl_Message" xml:space="preserve">
-    <value>Turn on or off the backlight on the lid of the laptop.</value>
+    <value>Zapnout nebo vypnout podsvícení na víku notebooku.</value>
   </data>
   <data name="GHz" xml:space="preserve">
     <value>GHz</value>
@@ -1798,7 +1798,7 @@ WARNING: This action will not run correctly, if discrete GPU is not available.</
     <value>MHz</value>
   </data>
   <data name="SensorsControl_Maximum" xml:space="preserve">
-    <value>Maximum: {0}</value>
+    <value>Maximální: {0}</value>
   </data>
   <data name="SensorsControl_CPU_Title" xml:space="preserve">
     <value>CPU</value>
@@ -1828,13 +1828,13 @@ WARNING: This action will not run correctly, if discrete GPU is not available.</
     <value>Okamžité spuštění</value>
   </data>
   <data name="InstantBootControl_Message" xml:space="preserve">
-    <value>Turn on the laptop when a charger is connected.</value>
+    <value>Zapnout notebook při připojení nabíječky.</value>
   </data>
   <data name="InstantBootAutomationStepControl_Title" xml:space="preserve">
     <value>Okamžité spuštění</value>
   </data>
   <data name="InstantBootAutomationStepControl_Message" xml:space="preserve">
-    <value>Turn on the laptop when a charger is connected.</value>
+    <value>Zapnout notebook při připojení nabíječky.</value>
   </data>
   <data name="PowerModeUnavailableWithoutACException_Title" xml:space="preserve">
     <value>Cannot change Power Mode</value>
