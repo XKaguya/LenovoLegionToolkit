@@ -659,18 +659,18 @@ Díky předem!</value>
     <value>Zámek Fn</value>
   </data>
   <data name="GodModeSettingsWindow_Advanced_MinOffset_Message" xml:space="preserve">
-    <value>WARNING!
-Some laptops may accept lower values than they indicate, but be careful. This option may result in unpredictable behavior. If you are not sure what are you doing, leave this at 0.</value>
+    <value>VAROVÁNÍ!
+Některé notebooky mohou akceptovat nižší limity výkonu, než uvádějí, ale buď opatrný. Tato možnost může vést k nepředvídatelnému chování, takže pokud si nejsi jist, co děláš, nech to na 0.</value>
   </data>
   <data name="GodModeSettingsWindow_Advanced_MinOffset_Title" xml:space="preserve">
-    <value>Minimum offset</value>
+    <value>Minimální offset</value>
   </data>
   <data name="GodModeSettingsWindow_Advanced_MaxOffset_Message" xml:space="preserve">
-    <value>WARNING!
-Some laptops may accept higher values than they indicate, but be careful. This option may result in unpredictable behavior. If you are not sure what are you doing, leave this at 0.</value>
+    <value>VAROVÁNÍ!
+Některé notebooky mohou akceptovat vyšší limity výkonu, než uvádějí, ale buď opatrný. Tato možnost může vést k nepředvídatelnému chování, takže pokud si nejsi jist, co děláš, nech to na 0.</value>
   </data>
   <data name="GodModeSettingsWindow_Advanced_MaxOffset_Title" xml:space="preserve">
-    <value>Maximum offset</value>
+    <value>Maximální offset</value>
   </data>
   <data name="GodModeSettingsWindow_Advanced_Message" xml:space="preserve">
     <value>Neměň níže uvedené možnosti, pokud opravdu nevíš, co děláš.</value>
@@ -761,7 +761,7 @@ VAROVÁNÍ: Tato akce neproběhne správně, pokud je interní displej vypnutý.
     <value>Podsvícení klávesnice</value>
   </data>
   <data name="Keyboard_VantageEnabledWarning_Message" xml:space="preserve">
-    <value>Keyboard backlight cannot be controlled in here when Lenovo Vantage or its services are running.</value>
+    <value>Podsvícení klávesnice zde nelze ovládat, když Lenovo Vantage nebo jeho služby běží.</value>
   </data>
   <data name="Keyboard_VantageEnabledWarning_Title" xml:space="preserve">
     <value>Lenovo Vantage nebo jeho služby jsou aktivní</value>
@@ -872,8 +872,8 @@ VAROVÁNÍ: Tato akce neproběhne správně, pokud je interní displej vypnutý.
     <value>Caps Lock a Num Lock</value>
   </data>
   <data name="NotificationsSettingsWindow_DontShowNotifications_Message" xml:space="preserve">
-    <value>Disables notification for Fn keys actions like microphone mute.
-Enable this option if you have conflicts with full screen applications.</value>
+    <value>Zakázat upozornění na akce kláves Fn, jako je ztlumení mikrofonu
+Povol tuto možnost, pokud máš konflikty s aplikacemi na celou obrazovku.</value>
   </data>
   <data name="NotificationsSettingsWindow_DontShowNotifications_Title" xml:space="preserve">
     <value>Nezobrazovat notifikace</value>
@@ -1175,7 +1175,7 @@ Po změně této možnosti se doporučuje restartovat.</value>
     <value>Zakázat Lenovo Hotkeys</value>
   </data>
   <data name="SettingsPage_DisableVantage_Error_Message" xml:space="preserve">
-    <value>Lenovo Vantage and/or ImController may have not been disabled correctly</value>
+    <value>Lenovo Vantage a/nebo ImController nemusí být správně zakázán</value>
   </data>
   <data name="SettingsPage_DisableVantage_Error_Title" xml:space="preserve">
     <value>Nelze zakázat Lenovo Vantage a/nebo ImController</value>
@@ -1748,24 +1748,24 @@ Toto nastavení se aplikuje jen když je zapnutý vlastní režim.</value>
     <value>Nastavení přetaktování GPU</value>
   </data>
   <data name="OverclockDiscreteGPUSettingsWindow_CoreFrequencyOffset_Title" xml:space="preserve">
-    <value>Core Frequency Offset</value>
+    <value>Odsazení frekvence jádra</value>
   </data>
   <data name="OverclockDiscreteGPUSettingsWindow_MemoryFrequencyOffset_Title" xml:space="preserve">
-    <value>Memory Frequency Offset</value>
+    <value>Odsazení frekvence paměti</value>
   </data>
   <data name="OverclockDiscreteGPUControl_Title" xml:space="preserve">
     <value>Přetaktovat GPU</value>
   </data>
   <data name="OverclockDiscreteGPUControl_Message" xml:space="preserve">
-    <value>Increase performance by overclocking discrete GPU.</value>
+    <value>Zvyšte výkon přetaktováním diskrétního GPU.</value>
   </data>
   <data name="OverclockDiscreteGPUAutomationStepControl_Title" xml:space="preserve">
     <value>Přetaktovat GPU</value>
   </data>
   <data name="OverclockDiscreteGPUAutomationStepControl_Message" xml:space="preserve">
-    <value>Increase performance by overclocking discrete GPU.
+    <value>Zvyšte výkon přetaktováním diskrétního GPU.
 
-WARNING: This action will not run correctly, if discrete GPU is not available.</value>
+VAROVÁNÍ: Tato akce nebude správně spuštěna, pokud diskrétní GPU není dostupné.</value>
   </data>
   <data name="PortsBacklightControl_Title" xml:space="preserve">
     <value>Podsvícení portů</value>
@@ -1837,92 +1837,92 @@ WARNING: This action will not run correctly, if discrete GPU is not available.</
     <value>Zapnout notebook při připojení nabíječky.</value>
   </data>
   <data name="PowerModeUnavailableWithoutACException_Title" xml:space="preserve">
-    <value>Cannot change Power Mode</value>
+    <value>Režim spotřeby nelze změnit</value>
   </data>
   <data name="PowerModeUnavailableWithoutACException_Message" xml:space="preserve">
-    <value>{0} power mode is not available without AC power.</value>
+    <value>Režim napájení {0} není dostupný bez nabíječky.</value>
     <comment>For example: "{Performance} power mode is not available without AC power."</comment>
   </data>
   <data name="EditDashboardWindow_Sensors" xml:space="preserve">
     <value>Senzory</value>
   </data>
   <data name="IGPUModeChangeException_Title" xml:space="preserve">
-    <value>Could not change GPU Working Mode</value>
+    <value>Pracovní režim GPU nelze změnit</value>
   </data>
   <data name="IGPUModeChangeException_Message" xml:space="preserve">
-    <value>Try changing the mode again in a couple of seconds, if you do not see expected result.
-If dGPU does not respond at all, please restart your laptop.</value>
+    <value>Zkuste znovu změnit režim za pár sekund, pokud nevidíte očekávané výsledky.
+Pokud dGPU vůbec nereaguje, prosím restartujte svůj notebook.</value>
   </data>
   <data name="IGPUModeChangeException_Title_IGPUOnly" xml:space="preserve">
-    <value>dGPU is currently in use</value>
+    <value>dGPU se právě používá</value>
   </data>
   <data name="IGPUModeChangeException_Message_IGPUOnly" xml:space="preserve">
-    <value>dGPU will disconnect automatically when not in use.</value>
+    <value>dGPU se automaticky odpojí, pokud se nepoužívá.</value>
   </data>
   <data name="IGPUModeChangeException_Title_Auto" xml:space="preserve">
-    <value>dGPU is currently in use or laptop is not on battery power</value>
+    <value>dGPU se právě používá nebo notebook není napájen baterií</value>
   </data>
   <data name="IGPUModeChangeException_Message_Auto" xml:space="preserve">
-    <value>dGPU will disconnect automatically when not in use and laptop is on battery power.</value>
+    <value>dGPU se automaticky odpojí, pokud se nepoužívá a notebook je napájen z baterie.</value>
   </data>
   <data name="GodModeSettingsWindow_VantageWarning_Title" xml:space="preserve">
-    <value>Custom Mode settings will not be applied correctly when Lenovo Vantage or its services are running.</value>
+    <value>Nastavení vlastního režimu nebude správně použito, pokud Lenovo Vantage nebo jeho služby běží.</value>
   </data>
   <data name="GodModeSettingsWindow_LegionZoneWarning_Title" xml:space="preserve">
-    <value>Custom Mode settings will not be applied correctly when Legion Zone or its services are running.</value>
+    <value>Nastavení vlastního reimu nebude správně použito, pokud Legion Zone nebo jeho sluby běží.</value>
   </data>
   <data name="DGPU_Connected_Title" xml:space="preserve">
-    <value>dGPU connected</value>
+    <value>dGPU připojeno</value>
   </data>
   <data name="DGPU_Disconnected_Title" xml:space="preserve">
-    <value>dGPU disconnected</value>
+    <value>dGPU odpojeno</value>
   </data>
   <data name="ComboBoxHybridModeAutomationStepControl_Title" xml:space="preserve">
-    <value>GPU Working Mode</value>
+    <value>Pracovní režim GPU</value>
   </data>
   <data name="ComboBoxHybridModeAutomationStepControl_Message" xml:space="preserve">
-    <value>Select GPU operating mode based on your computer's usage and power conditions.
-Switching modes may require restart.</value>
+    <value>Vyber provozní režim GPU na základě využití počítače a podmínek napájení.
+Přepínání režimů může vyžadovat restart.</value>
   </data>
   <data name="ToggleHybridModeAutomationStepControl_Title" xml:space="preserve">
-    <value>Hybrid Mode</value>
+    <value>Hybridní režim</value>
   </data>
   <data name="ToggleHybridModeAutomationStepControl_Message" xml:space="preserve">
-    <value>Allow switching between integrated and discrete GPU.
-Requires restart.</value>
+    <value>Povolit přepínání mezi integrovaným a diskrétním GPU.
+Vyžaduje restart.</value>
   </data>
   <data name="NotificationsSettingsWindow_NotificationDuration_Title" xml:space="preserve">
-    <value>Duration</value>
+    <value>Doba trvání</value>
   </data>
   <data name="NotificationsSettingsWindow_Updates_Title" xml:space="preserve">
-    <value>Updates</value>
+    <value>Aktualizace</value>
   </data>
   <data name="GodModeSettingsWindow_GPU_ToCpuDynamicBoostControl" xml:space="preserve">
-    <value>GPU to CPU Dynamic Boost</value>
+    <value>Dynamické zrychlení GPU do CPU</value>
   </data>
   <data name="GodModeSettingsWindow_GPU_ToCpuDynamicBoostControl_Description" xml:space="preserve">
-    <value>This is the maximum additional power that can be allocated to the CPU from the GPU based on CPU usage. The higher the value, the better the performance of applications that use the CPU.</value>
+    <value>Toto je maximální dodatečný výkon, který lze přidělit CPU z grafické karty. Čím vyšší hodnota, tím lepší výkon aplikací, které používají CPU.</value>
   </data>
   <data name="SettingsPage_BootLogo_Title" xml:space="preserve">
     <value>Logo při spuštění</value>
   </data>
   <data name="SettingsPage_BootLogo_Message" xml:space="preserve">
-    <value>Customize Boot Logo image, visible during system startup.</value>
+    <value>Přizpůsobit logo viditelné při spuštění systému.</value>
   </data>
   <data name="BootLogoWindow_Title" xml:space="preserve">
-    <value>Boot Logo</value>
+    <value>Logo při spuštění</value>
   </data>
   <data name="BootLogoWindow_DefaultLogoSet" xml:space="preserve">
-    <value>Default Boot Logo is set</value>
+    <value>Nastaveno výchozí logo při spuštění</value>
   </data>
   <data name="BootLogoWindow_CustomLogoSet" xml:space="preserve">
-    <value>Custom Boot Logo is set</value>
+    <value>Nastaveno vlastní logo při spuštění</value>
   </data>
   <data name="BootLogoWindow_Status" xml:space="preserve">
     <value>Stav</value>
   </data>
   <data name="RevertToDefault" xml:space="preserve">
-    <value>Revert to default</value>
+    <value>Obnovit výchozí</value>
   </data>
   <data name="BootLogoWindow_Customize" xml:space="preserve">
     <value>Upravit</value>
@@ -1931,7 +1931,7 @@ Requires restart.</value>
     <value>Akce</value>
   </data>
   <data name="NotificationAutomationStepControl_NotificationText" xml:space="preserve">
-    <value>Notification Text</value>
+    <value>Text oznámení</value>
   </data>
   <data name="NotificationAutomationStepControl_Title" xml:space="preserve">
     <value>Zobrazit oznámení</value>
@@ -1943,71 +1943,71 @@ Requires restart.</value>
     <value>Chytrý zámek Fn</value>
   </data>
   <data name="SettingsPage_SmartFnLock_Message" xml:space="preserve">
-    <value>Fn Lock will be temporarily disabled when Alt, Ctrl or Shift key is depressed.</value>
+    <value>Zámek Fn bude dočasně zakázán při stisknutí Alt, Ctrl nebo Shift.</value>
   </data>
   <data name="Off" xml:space="preserve">
-    <value>Off</value>
+    <value>Vypnuto</value>
   </data>
   <data name="BootLogoWindow_Description" xml:space="preserve">
-    <value>Custom boot logo must be exactly {0} pixels large.
-Supported formats are: {1}.</value>
+    <value>Vlastní logo pro spuštění musí být přesně {0} pixelů velké.
+Podporované formáty jsou: {1}.</value>
   </data>
   <data name="BatteryNightChargeModeControl_Title" xml:space="preserve">
-    <value>Overnight Battery Charging</value>
+    <value>Nabíjení baterie přes noc</value>
   </data>
   <data name="BatteryNightChargeModeControl_Message" xml:space="preserve">
-    <value>When enabled, this device will charge to 80% when plugged in overnight and finish charging to 100% by the time you use this device in the morning.</value>
+    <value>Je-li povoleno, toto zařízení se nabije na 80% při připojení přes noc a ukončí nabíjení na 100% do doby, kdy ráno použijete toto zařízení.</value>
   </data>
   <data name="BatteryNightChargeAutomationStepControl_Title" xml:space="preserve">
     <value>Nabíjení baterie přes noc</value>
   </data>
   <data name="BatteryNightChargeAutomationStepControl_Message" xml:space="preserve">
-    <value>When enabled, this device will charge to 80% when plugged in overnight and finish charging to 100% by the time you use this device in the morning.</value>
+    <value>Je-li povoleno, toto zařízení se nabije na 80% při připojení přes noc a ukončí nabíjení na 100% do doby, kdy ráno použijete toto zařízení.</value>
   </data>
   <data name="BootLogoWindow_SetError_Invalid_Image_Size" xml:space="preserve">
-    <value>Invalid image size.</value>
+    <value>Neplatná velikost obrázku.</value>
   </data>
   <data name="BootLogoWindow_SetError_Invalid_Image_Format" xml:space="preserve">
-    <value>Invalid image format.</value>
+    <value>Neplatný formát obrázku.</value>
   </data>
   <data name="BootLogoWindow_SetError_Cannot_Mount_EFI_Partition" xml:space="preserve">
-    <value>Cannot mount EFI partition.</value>
+    <value>Nelze připojit oddíl EFI.</value>
   </data>
   <data name="BootLogoWindow_SetError_Cannot_Set_UEFI_Privilege" xml:space="preserve">
-    <value>Cannot set UEFI privilege.</value>
+    <value>Nelze nastavit oprávnění UEFI.</value>
   </data>
   <data name="BootLogoWindow_SetError_Not_Enough_Free_Space_On_EFI_Partition" xml:space="preserve">
-    <value>Not enough free space on EFI partition.</value>
+    <value>Nedostatek volného místa na oddílu EFI.</value>
   </data>
   <data name="BootLogoWindow_SetCustomFailed" xml:space="preserve">
-    <value>Custom logo could not be set: {0}</value>
+    <value>Vlastní logo nebylo možné nastavit: {0}</value>
   </data>
   <data name="BootLogoWindow_SetDefaultFailed" xml:space="preserve">
-    <value>Default logo could not be set: {0}</value>
+    <value>Výchozí logo nebylo možné nastavit: {0}</value>
   </data>
   <data name="BootLogoWindow_SetDefaultSuccess" xml:space="preserve">
-    <value>Default boot logo set.</value>
+    <value>Výchozí logo při spuštění nastaveno.</value>
   </data>
   <data name="BootLogoWindow_SetCustomSuccess" xml:space="preserve">
-    <value>Custom boot logo set.</value>
+    <value>Vlastní logo při spuštění nastaveno.</value>
   </data>
   <data name="WiFiConnectedPipelineTriggerTabItemContent_NetworkName" xml:space="preserve">
     <value>Název sítě (SSID)</value>
   </data>
   <data name="WiFiConnectedPipelineTriggerTabItemContent_CopyCurrentNetworkName" xml:space="preserve">
-    <value>Copy current network name</value>
+    <value>Kopírovat aktuální název sítě</value>
   </data>
   <data name="WiFiConnectedPipelineTriggerTabItemContent_LeaveEmptyForAnyNetwork" xml:space="preserve">
-    <value>Leave empty for any Wi-Fi network.</value>
+    <value>Ponechte prázdné pro jakoukoliv síť Wi-Fi.</value>
   </data>
   <data name="SettingsPage_HWiNFO_Title" xml:space="preserve">
     <value>HWiNFO64</value>
   </data>
   <data name="SettingsPage_HWiNFO_Message" xml:space="preserve">
-    <value>Share fan speed, battery temperature etc. with HWiNFO64. You may need to restart HWiNFO64 after changing this option.</value>
+    <value>Sdílejte rychlost ventilátoru, teplotu baterie atd. s HWiNFO64. Po změně této možnosti budete možná muset restartovat HWiNFO64.</value>
   </data>
   <data name="SettingsPage_Integrations_Title" xml:space="preserve">
-    <value>Integrations</value>
+    <value>Integrace</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Nastavení</value>
@@ -2016,276 +2016,276 @@ Supported formats are: {1}.</value>
     <value>Informace</value>
   </data>
   <data name="PackagesPage_DownloadTo" xml:space="preserve">
-    <value>Download folder</value>
+    <value>Složka stahování</value>
   </data>
   <data name="PackagesPage_OpenDownloadTo" xml:space="preserve">
-    <value>Open Download folder</value>
+    <value>Otevřít složku stahování</value>
   </data>
   <data name="PackageControl_Download" xml:space="preserve">
-    <value>Download</value>
+    <value>Stáhnout</value>
   </data>
   <data name="PackageControl_OpenReadme" xml:space="preserve">
-    <value>Open README</value>
+    <value>Otevřít README</value>
   </data>
   <data name="SpectrumKeyboardBacklightControl_Preset" xml:space="preserve">
-    <value>Preset</value>
+    <value>Předvolba</value>
   </data>
   <data name="DeviceInformationWindow_Refresh" xml:space="preserve">
-    <value>Refresh</value>
+    <value>Obnovit</value>
   </data>
   <data name="AbstractAutomationStepControl_Delete" xml:space="preserve">
-    <value>Delete</value>
+    <value>Smazat</value>
   </data>
   <data name="PeriodicActionPipelineTriggerTabItemContent_PeriodMinutes" xml:space="preserve">
-    <value>Period (minutes)</value>
+    <value>Doba (v minutách)</value>
     <comment>A prompt that is used both to ask the user to input an integer, representing the number of minutes between two periodic actions are triggered, and to inform the user what have they set once they are done configuring the action.</comment>
   </data>
   <data name="SettingsPage_OnBatterySinceReset_Message" xml:space="preserve">
-    <value>Resets the counter for "On battery since" in the battery section when the system reboots.</value>
+    <value>Vynulovat čítač pro "Na baterii od" v sekci Baterie při restartování zařízení.</value>
   </data>
   <data name="SettingsPage_OnBatterySinceReset_Title" xml:space="preserve">
-    <value>Reset "On battery since" at startup</value>
+    <value>Vynulovat "Na baterii od" při spuštění</value>
   </data>
   <data name="TurnOffWiFiAutomationStepControl_Title" xml:space="preserve">
-    <value>Turn off Wi-Fi</value>
+    <value>Vypnout Wi-Fi</value>
   </data>
   <data name="TurnOnWiFiAutomationStepControl_Title" xml:space="preserve">
-    <value>Turn on Wi-Fi</value>
+    <value>Zapnout Wi-Fi</value>
   </data>
   <data name="RunAutomationStepControl_ProcessRunSilently" xml:space="preserve">
-    <value>Run silently</value>
+    <value>Spustit tiše</value>
   </data>
   <data name="RunAutomationStepControl_ProcessWaitUntilFinished" xml:space="preserve">
-    <value>Wait until finished</value>
+    <value>Čekat na dokončení</value>
   </data>
   <data name="RunAutomationStepControl_ProcessRunSilently_Description" xml:space="preserve">
-    <value>Execute console applications, without creating a console window.</value>
+    <value>Spustit aplikace konzoly bez vytvoření okna konzoly.</value>
   </data>
   <data name="RunAutomationStepControl_ProcessWaitUntilFinished_Description" xml:space="preserve">
-    <value>Wait until program or script finishes executing</value>
+    <value>Počkat, než program nebo skript dokončí spuštění</value>
   </data>
   <data name="SpeakerAutomationStepControl_Message" xml:space="preserve">
-    <value>When mute, all active audio output devices will be muted.</value>
+    <value>Po ztlumení, všechna aktivní zvuková zařízení budou ztlumena.</value>
   </data>
   <data name="SpeakerAutomationStepControl_Title" xml:space="preserve">
-    <value>Speaker</value>
+    <value>Reproduktor</value>
   </data>
   <data name="SettingsPage_MinimizeToTray_Title" xml:space="preserve">
-    <value>Minimize to tray</value>
+    <value>Minimalizovat do systémové lišty</value>
   </data>
   <data name="SettingsPage_MinimizeToTray_Message" xml:space="preserve">
-    <value>Always minimize to tray instead of taskbar.</value>
+    <value>Vždy minimalizovat do lišty namísto hlavního panelu.</value>
   </data>
   <data name="WindowsPowerModesWindow_Title" xml:space="preserve">
-    <value>Windows Power Modes</value>
+    <value>Režimy napájení Windows</value>
   </data>
   <data name="Settings_GodModeFnQSwitchable_Title" xml:space="preserve">
-    <value>Switch to Custom Mode with Fn+Q</value>
+    <value>Přepnout na vlastní režim pomocí Fn+Q</value>
   </data>
   <data name="Settings_GodModeFnQSwitchable_Message" xml:space="preserve">
-    <value>Allow quick switching to Custom Mode with Fn+Q.</value>
+    <value>Povolit rychlé přepnutí do vlastního režimu pomocí Fn+Q.</value>
   </data>
   <data name="SettingsPage_PowerModeMapping_Title" xml:space="preserve">
-    <value>Power Mode Synchronization</value>
+    <value>Synchronizace režimu napájení</value>
   </data>
   <data name="SettingsPage_PowerModeMapping_Message" xml:space="preserve">
-    <value>Automatically change Windows Power Plan or Windows Power Mode when changing Power Modes.</value>
+    <value>Automaticky změnit plán napájení Windows nebo režim napájení Windows při změně režimu napájení.</value>
   </data>
   <data name="SettingsPage_WindowsPowerModes_Title" xml:space="preserve">
-    <value>Windows Power Modes</value>
+    <value>Režimy napájení Windows</value>
   </data>
   <data name="SettingsPage_WindowsPowerModes_Message" xml:space="preserve">
-    <value>Select Windows Power Mode to apply when Power Mode changes.</value>
+    <value>Vyber plány napájení, které se změní, když se změní režim výkonu.</value>
   </data>
   <data name="CompatibilityCheckError_Message" xml:space="preserve">
-    <value>Error occured when reading device information.</value>
+    <value>Došlo k chybě při čtení informací o zařízení.</value>
   </data>
   <data name="MainWindow_NavigationItem_Macro" xml:space="preserve">
-    <value>Macro</value>
+    <value>Makro</value>
   </data>
   <data name="MacroPage_Title" xml:space="preserve">
-    <value>Macro</value>
+    <value>Makro</value>
   </data>
   <data name="MacroSequenceControl_Repeat_Title" xml:space="preserve">
-    <value>Repeat</value>
+    <value>Opakování</value>
   </data>
   <data name="MacroSequenceControl_IgnoreDelays_Title" xml:space="preserve">
-    <value>Ignore delays</value>
+    <value>Ignorovat zpoždění</value>
   </data>
   <data name="Clear" xml:space="preserve">
-    <value>Clear</value>
+    <value>Vymazat</value>
   </data>
   <data name="MacroSequenceControl_Record" xml:space="preserve">
-    <value>Record</value>
+    <value>Zaznamenat</value>
   </data>
   <data name="MacroSequenceControl_StopRecording" xml:space="preserve">
-    <value>Stop recording</value>
+    <value>Zastavit záznam</value>
   </data>
   <data name="MacroSequenceControl_DontRepeat" xml:space="preserve">
-    <value>Don't repeat</value>
+    <value>Neopakovat</value>
   </data>
   <data name="MacroPage_Enable_Subtitle" xml:space="preserve">
-    <value>Lenovo Legion Toolkit must be running for macros to work.</value>
+    <value>Lenovo Legion Toolkit musí běžet, aby makra fungovala.</value>
   </data>
   <data name="MacroPage_Enable_Title" xml:space="preserve">
-    <value>Enable</value>
+    <value>Povolit</value>
   </data>
   <data name="MacroPage_Subtitle" xml:space="preserve">
-    <value>You can record series of key presses and invoke them using the number pad on your keyboard.</value>
+    <value>Můžete nahrávat řadu stisknutí kláves a vyvolat je pomocí číselníku na klávesnici.</value>
   </data>
   <data name="MacroAutomationStepControl_Title" xml:space="preserve">
-    <value>Macro</value>
+    <value>Makro</value>
   </data>
   <data name="MacroAutomationStepControl_Message" xml:space="preserve">
     <value>Povolit nebo zakázat makra.</value>
   </data>
   <data name="MacroSequenceControl_InterruptOnOtherKey_Title" xml:space="preserve">
-    <value>Interrupt if another key was pressed</value>
+    <value>Přerušit při stisknutí jiné klávesy</value>
   </data>
   <data name="Hide" xml:space="preserve">
-    <value>Hide</value>
+    <value>Skrýt</value>
   </data>
   <data name="HideAll" xml:space="preserve">
-    <value>Hide all</value>
+    <value>Skrýt vše</value>
   </data>
   <data name="DevicePipelineTriggerTabItemContent_Devices" xml:space="preserve">
-    <value>Devices</value>
+    <value>Zařízení</value>
   </data>
   <data name="DeselectAll" xml:space="preserve">
-    <value>Deselect all</value>
+    <value>Zrušit celý výběr</value>
   </data>
   <data name="SelectAll" xml:space="preserve">
-    <value>Select all</value>
+    <value>Označit vše</value>
   </data>
   <data name="MacroSequenceControl_Keyboard" xml:space="preserve">
-    <value>Keyboard only</value>
+    <value>Pouze klávesnice</value>
   </data>
   <data name="MacroSequenceControl_KeyboardMouse" xml:space="preserve">
-    <value>Keyboard keys and mouse buttons</value>
+    <value>Klávesy a tlačitka myši</value>
   </data>
   <data name="MacroSequenceControl_KeyboardMouseMovement" xml:space="preserve">
-    <value>All inputs</value>
+    <value>Všechny vstupy</value>
   </data>
   <data name="MacroSequenceControl_RecordingOptions" xml:space="preserve">
-    <value>Recording options</value>
+    <value>Možnosti nahrávání</value>
   </data>
   <data name="MacroRecordingWindow_Preparing_Title" xml:space="preserve">
-    <value>Recording will start in 3 seconds...</value>
+    <value>Nahrávání bude zahájeno za 3 sekundy...</value>
   </data>
   <data name="MacroRecordingWindow_Recording_Title" xml:space="preserve">
-    <value>Recording...</value>
+    <value>Nahrávání...</value>
   </data>
   <data name="MacroRecordingWindow_Recording_Message" xml:space="preserve">
-    <value>Press ESC to stop.</value>
+    <value>Stiskněte ESC k zastavení.</value>
   </data>
   <data name="DeviceAutomationPipelineTriggerTabItemContent_OnlySelected" xml:space="preserve">
-    <value>Show selected devices only</value>
+    <value>Zobrazit pouze vybraná zařízení</value>
   </data>
   <data name="DeviceAutomationPipelineTriggerTabItemContent_OnlyRemovable" xml:space="preserve">
-    <value>Show removable devices only</value>
+    <value>Zobrazit pouze vyměnitelná zařízení</value>
   </data>
   <data name="DeviceAutomationPipelineTriggerTabItemContent_OnlyConnected" xml:space="preserve">
-    <value>Show connected devices only</value>
+    <value>Zobrazit pouze připojená zařízení</value>
   </data>
   <data name="SettingsPage_CLI_Title" xml:space="preserve">
     <value>CLI</value>
   </data>
   <data name="SettingsPage_CLI_Message" xml:space="preserve">
-    <value>Enable Command Line Interface that allows control from command line.</value>
+    <value>Povolit rozhraní příkazového řádku, které umožňuje kontrolu z příkazového řádku.</value>
   </data>
   <data name="SettingsPage_CLIAddToPath_Title" xml:space="preserve">
-    <value>Add CLI to PATH</value>
+    <value>Přidat CLI do PATH</value>
   </data>
   <data name="SettingsPage_CLIAddToPath_Message" xml:space="preserve">
-    <value>Add CLI to user's PATH environment variable.</value>
+    <value>Přidat CLI do proměnné prostředí PATH uživatele.</value>
   </data>
   <data name="SettingsPage_Temperature_Title" xml:space="preserve">
     <value>Teplota</value>
   </data>
   <data name="SettingsPage_Temperature_Message" xml:space="preserve">
-    <value>Select units for temperature sensors.</value>
+    <value>Vyberte jednotky pro snímače teploty.</value>
   </data>
   <data name="MainWindows_FnKeysRunning" xml:space="preserve">
-    <value>Lenovo Hotkeys is running in the background.</value>
+    <value>Lenovo Hotkeys běží na pozadí.</value>
   </data>
   <data name="MainWindow_LegionZoneRunning" xml:space="preserve">
-    <value>Legion Zone is running in the background.</value>
+    <value>Legion Zone běží na pozadí.</value>
   </data>
   <data name="MainWindows_VantageRunning" xml:space="preserve">
-    <value>Lenovo Vantage and/or ImController is running in the background.</value>
+    <value>Lenovo Vantage a/nebo ImController běží na pozadí.</value>
   </data>
   <data name="NotificationsSettingsWindow_NotificationOnAllScreens_Message" xml:space="preserve">
-    <value>Show notification on all screens connected to your device.</value>
+    <value>Zobrazit upozornění na všech obrazovkách připojených k vašemu zařízení.</value>
   </data>
   <data name="NotificationsSettingsWindow_NotificationOnAllScreens_Title" xml:space="preserve">
-    <value>Notification on all screens</value>
+    <value>Oznámení na všech obrazovkách</value>
   </data>
   <data name="SettingsPage_CheckUpdatesButton_Content" xml:space="preserve">
-    <value>Check</value>
+    <value>Zkontrolovat</value>
   </data>
   <data name="SettingsPage_CheckUpdates_Started_Title" xml:space="preserve">
-    <value>Checking for updates...</value>
+    <value>Kontrola aktualizací...</value>
   </data>
   <data name="SettingsPage_CheckUpdates_Title" xml:space="preserve">
-    <value>Check for updates</value>
+    <value>Zkontrolovat aktualizace</value>
   </data>
   <data name="SettingsPage_Update_Title" xml:space="preserve">
     <value>Obnovit</value>
   </data>
   <data name="MainWindow_CheckForUpdates_Error_ReachedRateLimit_Message" xml:space="preserve">
-    <value>API rate limit reached, please try again later.</value>
+    <value>Dosažen limit sazby API, opakujte akci později.</value>
   </data>
   <data name="MainWindow_CheckForUpdates_Error_Title" xml:space="preserve">
-    <value>Failed to check for updates</value>
+    <value>Nepodařilo se zkontrolovat aktualizace</value>
   </data>
   <data name="MainWindow_CheckForUpdates_Error_Unknown_Message" xml:space="preserve">
-    <value>Something went wrong, please try again later.</value>
+    <value>Něco se pokazilo, zkuste to prosím později.</value>
   </data>
   <data name="MainWindow_CheckForUpdates_Success_Title" xml:space="preserve">
-    <value>No updates found</value>
+    <value>Nebyly nalezeny žádné aktualizace</value>
   </data>
   <data name="SettingsPage_UpdateCheckFrequency_Title" xml:space="preserve">
-    <value>Automatically check for updates</value>
+    <value>Automaticky kontrolovat dostupnost aktualizací</value>
   </data>
   <data name="PackagesPage_UpdateCatalogNotFound_Title" xml:space="preserve">
-    <value>Update catalog not found</value>
+    <value>Katalog aktualizací nebyl nalezen</value>
   </data>
   <data name="PackagesPage_UpdateCatalogNotFound_Message" xml:space="preserve">
-    <value>Try getting updates from the other source.</value>
+    <value>Zkusit získat aktualizace z jiného zdroje.</value>
   </data>
   <data name="PackagesPage_Error_Title" xml:space="preserve">
-    <value>Something went wrong</value>
+    <value>Něco se pokazilo</value>
   </data>
   <data name="PackagesPage_Error_CheckInternet_Message" xml:space="preserve">
-    <value>Check if your internet connection is up and running.</value>
+    <value>Zkontroluj, zda je vaše připojení k internetu v provozu.</value>
   </data>
   <data name="PlaySoundAutomationStepControl_Title" xml:space="preserve">
-    <value>Play sound</value>
+    <value>Přehrát zvuk</value>
   </data>
   <data name="PlaySoundAutomationStepControl_Message" xml:space="preserve">
-    <value>Common music formats like wav or mp3 are supported.</value>
+    <value>Podporovány jsou běžné hudební formáty jako wav nebo mp3.</value>
   </data>
   <data name="QuickActionAutomationStepControl_Title" xml:space="preserve">
     <value>Rychlá akce</value>
   </data>
   <data name="QuickActionAutomationStepControl_Message" xml:space="preserve">
-    <value>Run a saved quick action.</value>
+    <value>Spustit uloženou rychlou akci.</value>
   </data>
   <data name="NotificationsSettingsWindow_NotificationAlwaysOnTop_Title" xml:space="preserve">
-    <value>Notification always on top</value>
+    <value>Oznámení vždy nahoře</value>
   </data>
   <data name="NotificationsSettingsWindow_NotificationAlwaysOnTop_Message" xml:space="preserve">
-    <value>Always put notification at the top.
-It won't affect other full screen windows, but you will not be able to click on the notifications.</value>
+    <value>Vždy zobrazovat oznámení navrchu.
+Nebude to mít vliv na ostatní celoobrazovková okna, ale nebudete moci kliknout na oznámení.</value>
   </data>
   <data name="SensorsControl_VrTemperature_Title" xml:space="preserve">
-    <value>VR Temperature</value>
+    <value>Teplota VR</value>
   </data>
   <data name="SensorsControl_GpuMemoryTemperature_Title" xml:space="preserve">
     <value>Vram</value>
   </data>
   <data name="SensorsControl_PchTemperature_Title" xml:space="preserve">
-    <value>PCH Temperature</value>
+    <value>Teplota PCH</value>
   </data>
   <data name="SensorsControl_Motherboard_Title" xml:space="preserve">
     <value>Základní deska</value>
@@ -2309,7 +2309,7 @@ It won't affect other full screen windows, but you will not be able to click on 
     <value>Úroveň baterie</value>
   </data>
   <data name="BatteryPage_ACAdapterNotConnected" xml:space="preserve">
-    <value>No AC</value>
+    <value>Nabíječka nepřipojena</value>
   </data>
   <data name="DashboardBattery_AcConnected" xml:space="preserve">
     <value>Nabíječka připojena</value>
@@ -2318,25 +2318,25 @@ It won't affect other full screen windows, but you will not be able to click on 
     <value>Nabíječka odpojena</value>
   </data>
   <data name="AboutPage_Log" xml:space="preserve">
-    <value>Log</value>
+    <value>Záznamy</value>
   </data>
   <data name="SensorsControl_CPU_Power" xml:space="preserve">
-    <value>Power</value>
+    <value>Výkon</value>
   </data>
   <data name="SensorsControl_GPU_Power" xml:space="preserve">
-    <value>Power</value>
+    <value>Výkon</value>
   </data>
   <data name="SensorsControl_Disk_1_Temperature" xml:space="preserve">
-    <value>Disk 1 Temperature</value>
+    <value>Teplota disku 1</value>
   </data>
   <data name="SensorsControl_Disk_2_Temperature" xml:space="preserve">
-    <value>Disk 2 Temperature</value>
+    <value>Teplota disku 2</value>
   </data>
   <data name="SettingsPage_EnableLogging_Title" xml:space="preserve">
-    <value>Enable Logging</value>
+    <value>Povolit protokolování</value>
   </data>
   <data name="SettingsPage_EnableLogging_Message" xml:space="preserve">
-    <value>Enable logging for debug.</value>
+    <value>Povolit protokolování pro ladění.</value>
   </data>
   <data name="SensorItem_CpuUtilitzation" xml:space="preserve">
     <value>Využití CPU</value>
@@ -2345,7 +2345,7 @@ It won't affect other full screen windows, but you will not be able to click on 
     <value>Frekvence CPU</value>
   </data>
   <data name="SensorItem_CpuFanSpeed" xml:space="preserve">
-    <value>CPU Fan Speed</value>
+    <value>Rychlost ventilátoru CPU</value>
   </data>
   <data name="SensorItem_CpuTemperature" xml:space="preserve">
     <value>Teplota CPU</value>
@@ -2360,10 +2360,10 @@ It won't affect other full screen windows, but you will not be able to click on 
     <value>Frekvence GPU</value>
   </data>
   <data name="SensorItem_GpuFanSpeed" xml:space="preserve">
-    <value>GPU Fan Speed</value>
+    <value>Rychlost ventilátoru GPU</value>
   </data>
   <data name="SensorItem_PchFanSpeed" xml:space="preserve">
-    <value>PCH Fan Speed</value>
+    <value>Rychlost ventilátoru PCH</value>
   </data>
   <data name="SensorItem_PchTemperature" xml:space="preserve">
     <value>Teplota PCH</value>
@@ -2393,17 +2393,17 @@ It won't affect other full screen windows, but you will not be able to click on 
     <value>Teplota GPU</value>
   </data>
   <data name="SettingsPage_UseNewSensorDashboard_Title" xml:space="preserve">
-    <value>Use New Sensor Dashboard</value>
+    <value>Použít nový ovládací panel senzoru</value>
   </data>
   <data name="SettingsPage_UseNewSensorDashboard_Message" xml:space="preserve">
-    <value>Use new sensor dashboard instead of the old one. 
-Note: Using the new sensor dashboard may cause some antivirus programmes to display a warning pop-up. For more information, see: LibreHardwareMonitor/LibreHardwareMonitor#984</value>
+    <value>Používat nový ovládací panel senzorů namísto starého.
+Pozn.: Použití nového panelu může způsobit, že některé antivirové programy zobrazí varovné vyskakovací okno. Pro více informací viz: LibreHardwareMonitor/LibreHardwareMonitor#984</value>
   </data>
   <data name="SettingsPage_LockWindowSize_Title" xml:space="preserve">
     <value>Uzamknout velikost okna</value>
   </data>
   <data name="SettingsPage_LockWindowSize_Message" xml:space="preserve">
-    <value>Lock LLT's window size. To prevent something change it.</value>
+    <value>Uzamknout velikost okna LLT aby se zabránilo změně okna něčím jiným.</value>
   </data>
   <data name="FanCurveControl_PCH" xml:space="preserve">
     <value>PCH</value>
