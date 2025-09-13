@@ -133,7 +133,7 @@
     <value>Stránka projektu na GitHube</value>
   </data>
   <data name="AboutPage_ThirdPartyLibraries" xml:space="preserve">
-    <value>Third-party libraries</value>
+    <value>Knižnice tretích strán</value>
   </data>
   <data name="AboutPage_Title" xml:space="preserve">
     <value>O projekte</value>
@@ -368,7 +368,7 @@
     <value>Battery maximum charge capacity.</value>
   </data>
   <data name="BatteryPage_BatteryHealth_Title" xml:space="preserve">
-    <value>Battery health</value>
+    <value>Zdravie batérie</value>
   </data>
   <data name="BatteryPage_LowWattageChargerConnected" xml:space="preserve">
     <value>Pripojená nízkovýkonová nabíjačka</value>
@@ -577,7 +577,7 @@ Vopred vďaka!</value>
     <value>Ukončiť</value>
   </data>
   <data name="Export" xml:space="preserve">
-    <value>Export</value>
+    <value>Exportovať</value>
   </data>
   <data name="ExtendedHybridModeInfoWindow_Auto_Message" xml:space="preserve">
     <value>Pri napájaní z batérie použiť len integrovanú GPU a obe, integrovanú aj dedikovanú GPU, pri napájaní sieťovým adaptérom. Pri napájaní z neštandardného adaptéru systém prepne na režim len Hybrid-iGPU.</value>
@@ -1030,7 +1030,7 @@ Môžete prepnúť pomocou Fn+Q.</value>
     <value>Default</value>
   </data>
   <data name="WindowsPowerPlansWindow_Title" xml:space="preserve">
-    <value>Windows Power Plans</value>
+    <value>Plány napájania</value>
   </data>
   <data name="RGBKeyboardBacklightAutomationStepControl_Message" xml:space="preserve">
     <value>Upraviť predvoľbu podsvietenia klávesnice.</value>
@@ -1051,7 +1051,7 @@ Môžete prepnúť pomocou Fn+Q.</value>
     <value>Predvoľba 3</value>
   </data>
   <data name="RGBKeyboardBacklightControl_Preset4" xml:space="preserve">
-    <value>Preset 4</value>
+    <value>Predvoľba 4</value>
   </data>
   <data name="RGBKeyboardBacklightControl_PresetOff" xml:space="preserve">
     <value>Vypnutá</value>
@@ -1440,7 +1440,7 @@ Ak sa rozhodnete pokračovať záznam chýb bude automaticky zapnutý.</value>
     <value>Disable Windows key on built-in keyboard.</value>
   </data>
   <data name="WinKeyAutomationStepControl_Title" xml:space="preserve">
-    <value>Windows Key Lock</value>
+    <value>Zámok Windows klávesy</value>
   </data>
   <data name="WinKeyControl_Message" xml:space="preserve">
     <value>Funguje len na zabudovanej klávesnici.</value>
@@ -1809,10 +1809,10 @@ VAROVANIE: Táto akcia neprebehne správne, ak je dedikovaná GPU nedostupná.</
     <value>Core Clock</value>
   </data>
   <data name="SensorsControl_Temperature_Title" xml:space="preserve">
-    <value>Temperature</value>
+    <value>Teplota</value>
   </data>
   <data name="SensorsControl_Fan_Title" xml:space="preserve">
-    <value>Fan</value>
+    <value>Ventilátor</value>
   </data>
   <data name="SensorsControl_GPU_Title" xml:space="preserve">
     <value>GPU</value>
@@ -1821,7 +1821,7 @@ VAROVANIE: Táto akcia neprebehne správne, ak je dedikovaná GPU nedostupná.</
     <value>Memory Clock</value>
   </data>
   <data name="SensorsControl_RefreshInterval" xml:space="preserve">
-    <value>Refresh interval</value>
+    <value>Interval obnovenia</value>
   </data>
   <data name="InstantBootControl_Title" xml:space="preserve">
     <value>Instant Boot</value>
@@ -1843,7 +1843,7 @@ VAROVANIE: Táto akcia neprebehne správne, ak je dedikovaná GPU nedostupná.</
     <comment>For example: "{Performance} power mode is not available without AC power."</comment>
   </data>
   <data name="EditDashboardWindow_Sensors" xml:space="preserve">
-    <value>Sensors</value>
+    <value>Senzory</value>
   </data>
   <data name="IGPUModeChangeException_Title" xml:space="preserve">
     <value>Could not change GPU Working Mode</value>
@@ -1877,21 +1877,21 @@ If dGPU does not respond at all, please restart your laptop.</value>
     <value>dGPU disconnected</value>
   </data>
   <data name="ComboBoxHybridModeAutomationStepControl_Title" xml:space="preserve">
-    <value>GPU Working Mode</value>
+    <value>Prevádzkový režim GPU</value>
   </data>
   <data name="ComboBoxHybridModeAutomationStepControl_Message" xml:space="preserve">
     <value>Select GPU operating mode based on your computer's usage and power conditions.
 Switching modes may require restart.</value>
   </data>
   <data name="ToggleHybridModeAutomationStepControl_Title" xml:space="preserve">
-    <value>Hybrid Mode</value>
+    <value>Hybridný režim</value>
   </data>
   <data name="ToggleHybridModeAutomationStepControl_Message" xml:space="preserve">
     <value>Allow switching between integrated and discrete GPU.
 Requires restart.</value>
   </data>
   <data name="NotificationsSettingsWindow_NotificationDuration_Title" xml:space="preserve">
-    <value>Duration</value>
+    <value>Trvanie</value>
   </data>
   <data name="NotificationsSettingsWindow_Updates_Title" xml:space="preserve">
     <value>Aktualizácie</value>
@@ -1918,25 +1918,25 @@ Requires restart.</value>
     <value>Custom Boot Logo is set</value>
   </data>
   <data name="BootLogoWindow_Status" xml:space="preserve">
-    <value>Status</value>
+    <value>Stav</value>
   </data>
   <data name="RevertToDefault" xml:space="preserve">
-    <value>Revert to default</value>
+    <value>Vrátiť na predvolené hodnoty</value>
   </data>
   <data name="BootLogoWindow_Customize" xml:space="preserve">
-    <value>Customize</value>
+    <value>Prispôsobiť</value>
   </data>
   <data name="NotificationsSettingsWindow_Automation" xml:space="preserve">
-    <value>Actions</value>
+    <value>Akcie</value>
   </data>
   <data name="NotificationAutomationStepControl_NotificationText" xml:space="preserve">
-    <value>Notification Text</value>
+    <value>Text upozornenia</value>
   </data>
   <data name="NotificationAutomationStepControl_Title" xml:space="preserve">
-    <value>Show notification</value>
+    <value>Zobraziť upozornenia</value>
   </data>
   <data name="AutomationPipelineControl_SubtitlePart_Preset" xml:space="preserve">
-    <value>Preset</value>
+    <value>Predvoľba</value>
   </data>
   <data name="SettingsPage_SmartFnLock_Title" xml:space="preserve">
     <value>Smart Fn Lock</value>
@@ -1945,7 +1945,7 @@ Requires restart.</value>
     <value>Fn Lock will be temporarily disabled when Alt, Ctrl or Shift key is depressed.</value>
   </data>
   <data name="Off" xml:space="preserve">
-    <value>Off</value>
+    <value>Vypnuté</value>
   </data>
   <data name="BootLogoWindow_Description" xml:space="preserve">
     <value>Custom boot logo must be exactly {0} pixels large.
@@ -2006,34 +2006,34 @@ Supported formats are: {1}.</value>
     <value>Share fan speed, battery temperature etc. with HWiNFO64. You may need to restart HWiNFO64 after changing this option.</value>
   </data>
   <data name="SettingsPage_Integrations_Title" xml:space="preserve">
-    <value>Integrations</value>
+    <value>Integrácia</value>
   </data>
   <data name="Settings" xml:space="preserve">
-    <value>Settings</value>
+    <value>Nastavenia</value>
   </data>
   <data name="Information" xml:space="preserve">
-    <value>Information</value>
+    <value>Informácia</value>
   </data>
   <data name="PackagesPage_DownloadTo" xml:space="preserve">
-    <value>Download folder</value>
+    <value>Priečinok pre sťahovanie</value>
   </data>
   <data name="PackagesPage_OpenDownloadTo" xml:space="preserve">
-    <value>Open Download folder</value>
+    <value>Otvoriť priečinok so stiahnutými súbormi</value>
   </data>
   <data name="PackageControl_Download" xml:space="preserve">
-    <value>Download</value>
+    <value>Stiahnuť</value>
   </data>
   <data name="PackageControl_OpenReadme" xml:space="preserve">
     <value>Open README</value>
   </data>
   <data name="SpectrumKeyboardBacklightControl_Preset" xml:space="preserve">
-    <value>Preset</value>
+    <value>Predvoľba</value>
   </data>
   <data name="DeviceInformationWindow_Refresh" xml:space="preserve">
-    <value>Refresh</value>
+    <value>Obnoviť</value>
   </data>
   <data name="AbstractAutomationStepControl_Delete" xml:space="preserve">
-    <value>Delete</value>
+    <value>Vymazať</value>
   </data>
   <data name="PeriodicActionPipelineTriggerTabItemContent_PeriodMinutes" xml:space="preserve">
     <value>Period (minutes)</value>
@@ -2046,10 +2046,10 @@ Supported formats are: {1}.</value>
     <value>Reset "On battery since" at startup</value>
   </data>
   <data name="TurnOffWiFiAutomationStepControl_Title" xml:space="preserve">
-    <value>Turn off Wi-Fi</value>
+    <value>Vypnúť Wi-Fi</value>
   </data>
   <data name="TurnOnWiFiAutomationStepControl_Title" xml:space="preserve">
-    <value>Turn on Wi-Fi</value>
+    <value>Zapnúť Wi-Fi</value>
   </data>
   <data name="RunAutomationStepControl_ProcessRunSilently" xml:space="preserve">
     <value>Run silently</value>
@@ -2067,10 +2067,10 @@ Supported formats are: {1}.</value>
     <value>When mute, all active audio output devices will be muted.</value>
   </data>
   <data name="SpeakerAutomationStepControl_Title" xml:space="preserve">
-    <value>Speaker</value>
+    <value>Reproduktor</value>
   </data>
   <data name="SettingsPage_MinimizeToTray_Title" xml:space="preserve">
-    <value>Minimize to tray</value>
+    <value>Minimalizovať do lišty</value>
   </data>
   <data name="SettingsPage_MinimizeToTray_Message" xml:space="preserve">
     <value>Always minimize to tray instead of taskbar.</value>
@@ -2100,40 +2100,40 @@ Supported formats are: {1}.</value>
     <value>Error occured when reading device information.</value>
   </data>
   <data name="MainWindow_NavigationItem_Macro" xml:space="preserve">
-    <value>Macro</value>
+    <value>Makro</value>
   </data>
   <data name="MacroPage_Title" xml:space="preserve">
-    <value>Macro</value>
+    <value>Makro</value>
   </data>
   <data name="MacroSequenceControl_Repeat_Title" xml:space="preserve">
-    <value>Repeat</value>
+    <value>Opakovať</value>
   </data>
   <data name="MacroSequenceControl_IgnoreDelays_Title" xml:space="preserve">
     <value>Ignore delays</value>
   </data>
   <data name="Clear" xml:space="preserve">
-    <value>Clear</value>
+    <value>Vymazať</value>
   </data>
   <data name="MacroSequenceControl_Record" xml:space="preserve">
-    <value>Record</value>
+    <value>Nahrávať</value>
   </data>
   <data name="MacroSequenceControl_StopRecording" xml:space="preserve">
-    <value>Stop recording</value>
+    <value>Zastaviť nahrávanie</value>
   </data>
   <data name="MacroSequenceControl_DontRepeat" xml:space="preserve">
-    <value>Don't repeat</value>
+    <value>Neopakovať</value>
   </data>
   <data name="MacroPage_Enable_Subtitle" xml:space="preserve">
     <value>Lenovo Legion Toolkit must be running for macros to work.</value>
   </data>
   <data name="MacroPage_Enable_Title" xml:space="preserve">
-    <value>Enable</value>
+    <value>Zapnúť</value>
   </data>
   <data name="MacroPage_Subtitle" xml:space="preserve">
     <value>You can record series of key presses and invoke them using the number pad on your keyboard.</value>
   </data>
   <data name="MacroAutomationStepControl_Title" xml:space="preserve">
-    <value>Macro</value>
+    <value>Makro</value>
   </data>
   <data name="MacroAutomationStepControl_Message" xml:space="preserve">
     <value>Enable or disable macros.</value>
@@ -2142,19 +2142,19 @@ Supported formats are: {1}.</value>
     <value>Interrupt if another key was pressed</value>
   </data>
   <data name="Hide" xml:space="preserve">
-    <value>Hide</value>
+    <value>Skryť</value>
   </data>
   <data name="HideAll" xml:space="preserve">
     <value>Hide all</value>
   </data>
   <data name="DevicePipelineTriggerTabItemContent_Devices" xml:space="preserve">
-    <value>Devices</value>
+    <value>Zariadenia</value>
   </data>
   <data name="DeselectAll" xml:space="preserve">
-    <value>Deselect all</value>
+    <value>Zrušiť celý výber</value>
   </data>
   <data name="SelectAll" xml:space="preserve">
-    <value>Select all</value>
+    <value>Vybrať všetko</value>
   </data>
   <data name="MacroSequenceControl_Keyboard" xml:space="preserve">
     <value>Keyboard only</value>
@@ -2166,7 +2166,7 @@ Supported formats are: {1}.</value>
     <value>All inputs</value>
   </data>
   <data name="MacroSequenceControl_RecordingOptions" xml:space="preserve">
-    <value>Recording options</value>
+    <value>Možnosti nahrávania</value>
   </data>
   <data name="MacroRecordingWindow_Preparing_Title" xml:space="preserve">
     <value>Recording will start in 3 seconds...</value>
@@ -2220,16 +2220,16 @@ Supported formats are: {1}.</value>
     <value>Notification on all screens</value>
   </data>
   <data name="SettingsPage_CheckUpdatesButton_Content" xml:space="preserve">
-    <value>Check</value>
+    <value>Skontrolovať</value>
   </data>
   <data name="SettingsPage_CheckUpdates_Started_Title" xml:space="preserve">
-    <value>Checking for updates...</value>
+    <value>Kontrolujú sa aktualizácie...</value>
   </data>
   <data name="SettingsPage_CheckUpdates_Title" xml:space="preserve">
-    <value>Check for updates</value>
+    <value>Skontrolovať aktualizácie</value>
   </data>
   <data name="SettingsPage_Update_Title" xml:space="preserve">
-    <value>Update</value>
+    <value>Aktualizovať</value>
   </data>
   <data name="MainWindow_CheckForUpdates_Error_ReachedRateLimit_Message" xml:space="preserve">
     <value>API rate limit reached, please try again later.</value>
@@ -2238,13 +2238,13 @@ Supported formats are: {1}.</value>
     <value>Failed to check for updates</value>
   </data>
   <data name="MainWindow_CheckForUpdates_Error_Unknown_Message" xml:space="preserve">
-    <value>Something went wrong, please try again later.</value>
+    <value>Niečo sa pokazilo, prosím, skúste to znova neskôr.</value>
   </data>
   <data name="MainWindow_CheckForUpdates_Success_Title" xml:space="preserve">
-    <value>No updates found</value>
+    <value>Žiadne aktualizácie neboli nájdené</value>
   </data>
   <data name="SettingsPage_UpdateCheckFrequency_Title" xml:space="preserve">
-    <value>Automatically check for updates</value>
+    <value>Automaticky kontrolovať aktualizácie</value>
   </data>
   <data name="PackagesPage_UpdateCatalogNotFound_Title" xml:space="preserve">
     <value>Update catalog not found</value>
@@ -2253,19 +2253,19 @@ Supported formats are: {1}.</value>
     <value>Try getting updates from the other source.</value>
   </data>
   <data name="PackagesPage_Error_Title" xml:space="preserve">
-    <value>Something went wrong</value>
+    <value>Niečo sa pokazilo</value>
   </data>
   <data name="PackagesPage_Error_CheckInternet_Message" xml:space="preserve">
-    <value>Check if your internet connection is up and running.</value>
+    <value>Skontrolujte vaše internetové pripojenie.</value>
   </data>
   <data name="PlaySoundAutomationStepControl_Title" xml:space="preserve">
-    <value>Play sound</value>
+    <value>Prehrať zvuk</value>
   </data>
   <data name="PlaySoundAutomationStepControl_Message" xml:space="preserve">
     <value>Common music formats like wav or mp3 are supported.</value>
   </data>
   <data name="QuickActionAutomationStepControl_Title" xml:space="preserve">
-    <value>Quick Action</value>
+    <value>Rýchle akcie</value>
   </data>
   <data name="QuickActionAutomationStepControl_Message" xml:space="preserve">
     <value>Run a saved quick action.</value>
@@ -2293,19 +2293,19 @@ It won't affect other full screen windows, but you will not be able to click on 
     <value>Core</value>
   </data>
   <data name="SensorsControl_Memory_Title" xml:space="preserve">
-    <value>Memory</value>
+    <value>Pamäť</value>
   </data>
   <data name="SensorsControl_Disk_Title" xml:space="preserve">
     <value>Disk</value>
   </data>
   <data name="SensorsControl_Battery_Title" xml:space="preserve">
-    <value>Battery</value>
+    <value>Batéria</value>
   </data>
   <data name="SensorsControl_State_Title" xml:space="preserve">
-    <value>State</value>
+    <value>Stav</value>
   </data>
   <data name="SensorsControl_BatteryLevel_Title" xml:space="preserve">
-    <value>Battery Level</value>
+    <value>Úroveň nabitia</value>
   </data>
   <data name="BatteryPage_ACAdapterNotConnected" xml:space="preserve">
     <value>No AC</value>
@@ -2317,13 +2317,13 @@ It won't affect other full screen windows, but you will not be able to click on 
     <value>AC Disconnected</value>
   </data>
   <data name="AboutPage_Log" xml:space="preserve">
-    <value>Log</value>
+    <value>Záznam</value>
   </data>
   <data name="SensorsControl_CPU_Power" xml:space="preserve">
-    <value>Power</value>
+    <value>Napájanie</value>
   </data>
   <data name="SensorsControl_GPU_Power" xml:space="preserve">
-    <value>Power</value>
+    <value>Napájanie</value>
   </data>
   <data name="SensorsControl_Disk_1_Temperature" xml:space="preserve">
     <value>Disk 1 Temperature</value>
@@ -2332,7 +2332,7 @@ It won't affect other full screen windows, but you will not be able to click on 
     <value>Disk 2 Temperature</value>
   </data>
   <data name="SettingsPage_EnableLogging_Title" xml:space="preserve">
-    <value>Enable Logging</value>
+    <value>Povoliť zaznamenávanie</value>
   </data>
   <data name="SettingsPage_EnableLogging_Message" xml:space="preserve">
     <value>Enable logging for debug.</value>
@@ -2347,16 +2347,16 @@ It won't affect other full screen windows, but you will not be able to click on 
     <value>CPU Fan Speed</value>
   </data>
   <data name="SensorItem_CpuTemperature" xml:space="preserve">
-    <value>CPU Temperature</value>
+    <value>Teplota procesora</value>
   </data>
   <data name="SensorItem_CpuPower" xml:space="preserve">
-    <value>CPU Power</value>
+    <value>Teplota GPU</value>
   </data>
   <data name="SensorItem_GpuUtilization" xml:space="preserve">
-    <value>GPU Utilization</value>
+    <value>Využitie GPU</value>
   </data>
   <data name="SensorItem_GpuFrequency" xml:space="preserve">
-    <value>GPU Frequency</value>
+    <value>Frekvencia GPU</value>
   </data>
   <data name="SensorItem_GpuFanSpeed" xml:space="preserve">
     <value>GPU Fan Speed</value>
@@ -2368,10 +2368,10 @@ It won't affect other full screen windows, but you will not be able to click on 
     <value>PCH Temperature</value>
   </data>
   <data name="SensorItem_BatteryState" xml:space="preserve">
-    <value>Battery State</value>
+    <value>Stav batérie</value>
   </data>
   <data name="SensorItem_BatteryLevel" xml:space="preserve">
-    <value>Battery Level</value>
+    <value>Úroveň batérie</value>
   </data>
   <data name="SensorItem_MemoryUtilization" xml:space="preserve">
     <value>Memory Utilization</value>
