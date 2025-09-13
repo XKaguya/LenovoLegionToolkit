@@ -151,19 +151,19 @@
     <value>Rýchle nabíjanie</value>
   </data>
   <data name="FlipToStartState_Off" xml:space="preserve">
-    <value>Off</value>
+    <value>Vypnuté</value>
     <comment>Informs the user that Flip to Start is or will be turned off.</comment>
   </data>
   <data name="FlipToStartState_On" xml:space="preserve">
-    <value>On</value>
+    <value>Zapnuté</value>
     <comment>Informs the user that Flip to Start is or will be turned on.</comment>
   </data>
   <data name="FnLockState_Off" xml:space="preserve">
-    <value>Off</value>
+    <value>Vypnuté</value>
     <comment>Informs the user that Fn Lock is or will be turned off.</comment>
   </data>
   <data name="FnLockState_On" xml:space="preserve">
-    <value>On</value>
+    <value>Zapnuté</value>
     <comment>Informs the user that Fn Lock is or will be turned on.</comment>
   </data>
   <data name="GPUController_PoweredOff" xml:space="preserve">
@@ -173,18 +173,18 @@
     <value>Zapnutá</value>
   </data>
   <data name="HDRState_Off" xml:space="preserve">
-    <value>Off</value>
+    <value>Vypnuté</value>
     <comment>Informs the user that HDR is or will be turned off.</comment>
   </data>
   <data name="HDRState_On" xml:space="preserve">
-    <value>On</value>
+    <value>Zapnuté</value>
     <comment>Informs the user that HDR is or will be turned on.</comment>
   </data>
   <data name="HybridModeState_Off" xml:space="preserve">
     <value>dGPU</value>
   </data>
   <data name="HybridModeState_On" xml:space="preserve">
-    <value>Hybrid</value>
+    <value>Hybridné</value>
   </data>
   <data name="HybridModeState_OnAuto" xml:space="preserve">
     <value>Hybrid-Auto</value>
@@ -193,11 +193,11 @@
     <value>Hybrid-iGPU</value>
   </data>
   <data name="MicrophoneState_Off" xml:space="preserve">
-    <value>Off</value>
+    <value>Vypnutý</value>
     <comment>Informs the user that the microphone is or will be turned off.</comment>
   </data>
   <data name="MicrophoneState_On" xml:space="preserve">
-    <value>On</value>
+    <value>Zapnuté</value>
     <comment>Informs the user that the microphone is or will be turned on.</comment>
   </data>
   <data name="NotificationPosition_BottomCenter" xml:space="preserve">
@@ -228,19 +228,19 @@
     <value>Vpravo hore</value>
   </data>
   <data name="OneLevelWhiteKeyboardBacklightState_Off" xml:space="preserve">
-    <value>Off</value>
+    <value>Vypnuté</value>
     <comment>Informs the user that One Level White Keyboard Backlight is or will be turned off.</comment>
   </data>
   <data name="OneLevelWhiteKeyboardBacklightState_On" xml:space="preserve">
-    <value>On</value>
+    <value>Zapnuté</value>
     <comment>Informs the user that One Level White Keyboard Backlight is or will be turned on.</comment>
   </data>
   <data name="OverdriveState_Off" xml:space="preserve">
-    <value>Off</value>
+    <value>Vypnuté</value>
     <comment>Informs the user that Overdrive is or will be turned off.</comment>
   </data>
   <data name="OverdriveState_On" xml:space="preserve">
-    <value>On</value>
+    <value>Zapnuté</value>
     <comment>Informs the user that Overdrive is or will be turned on.</comment>
   </data>
   <data name="PowerModeState_Balance" xml:space="preserve">
@@ -388,11 +388,11 @@
     <value>Systém</value>
   </data>
   <data name="TouchpadLockState_Off" xml:space="preserve">
-    <value>Off</value>
+    <value>Vypnuté</value>
     <comment>Informs the user that Touchpad Lock is or will be turned off.</comment>
   </data>
   <data name="TouchpadLockState_On" xml:space="preserve">
-    <value>On</value>
+    <value>Zapnuté</value>
     <comment>Informs the user that Touchpad Lock is or will be turned on.</comment>
   </data>
   <data name="UpdateMethod_Server" xml:space="preserve">
@@ -411,39 +411,39 @@
     <value>Vypnuté</value>
   </data>
   <data name="WinKeyState_Off" xml:space="preserve">
-    <value>Off</value>
+    <value>Vypnuté</value>
     <comment>Informs the user that WinLock is or will be turned on.</comment>
   </data>
   <data name="WinKeyState_On" xml:space="preserve">
-    <value>On</value>
+    <value>Zapnuté</value>
     <comment>Informs the user that WinLock is or will be turned on.</comment>
   </data>
   <data name="PortsBacklightState_Off" xml:space="preserve">
-    <value>Off</value>
+    <value>Vypnuté</value>
   </data>
   <data name="PortsBacklightState_On" xml:space="preserve">
-    <value>On</value>
+    <value>Zapnuté</value>
   </data>
   <data name="PanelLogoBacklightState_On" xml:space="preserve">
-    <value>On</value>
+    <value>Zapnuté</value>
   </data>
   <data name="PanelLogoBacklightState_Off" xml:space="preserve">
-    <value>Off</value>
+    <value>Vypnuté</value>
   </data>
   <data name="InstantBootState_Off" xml:space="preserve">
-    <value>Off</value>
+    <value>Vypnuté</value>
   </data>
   <data name="InstantBootState_AcAdapter" xml:space="preserve">
-    <value>AC Adapter</value>
+    <value>Sieťový adaptér</value>
   </data>
   <data name="InstantBootState_UsbPowerDelivery" xml:space="preserve">
     <value>USB Power Delivery</value>
   </data>
   <data name="InstantBootState_AcAdapterAndUsbPowerDelivery" xml:space="preserve">
-    <value>AC and USB PD</value>
+    <value>Sieťový adaptér a USB PD</value>
   </data>
   <data name="NotificationDuration_Long" xml:space="preserve">
-    <value>Long</value>
+    <value>Dlhé</value>
   </data>
   <data name="NotificationDuration_Normal" xml:space="preserve">
     <value>Normálne</value>
@@ -461,52 +461,52 @@
     <value>Alt</value>
   </data>
   <data name="BatteryNightChargeState_On" xml:space="preserve">
-    <value>On</value>
+    <value>Zapnuté</value>
   </data>
   <data name="BatteryNightChargeState_Off" xml:space="preserve">
-    <value>Off</value>
+    <value>Vypnuté</value>
   </data>
   <data name="SpeakerState_Mute" xml:space="preserve">
-    <value>Mute</value>
+    <value>Stlmiť</value>
   </data>
   <data name="SpeakerState_Unmute" xml:space="preserve">
-    <value>Unmute</value>
+    <value>Zrušiť stlmenie</value>
   </data>
   <data name="PowerModeMappingMode_Disabled" xml:space="preserve">
-    <value>Disabled</value>
+    <value>Zakázaný</value>
   </data>
   <data name="PowerModeMappingMode_WindowsPowerMode" xml:space="preserve">
     <value>Windows Power Mode</value>
   </data>
   <data name="PowerModeMappingMode_WindowsPowerPlan" xml:space="preserve">
-    <value>Windows Power Plan</value>
+    <value>Plány napájania</value>
   </data>
   <data name="RGBKeyboardBacklightPreset_Four" xml:space="preserve">
-    <value>Preset 4</value>
+    <value>Predvoľba 4</value>
   </data>
   <data name="UpdateCheckFrequency_PerDay" xml:space="preserve">
-    <value>Daily</value>
+    <value>Denne</value>
   </data>
   <data name="UpdateCheckFrequency_PerHour" xml:space="preserve">
-    <value>Every hour</value>
+    <value>Každú hodinu</value>
   </data>
   <data name="UpdateCheckFrequency_PerMonth" xml:space="preserve">
-    <value>Monthly</value>
+    <value>Mesačne</value>
   </data>
   <data name="UpdateCheckFrequency_PerThreeHours" xml:space="preserve">
-    <value>Every 3 hours</value>
+    <value>Každé 3 hodiny</value>
   </data>
   <data name="UpdateCheckFrequency_PerTwelveHours" xml:space="preserve">
-    <value>Every 12 hours</value>
+    <value>Každých 12 hodín</value>
   </data>
   <data name="UpdateCheckFrequency_PerWeek" xml:space="preserve">
-    <value>Weekly</value>
+    <value>Týždenne</value>
   </data>
   <data name="PowerModeState_Extreme" xml:space="preserve">
     <value>Extreme</value>
   </data>
   <data name="UpdateCheckFrequency_Never" xml:space="preserve">
-    <value>Never</value>
+    <value>Nikdy</value>
   </data>
   <data name="HybridModeState_UMA" xml:space="preserve">
     <value>UMA</value>
