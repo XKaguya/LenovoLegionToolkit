@@ -355,12 +355,14 @@ public partial class SettingsPage
         if (_isRefreshing)
             return;
 
+        if (App.MainWindowInstance == null)
+            return;
+
         var state = _enableLoggingToggle.IsChecked;
         if (state is null)
             return;
 
         Log.Instance.IsTraceEnabled = state.Value;
-
         App.MainWindowInstance._openLogIndicator.Visibility = Utils.BooleanToVisibilityConverter.Convert(Log.Instance.IsTraceEnabled);
     }
 
