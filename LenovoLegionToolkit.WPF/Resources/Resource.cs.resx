@@ -1934,13 +1934,13 @@ Requires restart.</value>
     <value>Notification Text</value>
   </data>
   <data name="NotificationAutomationStepControl_Title" xml:space="preserve">
-    <value>Show notification</value>
+    <value>Zobrazit oznámení</value>
   </data>
   <data name="AutomationPipelineControl_SubtitlePart_Preset" xml:space="preserve">
     <value>Předvolba</value>
   </data>
   <data name="SettingsPage_SmartFnLock_Title" xml:space="preserve">
-    <value>Smart Fn Lock</value>
+    <value>Chytrý zámek Fn</value>
   </data>
   <data name="SettingsPage_SmartFnLock_Message" xml:space="preserve">
     <value>Fn Lock will be temporarily disabled when Alt, Ctrl or Shift key is depressed.</value>
@@ -1959,7 +1959,7 @@ Supported formats are: {1}.</value>
     <value>When enabled, this device will charge to 80% when plugged in overnight and finish charging to 100% by the time you use this device in the morning.</value>
   </data>
   <data name="BatteryNightChargeAutomationStepControl_Title" xml:space="preserve">
-    <value>Overnight Battery Charging</value>
+    <value>Nabíjení baterie přes noc</value>
   </data>
   <data name="BatteryNightChargeAutomationStepControl_Message" xml:space="preserve">
     <value>When enabled, this device will charge to 80% when plugged in overnight and finish charging to 100% by the time you use this device in the morning.</value>
@@ -2137,7 +2137,7 @@ Supported formats are: {1}.</value>
     <value>Macro</value>
   </data>
   <data name="MacroAutomationStepControl_Message" xml:space="preserve">
-    <value>Enable or disable macros.</value>
+    <value>Povolit nebo zakázat makra.</value>
   </data>
   <data name="MacroSequenceControl_InterruptOnOtherKey_Title" xml:space="preserve">
     <value>Interrupt if another key was pressed</value>
