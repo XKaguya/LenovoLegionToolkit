@@ -369,7 +369,7 @@
     <value>Battery maximum charge capacity.</value>
   </data>
   <data name="BatteryPage_BatteryHealth_Title" xml:space="preserve">
-    <value>Battery health</value>
+    <value>Υγεία μπαταρίας</value>
   </data>
   <data name="BatteryPage_LowWattageChargerConnected" xml:space="preserve">
     <value>Συνδέθηκε φορτιστής χαμηλής ισχύος</value>
@@ -2307,7 +2307,7 @@
     <value>Battery</value>
   </data>
   <data name="SensorsControl_State_Title" xml:space="preserve">
-    <value>State</value>
+    <value>Κατάσταση</value>
   </data>
   <data name="SensorsControl_BatteryLevel_Title" xml:space="preserve">
     <value>Battery Level</value>
@@ -2325,10 +2325,10 @@
     <value>Log</value>
   </data>
   <data name="SensorsControl_CPU_Power" xml:space="preserve">
-    <value>Power</value>
+    <value>Ισχύς</value>
   </data>
   <data name="SensorsControl_GPU_Power" xml:space="preserve">
-    <value>Power</value>
+    <value>Ισχύς</value>
   </data>
   <data name="SensorsControl_Disk_1_Temperature" xml:space="preserve">
     <value>Disk 1 Temperature</value>
@@ -2434,13 +2434,13 @@ Note: Using the new sensor dashboard may cause some antivirus programmes to disp
     <value>Legion Space may have not been disabled correctly</value>
   </data>
   <data name="SettingsPage_UseNewDashboard_Restart_Message" xml:space="preserve">
-    <value>Restart to apply changes.</value>
+    <value>Επανεκκίνηση για εφαρμογή αλλαγών.</value>
   </data>
   <data name="SettingsPage_UseNewDashboard_Switch_Title" xml:space="preserve">
     <value>Dashboard changed</value>
   </data>
   <data name="MainWindow_PawnIO_Warning_Title" xml:space="preserve">
-    <value>Warning</value>
+    <value>Προειδοποίηση</value>
   </data>
   <data name="MainWindow_PawnIO_Warning_Message" xml:space="preserve">
     <value>You need install PawnIO first to use the new dashboard!</value>
