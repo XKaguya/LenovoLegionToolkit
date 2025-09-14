@@ -13,5 +13,9 @@ This product includes the following third-party components:
    - Source: https://github.com/LibreHardwareMonitor/LibreHardwareMonitor
    - License: MPL-2.0 (full text at [LICENSES/third-party/LibreHardwareMonitor-LICENSE](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor/blob/master/LICENSE))
 
+3. PawnIO
+   - Source: https://github.com/namazso/PawnIO
+   - License: GPL-2.0 (full text at [LICENSES/third-party/PawnIO-LICENSE](https://github.com/namazso/PawnIO/blob/master/COPYING))
+
 ---------------------------------
 © [2025] [LenovoLegionToolkit]
