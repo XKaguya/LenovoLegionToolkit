@@ -2411,38 +2411,37 @@ Note: Using the new sensor dashboard may cause some antivirus programmes to disp
   <data name="FanCurveControl_PCH" xml:space="preserve">
     <value>PCH</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="SettingsPage_EnableLegionSpace_Error_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="SettingsPage_EnableLegionSpace_Error_Title" xml:space="preserve">
+    <value>Couldn't enable Legion Space</value>
   </data>
-  <data name="SettingsPage_EnableLegionSpace_Error_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="SettingsPage_EnableLegionSpace_Error_Message" xml:space="preserve">
+    <value>Legion Space may have not been enabled correctly</value>
   </data>
-  <data name="SettingsPage_DisableLegionSpace_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="SettingsPage_DisableLegionSpace_Title" xml:space="preserve">
+    <value>Disable Legion Space</value>
   </data>
-  <data name="MainWindow_LegionSpaceRunning" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="MainWindow_LegionSpaceRunning" xml:space="preserve">
+    <value>Legion Space is running in the background.</value>
   </data>
-  <data name="GodModeSettingsWindow_LegionSpaceWarning_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="GodModeSettingsWindow_LegionSpaceWarning_Title" xml:space="preserve">
+    <value>Custom Mode settings will not be applied correctly when Legion Space or its services are running.</value>
   </data>
-  <data name="SettingsPage_DisableLegionSpace_Error_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="SettingsPage_DisableLegionSpace_Error_Title" xml:space="preserve">
+    <value>Couldn't disable Legion Space</value>
   </data>
-  <data name="SettingsPage_DisableLegionSpace_Error_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="SettingsPage_DisableLegionSpace_Error_Message" xml:space="preserve">
+    <value>Legion Space may have not been disabled correctly</value>
   </data>
-  <data name="SettingsPage_UseNewDashboard_Restart_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="SettingsPage_UseNewDashboard_Restart_Message" xml:space="preserve">
+    <value>Restart to apply changes.</value>
   </data>
-  <data name="SettingsPage_UseNewDashboard_Switch_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="SettingsPage_UseNewDashboard_Switch_Title" xml:space="preserve">
+    <value>Dashboard changed</value>
   </data>
-  <data name="MainWindow_PawnIO_Warning_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="MainWindow_PawnIO_Warning_Title" xml:space="preserve">
+    <value>Warning</value>
   </data>
-  <data name="MainWindow_PawnIO_Warning_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="MainWindow_PawnIO_Warning_Message" xml:space="preserve">
+    <value>You need install PawnIO first to use the new dashboard!</value>
   </data>
 </root>
