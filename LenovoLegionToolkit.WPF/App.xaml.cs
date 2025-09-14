@@ -33,6 +33,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Runtime;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -54,6 +55,8 @@ public partial class App
 
     private Mutex? _singleInstanceMutex;
     private EventWaitHandle? _singleInstanceWaitHandle;
+
+    private bool _showPawnIONotify;
 
     public new static App Current => (App)Application.Current;
 
@@ -80,23 +83,6 @@ public partial class App
 
         EnsureSingleInstance();
 
-        IoCContainer.Initialize(
-            new Lib.IoCModule(),
-            new Lib.Automation.IoCModule(),
-            new Lib.Macro.IoCModule(),
-            new IoCModule()
-        );
-
-        var mainWindow = new MainWindow
-        {
-            WindowStartupLocation = WindowStartupLocation.CenterScreen,
-            TrayTooltipEnabled = !flags.DisableTrayTooltip,
-            DisableConflictingSoftwareWarning = flags.DisableConflictingSoftwareWarning
-        };
-        MainWindow = mainWindow;
-
-        InitSetLogIndicator();
-
         var localizationTask = LocalizationHelper.SetLanguageAsync(true);
         var compatibilityTask = CheckCompatibilityAsyncWrapper(flags);
 
@@ -107,6 +93,13 @@ public partial class App
 
         WinFormsApp.SetHighDpiMode(WinFormsHighDpiMode.PerMonitorV2);
         RenderOptions.ProcessRenderMode = RenderMode.SoftwareOnly;
+
+        IoCContainer.Initialize(
+            new Lib.IoCModule(),
+            new Lib.Automation.IoCModule(),
+            new Lib.Macro.IoCModule(),
+            new IoCModule()
+        );
 
         IoCContainer.Resolve<HttpClientFactory>().SetProxy(flags.ProxyUrl, flags.ProxyUsername, flags.ProxyPassword, flags.ProxyAllowAllCerts);
         IoCContainer.Resolve<PowerModeFeature>().AllowAllPowerModesOnBattery = flags.AllowAllPowerModesOnBattery;
@@ -151,7 +144,17 @@ public partial class App
         Autorun.Validate();
 #endif
 
+        var mainWindow = new MainWindow
+        {
+            WindowStartupLocation = WindowStartupLocation.CenterScreen,
+            TrayTooltipEnabled = !flags.DisableTrayTooltip,
+            DisableConflictingSoftwareWarning = flags.DisableConflictingSoftwareWarning
+        };
+        MainWindow = mainWindow;
+
         IoCContainer.Resolve<ThemeManager>().Apply();
+
+        InitSetLogIndicator();
 
         if (flags.Minimized)
         {
@@ -168,6 +171,10 @@ public partial class App
                 Log.Instance.Trace($"Showing MainWindow...");
 
             mainWindow.Show();
+            if (_showPawnIONotify)
+            {
+                ShowPawnIONotify();
+            }
         }
 
         await deferredInitTask;
@@ -576,9 +583,10 @@ public partial class App
 
     private static async Task InitSensorsGroupControllerFeatureAsync()
     {
+        var settings = IoCContainer.Resolve<ApplicationSettings>();
+
         try
         {
-            var settings = IoCContainer.Resolve<ApplicationSettings>();
             if (settings.Store.UseNewSensorDashboard)
             {
                 var feature = IoCContainer.Resolve<SensorsGroupController>();
@@ -587,12 +595,16 @@ public partial class App
                     if (Log.Instance.IsTraceEnabled)
                         Log.Instance.Trace($"Init memory sensor control feature.");
                 }
+                else
+                {
+                    App.Current._showPawnIONotify = true;
+                }
             }
         }
         catch (Exception ex)
         {
             if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Couldn't ensure correct battery mode.", ex);
+                Log.Instance.Trace($"Init sensor group controller failed.", ex);
         }
     }
 
@@ -695,5 +707,10 @@ public partial class App
     {
         var controller = IoCContainer.Resolve<MacroController>();
         controller.Start();
+    }
+
+    private static void ShowPawnIONotify()
+    {
+        SnackbarHelper.Show(Resource.MainWindow_PawnIO_Warning_Title, Resource.MainWindow_PawnIO_Warning_Message, SnackbarType.Error);
     }
 }

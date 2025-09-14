@@ -4,6 +4,7 @@
 // Partial Copyright (C) Michael Möller <mmoeller@openhardwaremonitor.org> and Contributors.
 // All Rights Reserved.
 
+using LenovoLegionToolkit.Lib.Settings;
 using LenovoLegionToolkit.Lib.System;
 using LenovoLegionToolkit.Lib.Utils;
 using LibreHardwareMonitor.Hardware;
@@ -38,7 +39,11 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
         {
             try
             {
-                await InitializeAsync();
+                var result = await InitializeAsync();
+                if (result == 0)
+                {
+                    return false;
+                }
                 return _interestedHardwares.Any();
             }
             catch (Exception ex)
@@ -280,16 +285,24 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
             return maxTemperature;
         }
 
-        private async Task InitializeAsync()
+        private async Task<uint> InitializeAsync()
         {
-            if (_initialized) return;
+            if (_initialized) return 2;
 
             await _initSemaphore.WaitAsync();
             try
             {
-                if (_initialized) return;
+                if (_initialized) return 2;
 
                 await Task.Run(() => GetInterestedHardwares()).ConfigureAwait(false);
+                return 1;
+            }
+            catch (DllNotFoundException)
+            {
+                var settings = IoCContainer.Resolve<ApplicationSettings>();
+                settings.Store.UseNewSensorDashboard = false;
+                settings.SynchronizeStore();
+                return 0;
             }
             finally
             {

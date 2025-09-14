@@ -3209,6 +3209,24 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 You need install PawnIO first to use the new dashboard! 的本地化字符串。
+        /// </summary>
+        public static string MainWindow_PawnIO_Warning_Message {
+            get {
+                return ResourceManager.GetString("MainWindow_PawnIO_Warning_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Warning 的本地化字符串。
+        /// </summary>
+        public static string MainWindow_PawnIO_Warning_Title {
+            get {
+                return ResourceManager.GetString("MainWindow_PawnIO_Warning_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Update available! 的本地化字符串。
         /// </summary>
         public static string MainWindow_UpdateAvailable {

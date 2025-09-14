@@ -2438,4 +2438,10 @@ Note: Using the new sensor dashboard may cause some antivirus programmes to disp
   <data name="SettingsPage_UseNewDashboard_Switch_Title" xml:space="preserve">
     <value>Dashboard changed</value>
   </data>
+  <data name="MainWindow_PawnIO_Warning_Title" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="MainWindow_PawnIO_Warning_Message" xml:space="preserve">
+    <value>You need install PawnIO first to use the new dashboard!</value>
+  </data>
 </root>
