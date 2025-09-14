@@ -330,22 +330,22 @@ Sólo se ejecutarán las acciones que coincidan con el estado actual.</value>
     <value>Capacidad según diseño</value>
   </data>
   <data name="BatteryPage_DischargeRate_Message" xml:space="preserve">
-    <value>Velocidad de carga (+) o descarga (-) de la batería.</value>
+    <value>Ratio de carga (+) o descarga (-) de la batería.</value>
   </data>
   <data name="BatteryPage_DischargeRate_Title" xml:space="preserve">
-    <value>Velocidad de descarga</value>
+    <value>Ratio de carga/descarga</value>
   </data>
   <data name="BatteryPage_MinDischargeRate_Message" xml:space="preserve">
-    <value>Velocidad mínima a la que la batería se carga (+) o descarga (-).</value>
+    <value>Ratio mínimo a la que la batería se carga (+) o descarga (-).</value>
   </data>
   <data name="BatteryPage_MinDischargeRate_Title" xml:space="preserve">
     <value>Velocidad mínima de carga/descarga</value>
   </data>
   <data name="BatteryPage_MaxDischargeRate_Message" xml:space="preserve">
-    <value>Velocidad máxima a la que la batería se carga (+) o descarga (-).</value>
+    <value>Ratio máximo a la que la batería se carga (+) o descarga (-).</value>
   </data>
   <data name="BatteryPage_MaxDischargeRate_Title" xml:space="preserve">
-    <value>Velocidad máxima de carga/descarga</value>
+    <value>Ratio máximo de carga/descarga</value>
   </data>
   <data name="BatteryPage_EstimatedBatteryLifeRemaining" xml:space="preserve">
     <value>Tiempo restante estimado: {0}</value>
@@ -1159,6 +1159,10 @@ Asegúrese primero de que su script se ejecuta correctamente.</value>
     <value>Desactivar Legión Zone y su servicio, sin desinstalarlo.
 Se recomienda reiniciar después de cambiar esta opción.</value>
   </data>
+  <data name="SettingsPage_DisableLegionSpace_Message" xml:space="preserve">
+    <value>Desactivar Legión Zone y su servicio, sin desinstalarlo.
+Se recomienda reiniciar después de cambiar esta opción.</value>
+  </data>
   <data name="SettingsPage_DisableLegionZone_Title" xml:space="preserve">
     <value>Desactivar Legion Zone</value>
   </data>
@@ -1690,13 +1694,13 @@ Esta configuración sólo tiene efecto si el modo personalizado está activado.<
     <value>Modo</value>
   </data>
   <data name="StatusTrayPopup_DischargeRate" xml:space="preserve">
-    <value>Velocidad de descarga</value>
+    <value>Ratio carga/descarga</value>
   </data>
   <data name="StatusTrayPopup_MinDischargeRate" xml:space="preserve">
     <value>Velocidad mínima de descarga</value>
   </data>
   <data name="StatusTrayPopup_MaxDischargeRate" xml:space="preserve">
-    <value>Velocidad máxima de descarga</value>
+    <value>Ratio máximo carga/descarga</value>
   </data>
   <data name="StatusTrayPopup_UpdateAvailable" xml:space="preserve">
     <value>¡Actualización disponible!</value>
@@ -2408,5 +2412,38 @@ No afectará a otras ventanas a pantalla completa, pero no podrá hacer clic en 
   </data>
   <data name="FanCurveControl_PCH" xml:space="preserve">
     <value>PCH</value>
+  </data>
+  <data name="SettingsPage_EnableLegionSpace_Error_Title" xml:space="preserve">
+    <value>Couldn't enable Legion Space</value>
+  </data>
+  <data name="SettingsPage_EnableLegionSpace_Error_Message" xml:space="preserve">
+    <value>Legion Space may have not been enabled correctly</value>
+  </data>
+  <data name="SettingsPage_DisableLegionSpace_Title" xml:space="preserve">
+    <value>Disable Legion Space</value>
+  </data>
+  <data name="MainWindow_LegionSpaceRunning" xml:space="preserve">
+    <value>Legion Space is running in the background.</value>
+  </data>
+  <data name="GodModeSettingsWindow_LegionSpaceWarning_Title" xml:space="preserve">
+    <value>Custom Mode settings will not be applied correctly when Legion Space or its services are running.</value>
+  </data>
+  <data name="SettingsPage_DisableLegionSpace_Error_Title" xml:space="preserve">
+    <value>Couldn't disable Legion Space</value>
+  </data>
+  <data name="SettingsPage_DisableLegionSpace_Error_Message" xml:space="preserve">
+    <value>Legion Space may have not been disabled correctly</value>
+  </data>
+  <data name="SettingsPage_UseNewDashboard_Restart_Message" xml:space="preserve">
+    <value>Restart to apply changes.</value>
+  </data>
+  <data name="SettingsPage_UseNewDashboard_Switch_Title" xml:space="preserve">
+    <value>Dashboard changed</value>
+  </data>
+  <data name="MainWindow_PawnIO_Warning_Title" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="MainWindow_PawnIO_Warning_Message" xml:space="preserve">
+    <value>You need install PawnIO first to use the new dashboard!</value>
   </data>
 </root>
