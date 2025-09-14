@@ -96,7 +96,6 @@ public partial class SettingsPage
         _autorunComboBox.SetItems(Enum.GetValues<AutorunState>(), Autorun.State, t => t.GetDisplayName());
         _minimizeToTrayToggle.IsChecked = _settings.Store.MinimizeToTray;
         _minimizeOnCloseToggle.IsChecked = _settings.Store.MinimizeOnClose;
-        _enableLoggingToggle.IsChecked = Log.Instance.IsTraceEnabled;
         _useNewSensorDashboardToggle.IsChecked = _settings.Store.UseNewSensorDashboard;
         _lockWindowSizeToggle.IsChecked = _settings.Store.LockWindowSize;
 
@@ -175,6 +174,7 @@ public partial class SettingsPage
         _powerModesCard.Visibility = _settings.Store.PowerModeMappingMode == PowerModeMappingMode.WindowsPowerMode && isPowerModeFeatureSupported ? Visibility.Visible : Visibility.Collapsed;
         _windowsPowerPlansCard.Visibility = _settings.Store.PowerModeMappingMode == PowerModeMappingMode.WindowsPowerPlan && isPowerModeFeatureSupported ? Visibility.Visible : Visibility.Collapsed;
         _windowsPowerPlansControlPanelCard.Visibility = _settings.Store.PowerModeMappingMode == PowerModeMappingMode.WindowsPowerPlan && isPowerModeFeatureSupported ? Visibility.Visible : Visibility.Collapsed;
+        _enableLoggingToggle.IsChecked = _settings.Store.EnableLogging;
 
         _onBatterySinceResetToggle.Visibility = Visibility.Visible;
 
@@ -355,7 +355,7 @@ public partial class SettingsPage
         if (_isRefreshing)
             return;
 
-        if (App.MainWindowInstance == null)
+        if (App.Current.MainWindow is not MainWindow mainWindow)
             return;
 
         var state = _enableLoggingToggle.IsChecked;
@@ -363,7 +363,10 @@ public partial class SettingsPage
             return;
 
         Log.Instance.IsTraceEnabled = state.Value;
-        App.MainWindowInstance._openLogIndicator.Visibility = Utils.BooleanToVisibilityConverter.Convert(Log.Instance.IsTraceEnabled);
+        _settings.Store.EnableLogging = state.Value;
+        _settings.SynchronizeStore();
+
+        mainWindow._openLogIndicator.Visibility = Utils.BooleanToVisibilityConverter.Convert(_settings.Store.EnableLogging);
     }
 
     private void LockWindowSizeToggle_Click(object sender, RoutedEventArgs e)

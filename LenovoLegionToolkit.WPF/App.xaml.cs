@@ -27,6 +27,7 @@ using LenovoLegionToolkit.WPF.Resources;
 using LenovoLegionToolkit.WPF.Utils;
 using LenovoLegionToolkit.WPF.Windows;
 using LenovoLegionToolkit.WPF.Windows.Utils;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -38,6 +39,7 @@ using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Threading;
+using static System.Windows.Forms.AxHost;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
 using WinFormsApp = System.Windows.Forms.Application;
@@ -52,8 +54,6 @@ public partial class App
 
     private Mutex? _singleInstanceMutex;
     private EventWaitHandle? _singleInstanceWaitHandle;
-
-    public static MainWindow? MainWindowInstance;
 
     public new static App Current => (App)Application.Current;
 
@@ -78,10 +78,24 @@ public partial class App
 
         AppDomain.CurrentDomain.UnhandledException += AppDomain_UnhandledException;
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Flags: {flags}");
-
         EnsureSingleInstance();
+
+        IoCContainer.Initialize(
+            new Lib.IoCModule(),
+            new Lib.Automation.IoCModule(),
+            new Lib.Macro.IoCModule(),
+            new IoCModule()
+        );
+
+        var mainWindow = new MainWindow
+        {
+            WindowStartupLocation = WindowStartupLocation.CenterScreen,
+            TrayTooltipEnabled = !flags.DisableTrayTooltip,
+            DisableConflictingSoftwareWarning = flags.DisableConflictingSoftwareWarning
+        };
+        MainWindow = mainWindow;
+
+        InitSetLogIndicator();
 
         var localizationTask = LocalizationHelper.SetLanguageAsync(true);
         var compatibilityTask = CheckCompatibilityAsyncWrapper(flags);
@@ -93,13 +107,6 @@ public partial class App
 
         WinFormsApp.SetHighDpiMode(WinFormsHighDpiMode.PerMonitorV2);
         RenderOptions.ProcessRenderMode = RenderMode.SoftwareOnly;
-
-        IoCContainer.Initialize(
-            new Lib.IoCModule(),
-            new Lib.Automation.IoCModule(),
-            new Lib.Macro.IoCModule(),
-            new IoCModule()
-        );
 
         IoCContainer.Resolve<HttpClientFactory>().SetProxy(flags.ProxyUrl, flags.ProxyUsername, flags.ProxyPassword, flags.ProxyAllowAllCerts);
         IoCContainer.Resolve<PowerModeFeature>().AllowAllPowerModesOnBattery = flags.AllowAllPowerModesOnBattery;
@@ -144,14 +151,6 @@ public partial class App
         Autorun.Validate();
 #endif
 
-        MainWindowInstance = new MainWindow
-        {
-            WindowStartupLocation = WindowStartupLocation.CenterScreen,
-            TrayTooltipEnabled = !flags.DisableTrayTooltip,
-            DisableConflictingSoftwareWarning = flags.DisableConflictingSoftwareWarning
-        };
-        MainWindow = MainWindowInstance;
-
         IoCContainer.Resolve<ThemeManager>().Apply();
 
         if (flags.Minimized)
@@ -159,16 +158,16 @@ public partial class App
             if (Log.Instance.IsTraceEnabled)
                 Log.Instance.Trace($"Sending MainWindow to tray...");
 
-            MainWindowInstance.WindowState = WindowState.Minimized;
-            MainWindowInstance.Show();
-            MainWindowInstance.SendToTray();
+            mainWindow.WindowState = WindowState.Minimized;
+            mainWindow.Show();
+            mainWindow.SendToTray();
         }
         else
         {
             if (Log.Instance.IsTraceEnabled)
                 Log.Instance.Trace($"Showing MainWindow...");
 
-            MainWindowInstance.Show();
+            mainWindow.Show();
         }
 
         await deferredInitTask;
@@ -484,6 +483,29 @@ public partial class App
                 await feature.SetStateAsync(PowerModeState.Balance).ConfigureAwait(false);
                 await Task.Delay(TimeSpan.FromMilliseconds(500)).ConfigureAwait(false);
                 await feature.SetStateAsync(PowerModeState.GodMode).ConfigureAwait(false);
+            }
+        }
+        catch (Exception ex)
+        {
+            if (Log.Instance.IsTraceEnabled)
+            {
+                Log.Instance.Trace($"Couldn't reapply parameters.", ex);
+            }
+        }
+    }
+
+    private static void InitSetLogIndicator()
+    {
+        try
+        {
+            ApplicationSettings settings = IoCContainer.Resolve<ApplicationSettings>();
+            if (settings.Store.EnableLogging)
+            {
+                if (App.Current.MainWindow is not MainWindow mainWindow)
+                    return;
+
+                Log.Instance.IsTraceEnabled = settings.Store.EnableLogging;
+                mainWindow._openLogIndicator.Visibility = Utils.BooleanToVisibilityConverter.Convert(settings.Store.EnableLogging);
             }
         }
         catch (Exception ex)
