@@ -40,6 +40,12 @@ public class GodModeController(GodModeControllerV1 controllerV1, GodModeControll
         return await controller.NeedsLegionZoneDisabledAsync().ConfigureAwait(false);
     }
 
+    public async Task<bool> NeedsLegionSpaceDisabledAsync()
+    {
+        var controller = await GetControllerAsync().ConfigureAwait(false);
+        return await controller.NeedsLegionZoneDisabledAsync().ConfigureAwait(false);
+    }
+
     public async Task<Guid> GetActivePresetIdAsync()
     {
         var controller = await GetControllerAsync().ConfigureAwait(false);

@@ -30,6 +30,7 @@ public partial class SettingsPage
     private readonly IntegrationsSettings _integrationsSettings = IoCContainer.Resolve<IntegrationsSettings>();
 
     private readonly VantageDisabler _vantageDisabler = IoCContainer.Resolve<VantageDisabler>();
+    private readonly LegionSpaceDisabler _legionSpaceDisabler = IoCContainer.Resolve<LegionSpaceDisabler>();
     private readonly LegionZoneDisabler _legionZoneDisabler = IoCContainer.Resolve<LegionZoneDisabler>();
     private readonly FnKeysDisabler _fnKeysDisabler = IoCContainer.Resolve<FnKeysDisabler>();
     private readonly PowerModeFeature _powerModeFeature = IoCContainer.Resolve<PowerModeFeature>();
@@ -95,13 +96,16 @@ public partial class SettingsPage
         _autorunComboBox.SetItems(Enum.GetValues<AutorunState>(), Autorun.State, t => t.GetDisplayName());
         _minimizeToTrayToggle.IsChecked = _settings.Store.MinimizeToTray;
         _minimizeOnCloseToggle.IsChecked = _settings.Store.MinimizeOnClose;
-        _enableLoggingToggle.IsChecked = Log.Instance.IsTraceEnabled;
         _useNewSensorDashboardToggle.IsChecked = _settings.Store.UseNewSensorDashboard;
         _lockWindowSizeToggle.IsChecked = _settings.Store.LockWindowSize;
 
         var vantageStatus = await _vantageDisabler.GetStatusAsync();
         _vantageCard.Visibility = vantageStatus != SoftwareStatus.NotFound ? Visibility.Visible : Visibility.Collapsed;
         _vantageToggle.IsChecked = vantageStatus == SoftwareStatus.Disabled;
+
+        var legionSpaceStatus = await _legionSpaceDisabler.GetStatusAsync();
+        _legionSpaceCard.Visibility = legionSpaceStatus != SoftwareStatus.NotFound ? Visibility.Visible : Visibility.Collapsed;
+        _legionSpaceToggle.IsChecked = legionSpaceStatus == SoftwareStatus.Disabled;
 
         var legionZoneStatus = await _legionZoneDisabler.GetStatusAsync();
         _legionZoneCard.Visibility = legionZoneStatus != SoftwareStatus.NotFound ? Visibility.Visible : Visibility.Collapsed;
@@ -170,6 +174,7 @@ public partial class SettingsPage
         _powerModesCard.Visibility = _settings.Store.PowerModeMappingMode == PowerModeMappingMode.WindowsPowerMode && isPowerModeFeatureSupported ? Visibility.Visible : Visibility.Collapsed;
         _windowsPowerPlansCard.Visibility = _settings.Store.PowerModeMappingMode == PowerModeMappingMode.WindowsPowerPlan && isPowerModeFeatureSupported ? Visibility.Visible : Visibility.Collapsed;
         _windowsPowerPlansControlPanelCard.Visibility = _settings.Store.PowerModeMappingMode == PowerModeMappingMode.WindowsPowerPlan && isPowerModeFeatureSupported ? Visibility.Visible : Visibility.Collapsed;
+        _enableLoggingToggle.IsChecked = _settings.Store.EnableLogging;
 
         _onBatterySinceResetToggle.Visibility = Visibility.Visible;
 
@@ -188,6 +193,7 @@ public partial class SettingsPage
         _useNewSensorDashboardToggle.Visibility = Visibility.Visible;
         _lockWindowSizeToggle.Visibility = Visibility.Visible;
         _vantageToggle.Visibility = Visibility.Visible;
+        _legionSpaceToggle.Visibility = Visibility.Visible;
         _legionZoneToggle.Visibility = Visibility.Visible;
         _fnKeysToggle.Visibility = Visibility.Visible;
         _smartFnLockComboBox.Visibility = Visibility.Visible;
@@ -339,6 +345,7 @@ public partial class SettingsPage
         if (state is null)
             return;
 
+        SnackbarHelper.Show(Resource.SettingsPage_UseNewDashboard_Switch_Title, Resource.SettingsPage_UseNewDashboard_Restart_Message, SnackbarType.Success);
         _settings.Store.UseNewSensorDashboard = state.Value;
         _settings.SynchronizeStore();
     }
@@ -348,13 +355,18 @@ public partial class SettingsPage
         if (_isRefreshing)
             return;
 
+        if (App.Current.MainWindow is not MainWindow mainWindow)
+            return;
+
         var state = _enableLoggingToggle.IsChecked;
         if (state is null)
             return;
 
         Log.Instance.IsTraceEnabled = state.Value;
+        _settings.Store.EnableLogging = state.Value;
+        _settings.SynchronizeStore();
 
-        App.MainWindowInstance._openLogIndicator.Visibility = Utils.BooleanToVisibilityConverter.Convert(Log.Instance.IsTraceEnabled);
+        mainWindow._openLogIndicator.Visibility = Utils.BooleanToVisibilityConverter.Convert(_settings.Store.EnableLogging);
     }
 
     private void LockWindowSizeToggle_Click(object sender, RoutedEventArgs e)
@@ -535,6 +547,45 @@ public partial class SettingsPage
         }
 
         _legionZoneToggle.IsEnabled = true;
+    }
+
+    private async void LegionSpaceToggle_Click(object sender, RoutedEventArgs e)
+    {
+        if (_isRefreshing)
+            return;
+
+        _legionSpaceToggle.IsEnabled = false;
+
+        var state = _legionSpaceToggle.IsChecked;
+        if (state is null)
+            return;
+
+        if (state.Value)
+        {
+            try
+            {
+                await _legionSpaceDisabler.DisableAsync();
+            }
+            catch
+            {
+                await SnackbarHelper.ShowAsync(Resource.SettingsPage_DisableLegionSpace_Error_Title, Resource.SettingsPage_DisableLegionSpace_Error_Message, SnackbarType.Error);
+                return;
+            }
+        }
+        else
+        {
+            try
+            {
+                await _legionSpaceDisabler.EnableAsync();
+            }
+            catch
+            {
+                await SnackbarHelper.ShowAsync(Resource.SettingsPage_EnableLegionSpace_Error_Title, Resource.SettingsPage_EnableLegionSpace_Error_Message, SnackbarType.Error);
+                return;
+            }
+        }
+
+        _legionSpaceToggle.IsEnabled = true;
     }
 
     private async void FnKeysToggle_Click(object sender, RoutedEventArgs e)

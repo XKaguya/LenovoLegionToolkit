@@ -15,7 +15,8 @@ public class GodModeControllerV1(
     LegionZoneDisabler legionZoneDisabler)
     : AbstractGodModeController(settings)
 {
-    public override Task<bool> NeedsVantageDisabledAsync() => Task.FromResult(false);
+    public override Task<bool> NeedsVantageDisabledAsync() => Task.FromResult(true);
+    public override Task<bool> NeedsLegionSpaceDisabledAsync() => Task.FromResult(false);
     public override Task<bool> NeedsLegionZoneDisabledAsync() => Task.FromResult(true);
 
     public override async Task ApplyStateAsync()

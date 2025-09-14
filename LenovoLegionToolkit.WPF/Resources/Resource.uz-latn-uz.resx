@@ -1156,6 +1156,10 @@ Siziń skriptińiz durıs orınlanıp atırǵanına isenim kámil etiń.</value>
     <value>Legion Zone hám onıń xızmetleriniń iskerligin toqtatıp, ózin óshirmew.
 Bul varianttı ózgertkennen keyin, qayta iske túsiriw usınıs etiledi.</value>
   </data>
+  <data name="SettingsPage_DisableLegionSpace_Message" xml:space="preserve">
+    <value>Legion Zone hám onıń xızmetleriniń iskerligin toqtatıp, ózin óshirmew.
+Bul varianttı ózgertkennen keyin, qayta iske túsiriw usınıs etiledi.</value>
+  </data>
   <data name="SettingsPage_DisableLegionZone_Title" xml:space="preserve">
     <value>Legion Zonedi óshiriw</value>
   </data>
@@ -2405,5 +2409,39 @@ Note: Using the new sensor dashboard may cause some antivirus programmes to disp
   </data>
   <data name="FanCurveControl_PCH" xml:space="preserve">
     <value>PCH</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="SettingsPage_EnableLegionSpace_Error_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="SettingsPage_EnableLegionSpace_Error_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="SettingsPage_DisableLegionSpace_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="MainWindow_LegionSpaceRunning" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="GodModeSettingsWindow_LegionSpaceWarning_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="SettingsPage_DisableLegionSpace_Error_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="SettingsPage_DisableLegionSpace_Error_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="SettingsPage_UseNewDashboard_Restart_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="SettingsPage_UseNewDashboard_Switch_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="MainWindow_PawnIO_Warning_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="MainWindow_PawnIO_Warning_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
   </data>
 </root>

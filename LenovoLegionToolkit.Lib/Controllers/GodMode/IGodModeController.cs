@@ -9,6 +9,7 @@ public interface IGodModeController
     event EventHandler<Guid> PresetChanged;
     Task<bool> NeedsVantageDisabledAsync();
     Task<bool> NeedsLegionZoneDisabledAsync();
+    Task<bool> NeedsLegionSpaceDisabledAsync();
     Task<Guid> GetActivePresetIdAsync();
     Task<string?> GetActivePresetNameAsync();
     Task<GodModeState> GetStateAsync();
