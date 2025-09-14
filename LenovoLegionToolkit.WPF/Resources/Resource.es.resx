@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutPage_AppName" xml:space="preserve">
-    <value>Lenovo Legion Toolkit (LLT)</value>
+    <value>Lenovo Legion Toolkit (Fork No Oficial)</value>
   </data>
   <data name="AboutPage_Build" xml:space="preserve">
     <value>Revisión</value>
@@ -2414,36 +2414,36 @@ No afectará a otras ventanas a pantalla completa, pero no podrá hacer clic en 
     <value>PCH</value>
   </data>
   <data name="SettingsPage_EnableLegionSpace_Error_Title" xml:space="preserve">
-    <value>Couldn't enable Legion Space</value>
+    <value>No se ha podido activar Legion Space</value>
   </data>
   <data name="SettingsPage_EnableLegionSpace_Error_Message" xml:space="preserve">
-    <value>Legion Space may have not been enabled correctly</value>
+    <value>Es posible que Legion Space no se haya activado correctamente</value>
   </data>
   <data name="SettingsPage_DisableLegionSpace_Title" xml:space="preserve">
-    <value>Disable Legion Space</value>
+    <value>Desactivar Legion Space</value>
   </data>
   <data name="MainWindow_LegionSpaceRunning" xml:space="preserve">
-    <value>Legion Space is running in the background.</value>
+    <value>Legion Space se está ejecutando en segundo plano.</value>
   </data>
   <data name="GodModeSettingsWindow_LegionSpaceWarning_Title" xml:space="preserve">
-    <value>Custom Mode settings will not be applied correctly when Legion Space or its services are running.</value>
+    <value>Los ajustes del modo personalizado no se aplicarán correctamente si Legion Space o sus servicios se están ejecutando.</value>
   </data>
   <data name="SettingsPage_DisableLegionSpace_Error_Title" xml:space="preserve">
-    <value>Couldn't disable Legion Space</value>
+    <value>No se ha podido desactivar Legion Space</value>
   </data>
   <data name="SettingsPage_DisableLegionSpace_Error_Message" xml:space="preserve">
-    <value>Legion Space may have not been disabled correctly</value>
+    <value>Es posible que Legion Space no se haya desactivado correctamente</value>
   </data>
   <data name="SettingsPage_UseNewDashboard_Restart_Message" xml:space="preserve">
-    <value>Restart to apply changes.</value>
+    <value>Reinicie para aplicar los cambios.</value>
   </data>
   <data name="SettingsPage_UseNewDashboard_Switch_Title" xml:space="preserve">
-    <value>Dashboard changed</value>
+    <value>Se ha cambiado el panel de control</value>
   </data>
   <data name="MainWindow_PawnIO_Warning_Title" xml:space="preserve">
-    <value>Warning</value>
+    <value>Aviso</value>
   </data>
   <data name="MainWindow_PawnIO_Warning_Message" xml:space="preserve">
-    <value>You need install PawnIO first to use the new dashboard!</value>
+    <value>¡Necesitas instalar primero PawnIO para poder usar el nuevo panel de control!</value>
   </data>
 </root>
