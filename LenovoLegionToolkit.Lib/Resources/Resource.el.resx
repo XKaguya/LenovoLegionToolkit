@@ -396,10 +396,10 @@
     <comment>Informs the user that Touchpad Lock is or will be turned on.</comment>
   </data>
   <data name="UpdateMethod_Server" xml:space="preserve">
-    <value>Server</value>
+    <value>Διακομιστής</value>
   </data>
   <data name="UpdateMethod_Github" xml:space="preserve">
-    <value>Github</value>
+    <value>GitHub</value>
   </data>
   <data name="WhiteKeyboardBacklightState_High" xml:space="preserve">
     <value>Υψηλό</value>
@@ -506,7 +506,7 @@
     <value>Extreme</value>
   </data>
   <data name="UpdateCheckFrequency_Never" xml:space="preserve">
-    <value>Never</value>
+    <value>Ποτέ</value>
   </data>
   <data name="HybridModeState_UMA" xml:space="preserve">
     <value>UMA</value>
