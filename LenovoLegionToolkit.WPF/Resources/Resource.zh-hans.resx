@@ -121,7 +121,7 @@
     <value>拯救者工具箱 Lenovo Legion Toolkit (Unofficial Fork)</value>
   </data>
   <data name="AboutPage_Build" xml:space="preserve">
-    <value>Build</value>
+    <value>构建版本</value>
   </data>
   <data name="AboutPage_LatestReleaseOnGitHub" xml:space="preserve">
     <value>在 GitHub 上查看最新版本</value>
@@ -1661,7 +1661,7 @@
     <value>CPU 被允许使用短期功率限制进行加速的时间量。当 Tau 过期时，将使用长期功率限制。</value>
   </data>
   <data name="GodModeSettingsWindow_GPU_TotalProcessingPowerTargetOnAcOffsetFromBaselineControl" xml:space="preserve">
-    <value>插电情况下总处理器功耗目标。</value>
+    <value>插电情况下总处理器功耗目标</value>
   </data>
   <data name="GodModeSettingsWindow_GPU_TotalProcessingPowerTargetOnAcOffsetFromBaselineControl_Description" xml:space="preserve">
     <value>CPU 触发 GPU 动态功耗调整的点。</value>
