@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -335,6 +335,18 @@ Uruchomione zostaną tylko te akcje, które odpowiadają aktualnemu stanowi.</va
   <data name="BatteryPage_DischargeRate_Title" xml:space="preserve">
     <value>Bieżący pobór mocy baterii</value>
   </data>
+  <data name="BatteryPage_MinDischargeRate_Message" xml:space="preserve">
+    <value>Minimum rate at which battery is charged (+), or discharged (-).</value>
+  </data>
+  <data name="BatteryPage_MinDischargeRate_Title" xml:space="preserve">
+    <value>Minimum discharge rate</value>
+  </data>
+  <data name="BatteryPage_MaxDischargeRate_Message" xml:space="preserve">
+    <value>Maximum rate at which battery is charged (+), or discharged (-).</value>
+  </data>
+  <data name="BatteryPage_MaxDischargeRate_Title" xml:space="preserve">
+    <value>Maximum discharge rate</value>
+  </data>
   <data name="BatteryPage_EstimatedBatteryLifeRemaining" xml:space="preserve">
     <value>Szacowany pozostały czas: {0}</value>
   </data>
@@ -352,6 +364,12 @@ Uruchomione zostaną tylko te akcje, które odpowiadają aktualnemu stanowi.</va
   </data>
   <data name="BatteryPage_FullChargeCapacity_Title" xml:space="preserve">
     <value>Pojemność całkowita</value>
+  </data>
+  <data name="BatteryPage_BatteryHealth_Message" xml:space="preserve">
+    <value>Battery maximum charge capacity.</value>
+  </data>
+  <data name="BatteryPage_BatteryHealth_Title" xml:space="preserve">
+    <value>Battery health</value>
   </data>
   <data name="BatteryPage_LowWattageChargerConnected" xml:space="preserve">
     <value>Słaba ładowarka</value>
@@ -1211,6 +1229,9 @@ Po zmianie tego ustawienia zalecane jest ponowne uruchomienie.</value>
   <data name="SettingsPage_Notifications_Title" xml:space="preserve">
     <value>Powiadomienia</value>
   </data>
+  <data name="SettingsPage_UpdateMethod_Title" xml:space="preserve">
+    <value>Update Method</value>
+  </data>
   <data name="SettingsPage_WindowsPowerPlans_Title" xml:space="preserve">
     <value>Plany zasilania systemu Windows</value>
   </data>
@@ -1361,6 +1382,10 @@ Wymaga ponownego uruchomienia.</value>
   </data>
   <data name="TryAgain" xml:space="preserve">
     <value>Spróbuj ponownie</value>
+  </data>
+  <data name="UnexpectedException" xml:space="preserve">
+    <value>Unexpected exception occurred:
+{0}</value>
   </data>
   <data name="Unnamed" xml:space="preserve">
     <value>Bez nazwy</value>
@@ -1663,6 +1688,12 @@ To ustawienie zadziała, jeśli tryb własny jest włączony.</value>
   </data>
   <data name="StatusTrayPopup_DischargeRate" xml:space="preserve">
     <value>Pobór mocy</value>
+  </data>
+  <data name="StatusTrayPopup_MinDischargeRate" xml:space="preserve">
+    <value>Min discharge rate</value>
+  </data>
+  <data name="StatusTrayPopup_MaxDischargeRate" xml:space="preserve">
+    <value>Max discharge rate</value>
   </data>
   <data name="StatusTrayPopup_UpdateAvailable" xml:space="preserve">
     <value>Dostępna aktualizacja!</value>
@@ -2183,6 +2214,12 @@ Obsługiwane formaty obrazka: {1}.</value>
   <data name="MainWindows_VantageRunning" xml:space="preserve">
     <value>Lenovo Vantage i/lub ImController pracuje w tle.</value>
   </data>
+  <data name="NotificationsSettingsWindow_NotificationOnAllScreens_Message" xml:space="preserve">
+    <value>Show notification on all screens connected to your device.</value>
+  </data>
+  <data name="NotificationsSettingsWindow_NotificationOnAllScreens_Title" xml:space="preserve">
+    <value>Notification on all screens</value>
+  </data>
   <data name="SettingsPage_CheckUpdatesButton_Content" xml:space="preserve">
     <value>Sprawdź</value>
   </data>
@@ -2234,133 +2271,141 @@ Obsługiwane formaty obrazka: {1}.</value>
   <data name="QuickActionAutomationStepControl_Message" xml:space="preserve">
     <value>Wykonaj szybką akcję.</value>
   </data>
+  <data name="NotificationsSettingsWindow_NotificationAlwaysOnTop_Title" xml:space="preserve">
+    <value>Notification always on top</value>
+  </data>
+  <data name="NotificationsSettingsWindow_NotificationAlwaysOnTop_Message" xml:space="preserve">
+    <value>Always put notification at the top.
+It won't affect other full screen windows, but you will not be able to click on the notifications.</value>
+  </data>
   <data name="SensorsControl_VrTemperature_Title" xml:space="preserve">
-    <value />
+    <value>VR Temperature</value>
   </data>
   <data name="SensorsControl_GpuMemoryTemperature_Title" xml:space="preserve">
-    <value />
+    <value>Vram</value>
   </data>
   <data name="SensorsControl_PchTemperature_Title" xml:space="preserve">
-    <value />
+    <value>PCH Temperature</value>
   </data>
   <data name="SensorsControl_Motherboard_Title" xml:space="preserve">
-    <value />
+    <value>Motherboard</value>
   </data>
   <data name="SensorsControl_GpuCore_Title" xml:space="preserve">
-    <value />
+    <value>Core</value>
   </data>
   <data name="SensorsControl_Memory_Title" xml:space="preserve">
-    <value />
+    <value>Memory</value>
   </data>
   <data name="SensorsControl_Disk_Title" xml:space="preserve">
-    <value />
+    <value>Disk</value>
   </data>
   <data name="SensorsControl_Battery_Title" xml:space="preserve">
-    <value />
+    <value>Battery</value>
   </data>
   <data name="SensorsControl_State_Title" xml:space="preserve">
-    <value />
+    <value>State</value>
   </data>
   <data name="SensorsControl_BatteryLevel_Title" xml:space="preserve">
-    <value />
+    <value>Battery Level</value>
   </data>
   <data name="BatteryPage_ACAdapterNotConnected" xml:space="preserve">
-    <value />
+    <value>No AC</value>
   </data>
   <data name="DashboardBattery_AcConnected" xml:space="preserve">
-    <value />
+    <value>AC Connected</value>
   </data>
   <data name="DashboardBattery_AcDisconnected" xml:space="preserve">
-    <value />
+    <value>AC Disconnected</value>
   </data>
   <data name="AboutPage_Log" xml:space="preserve">
-    <value />
+    <value>Log</value>
   </data>
   <data name="SensorsControl_CPU_Power" xml:space="preserve">
-    <value />
+    <value>Power</value>
   </data>
   <data name="SensorsControl_GPU_Power" xml:space="preserve">
-    <value />
+    <value>Power</value>
   </data>
   <data name="SensorsControl_Disk_1_Temperature" xml:space="preserve">
-    <value />
+    <value>Disk 1 Temperature</value>
   </data>
   <data name="SensorsControl_Disk_2_Temperature" xml:space="preserve">
-    <value />
+    <value>Disk 2 Temperature</value>
   </data>
   <data name="SettingsPage_EnableLogging_Title" xml:space="preserve">
-    <value />
+    <value>Enable Logging</value>
   </data>
   <data name="SettingsPage_EnableLogging_Message" xml:space="preserve">
-    <value />
+    <value>Enable logging for debug.</value>
   </data>
   <data name="SensorItem_CpuUtilitzation" xml:space="preserve">
-    <value />
+    <value>CPU Utilitazion</value>
   </data>
   <data name="SensorItem_CpuFrequency" xml:space="preserve">
-    <value />
+    <value>CPU Frequency</value>
   </data>
   <data name="SensorItem_CpuFanSpeed" xml:space="preserve">
-    <value />
+    <value>CPU Fan Speed</value>
   </data>
   <data name="SensorItem_CpuTemperature" xml:space="preserve">
-    <value />
+    <value>CPU Temperature</value>
   </data>
   <data name="SensorItem_CpuPower" xml:space="preserve">
-    <value />
+    <value>CPU Power</value>
   </data>
   <data name="SensorItem_GpuUtilization" xml:space="preserve">
-    <value />
+    <value>GPU Utilization</value>
   </data>
   <data name="SensorItem_GpuFrequency" xml:space="preserve">
-    <value />
+    <value>GPU Frequency</value>
   </data>
   <data name="SensorItem_GpuFanSpeed" xml:space="preserve">
-    <value />
+    <value>GPU Fan Speed</value>
   </data>
   <data name="SensorItem_PchFanSpeed" xml:space="preserve">
-    <value />
+    <value>PCH Fan Speed</value>
   </data>
   <data name="SensorItem_PchTemperature" xml:space="preserve">
-    <value />
+    <value>PCH Temperature</value>
   </data>
   <data name="SensorItem_BatteryState" xml:space="preserve">
-    <value />
+    <value>Battery State</value>
   </data>
   <data name="SensorItem_BatteryLevel" xml:space="preserve">
-    <value />
+    <value>Battery Level</value>
   </data>
   <data name="SensorItem_MemoryUtilization" xml:space="preserve">
-    <value />
+    <value>Memory Utilization</value>
   </data>
   <data name="SensorItem_MemoryTemperature" xml:space="preserve">
-    <value />
+    <value>Memory Temperature</value>
   </data>
   <data name="SensorItem_Disk1Temperature" xml:space="preserve">
-    <value />
+    <value>Disk 1 Temperature</value>
   </data>
   <data name="SensorItem_Disk2Temperature" xml:space="preserve">
-    <value />
+    <value>Disk 2 Temperature</value>
   </data>
   <data name="EditSensorWindow_Title" xml:space="preserve">
-    <value />
+    <value>Edit Sensor</value>
   </data>
   <data name="SensorItem_GpuTemperatures" xml:space="preserve">
-    <value />
+    <value>GPU Temperature</value>
   </data>
   <data name="SettingsPage_UseNewSensorDashboard_Title" xml:space="preserve">
-    <value />
+    <value>Use New Sensor Dashboard</value>
   </data>
   <data name="SettingsPage_UseNewSensorDashboard_Message" xml:space="preserve">
-    <value />
+    <value>Use new sensor dashboard instead of the old one. 
+Note: Using the new sensor dashboard may cause some antivirus programmes to display a warning pop-up. For more information, see: LibreHardwareMonitor/LibreHardwareMonitor#984</value>
   </data>
   <data name="SettingsPage_LockWindowSize_Title" xml:space="preserve">
-    <value />
+    <value>Lock Window Size</value>
   </data>
   <data name="SettingsPage_LockWindowSize_Message" xml:space="preserve">
-    <value />
+    <value>Lock LLT's window size. To prevent something change it.</value>
   </data>
   <data name="FanCurveControl_PCH" xml:space="preserve">
-    <value />
+    <value>PCH</value>
   </data>
 </root>

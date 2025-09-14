@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -335,6 +335,18 @@ Tiks izpildītas tikai tās darbības, kas atbilst pašreizējam stāvoklim.</va
   <data name="BatteryPage_DischargeRate_Title" xml:space="preserve">
     <value>Izlādes ātrums</value>
   </data>
+  <data name="BatteryPage_MinDischargeRate_Message" xml:space="preserve">
+    <value>Minimum rate at which battery is charged (+), or discharged (-).</value>
+  </data>
+  <data name="BatteryPage_MinDischargeRate_Title" xml:space="preserve">
+    <value>Minimum discharge rate</value>
+  </data>
+  <data name="BatteryPage_MaxDischargeRate_Message" xml:space="preserve">
+    <value>Maximum rate at which battery is charged (+), or discharged (-).</value>
+  </data>
+  <data name="BatteryPage_MaxDischargeRate_Title" xml:space="preserve">
+    <value>Maximum discharge rate</value>
+  </data>
   <data name="BatteryPage_EstimatedBatteryLifeRemaining" xml:space="preserve">
     <value>Atlikušais paredzamais laiks: {0}</value>
   </data>
@@ -352,6 +364,12 @@ Tiks izpildītas tikai tās darbības, kas atbilst pašreizējam stāvoklim.</va
   </data>
   <data name="BatteryPage_FullChargeCapacity_Title" xml:space="preserve">
     <value>Pilnas uzlādes tilpība</value>
+  </data>
+  <data name="BatteryPage_BatteryHealth_Message" xml:space="preserve">
+    <value>Battery maximum charge capacity.</value>
+  </data>
+  <data name="BatteryPage_BatteryHealth_Title" xml:space="preserve">
+    <value>Battery health</value>
   </data>
   <data name="BatteryPage_LowWattageChargerConnected" xml:space="preserve">
     <value>Zemas jaudas lādētājs pievienots</value>
@@ -610,6 +628,9 @@ Paldies jau iepriekš!</value>
   <data name="FanCurveControl_GPU" xml:space="preserve">
     <value>GPU</value>
   </data>
+  <data name="FanCurveControl_GPU2" xml:space="preserve">
+    <value>GPU #2</value>
+  </data>
   <data name="RPM" xml:space="preserve">
     <value>Apgr/min</value>
   </data>
@@ -850,6 +871,10 @@ BRĪDINĀJUMS. Ja iebūvētais ekrāns ir izslēgts, šī darbība nedarbosies p
   <data name="NotificationsSettingsWindow_CapsAndNumLock" xml:space="preserve">
     <value>Burtslēgs un Num Bloķēšana</value>
   </data>
+  <data name="NotificationsSettingsWindow_DontShowNotifications_Message" xml:space="preserve">
+    <value>Disables notification for Fn keys actions like microphone mute.
+Enable this option if you have conflicts with full screen applications.</value>
+  </data>
   <data name="NotificationsSettingsWindow_DontShowNotifications_Title" xml:space="preserve">
     <value>Nerādīt paziņojumus</value>
   </data>
@@ -1001,6 +1026,12 @@ Jūs varat režīmus mainīt ar Fn+Q.</value>
   </data>
   <data name="PowerModeControl_Warning" xml:space="preserve">
     <value>Izvēlētais barošanas režīms var nedarboties pareizi, ja nav pievienots maiņstrāvas adapteris.</value>
+  </data>
+  <data name="WindowsPowerPlansWindow_DefaultPowerPlan" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="WindowsPowerPlansWindow_Title" xml:space="preserve">
+    <value>Windows Power Plans</value>
   </data>
   <data name="RGBKeyboardBacklightAutomationStepControl_Message" xml:space="preserve">
     <value>Pielāgojiet tastatūras fona apgaismojuma iestatījumu.</value>
@@ -1198,6 +1229,9 @@ Pēc šīs opcijas maiņas ieteicams restartēt datoru.</value>
   <data name="SettingsPage_Notifications_Title" xml:space="preserve">
     <value>Paziņojumi</value>
   </data>
+  <data name="SettingsPage_UpdateMethod_Title" xml:space="preserve">
+    <value>Update Method</value>
+  </data>
   <data name="SettingsPage_WindowsPowerPlans_Title" xml:space="preserve">
     <value>Barošanas Plāni</value>
   </data>
@@ -1349,6 +1383,10 @@ Nepieciešama restartēšana.</value>
   <data name="TryAgain" xml:space="preserve">
     <value>Mēģiniet vēlreiz</value>
   </data>
+  <data name="UnexpectedException" xml:space="preserve">
+    <value>Unexpected exception occurred:
+{0}</value>
+  </data>
   <data name="Unnamed" xml:space="preserve">
     <value>Bez nosaukuma</value>
   </data>
@@ -1398,6 +1436,12 @@ Ja izvēlaties turpināt, reģistrēšana tiks iespējota automātiski.</value>
   </data>
   <data name="WhiteKeyboardBacklightControl_Title" xml:space="preserve">
     <value>Tastatūras izgaismojums</value>
+  </data>
+  <data name="WinKeyAutomationStepControl_Message" xml:space="preserve">
+    <value>Disable Windows key on built-in keyboard.</value>
+  </data>
+  <data name="WinKeyAutomationStepControl_Title" xml:space="preserve">
+    <value>Windows Key Lock</value>
   </data>
   <data name="WinKeyControl_Message" xml:space="preserve">
     <value>Strādā tikai ar iebūvēto taustatūru.</value>
@@ -1645,6 +1689,12 @@ Peles pārvietošana vai tastatūras nospiešana pamodinās ekrānus.</value>
   <data name="StatusTrayPopup_DischargeRate" xml:space="preserve">
     <value>Izlādes ātrums</value>
   </data>
+  <data name="StatusTrayPopup_MinDischargeRate" xml:space="preserve">
+    <value>Min discharge rate</value>
+  </data>
+  <data name="StatusTrayPopup_MaxDischargeRate" xml:space="preserve">
+    <value>Max discharge rate</value>
+  </data>
   <data name="StatusTrayPopup_UpdateAvailable" xml:space="preserve">
     <value>Pieejams atjauninājums!</value>
   </data>
@@ -1799,6 +1849,10 @@ BRĪDINĀJUMS. Ja nav pieejams atsevišķs GPU, šī darbība nedarbosies pareiz
   <data name="IGPUModeChangeException_Title" xml:space="preserve">
     <value>Nevarēja nomainīt GPU Darbošanās režīmu</value>
   </data>
+  <data name="IGPUModeChangeException_Message" xml:space="preserve">
+    <value>Try changing the mode again in a couple of seconds, if you do not see expected result.
+If dGPU does not respond at all, please restart your laptop.</value>
+  </data>
   <data name="IGPUModeChangeException_Title_IGPUOnly" xml:space="preserve">
     <value>dGPU šobrīd tiek izmantots</value>
   </data>
@@ -1816,6 +1870,12 @@ BRĪDINĀJUMS. Ja nav pieejams atsevišķs GPU, šī darbība nedarbosies pareiz
   </data>
   <data name="GodModeSettingsWindow_LegionZoneWarning_Title" xml:space="preserve">
     <value>Pielāgotā Režīma iestatījumi netiks pielietoti pareizi kamēr Legion Zone un tā servisi ir ieslēgti.</value>
+  </data>
+  <data name="DGPU_Connected_Title" xml:space="preserve">
+    <value>dGPU connected</value>
+  </data>
+  <data name="DGPU_Disconnected_Title" xml:space="preserve">
+    <value>dGPU disconnected</value>
   </data>
   <data name="ComboBoxHybridModeAutomationStepControl_Title" xml:space="preserve">
     <value>GPU Darbošanās režīms</value>
@@ -1836,6 +1896,12 @@ Nepieciešama restartēšana.</value>
   </data>
   <data name="NotificationsSettingsWindow_Updates_Title" xml:space="preserve">
     <value>Atjauninājumi</value>
+  </data>
+  <data name="GodModeSettingsWindow_GPU_ToCpuDynamicBoostControl" xml:space="preserve">
+    <value>GPU to CPU Dynamic Boost</value>
+  </data>
+  <data name="GodModeSettingsWindow_GPU_ToCpuDynamicBoostControl_Description" xml:space="preserve">
+    <value>This is the maximum additional power that can be allocated to the CPU from the GPU based on CPU usage. The higher the value, the better the performance of applications that use the CPU.</value>
   </data>
   <data name="SettingsPage_BootLogo_Title" xml:space="preserve">
     <value>Sāknēšanās Logo</value>
@@ -1873,133 +1939,473 @@ Nepieciešama restartēšana.</value>
   <data name="AutomationPipelineControl_SubtitlePart_Preset" xml:space="preserve">
     <value>Priekšiestatījums</value>
   </data>
+  <data name="SettingsPage_SmartFnLock_Title" xml:space="preserve">
+    <value>Smart Fn Lock</value>
+  </data>
+  <data name="SettingsPage_SmartFnLock_Message" xml:space="preserve">
+    <value>Fn Lock will be temporarily disabled when Alt, Ctrl or Shift key is depressed.</value>
+  </data>
+  <data name="Off" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="BootLogoWindow_Description" xml:space="preserve">
+    <value>Custom boot logo must be exactly {0} pixels large.
+Supported formats are: {1}.</value>
+  </data>
+  <data name="BatteryNightChargeModeControl_Title" xml:space="preserve">
+    <value>Overnight Battery Charging</value>
+  </data>
+  <data name="BatteryNightChargeModeControl_Message" xml:space="preserve">
+    <value>When enabled, this device will charge to 80% when plugged in overnight and finish charging to 100% by the time you use this device in the morning.</value>
+  </data>
+  <data name="BatteryNightChargeAutomationStepControl_Title" xml:space="preserve">
+    <value>Overnight Battery Charging</value>
+  </data>
+  <data name="BatteryNightChargeAutomationStepControl_Message" xml:space="preserve">
+    <value>When enabled, this device will charge to 80% when plugged in overnight and finish charging to 100% by the time you use this device in the morning.</value>
+  </data>
+  <data name="BootLogoWindow_SetError_Invalid_Image_Size" xml:space="preserve">
+    <value>Invalid image size.</value>
+  </data>
+  <data name="BootLogoWindow_SetError_Invalid_Image_Format" xml:space="preserve">
+    <value>Invalid image format.</value>
+  </data>
+  <data name="BootLogoWindow_SetError_Cannot_Mount_EFI_Partition" xml:space="preserve">
+    <value>Cannot mount EFI partition.</value>
+  </data>
+  <data name="BootLogoWindow_SetError_Cannot_Set_UEFI_Privilege" xml:space="preserve">
+    <value>Cannot set UEFI privilege.</value>
+  </data>
+  <data name="BootLogoWindow_SetError_Not_Enough_Free_Space_On_EFI_Partition" xml:space="preserve">
+    <value>Not enough free space on EFI partition.</value>
+  </data>
+  <data name="BootLogoWindow_SetCustomFailed" xml:space="preserve">
+    <value>Custom logo could not be set: {0}</value>
+  </data>
+  <data name="BootLogoWindow_SetDefaultFailed" xml:space="preserve">
+    <value>Default logo could not be set: {0}</value>
+  </data>
+  <data name="BootLogoWindow_SetDefaultSuccess" xml:space="preserve">
+    <value>Default boot logo set.</value>
+  </data>
+  <data name="BootLogoWindow_SetCustomSuccess" xml:space="preserve">
+    <value>Custom boot logo set.</value>
+  </data>
+  <data name="WiFiConnectedPipelineTriggerTabItemContent_NetworkName" xml:space="preserve">
+    <value>Network name (SSID)</value>
+  </data>
+  <data name="WiFiConnectedPipelineTriggerTabItemContent_CopyCurrentNetworkName" xml:space="preserve">
+    <value>Copy current network name</value>
+  </data>
+  <data name="WiFiConnectedPipelineTriggerTabItemContent_LeaveEmptyForAnyNetwork" xml:space="preserve">
+    <value>Leave empty for any Wi-Fi network.</value>
+  </data>
+  <data name="SettingsPage_HWiNFO_Title" xml:space="preserve">
+    <value>HWiNFO64</value>
+  </data>
+  <data name="SettingsPage_HWiNFO_Message" xml:space="preserve">
+    <value>Share fan speed, battery temperature etc. with HWiNFO64. You may need to restart HWiNFO64 after changing this option.</value>
+  </data>
+  <data name="SettingsPage_Integrations_Title" xml:space="preserve">
+    <value>Integrations</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="PackagesPage_DownloadTo" xml:space="preserve">
+    <value>Download folder</value>
+  </data>
+  <data name="PackagesPage_OpenDownloadTo" xml:space="preserve">
+    <value>Open Download folder</value>
+  </data>
+  <data name="PackageControl_Download" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="PackageControl_OpenReadme" xml:space="preserve">
+    <value>Open README</value>
+  </data>
+  <data name="SpectrumKeyboardBacklightControl_Preset" xml:space="preserve">
+    <value>Preset</value>
+  </data>
+  <data name="DeviceInformationWindow_Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="AbstractAutomationStepControl_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="PeriodicActionPipelineTriggerTabItemContent_PeriodMinutes" xml:space="preserve">
+    <value>Period (minutes)</value>
+    <comment>A prompt that is used both to ask the user to input an integer, representing the number of minutes between two periodic actions are triggered, and to inform the user what have they set once they are done configuring the action.</comment>
+  </data>
+  <data name="SettingsPage_OnBatterySinceReset_Message" xml:space="preserve">
+    <value>Resets the counter for "On battery since" in the battery section when the system reboots.</value>
+  </data>
+  <data name="SettingsPage_OnBatterySinceReset_Title" xml:space="preserve">
+    <value>Reset "On battery since" at startup</value>
+  </data>
+  <data name="TurnOffWiFiAutomationStepControl_Title" xml:space="preserve">
+    <value>Turn off Wi-Fi</value>
+  </data>
+  <data name="TurnOnWiFiAutomationStepControl_Title" xml:space="preserve">
+    <value>Turn on Wi-Fi</value>
+  </data>
+  <data name="RunAutomationStepControl_ProcessRunSilently" xml:space="preserve">
+    <value>Run silently</value>
+  </data>
+  <data name="RunAutomationStepControl_ProcessWaitUntilFinished" xml:space="preserve">
+    <value>Wait until finished</value>
+  </data>
+  <data name="RunAutomationStepControl_ProcessRunSilently_Description" xml:space="preserve">
+    <value>Execute console applications, without creating a console window.</value>
+  </data>
+  <data name="RunAutomationStepControl_ProcessWaitUntilFinished_Description" xml:space="preserve">
+    <value>Wait until program or script finishes executing</value>
+  </data>
+  <data name="SpeakerAutomationStepControl_Message" xml:space="preserve">
+    <value>When mute, all active audio output devices will be muted.</value>
+  </data>
+  <data name="SpeakerAutomationStepControl_Title" xml:space="preserve">
+    <value>Speaker</value>
+  </data>
+  <data name="SettingsPage_MinimizeToTray_Title" xml:space="preserve">
+    <value>Minimize to tray</value>
+  </data>
+  <data name="SettingsPage_MinimizeToTray_Message" xml:space="preserve">
+    <value>Always minimize to tray instead of taskbar.</value>
+  </data>
+  <data name="WindowsPowerModesWindow_Title" xml:space="preserve">
+    <value>Windows Power Modes</value>
+  </data>
+  <data name="Settings_GodModeFnQSwitchable_Title" xml:space="preserve">
+    <value>Switch to Custom Mode with Fn+Q</value>
+  </data>
+  <data name="Settings_GodModeFnQSwitchable_Message" xml:space="preserve">
+    <value>Allow quick switching to Custom Mode with Fn+Q.</value>
+  </data>
+  <data name="SettingsPage_PowerModeMapping_Title" xml:space="preserve">
+    <value>Power Mode Synchronization</value>
+  </data>
+  <data name="SettingsPage_PowerModeMapping_Message" xml:space="preserve">
+    <value>Automatically change Windows Power Plan or Windows Power Mode when changing Power Modes.</value>
+  </data>
+  <data name="SettingsPage_WindowsPowerModes_Title" xml:space="preserve">
+    <value>Windows Power Modes</value>
+  </data>
+  <data name="SettingsPage_WindowsPowerModes_Message" xml:space="preserve">
+    <value>Select Windows Power Mode to apply when Power Mode changes.</value>
+  </data>
+  <data name="CompatibilityCheckError_Message" xml:space="preserve">
+    <value>Error occured when reading device information.</value>
+  </data>
+  <data name="MainWindow_NavigationItem_Macro" xml:space="preserve">
+    <value>Macro</value>
+  </data>
+  <data name="MacroPage_Title" xml:space="preserve">
+    <value>Macro</value>
+  </data>
+  <data name="MacroSequenceControl_Repeat_Title" xml:space="preserve">
+    <value>Repeat</value>
+  </data>
+  <data name="MacroSequenceControl_IgnoreDelays_Title" xml:space="preserve">
+    <value>Ignore delays</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="MacroSequenceControl_Record" xml:space="preserve">
+    <value>Record</value>
+  </data>
+  <data name="MacroSequenceControl_StopRecording" xml:space="preserve">
+    <value>Stop recording</value>
+  </data>
+  <data name="MacroSequenceControl_DontRepeat" xml:space="preserve">
+    <value>Don't repeat</value>
+  </data>
+  <data name="MacroPage_Enable_Subtitle" xml:space="preserve">
+    <value>Lenovo Legion Toolkit must be running for macros to work.</value>
+  </data>
+  <data name="MacroPage_Enable_Title" xml:space="preserve">
+    <value>Enable</value>
+  </data>
+  <data name="MacroPage_Subtitle" xml:space="preserve">
+    <value>You can record series of key presses and invoke them using the number pad on your keyboard.</value>
+  </data>
+  <data name="MacroAutomationStepControl_Title" xml:space="preserve">
+    <value>Macro</value>
+  </data>
+  <data name="MacroAutomationStepControl_Message" xml:space="preserve">
+    <value>Enable or disable macros.</value>
+  </data>
+  <data name="MacroSequenceControl_InterruptOnOtherKey_Title" xml:space="preserve">
+    <value>Interrupt if another key was pressed</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Hide</value>
+  </data>
+  <data name="HideAll" xml:space="preserve">
+    <value>Hide all</value>
+  </data>
+  <data name="DevicePipelineTriggerTabItemContent_Devices" xml:space="preserve">
+    <value>Devices</value>
+  </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>Deselect all</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Select all</value>
+  </data>
+  <data name="MacroSequenceControl_Keyboard" xml:space="preserve">
+    <value>Keyboard only</value>
+  </data>
+  <data name="MacroSequenceControl_KeyboardMouse" xml:space="preserve">
+    <value>Keyboard keys and mouse buttons</value>
+  </data>
+  <data name="MacroSequenceControl_KeyboardMouseMovement" xml:space="preserve">
+    <value>All inputs</value>
+  </data>
+  <data name="MacroSequenceControl_RecordingOptions" xml:space="preserve">
+    <value>Recording options</value>
+  </data>
+  <data name="MacroRecordingWindow_Preparing_Title" xml:space="preserve">
+    <value>Recording will start in 3 seconds...</value>
+  </data>
+  <data name="MacroRecordingWindow_Recording_Title" xml:space="preserve">
+    <value>Recording...</value>
+  </data>
+  <data name="MacroRecordingWindow_Recording_Message" xml:space="preserve">
+    <value>Press ESC to stop.</value>
+  </data>
+  <data name="DeviceAutomationPipelineTriggerTabItemContent_OnlySelected" xml:space="preserve">
+    <value>Show selected devices only</value>
+  </data>
+  <data name="DeviceAutomationPipelineTriggerTabItemContent_OnlyRemovable" xml:space="preserve">
+    <value>Show removable devices only</value>
+  </data>
+  <data name="DeviceAutomationPipelineTriggerTabItemContent_OnlyConnected" xml:space="preserve">
+    <value>Show connected devices only</value>
+  </data>
+  <data name="SettingsPage_CLI_Title" xml:space="preserve">
+    <value>CLI</value>
+  </data>
+  <data name="SettingsPage_CLI_Message" xml:space="preserve">
+    <value>Enable Command Line Interface that allows control from command line.</value>
+  </data>
+  <data name="SettingsPage_CLIAddToPath_Title" xml:space="preserve">
+    <value>Add CLI to PATH</value>
+  </data>
+  <data name="SettingsPage_CLIAddToPath_Message" xml:space="preserve">
+    <value>Add CLI to user's PATH environment variable.</value>
+  </data>
+  <data name="SettingsPage_Temperature_Title" xml:space="preserve">
+    <value>Temperature</value>
+  </data>
+  <data name="SettingsPage_Temperature_Message" xml:space="preserve">
+    <value>Select units for temperature sensors.</value>
+  </data>
+  <data name="MainWindows_FnKeysRunning" xml:space="preserve">
+    <value>Lenovo Hotkeys is running in the background.</value>
+  </data>
+  <data name="MainWindow_LegionZoneRunning" xml:space="preserve">
+    <value>Legion Zone is running in the background.</value>
+  </data>
+  <data name="MainWindows_VantageRunning" xml:space="preserve">
+    <value>Lenovo Vantage and/or ImController is running in the background.</value>
+  </data>
+  <data name="NotificationsSettingsWindow_NotificationOnAllScreens_Message" xml:space="preserve">
+    <value>Show notification on all screens connected to your device.</value>
+  </data>
+  <data name="NotificationsSettingsWindow_NotificationOnAllScreens_Title" xml:space="preserve">
+    <value>Notification on all screens</value>
+  </data>
+  <data name="SettingsPage_CheckUpdatesButton_Content" xml:space="preserve">
+    <value>Check</value>
+  </data>
+  <data name="SettingsPage_CheckUpdates_Started_Title" xml:space="preserve">
+    <value>Checking for updates...</value>
+  </data>
+  <data name="SettingsPage_CheckUpdates_Title" xml:space="preserve">
+    <value>Check for updates</value>
+  </data>
+  <data name="SettingsPage_Update_Title" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="MainWindow_CheckForUpdates_Error_ReachedRateLimit_Message" xml:space="preserve">
+    <value>API rate limit reached, please try again later.</value>
+  </data>
+  <data name="MainWindow_CheckForUpdates_Error_Title" xml:space="preserve">
+    <value>Failed to check for updates</value>
+  </data>
+  <data name="MainWindow_CheckForUpdates_Error_Unknown_Message" xml:space="preserve">
+    <value>Something went wrong, please try again later.</value>
+  </data>
+  <data name="MainWindow_CheckForUpdates_Success_Title" xml:space="preserve">
+    <value>No updates found</value>
+  </data>
+  <data name="SettingsPage_UpdateCheckFrequency_Title" xml:space="preserve">
+    <value>Automatically check for updates</value>
+  </data>
+  <data name="PackagesPage_UpdateCatalogNotFound_Title" xml:space="preserve">
+    <value>Update catalog not found</value>
+  </data>
+  <data name="PackagesPage_UpdateCatalogNotFound_Message" xml:space="preserve">
+    <value>Try getting updates from the other source.</value>
+  </data>
+  <data name="PackagesPage_Error_Title" xml:space="preserve">
+    <value>Something went wrong</value>
+  </data>
+  <data name="PackagesPage_Error_CheckInternet_Message" xml:space="preserve">
+    <value>Check if your internet connection is up and running.</value>
+  </data>
+  <data name="PlaySoundAutomationStepControl_Title" xml:space="preserve">
+    <value>Play sound</value>
+  </data>
+  <data name="PlaySoundAutomationStepControl_Message" xml:space="preserve">
+    <value>Common music formats like wav or mp3 are supported.</value>
+  </data>
+  <data name="QuickActionAutomationStepControl_Title" xml:space="preserve">
+    <value>Quick Action</value>
+  </data>
+  <data name="QuickActionAutomationStepControl_Message" xml:space="preserve">
+    <value>Run a saved quick action.</value>
+  </data>
+  <data name="NotificationsSettingsWindow_NotificationAlwaysOnTop_Title" xml:space="preserve">
+    <value>Notification always on top</value>
+  </data>
+  <data name="NotificationsSettingsWindow_NotificationAlwaysOnTop_Message" xml:space="preserve">
+    <value>Always put notification at the top.
+It won't affect other full screen windows, but you will not be able to click on the notifications.</value>
+  </data>
   <data name="SensorsControl_VrTemperature_Title" xml:space="preserve">
-    <value />
+    <value>VR Temperature</value>
   </data>
   <data name="SensorsControl_GpuMemoryTemperature_Title" xml:space="preserve">
-    <value />
+    <value>Vram</value>
   </data>
   <data name="SensorsControl_PchTemperature_Title" xml:space="preserve">
-    <value />
+    <value>PCH Temperature</value>
   </data>
   <data name="SensorsControl_Motherboard_Title" xml:space="preserve">
-    <value />
+    <value>Motherboard</value>
   </data>
   <data name="SensorsControl_GpuCore_Title" xml:space="preserve">
-    <value />
+    <value>Core</value>
   </data>
   <data name="SensorsControl_Memory_Title" xml:space="preserve">
-    <value />
+    <value>Memory</value>
   </data>
   <data name="SensorsControl_Disk_Title" xml:space="preserve">
-    <value />
+    <value>Disk</value>
   </data>
   <data name="SensorsControl_Battery_Title" xml:space="preserve">
-    <value />
+    <value>Battery</value>
   </data>
   <data name="SensorsControl_State_Title" xml:space="preserve">
-    <value />
+    <value>State</value>
   </data>
   <data name="SensorsControl_BatteryLevel_Title" xml:space="preserve">
-    <value />
+    <value>Battery Level</value>
   </data>
   <data name="BatteryPage_ACAdapterNotConnected" xml:space="preserve">
-    <value />
+    <value>No AC</value>
   </data>
   <data name="DashboardBattery_AcConnected" xml:space="preserve">
-    <value />
+    <value>AC Connected</value>
   </data>
   <data name="DashboardBattery_AcDisconnected" xml:space="preserve">
-    <value />
+    <value>AC Disconnected</value>
   </data>
   <data name="AboutPage_Log" xml:space="preserve">
-    <value />
+    <value>Log</value>
   </data>
   <data name="SensorsControl_CPU_Power" xml:space="preserve">
-    <value />
+    <value>Power</value>
   </data>
   <data name="SensorsControl_GPU_Power" xml:space="preserve">
-    <value />
+    <value>Power</value>
   </data>
   <data name="SensorsControl_Disk_1_Temperature" xml:space="preserve">
-    <value />
+    <value>Disk 1 Temperature</value>
   </data>
   <data name="SensorsControl_Disk_2_Temperature" xml:space="preserve">
-    <value />
+    <value>Disk 2 Temperature</value>
   </data>
   <data name="SettingsPage_EnableLogging_Title" xml:space="preserve">
-    <value />
+    <value>Enable Logging</value>
   </data>
   <data name="SettingsPage_EnableLogging_Message" xml:space="preserve">
-    <value />
+    <value>Enable logging for debug.</value>
   </data>
   <data name="SensorItem_CpuUtilitzation" xml:space="preserve">
-    <value />
+    <value>CPU Utilitazion</value>
   </data>
   <data name="SensorItem_CpuFrequency" xml:space="preserve">
-    <value />
+    <value>CPU Frequency</value>
   </data>
   <data name="SensorItem_CpuFanSpeed" xml:space="preserve">
-    <value />
+    <value>CPU Fan Speed</value>
   </data>
   <data name="SensorItem_CpuTemperature" xml:space="preserve">
-    <value />
+    <value>CPU Temperature</value>
   </data>
   <data name="SensorItem_CpuPower" xml:space="preserve">
-    <value />
+    <value>CPU Power</value>
   </data>
   <data name="SensorItem_GpuUtilization" xml:space="preserve">
-    <value />
+    <value>GPU Utilization</value>
   </data>
   <data name="SensorItem_GpuFrequency" xml:space="preserve">
-    <value />
+    <value>GPU Frequency</value>
   </data>
   <data name="SensorItem_GpuFanSpeed" xml:space="preserve">
-    <value />
+    <value>GPU Fan Speed</value>
   </data>
   <data name="SensorItem_PchFanSpeed" xml:space="preserve">
-    <value />
+    <value>PCH Fan Speed</value>
   </data>
   <data name="SensorItem_PchTemperature" xml:space="preserve">
-    <value />
+    <value>PCH Temperature</value>
   </data>
   <data name="SensorItem_BatteryState" xml:space="preserve">
-    <value />
+    <value>Battery State</value>
   </data>
   <data name="SensorItem_BatteryLevel" xml:space="preserve">
-    <value />
+    <value>Battery Level</value>
   </data>
   <data name="SensorItem_MemoryUtilization" xml:space="preserve">
-    <value />
+    <value>Memory Utilization</value>
   </data>
   <data name="SensorItem_MemoryTemperature" xml:space="preserve">
-    <value />
+    <value>Memory Temperature</value>
   </data>
   <data name="SensorItem_Disk1Temperature" xml:space="preserve">
-    <value />
+    <value>Disk 1 Temperature</value>
   </data>
   <data name="SensorItem_Disk2Temperature" xml:space="preserve">
-    <value />
+    <value>Disk 2 Temperature</value>
   </data>
   <data name="EditSensorWindow_Title" xml:space="preserve">
-    <value />
+    <value>Edit Sensor</value>
   </data>
   <data name="SensorItem_GpuTemperatures" xml:space="preserve">
-    <value />
+    <value>GPU Temperature</value>
   </data>
   <data name="SettingsPage_UseNewSensorDashboard_Title" xml:space="preserve">
-    <value />
+    <value>Use New Sensor Dashboard</value>
   </data>
   <data name="SettingsPage_UseNewSensorDashboard_Message" xml:space="preserve">
-    <value />
+    <value>Use new sensor dashboard instead of the old one. 
+Note: Using the new sensor dashboard may cause some antivirus programmes to display a warning pop-up. For more information, see: LibreHardwareMonitor/LibreHardwareMonitor#984</value>
   </data>
   <data name="SettingsPage_LockWindowSize_Title" xml:space="preserve">
-    <value />
+    <value>Lock Window Size</value>
   </data>
   <data name="SettingsPage_LockWindowSize_Message" xml:space="preserve">
-    <value />
+    <value>Lock LLT's window size. To prevent something change it.</value>
   </data>
   <data name="FanCurveControl_PCH" xml:space="preserve">
-    <value />
+    <value>PCH</value>
   </data>
 </root>

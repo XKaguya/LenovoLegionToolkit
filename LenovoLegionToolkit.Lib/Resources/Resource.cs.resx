@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -150,23 +150,55 @@
   <data name="BatteryState_RapidCharge" xml:space="preserve">
     <value>Rapidní nabíjení</value>
   </data>
+  <data name="FlipToStartState_Off" xml:space="preserve">
+    <value>Vypnuto</value>
+    <comment>Informs the user that Flip to Start is or will be turned off.</comment>
+  </data>
+  <data name="FlipToStartState_On" xml:space="preserve">
+    <value>Zapnuto</value>
+    <comment>Informs the user that Flip to Start is or will be turned on.</comment>
+  </data>
+  <data name="FnLockState_Off" xml:space="preserve">
+    <value>Vypnuto</value>
+    <comment>Informs the user that Fn Lock is or will be turned off.</comment>
+  </data>
+  <data name="FnLockState_On" xml:space="preserve">
+    <value>Zapnuto</value>
+    <comment>Informs the user that Fn Lock is or will be turned on.</comment>
+  </data>
   <data name="GPUController_PoweredOff" xml:space="preserve">
     <value>Vypnut</value>
   </data>
   <data name="GPUController_PoweredOn" xml:space="preserve">
     <value>Zapnut</value>
   </data>
+  <data name="HDRState_Off" xml:space="preserve">
+    <value>Vypnuto</value>
+    <comment>Informs the user that HDR is or will be turned off.</comment>
+  </data>
+  <data name="HDRState_On" xml:space="preserve">
+    <value>Zapnuto</value>
+    <comment>Informs the user that HDR is or will be turned on.</comment>
+  </data>
   <data name="HybridModeState_Off" xml:space="preserve">
-    <value>dGPU</value>
+    <value>Dedikované GPU</value>
   </data>
   <data name="HybridModeState_On" xml:space="preserve">
-    <value>Hybrid</value>
+    <value>Hybridní</value>
   </data>
   <data name="HybridModeState_OnAuto" xml:space="preserve">
-    <value>Hybrid-Auto</value>
+    <value>Hybridní-auto</value>
   </data>
   <data name="HybridModeState_OnIGPUOnly" xml:space="preserve">
-    <value>Hybrid-iGPU</value>
+    <value>Hybridní iGPU</value>
+  </data>
+  <data name="MicrophoneState_Off" xml:space="preserve">
+    <value>Vypnuto</value>
+    <comment>Informs the user that the microphone is or will be turned off.</comment>
+  </data>
+  <data name="MicrophoneState_On" xml:space="preserve">
+    <value>Zapnuto</value>
+    <comment>Informs the user that the microphone is or will be turned on.</comment>
   </data>
   <data name="NotificationPosition_BottomCenter" xml:space="preserve">
     <value>Dole uprostřed</value>
@@ -194,6 +226,22 @@
   </data>
   <data name="NotificationPosition_TopRight" xml:space="preserve">
     <value>Nahoře vpravo</value>
+  </data>
+  <data name="OneLevelWhiteKeyboardBacklightState_Off" xml:space="preserve">
+    <value>Vypnuto</value>
+    <comment>Informs the user that One Level White Keyboard Backlight is or will be turned off.</comment>
+  </data>
+  <data name="OneLevelWhiteKeyboardBacklightState_On" xml:space="preserve">
+    <value>Zapnuto</value>
+    <comment>Informs the user that One Level White Keyboard Backlight is or will be turned on.</comment>
+  </data>
+  <data name="OverdriveState_Off" xml:space="preserve">
+    <value>Vypnuto</value>
+    <comment>Informs the user that Overdrive is or will be turned off.</comment>
+  </data>
+  <data name="OverdriveState_On" xml:space="preserve">
+    <value>Zapnuto</value>
+    <comment>Informs the user that Overdrive is or will be turned on.</comment>
   </data>
   <data name="PowerModeState_Balance" xml:space="preserve">
     <value>Vyvážený</value>
@@ -265,7 +313,7 @@
     <value>Vypnut</value>
   </data>
   <data name="SpectrumKeyboardBacklightDirection_BottomToTop" xml:space="preserve">
-    <value>Ze spoda nahoru</value>
+    <value>Zespoda nahoru</value>
   </data>
   <data name="SpectrumKeyboardBacklightDirection_Clockwise" xml:space="preserve">
     <value>Pravotočivě</value>
@@ -339,6 +387,20 @@
   <data name="Theme_System" xml:space="preserve">
     <value>Systém</value>
   </data>
+  <data name="TouchpadLockState_Off" xml:space="preserve">
+    <value>Vypnuto</value>
+    <comment>Informs the user that Touchpad Lock is or will be turned off.</comment>
+  </data>
+  <data name="TouchpadLockState_On" xml:space="preserve">
+    <value>Zapnuto</value>
+    <comment>Informs the user that Touchpad Lock is or will be turned on.</comment>
+  </data>
+  <data name="UpdateMethod_Server" xml:space="preserve">
+    <value>Server</value>
+  </data>
+  <data name="UpdateMethod_Github" xml:space="preserve">
+    <value>GitHub</value>
+  </data>
   <data name="WhiteKeyboardBacklightState_High" xml:space="preserve">
     <value>Vysoký</value>
   </data>
@@ -348,10 +410,105 @@
   <data name="WhiteKeyboardBacklightState_Off" xml:space="preserve">
     <value>Vypnut</value>
   </data>
+  <data name="WinKeyState_Off" xml:space="preserve">
+    <value>Vypnuto</value>
+    <comment>Informs the user that WinLock is or will be turned on.</comment>
+  </data>
+  <data name="WinKeyState_On" xml:space="preserve">
+    <value>Zapnuto</value>
+    <comment>Informs the user that WinLock is or will be turned on.</comment>
+  </data>
+  <data name="PortsBacklightState_Off" xml:space="preserve">
+    <value>Vypnuto</value>
+  </data>
+  <data name="PortsBacklightState_On" xml:space="preserve">
+    <value>Zapnuto</value>
+  </data>
+  <data name="PanelLogoBacklightState_On" xml:space="preserve">
+    <value>Zapnuto</value>
+  </data>
+  <data name="PanelLogoBacklightState_Off" xml:space="preserve">
+    <value>Vypnuto</value>
+  </data>
+  <data name="InstantBootState_Off" xml:space="preserve">
+    <value>Vypnuto</value>
+  </data>
+  <data name="InstantBootState_AcAdapter" xml:space="preserve">
+    <value>Nabíječka</value>
+  </data>
+  <data name="InstantBootState_UsbPowerDelivery" xml:space="preserve">
+    <value>Nabíjení přes USB PD</value>
+  </data>
+  <data name="InstantBootState_AcAdapterAndUsbPowerDelivery" xml:space="preserve">
+    <value>Nabíječka a USB PD</value>
+  </data>
+  <data name="NotificationDuration_Long" xml:space="preserve">
+    <value>Dlouhá</value>
+  </data>
+  <data name="NotificationDuration_Normal" xml:space="preserve">
+    <value>Normální</value>
+  </data>
+  <data name="NotificationDuration_Short" xml:space="preserve">
+    <value>Krátká</value>
+  </data>
+  <data name="ModifierKey_Shift" xml:space="preserve">
+    <value>Shift</value>
+  </data>
+  <data name="ModifierKey_Ctrl" xml:space="preserve">
+    <value>Ctrl</value>
+  </data>
+  <data name="ModifierKey_Alt" xml:space="preserve">
+    <value>Alt</value>
+  </data>
+  <data name="BatteryNightChargeState_On" xml:space="preserve">
+    <value>Zapnuto</value>
+  </data>
+  <data name="BatteryNightChargeState_Off" xml:space="preserve">
+    <value>Vypnuto</value>
+  </data>
+  <data name="SpeakerState_Mute" xml:space="preserve">
+    <value>Ztlumit</value>
+  </data>
+  <data name="SpeakerState_Unmute" xml:space="preserve">
+    <value>Zrušit ztlumení</value>
+  </data>
+  <data name="PowerModeMappingMode_Disabled" xml:space="preserve">
+    <value>Zakázán</value>
+  </data>
+  <data name="PowerModeMappingMode_WindowsPowerMode" xml:space="preserve">
+    <value>Režim napájení Windows</value>
+  </data>
+  <data name="PowerModeMappingMode_WindowsPowerPlan" xml:space="preserve">
+    <value>Plány napájení Windows</value>
+  </data>
+  <data name="RGBKeyboardBacklightPreset_Four" xml:space="preserve">
+    <value>Předvolba 4</value>
+  </data>
+  <data name="UpdateCheckFrequency_PerDay" xml:space="preserve">
+    <value>Denně</value>
+  </data>
+  <data name="UpdateCheckFrequency_PerHour" xml:space="preserve">
+    <value>Každou hodinu</value>
+  </data>
+  <data name="UpdateCheckFrequency_PerMonth" xml:space="preserve">
+    <value>Měsíčně</value>
+  </data>
+  <data name="UpdateCheckFrequency_PerThreeHours" xml:space="preserve">
+    <value>Každé 3 hodiny</value>
+  </data>
+  <data name="UpdateCheckFrequency_PerTwelveHours" xml:space="preserve">
+    <value>Každých 12 hodin</value>
+  </data>
+  <data name="UpdateCheckFrequency_PerWeek" xml:space="preserve">
+    <value>Týdně</value>
+  </data>
   <data name="PowerModeState_Extreme" xml:space="preserve">
-    <value />
+    <value>Extrémní</value>
+  </data>
+  <data name="UpdateCheckFrequency_Never" xml:space="preserve">
+    <value>Nikdy</value>
   </data>
   <data name="HybridModeState_UMA" xml:space="preserve">
-    <value />
+    <value>UMA</value>
   </data>
 </root>

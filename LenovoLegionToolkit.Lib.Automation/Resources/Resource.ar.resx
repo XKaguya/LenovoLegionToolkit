@@ -165,6 +165,12 @@
   <data name="DisplayOffAutomationPipelineTrigger_DisplayName" xml:space="preserve">
     <value>عندما تنطفئ شاشات</value>
   </data>
+  <data name="LidOpenedAutomationPipelineTrigger_DisplayName" xml:space="preserve">
+    <value>Lid opened</value>
+  </data>
+  <data name="LidClosedAutomationPipelineTrigger_DisplayName" xml:space="preserve">
+    <value>Lid closed</value>
+  </data>
   <data name="GamesStopAutomationPipelineTrigger_DisplayName" xml:space="preserve">
     <value>عندما تغلق اللعبة</value>
   </data>
@@ -187,11 +193,27 @@
   <data name="OverclockDiscreteGPUAutomationStepState_On" xml:space="preserve">
     <value>مفعل</value>
   </data>
+  <data name="GodModePresetChangedAutomationPipelineTrigger_DisplayName" xml:space="preserve">
+    <value>When Custom Mode preset changes</value>
+  </data>
+  <data name="PeriodicActionPipelineTrigger_DisplayName" xml:space="preserve">
+    <value>Periodic action</value>
+    <comment>The display name of the periodic automation action.</comment>
+  </data>
   <data name="WiFiConnectedAutomationPipelineTrigger_DisplayName" xml:space="preserve">
     <value>عند توصيل واي فاي</value>
   </data>
   <data name="WiFiDisconnectedAutomationPipelineTrigger_DisplayName" xml:space="preserve">
     <value>عند انقطاع اتصال واي فاي</value>
+  </data>
+  <data name="OnResumeAutomationPipelineTrigger_DisplayName" xml:space="preserve">
+    <value>On resume</value>
+  </data>
+  <data name="HDROffAutomationPipelineTrigger_DisplayName" xml:space="preserve">
+    <value>When HDR turns off</value>
+  </data>
+  <data name="HDROnAutomationPipelineTrigger_DisplayName" xml:space="preserve">
+    <value>When HDR turns on</value>
   </data>
   <data name="MacroAutomationStepState_Off" xml:space="preserve">
     <value>إيقاف</value>
@@ -204,5 +226,11 @@
   </data>
   <data name="DeviceConnectedAutomationPipelineTrigger_DisplayName" xml:space="preserve">
     <value>عند توصيل الجهاز</value>
+  </data>
+  <data name="SessionLockAutomationPipelineTrigger_DisplayName" xml:space="preserve">
+    <value>Session locked</value>
+  </data>
+  <data name="SessionUnlockAutomationPipelineTrigger_DisplayName" xml:space="preserve">
+    <value>Session unlocked</value>
   </data>
 </root>
