@@ -957,7 +957,7 @@
 Να βεβαιώνεστε πάντα ότι εγκαθιστάτε σωστά πακέτα.</value>
   </data>
   <data name="PackagesPage_DownloadFailed_Message" xml:space="preserve">
-    <value>Ελέγξτε εάν ο Τύπος Μηχανήματος και το λειτουργικό σύστημα είναι σωστά.</value>
+    <value>Ελέγξτε εάν ο Τύπος Μηχανήματος και το Λειτουργικό Σύστημα είναι σωστά.</value>
   </data>
   <data name="PackagesPage_DownloadFailed_Title" xml:space="preserve">
     <value>Παρουσιάστηκε κάποιο πρόβλημα</value>
@@ -1147,7 +1147,7 @@
     <value>Αυτόματη εκτέλεση</value>
   </data>
   <data name="SettingsPage_DisableLegionZone_Error_Message" xml:space="preserve">
-    <value>Το Legion Zone μπορεί να μην απενεργοποιήθηκε σωστά</value>
+    <value>Το Legion Zone ενδέχεται να μην έχει απενεργοποιηθεί σωστά</value>
   </data>
   <data name="SettingsPage_DisableLegionZone_Error_Title" xml:space="preserve">
     <value>Αδυναμία απενεργοποίησης Legion Zone</value>
@@ -1164,7 +1164,7 @@
     <value>Απενεργοποίηση Legion Zone</value>
   </data>
   <data name="SettingsPage_DisableLenovoHotkeys_Error_Message" xml:space="preserve">
-    <value>Το Lenovo Hotkeys μπορεί να μην απενεργοποιήθηκε σωστά</value>
+    <value>Το Lenovo Hotkeys ενδέχεται να μην έχει απενεργοποιηθεί σωστά</value>
   </data>
   <data name="SettingsPage_DisableLenovoHotkeys_Error_Title" xml:space="preserve">
     <value>Αδυναμία απενεργοποίησης Lenovo Hotkeys</value>
@@ -1191,13 +1191,13 @@
     <value>Απενεργοποίηση των Lenovo Vantage και ImController</value>
   </data>
   <data name="SettingsPage_EnableLegionZone_Error_Message" xml:space="preserve">
-    <value>Το Legion Zone μπορεί να μην ενεργοποιήθηκε σωστά</value>
+    <value>Το Legion Zone ενδέχεται να μην έχει ενεργοποιηθεί σωστά</value>
   </data>
   <data name="SettingsPage_EnableLegionZone_Error_Title" xml:space="preserve">
     <value>Αδυναμία ενεργοποίησης Legion Zone</value>
   </data>
   <data name="SettingsPage_EnableLenovoHotkeys_Error_Message" xml:space="preserve">
-    <value>Το Lenovo Hotkeys μπορεί να μην ενεργοποιήθηκε σωστά</value>
+    <value>Το Lenovo Hotkeys ενδέχεται να μην έχει ενεργοποιηθεί σωστά</value>
   </data>
   <data name="SettingsPage_EnableLenovoHotkeys_Error_Title" xml:space="preserve">
     <value>Αδυναμία ενεργοποίησης πλήκτρων Lenovo Hotkeys</value>
@@ -1508,7 +1508,7 @@
     <value>Φωτισμός πληκτρολογίου</value>
   </data>
   <data name="OneLevelWhiteKeyboardBacklightAutomationStepControl_Message" xml:space="preserve">
-    <value>Ενεργοποιήστε ή απενεργοποιήστε τον φωτισμό πληκτρολογίου.</value>
+    <value>Ανάψετε ή σβήσετε τον φωτισμό πληκτρολογίου.</value>
   </data>
   <data name="PackagesPage_NoMatchingDownloads" xml:space="preserve">
     <value>Δεν βρέθηκαν λήψεις που να ταιριάζουν</value>
@@ -2267,7 +2267,7 @@
     <value>Αναπαραγωγή ήχου</value>
   </data>
   <data name="PlaySoundAutomationStepControl_Message" xml:space="preserve">
-    <value>Υποστηρίζονται κοινές μορφές μουσικής όπως wav ή mp3.</value>
+    <value>Υποστηρίζονται κοινές μορφές μουσικής όπως WAV ή MP3.</value>
   </data>
   <data name="QuickActionAutomationStepControl_Title" xml:space="preserve">
     <value>Γρήγορη Δράση</value>
