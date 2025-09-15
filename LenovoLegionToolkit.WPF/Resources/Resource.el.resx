@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutPage_AppName" xml:space="preserve">
-    <value>Lenovo Legion Toolkit</value>
+    <value>Lenovo Legion Toolkit (ανεπίσημη διακλάδωση)</value>
   </data>
   <data name="AboutPage_Build" xml:space="preserve">
     <value>Κατασκευή</value>
@@ -306,43 +306,43 @@
     <value>Συνδεδεμένη, δε φορτίζει</value>
   </data>
   <data name="BatteryPage_BatteryTemperature_Message" xml:space="preserve">
-    <value>Τρέχουσα θερμοκρασία μπαταρίας.</value>
+    <value>Η τρέχουσα θερμοκρασία της μπαταρίας.</value>
   </data>
   <data name="BatteryPage_BatteryTemperature_Title" xml:space="preserve">
     <value>Θερμοκρασία μπαταρίας</value>
   </data>
   <data name="BatteryPage_CurrentCapacity_Message" xml:space="preserve">
-    <value>Τρέχουσα χωρητικότητα μπαταρίας.</value>
+    <value>Η τρέχουσα χωρητικότητα της μπαταρίας.</value>
   </data>
   <data name="BatteryPage_CurrentCapacity_Title" xml:space="preserve">
     <value>Τρέχουσα χωρητικότητα</value>
   </data>
   <data name="BatteryPage_CycleCount_Message" xml:space="preserve">
-    <value>Αριθμός κύκλων φόρτισης/αποφόρτισης.</value>
+    <value>Ο αριθμός κύκλων φόρτισης/αποφόρτισης.</value>
   </data>
   <data name="BatteryPage_CycleCount_Title" xml:space="preserve">
     <value>Κύκλοι φόρτισης</value>
   </data>
   <data name="BatteryPage_DesignCapacity_Message" xml:space="preserve">
-    <value>Χωρητικότητα μπαταρίας όπως έχει σχεδιαστεί.</value>
+    <value>Η χωρητικότητα της μπαταρίας όπως έχει σχεδιαστεί.</value>
   </data>
   <data name="BatteryPage_DesignCapacity_Title" xml:space="preserve">
     <value>Χωρητικότητα σχεδιασμού</value>
   </data>
   <data name="BatteryPage_DischargeRate_Message" xml:space="preserve">
-    <value>Ρυθμός με τον οποίο η μπαταρία φορτίζεται (+), ή αποφορτίζεται (-).</value>
+    <value>Ο ρυθμός με τον οποίο η μπαταρία φορτίζεται (+), ή αποφορτίζεται (-).</value>
   </data>
   <data name="BatteryPage_DischargeRate_Title" xml:space="preserve">
     <value>Ρυθμός αποφόρτισης</value>
   </data>
   <data name="BatteryPage_MinDischargeRate_Message" xml:space="preserve">
-    <value>Ελάχιστος ρυθμός με τον οποίο η μπαταρία φορτίζεται (+), ή αποφορτίζεται (-).</value>
+    <value>Ο ελάχιστος ρυθμός με τον οποίο η μπαταρία φορτίζεται (+), ή αποφορτίζεται (-).</value>
   </data>
   <data name="BatteryPage_MinDischargeRate_Title" xml:space="preserve">
     <value>Ελάχιστος ρυθμός αποφόρτισης</value>
   </data>
   <data name="BatteryPage_MaxDischargeRate_Message" xml:space="preserve">
-    <value>Μέγιστος ρυθμός με τον οποίο η μπαταρία φορτίζεται (+), ή αποφορτίζεται (-).</value>
+    <value>Ο μέγιστος ρυθμός με τον οποίο η μπαταρία φορτίζεται (+), ή αποφορτίζεται (-).</value>
   </data>
   <data name="BatteryPage_MaxDischargeRate_Title" xml:space="preserve">
     <value>Μέγιστος ρυθμός αποφόρτισης</value>
@@ -360,13 +360,13 @@
     <value>Πότε χρησιμοποιήθηκε για πρώτη φορά η μπαταρία.</value>
   </data>
   <data name="BatteryPage_FullChargeCapacity_Message" xml:space="preserve">
-    <value>Χωρητικότητα μπαταρίας όταν είναι πλήρως φορτισμένη.</value>
+    <value>Η χωρητικότητα της μπαταρίας όταν είναι πλήρως φορτισμένη.</value>
   </data>
   <data name="BatteryPage_FullChargeCapacity_Title" xml:space="preserve">
     <value>Πλήρης χωρητικότητα φόρτισης</value>
   </data>
   <data name="BatteryPage_BatteryHealth_Message" xml:space="preserve">
-    <value>Μέγιστη χωρητικότητα φόρτισης μπαταρίας.</value>
+    <value>Η μέγιστη χωρητικότητα φόρτισης της μπαταρίας.</value>
   </data>
   <data name="BatteryPage_BatteryHealth_Title" xml:space="preserve">
     <value>Υγεία μπαταρίας</value>
@@ -381,7 +381,7 @@
     <value>Ημερομηνία παραγωγής</value>
   </data>
   <data name="BatteryPage_OnBatterySince_Message" xml:space="preserve">
-    <value>Χρόνος από την τελευταία φορά που ο υπολογιστής φόρτιζε.
+    <value>Ο χρόνος από την τελευταία φορά που ο υπολογιστής φόρτιζε.
 Αυτός ο χρόνος μπορεί να μην είναι ακριβής εάν ο υπολογιστής φόρτιζε ενώ ήταν σε αδράνεια.</value>
   </data>
   <data name="BatteryPage_OnBatterySince_Title" xml:space="preserve">
@@ -634,13 +634,13 @@
     <value>σ.α.λ.</value>
   </data>
   <data name="FlipToStartAutomationStepControl_Message" xml:space="preserve">
-    <value>Ενεργοποιήστε τον υπολογιστή όταν σηκώνετε την οθόνη.</value>
+    <value>Ενεργοποίηση του υπολογιστή όταν σηκώνετε την οθόνη.</value>
   </data>
   <data name="FlipToStartAutomationStepControl_Title" xml:space="preserve">
     <value>Άνοιγμα οθόνης για έναρξη</value>
   </data>
   <data name="FlipToStartControl_Message" xml:space="preserve">
-    <value>Ενεργοποιήστε τον υπολογιστή όταν σηκώνετε την οθόνη.</value>
+    <value>Ενεργοποίηση του υπολογιστή όταν σηκώνετε την οθόνη.</value>
   </data>
   <data name="FlipToStartControl_Title" xml:space="preserve">
     <value>Άνοιγμα οθόνης για έναρξη</value>
@@ -2400,8 +2400,9 @@
     <value>Χρήση Νέου Πίνακα Αισθητήρων</value>
   </data>
   <data name="SettingsPage_UseNewSensorDashboard_Message" xml:space="preserve">
-    <value>Use new sensor dashboard instead of the old one. 
-Note: Using the new sensor dashboard may cause some antivirus programmes to display a warning pop-up. For more information, see: LibreHardwareMonitor/LibreHardwareMonitor#984</value>
+    <value>Χρησιμοποιήστε τον νέο πίνακα αισθητήρων αντί για τον παλιό.
+
+Σημείωση: Η χρήση του νέου πίνακα αισθητήρων ενδέχεται να προκαλέσει την εμφάνιση ενός αναδυόμενου παραθύρου προειδοποίησης σε ορισμένα προγράμματα προστασίας από ιούς. Για περισσότερες πληροφορίες, δείτε το: LibreHardwareMonitor/LibreHardwareMonitor#984</value>
   </data>
   <data name="SettingsPage_LockWindowSize_Title" xml:space="preserve">
     <value>Κλείδωμα Μεγέθους Παραθύρου</value>
