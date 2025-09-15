@@ -40,6 +40,7 @@ using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Threading;
+using Wpf.Ui.Controls;
 using static System.Windows.Forms.AxHost;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
@@ -711,6 +712,22 @@ public partial class App
 
     private static void ShowPawnIONotify()
     {
-        SnackbarHelper.Show(Resource.MainWindow_PawnIO_Warning_Title, Resource.MainWindow_PawnIO_Warning_Message, SnackbarType.Error);
+        var dialog = new DialogWindow
+        {
+            Title = Resource.MainWindow_PawnIO_Warning_Title,
+            Content = Resource.MainWindow_PawnIO_Warning_Message,
+            Owner = Application.Current.MainWindow
+        };
+
+        dialog.ShowDialog();
+
+        if (dialog.Result)
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = "https://pawnio.eu/",
+                UseShellExecute = true
+            });
+        }
     }
 }
