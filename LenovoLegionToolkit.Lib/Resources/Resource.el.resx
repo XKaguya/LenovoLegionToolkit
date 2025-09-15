@@ -437,10 +437,10 @@
     <value>Φορτιστής Ρεύματος</value>
   </data>
   <data name="InstantBootState_UsbPowerDelivery" xml:space="preserve">
-    <value>USB Power Delivery</value>
+    <value>Παροχή Ισχύος USB</value>
   </data>
   <data name="InstantBootState_AcAdapterAndUsbPowerDelivery" xml:space="preserve">
-    <value>Ρεύμα και USB PD</value>
+    <value>Ρεύμα και Παροχή Ισχύος USB</value>
   </data>
   <data name="NotificationDuration_Long" xml:space="preserve">
     <value>Μεγάλη</value>
@@ -503,7 +503,7 @@
     <value>Εβδομαδιαία</value>
   </data>
   <data name="PowerModeState_Extreme" xml:space="preserve">
-    <value>Extreme</value>
+    <value>Ακραία</value>
   </data>
   <data name="UpdateCheckFrequency_Never" xml:space="preserve">
     <value>Ποτέ</value>
