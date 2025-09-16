@@ -716,7 +716,7 @@ public partial class App
 
         dialog.ShowDialog();
 
-        if (dialog.Result)
+        if (dialog.Result.Item1)
         {
             Process.Start(new ProcessStartInfo
             {

@@ -22,7 +22,7 @@ public partial class DialogWindow
         set => SetValue(ContentProperty, value);
     }
 
-    public bool Result { get; private set; }
+    public (bool, bool) Result { get; private set; }
 
     public DialogWindow()
     {
@@ -32,13 +32,13 @@ public partial class DialogWindow
 
     private void YesButton_Click(object sender, RoutedEventArgs e)
     {
-        Result = true;
+        Result = (true, DontShowAgainCheckBox.IsChecked!.Value);
         Close();
     }
 
     private void NoButton_Click(object sender, RoutedEventArgs e)
     {
-        Result = false;
+        Result = (false, DontShowAgainCheckBox.IsChecked!.Value);
         Close();
     }
 

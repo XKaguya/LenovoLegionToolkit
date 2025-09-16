@@ -1661,6 +1661,15 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Don&apos;t show again. 的本地化字符串。
+        /// </summary>
+        public static string DialogWindow_DontShowAgain {
+            get {
+                return ResourceManager.GetString("DialogWindow_DontShowAgain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Deactivate 的本地化字符串。
         /// </summary>
         public static string DiscreteGPUControl_Deactivate {
@@ -2872,6 +2881,17 @@ namespace LenovoLegionToolkit.WPF.Resources {
         public static string Keyboard_VantageEnabledWarning_Title {
             get {
                 return ResourceManager.GetString("Keyboard_VantageEnabledWarning_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Windows Dynamic lighting is enabled.
+        ///This will prevent LLT to control the keyboard.
+        ///Click Yes to disable and No to ignore. 的本地化字符串。
+        /// </summary>
+        public static string KeyboardBacklightPage_DynamicLightingEnabled {
+            get {
+                return ResourceManager.GetString("KeyboardBacklightPage_DynamicLightingEnabled", resourceCulture);
             }
         }
         
@@ -6801,6 +6821,15 @@ namespace LenovoLegionToolkit.WPF.Resources {
         public static string UpdateWindow_WhatsNew {
             get {
                 return ResourceManager.GetString("UpdateWindow_WhatsNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Warning 的本地化字符串。
+        /// </summary>
+        public static string Warning {
+            get {
+                return ResourceManager.GetString("Warning", resourceCulture);
             }
         }
         

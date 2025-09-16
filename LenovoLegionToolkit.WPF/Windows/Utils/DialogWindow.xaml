@@ -8,9 +8,9 @@
     xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="{Binding Title}"
     Width="400"
-    Height="200"
+    Height="260"
     MinWidth="400"
-    MinHeight="200"
+    MinHeight="260"
     AllowsTransparency="True"
     Background="Transparent"
     Closing="DialogWindow_Closing"
@@ -43,6 +43,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <wpfui:TitleBar
@@ -67,7 +68,7 @@
 
                 <ScrollViewer
                     Grid.Row="1"
-                    Margin="24,12,24,12"
+                    Margin="24,12,24,8"
                     VerticalScrollBarVisibility="Auto">
                     <TextBlock
                         FontSize="14"
@@ -77,9 +78,19 @@
                         TextWrapping="Wrap" />
                 </ScrollViewer>
 
-                <StackPanel
+                <CheckBox
+                    x:Name="DontShowAgainCheckBox"
                     Grid.Row="2"
-                    Margin="0,16,0,20"
+                    Margin="24,0,24,12"
+                    HorizontalAlignment="Left"
+                    Content="{x:Static resources:Resource.DialogWindow_DontShowAgain}"
+                    Foreground="{DynamicResource Wpf.Ui.TextFillColorSecondaryBrush}"
+                    IsChecked="{Binding DontShowAgain}"
+                    Visibility="Hidden" />
+
+                <StackPanel
+                    Grid.Row="3"
+                    Margin="0,0,0,20"
                     HorizontalAlignment="Center"
                     Orientation="Horizontal">
                     <wpfui:Button
