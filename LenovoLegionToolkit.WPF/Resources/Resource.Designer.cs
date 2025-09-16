@@ -2886,7 +2886,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         
         /// <summary>
         ///   查找类似 Windows Dynamic lighting is enabled.
-        ///This will prevent LLT to control the keyboard.
+        ///This feature might prevent LLT to control the keyboard.
         ///Click Yes to disable and No to ignore. 的本地化字符串。
         /// </summary>
         public static string KeyboardBacklightPage_DynamicLightingEnabled {

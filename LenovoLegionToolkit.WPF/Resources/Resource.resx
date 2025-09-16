@@ -2449,7 +2449,7 @@ Note: Using the new sensor dashboard may cause some antivirus programmes to disp
   </data>
   <data name="KeyboardBacklightPage_DynamicLightingEnabled" xml:space="preserve">
     <value>Windows Dynamic lighting is enabled.
-This will prevent LLT to control the keyboard.
+This feature might prevent LLT to control the keyboard.
 Click Yes to disable and No to ignore.</value>
   </data>
   <data name="DialogWindow_DontShowAgain" xml:space="preserve">
