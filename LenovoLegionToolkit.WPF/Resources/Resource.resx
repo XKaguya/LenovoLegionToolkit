@@ -2444,4 +2444,15 @@ Note: Using the new sensor dashboard may cause some antivirus programmes to disp
   <data name="MainWindow_PawnIO_Warning_Message" xml:space="preserve">
     <value>You need install PawnIO first to use the new dashboard!</value>
   </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="KeyboardBacklightPage_DynamicLightingEnabled" xml:space="preserve">
+    <value>Windows Dynamic lighting is enabled.
+This feature might prevent LLT to control the keyboard.
+Click Yes to disable and No to ignore.</value>
+  </data>
+  <data name="DialogWindow_DontShowAgain" xml:space="preserve">
+    <value>Don't show again.</value>
+  </data>
 </root>

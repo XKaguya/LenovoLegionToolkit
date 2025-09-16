@@ -87,7 +87,7 @@ public class HybridModeFeature(GSyncFeature gSyncFeature, IGPUModeFeature igpuMo
             }
             finally
             {
-                if (!gSyncChanged && igpuMode is IGPUModeState.Default or IGPUModeState.Auto)
+                if (!gSyncChanged && igpuMode is IGPUModeState.Default or IGPUModeState.Auto or IGPUModeState.IGPUOnly)
                     await dgpuNotify.NotifyLaterIfNeededAsync().ConfigureAwait(false);
             }
         }

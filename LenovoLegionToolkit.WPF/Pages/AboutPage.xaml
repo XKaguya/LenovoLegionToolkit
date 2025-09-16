@@ -93,10 +93,10 @@
                 <wpfui:Hyperlink Content="WindowsDisplayAPI" NavigateUri="https://github.com/falahati/WindowsDisplayAPI" />
                 <wpfui:Hyperlink Content="wpfui" NavigateUri="https://github.com/lepoco/wpfui" />
                 <wpfui:Hyperlink Content="RAMSPDToolkit" NavigateUri="https://github.com/Blacktempel/RAMSPDToolkit" />
-                <wpfui:Hyperlink Content="PawnIO" NavigateUri="https://github.com/namazso/PawnIO" />
             </StackPanel>
             <StackPanel Grid.Column="3">
                 <wpfui:Hyperlink Content="LibreHardwareMonitor" NavigateUri="https://github.com/LibreHardwareMonitor/LibreHardwareMonitor" />
+                <wpfui:Hyperlink Content="PawnIO" NavigateUri="https://github.com/namazso/PawnIO" />
             </StackPanel>
 
         </Grid>

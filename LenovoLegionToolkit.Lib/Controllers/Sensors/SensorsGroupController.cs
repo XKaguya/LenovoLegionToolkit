@@ -5,14 +5,11 @@
 // All Rights Reserved.
 
 using LenovoLegionToolkit.Lib.Settings;
-using LenovoLegionToolkit.Lib.System;
 using LenovoLegionToolkit.Lib.Utils;
 using LibreHardwareMonitor.Hardware;
-using NvAPIWrapper.GPU;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,6 +19,7 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
     public class SensorsGroupController : IDisposable
     {
         private bool _initialized;
+        private float _lastGpuPower;
         private readonly SemaphoreSlim _initSemaphore = new SemaphoreSlim(1, 1);
         private readonly List<IHardware> _interestedHardwares = new();
         private IHardware? _cpuHardware;
@@ -34,6 +32,8 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
 
         private readonly object _hardwareLock = new object();
         private volatile bool _hardwaresInitialized;
+
+        private GPUController _gpuController = IoCContainer.Resolve<GPUController>();
 
         public async Task<bool> IsSupportedAsync()
         {
@@ -172,6 +172,11 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                 return 0;
             }
 
+            if (_lastGpuPower <= 10 && (await _gpuController.GetLastKnownStateAsync() == GPUState.Inactive || await _gpuController.GetLastKnownStateAsync() == GPUState.PoweredOff))
+            {
+                return 0;
+            }
+
             if (_gpuHardware == null)
             {
                 return 0;
@@ -181,6 +186,7 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
 
             var sensor = _gpuHardware.Sensors?
               .FirstOrDefault(s => s.SensorType == SensorType.Power);
+            _lastGpuPower = sensor?.Value ?? 0;
             return sensor?.Value ?? 0;
         }
 
