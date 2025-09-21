@@ -48,16 +48,15 @@ public partial class GodModeSettingsWindow
         };
 
         var mi = Compatibility.GetMachineInformationAsync().Result;
+        int contentIndex = _fanCurveControlStackPanel.Children.IndexOf(_fanCurveButton);
         if (mi.Properties.SupportsGodModeV3)
         {
             _fanCurveControl = new Controls.FanCurveControlV2();
-            int contentIndex = _fanCurveControlStackPanel.Children.IndexOf(_fanCurveButton);
             _fanCurveControlStackPanel.Children.Insert(contentIndex, _fanCurveControl);
         }
         else
         {
             _fanCurveControl = new Controls.FanCurveControl();
-            int contentIndex = _fanCurveControlStackPanel.Children.IndexOf(_fanCurveButton);
             _fanCurveControlStackPanel.Children.Insert(contentIndex, _fanCurveControl);
         }
     }

@@ -85,7 +85,6 @@
                     HorizontalAlignment="Left"
                     Content="{x:Static resources:Resource.DialogWindow_DontShowAgain}"
                     Foreground="{DynamicResource Wpf.Ui.TextFillColorSecondaryBrush}"
-                    IsChecked="{Binding DontShowAgain}"
                     Visibility="Hidden" />
 
                 <StackPanel

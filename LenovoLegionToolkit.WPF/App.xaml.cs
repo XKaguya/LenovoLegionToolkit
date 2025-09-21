@@ -509,6 +509,8 @@ public partial class App
 
                 Log.Instance.IsTraceEnabled = settings.Store.EnableLogging;
                 mainWindow._openLogIndicator.Visibility = Utils.BooleanToVisibilityConverter.Convert(settings.Store.EnableLogging);
+
+                Compatibility.PrintMachineInfo();
             }
         }
         catch (Exception ex)

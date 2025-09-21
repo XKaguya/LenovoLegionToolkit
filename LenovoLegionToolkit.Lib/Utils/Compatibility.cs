@@ -178,6 +178,7 @@ public static partial class Compatibility
         return (_machineInformation = machineInformation).Value;
     }
 
+
     private static Task<(string, string, string, string)> GetModelDataAsync() => WMI.Win32.ComputerSystemProduct.ReadAsync();
 
     private static (BiosVersion?, string?) GetBIOSVersion()
@@ -501,5 +502,37 @@ public static partial class Compatibility
             "83AG"  // Gen 8
         };
         return machineTypes.Contains(machineType);
+    }
+
+    public static void PrintMachineInfo()
+    {
+        if (Log.Instance.IsTraceEnabled)
+        {
+            Log.Instance.Trace($"Retrieved machine information:");
+            Log.Instance.Trace($" * Generation: '{_machineInformation.Value.Generation}'");
+            Log.Instance.Trace($" * Vendor: '{_machineInformation.Value.Vendor}'");
+            Log.Instance.Trace($" * Machine Type: '{_machineInformation.Value.MachineType}'");
+            Log.Instance.Trace($" * Model: '{_machineInformation.Value.Model}'");
+            Log.Instance.Trace($" * BIOS: '{_machineInformation.Value.BiosVersion}' [{_machineInformation.Value.BiosVersionRaw}]");
+            Log.Instance.Trace($" * SupportedPowerModes: '{string.Join(",", _machineInformation.Value.SupportedPowerModes)}'");
+            Log.Instance.Trace($" * SmartFanVersion: '{_machineInformation.Value.SmartFanVersion}'");
+            Log.Instance.Trace($" * LegionZoneVersion: '{_machineInformation.Value.LegionZoneVersion}'");
+            Log.Instance.Trace($" * Features: {_machineInformation.Value.Features.Source}:{string.Join(',', _machineInformation.Value.Features.All)}");
+            Log.Instance.Trace($" * Properties:");
+            Log.Instance.Trace($"     * SupportsExtremeMode: '{_machineInformation.Value.Properties.SupportsExtremeMode}'");
+            Log.Instance.Trace($"     * SupportsAlwaysOnAc: '{_machineInformation.Value.Properties.SupportsAlwaysOnAc.status}, {_machineInformation.Value.Properties.SupportsAlwaysOnAc.connectivity}'");
+            Log.Instance.Trace($"     * SupportsGodModeV1: '{_machineInformation.Value.Properties.SupportsGodModeV1}'");
+            Log.Instance.Trace($"     * SupportsGodModeV2: '{_machineInformation.Value.Properties.SupportsGodModeV2}'");
+            Log.Instance.Trace($"     * SupportsGSync: '{_machineInformation.Value.Properties.SupportsGSync}'");
+            Log.Instance.Trace($"     * SupportsIGPUMode: '{_machineInformation.Value.Properties.SupportsIGPUMode}'");
+            Log.Instance.Trace($"     * SupportsAIMode: '{_machineInformation.Value.Properties.SupportsAIMode}'");
+            Log.Instance.Trace($"     * SupportBootLogoChange: '{_machineInformation.Value.Properties.SupportBootLogoChange}'");
+            Log.Instance.Trace($"     * HasQuietToPerformanceModeSwitchingBug: '{_machineInformation.Value.Properties.HasQuietToPerformanceModeSwitchingBug}'");
+            Log.Instance.Trace($"     * HasGodModeToOtherModeSwitchingBug: '{_machineInformation.Value.Properties.HasGodModeToOtherModeSwitchingBug}'");
+            Log.Instance.Trace($"     * HasReapplyParameterIssue: '{_machineInformation.Value.Properties.HasReapplyParameterIssue}'");
+            Log.Instance.Trace($"     * IsExcludedFromLenovoLighting: '{_machineInformation.Value.Properties.IsExcludedFromLenovoLighting}'");
+            Log.Instance.Trace($"     * IsExcludedFromPanelLogoLenovoLighting: '{_machineInformation.Value.Properties.IsExcludedFromPanelLogoLenovoLighting}'");
+            Log.Instance.Trace($"     * HasAlternativeFullSpectrumLayout: '{_machineInformation.Value.Properties.HasAlternativeFullSpectrumLayout}'");
+        }
     }
 }
