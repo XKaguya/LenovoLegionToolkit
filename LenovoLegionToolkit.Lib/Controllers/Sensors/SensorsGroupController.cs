@@ -166,7 +166,12 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                 return -1;
             }
 
-            if (_lastGpuPower <= 10 && (await _gpuController.GetLastKnownStateAsync() != GPUState.Active))
+            var state = await _gpuController.GetLastKnownStateAsync();
+            if (_lastGpuPower <= 10 &&
+                (state == GPUState.Inactive ||
+                 state == GPUState.PoweredOff ||
+                 state == GPUState.Unknown ||
+                 state == GPUState.NvidiaGpuNotFound))
             {
                 return -1;
             }
@@ -189,7 +194,7 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
             {
                 if (Log.Instance.IsTraceEnabled)
                 {
-                    Log.Instance.Trace($"Exception occur: ", ex);
+                    Log.Instance.Trace($"GetGpuPowerAsync() raised exception: ", ex);
                 }
 
                 return -1;

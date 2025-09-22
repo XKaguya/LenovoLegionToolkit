@@ -362,11 +362,16 @@ public partial class SensorsControlV2
 
     private static void UpdateValue(TextBlock label, string str)
     {
-        if (int.TryParse(str, out var result))
+        var processedStr = str.Replace("W", "");
+        if (int.TryParse(processedStr, out var result))
         {
             if (result <= 0)
             {
                 label.Text = "-";
+            }
+            else
+            {
+                label.Text = str;
             }
         }
         else

@@ -119,7 +119,7 @@ public static class HybridModeControlFactory
         {
             if (e)
             {
-                SnackbarHelper.Show(Resource.DGPU_Connected_Title, "This may take 5 - 10 seconds.", type: SnackbarType.Info);
+                SnackbarHelper.Show(Resource.DGPU_Connected_Title, type: SnackbarType.Info);
                 var feature = IoCContainer.Resolve<ApplicationSettings>();
                 if (feature.Store.UseNewSensorDashboard)
                 {
@@ -128,8 +128,10 @@ public static class HybridModeControlFactory
                 }
 
             }
-
-            // SnackbarHelper.Show(e ? Resource.DGPU_Connected_Title : Resource.DGPU_Disconnected_Title, type: SnackbarType.Info);
+            else
+            {
+                SnackbarHelper.Show(Resource.DGPU_Disconnected_Title, type: SnackbarType.Info);
+            }
         });
 
         private async void InfoButton_Click(object sender, RoutedEventArgs e)
