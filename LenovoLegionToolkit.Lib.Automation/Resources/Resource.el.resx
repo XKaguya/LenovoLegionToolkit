@@ -228,9 +228,9 @@
     <value>Όταν η συσκευή είναι συνδεδεμένη</value>
   </data>
   <data name="SessionLockAutomationPipelineTrigger_DisplayName" xml:space="preserve">
-    <value>Session locked</value>
+    <value>Κλειδωμένη συνεδρία</value>
   </data>
   <data name="SessionUnlockAutomationPipelineTrigger_DisplayName" xml:space="preserve">
-    <value>Session unlocked</value>
+    <value>Ξεκλειδωμένη συνεδρία</value>
   </data>
 </root>

@@ -396,10 +396,10 @@
     <comment>Informs the user that Touchpad Lock is or will be turned on.</comment>
   </data>
   <data name="UpdateMethod_Server" xml:space="preserve">
-    <value>Server</value>
+    <value>Διακομιστής</value>
   </data>
   <data name="UpdateMethod_Github" xml:space="preserve">
-    <value>Github</value>
+    <value>GitHub</value>
   </data>
   <data name="WhiteKeyboardBacklightState_High" xml:space="preserve">
     <value>Υψηλό</value>
@@ -437,10 +437,10 @@
     <value>Φορτιστής Ρεύματος</value>
   </data>
   <data name="InstantBootState_UsbPowerDelivery" xml:space="preserve">
-    <value>USB Power Delivery</value>
+    <value>Παροχή Ισχύος USB</value>
   </data>
   <data name="InstantBootState_AcAdapterAndUsbPowerDelivery" xml:space="preserve">
-    <value>Ρεύμα και USB PD</value>
+    <value>Ρεύμα και Παροχή Ισχύος USB</value>
   </data>
   <data name="NotificationDuration_Long" xml:space="preserve">
     <value>Μεγάλη</value>
@@ -503,10 +503,10 @@
     <value>Εβδομαδιαία</value>
   </data>
   <data name="PowerModeState_Extreme" xml:space="preserve">
-    <value>Extreme</value>
+    <value>Ακραία</value>
   </data>
   <data name="UpdateCheckFrequency_Never" xml:space="preserve">
-    <value>Never</value>
+    <value>Ποτέ</value>
   </data>
   <data name="HybridModeState_UMA" xml:space="preserve">
     <value>UMA</value>
