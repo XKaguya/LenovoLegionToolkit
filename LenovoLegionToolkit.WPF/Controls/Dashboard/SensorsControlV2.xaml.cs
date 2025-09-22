@@ -297,7 +297,7 @@ public partial class SensorsControlV2
 
     private string GetTemperatureText(double temperature)
     {
-        if (temperature < 0) return "-";
+        if (temperature <= 0) return "-";
         if (_applicationSettings.Store.TemperatureUnit == TemperatureUnit.F)
         {
             temperature = temperature * 9 / 5 + 32;
@@ -362,6 +362,16 @@ public partial class SensorsControlV2
 
     private static void UpdateValue(TextBlock label, string str)
     {
-        label.Text = str;
+        if (int.TryParse(str, out var result))
+        {
+            if (result <= 0)
+            {
+                label.Text = "-";
+            }
+        }
+        else
+        {
+            label.Text = str;
+        }
     }
 }

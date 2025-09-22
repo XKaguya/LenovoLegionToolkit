@@ -163,30 +163,47 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
         {
             if (!await IsSupportedAsync().ConfigureAwait(false))
             {
-                return 0;
+                return -1;
             }
 
-            if (_lastGpuPower <= 10 && (await _gpuController.GetLastKnownStateAsync() == GPUState.Inactive || await _gpuController.GetLastKnownStateAsync() == GPUState.PoweredOff))
+            if (_lastGpuPower <= 10 && (await _gpuController.GetLastKnownStateAsync() != GPUState.Active))
             {
-                return 0;
+                return -1;
             }
 
             if (_gpuHardware == null)
             {
-                return 0;
+                return -1;
             }
 
-            _gpuHardware.Update();
+            try
+            {
+                _gpuHardware.Update();
 
-            var sensor = _gpuHardware.Sensors?
-              .FirstOrDefault(s => s.SensorType == SensorType.Power);
-            _lastGpuPower = sensor?.Value ?? 0;
-            return sensor?.Value ?? 0;
+                var sensor = _gpuHardware.Sensors?
+                  .FirstOrDefault(s => s.SensorType == SensorType.Power);
+                _lastGpuPower = sensor?.Value ?? 0;
+                return sensor?.Value ?? 0;
+            }
+            catch (Exception ex)
+            {
+                if (Log.Instance.IsTraceEnabled)
+                {
+                    Log.Instance.Trace($"Exception occur: ", ex);
+                }
+
+                return -1;
+            }
         }
 
         public async Task<float> GetGpuVramTemperatureAsync()
         {
             if (!await IsSupportedAsync().ConfigureAwait(false))
+            {
+                return 0;
+            }
+
+             if (_lastGpuPower <= 10 && (await _gpuController.GetLastKnownStateAsync() == GPUState.Inactive || await _gpuController.GetLastKnownStateAsync() == GPUState.PoweredOff))
             {
                 return 0;
             }
@@ -341,19 +358,18 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                 return;
             }
 
-            lock (_hardwareLock)
+            if (hardware == "NvidiaGPU")
             {
-                if (hardware == "NvidiaGPU")
-                {
-                    _gpuHardware = null;
+                _gpuHardware = null;
 
-                    _computer.Close();
-                    _computer.Open();
-                    _computer.Accept(new UpdateVisitor());
-                    _gpuHardware = _interestedHardwares.FirstOrDefault(h => h.HardwareType == HardwareType.GpuNvidia);
+                _computer.Open();
+                _computer.Accept(new UpdateVisitor());
+                _computer.Reset();
+                _interestedHardwares.Clear();
+                _interestedHardwares.AddRange(_computer.Hardware);
+                _gpuHardware = _interestedHardwares.FirstOrDefault(h => h.HardwareType == HardwareType.GpuNvidia);
 
-                    _needRefreshGpuHardware = true;
-                }
+                _needRefreshGpuHardware = true;
             }
         }
 
