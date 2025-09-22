@@ -22,11 +22,14 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
         private float _lastGpuPower;
         private readonly SemaphoreSlim _initSemaphore = new SemaphoreSlim(1, 1);
         private readonly List<IHardware> _interestedHardwares = new();
+
+        private Computer? _computer;
         private IHardware? _cpuHardware;
         private IHardware? _amdGpuHardware;
         private IHardware? _gpuHardware;
         private IHardware? _memoryHardware;
 
+        private bool _needRefreshGpuHardware;
         private string _cachedCpuName = string.Empty;
         private string _cachedGpuName = string.Empty;
 
@@ -62,7 +65,7 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
 
                 try
                 {
-                    var computer = new Computer
+                    _computer = new Computer
                     {
                         IsCpuEnabled = true,
                         IsGpuEnabled = true,
@@ -73,18 +76,18 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                         IsStorageEnabled = true
                     };
 
-                    computer.Open();
-                    computer.Accept(new UpdateVisitor());
+                    _computer.Open();
+                    _computer.Accept(new UpdateVisitor());
 
                     if (Log.Instance.IsTraceEnabled)
                     {
-                        foreach (var hardware in computer.Hardware)
+                        foreach (var hardware in _computer.Hardware)
                         {
                             Log.Instance.Trace($"Detected hardware: {hardware.HardwareType} - {hardware.Name}");
                         }
                     }
 
-                    _interestedHardwares.AddRange(computer.Hardware);
+                    _interestedHardwares.AddRange(_computer.Hardware);
                     _cpuHardware = _interestedHardwares.FirstOrDefault(h => h.HardwareType == HardwareType.Cpu);
                     _amdGpuHardware = _interestedHardwares.FirstOrDefault(h => h.HardwareType == HardwareType.GpuAmd);
                     _gpuHardware = _interestedHardwares.FirstOrDefault(h => h.HardwareType == HardwareType.GpuNvidia);
@@ -125,25 +128,16 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                 return "UNKNOWN";
             }
 
-            if (!string.IsNullOrEmpty(_cachedGpuName))
+            if (string.IsNullOrEmpty(_cachedGpuName) || _needRefreshGpuHardware)
             {
-                return _cachedGpuName;
+                var gpu = _gpuHardware ?? _amdGpuHardware;
+                _cachedGpuName = gpu != null ? StripName(gpu.Name) : "UNKNOWN";
+                _needRefreshGpuHardware = false;
             }
 
-            if (_gpuHardware == null)
-            {
-                if (_amdGpuHardware != null)
-                {
-                    _cachedGpuName = StripName(_amdGpuHardware.Name);
-                    return _cachedGpuName;
-                }
-
-                return "UNKNOWN";
-            }
-
-            _cachedGpuName = StripName(_gpuHardware.Name);
             return _cachedGpuName;
         }
+
 
         public async Task<float> GetCpuPowerAsync()
         {
@@ -187,6 +181,24 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
             var sensor = _gpuHardware.Sensors?
               .FirstOrDefault(s => s.SensorType == SensorType.Power);
             _lastGpuPower = sensor?.Value ?? 0;
+            return sensor?.Value ?? 0;
+        }
+
+        public async Task<float> GetGpuVramTemperatureAsync()
+        {
+            if (!await IsSupportedAsync().ConfigureAwait(false))
+            {
+                return 0;
+            }
+
+            if (_gpuHardware == null)
+            {
+                return 0;
+            }
+
+            _gpuHardware.Update();
+            var sensor = _gpuHardware.Sensors?
+              .FirstOrDefault(s => s.SensorType == SensorType.Temperature && s.Name.Contains("GPU Memory Junction", StringComparison.OrdinalIgnoreCase));
             return sensor?.Value ?? 0;
         }
 
@@ -314,6 +326,34 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
             {
                 _initSemaphore.Release();
                 _initialized = true;
+            }
+        }
+
+        public async void NeedRefreshHardware(string hardware)
+        {
+            if (!await IsSupportedAsync().ConfigureAwait(false))
+            {
+                return;
+            }
+
+            if (_computer == null)
+            {
+                return;
+            }
+
+            lock (_hardwareLock)
+            {
+                if (hardware == "NvidiaGPU")
+                {
+                    _gpuHardware = null;
+
+                    _computer.Close();
+                    _computer.Open();
+                    _computer.Accept(new UpdateVisitor());
+                    _gpuHardware = _interestedHardwares.FirstOrDefault(h => h.HardwareType == HardwareType.GpuNvidia);
+
+                    _needRefreshGpuHardware = true;
+                }
             }
         }
 

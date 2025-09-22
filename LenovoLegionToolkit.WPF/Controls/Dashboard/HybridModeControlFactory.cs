@@ -4,6 +4,7 @@ using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.Features;
 using LenovoLegionToolkit.Lib.Features.Hybrid;
 using LenovoLegionToolkit.Lib.Features.Hybrid.Notify;
+using LenovoLegionToolkit.Lib.Settings;
 using LenovoLegionToolkit.Lib.System;
 using LenovoLegionToolkit.Lib.Utils;
 using LenovoLegionToolkit.WPF.Resources;
@@ -116,7 +117,19 @@ public static class HybridModeControlFactory
 
         private void DGPUNotify_Notified(object? sender, bool e) => Dispatcher.Invoke(() =>
         {
-            SnackbarHelper.Show(e ? Resource.DGPU_Connected_Title : Resource.DGPU_Disconnected_Title, type: SnackbarType.Info);
+            if (e)
+            {
+                SnackbarHelper.Show(Resource.DGPU_Connected_Title, "This may take 5 - 10 seconds.", type: SnackbarType.Info);
+                var feature = IoCContainer.Resolve<ApplicationSettings>();
+                if (feature.Store.UseNewSensorDashboard)
+                {
+                    var controller = IoCContainer.Resolve<SensorsGroupController>();
+                    controller.NeedRefreshHardware("NvidiaGPU");
+                }
+
+            }
+
+            // SnackbarHelper.Show(e ? Resource.DGPU_Connected_Title : Resource.DGPU_Disconnected_Title, type: SnackbarType.Info);
         });
 
         private async void InfoButton_Click(object sender, RoutedEventArgs e)

@@ -105,6 +105,7 @@ public static partial class Compatibility
             return _machineInformation.Value;
 
         var (vendor, machineType, model, serialNumber) = await GetModelDataAsync().ConfigureAwait(false);
+        var generation = GetMachineGeneration(model);
         var (biosVersion, biosVersionRaw) = GetBIOSVersion();
         var supportedPowerModes = (await GetSupportedPowerModesAsync().ConfigureAwait(false)).ToArray();
         var smartFanVersion = await GetSmartFanVersionAsync().ConfigureAwait(false);
@@ -113,7 +114,7 @@ public static partial class Compatibility
 
         var machineInformation = new MachineInformation
         {
-            Generation = GetMachineGeneration(model),
+            Generation = generation,
             Vendor = vendor,
             MachineType = machineType,
             Model = model,
@@ -131,7 +132,8 @@ public static partial class Compatibility
                 SupportsExtremeMode = GetSupportsExtremeMode(supportedPowerModes, smartFanVersion, legionZoneVersion),
                 SupportsGodModeV1 = GetSupportsGodModeV1(supportedPowerModes, smartFanVersion, legionZoneVersion, biosVersion),
                 SupportsGodModeV2 = GetSupportsGodModeV2(supportedPowerModes, smartFanVersion, legionZoneVersion),
-                SupportsGodModeV3 = GetSupportsGodModeV3(supportedPowerModes, smartFanVersion, legionZoneVersion),
+                SupportsGodModeV3 = GetSupportsGodModeV3(supportedPowerModes, smartFanVersion, legionZoneVersion, generation, model),
+                SupportsGodModeV4 = GetSupportsGodModeV4(supportedPowerModes, smartFanVersion, legionZoneVersion),
                 SupportsGSync = await GetSupportsGSyncAsync().ConfigureAwait(false),
                 SupportsIGPUMode = await GetSupportsIGPUModeAsync().ConfigureAwait(false),
                 SupportsAIMode = await GetSupportsAIModeAsync().ConfigureAwait(false),
@@ -355,13 +357,42 @@ public static partial class Compatibility
         return smartFanVersion is 6 or 7 || legionZoneVersion is 3 or 4;
     }
 
-    private static bool GetSupportsGodModeV3(IEnumerable<PowerModeState> supportedPowerModes, int smartFanVersion, int legionZoneVersion)
+    private static bool GetSupportsGodModeV3(IEnumerable<PowerModeState> supportedPowerModes, int smartFanVersion, int legionZoneVersion, int gen, string model)
+    {
+        if (!supportedPowerModes.Contains(PowerModeState.GodMode))
+            return false;
+
+        var affectedModels = new string[]
+        {
+            "15ACH",
+            "15AHP",
+            "15AKP",
+            "15APH",
+            "15ARH",
+            "15ARP",
+            "15IAH",
+            "15IAX", 
+            "15IHU",
+            "15IMH",
+            "15IRH",
+            "15IRX",
+            "15ITH",
+        };
+
+        var isAffectedModel = affectedModels.Any(m => model.Contains(m));
+        var isSupportedVersion = smartFanVersion is 8 or 9 || legionZoneVersion is 5 or 6;
+
+        return isAffectedModel && isSupportedVersion && gen >= 10;
+    }
+
+    private static bool GetSupportsGodModeV4(IEnumerable<PowerModeState> supportedPowerModes, int smartFanVersion, int legionZoneVersion)
     {
         if (!supportedPowerModes.Contains(PowerModeState.GodMode))
             return false;
 
         return smartFanVersion is 8 or 9 || legionZoneVersion is 5 or 6;
     }
+
 
     private static async Task<bool> GetSupportsGSyncAsync()
     {
