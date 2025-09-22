@@ -16,7 +16,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Runtime;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
@@ -224,22 +223,22 @@ public partial class MainWindow
         if (DisableConflictingSoftwareWarning)
             return;
 
-        _vantageDisabler.OnRefreshed += (_, e) => Dispatcher.Invoke(() =>
+        _vantageDisabler.OnRefreshed += async (_, e) => await Dispatcher.InvokeAsync(() =>
         {
             _vantageIndicator.Visibility = e.Status == SoftwareStatus.Enabled ? Visibility.Visible : Visibility.Collapsed;
         });
 
-        _legionSpaceDisabler.OnRefreshed += (_, e) => Dispatcher.Invoke(() =>
+        _legionSpaceDisabler.OnRefreshed += async (_, e) => await Dispatcher.InvokeAsync(() =>
         {
             _legionSpaceIndicator.Visibility = e.Status == SoftwareStatus.Enabled ? Visibility.Visible : Visibility.Collapsed;
         });
 
-        _legionZoneDisabler.OnRefreshed += (_, e) => Dispatcher.Invoke(() =>
+        _legionZoneDisabler.OnRefreshed += async (_, e) => await Dispatcher.InvokeAsync(() =>
         {
             _legionZoneIndicator.Visibility = e.Status == SoftwareStatus.Enabled ? Visibility.Visible : Visibility.Collapsed;
         });
 
-        _fnKeysDisabler.OnRefreshed += (_, e) => Dispatcher.Invoke(() =>
+        _fnKeysDisabler.OnRefreshed += async (_, e) => await Dispatcher.InvokeAsync(() =>
         {
             _fnKeysIndicator.Visibility = e.Status == SoftwareStatus.Enabled ? Visibility.Visible : Visibility.Collapsed;
         });

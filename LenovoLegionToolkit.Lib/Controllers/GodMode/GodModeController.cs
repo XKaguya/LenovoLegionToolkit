@@ -5,12 +5,14 @@ using LenovoLegionToolkit.Lib.Utils;
 
 namespace LenovoLegionToolkit.Lib.Controllers.GodMode;
 
-public class GodModeController(GodModeControllerV1 controllerV1, GodModeControllerV2 controllerV2, GodModeControllerV3 controllerV3)
+public class GodModeController(GodModeControllerV1 controllerV1, GodModeControllerV2 controllerV2, GodModeControllerV3 controllerV3, GodModeControllerV4 controllerV4)
     : IGodModeController
 {
+    private IGodModeController? Controller = null;
     private IGodModeController ControllerV1 => controllerV1;
     private IGodModeController ControllerV2 => controllerV2;
     private IGodModeController ControllerV3 => controllerV3;
+    private IGodModeController ControllerV4 => controllerV4;
 
     public event EventHandler<Guid>? PresetChanged
     {
@@ -19,12 +21,14 @@ public class GodModeController(GodModeControllerV1 controllerV1, GodModeControll
             ControllerV1.PresetChanged += value;
             ControllerV2.PresetChanged += value;
             ControllerV3.PresetChanged += value;
+            ControllerV4.PresetChanged += value;
         }
         remove
         {
             ControllerV1.PresetChanged -= value;
             ControllerV2.PresetChanged -= value;
             ControllerV3.PresetChanged -= value;
+            ControllerV4.PresetChanged -= value;
         }
     }
 
@@ -102,16 +106,36 @@ public class GodModeController(GodModeControllerV1 controllerV1, GodModeControll
 
     private async Task<IGodModeController> GetControllerAsync()
     {
+        if (Controller != null)
+        {
+            return Controller;
+        }
+
         var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
 
         if (mi.Properties.SupportsGodModeV1)
+        {
+            Controller = controllerV1;
             return controllerV1;
+        }
 
         if (mi.Properties.SupportsGodModeV2)
+        {
+            Controller = controllerV2;
             return controllerV2;
+        }
 
         if (mi.Properties.SupportsGodModeV3)
+        {
+            Controller = controllerV3;
             return controllerV3;
+        }
+
+        if (mi.Properties.SupportsGodModeV4)
+        {
+            Controller = controllerV4;
+            return controllerV4;
+        }
 
         throw new InvalidOperationException("No supported version found");
     }

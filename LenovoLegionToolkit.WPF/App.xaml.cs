@@ -4,7 +4,6 @@ using LenovoLegionToolkit.Lib.System;
 using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Automation;
 using LenovoLegionToolkit.Lib.Controllers;
-using LenovoLegionToolkit.Lib.Controllers.GodMode;
 using LenovoLegionToolkit.Lib.Controllers.Sensors;
 using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.Features;
@@ -27,20 +26,17 @@ using LenovoLegionToolkit.WPF.Resources;
 using LenovoLegionToolkit.WPF.Utils;
 using LenovoLegionToolkit.WPF.Windows;
 using LenovoLegionToolkit.WPF.Windows.Utils;
-using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using System.Runtime;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Threading;
-using static System.Windows.Forms.AxHost;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
 using WinFormsApp = System.Windows.Forms.Application;
@@ -513,6 +509,8 @@ public partial class App
 
                 Log.Instance.IsTraceEnabled = settings.Store.EnableLogging;
                 mainWindow._openLogIndicator.Visibility = Utils.BooleanToVisibilityConverter.Convert(settings.Store.EnableLogging);
+
+                Compatibility.PrintMachineInfo();
             }
         }
         catch (Exception ex)
@@ -711,6 +709,22 @@ public partial class App
 
     private static void ShowPawnIONotify()
     {
-        SnackbarHelper.Show(Resource.MainWindow_PawnIO_Warning_Title, Resource.MainWindow_PawnIO_Warning_Message, SnackbarType.Error);
+        var dialog = new DialogWindow
+        {
+            Title = Resource.MainWindow_PawnIO_Warning_Title,
+            Content = Resource.MainWindow_PawnIO_Warning_Message,
+            Owner = Application.Current.MainWindow
+        };
+
+        dialog.ShowDialog();
+
+        if (dialog.Result.Item1)
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = "https://pawnio.eu/",
+                UseShellExecute = true
+            });
+        }
     }
 }

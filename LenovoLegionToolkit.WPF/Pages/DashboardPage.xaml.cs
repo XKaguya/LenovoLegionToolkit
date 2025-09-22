@@ -46,9 +46,8 @@ public partial class DashboardPage
             sensorControl = new SensorsControlV2();
         }
 
-        sensorControl.Margin = new Thickness(0, 16, 16, 0);
-
         int contentIndex = _panel.Children.IndexOf(_content);
+        sensorControl.Margin = new Thickness(0, 16, 16, 0);
         _panel.Children.Insert(contentIndex, sensorControl);
     }
 
@@ -58,6 +57,108 @@ public partial class DashboardPage
     }
 
     private async Task RefreshAsync()
+    {
+        _loader.IsLoading = true;
+
+        try
+        {
+            ScrollHost?.ScrollToTop();
+
+            if (sensorControl != null)
+            {
+                sensorControl.Visibility = _dashboardSettings.Store.ShowSensors
+                    ? Visibility.Visible
+                    : Visibility.Collapsed;
+            }
+
+            _dashboardGroupControls.Clear();
+            _content.ColumnDefinitions.Clear();
+            _content.RowDefinitions.Clear();
+            _content.Children.Clear();
+
+            var groups = _dashboardSettings.Store.Groups ?? DashboardGroup.DefaultGroups;
+
+            if (Log.Instance.IsTraceEnabled)
+            {
+                Log.Instance.Trace($"Groups:");
+                foreach (var group in groups)
+                    Log.Instance.Trace($" - {group}");
+            }
+
+            _content.ColumnDefinitions.Add(new ColumnDefinition { Width = new(1, GridUnitType.Star) });
+            _content.ColumnDefinitions.Add(new ColumnDefinition { Width = new(1, GridUnitType.Star) });
+
+            var initializationTasks = new List<Task> { Task.Delay(TimeSpan.FromSeconds(1)) };
+            var controls = new List<DashboardGroupControl>();
+
+            foreach (var group in groups)
+            {
+                _content.RowDefinitions.Add(new RowDefinition { Height = new(1, GridUnitType.Auto) });
+
+                var control = new DashboardGroupControl(group);
+                _content.Children.Add(control);
+                controls.Add(control);
+                _dashboardGroupControls.Add(control);
+            }
+
+            foreach (var control in controls)
+            {
+                initializationTasks.Add(control.InitializedTask);
+            }
+
+            _content.RowDefinitions.Add(new RowDefinition { Height = new(1, GridUnitType.Auto) });
+
+            var hyperlinksPanel = new StackPanel
+            {
+                Orientation = Orientation.Horizontal,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                Margin = new(0, 16, 0, 0)
+            };
+
+            var editDashboardHyperlink = new Hyperlink
+            {
+                Icon = SymbolRegular.Edit24,
+                Content = Resource.DashboardPage_Customize,
+                Margin = new(0, 0, 8, 0)
+            };
+            editDashboardHyperlink.Click += (_, _) =>
+            {
+                var window = new EditDashboardWindow { Owner = Window.GetWindow(this) };
+                window.Apply += async (_, _) => await RefreshAsync();
+                window.ShowDialog();
+            };
+            hyperlinksPanel.Children.Add(editDashboardHyperlink);
+
+            var editSensorGroupHyperlink = new Hyperlink
+            {
+                Icon = SymbolRegular.Edit24,
+                Content = Resource.DashboardPage_Customize,
+                Margin = new(8, 0, 0, 0)
+            };
+            editSensorGroupHyperlink.Click += (_, _) =>
+            {
+                var window = new EditSensorGroupWindow { Owner = Window.GetWindow(this) };
+                window.Apply += async (_, _) => await RefreshAsync();
+                window.ShowDialog();
+            };
+            hyperlinksPanel.Children.Add(editSensorGroupHyperlink);
+
+            Grid.SetRow(hyperlinksPanel, groups.Length);
+            Grid.SetColumn(hyperlinksPanel, 0);
+            Grid.SetColumnSpan(hyperlinksPanel, 2);
+            _content.Children.Add(hyperlinksPanel);
+
+            LayoutGroups(ActualWidth);
+
+            await Task.WhenAll(initializationTasks);
+        }
+        finally
+        {
+            _loader.IsLoading = false;
+        }
+    }
+
+    private async Task RefreshAsyncEx()
     {
         _loader.IsLoading = true;
 

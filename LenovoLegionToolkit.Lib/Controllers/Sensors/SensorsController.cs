@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LenovoLegionToolkit.Lib.Utils;
+using System;
 using System.Threading.Tasks;
 
 namespace LenovoLegionToolkit.Lib.Controllers.Sensors;
@@ -39,19 +40,29 @@ public class SensorsController(
             return _controller;
 
         if (await controllerV5.IsSupportedAsync().ConfigureAwait(false))
+        {
             return _controller = controllerV5;
+        }
 
         if (await controllerV4.IsSupportedAsync().ConfigureAwait(false))
+        {
             return _controller = controllerV4;
+        }
 
         if (await controllerV3.IsSupportedAsync().ConfigureAwait(false))
+        {
             return _controller = controllerV3;
+        }
 
         if (await controllerV2.IsSupportedAsync().ConfigureAwait(false))
+        {
             return _controller = controllerV2;
+        }
 
         if (await controllerV1.IsSupportedAsync().ConfigureAwait(false))
+        {
             return _controller = controllerV1;
+        }
 
         return null;
     }
