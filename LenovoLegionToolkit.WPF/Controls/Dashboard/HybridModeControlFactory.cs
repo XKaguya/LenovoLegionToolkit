@@ -126,7 +126,6 @@ public static class HybridModeControlFactory
                     var controller = IoCContainer.Resolve<SensorsGroupController>();
                     controller.NeedRefreshHardware("NvidiaGPU");
                 }
-
             }
             else
             {
