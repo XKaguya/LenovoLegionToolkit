@@ -2444,14 +2444,14 @@
     <value>需要安裝 PawnIO 才能使用新的儀表盤!</value>
   </data>
   <data name="Warning" xml:space="preserve">
-    <value>Warning</value>
+    <value>警告</value>
   </data>
   <data name="KeyboardBacklightPage_DynamicLightingEnabled" xml:space="preserve">
-    <value>Windows Dynamic lighting is enabled.
-This feature might prevent LLT to control the keyboard.
-Click Yes to disable and No to ignore.</value>
+    <value>Windows 動態光效功能已啓用。
+此功能可能會導致 LLT 無法正確控制鍵盤燈效。
+按 Yes 以關閉此功能， No 忽略。</value>
   </data>
   <data name="DialogWindow_DontShowAgain" xml:space="preserve">
-    <value>Don't show again.</value>
+    <value>不再顯示</value>
   </data>
 </root>
