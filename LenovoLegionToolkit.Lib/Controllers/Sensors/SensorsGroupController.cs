@@ -409,6 +409,71 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
             return Regex.Replace(cleanedName, @"\s+", " ").Trim();
         }
 
+        // Test methods to fix RTX 40 Series sensor issue.
+        //public string GetThermalSensors()
+        //{
+        //    NvApi.Reinitialize();
+        //    NvPhysicalGpuHandle[] handles = new NvPhysicalGpuHandle[NvApi.MAX_PHYSICAL_GPUS];
+        //    int count;
+        //    NvApi.NvAPI_EnumPhysicalGPUs(handles, out count);
+        //    StringBuilder values = new StringBuilder();
+        //    var thermalSensorsMask = 0u;
+        //    bool hasAnyThermalSensor = false;
+
+        //    foreach (var handle in handles)
+        //    {
+        //        for (int thermalSensorsMaxBit = 0; thermalSensorsMaxBit < 32; thermalSensorsMaxBit++)
+        //        {
+        //            // Find the maximum thermal sensor mask value.
+        //            thermalSensorsMask = 1u << thermalSensorsMaxBit;
+
+        //            GetThermalSensors(thermalSensorsMask, out NvApi.NvStatus thermalSensorsStatus, handle);
+        //            if (thermalSensorsStatus == NvApi.NvStatus.OK)
+        //            {
+        //                hasAnyThermalSensor = true;
+        //                continue;
+        //            }
+
+        //            thermalSensorsMask--;
+        //            break;
+        //        }
+
+        //        if (thermalSensorsMask > 0)
+        //        {
+        //            NvApi.NvThermalSensors nvThermalSensors = GetThermalSensors(thermalSensorsMask, out NvApi.NvStatus status, handle);
+        //            if (status == NvApi.NvStatus.OK)
+        //            {
+        //                int i = 0;
+        //                foreach (var item in nvThermalSensors.Temperatures)
+        //                {
+        //                    ++i;
+        //                    values.AppendLine($"{handle.GetHashCode()} {i} {item / 256.0f}");
+        //                }
+        //            }
+        //        }
+        //    }
+
+        //    return values.ToString();
+        //}
+
+        //private NvApi.NvThermalSensors GetThermalSensors(uint mask, out NvApi.NvStatus status, NvApi.NvPhysicalGpuHandle handle)
+        //{
+        //    if (NvApi.NvAPI_GPU_ThermalGetSensors == null)
+        //    {
+        //        status = NvApi.NvStatus.Error;
+        //        return default;
+        //    }
+
+        //    var thermalSensors = new NvApi.NvThermalSensors
+        //    {
+        //        Version = (uint)NvApi.MAKE_NVAPI_VERSION<NvApi.NvThermalSensors>(2),
+        //        Mask = mask
+        //    };
+
+        //    status = NvApi.NvAPI_GPU_ThermalGetSensors(handle, ref thermalSensors);
+        //    return status == NvApi.NvStatus.OK ? thermalSensors : default;
+        //}
+
         public void Dispose()
         {
             GC.SuppressFinalize(this);
