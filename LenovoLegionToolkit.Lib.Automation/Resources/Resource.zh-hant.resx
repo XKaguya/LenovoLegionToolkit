@@ -228,9 +228,9 @@
     <value>當與裝置連接時</value>
   </data>
   <data name="SessionLockAutomationPipelineTrigger_DisplayName" xml:space="preserve">
-    <value>Session locked</value>
+    <value>儅鎖定時</value>
   </data>
   <data name="SessionUnlockAutomationPipelineTrigger_DisplayName" xml:space="preserve">
-    <value>Session unlocked</value>
+    <value>儅解鎖時</value>
   </data>
 </root>
