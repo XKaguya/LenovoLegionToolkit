@@ -88,6 +88,7 @@ public static class DashboardItemExtensions
         DashboardItem.FnLock => [new FnLockControl()],
         DashboardItem.WinKeyLock => [new WinKeyControl()],
         DashboardItem.WhiteKeyboardBacklight => [new WhiteKeyboardBacklightControl(), new OneLevelWhiteKeyboardBacklightControl()],
+        DashboardItem.ItsMode => [new ItsModeControl()],
         _ => throw new InvalidOperationException($"Invalid DashboardItem {dashboardItem}"),
     };
 }

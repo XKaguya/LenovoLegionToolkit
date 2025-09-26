@@ -153,11 +153,20 @@ public enum HybridModeState
     Off
 }
 
+
 public enum IGPUModeState
 {
     Default,
     IGPUOnly,
     Auto
+}
+
+public enum ITSMode
+{
+    None,
+    ItsAuto,
+    MmcCool,
+    MmcPerformance
 }
 
 public enum InstantBootState

@@ -1,14 +1,17 @@
-﻿using System;
+﻿using LenovoLegionToolkit.Lib.Extensions;
+using Newtonsoft.Json;
+using Octokit;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Text;
-using LenovoLegionToolkit.Lib.Extensions;
-using Newtonsoft.Json;
-using Octokit;
+using System.Xml.Serialization;
 
 namespace LenovoLegionToolkit.Lib;
 
@@ -84,6 +87,13 @@ public readonly struct Brightness(byte value)
 {
     public byte Value { get; } = value;
 }
+
+[StructLayout(LayoutKind.Sequential, Size = 16)]
+internal struct CIntelligentCooling
+{
+    private long value;
+}
+
 
 public readonly struct DiscreteCapability(CapabilityID id, int value)
 {
