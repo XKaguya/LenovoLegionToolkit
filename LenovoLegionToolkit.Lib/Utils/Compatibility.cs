@@ -364,19 +364,9 @@ public static partial class Compatibility
 
         var affectedModels = new string[]
         {
-            "15ACH",
-            "15AHP",
-            "15AKP",
-            "15APH",
-            "15ARH",
-            "15ARP",
-            "15IAH",
-            "15IAX", 
-            "15IHU",
-            "15IMH",
-            "15IRH",
-            "15IRX",
-            "15ITH",
+            "Legion 5",
+            "Legion 7 16IAX",
+            "Legion Pro 5 16IAX"
         };
 
         var isAffectedModel = affectedModels.Any(m => model.Contains(m));
