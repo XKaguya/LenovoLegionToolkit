@@ -91,7 +91,7 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                     _cpuHardware = _interestedHardwares.FirstOrDefault(h => h.HardwareType == HardwareType.Cpu);
                     _amdGpuHardware = _interestedHardwares.FirstOrDefault(h => h.HardwareType == HardwareType.GpuAmd);
                     _gpuHardware = _interestedHardwares.FirstOrDefault(h => h.HardwareType == HardwareType.GpuNvidia);
-                    _memoryHardware = _interestedHardwares.FirstOrDefault(h => h.HardwareType == HardwareType.Memory);
+                    _memoryHardware = _interestedHardwares.FirstOrDefault(h => h.HardwareType == HardwareType.Memory && h.Name == "Total Memory");
                 }
                 finally
                 {
