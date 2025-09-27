@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LenovoLegionToolkit.Lib.Utils;
+using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
@@ -17,9 +18,10 @@ public partial class ItsModeFeature : IFeature<ITSMode>
     [UnmanagedCallConv(CallConvs = new Type[] { typeof(CallConvCdecl) })]
     internal static partial int GetITSMode(ref CIntelligentCooling var1, ref int var2, ref ITSMode var3);
 
-    public Task<bool> IsSupportedAsync()
+    public async Task<bool> IsSupportedAsync()
     {
-        return Task.FromResult(true);
+        var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
+        return mi.Properties.SupportITSMode;
     }
 
     public Task<ITSMode[]> GetAllStatesAsync()

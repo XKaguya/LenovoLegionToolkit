@@ -142,7 +142,7 @@ public static partial class Compatibility
                 SupportsIGPUMode = await GetSupportsIGPUModeAsync().ConfigureAwait(false),
                 SupportsAIMode = await GetSupportsAIModeAsync().ConfigureAwait(false),
                 SupportBootLogoChange = GetSupportBootLogoChange(smartFanVersion),
-                // SupportITSMode = GetSupportITSMode(model),
+                SupportITSMode = GetSupportITSMode(model),
                 HasQuietToPerformanceModeSwitchingBug = GetHasQuietToPerformanceModeSwitchingBug(biosVersion),
                 HasGodModeToOtherModeSwitchingBug = GetHasGodModeToOtherModeSwitchingBug(biosVersion),
                 HasReapplyParameterIssue = GetHasReapplyParameterIssue(model),
@@ -435,7 +435,7 @@ public static partial class Compatibility
 
     private static bool GetSupportITSMode(string model)
     {
-        throw new NotImplementedException();
+        return model.Contains("IdeaPad");
     }
 
     private static int GetMachineGeneration(string model)
