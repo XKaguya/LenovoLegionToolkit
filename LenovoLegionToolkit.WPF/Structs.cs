@@ -9,6 +9,7 @@ public readonly struct DashboardGroup(DashboardGroupType type, string? customNam
     public static readonly DashboardGroup[] DefaultGroups =
     [
         new(DashboardGroupType.Power, null,
+            DashboardItem.ItsMode,
             DashboardItem.PowerMode,
             DashboardItem.BatteryMode,
             DashboardItem.BatteryNightChargeMode,

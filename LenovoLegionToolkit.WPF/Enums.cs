@@ -32,7 +32,8 @@ public enum DashboardItem
     TouchpadLock,
     FnLock,
     WinKeyLock,
-    WhiteKeyboardBacklight
+    WhiteKeyboardBacklight,
+    ItsMode
 }
 
 public enum SensorGroupType
