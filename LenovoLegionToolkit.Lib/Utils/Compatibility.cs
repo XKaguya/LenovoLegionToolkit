@@ -1,14 +1,15 @@
-﻿using System;
+﻿using LenovoLegionToolkit.Lib.Controllers.GodMode;
+using LenovoLegionToolkit.Lib.Controllers.Sensors;
+using LenovoLegionToolkit.Lib.Extensions;
+using LenovoLegionToolkit.Lib.System;
+using LenovoLegionToolkit.Lib.System.Management;
+using RAMSPDToolkit.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using LenovoLegionToolkit.Lib.Controllers.GodMode;
-using LenovoLegionToolkit.Lib.Controllers.Sensors;
-using LenovoLegionToolkit.Lib.Extensions;
-using LenovoLegionToolkit.Lib.System;
-using LenovoLegionToolkit.Lib.System.Management;
 using Windows.Win32;
 using Windows.Win32.Foundation;
 using Windows.Win32.System.Power;
@@ -368,6 +369,12 @@ public static partial class Compatibility
         if (!supportedPowerModes.Contains(PowerModeState.GodMode))
             return false;
 
+        var affectedSeries = new LegionSeries[]
+        {
+            LegionSeries.Legion_5,
+            LegionSeries.Legion_7
+        };
+
         var affectedModels = new string[]
         {
             "Legion 5",
@@ -378,7 +385,7 @@ public static partial class Compatibility
         };
 
         var (_, type, _, _) = GetModelDataAsync().Result;
-        var isAffectedSeries = affectedModels.Any(m => GetLegionSeries(model, type).Contains(m));
+        var isAffectedSeries = affectedSeries.Any(m => GetLegionSeries(model, type) == m);
         var isAffectedModel = affectedModels.Any(m => model.Contains(m));
         var isSupportedVersion = smartFanVersion is 8 or 9 || legionZoneVersion is 5 or 6;
 
@@ -389,6 +396,9 @@ public static partial class Compatibility
     {
         if (!supportedPowerModes.Contains(PowerModeState.GodMode))
             return false;
+
+        // var (_, type, _, _) = GetModelDataAsync().Result;
+        // var legionSeries = GetLegionSeries(model, type);
 
         return smartFanVersion is 8 or 9 || legionZoneVersion is 5 or 6;
     }
@@ -452,39 +462,49 @@ public static partial class Compatibility
         }
     }
 
-    private static string GetLegionSeries(string model, string machineType)
+    private static LegionSeries GetLegionSeries(string model, string machineType)
     {
-        string seriesByMachineType = machineType switch
+        LegionSeries seriesByMachineType = machineType switch
         {
-            "83F0" or "83F1" or "83M0" or "83NX" or "83N2" or "83LY" or "83DG" or "83EW" or "83EG" or "83JJ" or "82RC" or "82RB" or "82TB" or "83EF" or "82RE" or "82RD" => "Legion 5",
+            "83F0" or "83F1" or "83M0" or "83NX" or "83N2" or "83LY" or "83DG" or "83EW" or "83EG" or "83JJ" or "82RC" or "82RB" or "82TB" or "83EF" or "82RE" or "82RD" => LegionSeries.Legion_5,
 
-            "83DH" or "83EX" or "82Y5" or "82Y9" or "82YA" or "83D6" => "Legion Slim 5",
+            "83DH" or "83EX" or "82Y5" or "82Y9" or "82YA" or "83D6" => LegionSeries.Legion_Slim_5,
 
-            "83LT" or "83F3" or "83DF" or "83F2" or "83LU" or "82WM" or "83NN" or "82WK" => "Legion Pro 5",
+            "83LT" or "83F3" or "83DF" or "83F2" or "83LU" or "82WM" or "83NN" or "82WK" => LegionSeries.Legion_Pro_5,
 
-            "83KY" or "83FD" or "82UH" or "82TD" => "Legion 7",
+            "83KY" or "83FD" or "82UH" or "82TD" => LegionSeries.Legion_7,
 
-            "83RU" or "83F5" or "83DE" or "82WR" or "82WQ" or "82WS" => "Legion Pro 7",
+            "83RU" or "83F5" or "83DE" or "82WR" or "82WQ" or "82WS" => LegionSeries.Legion_Pro_7,
 
-            "83G0" or "83EY" => "Legion 9",
+            "83G0" or "83EY" => LegionSeries.Legion_9,
 
-            _ => string.Empty
+            _ => LegionSeries.Unknown
         };
 
-        if (seriesByMachineType != string.Empty)
+        if (seriesByMachineType != LegionSeries.Unknown)
         {
             return seriesByMachineType;
+        }
+
+        if (model.Contains("LOQ"))
+        {
+            return LegionSeries.LOQ;
+        }
+        else if (model.Contains("IdeaPad"))
+        {
+            return LegionSeries.IdeaPad;
         }
 
         Match match = Regex.Match(model, @"(Pro\s)?\d+");
 
         if (match.Success)
         {
-            return match.Value;
+            var value = match.Value.Replace(" ", "_");
+            return Enum.Parse<LegionSeries>(value);
         }
         else
         {
-            return "NULL";
+            return LegionSeries.Unknown;
         }
     }
 
@@ -522,13 +542,19 @@ public static partial class Compatibility
 
     private static bool GetHasSpectrumProfileSwitchingBug(string? machineModel)
     {
+        var affectedSeries = new LegionSeries[]
+         {
+            LegionSeries.Legion_5,
+         };
+
         var affectedModel = new List<string>
         {
             "15IRX10",
             "15AHP10"
         };
 
-        return affectedModel.Any(model => machineModel?.Contains(model) ?? false);
+        var (_, type, _, _) = GetModelDataAsync().Result;
+        return affectedModel.Any(model => machineModel?.Contains(model) ?? false) && affectedSeries.Any(model => GetLegionSeries(machineModel, type) == model);
     }
 
     private static bool GetIsExcludedFromLenovoLighting(BiosVersion? biosVersion)

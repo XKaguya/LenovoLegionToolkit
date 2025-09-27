@@ -474,7 +474,7 @@ public readonly struct MachineInformation
     }
 
     public int Generation { get; init; }
-    public string LegionSeries { get; init; }
+    public LegionSeries LegionSeries { get; init; }
     public string Vendor { get; init; }
     public string MachineType { get; init; }
     public string Model { get; init; }

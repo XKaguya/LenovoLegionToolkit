@@ -293,29 +293,26 @@ public static class Devices
             if (_spectrumRgbKeyboard is not null && !forceRefresh)
                 return new List<SafeFileHandle> { _spectrumRgbKeyboard };
 
-            // IAX10H
+            // Legion Pro 7
             const ushort vendorId = 0x048D;
             const ushort productIdMasked = 0xC100;
             const ushort productIdMask = 0xFF00;
             const ushort descriptorLength = 0x03C0;
 
-            // NX
+            // Legion 9
             const ushort productIdMasked_NX = 0xC900;
             const ushort productIdMask_NX = 0xFF00;
 
-            var (isCompatible, mi) = Compatibility.IsCompatibleAsync().Result;
+            var mi = Compatibility.GetMachineInformationAsync().Result;
 
-            // For NX only.
-            if (mi.Model.Contains("NX"))
-            {
-                _spectrumRgbKeyboards = FindHidDevices(vendorId, productIdMask_NX, productIdMasked_NX, descriptorLength);
-            }
-            // For Legion Pro 7 Series. (Gen 10 only)
-            else if (mi.Generation == 10)
+            if (mi.LegionSeries == LegionSeries.Legion_Pro_7 && mi.Generation >= 10)
             {
                 _spectrumRgbKeyboards = FindHidDevices(vendorId, productIdMask, productIdMasked, descriptorLength);
             }
-            // For Legion Pro 9 Series.
+            else if (mi.LegionSeries == LegionSeries.Legion_9)
+            {
+                _spectrumRgbKeyboards = FindHidDevices(vendorId, productIdMask_NX, productIdMasked_NX, descriptorLength);
+            }
             else
             {
                 _spectrumRgbKeyboards = FindHidDevices(vendorId, productIdMask_NX, productIdMasked_NX, descriptorLength);

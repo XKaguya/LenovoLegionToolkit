@@ -204,6 +204,19 @@ public enum LightingChangeState
     Ports = 1,
 }
 
+public enum LegionSeries
+{
+    Legion_5 = 0,
+    Legion_Pro_5 = 1,
+    Legion_Slim_5 = 2,
+    Legion_7 = 3,
+    Legion_Pro_7 = 4,
+    Legion_9 = 5,
+    IdeaPad = 6,
+    LOQ = 7,
+    Unknown = 255
+}
+
 public enum LibreHardwareMonitorInitialState
 {
     Fail = 0,
