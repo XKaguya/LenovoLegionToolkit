@@ -189,7 +189,7 @@ public class GPUController
                     await RefreshStateAsync().ConfigureAwait(false);
 
                     // if (Log.Instance.IsTraceEnabled)
-                        // ugLog.Instance.Trace($"Refreshed");
+                        // Log.Instance.Trace($"Refreshed");
 
                     Refreshed?.Invoke(this, new GPUStatus(_state, _performanceState, _processes));
                 }

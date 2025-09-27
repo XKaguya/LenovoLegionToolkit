@@ -121,7 +121,7 @@
     <value>拯救者工具箱 Lenovo Legion Toolkit (Unofficial Fork)</value>
   </data>
   <data name="AboutPage_Build" xml:space="preserve">
-    <value>Build</value>
+    <value>构建版本</value>
   </data>
   <data name="AboutPage_LatestReleaseOnGitHub" xml:space="preserve">
     <value>在 GitHub 上查看最新版本</value>
@@ -337,16 +337,16 @@
     <value>电池充放电功率</value>
   </data>
   <data name="BatteryPage_MinDischargeRate_Message" xml:space="preserve">
-    <value>Minimum rate at which battery is charged (+), or discharged (-).</value>
+    <value>电池在充电(+)或放电(-)时的最小功率。</value>
   </data>
   <data name="BatteryPage_MinDischargeRate_Title" xml:space="preserve">
-    <value>Minimum discharge rate</value>
+    <value>最小放电功率</value>
   </data>
   <data name="BatteryPage_MaxDischargeRate_Message" xml:space="preserve">
-    <value>Maximum rate at which battery is charged (+), or discharged (-).</value>
+    <value>电池在充电(+)或放电(-)时的最大功率。</value>
   </data>
   <data name="BatteryPage_MaxDischargeRate_Title" xml:space="preserve">
-    <value>Maximum discharge rate</value>
+    <value>最大放电功率</value>
   </data>
   <data name="BatteryPage_EstimatedBatteryLifeRemaining" xml:space="preserve">
     <value>预估剩余时间：{0}</value>
@@ -367,10 +367,10 @@
     <value>满电容量</value>
   </data>
   <data name="BatteryPage_BatteryHealth_Message" xml:space="preserve">
-    <value>Battery maximum charge capacity.</value>
+    <value>电池完全充电容量</value>
   </data>
   <data name="BatteryPage_BatteryHealth_Title" xml:space="preserve">
-    <value>Battery health</value>
+    <value>电池健康度</value>
   </data>
   <data name="BatteryPage_LowWattageChargerConnected" xml:space="preserve">
     <value>已插入较低功率电源适配器</value>
@@ -901,7 +901,7 @@
     <value>刷新率</value>
   </data>
   <data name="NotificationsSettingsWindow_SmartKey" xml:space="preserve">
-    <value>Smart Key</value>
+    <value>智能按键</value>
   </data>
   <data name="NotificationsSettingsWindow_Title" xml:space="preserve">
     <value>提示弹窗</value>
@@ -1082,7 +1082,7 @@
     <value>速度</value>
   </data>
   <data name="ReadmeWindow_Title" xml:space="preserve">
-    <value>Readme</value>
+    <value>自述文件</value>
   </data>
   <data name="Refresh" xml:space="preserve">
     <value>刷新</value>
@@ -1162,6 +1162,10 @@
   </data>
   <data name="SettingsPage_DisableLegionZone_Message" xml:space="preserve">
     <value>禁用 Legion Zone 服务且无需卸载。
+修改此项后推荐重启电脑。</value>
+  </data>
+  <data name="SettingsPage_DisableLegionSpace_Message" xml:space="preserve">
+    <value>禁用 Legion Space 服务且无需卸载。
 修改此项后推荐重启电脑。</value>
   </data>
   <data name="SettingsPage_DisableLegionZone_Title" xml:space="preserve">
@@ -1604,7 +1608,7 @@
     <value>应用数据文件夹</value>
   </data>
   <data name="AboutPage_Data" xml:space="preserve">
-    <value>Data</value>
+    <value>数据文件夹</value>
   </data>
   <data name="AboutPage_Temp" xml:space="preserve">
     <value>临时文件夹</value>
@@ -1661,7 +1665,7 @@
     <value>CPU 被允许使用短期功率限制进行加速的时间量。当 Tau 过期时，将使用长期功率限制。</value>
   </data>
   <data name="GodModeSettingsWindow_GPU_TotalProcessingPowerTargetOnAcOffsetFromBaselineControl" xml:space="preserve">
-    <value>插电情况下总处理器功耗目标。</value>
+    <value>插电情况下总处理器功耗目标</value>
   </data>
   <data name="GodModeSettingsWindow_GPU_TotalProcessingPowerTargetOnAcOffsetFromBaselineControl_Description" xml:space="preserve">
     <value>CPU 触发 GPU 动态功耗调整的点。</value>
@@ -1697,10 +1701,10 @@
     <value>电池充放电功率</value>
   </data>
   <data name="StatusTrayPopup_MinDischargeRate" xml:space="preserve">
-    <value>Min discharge rate</value>
+    <value>最小放电功率</value>
   </data>
   <data name="StatusTrayPopup_MaxDischargeRate" xml:space="preserve">
-    <value>Max discharge rate</value>
+    <value>最大放电功率</value>
   </data>
   <data name="StatusTrayPopup_UpdateAvailable" xml:space="preserve">
     <value>新版本可用！</value>
@@ -2414,5 +2418,48 @@
   </data>
   <data name="FanCurveControl_PCH" xml:space="preserve">
     <value>南桥</value>
+  </data>
+  <data name="SettingsPage_EnableLegionSpace_Error_Title" xml:space="preserve">
+    <value>无法启用 Legion Space</value>
+  </data>
+  <data name="SettingsPage_EnableLegionSpace_Error_Message" xml:space="preserve">
+    <value>Legion Space 可能未被正确启用</value>
+  </data>
+  <data name="SettingsPage_DisableLegionSpace_Title" xml:space="preserve">
+    <value>禁用 Legion Space</value>
+  </data>
+  <data name="MainWindow_LegionSpaceRunning" xml:space="preserve">
+    <value>Legion Space 正在后台运行</value>
+  </data>
+  <data name="GodModeSettingsWindow_LegionSpaceWarning_Title" xml:space="preserve">
+    <value>自定义模式无法在 Legion Space 或其服务运行时正确生效</value>
+  </data>
+  <data name="SettingsPage_DisableLegionSpace_Error_Title" xml:space="preserve">
+    <value>无法禁用 Legion Space</value>
+  </data>
+  <data name="SettingsPage_DisableLegionSpace_Error_Message" xml:space="preserve">
+    <value>Legion Space 可能未被正确禁用</value>
+  </data>
+  <data name="SettingsPage_UseNewDashboard_Restart_Message" xml:space="preserve">
+    <value>重启以查看改动</value>
+  </data>
+  <data name="SettingsPage_UseNewDashboard_Switch_Title" xml:space="preserve">
+    <value>仪表盘已变更</value>
+  </data>
+  <data name="MainWindow_PawnIO_Warning_Title" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="MainWindow_PawnIO_Warning_Message" xml:space="preserve">
+    <value>您需要先安装 PawnIO 才能使用新仪表盘！</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="KeyboardBacklightPage_DynamicLightingEnabled" xml:space="preserve">
+    <value>Windows 动态光效功能已启用，此功能可能会阻止 LLT 控制键盘灯效。
+点击 Yes 禁用功能， No 忽略。</value>
+  </data>
+  <data name="DialogWindow_DontShowAgain" xml:space="preserve">
+    <value>不再显示</value>
   </data>
 </root>

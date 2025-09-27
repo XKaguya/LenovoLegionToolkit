@@ -10,7 +10,7 @@ using LenovoLegionToolkit.Lib.Utils;
 
 namespace LenovoLegionToolkit.Lib.Controllers.GodMode;
 
-public class GodModeControllerV3(
+public class GodModeControllerV4(
     GodModeSettings settings,
     VantageDisabler vantageDisabler,
     LegionZoneDisabler legionZoneDisabler,
@@ -385,7 +385,7 @@ public class GodModeControllerV3(
                 {
                     (1, 1) => FanTableType.CPU,
                     (2, 5) => FanTableType.GPU,
-                    (1, 4) => FanTableType.PCH,
+                    (4, 4) => FanTableType.PCH,
                     _ => FanTableType.Unknown,
                 };
                 return new FanTableData(type, d.fanId, d.sensorId, d.fanTableData, d.sensorTableData);

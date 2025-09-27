@@ -52,6 +52,8 @@ public class ApplicationSettings : AbstractSettings<ApplicationSettings.Applicat
         public UpdateMethod UpdateMethod { get; set; }
         public bool UseNewSensorDashboard { get; set; }
         public bool LockWindowSize { get; set; }
+        public bool EnableLogging { get; set; }
+        public bool DynamicLightingWarningDontShowAgain { get; set; }
     }
 
     public ApplicationSettings() : base("settings.json")

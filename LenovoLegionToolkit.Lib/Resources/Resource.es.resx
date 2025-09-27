@@ -440,7 +440,7 @@
     <value>Salida de alimentación USB</value>
   </data>
   <data name="InstantBootState_AcAdapterAndUsbPowerDelivery" xml:space="preserve">
-    <value>PD del CA y USB</value>
+    <value>Adaptador CA y salida USB</value>
   </data>
   <data name="NotificationDuration_Long" xml:space="preserve">
     <value>Larga</value>

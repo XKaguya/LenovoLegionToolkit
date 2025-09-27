@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutPage_AppName" xml:space="preserve">
-    <value>Lenovo Legion Toolkit</value>
+    <value>Lenovo Legion Toolkit (ανεπίσημη διακλάδωση)</value>
   </data>
   <data name="AboutPage_Build" xml:space="preserve">
     <value>Κατασκευή</value>
@@ -306,34 +306,46 @@
     <value>Συνδεδεμένη, δε φορτίζει</value>
   </data>
   <data name="BatteryPage_BatteryTemperature_Message" xml:space="preserve">
-    <value>Τρέχουσα θερμοκρασία μπαταρίας.</value>
+    <value>Η τρέχουσα θερμοκρασία της μπαταρίας.</value>
   </data>
   <data name="BatteryPage_BatteryTemperature_Title" xml:space="preserve">
     <value>Θερμοκρασία μπαταρίας</value>
   </data>
   <data name="BatteryPage_CurrentCapacity_Message" xml:space="preserve">
-    <value>Τρέχουσα χωρητικότητα μπαταρίας.</value>
+    <value>Η τρέχουσα χωρητικότητα της μπαταρίας.</value>
   </data>
   <data name="BatteryPage_CurrentCapacity_Title" xml:space="preserve">
     <value>Τρέχουσα χωρητικότητα</value>
   </data>
   <data name="BatteryPage_CycleCount_Message" xml:space="preserve">
-    <value>Αριθμός κύκλων φόρτισης/αποφόρτισης.</value>
+    <value>Ο αριθμός κύκλων φόρτισης/αποφόρτισης.</value>
   </data>
   <data name="BatteryPage_CycleCount_Title" xml:space="preserve">
     <value>Κύκλοι φόρτισης</value>
   </data>
   <data name="BatteryPage_DesignCapacity_Message" xml:space="preserve">
-    <value>Χωρητικότητα μπαταρίας όπως έχει σχεδιαστεί.</value>
+    <value>Η χωρητικότητα της μπαταρίας όπως έχει σχεδιαστεί.</value>
   </data>
   <data name="BatteryPage_DesignCapacity_Title" xml:space="preserve">
     <value>Χωρητικότητα σχεδιασμού</value>
   </data>
   <data name="BatteryPage_DischargeRate_Message" xml:space="preserve">
-    <value>Ρυθμός με τον οποίο η μπαταρία φορτίζεται (+), ή αποφορτίζεται (-).</value>
+    <value>Ο ρυθμός με τον οποίο η μπαταρία φορτίζεται (+), ή αποφορτίζεται (-).</value>
   </data>
   <data name="BatteryPage_DischargeRate_Title" xml:space="preserve">
     <value>Ρυθμός αποφόρτισης</value>
+  </data>
+  <data name="BatteryPage_MinDischargeRate_Message" xml:space="preserve">
+    <value>Ο ελάχιστος ρυθμός με τον οποίο η μπαταρία φορτίζεται (+), ή αποφορτίζεται (-).</value>
+  </data>
+  <data name="BatteryPage_MinDischargeRate_Title" xml:space="preserve">
+    <value>Ελάχιστος ρυθμός αποφόρτισης</value>
+  </data>
+  <data name="BatteryPage_MaxDischargeRate_Message" xml:space="preserve">
+    <value>Ο μέγιστος ρυθμός με τον οποίο η μπαταρία φορτίζεται (+), ή αποφορτίζεται (-).</value>
+  </data>
+  <data name="BatteryPage_MaxDischargeRate_Title" xml:space="preserve">
+    <value>Μέγιστος ρυθμός αποφόρτισης</value>
   </data>
   <data name="BatteryPage_EstimatedBatteryLifeRemaining" xml:space="preserve">
     <value>Εκτιμώμενος χρόνος που απομένει: {0}</value>
@@ -348,10 +360,16 @@
     <value>Πότε χρησιμοποιήθηκε για πρώτη φορά η μπαταρία.</value>
   </data>
   <data name="BatteryPage_FullChargeCapacity_Message" xml:space="preserve">
-    <value>Χωρητικότητα μπαταρίας όταν είναι πλήρως φορτισμένη.</value>
+    <value>Η χωρητικότητα της μπαταρίας όταν είναι πλήρως φορτισμένη.</value>
   </data>
   <data name="BatteryPage_FullChargeCapacity_Title" xml:space="preserve">
     <value>Πλήρης χωρητικότητα φόρτισης</value>
+  </data>
+  <data name="BatteryPage_BatteryHealth_Message" xml:space="preserve">
+    <value>Η μέγιστη χωρητικότητα φόρτισης της μπαταρίας.</value>
+  </data>
+  <data name="BatteryPage_BatteryHealth_Title" xml:space="preserve">
+    <value>Υγεία μπαταρίας</value>
   </data>
   <data name="BatteryPage_LowWattageChargerConnected" xml:space="preserve">
     <value>Συνδέθηκε φορτιστής χαμηλής ισχύος</value>
@@ -363,7 +381,7 @@
     <value>Ημερομηνία παραγωγής</value>
   </data>
   <data name="BatteryPage_OnBatterySince_Message" xml:space="preserve">
-    <value>Χρόνος από την τελευταία φορά που ο υπολογιστής φόρτιζε.
+    <value>Ο χρόνος από την τελευταία φορά που ο υπολογιστής φόρτιζε.
 Αυτός ο χρόνος μπορεί να μην είναι ακριβής εάν ο υπολογιστής φόρτιζε ενώ ήταν σε αδράνεια.</value>
   </data>
   <data name="BatteryPage_OnBatterySince_Title" xml:space="preserve">
@@ -610,19 +628,19 @@
     <value>GPU</value>
   </data>
   <data name="FanCurveControl_GPU2" xml:space="preserve">
-    <value>GPU #2</value>
+    <value>2η GPU</value>
   </data>
   <data name="RPM" xml:space="preserve">
     <value>σ.α.λ.</value>
   </data>
   <data name="FlipToStartAutomationStepControl_Message" xml:space="preserve">
-    <value>Ενεργοποιήστε τον υπολογιστή όταν σηκώνετε την οθόνη.</value>
+    <value>Ενεργοποίηση του υπολογιστή όταν σηκώνετε την οθόνη.</value>
   </data>
   <data name="FlipToStartAutomationStepControl_Title" xml:space="preserve">
     <value>Άνοιγμα οθόνης για έναρξη</value>
   </data>
   <data name="FlipToStartControl_Message" xml:space="preserve">
-    <value>Ενεργοποιήστε τον υπολογιστή όταν σηκώνετε την οθόνη.</value>
+    <value>Ενεργοποίηση του υπολογιστή όταν σηκώνετε την οθόνη.</value>
   </data>
   <data name="FlipToStartControl_Title" xml:space="preserve">
     <value>Άνοιγμα οθόνης για έναρξη</value>
@@ -896,13 +914,13 @@
     <value>Βελτίωση χρόνου απόκρισης της ενσωματωμένης οθόνης.</value>
   </data>
   <data name="OverDriveAutomationStepControl_Title" xml:space="preserve">
-    <value>Over Drive</value>
+    <value>Υπερπολλαπλασιαστής Ταχύτητας</value>
   </data>
   <data name="OverDriveControl_Message" xml:space="preserve">
     <value>Βελτίωση χρόνου απόκρισης της ενσωματωμένης οθόνης.</value>
   </data>
   <data name="OverDriveControl_Title" xml:space="preserve">
-    <value>Over Drive</value>
+    <value>Υπερπολλαπλασιαστής Ταχύτητας</value>
   </data>
   <data name="PackageControl_DownloadComplete_Message" xml:space="preserve">
     <value>{0} κατέβηκαν!</value>
@@ -939,7 +957,7 @@
 Να βεβαιώνεστε πάντα ότι εγκαθιστάτε σωστά πακέτα.</value>
   </data>
   <data name="PackagesPage_DownloadFailed_Message" xml:space="preserve">
-    <value>Ελέγξτε εάν ο Τύπος Μηχανήματος και το λειτουργικό σύστημα είναι σωστά.</value>
+    <value>Ελέγξτε εάν ο Τύπος Μηχανήματος και το Λειτουργικό Σύστημα είναι σωστά.</value>
   </data>
   <data name="PackagesPage_DownloadFailed_Title" xml:space="preserve">
     <value>Παρουσιάστηκε κάποιο πρόβλημα</value>
@@ -1057,7 +1075,7 @@
     <value>Ταχύτητα</value>
   </data>
   <data name="ReadmeWindow_Title" xml:space="preserve">
-    <value>Readme</value>
+    <value>ΔιάβασέΜε</value>
   </data>
   <data name="Refresh" xml:space="preserve">
     <value>Ανανέωση</value>
@@ -1129,12 +1147,16 @@
     <value>Αυτόματη εκτέλεση</value>
   </data>
   <data name="SettingsPage_DisableLegionZone_Error_Message" xml:space="preserve">
-    <value>Το Legion Zone μπορεί να μην απενεργοποιήθηκε σωστά</value>
+    <value>Το Legion Zone ενδέχεται να μην έχει απενεργοποιηθεί σωστά</value>
   </data>
   <data name="SettingsPage_DisableLegionZone_Error_Title" xml:space="preserve">
-    <value>Δεν ήταν δυνατή η απενεργοποίηση του Legion Zone</value>
+    <value>Αδυναμία απενεργοποίησης Legion Zone</value>
   </data>
   <data name="SettingsPage_DisableLegionZone_Message" xml:space="preserve">
+    <value>Απενεργοποιήστε το Legion Zone και την υπηρεσία του χωρίς να το απεγκαταστήσετε.
+Συνιστάται επανεκκίνηση αφού αλλάξετε αυτήν την επιλογή.</value>
+  </data>
+  <data name="SettingsPage_DisableLegionSpace_Message" xml:space="preserve">
     <value>Απενεργοποιήστε το Legion Zone και την υπηρεσία του χωρίς να το απεγκαταστήσετε.
 Συνιστάται επανεκκίνηση αφού αλλάξετε αυτήν την επιλογή.</value>
   </data>
@@ -1142,10 +1164,10 @@
     <value>Απενεργοποίηση Legion Zone</value>
   </data>
   <data name="SettingsPage_DisableLenovoHotkeys_Error_Message" xml:space="preserve">
-    <value>Το Lenovo Hotkeys μπορεί να μην απενεργοποιήθηκε σωστά</value>
+    <value>Το Lenovo Hotkeys ενδέχεται να μην έχει απενεργοποιηθεί σωστά</value>
   </data>
   <data name="SettingsPage_DisableLenovoHotkeys_Error_Title" xml:space="preserve">
-    <value>Δεν ήταν δυνατή η απενεργοποίηση του Lenovo Hotkeys</value>
+    <value>Αδυναμία απενεργοποίησης Lenovo Hotkeys</value>
   </data>
   <data name="SettingsPage_DisableLenovoHotkeys_Message" xml:space="preserve">
     <value>Απενεργοποιήστε το Lenovo Hotkeys και την υπηρεσία του χωρίς να το απεγκαταστήσετε.
@@ -1159,7 +1181,7 @@
     <value>Το Lenovo Vantage ή/και το ImController ενδέχεται να μην έχουν απενεργοποιηθεί σωστά</value>
   </data>
   <data name="SettingsPage_DisableVantage_Error_Title" xml:space="preserve">
-    <value>Αδυναμία απενεργοποίησης του Lenovo Vantage ή/και του ImController</value>
+    <value>Αδυναμία απενεργοποίησης Lenovo Vantage ή/και ImController</value>
   </data>
   <data name="SettingsPage_DisableVantage_Message" xml:space="preserve">
     <value>Απενεργοποίηση των Lenovo Vantage και ImController χωρίς να το απεγκαταστήσετε.
@@ -1169,22 +1191,22 @@
     <value>Απενεργοποίηση των Lenovo Vantage και ImController</value>
   </data>
   <data name="SettingsPage_EnableLegionZone_Error_Message" xml:space="preserve">
-    <value>Το Legion Zone μπορεί να μην ενεργοποιήθηκε σωστά</value>
+    <value>Το Legion Zone ενδέχεται να μην έχει ενεργοποιηθεί σωστά</value>
   </data>
   <data name="SettingsPage_EnableLegionZone_Error_Title" xml:space="preserve">
-    <value>Δεν ήταν δυνατή η ενεργοποίηση του Legion Zone</value>
+    <value>Αδυναμία ενεργοποίησης Legion Zone</value>
   </data>
   <data name="SettingsPage_EnableLenovoHotkeys_Error_Message" xml:space="preserve">
-    <value>Το Lenovo Hotkeys μπορεί να μην ενεργοποιήθηκε σωστά</value>
+    <value>Το Lenovo Hotkeys ενδέχεται να μην έχει ενεργοποιηθεί σωστά</value>
   </data>
   <data name="SettingsPage_EnableLenovoHotkeys_Error_Title" xml:space="preserve">
-    <value>Δεν ήταν δυνατή η ενεργοποίηση των πλήκτρων του Lenovo Hotkeys</value>
+    <value>Αδυναμία ενεργοποίησης πλήκτρων Lenovo Hotkeys</value>
   </data>
   <data name="SettingsPage_EnableVantage_Error_Message" xml:space="preserve">
     <value>Το Lenovo Vantage ή/και το ImController ενδέχεται να μην έχουν ενεργοποιηθεί σωστά</value>
   </data>
   <data name="SettingsPage_EnableVantage_Error_Title" xml:space="preserve">
-    <value>Αδυναμία ενεργοποίησης του Lenovo Vantage ή/και του ImController</value>
+    <value>Αδυναμία ενεργοποίησης Lenovo Vantage ή/και ImController</value>
   </data>
   <data name="SettingsPage_ExcludeRefreshRates_Message" xml:space="preserve">
     <value>Μπορείτε να εξαιρέσετε ρυθμούς ανανέωσης, για να κάνετε τη συντόμευση Fn+R πιο χρήσιμη.</value>
@@ -1209,6 +1231,9 @@
   </data>
   <data name="SettingsPage_Notifications_Title" xml:space="preserve">
     <value>Ειδοποιήσεις</value>
+  </data>
+  <data name="SettingsPage_UpdateMethod_Title" xml:space="preserve">
+    <value>Μέθοδος Ενημέρωσης</value>
   </data>
   <data name="SettingsPage_WindowsPowerPlans_Title" xml:space="preserve">
     <value>Πλάνα Τροφοδοσίας Windows</value>
@@ -1483,7 +1508,7 @@
     <value>Φωτισμός πληκτρολογίου</value>
   </data>
   <data name="OneLevelWhiteKeyboardBacklightAutomationStepControl_Message" xml:space="preserve">
-    <value>Ενεργοποιήστε ή απενεργοποιήστε τον φωτισμό πληκτρολογίου.</value>
+    <value>Ανάψετε ή σβήσετε τον φωτισμό πληκτρολογίου.</value>
   </data>
   <data name="PackagesPage_NoMatchingDownloads" xml:space="preserve">
     <value>Δεν βρέθηκαν λήψεις που να ταιριάζουν</value>
@@ -1666,6 +1691,12 @@
   </data>
   <data name="StatusTrayPopup_DischargeRate" xml:space="preserve">
     <value>Ρυθμός αποφόρτισης</value>
+  </data>
+  <data name="StatusTrayPopup_MinDischargeRate" xml:space="preserve">
+    <value>Ελάχ. ρυθμός αποφόρτισης</value>
+  </data>
+  <data name="StatusTrayPopup_MaxDischargeRate" xml:space="preserve">
+    <value>Μέγ. ρυθμός αποφόρτισης</value>
   </data>
   <data name="StatusTrayPopup_UpdateAvailable" xml:space="preserve">
     <value>Διαθέσιμη ενημέρωση!</value>
@@ -2236,7 +2267,7 @@
     <value>Αναπαραγωγή ήχου</value>
   </data>
   <data name="PlaySoundAutomationStepControl_Message" xml:space="preserve">
-    <value>Υποστηρίζονται κοινές μορφές μουσικής όπως wav ή mp3.</value>
+    <value>Υποστηρίζονται κοινές μορφές μουσικής όπως WAV ή MP3.</value>
   </data>
   <data name="QuickActionAutomationStepControl_Title" xml:space="preserve">
     <value>Γρήγορη Δράση</value>
@@ -2252,132 +2283,178 @@
 Δεν επηρεάζει άλλα παράθυρα πλήρους οθόνης, όμως δε θα είναι εφικτό το κλικ στις ειδοποιήσεις.</value>
   </data>
   <data name="SensorsControl_VrTemperature_Title" xml:space="preserve">
-    <value />
+    <value>Θερμοκρασία Ρυθμιστή Τάσης</value>
   </data>
   <data name="SensorsControl_GpuMemoryTemperature_Title" xml:space="preserve">
-    <value />
+    <value>VRAM</value>
   </data>
   <data name="SensorsControl_PchTemperature_Title" xml:space="preserve">
-    <value />
+    <value>Θερμοκρασία PCH</value>
   </data>
   <data name="SensorsControl_Motherboard_Title" xml:space="preserve">
-    <value />
+    <value>Μητρική</value>
   </data>
   <data name="SensorsControl_GpuCore_Title" xml:space="preserve">
-    <value />
+    <value>Πυρήνας</value>
   </data>
   <data name="SensorsControl_Memory_Title" xml:space="preserve">
-    <value />
+    <value>Μνήμη</value>
   </data>
   <data name="SensorsControl_Disk_Title" xml:space="preserve">
-    <value />
+    <value>Δίσκος</value>
   </data>
   <data name="SensorsControl_Battery_Title" xml:space="preserve">
-    <value />
+    <value>Μπαταρία</value>
   </data>
   <data name="SensorsControl_State_Title" xml:space="preserve">
-    <value />
+    <value>Κατάσταση</value>
   </data>
   <data name="SensorsControl_BatteryLevel_Title" xml:space="preserve">
-    <value />
+    <value>Επίπεδο Μπαταρίας</value>
   </data>
   <data name="BatteryPage_ACAdapterNotConnected" xml:space="preserve">
-    <value />
+    <value>Χωρίς ρεύμα</value>
   </data>
   <data name="DashboardBattery_AcConnected" xml:space="preserve">
-    <value />
+    <value>Ρεύμα σε σύνδεση</value>
   </data>
   <data name="DashboardBattery_AcDisconnected" xml:space="preserve">
-    <value />
+    <value>Ρεύμα αποσυνδέθηκε</value>
   </data>
   <data name="AboutPage_Log" xml:space="preserve">
-    <value />
+    <value>Καταγραφή</value>
   </data>
   <data name="SensorsControl_CPU_Power" xml:space="preserve">
-    <value />
+    <value>Ισχύς</value>
   </data>
   <data name="SensorsControl_GPU_Power" xml:space="preserve">
-    <value />
+    <value>Ισχύς</value>
   </data>
   <data name="SensorsControl_Disk_1_Temperature" xml:space="preserve">
-    <value />
+    <value>Θερμοκρασία Δίσκου 1</value>
   </data>
   <data name="SensorsControl_Disk_2_Temperature" xml:space="preserve">
-    <value />
+    <value>Θερμοκρασία Δίσκου 2</value>
   </data>
   <data name="SettingsPage_EnableLogging_Title" xml:space="preserve">
-    <value />
+    <value>Ενεργοποίηση Καταγραφής</value>
   </data>
   <data name="SettingsPage_EnableLogging_Message" xml:space="preserve">
-    <value />
+    <value>Ενεργοποιήστε καταγραφή για αποσφαλμάτωση.</value>
   </data>
   <data name="SensorItem_CpuUtilitzation" xml:space="preserve">
-    <value />
+    <value>Χρήση CPU</value>
   </data>
   <data name="SensorItem_CpuFrequency" xml:space="preserve">
-    <value />
+    <value>Συχνότητα CPU</value>
   </data>
   <data name="SensorItem_CpuFanSpeed" xml:space="preserve">
-    <value />
+    <value>Ταχύτητα ανεμιστήρα CPU</value>
   </data>
   <data name="SensorItem_CpuTemperature" xml:space="preserve">
-    <value />
+    <value>Θερμοκρασία CPU</value>
   </data>
   <data name="SensorItem_CpuPower" xml:space="preserve">
-    <value />
+    <value>Ισχύς CPU</value>
   </data>
   <data name="SensorItem_GpuUtilization" xml:space="preserve">
-    <value />
+    <value>Χρήση GPU</value>
   </data>
   <data name="SensorItem_GpuFrequency" xml:space="preserve">
-    <value />
+    <value>Συχνότητα GPU</value>
   </data>
   <data name="SensorItem_GpuFanSpeed" xml:space="preserve">
-    <value />
+    <value>Ταχύτητα ανεμιστήρα GPU</value>
   </data>
   <data name="SensorItem_PchFanSpeed" xml:space="preserve">
-    <value />
+    <value>Ταχύτητα ανεμιστήρα PCH</value>
   </data>
   <data name="SensorItem_PchTemperature" xml:space="preserve">
-    <value />
+    <value>Θερμοκρασία PCH</value>
   </data>
   <data name="SensorItem_BatteryState" xml:space="preserve">
-    <value />
+    <value>Κατάσταση Μπαταρίας</value>
   </data>
   <data name="SensorItem_BatteryLevel" xml:space="preserve">
-    <value />
+    <value>Επίπεδο Μπαταρίας</value>
   </data>
   <data name="SensorItem_MemoryUtilization" xml:space="preserve">
-    <value />
+    <value>Χρήση Μνήμης</value>
   </data>
   <data name="SensorItem_MemoryTemperature" xml:space="preserve">
-    <value />
+    <value>Θερμοκρασία Μνήμης</value>
   </data>
   <data name="SensorItem_Disk1Temperature" xml:space="preserve">
-    <value />
+    <value>Θερμοκρασία Δίσκου 1</value>
   </data>
   <data name="SensorItem_Disk2Temperature" xml:space="preserve">
-    <value />
+    <value>Θερμοκρασία Δίσκου 2</value>
   </data>
   <data name="EditSensorWindow_Title" xml:space="preserve">
-    <value />
+    <value>Επεξεργασία Αισθητήρα</value>
   </data>
   <data name="SensorItem_GpuTemperatures" xml:space="preserve">
-    <value />
+    <value>Θερμοκρασία GPU1</value>
   </data>
   <data name="SettingsPage_UseNewSensorDashboard_Title" xml:space="preserve">
-    <value />
+    <value>Χρήση Νέου Πίνακα Αισθητήρων</value>
   </data>
   <data name="SettingsPage_UseNewSensorDashboard_Message" xml:space="preserve">
-    <value />
+    <value>Χρησιμοποιήστε τον νέο πίνακα αισθητήρων αντί για τον παλιό.
+
+Σημείωση: Η χρήση του νέου πίνακα αισθητήρων ενδέχεται να προκαλέσει την εμφάνιση ενός αναδυόμενου παραθύρου προειδοποίησης σε ορισμένα προγράμματα προστασίας από ιούς. Για περισσότερες πληροφορίες, δείτε το: LibreHardwareMonitor/LibreHardwareMonitor#984</value>
   </data>
   <data name="SettingsPage_LockWindowSize_Title" xml:space="preserve">
-    <value />
+    <value>Κλείδωμα Μεγέθους Παραθύρου</value>
   </data>
   <data name="SettingsPage_LockWindowSize_Message" xml:space="preserve">
-    <value />
+    <value>Κλειδώστε το μέγεθος του παρα8ύρου του LLT, για να αποφύγετε ανεπιθύμητες αλλαγές.</value>
   </data>
   <data name="FanCurveControl_PCH" xml:space="preserve">
-    <value />
+    <value>PCH</value>
+  </data>
+  <data name="SettingsPage_EnableLegionSpace_Error_Title" xml:space="preserve">
+    <value>Αδυναμία ενεργοποίησης Legion Space</value>
+  </data>
+  <data name="SettingsPage_EnableLegionSpace_Error_Message" xml:space="preserve">
+    <value>Το Legion Space ενδέχεται να μην έχει ενεργοποιηθεί σωστά</value>
+  </data>
+  <data name="SettingsPage_DisableLegionSpace_Title" xml:space="preserve">
+    <value>Απενεργοποίηση Legion Space</value>
+  </data>
+  <data name="MainWindow_LegionSpaceRunning" xml:space="preserve">
+    <value>Το Legion Space εκτελείται στο παρασκήνιο.</value>
+  </data>
+  <data name="GodModeSettingsWindow_LegionSpaceWarning_Title" xml:space="preserve">
+    <value>Οι ρυθμίσεις της Προσαρμοσμένης Λειτουργίας δε θα εφαρμοστούν σωστά όταν εκτελείται το Legion Space ή οι υπηρεσίες του.</value>
+  </data>
+  <data name="SettingsPage_DisableLegionSpace_Error_Title" xml:space="preserve">
+    <value>Αδυναμία απενεργοποίησης Legion Space</value>
+  </data>
+  <data name="SettingsPage_DisableLegionSpace_Error_Message" xml:space="preserve">
+    <value>Το Legion Space ενδέχεται να μην έχει απενεργοποιηθεί σωστά.</value>
+  </data>
+  <data name="SettingsPage_UseNewDashboard_Restart_Message" xml:space="preserve">
+    <value>Επανεκκίνηση για εφαρμογή αλλαγών.</value>
+  </data>
+  <data name="SettingsPage_UseNewDashboard_Switch_Title" xml:space="preserve">
+    <value>Ο πίνακας άλλαξε</value>
+  </data>
+  <data name="MainWindow_PawnIO_Warning_Title" xml:space="preserve">
+    <value>Προειδοποίηση</value>
+  </data>
+  <data name="MainWindow_PawnIO_Warning_Message" xml:space="preserve">
+    <value>Πρέπει να εγκαταστήσετε το PawnIΟ προτού χρησιμοποιήσετε τον νέο πίνακα!</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="KeyboardBacklightPage_DynamicLightingEnabled" xml:space="preserve">
+    <value>Windows Dynamic lighting is enabled.
+This feature might prevent LLT to control the keyboard.
+Click Yes to disable and No to ignore.</value>
+  </data>
+  <data name="DialogWindow_DontShowAgain" xml:space="preserve">
+    <value>Don't show again.</value>
   </data>
 </root>

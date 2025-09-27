@@ -227,4 +227,10 @@
   <data name="DeviceConnectedAutomationPipelineTrigger_DisplayName" xml:space="preserve">
     <value>Όταν η συσκευή είναι συνδεδεμένη</value>
   </data>
+  <data name="SessionLockAutomationPipelineTrigger_DisplayName" xml:space="preserve">
+    <value>Κλειδωμένη συνεδρία</value>
+  </data>
+  <data name="SessionUnlockAutomationPipelineTrigger_DisplayName" xml:space="preserve">
+    <value>Ξεκλειδωμένη συνεδρία</value>
+  </data>
 </root>

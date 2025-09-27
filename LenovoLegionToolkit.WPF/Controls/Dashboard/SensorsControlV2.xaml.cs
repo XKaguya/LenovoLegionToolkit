@@ -33,7 +33,7 @@ public partial class SensorsControlV2
     private readonly SemaphoreSlim _refreshLock = new(1, 1);
     private readonly object _updateLock = new();
     private readonly Task<string> _cpuNameTask;
-    private readonly Task<string> _gpuNameTask;
+    private Task<string> _gpuNameTask;
     private HashSet<SensorItem> _activeSensorItems = new();
     private Dictionary<SensorItem, FrameworkElement> _sensorItemToControlMap;
 
@@ -43,7 +43,7 @@ public partial class SensorsControlV2
         InitializeContextMenu();
         IsVisibleChanged += SensorsControl_IsVisibleChanged;
         _cpuNameTask = GetProcessedCpuName();
-        _gpuNameTask = GetProcessedGpuName();
+        // _gpuNameTask = GetProcessedGpuName();
         PreviewKeyDown += (s, e) =>
         {
             if (e.Key == Key.System && e.SystemKey == Key.LeftAlt)
@@ -135,9 +135,11 @@ public partial class SensorsControlV2
                 {
                     try
                     {
+                        _gpuNameTask = GetProcessedGpuName();
                         var dataTask = _controller.GetDataAsync();
                         var cpuPowerTask = _sensorsGroupControllers.GetCpuPowerAsync();
                         var gpuPowerTask = _sensorsGroupControllers.GetGpuPowerAsync();
+                        var gpuVramTask = _sensorsGroupControllers.GetGpuVramTemperatureAsync();
                         var diskTemperaturesTask = _sensorsGroupControllers.GetSSDTemperaturesAsync();
                         var memoryUsageTask = _sensorsGroupControllers.GetMemoryUsageAsync();
                         var memoryTemperaturesTask = _sensorsGroupControllers.GetHighestMemoryTemperatureAsync();
@@ -146,12 +148,13 @@ public partial class SensorsControlV2
                             dataTask,
                             cpuPowerTask,
                             gpuPowerTask,
+                            gpuVramTask,
                             diskTemperaturesTask,
                             memoryUsageTask,
                             memoryTemperaturesTask,
                             batteryInfoTask
                         ).ConfigureAwait(false);
-                        await Dispatcher.InvokeAsync(() => UpdateAllSensorValues(dataTask.Result, cpuPowerTask.Result, gpuPowerTask.Result, diskTemperaturesTask.Result, memoryUsageTask.Result, memoryTemperaturesTask.Result, batteryInfoTask.Result), DispatcherPriority.Background);
+                        await Dispatcher.InvokeAsync(() => UpdateAllSensorValues(dataTask.Result, cpuPowerTask.Result, gpuPowerTask.Result, gpuVramTask.Result, diskTemperaturesTask.Result, memoryUsageTask.Result, memoryTemperaturesTask.Result, batteryInfoTask.Result), DispatcherPriority.Background);
                         await Task.Delay(TimeSpan.FromSeconds(_dashboardSettings.Store.SensorsRefreshIntervalSeconds), token);
                     }
                     catch (OperationCanceledException)
@@ -186,28 +189,29 @@ public partial class SensorsControlV2
     {
         lock (_updateLock)
         {
-            UpdateValue(_cpuUtilizationBar, _cpuUtilizationLabel, -1, -1, "");
-            UpdateValue(_cpuCoreClockBar, _cpuCoreClockLabel, -1, -1, "");
-            UpdateValue(_cpuTemperatureBar, _cpuTemperatureLabel, -1, -1, "");
-            UpdateValue(_cpuFanSpeedBar, _cpuFanSpeedLabel, -1, -1, "");
+            UpdateValue(_cpuUtilizationBar, _cpuUtilizationLabel, -1, -1, "-");
+            UpdateValue(_cpuCoreClockBar, _cpuCoreClockLabel, -1, -1, "-");
+            UpdateValue(_cpuTemperatureBar, _cpuTemperatureLabel, -1, -1, "-");
+            UpdateValue(_cpuFanSpeedBar, _cpuFanSpeedLabel, -1, -1, "-");
             UpdateValue(_cpuPowerLabel, "-");
-            UpdateValue(_gpuUtilizationBar, _gpuUtilizationLabel, -1, -1, "");
-            UpdateValue(_gpuCoreClockBar, _gpuCoreClockLabel, -1, -1, "");
-            UpdateValue(_gpuFanSpeedBar, _gpuFanSpeedLabel, -1, -1, "");
-            UpdateValue(_gpuCoreTemperatureBar, _gpuCoreTemperatureLabel, -1, -1, "");
+            UpdateValue(_gpuUtilizationBar, _gpuUtilizationLabel, -1, -1, "-");
+            UpdateValue(_gpuCoreClockBar, _gpuCoreClockLabel, -1, -1, "-");
+            UpdateValue(_gpuFanSpeedBar, _gpuFanSpeedLabel, -1, -1, "-");
+            UpdateValue(_gpuCoreTemperatureLabel, "-");
+            UpdateValue(_gpuMemoryTemperatureLabel, "-");
             UpdateValue(_gpuPowerLabel, "-");
-            UpdateValue(_pchTemperatureBar, _pchTemperatureLabel, -1, -1, "");
-            UpdateValue(_pchFanSpeedBar, _pchFanSpeedLabel, -1, -1, "");
-            UpdateValue(_disk1TemperatureBar, _disk1TemperatureLabel, -1, -1, "");
-            UpdateValue(_disk2TemperatureBar, _disk2TemperatureLabel, -1, -1, "");
-            UpdateValue(_memoryUtilizationBar, _memoryUtilizationLabel, -1, -1, "");
-            UpdateValue(_memoryTemperatureBar, _memoryTemperatureLabel, -1, -1, "");
+            UpdateValue(_pchTemperatureBar, _pchTemperatureLabel, -1, -1, "-");
+            UpdateValue(_pchFanSpeedBar, _pchFanSpeedLabel, -1, -1, "-");
+            UpdateValue(_disk1TemperatureBar, _disk1TemperatureLabel, -1, -1, "-");
+            UpdateValue(_disk2TemperatureBar, _disk2TemperatureLabel, -1, -1, "-");
+            UpdateValue(_memoryUtilizationBar, _memoryUtilizationLabel, -1, -1, "-");
+            UpdateValue(_memoryTemperatureBar, _memoryTemperatureLabel, -1, -1, "-");
             UpdateBatteryStatus(_batteryStateLabel, null);
             UpdateValue(_batteryLevelBar, _batteryLevelLabel, -1, -1, "-");
         }
     }
 
-    private void UpdateAllSensorValues(SensorsData data, float cpuPower, float gpuPower, (float, float) diskTemps, float memoryUsage, double memoryTemp, BatteryInformation? batteryInfo)
+    private void UpdateAllSensorValues(SensorsData data, float cpuPower, float gpuPower, float gpuVramTemp, (float, float) diskTemps, float memoryUsage, double memoryTemp, BatteryInformation? batteryInfo)
     {
         lock (_updateLock)
         {
@@ -226,10 +230,8 @@ public partial class SensorsControlV2
             if (_activeSensorItems.Contains(SensorItem.CpuPower)) UpdateValue(_cpuPowerLabel, $"{cpuPower:0}W");
             if (_activeSensorItems.Contains(SensorItem.GpuUtilization)) UpdateValue(_gpuUtilizationBar, _gpuUtilizationLabel, data.GPU.MaxUtilization, data.GPU.Utilization, $"{data.GPU.Utilization}%");
             if (_activeSensorItems.Contains(SensorItem.GpuFrequency)) UpdateValue(_gpuCoreClockBar, _gpuCoreClockLabel, data.GPU.MaxCoreClock, data.GPU.CoreClock, $"{data.GPU.CoreClock} {Resource.MHz}", $"{data.GPU.MaxCoreClock} {Resource.MHz}");
-            if (_activeSensorItems.Contains(SensorItem.GpuTemperatures))
-            {
-                UpdateValue(_gpuCoreTemperatureBar, _gpuCoreTemperatureLabel, data.GPU.MaxTemperature, data.GPU.Temperature, GetTemperatureText(data.GPU.Temperature), GetTemperatureText(data.GPU.MaxTemperature));
-            }
+            if (_activeSensorItems.Contains(SensorItem.GpuCoreTemperature)) UpdateValue(_gpuCoreTemperatureLabel, data.GPU.MaxTemperature, data.GPU.Temperature, GetTemperatureText(data.GPU.Temperature), GetTemperatureText(data.GPU.MaxTemperature));
+            if (_activeSensorItems.Contains(SensorItem.GpuVramTemperature)) UpdateValue(_gpuMemoryTemperatureLabel, data.GPU.MaxTemperature, data.GPU.Temperature, GetTemperatureText(gpuVramTemp), GetTemperatureText(data.GPU.MaxTemperature));
             if (_activeSensorItems.Contains(SensorItem.GpuFanSpeed)) UpdateValue(_gpuFanSpeedBar, _gpuFanSpeedLabel, data.GPU.MaxFanSpeed, data.GPU.FanSpeed, $"{data.GPU.FanSpeed} {Resource.RPM}", $"{data.GPU.MaxFanSpeed} {Resource.RPM}");
             if (_activeSensorItems.Contains(SensorItem.GpuPower)) UpdateValue(_gpuPowerLabel, $"{gpuPower:0}W");
             if (_activeSensorItems.Contains(SensorItem.PchTemperature)) UpdateValue(_pchTemperatureBar, _pchTemperatureLabel, data.PCH.MaxTemperature, data.PCH.Temperature, GetTemperatureText(data.PCH.Temperature), GetTemperatureText(data.PCH.MaxTemperature));
@@ -295,7 +297,7 @@ public partial class SensorsControlV2
 
     private string GetTemperatureText(double temperature)
     {
-        if (temperature < 0) return "-";
+        if (temperature <= 0) return "-";
         if (_applicationSettings.Store.TemperatureUnit == TemperatureUnit.F)
         {
             temperature = temperature * 9 / 5 + 32;
@@ -360,6 +362,21 @@ public partial class SensorsControlV2
 
     private static void UpdateValue(TextBlock label, string str)
     {
-        label.Text = str;
+        var processedStr = str.Replace("W", "");
+        if (int.TryParse(processedStr, out var result))
+        {
+            if (result <= 0)
+            {
+                label.Text = "-";
+            }
+            else
+            {
+                label.Text = str;
+            }
+        }
+        else
+        {
+            label.Text = str;
+        }
     }
 }

@@ -75,6 +75,14 @@
                         IsOpen="False"
                         Severity="Error" />
 
+                    <custom:InfoBar
+                        x:Name="_legionSpaceRunningWarningInfoBar"
+                        Title="{x:Static resources:Resource.GodModeSettingsWindow_LegionSpaceWarning_Title}"
+                        Margin="0,16,0,0"
+                        IsClosable="False"
+                        IsOpen="False"
+                        Severity="Error" />
+
                     <TextBlock
                         Margin="0,16,0,24"
                         Focusable="True"

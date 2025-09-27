@@ -17,6 +17,7 @@ public class GPUOverclockController
 {
     private readonly GPUOverclockSettings _settings;
     private readonly VantageDisabler _vantageDisabler;
+    private readonly LegionSpaceDisabler _legionSpaceDisabler;
     private readonly LegionZoneDisabler _legionZoneDisabler;
     private readonly NativeWindowsMessageListener _nativeWindowsMessageListener;
 
@@ -24,11 +25,13 @@ public class GPUOverclockController
 
     public GPUOverclockController(GPUOverclockSettings settings,
         VantageDisabler vantageDisabler,
+        LegionSpaceDisabler legionSpaceDisabler,
         LegionZoneDisabler legionZoneDisabler,
         NativeWindowsMessageListener nativeWindowsMessageListener)
     {
         _settings = settings;
         _vantageDisabler = vantageDisabler;
+        _legionSpaceDisabler = legionSpaceDisabler;
         _legionZoneDisabler = legionZoneDisabler;
         _nativeWindowsMessageListener = nativeWindowsMessageListener;
         _nativeWindowsMessageListener.Changed += NativeWindowsMessageListenerOnChanged;
@@ -113,6 +116,15 @@ public class GPUOverclockController
         {
             if (Log.Instance.IsTraceEnabled)
                 Log.Instance.Trace($"Can't correctly apply state when Vantage is running.");
+
+            Changed?.Invoke(this, EventArgs.Empty);
+            return;
+        }
+
+        if (await _legionSpaceDisabler.GetStatusAsync().ConfigureAwait(false) == SoftwareStatus.Enabled)
+        {
+            if (Log.Instance.IsTraceEnabled)
+                Log.Instance.Trace($"Can't correctly apply state when Legion Space is running.");
 
             Changed?.Invoke(this, EventArgs.Empty);
             return;

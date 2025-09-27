@@ -1,18 +1,20 @@
-﻿using System;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Automation;
-using System.Windows.Controls;
-using LenovoLegionToolkit.Lib;
+﻿using LenovoLegionToolkit.Lib;
+using LenovoLegionToolkit.Lib.Controllers.Sensors;
 using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.Features;
 using LenovoLegionToolkit.Lib.Features.Hybrid;
 using LenovoLegionToolkit.Lib.Features.Hybrid.Notify;
+using LenovoLegionToolkit.Lib.Settings;
 using LenovoLegionToolkit.Lib.System;
 using LenovoLegionToolkit.Lib.Utils;
 using LenovoLegionToolkit.WPF.Resources;
 using LenovoLegionToolkit.WPF.Utils;
 using LenovoLegionToolkit.WPF.Windows.Dashboard;
+using System;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Automation;
+using System.Windows.Controls;
 using Wpf.Ui.Common;
 using Wpf.Ui.Controls;
 using Button = Wpf.Ui.Controls.Button;
@@ -115,7 +117,20 @@ public static class HybridModeControlFactory
 
         private void DGPUNotify_Notified(object? sender, bool e) => Dispatcher.Invoke(() =>
         {
-            SnackbarHelper.Show(e ? Resource.DGPU_Connected_Title : Resource.DGPU_Disconnected_Title, type: SnackbarType.Info);
+            if (e)
+            {
+                SnackbarHelper.Show(Resource.DGPU_Connected_Title, type: SnackbarType.Info);
+                var feature = IoCContainer.Resolve<ApplicationSettings>();
+                if (feature.Store.UseNewSensorDashboard)
+                {
+                    var controller = IoCContainer.Resolve<SensorsGroupController>();
+                    controller.NeedRefreshHardware("NvidiaGPU");
+                }
+            }
+            else
+            {
+                SnackbarHelper.Show(Resource.DGPU_Disconnected_Title, type: SnackbarType.Info);
+            }
         });
 
         private async void InfoButton_Click(object sender, RoutedEventArgs e)

@@ -4,7 +4,6 @@ using LenovoLegionToolkit.Lib.System;
 using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Automation;
 using LenovoLegionToolkit.Lib.Controllers;
-using LenovoLegionToolkit.Lib.Controllers.GodMode;
 using LenovoLegionToolkit.Lib.Controllers.Sensors;
 using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.Features;
@@ -53,7 +52,7 @@ public partial class App
     private Mutex? _singleInstanceMutex;
     private EventWaitHandle? _singleInstanceWaitHandle;
 
-    public static MainWindow? MainWindowInstance;
+    private bool _showPawnIONotify;
 
     public new static App Current => (App)Application.Current;
 
@@ -77,9 +76,6 @@ public partial class App
         Log.Instance.IsTraceEnabled = flags.IsTraceEnabled;
 
         AppDomain.CurrentDomain.UnhandledException += AppDomain_UnhandledException;
-
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Flags: {flags}");
 
         EnsureSingleInstance();
 
@@ -141,34 +137,40 @@ public partial class App
         await InitSetPowerMode();
 
 #if !DEBUG
-    Autorun.Validate();
+        Autorun.Validate();
 #endif
 
-        MainWindowInstance = new MainWindow
+        var mainWindow = new MainWindow
         {
             WindowStartupLocation = WindowStartupLocation.CenterScreen,
             TrayTooltipEnabled = !flags.DisableTrayTooltip,
             DisableConflictingSoftwareWarning = flags.DisableConflictingSoftwareWarning
         };
-        MainWindow = MainWindowInstance;
+        MainWindow = mainWindow;
 
         IoCContainer.Resolve<ThemeManager>().Apply();
+
+        InitSetLogIndicator();
 
         if (flags.Minimized)
         {
             if (Log.Instance.IsTraceEnabled)
                 Log.Instance.Trace($"Sending MainWindow to tray...");
 
-            MainWindowInstance.WindowState = WindowState.Minimized;
-            MainWindowInstance.Show();
-            MainWindowInstance.SendToTray();
+            mainWindow.WindowState = WindowState.Minimized;
+            mainWindow.Show();
+            mainWindow.SendToTray();
         }
         else
         {
             if (Log.Instance.IsTraceEnabled)
                 Log.Instance.Trace($"Showing MainWindow...");
 
-            MainWindowInstance.Show();
+            mainWindow.Show();
+            if (_showPawnIONotify)
+            {
+                ShowPawnIONotify();
+            }
         }
 
         await deferredInitTask;
@@ -309,11 +311,7 @@ public partial class App
         Log.Instance.ErrorReport("AppDomain_UnhandledException", exception ?? new Exception($"Unknown exception caught: {e.ExceptionObject}"));
         Log.Instance.Trace($"Unhandled exception occurred.", exception);
 
-        MessageBox.Show(string.Format(Resource.UnexpectedException, exception?.ToStringDemystified() ?? "Unknown exception."),
-            "Application Domain Error",
-            MessageBoxButton.OK,
-            MessageBoxImage.Error);
-        Shutdown(100);
+        SnackbarHelper.Show(Resource.UnexpectedException, string.Format(Resource.UnexpectedException, exception?.Message ?? "Unknown exception."), SnackbarType.Error);
     }
 
     private void Application_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
@@ -321,11 +319,7 @@ public partial class App
         Log.Instance.ErrorReport("Application_DispatcherUnhandledException", e.Exception);
         Log.Instance.Trace($"Unhandled exception occurred.", e.Exception);
 
-        MessageBox.Show(string.Format(Resource.UnexpectedException, e.Exception.ToStringDemystified()),
-            "Application Error",
-            MessageBoxButton.OK,
-            MessageBoxImage.Error);
-        Shutdown(101);
+        SnackbarHelper.Show(Resource.UnexpectedException, e.Exception?.Message ?? "Unknown exception.", SnackbarType.Error);
     }
 
     private async Task<bool> CheckBasicCompatibilityAsync()
@@ -427,6 +421,9 @@ public partial class App
         var vantageStatus = await IoCContainer.Resolve<VantageDisabler>().GetStatusAsync();
         Log.Instance.Trace($"Vantage status: {vantageStatus}");
 
+        var legionSpaceStatus = await IoCContainer.Resolve<LegionSpaceDisabler>().GetStatusAsync();
+        Log.Instance.Trace($"LegionSpace status: {legionSpaceStatus}");
+
         var legionZoneStatus = await IoCContainer.Resolve<LegionZoneDisabler>().GetStatusAsync();
         Log.Instance.Trace($"LegionZone status: {legionZoneStatus}");
 
@@ -500,6 +497,31 @@ public partial class App
         }
     }
 
+    private static void InitSetLogIndicator()
+    {
+        try
+        {
+            ApplicationSettings settings = IoCContainer.Resolve<ApplicationSettings>();
+            if (settings.Store.EnableLogging)
+            {
+                if (App.Current.MainWindow is not MainWindow mainWindow)
+                    return;
+
+                Log.Instance.IsTraceEnabled = settings.Store.EnableLogging;
+                mainWindow._openLogIndicator.Visibility = Utils.BooleanToVisibilityConverter.Convert(settings.Store.EnableLogging);
+
+                Compatibility.PrintMachineInfo();
+            }
+        }
+        catch (Exception ex)
+        {
+            if (Log.Instance.IsTraceEnabled)
+            {
+                Log.Instance.Trace($"Couldn't reapply parameters.", ex);
+            }
+        }
+    }
+
     private static async Task InitPowerModeFeatureAsync()
     {
         try
@@ -559,9 +581,10 @@ public partial class App
 
     private static async Task InitSensorsGroupControllerFeatureAsync()
     {
+        var settings = IoCContainer.Resolve<ApplicationSettings>();
+
         try
         {
-            var settings = IoCContainer.Resolve<ApplicationSettings>();
             if (settings.Store.UseNewSensorDashboard)
             {
                 var feature = IoCContainer.Resolve<SensorsGroupController>();
@@ -570,12 +593,16 @@ public partial class App
                     if (Log.Instance.IsTraceEnabled)
                         Log.Instance.Trace($"Init memory sensor control feature.");
                 }
+                else
+                {
+                    App.Current._showPawnIONotify = true;
+                }
             }
         }
         catch (Exception ex)
         {
             if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Couldn't ensure correct battery mode.", ex);
+                Log.Instance.Trace($"Init sensor group controller failed.", ex);
         }
     }
 
@@ -678,5 +705,26 @@ public partial class App
     {
         var controller = IoCContainer.Resolve<MacroController>();
         controller.Start();
+    }
+
+    private static void ShowPawnIONotify()
+    {
+        var dialog = new DialogWindow
+        {
+            Title = Resource.MainWindow_PawnIO_Warning_Title,
+            Content = Resource.MainWindow_PawnIO_Warning_Message,
+            Owner = Application.Current.MainWindow
+        };
+
+        dialog.ShowDialog();
+
+        if (dialog.Result.Item1)
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = "https://pawnio.eu/",
+                UseShellExecute = true
+            });
+        }
     }
 }

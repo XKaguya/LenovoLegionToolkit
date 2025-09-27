@@ -29,6 +29,7 @@ public class IoCModule : Module
         builder.Register<HttpClientFactory>();
 
         builder.Register<FnKeysDisabler>();
+        builder.Register<LegionSpaceDisabler>();
         builder.Register<LegionZoneDisabler>();
         builder.Register<VantageDisabler>();
 
@@ -113,6 +114,7 @@ public class IoCModule : Module
         builder.Register<GodModeControllerV1>(true);
         builder.Register<GodModeControllerV2>(true);
         builder.Register<GodModeControllerV3>(true);
+        builder.Register<GodModeControllerV4>(true);
         builder.Register<GPUController>();
         builder.Register<GPUOverclockController>();
         builder.Register<RGBKeyboardBacklightController>();

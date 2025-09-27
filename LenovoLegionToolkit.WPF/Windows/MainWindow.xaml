@@ -13,8 +13,7 @@
     Height="750"
     MinWidth="650"
     MinHeight="600"
-    FlowDirection="{x:Static utils:LocalizationHelper.Direction}"
->
+    FlowDirection="{x:Static utils:LocalizationHelper.Direction}">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -210,6 +209,24 @@
                     Focusable="True"
                     Foreground="Black"
                     Text="{x:Static resources:Resource.MainWindow_LegionZoneRunning}" />
+            </StackPanel>
+        </Border>
+
+        <Border
+            x:Name="_legionSpaceIndicator"
+            Grid.Row="3"
+            Padding="8,4,8,6"
+            Background="Orange"
+            Visibility="Collapsed">
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                <wpfui:SymbolIcon
+                    Margin="0,0,4,0"
+                    Foreground="Black"
+                    Symbol="Warning24" />
+                <TextBlock
+                    Focusable="True"
+                    Foreground="Black"
+                    Text="{x:Static resources:Resource.MainWindow_LegionSpaceRunning}" />
             </StackPanel>
         </Border>
 
