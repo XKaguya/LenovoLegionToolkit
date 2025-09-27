@@ -1,0 +1,12 @@
+name: Blank Issue
+description: Do not use this if you are reporting an issue.
+labels: ["documentation"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Information
+      description: Provide informations.
+      placeholder: Provide informations.
+    validations:
+      required: true
