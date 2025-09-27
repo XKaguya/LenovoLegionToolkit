@@ -7,8 +7,10 @@
 using LenovoLegionToolkit.Lib.Settings;
 using LenovoLegionToolkit.Lib.Utils;
 using LibreHardwareMonitor.Hardware;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -19,6 +21,7 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
     public class SensorsGroupController : IDisposable
     {
         private bool _initialized;
+        public LibreHardwareMonitorInitialState InitialState { get; private set; }
         private float _lastGpuPower;
         private readonly SemaphoreSlim _initSemaphore = new SemaphoreSlim(1, 1);
         private readonly List<IHardware> _interestedHardwares = new();
@@ -38,23 +41,40 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
 
         private GPUController _gpuController = IoCContainer.Resolve<GPUController>();
 
-        public async Task<bool> IsSupportedAsync()
+        public async Task<LibreHardwareMonitorInitialState> IsSupportedAsync()
         {
+            LibreHardwareMonitorInitialState result = await InitializeAsync();
+
             try
             {
-                var result = await InitializeAsync();
-                if (result == 0)
+                bool haveHardware = _interestedHardwares.Count != 0;
+
+                if (haveHardware && result == LibreHardwareMonitorInitialState.Initialized || result == LibreHardwareMonitorInitialState.Success)
                 {
-                    return false;
+                    return result;
                 }
-                return _interestedHardwares.Any();
             }
             catch (Exception ex)
             {
                 if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Memory sensor check failed: {ex}");
-                return false;
+                {
+                    Log.Instance.Trace($"Sensor group check failed: {ex}");
+                }
+                return result;
             }
+
+            return LibreHardwareMonitorInitialState.Fail;
+        }
+
+        public bool IsLibreHardwareMonitorInitialized()
+        {
+            if (InitialState == LibreHardwareMonitorInitialState.Initialized ||
+                InitialState == LibreHardwareMonitorInitialState.Success)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private void GetInterestedHardwares()
@@ -62,6 +82,17 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
             lock (_hardwareLock)
             {
                 if (_hardwaresInitialized) return;
+
+                if ((Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\PawnIO", "InstallLocation", null) ??
+                 Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\PawnIO", "Install_Dir", null) ??
+                 Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + Path.DirectorySeparatorChar + "PawnIO") is string
+                    {
+                        Length: > 0
+                    } path)
+                {
+                    if (!Directory.Exists(path))
+                        throw new DllNotFoundException();
+                }
 
                 try
                 {
@@ -102,7 +133,7 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
 
         public async Task<string> GetCpuNameAsync()
         {
-            if (!await IsSupportedAsync().ConfigureAwait(false))
+            if (!IsLibreHardwareMonitorInitialized())
             {
                 return "UNKNOWN";
             }
@@ -123,7 +154,7 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
 
         public async Task<string> GetGpuNameAsync()
         {
-            if (!await IsSupportedAsync().ConfigureAwait(false))
+            if (!IsLibreHardwareMonitorInitialized())
             {
                 return "UNKNOWN";
             }
@@ -141,7 +172,7 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
 
         public async Task<float> GetCpuPowerAsync()
         {
-            if (!await IsSupportedAsync().ConfigureAwait(false))
+            if (!IsLibreHardwareMonitorInitialized())
             {
                 return 0;
             }
@@ -161,7 +192,7 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
 
         public async Task<float> GetGpuPowerAsync()
         {
-            if (!await IsSupportedAsync().ConfigureAwait(false))
+            if (!IsLibreHardwareMonitorInitialized())
             {
                 return -1;
             }
@@ -203,7 +234,7 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
 
         public async Task<float> GetGpuVramTemperatureAsync()
         {
-            if (!await IsSupportedAsync().ConfigureAwait(false))
+            if (!IsLibreHardwareMonitorInitialized())
             {
                 return 0;
             }
@@ -226,7 +257,7 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
 
         public async Task<(float, float)> GetSSDTemperaturesAsync()
         {
-            if (!await IsSupportedAsync().ConfigureAwait(false))
+            if (!IsLibreHardwareMonitorInitialized())
             {
                 return (0, 0);
             }
@@ -279,7 +310,7 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
 
         public async Task<float> GetMemoryUsageAsync()
         {
-            if (!await IsSupportedAsync().ConfigureAwait(false))
+            if (!IsLibreHardwareMonitorInitialized())
             {
                 return 0;
             }
@@ -295,7 +326,7 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
 
         public async Task<double> GetHighestMemoryTemperatureAsync()
         {
-            if (!await IsSupportedAsync().ConfigureAwait(false))
+            if (!IsLibreHardwareMonitorInitialized())
             {
                 return 0;
             }
@@ -325,35 +356,62 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
             return maxTemperature;
         }
 
-        private async Task<uint> InitializeAsync()
+        private async Task<LibreHardwareMonitorInitialState> InitializeAsync()
         {
-            if (_initialized) return 2;
+            if (_initialized)
+            {
+                InitialState = LibreHardwareMonitorInitialState.Initialized;
+                return InitialState;
+            }
 
             await _initSemaphore.WaitAsync();
             try
             {
-                if (_initialized) return 2;
+                if (_initialized)
+                {
+                    InitialState = LibreHardwareMonitorInitialState.Initialized;
+                    return InitialState;
+                }
 
                 await Task.Run(() => GetInterestedHardwares()).ConfigureAwait(false);
-                return 1;
+                _initialized = true;
+
+                if (_interestedHardwares.Count == 0)
+                {
+                    InitialState = LibreHardwareMonitorInitialState.Fail;
+                    return InitialState;
+                }
+
+                InitialState = LibreHardwareMonitorInitialState.Success;
+                return InitialState;
             }
             catch (DllNotFoundException)
             {
                 var settings = IoCContainer.Resolve<ApplicationSettings>();
                 settings.Store.UseNewSensorDashboard = false;
                 settings.SynchronizeStore();
-                return 0;
+                InitialState = LibreHardwareMonitorInitialState.PawnIONotInstalled;
+                return InitialState;
+            }
+            catch (Exception ex)
+            {
+                var settings = IoCContainer.Resolve<ApplicationSettings>();
+                settings.Store.UseNewSensorDashboard = false;
+                settings.SynchronizeStore();
+                InitialState = LibreHardwareMonitorInitialState.Fail;
+                if (Log.Instance.IsTraceEnabled)
+                    Log.Instance.Trace($"LibreHardwareMonitor initialization failed. Disabling new sensor dashboard. [type={GetType().Name}]", ex);
+                return InitialState;
             }
             finally
             {
                 _initSemaphore.Release();
-                _initialized = true;
             }
         }
 
         public async void NeedRefreshHardware(string hardware)
         {
-            if (!await IsSupportedAsync().ConfigureAwait(false))
+            if (!IsLibreHardwareMonitorInitialized())
             {
                 return;
             }

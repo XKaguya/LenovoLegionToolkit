@@ -175,6 +175,8 @@ public partial class App
 
         await deferredInitTask;
 
+        Compatibility.PrintControllerVersion();
+
         if (Log.Instance.IsTraceEnabled)
             Log.Instance.Trace($"Start up complete");
     }
@@ -588,13 +590,27 @@ public partial class App
             if (settings.Store.UseNewSensorDashboard)
             {
                 var feature = IoCContainer.Resolve<SensorsGroupController>();
-                if (await feature.IsSupportedAsync())
+                try
+                {
+                    LibreHardwareMonitorInitialState state = await feature.IsSupportedAsync();
+                    if (state == LibreHardwareMonitorInitialState.Initialized || state == LibreHardwareMonitorInitialState.Success)
+                    {
+                        if (Log.Instance.IsTraceEnabled)
+                            Log.Instance.Trace($"Init memory sensor control feature.");
+                    }
+                    else
+                    {
+                        App.Current._showPawnIONotify = true;
+                    }
+                }
+                // Why this branch can execute ?
+                catch (Exception ex)
                 {
                     if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Init memory sensor control feature.");
-                }
-                else
-                {
+                    {
+                        Log.Instance.Trace($"InitSensorsGroupControllerFeatureAsync() raised exception:", ex);
+                    }
+
                     App.Current._showPawnIONotify = true;
                 }
             }

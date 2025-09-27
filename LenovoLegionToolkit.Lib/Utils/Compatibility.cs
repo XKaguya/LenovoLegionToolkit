@@ -4,6 +4,8 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using LenovoLegionToolkit.Lib.Controllers.GodMode;
+using LenovoLegionToolkit.Lib.Controllers.Sensors;
 using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.System;
 using LenovoLegionToolkit.Lib.System.Management;
@@ -106,6 +108,7 @@ public static partial class Compatibility
 
         var (vendor, machineType, model, serialNumber) = await GetModelDataAsync().ConfigureAwait(false);
         var generation = GetMachineGeneration(model);
+        var legionSeries = GetLegionSeries(model, machineType);
         var (biosVersion, biosVersionRaw) = GetBIOSVersion();
         var supportedPowerModes = (await GetSupportedPowerModesAsync().ConfigureAwait(false)).ToArray();
         var smartFanVersion = await GetSmartFanVersionAsync().ConfigureAwait(false);
@@ -115,6 +118,7 @@ public static partial class Compatibility
         var machineInformation = new MachineInformation
         {
             Generation = generation,
+            LegionSeries = legionSeries,
             Vendor = vendor,
             MachineType = machineType,
             Model = model,
@@ -138,6 +142,7 @@ public static partial class Compatibility
                 SupportsIGPUMode = await GetSupportsIGPUModeAsync().ConfigureAwait(false),
                 SupportsAIMode = await GetSupportsAIModeAsync().ConfigureAwait(false),
                 SupportBootLogoChange = GetSupportBootLogoChange(smartFanVersion),
+                // SupportITSMode = GetSupportITSMode(model),
                 HasQuietToPerformanceModeSwitchingBug = GetHasQuietToPerformanceModeSwitchingBug(biosVersion),
                 HasGodModeToOtherModeSwitchingBug = GetHasGodModeToOtherModeSwitchingBug(biosVersion),
                 HasReapplyParameterIssue = GetHasReapplyParameterIssue(model),
@@ -152,6 +157,7 @@ public static partial class Compatibility
         {
             Log.Instance.Trace($"Retrieved machine information:");
             Log.Instance.Trace($" * Generation: '{machineInformation.Generation}'");
+            Log.Instance.Trace($" * Legion Series: '{machineInformation.LegionSeries}'");
             Log.Instance.Trace($" * Vendor: '{machineInformation.Vendor}'");
             Log.Instance.Trace($" * Machine Type: '{machineInformation.MachineType}'");
             Log.Instance.Trace($" * Model: '{machineInformation.Model}'");
@@ -365,14 +371,18 @@ public static partial class Compatibility
         var affectedModels = new string[]
         {
             "Legion 5",
-            "Legion 7 16IAX",
-            "Legion Pro 5 16IAX"
+            "Legion 7",
+            "Legion Pro 5 16IAX10H",
+            "LOQ",
+            "Y7000" 
         };
 
+        var (_, type, _, _) = GetModelDataAsync().Result;
+        var isAffectedSeries = affectedModels.Any(m => GetLegionSeries(model, type).Contains(m));
         var isAffectedModel = affectedModels.Any(m => model.Contains(m));
         var isSupportedVersion = smartFanVersion is 8 or 9 || legionZoneVersion is 5 or 6;
 
-        return isAffectedModel && isSupportedVersion && gen >= 10;
+        return (isAffectedSeries || isAffectedModel) && isSupportedVersion && gen >= 10;
     }
 
     private static bool GetSupportsGodModeV4(IEnumerable<PowerModeState> supportedPowerModes, int smartFanVersion, int legionZoneVersion)
@@ -423,6 +433,11 @@ public static partial class Compatibility
 
     private static bool GetSupportBootLogoChange(int smartFanVersion) => smartFanVersion < 9;
 
+    private static bool GetSupportITSMode(string model)
+    {
+        throw new NotImplementedException();
+    }
+
     private static int GetMachineGeneration(string model)
     {
         Match match = Regex.Match(model, @"\d+(?=[A-Z]?H?$)");
@@ -434,6 +449,42 @@ public static partial class Compatibility
         else
         {
             return 0;
+        }
+    }
+
+    private static string GetLegionSeries(string model, string machineType)
+    {
+        string seriesByMachineType = machineType switch
+        {
+            "83F0" or "83F1" or "83M0" or "83NX" or "83N2" or "83LY" or "83DG" or "83EW" or "83EG" or "83JJ" or "82RC" or "82RB" or "82TB" or "83EF" or "82RE" or "82RD" => "Legion 5",
+
+            "83DH" or "83EX" or "82Y5" or "82Y9" or "82YA" or "83D6" => "Legion Slim 5",
+
+            "83LT" or "83F3" or "83DF" or "83F2" or "83LU" or "82WM" or "83NN" or "82WK" => "Legion Pro 5",
+
+            "83KY" or "83FD" or "82UH" or "82TD" => "Legion 7",
+
+            "83RU" or "83F5" or "83DE" or "82WR" or "82WQ" or "82WS" => "Legion Pro 7",
+
+            "83G0" or "83EY" => "Legion 9",
+
+            _ => string.Empty
+        };
+
+        if (seriesByMachineType != string.Empty)
+        {
+            return seriesByMachineType;
+        }
+
+        Match match = Regex.Match(model, @"(Pro\s)?\d+");
+
+        if (match.Success)
+        {
+            return match.Value;
+        }
+        else
+        {
+            return "NULL";
         }
     }
 
@@ -531,6 +582,7 @@ public static partial class Compatibility
         {
             Log.Instance.Trace($"Retrieved machine information:");
             Log.Instance.Trace($" * Generation: '{_machineInformation.Value.Generation}'");
+            Log.Instance.Trace($" * Legion Series: '{_machineInformation.Value.LegionSeries}'");
             Log.Instance.Trace($" * Vendor: '{_machineInformation.Value.Vendor}'");
             Log.Instance.Trace($" * Machine Type: '{_machineInformation.Value.MachineType}'");
             Log.Instance.Trace($" * Model: '{_machineInformation.Value.Model}'");
@@ -544,6 +596,8 @@ public static partial class Compatibility
             Log.Instance.Trace($"     * SupportsAlwaysOnAc: '{_machineInformation.Value.Properties.SupportsAlwaysOnAc.status}, {_machineInformation.Value.Properties.SupportsAlwaysOnAc.connectivity}'");
             Log.Instance.Trace($"     * SupportsGodModeV1: '{_machineInformation.Value.Properties.SupportsGodModeV1}'");
             Log.Instance.Trace($"     * SupportsGodModeV2: '{_machineInformation.Value.Properties.SupportsGodModeV2}'");
+            Log.Instance.Trace($"     * SupportsGodModeV3: '{_machineInformation.Value.Properties.SupportsGodModeV3}'");
+            Log.Instance.Trace($"     * SupportsGodModeV4: '{_machineInformation.Value.Properties.SupportsGodModeV4}'");
             Log.Instance.Trace($"     * SupportsGSync: '{_machineInformation.Value.Properties.SupportsGSync}'");
             Log.Instance.Trace($"     * SupportsIGPUMode: '{_machineInformation.Value.Properties.SupportsIGPUMode}'");
             Log.Instance.Trace($"     * SupportsAIMode: '{_machineInformation.Value.Properties.SupportsAIMode}'");
@@ -554,6 +608,17 @@ public static partial class Compatibility
             Log.Instance.Trace($"     * IsExcludedFromLenovoLighting: '{_machineInformation.Value.Properties.IsExcludedFromLenovoLighting}'");
             Log.Instance.Trace($"     * IsExcludedFromPanelLogoLenovoLighting: '{_machineInformation.Value.Properties.IsExcludedFromPanelLogoLenovoLighting}'");
             Log.Instance.Trace($"     * HasAlternativeFullSpectrumLayout: '{_machineInformation.Value.Properties.HasAlternativeFullSpectrumLayout}'");
+        }
+    }
+
+    public static void PrintControllerVersion()
+    {
+        if (Log.Instance.IsTraceEnabled)
+        {
+            SensorsController sensorsController = IoCContainer.Resolve<SensorsController>();
+            Log.Instance.Trace($"Using {sensorsController.GetControllerAsync().Result.GetType().Name}");
+            GodModeController godModeController = IoCContainer.Resolve<GodModeController>();
+            Log.Instance.Trace($"Using {(godModeController.Controller != null ? godModeController.Controller.GetType().Name : "Null")}");
         }
     }
 }

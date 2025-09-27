@@ -204,6 +204,14 @@ public enum LightingChangeState
     Ports = 1,
 }
 
+public enum LibreHardwareMonitorInitialState
+{
+    Fail = 0,
+    Initialized = 1,
+    Success = 2,
+    PawnIONotInstalled = 3
+}
+
 public enum MicrophoneState
 {
     [Display(ResourceType = typeof(Resource), Name = "MicrophoneState_Off")]
