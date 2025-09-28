@@ -21,7 +21,6 @@ public partial class ITSModeFeature : IFeature<ITSMode>
     public async Task<bool> IsSupportedAsync()
     {
         var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
-        return true;
         return mi.Properties.SupportITSMode;
     }
 
