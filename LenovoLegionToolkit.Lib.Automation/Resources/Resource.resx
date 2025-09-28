@@ -233,4 +233,7 @@
   <data name="SessionUnlockAutomationPipelineTrigger_DisplayName" xml:space="preserve">
     <value>Session unlocked</value>
   </data>
+  <data name="ITSModeAutomationPipelineTrigger_DisplayName" xml:space="preserve">
+    <value>When Intelligent Cooling Mode is changed</value>
+  </data>
 </root>

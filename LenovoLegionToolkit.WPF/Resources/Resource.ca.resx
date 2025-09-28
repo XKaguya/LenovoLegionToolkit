@@ -292,4 +292,22 @@
   <data name="DialogWindow_DontShowAgain" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
+  <data name="ITSModeControl_Dialog_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="ITSModeControl_Dialog_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="ITSModeControl_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="ITSModeControl_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="ITSModeAutomationStepControl_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="ITSModeAutomationStepControl_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
 </root>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LenovoLegionToolkit.Lib.Features;
 
-public partial class ItsModeFeature : IFeature<ITSMode>
+public partial class ITSModeFeature : IFeature<ITSMode>
 {
     public ITSMode LastItsMode { get; set; }
 
@@ -21,6 +21,7 @@ public partial class ItsModeFeature : IFeature<ITSMode>
     public async Task<bool> IsSupportedAsync()
     {
         var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
+        return true;
         return mi.Properties.SupportITSMode;
     }
 

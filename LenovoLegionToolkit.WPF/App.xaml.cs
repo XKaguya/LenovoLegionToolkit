@@ -115,6 +115,7 @@ public partial class App
             InitSensorsGroupControllerFeatureAsync(),
             LogSoftwareStatusAsync(),
             InitPowerModeFeatureAsync(),
+            InitITSModeFeatureAsync(),
             InitBatteryFeatureAsync(),
             InitRgbKeyboardControllerAsync(),
             InitSpectrumKeyboardControllerAsync(),
@@ -521,6 +522,26 @@ public partial class App
             {
                 Log.Instance.Trace($"Couldn't reapply parameters.", ex);
             }
+        }
+    }
+
+    private static async Task InitITSModeFeatureAsync()
+    {
+        try
+        {
+            ITSModeFeature feature = IoCContainer.Resolve<ITSModeFeature>();
+            if (await feature.IsSupportedAsync())
+            {
+                ITSMode state = await feature.GetStateAsync();
+                await feature.SetStateAsync(state);
+                if (Log.Instance.IsTraceEnabled)
+                    Log.Instance.Trace($"Ensure ITS Mode is set.");
+            }
+        }
+        catch (Exception ex)
+        {
+            if (Log.Instance.IsTraceEnabled)
+                Log.Instance.Trace($"Couldn't ensure its mode state.", ex);
         }
     }
 

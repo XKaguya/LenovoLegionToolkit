@@ -397,9 +397,6 @@ public static partial class Compatibility
         if (!supportedPowerModes.Contains(PowerModeState.GodMode))
             return false;
 
-        // var (_, type, _, _) = GetModelDataAsync().Result;
-        // var legionSeries = GetLegionSeries(model, type);
-
         return smartFanVersion is 8 or 9 || legionZoneVersion is 5 or 6;
     }
 

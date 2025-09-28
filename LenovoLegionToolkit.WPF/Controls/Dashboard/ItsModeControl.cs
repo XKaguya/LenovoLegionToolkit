@@ -15,9 +15,9 @@ using Button = Wpf.Ui.Controls.Button;
 
 namespace LenovoLegionToolkit.WPF.Controls.Dashboard;
 
-public class ItsModeControl : AbstractComboBoxFeatureCardControl<ITSMode>
+public class ITSModeControl : AbstractComboBoxFeatureCardControl<ITSMode>
 {
-    private readonly ItsModeFeature _itsModeFeature = IoCContainer.Resolve<ItsModeFeature>();
+    private readonly ITSModeFeature _itsModeFeature = IoCContainer.Resolve<ITSModeFeature>();
 
     private readonly Button _configButton = new()
     {
@@ -27,11 +27,11 @@ public class ItsModeControl : AbstractComboBoxFeatureCardControl<ITSMode>
         Visibility = Visibility.Collapsed,
     };
 
-    public ItsModeControl()
+    public ITSModeControl()
     {
         Icon = SymbolRegular.Gauge24;
-        Title = Resource.PowerModeControl_Title;
-        Subtitle = Resource.PowerModeControl_Message;
+        Title = Resource.ITSModeControl_Title;
+        Subtitle = Resource.ITSModeControl_Message;
 
         AutomationProperties.SetName(_configButton, Resource.PowerModeControl_Title);
     }
@@ -57,12 +57,12 @@ public class ItsModeControl : AbstractComboBoxFeatureCardControl<ITSMode>
                 await _itsModeFeature.SetStateAsync(newValue.Value);
                 _itsModeFeature.LastItsMode = newValue.Value;
             }
-            catch (DllNotFoundException ex)
+            catch (DllNotFoundException)
             {
                 var dialog = new DialogWindow
                 {
-                    Title = "Missing compoment",
-                    Content = "PowerBattery.dll is missing. Please place it manually to use ITSMode feature.",
+                    Title = Resource.ITSModeControl_Dialog_Title,
+                    Content = Resource.ITSModeControl_Dialog_Message,
                     Owner = App.Current.MainWindow
                 };
 

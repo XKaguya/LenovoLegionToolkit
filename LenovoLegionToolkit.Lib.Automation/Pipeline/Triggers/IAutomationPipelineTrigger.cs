@@ -42,6 +42,13 @@ public interface IOnResumeAutomationPipelineTrigger : IDisallowDuplicatesAutomat
 
 public interface IPowerStateAutomationPipelineTrigger : IDisallowDuplicatesAutomationPipelineTrigger;
 
+public interface IITSModeAutomationPipelineTrigger : IAutomationPipelineTrigger
+{
+    ITSMode ITSModeState { get; }
+
+    IITSModeAutomationPipelineTrigger DeepCopy(ITSMode powerModeState);
+}
+
 public interface IPowerModeAutomationPipelineTrigger : IAutomationPipelineTrigger
 {
     PowerModeState PowerModeState { get; }

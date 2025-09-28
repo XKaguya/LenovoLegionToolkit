@@ -164,8 +164,11 @@ public enum IGPUModeState
 public enum ITSMode
 {
     None,
+    [Display(ResourceType = typeof(Resource), Name = "ITSMode_Intelligent_Cooling")]
     ItsAuto,
+    [Display(ResourceType = typeof(Resource), Name = "ITSMode_Intelligent_Battery_Saving")]
     MmcCool,
+    [Display(ResourceType = typeof(Resource), Name = "ITSMode_Intelligent_Extreme_Performance")]
     MmcPerformance
 }
 
@@ -406,6 +409,14 @@ public enum PowerModeState
     Extreme = 223,
     [Display(ResourceType = typeof(Resource), Name = "PowerModeState_GodMode")]
     GodMode = 254
+}
+
+public enum ITSModeStateEvent
+{
+    Unknown = -1,
+    StatusChange,
+    Suspend,
+    Resume,
 }
 
 public enum PowerStateEvent

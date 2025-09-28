@@ -2867,6 +2867,60 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Change intelligent cooling mode 的本地化字符串。
+        /// </summary>
+        public static string ITSModeAutomationStepControl_Message {
+            get {
+                return ResourceManager.GetString("ITSModeAutomationStepControl_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Intelligent Cooling Mode 的本地化字符串。
+        /// </summary>
+        public static string ITSModeAutomationStepControl_Title {
+            get {
+                return ResourceManager.GetString("ITSModeAutomationStepControl_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 PowerBattery.dll is missing. Please place it manually to use ITSMode feature. 的本地化字符串。
+        /// </summary>
+        public static string ITSModeControl_Dialog_Message {
+            get {
+                return ResourceManager.GetString("ITSModeControl_Dialog_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Missing Compoment 的本地化字符串。
+        /// </summary>
+        public static string ITSModeControl_Dialog_Title {
+            get {
+                return ResourceManager.GetString("ITSModeControl_Dialog_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Change intelligent colling mode. 的本地化字符串。
+        /// </summary>
+        public static string ITSModeControl_Message {
+            get {
+                return ResourceManager.GetString("ITSModeControl_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Intelligent Cooling Mode 的本地化字符串。
+        /// </summary>
+        public static string ITSModeControl_Title {
+            get {
+                return ResourceManager.GetString("ITSModeControl_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Keyboard backlight cannot be controlled in here when Lenovo Vantage or its services are running. 的本地化字符串。
         /// </summary>
         public static string Keyboard_VantageEnabledWarning_Message {

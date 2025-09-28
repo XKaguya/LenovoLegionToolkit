@@ -24,6 +24,7 @@ public partial class CreateAutomationPipelineWindow
         new ACAdapterConnectedAutomationPipelineTrigger(),
         new LowWattageACAdapterConnectedAutomationPipelineTrigger(),
         new ACAdapterDisconnectedAutomationPipelineTrigger(),
+        new ITSModeAutomationPipelineTrigger(ITSMode.ItsAuto),
         new PowerModeAutomationPipelineTrigger(PowerModeState.Balance),
         new GodModePresetChangedAutomationPipelineTrigger(Guid.Empty),
         new GamesAreRunningAutomationPipelineTrigger(),

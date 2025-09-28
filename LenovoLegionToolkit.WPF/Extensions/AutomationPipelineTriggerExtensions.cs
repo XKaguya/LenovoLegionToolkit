@@ -8,6 +8,7 @@ public static class AutomationPipelineTriggerExtensions
 {
     public static SymbolRegular Icon(this IAutomationPipelineTrigger trigger) => trigger switch
     {
+        IITSModeAutomationPipelineTrigger => SymbolRegular.Gauge24,
         IPowerStateAutomationPipelineTrigger => SymbolRegular.BatteryCharge24,
         IPowerModeAutomationPipelineTrigger => SymbolRegular.Gauge24,
         IGodModePresetChangedAutomationPipelineTrigger => SymbolRegular.Gauge24,

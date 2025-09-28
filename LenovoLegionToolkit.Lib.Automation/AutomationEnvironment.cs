@@ -21,6 +21,8 @@ public class AutomationEnvironment
     private const string PROCESSES = "LLT_PROCESSES";
     private const string DEVICE_CONNECTED = "LLT_DEVICE_CONNECTED";
     private const string DEVICE_INSTANCE_IDS = "LLT_DEVICE_INSTANCE_IDS";
+    private const string ITS_MODE = "LLT_ITS_MODE";
+    private const string ITS_MODE_NAME = "LLT_ITS_MODE_NAME";
     private const string IS_SUNSET = "LLT_IS_SUNSET";
     private const string IS_SUNRISE = "LLT_IS_SUNRISE";
     private const string TIME = "LLT_TIME";
@@ -72,6 +74,27 @@ public class AutomationEnvironment
                 PowerModeState.Performance => "PERFORMANCE",
                 PowerModeState.Extreme => "EXTREME",
                 PowerModeState.GodMode => "CUSTOM",
+                _ => string.Empty
+            };
+        }
+    }
+
+    public ITSMode ITSMode
+    {
+        set
+        {
+            _dictionary[POWER_MODE] = value switch
+            {
+                ITSMode.ItsAuto => "1",
+                ITSMode.MmcCool => "2",
+                ITSMode.MmcPerformance => "3",
+                _ => string.Empty
+            };
+            _dictionary[POWER_MODE_NAME] = value switch
+            {
+                ITSMode.ItsAuto => "INTELLIGENT COOLING",
+                ITSMode.MmcCool => "BATTERY SAVING",
+                ITSMode.MmcPerformance => "EXTREME PERFORMANCE",
                 _ => string.Empty
             };
         }
