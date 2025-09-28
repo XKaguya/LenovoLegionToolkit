@@ -223,7 +223,7 @@ namespace LenovoLegionToolkit.Lib.Automation.Resources {
         }
         
         /// <summary>
-        ///   查找类似 When Intelligent Cooling Mode is changed 的本地化字符串。
+        ///   查找类似 When IdeaPad Power Mode is changed 的本地化字符串。
         /// </summary>
         public static string ITSModeAutomationPipelineTrigger_DisplayName {
             get {

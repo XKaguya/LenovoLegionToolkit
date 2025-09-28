@@ -2867,7 +2867,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   查找类似 Change intelligent cooling mode 的本地化字符串。
+        ///   查找类似 Change IdeaPad Power Mode 的本地化字符串。
         /// </summary>
         public static string ITSModeAutomationStepControl_Message {
             get {
@@ -2876,7 +2876,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   查找类似 Intelligent Cooling Mode 的本地化字符串。
+        ///   查找类似 IdeaPad Power Mode 的本地化字符串。
         /// </summary>
         public static string ITSModeAutomationStepControl_Title {
             get {
@@ -2903,7 +2903,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   查找类似 Change intelligent colling mode. 的本地化字符串。
+        ///   查找类似 Change IdeaPad Power Mode 的本地化字符串。
         /// </summary>
         public static string ITSModeControl_Message {
             get {
@@ -2912,7 +2912,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   查找类似 Intelligent Cooling Mode 的本地化字符串。
+        ///   查找类似 IdeaPad Power Mode 的本地化字符串。
         /// </summary>
         public static string ITSModeControl_Title {
             get {

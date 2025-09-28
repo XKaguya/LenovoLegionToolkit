@@ -2462,15 +2462,15 @@ Click Yes to disable and No to ignore.</value>
     <value>PowerBattery.dll is missing. Please place it manually to use ITSMode feature.</value>
   </data>
   <data name="ITSModeControl_Title" xml:space="preserve">
-    <value>Intelligent Cooling Mode</value>
+    <value>IdeaPad Power Mode</value>
   </data>
   <data name="ITSModeControl_Message" xml:space="preserve">
-    <value>Change intelligent colling mode.</value>
+    <value>Change IdeaPad Power Mode</value>
   </data>
   <data name="ITSModeAutomationStepControl_Title" xml:space="preserve">
-    <value>Intelligent Cooling Mode</value>
+    <value>IdeaPad Power Mode</value>
   </data>
   <data name="ITSModeAutomationStepControl_Message" xml:space="preserve">
-    <value>Change intelligent cooling mode</value>
+    <value>Change IdeaPad Power Mode</value>
   </data>
 </root>
