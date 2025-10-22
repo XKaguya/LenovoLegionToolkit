@@ -19,7 +19,7 @@
             <Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
             <Setter Property="BorderThickness" Value="1" />
             <Setter Property="Background" Value="{DynamicResource ControlFillColorDefaultBrush}" />
-            <Setter Property="Width" Value="220" />
+            <Setter Property="Width" Value="250" />
             <Setter Property="Height" Value="170" />
         </Style>
 
