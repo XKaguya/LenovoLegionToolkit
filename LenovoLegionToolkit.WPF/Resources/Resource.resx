@@ -2482,4 +2482,37 @@ Click Yes to disable and No to ignore.</value>
   <data name="SettingsPage_FloatingGadgets_Tooltip" xml:space="preserve">
     <value>Controls sensor refresh interval.</value>
   </data>
+  <data name="FloatingGadgets_Memory_Utilization" xml:space="preserve">
+    <value>Memory Utilization</value>
+  </data>
+  <data name="FloatingGadgets_Memory_Temperature" xml:space="preserve">
+    <value>Memory Temperature</value>
+  </data>
+  <data name="FloatingGadgets_Disk_0_Temperature" xml:space="preserve">
+    <value>Disk 1 Temperature</value>
+  </data>
+  <data name="FloatingGadgets_Disk_1_Temperature" xml:space="preserve">
+    <value>Disk 2 Temperature</value>
+  </data>
+  <data name="FloatingGadgets_CPU_Fan" xml:space="preserve">
+    <value>CPU Fan</value>
+  </data>
+  <data name="FloatingGadgets_GPU_Fan" xml:space="preserve">
+    <value>GPU Fan</value>
+  </data>
+  <data name="FloatingGadgets_PCH_Fan" xml:space="preserve">
+    <value>PCH Fan</value>
+  </data>
+  <data name="FloatingGadgets_Fans" xml:space="preserve">
+    <value>Fans</value>
+  </data>
+  <data name="FloatingGadgets_Chipset" xml:space="preserve">
+    <value>Chipset</value>
+  </data>
+  <data name="FloatingGadgets_Gpu" xml:space="preserve">
+    <value>GPU</value>
+  </data>
+  <data name="FloatingGadgets_Cpu" xml:space="preserve">
+    <value>CPU</value>
+  </data>
 </root>

@@ -2191,6 +2191,105 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Chipset 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgets_Chipset {
+            get {
+                return ResourceManager.GetString("FloatingGadgets_Chipset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 CPU 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgets_Cpu {
+            get {
+                return ResourceManager.GetString("FloatingGadgets_Cpu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 CPU Fan 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgets_CPU_Fan {
+            get {
+                return ResourceManager.GetString("FloatingGadgets_CPU_Fan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Disk 1 Temperature 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgets_Disk_0_Temperature {
+            get {
+                return ResourceManager.GetString("FloatingGadgets_Disk_0_Temperature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Disk 2 Temperature 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgets_Disk_1_Temperature {
+            get {
+                return ResourceManager.GetString("FloatingGadgets_Disk_1_Temperature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Fans 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgets_Fans {
+            get {
+                return ResourceManager.GetString("FloatingGadgets_Fans", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 GPU 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgets_Gpu {
+            get {
+                return ResourceManager.GetString("FloatingGadgets_Gpu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 GPU Fan 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgets_GPU_Fan {
+            get {
+                return ResourceManager.GetString("FloatingGadgets_GPU_Fan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Memory Temperature 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgets_Memory_Temperature {
+            get {
+                return ResourceManager.GetString("FloatingGadgets_Memory_Temperature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Memory Utilization 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgets_Memory_Utilization {
+            get {
+                return ResourceManager.GetString("FloatingGadgets_Memory_Utilization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 PCH Fan 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgets_PCH_Fan {
+            get {
+                return ResourceManager.GetString("FloatingGadgets_PCH_Fan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Use secondary functions of F1-F12 keys without holding Fn key. 的本地化字符串。
         /// </summary>
         public static string FnLockAutomationStepControl_Message {
