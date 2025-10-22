@@ -217,6 +217,7 @@ public enum LegionSeries
     Legion_9 = 5,
     IdeaPad = 6,
     LOQ = 7,
+    Lenovo_Slim = 8,
     Unknown = 255
 }
 

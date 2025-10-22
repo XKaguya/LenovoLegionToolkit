@@ -1,11 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using LenovoLegionToolkit.Lib;
+﻿using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Controllers;
 using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.Features;
@@ -21,6 +14,14 @@ using LenovoLegionToolkit.WPF.Resources;
 using LenovoLegionToolkit.WPF.Utils;
 using LenovoLegionToolkit.WPF.Windows;
 using LenovoLegionToolkit.WPF.Windows.Settings;
+using LenovoLegionToolkit.WPF.Windows.Utils;
+using System;
+using System.Diagnostics;
+using System.Globalization;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace LenovoLegionToolkit.WPF.Pages;
 
@@ -345,9 +346,39 @@ public partial class SettingsPage
         if (state is null)
             return;
 
-        SnackbarHelper.Show(Resource.SettingsPage_UseNewDashboard_Switch_Title, Resource.SettingsPage_UseNewDashboard_Restart_Message, SnackbarType.Success);
-        _settings.Store.UseNewSensorDashboard = state.Value;
-        _settings.SynchronizeStore();
+        // To notice user install PawnIO first.
+        var dialog = new DialogWindow
+        {
+            Title = Resource.MainWindow_PawnIO_Warning_Title,
+            Content = Resource.MainWindow_PawnIO_Warning_Message,
+            Owner = Application.Current.MainWindow
+        };
+
+        if (state == true)
+        {
+            dialog.ShowDialog();
+
+            if (dialog.Result.Item1)
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = "https://pawnio.eu/",
+                    UseShellExecute = true
+                });
+            }
+        }
+
+        var result = dialog.Result.Item1;
+        if (result)
+        {
+            SnackbarHelper.Show(Resource.SettingsPage_UseNewDashboard_Switch_Title, Resource.SettingsPage_UseNewDashboard_Restart_Message, SnackbarType.Success);
+            _settings.Store.UseNewSensorDashboard = state.Value;
+            _settings.SynchronizeStore();
+        }
+        else
+        {
+            _useNewSensorDashboardToggle.IsChecked = false;
+        }
     }
 
     private void EnableLoggingToggle_Click(object sender, RoutedEventArgs e)

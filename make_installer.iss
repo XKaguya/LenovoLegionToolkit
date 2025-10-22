@@ -2,8 +2,8 @@
 
 #define MyAppName "Lenovo Legion Toolkit"
 #define MyAppNameCompact "LenovoLegionToolkit"
-#define MyAppPublisher "Bartosz Cichecki"
-#define MyAppURL "https://github.com/BartoszCichecki/LenovoLegionToolkit"
+#define MyAppPublisher "XKaguya"
+#define MyAppURL "https://github.com/XKaguya/LenovoLegionToolkit"
 #define MyAppExeName "Lenovo Legion Toolkit.exe"
 
 #ifndef MyAppVersion
@@ -78,9 +78,6 @@ Source: "LICENSE"; DestDir: "{app}"; Flags: ignoreversion
 [Icons]
 Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
 Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
-
-[InstallDelete]
-Type: filesandordirs; Name: "{app}"
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: runascurrentuser nowait postinstall

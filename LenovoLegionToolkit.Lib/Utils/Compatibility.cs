@@ -442,7 +442,7 @@ public static partial class Compatibility
 
     private static bool GetSupportITSMode(string model)
     {
-        return model.Contains("IdeaPad");
+        return model.Contains("IdeaPad") || model.Contains("Lenovo Slim");
     }
 
     private static int GetMachineGeneration(string model)
@@ -490,6 +490,10 @@ public static partial class Compatibility
         else if (model.Contains("IdeaPad"))
         {
             return LegionSeries.IdeaPad;
+        }
+        else if (model.Contains("Lenovo Slim"))
+        {
+            return LegionSeries.Lenovo_Slim;
         }
 
         Match match = Regex.Match(model, @"(Pro\s)?\d+");

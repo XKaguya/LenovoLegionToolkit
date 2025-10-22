@@ -34,7 +34,6 @@
                 Color="#CCCCCC" />
         </Border.Effect>
         <Border
-            Background="{DynamicResource Wpf.Ui.Brush.Window.Background.Light}"
             BorderBrush="{DynamicResource Wpf.Ui.Brush.Card.Background}"
             BorderThickness="1"
             CornerRadius="12">
@@ -63,7 +62,6 @@
                     VerticalAlignment="Center"
                     FontSize="18"
                     FontWeight="Bold"
-                    Foreground="{DynamicResource Wpf.Ui.TextFillColorPrimaryBrush}"
                     Text="{Binding Title}" />
 
                 <ScrollViewer
@@ -72,7 +70,6 @@
                     VerticalScrollBarVisibility="Auto">
                     <TextBlock
                         FontSize="14"
-                        Foreground="{DynamicResource Wpf.Ui.TextFillColorSecondaryBrush}"
                         LineHeight="22"
                         Text="{Binding Content}"
                         TextWrapping="Wrap" />
