@@ -5756,6 +5756,33 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Floating Gadgets​​ is a floating window that displays real-time sensor information in an overlay style. 的本地化字符串。
+        /// </summary>
+        public static string SettingsPage_FloatingGadgets_Message {
+            get {
+                return ResourceManager.GetString("SettingsPage_FloatingGadgets_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Enable Floating Gadget 的本地化字符串。
+        /// </summary>
+        public static string SettingsPage_FloatingGadgets_Title {
+            get {
+                return ResourceManager.GetString("SettingsPage_FloatingGadgets_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Controls sensor refresh interval. 的本地化字符串。
+        /// </summary>
+        public static string SettingsPage_FloatingGadgets_Tooltip {
+            get {
+                return ResourceManager.GetString("SettingsPage_FloatingGadgets_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Share fan speed, battery temperature etc. with HWiNFO64. You may need to restart HWiNFO64 after changing this option. 的本地化字符串。
         /// </summary>
         public static string SettingsPage_HWiNFO_Message {

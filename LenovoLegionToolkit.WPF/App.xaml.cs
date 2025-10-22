@@ -53,6 +53,7 @@ public partial class App
     private EventWaitHandle? _singleInstanceWaitHandle;
 
     private bool _showPawnIONotify;
+    public FloatingGadget? FloatingGadget = null;
 
     public new static App Current => (App)Application.Current;
 
@@ -177,6 +178,7 @@ public partial class App
         await deferredInitTask;
 
         Compatibility.PrintControllerVersion();
+        FloatingGadget = new FloatingGadget();
 
         if (Log.Instance.IsTraceEnabled)
             Log.Instance.Trace($"Start up complete");

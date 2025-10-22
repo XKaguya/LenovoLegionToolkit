@@ -183,6 +183,9 @@ public partial class SettingsPage
         _cliInterfaceToggle.IsChecked = _integrationsSettings.Store.CLI;
         _cliPathToggle.IsChecked = SystemPath.HasCLI();
 
+        _floatingGadgetsInterval.Text = _settings.Store.FloatingGadgetsRefreshInterval.ToString();
+        _floatingGadgetsToggle.IsChecked = _settings.Store.ShowFloatingGadgets;
+
         await loadingTask;
 
         _temperatureComboBox.Visibility = Visibility.Visible;
@@ -204,6 +207,8 @@ public partial class SettingsPage
         _hwinfoIntegrationToggle.Visibility = Visibility.Visible;
         _cliInterfaceToggle.Visibility = Visibility.Visible;
         _cliPathToggle.Visibility = Visibility.Visible;
+        _floatingGadgetsToggle.Visibility = Visibility.Visible;
+        _floatingGadgetsInterval.Visibility = Visibility.Visible;
 
         _isRefreshing = false;
     }
@@ -835,6 +840,37 @@ public partial class SettingsPage
             return;
 
         _settings.Store.UpdateMethod = updateMethod;
+        _settings.SynchronizeStore();
+    }
+
+    private void FloatingGadgets_Click(object sender, RoutedEventArgs e)
+    {
+        if (_isRefreshing)
+            return;
+
+        var state = _floatingGadgetsToggle.IsChecked;
+        if (state is null)
+            return;
+
+        if (state.Value)
+        {
+            App.Current.FloatingGadget.Show();
+        }
+        else
+        {
+            App.Current.FloatingGadget.Hide();
+        }
+
+        _settings.Store.ShowFloatingGadgets = state.Value;
+        _settings.SynchronizeStore();
+    }
+
+    private void FloatingGadgetsInput_ValueChanged(object sender, RoutedEventArgs e)
+    {
+        if (_isRefreshing)
+            return;
+
+        _settings.Store.FloatingGadgetsRefreshInterval = int.TryParse(_floatingGadgetsInterval.Text, out var interval) ? interval : 1;
         _settings.SynchronizeStore();
     }
 }

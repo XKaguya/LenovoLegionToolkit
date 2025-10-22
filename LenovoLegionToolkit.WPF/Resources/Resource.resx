@@ -2473,4 +2473,13 @@ Click Yes to disable and No to ignore.</value>
   <data name="ITSModeAutomationStepControl_Message" xml:space="preserve">
     <value>Change IdeaPad Power Mode</value>
   </data>
+  <data name="SettingsPage_FloatingGadgets_Title" xml:space="preserve">
+    <value>Enable Floating Gadget</value>
+  </data>
+  <data name="SettingsPage_FloatingGadgets_Message" xml:space="preserve">
+    <value>Floating Gadgets​​ is a floating window that displays real-time sensor information in an overlay style.</value>
+  </data>
+  <data name="SettingsPage_FloatingGadgets_Tooltip" xml:space="preserve">
+    <value>Controls sensor refresh interval.</value>
+  </data>
 </root>
