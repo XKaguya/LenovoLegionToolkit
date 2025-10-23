@@ -442,7 +442,7 @@ public static partial class Compatibility
 
     private static bool GetSupportITSMode(string model)
     {
-        return model.Contains("IdeaPad") || model.Contains("Lenovo Slim");
+        return model.Contains("IdeaPad") || model.Contains("Lenovo Slim") || model.Contains("YOGA");
     }
 
     private static int GetMachineGeneration(string model)
