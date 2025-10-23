@@ -4,7 +4,7 @@
   # Lenovo Legion Toolkit (Unofficial Fork)
 
   [![Build Status](https://img.shields.io/github/actions/workflow/status/XKaguya/LenovoLegionToolkit/build.yml?branch=master)](https://github.com/XKaguya/LenovoLegionToolkit/actions)
-  [![Translation Status](https://badges.crowdin.net/llt/localized.svg)](https://crowdin.com/project/llt)
+  [![Translation Status](https://badges.crowdin.net/llt/localized.svg)](https://crowdin.com/project/lenovolegiontoolkit-unofficial)
   [![Discord Community](https://img.shields.io/discord/761178912230473768?label=Legion%20Series%20Discord)](https://discord.com/invite/legionseries)
 </div>
 
