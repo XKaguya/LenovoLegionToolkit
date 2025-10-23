@@ -64,16 +64,18 @@ public partial class FloatingGadget
     }
 
     public async void UpdateSensorData(
-                double cpuUsage, double cpuTemp, double cpuPower,
-                double gpuUsage, double gpuTemp, double gpuVramTemp, double gpuPower,
+                double cpuUsage, double cpuFrequency, double cpuTemp, double cpuPower,
+                double gpuUsage, double gpuFrequency, double gpuTemp, double gpuVramTemp, double gpuPower,
                 double memUsage, double pchTemp, double memTemp, double disk0Temperature, double disk1Temperature,
                 int cpuFanSpeed, int gpuFanSpeed, int pchFanSpeed)
     {
         _cpuUsage.Text = $"{cpuUsage:F0}%";
+        _cpuFrequency.Text = $"{cpuFrequency}Mhz";
         _cpuTemperature.Text = $"{cpuTemp:F0}°C";
         _cpuPower.Text = $"{cpuPower:F1} W";
 
         _gpuUsage.Text = $"{gpuUsage:F0}%";
+        _gpuFrequency.Text = $"{gpuFrequency}Mhz";
         _gpuTemperature.Text = $"{gpuTemp:F0}°C";
         _gpuVramTemperature.Text = $"{gpuVramTemp:F0}°C";
         _gpuPower.Text = $"{gpuPower:F1} W";
@@ -118,9 +120,11 @@ public partial class FloatingGadget
 
                     await Application.Current.Dispatcher.InvokeAsync(() => UpdateSensorData(
                             data.CPU.Utilization,
+                            data.CPU.CoreClock,
                             data.CPU.Temperature,
                             cpuPower,
                             data.GPU.Utilization,
+                            data.GPU.CoreClock,
                             data.GPU.Temperature,
                             gpuVramTask.Result,
                             gpuPower,

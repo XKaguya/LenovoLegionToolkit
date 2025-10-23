@@ -6,7 +6,7 @@
     xmlns:resources="clr-namespace:LenovoLegionToolkit.WPF.Resources"
     xmlns:utils="clr-namespace:LenovoLegionToolkit.WPF.Utils"
     Title="FloatingGadget"
-    Height="600"
+    Height="630"
     Width="280" 
     Background="Transparent"
     AllowsTransparency="True"
@@ -52,6 +52,14 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="{x:Static resources:Resource.SensorsControl_CoreClock_Title}" Style="{StaticResource SensorLabelStyle}" />
+                        <TextBlock x:Name="_cpuFrequency" Grid.Column="1" Text="-" Style="{StaticResource SensorValueStyle}" />
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="{x:Static resources:Resource.SensorsControl_Temperature_Title}" Style="{StaticResource SensorLabelStyle}" />
                         <TextBlock x:Name="_cpuTemperature" Grid.Column="1" Text="-" Style="{StaticResource SensorValueStyle}" />
                     </Grid>
@@ -77,6 +85,14 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="{x:Static resources:Resource.SensorsControl_Utilization_Title}" Style="{StaticResource SensorLabelStyle}" />
                         <TextBlock x:Name="_gpuUsage" Grid.Column="1" Text="-" Style="{StaticResource SensorValueStyle}" />
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="{x:Static resources:Resource.SensorsControl_CoreClock_Title}" Style="{StaticResource SensorLabelStyle}" />
+                        <TextBlock x:Name="_gpuFrequency" Grid.Column="1" Text="-" Style="{StaticResource SensorValueStyle}" />
                     </Grid>
                     <Grid>
                         <Grid.ColumnDefinitions>
