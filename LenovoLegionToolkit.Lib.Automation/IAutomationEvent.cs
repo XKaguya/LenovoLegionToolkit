@@ -36,6 +36,17 @@ public readonly struct ITSModeStateAutomationEvent(ITSModeStateEvent powerStateE
     public bool PowerAdapterStateChanged { get; } = powerAdapterStateChanged;
 }
 
+public readonly struct HybridModeAutomationEvent(HybridModeState hybridModeState) : IAutomationEvent
+{
+    public HybridModeState HybridModeState { get; } = hybridModeState;
+}
+
+public readonly struct HybridModeStateAutomationEvent(HybridModeStateEvent hybridModeStateEvent)
+    : IAutomationEvent
+{
+    public HybridModeStateEvent HybridModeStateEvent { get; } = hybridModeStateEvent;
+}
+
 public readonly struct PowerModeAutomationEvent(PowerModeState powerModeState) : IAutomationEvent
 {
     public PowerModeState PowerModeState { get; } = powerModeState;

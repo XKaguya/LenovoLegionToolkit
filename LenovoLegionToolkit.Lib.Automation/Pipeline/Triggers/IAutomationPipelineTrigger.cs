@@ -36,6 +36,13 @@ public interface IDeviceAutomationPipelineTrigger : INativeWindowsMessagePipelin
     IDeviceAutomationPipelineTrigger DeepCopy(string[] instanceIds);
 }
 
+public interface IHybridModeAutomationPipelineTrigger : IAutomationPipelineTrigger
+{
+    HybridModeState HybridModeState { get; }
+
+    IHybridModeAutomationPipelineTrigger DeepCopy(HybridModeState hybridModeState);
+}
+
 public interface IOnStartupAutomationPipelineTrigger : IDisallowDuplicatesAutomationPipelineTrigger;
 
 public interface IOnResumeAutomationPipelineTrigger : IDisallowDuplicatesAutomationPipelineTrigger;

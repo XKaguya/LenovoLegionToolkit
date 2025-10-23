@@ -223,6 +223,15 @@ namespace LenovoLegionToolkit.Lib.Automation.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Hybrid Mode 的本地化字符串。
+        /// </summary>
+        public static string HybridModeAutomationPipelineTrigger_DisplayName {
+            get {
+                return ResourceManager.GetString("HybridModeAutomationPipelineTrigger_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 When IdeaPad Power Mode is changed 的本地化字符串。
         /// </summary>
         public static string ITSModeAutomationPipelineTrigger_DisplayName {

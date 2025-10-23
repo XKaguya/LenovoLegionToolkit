@@ -17,12 +17,12 @@ public class AutomationEnvironment
     private const string RESUME = "LLT_RESUME";
     private const string POWER_MODE = "LLT_POWER_MODE";
     private const string POWER_MODE_NAME = "LLT_POWER_MODE_NAME";
+    private const string HYBRID_MODE = "LLT_HYBRID_MODE";
+    private const string HYBRID_MODE_NAME = "LLT_HYBRID_MODE_NAME";
     private const string PROCESSES_STARTED = "LLT_PROCESSES_STARTED";
     private const string PROCESSES = "LLT_PROCESSES";
     private const string DEVICE_CONNECTED = "LLT_DEVICE_CONNECTED";
     private const string DEVICE_INSTANCE_IDS = "LLT_DEVICE_INSTANCE_IDS";
-    private const string ITS_MODE = "LLT_ITS_MODE";
-    private const string ITS_MODE_NAME = "LLT_ITS_MODE_NAME";
     private const string IS_SUNSET = "LLT_IS_SUNSET";
     private const string IS_SUNRISE = "LLT_IS_SUNRISE";
     private const string TIME = "LLT_TIME";
@@ -95,6 +95,31 @@ public class AutomationEnvironment
                 ITSMode.ItsAuto => "INTELLIGENT COOLING",
                 ITSMode.MmcCool => "BATTERY SAVING",
                 ITSMode.MmcPerformance => "EXTREME PERFORMANCE",
+                _ => string.Empty
+            };
+        }
+    }
+
+    public HybridModeState HybridMode
+    {
+        set
+        {
+            _dictionary[HYBRID_MODE] = value switch
+            {
+                HybridModeState.Off  => "1",
+                HybridModeState.On => "2",
+                HybridModeState.OnAuto => "3",
+                HybridModeState.OnIGPUOnly => "4",
+                HybridModeState.UMA => "5",
+                _ => string.Empty
+            };
+            _dictionary[HYBRID_MODE_NAME] = value switch
+            {
+                HybridModeState.Off => "DGPU Only",
+                HybridModeState.On => "Hybrid",
+                HybridModeState.OnAuto => "Hybrid Auto",
+                HybridModeState.OnIGPUOnly => "Hybrid IGPU",
+                HybridModeState.UMA => "UMA",
                 _ => string.Empty
             };
         }

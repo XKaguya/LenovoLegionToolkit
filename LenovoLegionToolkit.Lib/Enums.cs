@@ -412,6 +412,12 @@ public enum PowerModeState
     GodMode = 254
 }
 
+public enum HybridModeStateEvent
+{
+    Unknown = -1,
+    StatusChange,
+}
+
 public enum ITSModeStateEvent
 {
     Unknown = -1,
