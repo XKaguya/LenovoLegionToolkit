@@ -48,6 +48,7 @@ public static partial class Compatibility
         "16IRX",
         "16ITH",
 
+        "18IAX",
         "NX",
 
         "15ACH",
