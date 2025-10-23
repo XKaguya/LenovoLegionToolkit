@@ -179,6 +179,7 @@ public partial class App
 
         Compatibility.PrintControllerVersion();
         FloatingGadget = new FloatingGadget();
+        CheckFloatingGadget();
 
         if (Log.Instance.IsTraceEnabled)
             Log.Instance.Trace($"Start up complete");
@@ -337,6 +338,18 @@ public partial class App
 
         Shutdown(201);
         return false;
+    }
+
+    private void CheckFloatingGadget()
+    {
+        ApplicationSettings _settings = IoCContainer.Resolve<ApplicationSettings>();
+        if (_settings.Store.ShowFloatingGadgets)
+        {
+            if (FloatingGadget != null)
+            {
+                FloatingGadget.Show();
+            }
+        }
     }
 
     private async Task<bool> CheckCompatibilityAsync()
