@@ -34,6 +34,7 @@ public static class DashboardItemExtensions
         DashboardItem.FnLock => SymbolRegular.Keyboard24,
         DashboardItem.WinKeyLock => SymbolRegular.Keyboard24,
         DashboardItem.WhiteKeyboardBacklight => SymbolRegular.Keyboard24,
+        DashboardItem.ItsMode => SymbolRegular.Gauge24,
         _ => throw new InvalidOperationException($"Invalid DashboardItem {dashboardItem}"),
     };
 
@@ -61,6 +62,7 @@ public static class DashboardItemExtensions
         DashboardItem.FnLock => Resource.FnLockControl_Title,
         DashboardItem.WinKeyLock => Resource.WinKeyControl_Title,
         DashboardItem.WhiteKeyboardBacklight => Resource.WhiteKeyboardBacklightControl_Title,
+        DashboardItem.ItsMode => Resource.ITSModeControl_Title,
         _ => throw new InvalidOperationException($"Invalid DashboardItem {dashboardItem}"),
     };
 
@@ -88,6 +90,7 @@ public static class DashboardItemExtensions
         DashboardItem.FnLock => [new FnLockControl()],
         DashboardItem.WinKeyLock => [new WinKeyControl()],
         DashboardItem.WhiteKeyboardBacklight => [new WhiteKeyboardBacklightControl(), new OneLevelWhiteKeyboardBacklightControl()],
+        DashboardItem.ItsMode => [new ITSModeControl()],
         _ => throw new InvalidOperationException($"Invalid DashboardItem {dashboardItem}"),
     };
 }

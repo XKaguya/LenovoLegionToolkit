@@ -49,7 +49,7 @@ public partial class GodModeSettingsWindow
 
         var mi = Compatibility.GetMachineInformationAsync().Result;
         int contentIndex = _fanCurveControlStackPanel.Children.IndexOf(_fanCurveButton);
-        if (mi.Properties.SupportsGodModeV3)
+        if (mi.Properties.SupportsGodModeV3 || mi.Properties.SupportsGodModeV4)
         {
             _fanCurveControl = new Controls.FanCurveControlV2();
             _fanCurveControlStackPanel.Children.Insert(contentIndex, _fanCurveControl);

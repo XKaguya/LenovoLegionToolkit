@@ -17,6 +17,8 @@ public class AutomationEnvironment
     private const string RESUME = "LLT_RESUME";
     private const string POWER_MODE = "LLT_POWER_MODE";
     private const string POWER_MODE_NAME = "LLT_POWER_MODE_NAME";
+    private const string HYBRID_MODE = "LLT_HYBRID_MODE";
+    private const string HYBRID_MODE_NAME = "LLT_HYBRID_MODE_NAME";
     private const string PROCESSES_STARTED = "LLT_PROCESSES_STARTED";
     private const string PROCESSES = "LLT_PROCESSES";
     private const string DEVICE_CONNECTED = "LLT_DEVICE_CONNECTED";
@@ -72,6 +74,52 @@ public class AutomationEnvironment
                 PowerModeState.Performance => "PERFORMANCE",
                 PowerModeState.Extreme => "EXTREME",
                 PowerModeState.GodMode => "CUSTOM",
+                _ => string.Empty
+            };
+        }
+    }
+
+    public ITSMode ITSMode
+    {
+        set
+        {
+            _dictionary[POWER_MODE] = value switch
+            {
+                ITSMode.ItsAuto => "1",
+                ITSMode.MmcCool => "2",
+                ITSMode.MmcPerformance => "3",
+                _ => string.Empty
+            };
+            _dictionary[POWER_MODE_NAME] = value switch
+            {
+                ITSMode.ItsAuto => "INTELLIGENT COOLING",
+                ITSMode.MmcCool => "BATTERY SAVING",
+                ITSMode.MmcPerformance => "EXTREME PERFORMANCE",
+                _ => string.Empty
+            };
+        }
+    }
+
+    public HybridModeState HybridMode
+    {
+        set
+        {
+            _dictionary[HYBRID_MODE] = value switch
+            {
+                HybridModeState.Off  => "1",
+                HybridModeState.On => "2",
+                HybridModeState.OnAuto => "3",
+                HybridModeState.OnIGPUOnly => "4",
+                HybridModeState.UMA => "5",
+                _ => string.Empty
+            };
+            _dictionary[HYBRID_MODE_NAME] = value switch
+            {
+                HybridModeState.Off => "DGPU Only",
+                HybridModeState.On => "Hybrid",
+                HybridModeState.OnAuto => "Hybrid Auto",
+                HybridModeState.OnIGPUOnly => "Hybrid IGPU",
+                HybridModeState.UMA => "UMA",
                 _ => string.Empty
             };
         }

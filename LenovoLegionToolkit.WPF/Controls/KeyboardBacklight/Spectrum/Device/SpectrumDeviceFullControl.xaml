@@ -67,6 +67,10 @@
             Grid.Column="6"
             Margin="2"
             KeyCode="0x03EE" />
+        <controls:SpectrumAmbientZoneControl
+            Grid.Row="1"
+            Grid.Column="6"
+            Margin="2" />
 
         <!--  Left side  -->
         <controls:SpectrumZoneControl
@@ -111,6 +115,7 @@
             Grid.Column="7"
             Margin="2"
             KeyCode="0x01FD" />
+
 
         <!--  Front  -->
         <controls:SpectrumZoneControl

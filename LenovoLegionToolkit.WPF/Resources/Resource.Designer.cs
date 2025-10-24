@@ -2191,6 +2191,105 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Chipset 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgets_Chipset {
+            get {
+                return ResourceManager.GetString("FloatingGadgets_Chipset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 CPU 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgets_Cpu {
+            get {
+                return ResourceManager.GetString("FloatingGadgets_Cpu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 CPU Fan 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgets_CPU_Fan {
+            get {
+                return ResourceManager.GetString("FloatingGadgets_CPU_Fan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Disk 1 Temperature 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgets_Disk_0_Temperature {
+            get {
+                return ResourceManager.GetString("FloatingGadgets_Disk_0_Temperature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Disk 2 Temperature 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgets_Disk_1_Temperature {
+            get {
+                return ResourceManager.GetString("FloatingGadgets_Disk_1_Temperature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Fans 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgets_Fans {
+            get {
+                return ResourceManager.GetString("FloatingGadgets_Fans", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 GPU 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgets_Gpu {
+            get {
+                return ResourceManager.GetString("FloatingGadgets_Gpu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 GPU Fan 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgets_GPU_Fan {
+            get {
+                return ResourceManager.GetString("FloatingGadgets_GPU_Fan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Memory Temperature 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgets_Memory_Temperature {
+            get {
+                return ResourceManager.GetString("FloatingGadgets_Memory_Temperature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Memory Utilization 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgets_Memory_Utilization {
+            get {
+                return ResourceManager.GetString("FloatingGadgets_Memory_Utilization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 PCH Fan 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgets_PCH_Fan {
+            get {
+                return ResourceManager.GetString("FloatingGadgets_PCH_Fan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Use secondary functions of F1-F12 keys without holding Fn key. 的本地化字符串。
         /// </summary>
         public static string FnLockAutomationStepControl_Message {
@@ -2863,6 +2962,60 @@ namespace LenovoLegionToolkit.WPF.Resources {
         public static string InstantBootControl_Title {
             get {
                 return ResourceManager.GetString("InstantBootControl_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Change IdeaPad Power Mode 的本地化字符串。
+        /// </summary>
+        public static string ITSModeAutomationStepControl_Message {
+            get {
+                return ResourceManager.GetString("ITSModeAutomationStepControl_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 IdeaPad Power Mode 的本地化字符串。
+        /// </summary>
+        public static string ITSModeAutomationStepControl_Title {
+            get {
+                return ResourceManager.GetString("ITSModeAutomationStepControl_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 PowerBattery.dll is missing. Please place it manually to use ITSMode feature. 的本地化字符串。
+        /// </summary>
+        public static string ITSModeControl_Dialog_Message {
+            get {
+                return ResourceManager.GetString("ITSModeControl_Dialog_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Missing Compoment 的本地化字符串。
+        /// </summary>
+        public static string ITSModeControl_Dialog_Title {
+            get {
+                return ResourceManager.GetString("ITSModeControl_Dialog_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Change IdeaPad Power Mode 的本地化字符串。
+        /// </summary>
+        public static string ITSModeControl_Message {
+            get {
+                return ResourceManager.GetString("ITSModeControl_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 IdeaPad Power Mode 的本地化字符串。
+        /// </summary>
+        public static string ITSModeControl_Title {
+            get {
+                return ResourceManager.GetString("ITSModeControl_Title", resourceCulture);
             }
         }
         
@@ -5698,6 +5851,33 @@ namespace LenovoLegionToolkit.WPF.Resources {
         public static string SettingsPage_ExcludeRefreshRates_Title {
             get {
                 return ResourceManager.GetString("SettingsPage_ExcludeRefreshRates_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Floating Gadgets​​ is a floating window that displays real-time sensor information in an overlay style. 的本地化字符串。
+        /// </summary>
+        public static string SettingsPage_FloatingGadgets_Message {
+            get {
+                return ResourceManager.GetString("SettingsPage_FloatingGadgets_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Enable Floating Gadget 的本地化字符串。
+        /// </summary>
+        public static string SettingsPage_FloatingGadgets_Title {
+            get {
+                return ResourceManager.GetString("SettingsPage_FloatingGadgets_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Controls sensor refresh interval. 的本地化字符串。
+        /// </summary>
+        public static string SettingsPage_FloatingGadgets_Tooltip {
+            get {
+                return ResourceManager.GetString("SettingsPage_FloatingGadgets_Tooltip", resourceCulture);
             }
         }
         

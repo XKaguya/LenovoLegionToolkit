@@ -169,6 +169,8 @@ public partial class AutomationPage
             new FnLockAutomationStep(default),
             new GodModePresetAutomationStep(default),
             new HDRAutomationStep(default),
+            new ITSModeAutomationStep(default),
+            new HybridModeAutomationStep(default),
             new InstantBootAutomationStep(default),
             new MacroAutomationStep(default),
             new MicrophoneAutomationStep(default),

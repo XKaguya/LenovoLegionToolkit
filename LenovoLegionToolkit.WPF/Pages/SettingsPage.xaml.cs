@@ -1,11 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using LenovoLegionToolkit.Lib;
+﻿using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Controllers;
 using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.Features;
@@ -21,6 +14,14 @@ using LenovoLegionToolkit.WPF.Resources;
 using LenovoLegionToolkit.WPF.Utils;
 using LenovoLegionToolkit.WPF.Windows;
 using LenovoLegionToolkit.WPF.Windows.Settings;
+using LenovoLegionToolkit.WPF.Windows.Utils;
+using System;
+using System.Diagnostics;
+using System.Globalization;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace LenovoLegionToolkit.WPF.Pages;
 
@@ -182,6 +183,9 @@ public partial class SettingsPage
         _cliInterfaceToggle.IsChecked = _integrationsSettings.Store.CLI;
         _cliPathToggle.IsChecked = SystemPath.HasCLI();
 
+        _floatingGadgetsInterval.Text = _settings.Store.FloatingGadgetsRefreshInterval.ToString();
+        _floatingGadgetsToggle.IsChecked = _settings.Store.ShowFloatingGadgets;
+
         await loadingTask;
 
         _temperatureComboBox.Visibility = Visibility.Visible;
@@ -203,6 +207,8 @@ public partial class SettingsPage
         _hwinfoIntegrationToggle.Visibility = Visibility.Visible;
         _cliInterfaceToggle.Visibility = Visibility.Visible;
         _cliPathToggle.Visibility = Visibility.Visible;
+        _floatingGadgetsToggle.Visibility = Visibility.Visible;
+        _floatingGadgetsInterval.Visibility = Visibility.Visible;
 
         _isRefreshing = false;
     }
@@ -345,9 +351,39 @@ public partial class SettingsPage
         if (state is null)
             return;
 
-        SnackbarHelper.Show(Resource.SettingsPage_UseNewDashboard_Switch_Title, Resource.SettingsPage_UseNewDashboard_Restart_Message, SnackbarType.Success);
-        _settings.Store.UseNewSensorDashboard = state.Value;
-        _settings.SynchronizeStore();
+        // To notice user install PawnIO first.
+        var dialog = new DialogWindow
+        {
+            Title = Resource.MainWindow_PawnIO_Warning_Title,
+            Content = Resource.MainWindow_PawnIO_Warning_Message,
+            Owner = Application.Current.MainWindow
+        };
+
+        if (state == true)
+        {
+            dialog.ShowDialog();
+
+            if (dialog.Result.Item1)
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = "https://pawnio.eu/",
+                    UseShellExecute = true
+                });
+            }
+        }
+
+        var result = dialog.Result.Item1;
+        if (result)
+        {
+            SnackbarHelper.Show(Resource.SettingsPage_UseNewDashboard_Switch_Title, Resource.SettingsPage_UseNewDashboard_Restart_Message, SnackbarType.Success);
+            _settings.Store.UseNewSensorDashboard = state.Value;
+            _settings.SynchronizeStore();
+        }
+        else
+        {
+            _useNewSensorDashboardToggle.IsChecked = false;
+        }
     }
 
     private void EnableLoggingToggle_Click(object sender, RoutedEventArgs e)
@@ -804,6 +840,37 @@ public partial class SettingsPage
             return;
 
         _settings.Store.UpdateMethod = updateMethod;
+        _settings.SynchronizeStore();
+    }
+
+    private void FloatingGadgets_Click(object sender, RoutedEventArgs e)
+    {
+        if (_isRefreshing)
+            return;
+
+        var state = _floatingGadgetsToggle.IsChecked;
+        if (state is null)
+            return;
+
+        if (state.Value)
+        {
+            App.Current.FloatingGadget.Show();
+        }
+        else
+        {
+            App.Current.FloatingGadget.Hide();
+        }
+
+        _settings.Store.ShowFloatingGadgets = state.Value;
+        _settings.SynchronizeStore();
+    }
+
+    private void FloatingGadgetsInput_ValueChanged(object sender, RoutedEventArgs e)
+    {
+        if (_isRefreshing)
+            return;
+
+        _settings.Store.FloatingGadgetsRefreshInterval = int.TryParse(_floatingGadgetsInterval.Text, out var interval) ? interval : 1;
         _settings.SynchronizeStore();
     }
 }

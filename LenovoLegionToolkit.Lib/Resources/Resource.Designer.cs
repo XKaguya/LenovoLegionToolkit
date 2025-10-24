@@ -331,6 +331,33 @@ namespace LenovoLegionToolkit.Lib.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Battery Saving 的本地化字符串。
+        /// </summary>
+        public static string ITSMode_Intelligent_Battery_Saving {
+            get {
+                return ResourceManager.GetString("ITSMode_Intelligent_Battery_Saving", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Intelligent Cooling 的本地化字符串。
+        /// </summary>
+        public static string ITSMode_Intelligent_Cooling {
+            get {
+                return ResourceManager.GetString("ITSMode_Intelligent_Cooling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Extreme Performance 的本地化字符串。
+        /// </summary>
+        public static string ITSMode_Intelligent_Extreme_Performance {
+            get {
+                return ResourceManager.GetString("ITSMode_Intelligent_Extreme_Performance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Off 的本地化字符串。
         /// </summary>
         public static string MicrophoneState_Off {

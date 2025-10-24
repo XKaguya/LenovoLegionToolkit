@@ -54,6 +54,8 @@ public class ApplicationSettings : AbstractSettings<ApplicationSettings.Applicat
         public bool LockWindowSize { get; set; }
         public bool EnableLogging { get; set; }
         public bool DynamicLightingWarningDontShowAgain { get; set; }
+        public bool ShowFloatingGadgets { get; set; }
+        public int FloatingGadgetsRefreshInterval { get; set; }
     }
 
     public ApplicationSettings() : base("settings.json")

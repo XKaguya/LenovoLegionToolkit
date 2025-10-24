@@ -153,11 +153,23 @@ public enum HybridModeState
     Off
 }
 
+
 public enum IGPUModeState
 {
     Default,
     IGPUOnly,
     Auto
+}
+
+public enum ITSMode
+{
+    None,
+    [Display(ResourceType = typeof(Resource), Name = "ITSMode_Intelligent_Cooling")]
+    ItsAuto,
+    [Display(ResourceType = typeof(Resource), Name = "ITSMode_Intelligent_Battery_Saving")]
+    MmcCool,
+    [Display(ResourceType = typeof(Resource), Name = "ITSMode_Intelligent_Extreme_Performance")]
+    MmcPerformance
 }
 
 public enum InstantBootState
@@ -193,6 +205,28 @@ public enum LightingChangeState
 {
     Panel = 0,
     Ports = 1,
+}
+
+public enum LegionSeries
+{
+    Legion_5 = 0,
+    Legion_Pro_5 = 1,
+    Legion_Slim_5 = 2,
+    Legion_7 = 3,
+    Legion_Pro_7 = 4,
+    Legion_9 = 5,
+    IdeaPad = 6,
+    LOQ = 7,
+    Lenovo_Slim = 8,
+    Unknown = 255
+}
+
+public enum LibreHardwareMonitorInitialState
+{
+    Fail = 0,
+    Initialized = 1,
+    Success = 2,
+    PawnIONotInstalled = 3
 }
 
 public enum MicrophoneState
@@ -376,6 +410,20 @@ public enum PowerModeState
     Extreme = 223,
     [Display(ResourceType = typeof(Resource), Name = "PowerModeState_GodMode")]
     GodMode = 254
+}
+
+public enum HybridModeStateEvent
+{
+    Unknown = -1,
+    StatusChange,
+}
+
+public enum ITSModeStateEvent
+{
+    Unknown = -1,
+    StatusChange,
+    Suspend,
+    Resume,
 }
 
 public enum PowerStateEvent

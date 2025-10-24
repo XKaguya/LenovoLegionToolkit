@@ -1,14 +1,15 @@
-﻿using System;
+﻿using LenovoLegionToolkit.Lib.Extensions;
+using Newtonsoft.Json;
+using Octokit;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
-using LenovoLegionToolkit.Lib.Extensions;
-using Newtonsoft.Json;
-using Octokit;
 
 namespace LenovoLegionToolkit.Lib;
 
@@ -84,6 +85,13 @@ public readonly struct Brightness(byte value)
 {
     public byte Value { get; } = value;
 }
+
+[StructLayout(LayoutKind.Sequential, Size = 16)]
+internal struct CIntelligentCooling
+{
+    private long value;
+}
+
 
 public readonly struct DiscreteCapability(CapabilityID id, int value)
 {
@@ -455,6 +463,7 @@ public readonly struct MachineInformation
         public bool SupportsIGPUMode { get; init; }
         public bool SupportsAIMode { get; init; }
         public bool SupportBootLogoChange { get; init; }
+        public bool SupportITSMode { get; init; }
         public bool HasQuietToPerformanceModeSwitchingBug { get; init; }
         public bool HasGodModeToOtherModeSwitchingBug { get; init; }
         public bool HasReapplyParameterIssue { get; init; }
@@ -465,6 +474,7 @@ public readonly struct MachineInformation
     }
 
     public int Generation { get; init; }
+    public LegionSeries LegionSeries { get; init; }
     public string Vendor { get; init; }
     public string MachineType { get; init; }
     public string Model { get; init; }

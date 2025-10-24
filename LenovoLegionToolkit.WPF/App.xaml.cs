@@ -53,6 +53,7 @@ public partial class App
     private EventWaitHandle? _singleInstanceWaitHandle;
 
     private bool _showPawnIONotify;
+    public FloatingGadget? FloatingGadget = null;
 
     public new static App Current => (App)Application.Current;
 
@@ -115,6 +116,7 @@ public partial class App
             InitSensorsGroupControllerFeatureAsync(),
             LogSoftwareStatusAsync(),
             InitPowerModeFeatureAsync(),
+            InitITSModeFeatureAsync(),
             InitBatteryFeatureAsync(),
             InitRgbKeyboardControllerAsync(),
             InitSpectrumKeyboardControllerAsync(),
@@ -174,6 +176,10 @@ public partial class App
         }
 
         await deferredInitTask;
+
+        Compatibility.PrintControllerVersion();
+        FloatingGadget = new FloatingGadget();
+        CheckFloatingGadget();
 
         if (Log.Instance.IsTraceEnabled)
             Log.Instance.Trace($"Start up complete");
@@ -332,6 +338,18 @@ public partial class App
 
         Shutdown(201);
         return false;
+    }
+
+    private void CheckFloatingGadget()
+    {
+        ApplicationSettings _settings = IoCContainer.Resolve<ApplicationSettings>();
+        if (_settings.Store.ShowFloatingGadgets)
+        {
+            if (FloatingGadget != null)
+            {
+                FloatingGadget.Show();
+            }
+        }
     }
 
     private async Task<bool> CheckCompatibilityAsync()
@@ -522,6 +540,26 @@ public partial class App
         }
     }
 
+    private static async Task InitITSModeFeatureAsync()
+    {
+        try
+        {
+            ITSModeFeature feature = IoCContainer.Resolve<ITSModeFeature>();
+            if (await feature.IsSupportedAsync())
+            {
+                ITSMode state = await feature.GetStateAsync();
+                await feature.SetStateAsync(state);
+                if (Log.Instance.IsTraceEnabled)
+                    Log.Instance.Trace($"Ensure ITS Mode is set.");
+            }
+        }
+        catch (Exception ex)
+        {
+            if (Log.Instance.IsTraceEnabled)
+                Log.Instance.Trace($"Couldn't ensure its mode state.", ex);
+        }
+    }
+
     private static async Task InitPowerModeFeatureAsync()
     {
         try
@@ -588,13 +626,27 @@ public partial class App
             if (settings.Store.UseNewSensorDashboard)
             {
                 var feature = IoCContainer.Resolve<SensorsGroupController>();
-                if (await feature.IsSupportedAsync())
+                try
+                {
+                    LibreHardwareMonitorInitialState state = await feature.IsSupportedAsync();
+                    if (state == LibreHardwareMonitorInitialState.Initialized || state == LibreHardwareMonitorInitialState.Success)
+                    {
+                        if (Log.Instance.IsTraceEnabled)
+                            Log.Instance.Trace($"Init memory sensor control feature.");
+                    }
+                    else
+                    {
+                        App.Current._showPawnIONotify = true;
+                    }
+                }
+                // Why this branch can execute ?
+                catch (Exception ex)
                 {
                     if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Init memory sensor control feature.");
-                }
-                else
-                {
+                    {
+                        Log.Instance.Trace($"InitSensorsGroupControllerFeatureAsync() raised exception:", ex);
+                    }
+
                     App.Current._showPawnIONotify = true;
                 }
             }
