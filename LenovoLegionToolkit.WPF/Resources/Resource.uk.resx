@@ -2452,4 +2452,64 @@ Click Yes to disable and No to ignore.</value>
   <data name="DialogWindow_DontShowAgain" xml:space="preserve">
     <value>Don't show again.</value>
   </data>
+  <data name="ITSModeControl_Dialog_Title" xml:space="preserve">
+    <value>Missing Compoment</value>
+  </data>
+  <data name="ITSModeControl_Dialog_Message" xml:space="preserve">
+    <value>PowerBattery.dll is missing. Please place it manually to use ITSMode feature.</value>
+  </data>
+  <data name="ITSModeControl_Title" xml:space="preserve">
+    <value>IdeaPad Power Mode</value>
+  </data>
+  <data name="ITSModeControl_Message" xml:space="preserve">
+    <value>Change IdeaPad Power Mode</value>
+  </data>
+  <data name="ITSModeAutomationStepControl_Title" xml:space="preserve">
+    <value>IdeaPad Power Mode</value>
+  </data>
+  <data name="ITSModeAutomationStepControl_Message" xml:space="preserve">
+    <value>Change IdeaPad Power Mode</value>
+  </data>
+  <data name="SettingsPage_FloatingGadgets_Title" xml:space="preserve">
+    <value>Enable Floating Gadget</value>
+  </data>
+  <data name="SettingsPage_FloatingGadgets_Message" xml:space="preserve">
+    <value>Floating Gadgets​​ is a floating window that displays real-time sensor information in an overlay style.</value>
+  </data>
+  <data name="SettingsPage_FloatingGadgets_Tooltip" xml:space="preserve">
+    <value>Controls sensor refresh interval.</value>
+  </data>
+  <data name="FloatingGadgets_Memory_Utilization" xml:space="preserve">
+    <value>Memory Utilization</value>
+  </data>
+  <data name="FloatingGadgets_Memory_Temperature" xml:space="preserve">
+    <value>Memory Temperature</value>
+  </data>
+  <data name="FloatingGadgets_Disk_0_Temperature" xml:space="preserve">
+    <value>Disk 1 Temperature</value>
+  </data>
+  <data name="FloatingGadgets_Disk_1_Temperature" xml:space="preserve">
+    <value>Disk 2 Temperature</value>
+  </data>
+  <data name="FloatingGadgets_CPU_Fan" xml:space="preserve">
+    <value>CPU Fan</value>
+  </data>
+  <data name="FloatingGadgets_GPU_Fan" xml:space="preserve">
+    <value>GPU Fan</value>
+  </data>
+  <data name="FloatingGadgets_PCH_Fan" xml:space="preserve">
+    <value>PCH Fan</value>
+  </data>
+  <data name="FloatingGadgets_Fans" xml:space="preserve">
+    <value>Fans</value>
+  </data>
+  <data name="FloatingGadgets_Chipset" xml:space="preserve">
+    <value>Chipset</value>
+  </data>
+  <data name="FloatingGadgets_Gpu" xml:space="preserve">
+    <value>GPU</value>
+  </data>
+  <data name="FloatingGadgets_Cpu" xml:space="preserve">
+    <value>CPU</value>
+  </data>
 </root>
