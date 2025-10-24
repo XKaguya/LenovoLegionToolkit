@@ -286,6 +286,20 @@ public partial class SpectrumKeyboardBacklightControl
 
         var keyCodes = checkedButtons.Select(b => b.KeyCode).ToArray();
 
+        // Temperory method to fix the RGB issue for IAX10H, AFR10H
+        var mi = Compatibility.GetMachineInformationAsync();
+
+        if (mi.Result.Generation >= 10 && (mi.Result.LegionSeries == LegionSeries.Legion_Pro_7 || mi.Result.LegionSeries == LegionSeries.Legion_9))
+        {
+            var rangeToUnion = Enumerable.Range(1001, 18).Select(i => (ushort)i);
+            keyCodes = keyCodes.Union(rangeToUnion).ToArray();
+
+            if (Log.Instance.IsTraceEnabled)
+            {
+                Log.Instance.Trace($"To show every aft light. Added 1001-1018 range.");
+            }
+        }
+
         var allKeyboardKeyCodes = _device.GetVisibleKeyboardButtons()
             .Select(b => b.KeyCode)
             .ToArray();
