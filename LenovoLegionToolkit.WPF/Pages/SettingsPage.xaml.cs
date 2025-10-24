@@ -352,37 +352,48 @@ public partial class SettingsPage
             return;
 
         // To notice user install PawnIO first.
-        var dialog = new DialogWindow
+        if (state.Value)
         {
-            Title = Resource.MainWindow_PawnIO_Warning_Title,
-            Content = Resource.MainWindow_PawnIO_Warning_Message,
-            Owner = Application.Current.MainWindow
-        };
-
-        if (state == true)
-        {
-            dialog.ShowDialog();
-
-            if (dialog.Result.Item1)
+            var dialog = new DialogWindow
             {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = "https://pawnio.eu/",
-                    UseShellExecute = true
-                });
-            }
-        }
+                Title = Resource.MainWindow_PawnIO_Warning_Title,
+                Content = Resource.MainWindow_PawnIO_Warning_Message,
+                Owner = Application.Current.MainWindow
+            };
 
-        var result = dialog.Result.Item1;
-        if (result)
-        {
-            SnackbarHelper.Show(Resource.SettingsPage_UseNewDashboard_Switch_Title, Resource.SettingsPage_UseNewDashboard_Restart_Message, SnackbarType.Success);
-            _settings.Store.UseNewSensorDashboard = state.Value;
-            _settings.SynchronizeStore();
+            if (state == true)
+            {
+                dialog.ShowDialog();
+
+                if (dialog.Result.Item1)
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = "https://pawnio.eu/",
+                        UseShellExecute = true
+                    });
+                }
+            }
+
+            var result = dialog.Result.Item1;
+            if (result)
+            {
+                SnackbarHelper.Show(Resource.SettingsPage_UseNewDashboard_Switch_Title, Resource.SettingsPage_UseNewDashboard_Restart_Message, SnackbarType.Success);
+                _settings.Store.UseNewSensorDashboard = state.Value;
+                _settings.SynchronizeStore();
+            }
+            else
+            {
+                _useNewSensorDashboardToggle.IsChecked = false;
+                _settings.Store.UseNewSensorDashboard = state.Value;
+                _settings.SynchronizeStore();
+            }
         }
         else
         {
             _useNewSensorDashboardToggle.IsChecked = false;
+            _settings.Store.UseNewSensorDashboard = state.Value;
+            _settings.SynchronizeStore();
         }
     }
 
