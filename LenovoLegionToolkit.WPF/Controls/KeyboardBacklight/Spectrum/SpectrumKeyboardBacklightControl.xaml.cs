@@ -7,6 +7,7 @@ using LenovoLegionToolkit.Lib.Messaging.Messages;
 using LenovoLegionToolkit.Lib.Settings;
 using LenovoLegionToolkit.Lib.SoftwareDisabler;
 using LenovoLegionToolkit.Lib.Utils;
+using LenovoLegionToolkit.WPF.Controls.KeyboardBacklight.Spectrum.Device;
 using LenovoLegionToolkit.WPF.Extensions;
 using LenovoLegionToolkit.WPF.Resources;
 using LenovoLegionToolkit.WPF.Utils;
@@ -14,6 +15,7 @@ using LenovoLegionToolkit.WPF.Windows.KeyboardBacklight.Spectrum;
 using Microsoft.Win32;
 using NeoSmart.AsyncLock;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -284,21 +286,15 @@ public partial class SpectrumKeyboardBacklightControl
             checkedButtons = buttons;
         }
 
-        var keyCodes = checkedButtons.Select(b => b.KeyCode).ToArray();
+        var keyCodesList = checkedButtons.Select(b => b.KeyCode).ToList();
 
-        // Temperory method to fix the RGB issue for IAX10H, AFR10H
-        var mi = Compatibility.GetMachineInformationAsync();
-
-        if (mi.Result.Generation >= 10 && (mi.Result.LegionSeries == LegionSeries.Legion_Pro_7 || mi.Result.LegionSeries == LegionSeries.Legion_9))
+        SpectrumAmbientZoneControl? ambientButton = _device.GetAmbientButton();
+        if (ambientButton is not null)
         {
-            var rangeToUnion = Enumerable.Range(1001, 18).Select(i => (ushort)i);
-            keyCodes = keyCodes.Union(rangeToUnion).ToArray();
-
-            if (Log.Instance.IsTraceEnabled)
-            {
-                Log.Instance.Trace($"To show every aft light. Added 1001-1018 range.");
-            }
+            keyCodesList.AddRange(ambientButton.KeyCodes);
         }
+
+        var keyCodes = keyCodesList.ToArray();
 
         var allKeyboardKeyCodes = _device.GetVisibleKeyboardButtons()
             .Select(b => b.KeyCode)
@@ -375,13 +371,27 @@ public partial class SpectrumKeyboardBacklightControl
     private void SelectAllButtons()
     {
         foreach (var button in _device.GetVisibleButtons())
+        {
             button.IsChecked = true;
+        }
+
+        SpectrumAmbientZoneControl? ambientButton = _device.GetAmbientButton();
+        if (ambientButton is not null)
+        {
+            ambientButton.IsChecked = true;
+        }
     }
 
     private void DeselectAllButtons()
     {
         foreach (var button in _device.GetVisibleButtons())
             button.IsChecked = false;
+
+        SpectrumAmbientZoneControl? ambientButton = _device.GetAmbientButton();
+        if (ambientButton is not null)
+        {
+            ambientButton.IsChecked = false;
+        }
     }
 
     private async Task StartAnimationAsync()
@@ -418,6 +428,7 @@ public partial class SpectrumKeyboardBacklightControl
     private async Task RefreshStateAsync(CancellationToken token)
     {
         var buttons = _device.GetVisibleButtons().ToArray();
+        SpectrumAmbientZoneControl? ambientButton = _device.GetAmbientButton();
 
         if (buttons.Length < 1)
             return;
@@ -451,6 +462,26 @@ public partial class SpectrumKeyboardBacklightControl
                     }
 
                     button.Color = Color.FromRgb(rgb.R, rgb.G, rgb.B);
+                }
+
+                if (ambientButton is not null)
+                {
+                    foreach (var keyCode in ambientButton.KeyCodes)
+                    {
+                        if (!state.TryGetValue(keyCode, out var rgb))
+                        {
+                            ambientButton.Color = null;
+                            continue;
+                        }
+
+                        if (rgb is { R: < 1, G: < 1, B: < 1 })
+                        {
+                            ambientButton.Color = null;
+                            continue;
+                        }
+
+                        ambientButton.Color = Color.FromRgb(rgb.R, rgb.G, rgb.B);
+                    }
                 }
 
                 await delay;
