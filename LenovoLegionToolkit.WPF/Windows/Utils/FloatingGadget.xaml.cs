@@ -15,6 +15,7 @@ namespace LenovoLegionToolkit.WPF.Windows.Utils;
 public partial class FloatingGadget
 {
     private const int GWL_EXSTYLE = -20;
+    private const int WS_EX_TRANSPARENT = 0x00000020;
     private const int WS_EX_TOOLWINDOW = 0x00000080;
 
     private readonly ApplicationSettings _settings = IoCContainer.Resolve<ApplicationSettings>();
@@ -44,7 +45,7 @@ public partial class FloatingGadget
     {
         var hwnd = new WindowInteropHelper(this).Handle;
         var extendedStyle = GetWindowLong(hwnd, GWL_EXSTYLE);
-        SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle | WS_EX_TOOLWINDOW);
+        SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle | WS_EX_TRANSPARENT | WS_EX_TOOLWINDOW);
     }
 
     private async void FloatingGadget_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
