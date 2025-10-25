@@ -29,6 +29,9 @@ public static partial class Compatibility
     private const string ALLOWED_VENDOR = "LENOVO";
 
     private static readonly string[] AllowedModelsPrefix = [
+        // Legion Go
+        "8APU1",
+
         // Worldwide variants
         "17ACH",
         "17ARH",
@@ -476,6 +479,8 @@ public static partial class Compatibility
 
             "83G0" or "83EY" => LegionSeries.Legion_9,
 
+            "83E1" => LegionSeries.Legion_Go,
+
             _ => LegionSeries.Unknown
         };
 
@@ -537,6 +542,7 @@ public static partial class Compatibility
             "IAX10",
             "NX",
             "IRX10",
+            "AFR10",
         };
 
         return affectedModel.Any(model => machineModel?.Contains(model) ?? false);
@@ -643,10 +649,14 @@ public static partial class Compatibility
     {
         if (Log.Instance.IsTraceEnabled)
         {
-            SensorsController sensorsController = IoCContainer.Resolve<SensorsController>();
-            Log.Instance.Trace($"Using {sensorsController.GetControllerAsync().Result.GetType().Name}");
-            GodModeController godModeController = IoCContainer.Resolve<GodModeController>();
-            Log.Instance.Trace($"Using {(godModeController.Controller != null ? godModeController.Controller.GetType().Name : "Null")}");
+            SensorsController? sensorsController = IoCContainer.Resolve<SensorsController>();
+            var sensorsControllerTypeName = sensorsController?.GetControllerAsync().Result?.GetType().Name ?? "Null SensorsController or Result";
+            Log.Instance.Trace($"Using {sensorsControllerTypeName}");
+
+
+            GodModeController? godModeController = IoCContainer.Resolve<GodModeController>();
+            var godModeControllerTypeName = godModeController?.Controller?.GetType().Name ?? "Null";
+            Log.Instance.Trace($"Using {godModeControllerTypeName}");
         }
     }
 }
