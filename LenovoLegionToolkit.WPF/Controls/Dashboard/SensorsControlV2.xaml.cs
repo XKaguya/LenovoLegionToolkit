@@ -156,7 +156,7 @@ public partial class SensorsControlV2
                     {
                         if (Log.Instance.IsTraceEnabled)
                             Log.Instance.Trace($"Sensor refresh failed: {ex}");
-                        Dispatcher.Invoke(ClearAllSensorValues);
+                        await Dispatcher.BeginInvoke(ClearAllSensorValues);
                     }
                 }
             }, token);
