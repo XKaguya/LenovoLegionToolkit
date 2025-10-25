@@ -146,7 +146,7 @@ public partial class SensorsControlV2
                             memoryTemperaturesTask,
                             batteryInfoTask
                         ).ConfigureAwait(false);
-                        Dispatcher.Invoke(() => UpdateAllSensorValues(dataTask.Result, cpuPowerTask.Result, gpuPowerTask.Result, gpuVramTask.Result, diskTemperaturesTask.Result, memoryUsageTask.Result, memoryTemperaturesTask.Result, batteryInfoTask.Result), DispatcherPriority.Background);
+                        await Dispatcher.BeginInvoke(() => UpdateAllSensorValues(dataTask.Result, cpuPowerTask.Result, gpuPowerTask.Result, gpuVramTask.Result, diskTemperaturesTask.Result, memoryUsageTask.Result, memoryTemperaturesTask.Result, batteryInfoTask.Result), DispatcherPriority.Background);
                         await Task.Delay(TimeSpan.FromSeconds(_dashboardSettings.Store.SensorsRefreshIntervalSeconds), token);
                     }
                     catch (OperationCanceledException)
