@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -336,16 +336,16 @@ Alleen acties die overeenkomen met de huidige status worden uitgevoerd.</value>
     <value>Ontlading snelheid</value>
   </data>
   <data name="BatteryPage_MinDischargeRate_Message" xml:space="preserve">
-    <value>Minimum rate at which battery is charged (+), or discharged (-).</value>
+    <value>Minimumsnelheid waarbij de batterij opgeladen, (+) of ontladen (-) wordt.</value>
   </data>
   <data name="BatteryPage_MinDischargeRate_Title" xml:space="preserve">
-    <value>Minimum discharge rate</value>
+    <value>Minimum ontlaad snelheid</value>
   </data>
   <data name="BatteryPage_MaxDischargeRate_Message" xml:space="preserve">
-    <value>Maximum rate at which battery is charged (+), or discharged (-).</value>
+    <value>Maximumsnelheid waarbij de batterij opgeladen, (+) of ontladen (-) wordt.</value>
   </data>
   <data name="BatteryPage_MaxDischargeRate_Title" xml:space="preserve">
-    <value>Maximum discharge rate</value>
+    <value>Maximum ontlaad snelheid</value>
   </data>
   <data name="BatteryPage_EstimatedBatteryLifeRemaining" xml:space="preserve">
     <value>Geschatte resterende tijd: {0}</value>
@@ -366,10 +366,10 @@ Alleen acties die overeenkomen met de huidige status worden uitgevoerd.</value>
     <value>Volledige laadcapaciteit</value>
   </data>
   <data name="BatteryPage_BatteryHealth_Message" xml:space="preserve">
-    <value>Battery maximum charge capacity.</value>
+    <value>Maximum oplaadcapaciteit van de batterij.</value>
   </data>
   <data name="BatteryPage_BatteryHealth_Title" xml:space="preserve">
-    <value>Battery health</value>
+    <value>Batterij gezondheid</value>
   </data>
   <data name="BatteryPage_LowWattageChargerConnected" xml:space="preserve">
     <value>Lader met laag wattage aangesloten</value>
@@ -863,7 +863,7 @@ WAARSCHUWING: Deze actie wordt niet correct uitgevoerd als het interne display i
     <value>Achtergrondverlichting {0}</value>
   </data>
   <data name="NotificationsSettingsWindow_ACAdapter" xml:space="preserve">
-    <value>AC Adapter</value>
+    <value>Oplader</value>
   </data>
   <data name="NotificationsSettingsWindow_Camera" xml:space="preserve">
     <value>Camera</value>
@@ -1235,7 +1235,7 @@ Een herstart wordt aanbevolen na het wijzigen van deze optie.</value>
     <value>Notificaties</value>
   </data>
   <data name="SettingsPage_UpdateMethod_Title" xml:space="preserve">
-    <value>Update Method</value>
+    <value>Update methode</value>
   </data>
   <data name="SettingsPage_WindowsPowerPlans_Title" xml:space="preserve">
     <value>Energieschema's</value>
@@ -2456,65 +2456,64 @@ Click Yes to disable and No to ignore.</value>
   <data name="DialogWindow_DontShowAgain" xml:space="preserve">
     <value>Don't show again.</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="ITSModeControl_Dialog_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="ITSModeControl_Dialog_Title" xml:space="preserve">
+    <value>Missing Compoment</value>
   </data>
-  <data name="ITSModeControl_Dialog_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="ITSModeControl_Dialog_Message" xml:space="preserve">
+    <value>PowerBattery.dll is missing. Please place it manually to use ITSMode feature.</value>
   </data>
-  <data name="ITSModeControl_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="ITSModeControl_Title" xml:space="preserve">
+    <value>IdeaPad Power Mode</value>
   </data>
-  <data name="ITSModeControl_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="ITSModeControl_Message" xml:space="preserve">
+    <value>Change IdeaPad Power Mode</value>
   </data>
-  <data name="ITSModeAutomationStepControl_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="ITSModeAutomationStepControl_Title" xml:space="preserve">
+    <value>IdeaPad Power Mode</value>
   </data>
-  <data name="ITSModeAutomationStepControl_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="ITSModeAutomationStepControl_Message" xml:space="preserve">
+    <value>Change IdeaPad Power Mode</value>
   </data>
-  <data name="SettingsPage_FloatingGadgets_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="SettingsPage_FloatingGadgets_Title" xml:space="preserve">
+    <value>Enable Floating Gadget</value>
   </data>
-  <data name="SettingsPage_FloatingGadgets_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="SettingsPage_FloatingGadgets_Message" xml:space="preserve">
+    <value>Floating Gadgets​​ is a floating window that displays real-time sensor information in an overlay style.</value>
   </data>
-  <data name="SettingsPage_FloatingGadgets_Tooltip" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="SettingsPage_FloatingGadgets_Tooltip" xml:space="preserve">
+    <value>Controls sensor refresh interval.</value>
   </data>
-  <data name="FloatingGadgets_Memory_Utilization" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="FloatingGadgets_Memory_Utilization" xml:space="preserve">
+    <value>Memory Utilization</value>
   </data>
-  <data name="FloatingGadgets_Memory_Temperature" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="FloatingGadgets_Memory_Temperature" xml:space="preserve">
+    <value>Memory Temperature</value>
   </data>
-  <data name="FloatingGadgets_Disk_0_Temperature" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="FloatingGadgets_Disk_0_Temperature" xml:space="preserve">
+    <value>Disk 1 Temperature</value>
   </data>
-  <data name="FloatingGadgets_Disk_1_Temperature" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="FloatingGadgets_Disk_1_Temperature" xml:space="preserve">
+    <value>Disk 2 Temperature</value>
   </data>
-  <data name="FloatingGadgets_CPU_Fan" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="FloatingGadgets_CPU_Fan" xml:space="preserve">
+    <value>CPU Fan</value>
   </data>
-  <data name="FloatingGadgets_GPU_Fan" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="FloatingGadgets_GPU_Fan" xml:space="preserve">
+    <value>GPU Fan</value>
   </data>
-  <data name="FloatingGadgets_PCH_Fan" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="FloatingGadgets_PCH_Fan" xml:space="preserve">
+    <value>PCH Fan</value>
   </data>
-  <data name="FloatingGadgets_Fans" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="FloatingGadgets_Fans" xml:space="preserve">
+    <value>Fans</value>
   </data>
-  <data name="FloatingGadgets_Chipset" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="FloatingGadgets_Chipset" xml:space="preserve">
+    <value>Chipset</value>
   </data>
-  <data name="FloatingGadgets_Gpu" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="FloatingGadgets_Gpu" xml:space="preserve">
+    <value>GPU</value>
   </data>
-  <data name="FloatingGadgets_Cpu" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="FloatingGadgets_Cpu" xml:space="preserve">
+    <value>CPU</value>
   </data>
 </root>
