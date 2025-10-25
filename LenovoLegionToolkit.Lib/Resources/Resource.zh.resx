@@ -118,90 +118,90 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccentColorSource_Custom" xml:space="preserve">
-    <value>客製化</value>
+    <value>自定义</value>
   </data>
   <data name="AccentColorSource_System" xml:space="preserve">
-    <value>跟隨系統</value>
+    <value>跟随系统</value>
   </data>
   <data name="AlwaysOnUSBState_Off" xml:space="preserve">
-    <value>關閉</value>
+    <value>关闭</value>
   </data>
   <data name="AlwaysOnUSBState_OnAlways" xml:space="preserve">
-    <value>保持開啟</value>
+    <value>保持开启</value>
   </data>
   <data name="AlwaysOnUSBState_OnWhenSleeping" xml:space="preserve">
-    <value>僅限睡眠時</value>
+    <value>仅在睡眠时</value>
   </data>
   <data name="AutorunState_Disabled" xml:space="preserve">
-    <value>停用</value>
+    <value>关闭</value>
   </data>
   <data name="AutorunState_Enabled" xml:space="preserve">
-    <value>啟用</value>
+    <value>开启</value>
   </data>
   <data name="AutorunState_EnabledDelayed" xml:space="preserve">
-    <value>延遲開啟</value>
+    <value>延迟开启</value>
   </data>
   <data name="BatteryState_Conservation" xml:space="preserve">
-    <value>保養</value>
+    <value>养护</value>
   </data>
   <data name="BatteryState_Normal" xml:space="preserve">
-    <value>一般</value>
+    <value>常规</value>
   </data>
   <data name="BatteryState_RapidCharge" xml:space="preserve">
-    <value>快速充電</value>
+    <value>快充</value>
   </data>
   <data name="FlipToStartState_Off" xml:space="preserve">
-    <value>關閉</value>
+    <value>关</value>
     <comment>Informs the user that Flip to Start is or will be turned off.</comment>
   </data>
   <data name="FlipToStartState_On" xml:space="preserve">
-    <value>開啟</value>
+    <value>开</value>
     <comment>Informs the user that Flip to Start is or will be turned on.</comment>
   </data>
   <data name="FnLockState_Off" xml:space="preserve">
-    <value>關閉</value>
+    <value>关</value>
     <comment>Informs the user that Fn Lock is or will be turned off.</comment>
   </data>
   <data name="FnLockState_On" xml:space="preserve">
-    <value>開啟</value>
+    <value>开</value>
     <comment>Informs the user that Fn Lock is or will be turned on.</comment>
   </data>
   <data name="GPUController_PoweredOff" xml:space="preserve">
-    <value>關機</value>
+    <value>关闭</value>
   </data>
   <data name="GPUController_PoweredOn" xml:space="preserve">
-    <value>已啟動</value>
+    <value>启用</value>
   </data>
   <data name="HDRState_Off" xml:space="preserve">
-    <value>關閉</value>
+    <value>关</value>
     <comment>Informs the user that HDR is or will be turned off.</comment>
   </data>
   <data name="HDRState_On" xml:space="preserve">
-    <value>開啟</value>
+    <value>开</value>
     <comment>Informs the user that HDR is or will be turned on.</comment>
   </data>
   <data name="HybridModeState_Off" xml:space="preserve">
-    <value>獨立顯示卡直接連接模式（dGPU）</value>
+    <value>独显直连模式</value>
   </data>
   <data name="HybridModeState_On" xml:space="preserve">
-    <value>混合模式（Hybrid）</value>
+    <value>混合模式</value>
   </data>
   <data name="HybridModeState_OnAuto" xml:space="preserve">
-    <value>混合自動模式（Hybrid-Auto）</value>
+    <value>混合自动模式</value>
   </data>
   <data name="HybridModeState_OnIGPUOnly" xml:space="preserve">
-    <value>混合內建顯示卡模式（Hybrid-iGPU）</value>
+    <value>混合核显模式</value>
   </data>
   <data name="MicrophoneState_Off" xml:space="preserve">
-    <value>關閉</value>
+    <value>关</value>
     <comment>Informs the user that the microphone is or will be turned off.</comment>
   </data>
   <data name="MicrophoneState_On" xml:space="preserve">
-    <value>開啟</value>
+    <value>开</value>
     <comment>Informs the user that the microphone is or will be turned on.</comment>
   </data>
   <data name="NotificationPosition_BottomCenter" xml:space="preserve">
-    <value>底部置中</value>
+    <value>底部居中</value>
   </data>
   <data name="NotificationPosition_BottomLeft" xml:space="preserve">
     <value>左下角</value>
@@ -210,16 +210,16 @@
     <value>右下角</value>
   </data>
   <data name="NotificationPosition_Center" xml:space="preserve">
-    <value>置中</value>
+    <value>居中</value>
   </data>
   <data name="NotificationPosition_CenterLeft" xml:space="preserve">
-    <value>置中左側</value>
+    <value>中间左侧</value>
   </data>
   <data name="NotificationPosition_CenterRight" xml:space="preserve">
-    <value>置中右側</value>
+    <value>中间右侧</value>
   </data>
   <data name="NotificationPosition_TopCenter" xml:space="preserve">
-    <value>頂部置中</value>
+    <value>顶部居中</value>
   </data>
   <data name="NotificationPosition_TopLeft" xml:space="preserve">
     <value>左上角</value>
@@ -228,32 +228,32 @@
     <value>右上角</value>
   </data>
   <data name="OneLevelWhiteKeyboardBacklightState_Off" xml:space="preserve">
-    <value>關閉</value>
+    <value>关</value>
     <comment>Informs the user that One Level White Keyboard Backlight is or will be turned off.</comment>
   </data>
   <data name="OneLevelWhiteKeyboardBacklightState_On" xml:space="preserve">
-    <value>開啟</value>
+    <value>开</value>
     <comment>Informs the user that One Level White Keyboard Backlight is or will be turned on.</comment>
   </data>
   <data name="OverdriveState_Off" xml:space="preserve">
-    <value>關閉</value>
+    <value>关</value>
     <comment>Informs the user that Overdrive is or will be turned off.</comment>
   </data>
   <data name="OverdriveState_On" xml:space="preserve">
-    <value>開啟</value>
+    <value>开</value>
     <comment>Informs the user that Overdrive is or will be turned on.</comment>
   </data>
   <data name="PowerModeState_Balance" xml:space="preserve">
-    <value>平衡模式</value>
+    <value>均衡模式</value>
   </data>
   <data name="PowerModeState_GodMode" xml:space="preserve">
-    <value>客製化</value>
+    <value>自定义模式</value>
   </data>
   <data name="PowerModeState_Performance" xml:space="preserve">
-    <value>效能模式</value>
+    <value>野兽模式</value>
   </data>
   <data name="PowerModeState_Quiet" xml:space="preserve">
-    <value>靜音模式</value>
+    <value>安静模式</value>
   </data>
   <data name="RGBKeyboardBacklightSpeed_Fast" xml:space="preserve">
     <value>快</value>
@@ -268,10 +268,10 @@
     <value>最慢</value>
   </data>
   <data name="RGBKeyboardBacklightBrightness_High" xml:space="preserve">
-    <value>高</value>
+    <value>高亮度</value>
   </data>
   <data name="RGBKeyboardBacklightBrightness_Low" xml:space="preserve">
-    <value>低</value>
+    <value>低亮度</value>
   </data>
   <data name="RGBKeyboardBacklightEffect_Breath" xml:space="preserve">
     <value>呼吸</value>
@@ -455,7 +455,7 @@
     <value>Shift</value>
   </data>
   <data name="ModifierKey_Ctrl" xml:space="preserve">
-    <value>Ctrl  </value>
+    <value>Ctrl</value>
   </data>
   <data name="ModifierKey_Alt" xml:space="preserve">
     <value>Alt</value>
