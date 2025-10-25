@@ -447,7 +447,8 @@ public static partial class Compatibility
 
     private static bool GetSupportITSMode(string model)
     {
-        return model.Contains("IdeaPad") || model.Contains("Lenovo Slim") || model.Contains("YOGA");
+        var lower = model.ToLowerInvariant();
+        return lower.Contains("IdeaPad".ToLowerInvariant()) || lower.Contains("Lenovo Slim".ToLowerInvariant()) || lower.Contains("YOGA".ToLowerInvariant());
     }
 
     private static int GetMachineGeneration(string model)
@@ -490,15 +491,19 @@ public static partial class Compatibility
             return seriesByMachineType;
         }
 
-        if (model.Contains("LOQ"))
+        if (model.ToLowerInvariant().Contains("LOQ".ToLowerInvariant()))
         {
             return LegionSeries.LOQ;
         }
-        else if (model.Contains("IdeaPad"))
+        else if (model.ToLowerInvariant().Contains("IdeaPad".ToLowerInvariant()))
         {
             return LegionSeries.IdeaPad;
         }
-        else if (model.Contains("Lenovo Slim"))
+        else if (model.ToLowerInvariant().Contains(("YOGA").ToLowerInvariant()))
+        {
+            return LegionSeries.YOGA;
+        }
+        else if (model.ToLowerInvariant().Contains("Lenovo Slim".ToLowerInvariant()))
         {
             return LegionSeries.Lenovo_Slim;
         }

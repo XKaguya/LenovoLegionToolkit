@@ -865,11 +865,11 @@ public partial class SettingsPage
 
         if (state.Value)
         {
-            App.Current.FloatingGadget.Show();
+            App.Current.FloatingGadget!.Show();
         }
         else
         {
-            App.Current.FloatingGadget.Hide();
+            App.Current.FloatingGadget!.Hide();
         }
 
         _settings.Store.ShowFloatingGadgets = state.Value;

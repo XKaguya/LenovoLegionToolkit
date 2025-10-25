@@ -182,7 +182,9 @@ public partial class App
         CheckFloatingGadget();
 
         if (Log.Instance.IsTraceEnabled)
+        {
             Log.Instance.Trace($"Start up complete");
+        }
     }
 
     private void Application_Exit(object sender, ExitEventArgs e)
