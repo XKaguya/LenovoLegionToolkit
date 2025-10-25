@@ -29,6 +29,9 @@ public static partial class Compatibility
     private const string ALLOWED_VENDOR = "LENOVO";
 
     private static readonly string[] AllowedModelsPrefix = [
+        // Legion Go
+        "8APU1",
+
         // Worldwide variants
         "17ACH",
         "17ARH",
@@ -44,6 +47,7 @@ public static partial class Compatibility
         "16ARX",
         "16IAH",
         "16IAX",
+        "16IMH",
         "16IRH",
         "16IRX",
         "16ITH",
@@ -443,7 +447,9 @@ public static partial class Compatibility
 
     private static bool GetSupportITSMode(string model)
     {
-        return model.Contains("IdeaPad") || model.Contains("Lenovo Slim") || model.Contains("YOGA");
+        var lower = model.ToLowerInvariant();
+        return lower.Contains("IdeaPad".ToLowerInvariant()) || lower.Contains("Lenovo Slim".ToLowerInvariant()); // || lower.Contains("YOGA".ToLowerInvariant());
+                                                                                                                 // Comment this line due to YOGA does not support ITS Mode from user's report.
     }
 
     private static int GetMachineGeneration(string model)
@@ -476,6 +482,8 @@ public static partial class Compatibility
 
             "83G0" or "83EY" => LegionSeries.Legion_9,
 
+            "83E1" => LegionSeries.Legion_Go,
+
             _ => LegionSeries.Unknown
         };
 
@@ -484,15 +492,19 @@ public static partial class Compatibility
             return seriesByMachineType;
         }
 
-        if (model.Contains("LOQ"))
+        if (model.ToLowerInvariant().Contains("LOQ".ToLowerInvariant()))
         {
             return LegionSeries.LOQ;
         }
-        else if (model.Contains("IdeaPad"))
+        else if (model.ToLowerInvariant().Contains("IdeaPad".ToLowerInvariant()))
         {
             return LegionSeries.IdeaPad;
         }
-        else if (model.Contains("Lenovo Slim"))
+        else if (model.ToLowerInvariant().Contains(("YOGA").ToLowerInvariant()))
+        {
+            return LegionSeries.YOGA;
+        }
+        else if (model.ToLowerInvariant().Contains("Lenovo Slim".ToLowerInvariant()))
         {
             return LegionSeries.Lenovo_Slim;
         }
@@ -537,6 +549,7 @@ public static partial class Compatibility
             "IAX10",
             "NX",
             "IRX10",
+            "AFR10",
         };
 
         return affectedModel.Any(model => machineModel?.Contains(model) ?? false);
@@ -643,10 +656,14 @@ public static partial class Compatibility
     {
         if (Log.Instance.IsTraceEnabled)
         {
-            SensorsController sensorsController = IoCContainer.Resolve<SensorsController>();
-            Log.Instance.Trace($"Using {sensorsController.GetControllerAsync().Result.GetType().Name}");
-            GodModeController godModeController = IoCContainer.Resolve<GodModeController>();
-            Log.Instance.Trace($"Using {(godModeController.Controller != null ? godModeController.Controller.GetType().Name : "Null")}");
+            SensorsController? sensorsController = IoCContainer.Resolve<SensorsController>();
+            var sensorsControllerTypeName = sensorsController?.GetControllerAsync().Result?.GetType().Name ?? "Null SensorsController or Result";
+            Log.Instance.Trace($"Using {sensorsControllerTypeName}");
+
+
+            GodModeController? godModeController = IoCContainer.Resolve<GodModeController>();
+            var godModeControllerTypeName = godModeController?.Controller?.GetType().Name ?? "Null";
+            Log.Instance.Trace($"Using {godModeControllerTypeName}");
         }
     }
 }

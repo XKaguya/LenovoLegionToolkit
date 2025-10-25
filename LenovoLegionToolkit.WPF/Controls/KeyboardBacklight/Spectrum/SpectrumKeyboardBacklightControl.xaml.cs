@@ -289,7 +289,7 @@ public partial class SpectrumKeyboardBacklightControl
         var keyCodesList = checkedButtons.Select(b => b.KeyCode).ToList();
 
         SpectrumAmbientZoneControl? ambientButton = _device.GetAmbientButton();
-        if (ambientButton is not null)
+        if (ambientButton is not null && ambientButton.IsChecked.Value)
         {
             keyCodesList.AddRange(ambientButton.KeyCodes);
         }

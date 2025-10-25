@@ -68,13 +68,8 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
 
         public bool IsLibreHardwareMonitorInitialized()
         {
-            if (InitialState == LibreHardwareMonitorInitialState.Initialized ||
-                InitialState == LibreHardwareMonitorInitialState.Success)
-            {
-                return true;
-            }
-
-            return false;
+            return InitialState == LibreHardwareMonitorInitialState.Initialized ||
+                   InitialState == LibreHardwareMonitorInitialState.Success;
         }
 
         private void GetInterestedHardwares()
@@ -83,15 +78,23 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
             {
                 if (_hardwaresInitialized) return;
 
-                if ((Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\PawnIO", "InstallLocation", null) ??
-                 Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\PawnIO", "Install_Dir", null) ??
-                 Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + Path.DirectorySeparatorChar + "PawnIO") is string
-                    {
-                        Length: > 0
-                    } path)
+                string? pawnIoPath = null;
+                if (Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\PawnIO", "InstallLocation", null) is string path1 && path1.Length > 0)
                 {
-                    if (!Directory.Exists(path))
-                        throw new DllNotFoundException();
+                    pawnIoPath = path1;
+                }
+                else if (Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\PawnIO", "Install_Dir", null) is string path2 && path2.Length > 0)
+                {
+                    pawnIoPath = path2;
+                }
+                else
+                {
+                    pawnIoPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "PawnIO");
+                }
+
+                if (!Directory.Exists(pawnIoPath))
+                {
+                    throw new DllNotFoundException();
                 }
 
                 try
@@ -131,32 +134,32 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
             }
         }
 
-        public async Task<string> GetCpuNameAsync()
+        public Task<string> GetCpuNameAsync()
         {
             if (!IsLibreHardwareMonitorInitialized())
             {
-                return "UNKNOWN";
+                return Task.FromResult("UNKNOWN");
             }
 
             if (_cpuHardware == null)
             {
-                return "UNKNOWN";
+                return Task.FromResult("UNKNOWN");
             }
 
             if (!string.IsNullOrEmpty(_cachedCpuName))
             {
-                return _cachedCpuName;
+                return Task.FromResult(_cachedCpuName);
             }
 
             _cachedCpuName = StripName(_cpuHardware.Name);
-            return _cachedCpuName;
+            return Task.FromResult(_cachedCpuName);
         }
 
-        public async Task<string> GetGpuNameAsync()
+        public Task<string> GetGpuNameAsync()
         {
             if (!IsLibreHardwareMonitorInitialized())
             {
-                return "UNKNOWN";
+                return Task.FromResult("UNKNOWN");
             }
 
             if (string.IsNullOrEmpty(_cachedGpuName) || _needRefreshGpuHardware)
@@ -166,28 +169,20 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                 _needRefreshGpuHardware = false;
             }
 
-            return _cachedGpuName;
+            return Task.FromResult(_cachedGpuName);
         }
 
-
-        public async Task<float> GetCpuPowerAsync()
+        public Task<float> GetCpuPowerAsync()
         {
-            if (!IsLibreHardwareMonitorInitialized())
+            if (!IsLibreHardwareMonitorInitialized() || _cpuHardware == null)
             {
-                return 0;
+                return Task.FromResult(0f);
             }
-
-            if (_cpuHardware == null)
-            {
-                return 0;
-            }
-
-            _cpuHardware.Update();
 
             var sensor = _cpuHardware.Sensors?
-              .FirstOrDefault(s => s.SensorType == SensorType.Power);
+                .FirstOrDefault(s => s.SensorType == SensorType.Power);
 
-            return sensor?.Value ?? 0;
+            return Task.FromResult(sensor?.Value ?? 0);
         }
 
         public async Task<float> GetGpuPowerAsync()
@@ -214,12 +209,10 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
 
             try
             {
-                _gpuHardware.Update();
-
                 var sensor = _gpuHardware.Sensors?
-                  .FirstOrDefault(s => s.SensorType == SensorType.Power);
+                    .FirstOrDefault(s => s.SensorType == SensorType.Power);
                 _lastGpuPower = sensor?.Value ?? 0;
-                return sensor?.Value ?? 0;
+                return _lastGpuPower;
             }
             catch (Exception ex)
             {
@@ -239,7 +232,8 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                 return 0;
             }
 
-             if (_lastGpuPower <= 10 && (await _gpuController.GetLastKnownStateAsync() == GPUState.Inactive || await _gpuController.GetLastKnownStateAsync() == GPUState.PoweredOff))
+            var gpuState = await _gpuController.GetLastKnownStateAsync();
+            if (_lastGpuPower <= 10 && (gpuState == GPUState.Inactive || gpuState == GPUState.PoweredOff))
             {
                 return 0;
             }
@@ -249,17 +243,16 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                 return 0;
             }
 
-            _gpuHardware.Update();
             var sensor = _gpuHardware.Sensors?
-              .FirstOrDefault(s => s.SensorType == SensorType.Temperature && s.Name.Contains("GPU Memory Junction", StringComparison.OrdinalIgnoreCase));
+                .FirstOrDefault(s => s.SensorType == SensorType.Temperature && s.Name.Contains("GPU Memory Junction", StringComparison.OrdinalIgnoreCase));
             return sensor?.Value ?? 0;
         }
 
-        public async Task<(float, float)> GetSSDTemperaturesAsync()
+        public Task<(float, float)> GetSSDTemperaturesAsync()
         {
             if (!IsLibreHardwareMonitorInitialized())
             {
-                return (0, 0);
+                return Task.FromResult((0f, 0f));
             }
 
             var temps = new List<float>();
@@ -272,10 +265,8 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
 
                 if (storageHardwares.Count == 0)
                 {
-                    return (0, 0);
+                    return Task.FromResult((0f, 0f));
                 }
-
-                storageHardwares.ForEach(h => h.Update());
 
                 foreach (var storage in storageHardwares)
                 {
@@ -294,52 +285,44 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                     Log.Instance.Trace($"SSD temperature read error: {ex.Message}");
                 }
 
-                return (0, 0);
+                return Task.FromResult((0f, 0f));
             }
 
             switch (temps.Count)
             {
-                case 0:
-                    return (0, 0);
-                case 1:
-                    return (temps[0], 0);
-                default:
-                    return (temps[0], temps[1]);
+                case 0: return Task.FromResult((0f, 0f));
+                case 1: return Task.FromResult((temps[0], 0f));
+                default: return Task.FromResult((temps[0], temps[1]));
             }
         }
 
-        public async Task<float> GetMemoryUsageAsync()
+        public Task<float> GetMemoryUsageAsync()
         {
-            if (!IsLibreHardwareMonitorInitialized())
+            if (!IsLibreHardwareMonitorInitialized() || _memoryHardware == null)
             {
-                return 0;
+                return Task.FromResult(0f);
             }
 
-            _memoryHardware?.Update();
-
-            if (_memoryHardware == null) return 0;
-
-            return _memoryHardware.Sensors?
-              .FirstOrDefault(s => s.SensorType == SensorType.Load)?
-              .Value ?? 0;
+            return Task.FromResult(_memoryHardware.Sensors?
+                .FirstOrDefault(s => s.SensorType == SensorType.Load)?
+                .Value ?? 0);
         }
 
-        public async Task<double> GetHighestMemoryTemperatureAsync()
+        public Task<double> GetHighestMemoryTemperatureAsync()
         {
             if (!IsLibreHardwareMonitorInitialized())
             {
-                return 0;
+                return Task.FromResult(0.0);
             }
 
             var memoryHardwares = _interestedHardwares
-              .Where(h => h.HardwareType == HardwareType.Memory);
+                .Where(h => h.HardwareType == HardwareType.Memory);
 
-            if (memoryHardwares == null || !memoryHardwares.Any()) return 0;
+            if (memoryHardwares == null || !memoryHardwares.Any()) return Task.FromResult(0.0);
 
             float maxTemperature = 0;
             foreach (var memoryHardware in memoryHardwares)
             {
-                memoryHardware.Update();
                 if (memoryHardware.Sensors == null) continue;
 
                 foreach (var sensor in memoryHardware.Sensors)
@@ -353,7 +336,7 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                     }
                 }
             }
-            return maxTemperature;
+            return Task.FromResult((double)maxTemperature);
         }
 
         private async Task<LibreHardwareMonitorInitialState> InitializeAsync()
@@ -409,7 +392,7 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
             }
         }
 
-        public async void NeedRefreshHardware(string hardware)
+        public void NeedRefreshHardware(string hardware)
         {
             if (!IsLibreHardwareMonitorInitialized())
             {
@@ -467,70 +450,35 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
             return Regex.Replace(cleanedName, @"\s+", " ").Trim();
         }
 
-        // Test methods to fix RTX 40 Series sensor issue.
-        //public string GetThermalSensors()
-        //{
-        //    NvApi.Reinitialize();
-        //    NvPhysicalGpuHandle[] handles = new NvPhysicalGpuHandle[NvApi.MAX_PHYSICAL_GPUS];
-        //    int count;
-        //    NvApi.NvAPI_EnumPhysicalGPUs(handles, out count);
-        //    StringBuilder values = new StringBuilder();
-        //    var thermalSensorsMask = 0u;
-        //    bool hasAnyThermalSensor = false;
+        public async Task UpdateAsync()
+        {
+            if (!IsLibreHardwareMonitorInitialized())
+                return;
 
-        //    foreach (var handle in handles)
-        //    {
-        //        for (int thermalSensorsMaxBit = 0; thermalSensorsMaxBit < 32; thermalSensorsMaxBit++)
-        //        {
-        //            // Find the maximum thermal sensor mask value.
-        //            thermalSensorsMask = 1u << thermalSensorsMaxBit;
+            await Task.Run(() =>
+            {
+                lock (_hardwareLock)
+                {
+                    if (_computer == null || !_hardwaresInitialized)
+                        return;
 
-        //            GetThermalSensors(thermalSensorsMask, out NvApi.NvStatus thermalSensorsStatus, handle);
-        //            if (thermalSensorsStatus == NvApi.NvStatus.OK)
-        //            {
-        //                hasAnyThermalSensor = true;
-        //                continue;
-        //            }
-
-        //            thermalSensorsMask--;
-        //            break;
-        //        }
-
-        //        if (thermalSensorsMask > 0)
-        //        {
-        //            NvApi.NvThermalSensors nvThermalSensors = GetThermalSensors(thermalSensorsMask, out NvApi.NvStatus status, handle);
-        //            if (status == NvApi.NvStatus.OK)
-        //            {
-        //                int i = 0;
-        //                foreach (var item in nvThermalSensors.Temperatures)
-        //                {
-        //                    ++i;
-        //                    values.AppendLine($"{handle.GetHashCode()} {i} {item / 256.0f}");
-        //                }
-        //            }
-        //        }
-        //    }
-
-        //    return values.ToString();
-        //}
-
-        //private NvApi.NvThermalSensors GetThermalSensors(uint mask, out NvApi.NvStatus status, NvApi.NvPhysicalGpuHandle handle)
-        //{
-        //    if (NvApi.NvAPI_GPU_ThermalGetSensors == null)
-        //    {
-        //        status = NvApi.NvStatus.Error;
-        //        return default;
-        //    }
-
-        //    var thermalSensors = new NvApi.NvThermalSensors
-        //    {
-        //        Version = (uint)NvApi.MAKE_NVAPI_VERSION<NvApi.NvThermalSensors>(2),
-        //        Mask = mask
-        //    };
-
-        //    status = NvApi.NvAPI_GPU_ThermalGetSensors(handle, ref thermalSensors);
-        //    return status == NvApi.NvStatus.OK ? thermalSensors : default;
-        //}
+                    try
+                    {
+                        foreach (var hardware in _interestedHardwares)
+                        {
+                            hardware?.Update();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        if (Log.Instance.IsTraceEnabled)
+                        {
+                            Log.Instance.Trace($"Failed to update sensors: {ex.Message}", ex);
+                        }
+                    }
+                }
+            }).ConfigureAwait(false);
+        }
 
         public void Dispose()
         {

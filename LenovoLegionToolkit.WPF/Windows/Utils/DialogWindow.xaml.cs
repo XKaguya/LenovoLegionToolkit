@@ -4,19 +4,19 @@ namespace LenovoLegionToolkit.WPF.Windows.Utils;
 
 public partial class DialogWindow
 {
-    public static readonly DependencyProperty TitleProperty =
+    public static new readonly DependencyProperty TitleProperty =
     DependencyProperty.Register("Title", typeof(string), typeof(DialogWindow));
 
-    public static readonly DependencyProperty ContentProperty =
+    public static new readonly DependencyProperty ContentProperty =
         DependencyProperty.Register("Content", typeof(string), typeof(DialogWindow));
 
-    public string Title
+    public new string Title
     {
         get => (string)GetValue(TitleProperty);
         set => SetValue(TitleProperty, value);
     }
 
-    public string Content
+    public new string Content
     {
         get => (string)GetValue(ContentProperty);
         set => SetValue(ContentProperty, value);

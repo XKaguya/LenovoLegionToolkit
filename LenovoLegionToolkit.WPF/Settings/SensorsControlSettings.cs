@@ -13,7 +13,7 @@ public class SensorsControlSettings() : AbstractSettings<SensorsControlSettings.
         public SensorItem[]? VisibleItems { get; set; } = SensorGroup.DefaultGroups.SelectMany(group => group.Items).ToArray();
     }
 
-    public void Reset()
+    public new void Reset()
     {
         Store = Default;
     }
