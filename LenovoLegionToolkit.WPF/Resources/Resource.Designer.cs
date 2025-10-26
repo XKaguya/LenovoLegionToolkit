@@ -5598,6 +5598,24 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Custom Background Image 的本地化字符串。
+        /// </summary>
+        public static string SettingsPage_Custom_BackgroundImage_Message {
+            get {
+                return ResourceManager.GetString("SettingsPage_Custom_BackgroundImage_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Custom Background Image 的本地化字符串。
+        /// </summary>
+        public static string SettingsPage_Custom_BackgroundImage_Title {
+            get {
+                return ResourceManager.GetString("SettingsPage_Custom_BackgroundImage_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Legion Space may have not been disabled correctly 的本地化字符串。
         /// </summary>
         public static string SettingsPage_DisableLegionSpace_Error_Message {
@@ -6040,6 +6058,42 @@ namespace LenovoLegionToolkit.WPF.Resources {
         public static string SettingsPage_PowerModeMapping_Title {
             get {
                 return ResourceManager.GetString("SettingsPage_PowerModeMapping_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 All Files 的本地化字符串。
+        /// </summary>
+        public static string SettingsPage_Select_BackgroundImage_AllFiles {
+            get {
+                return ResourceManager.GetString("SettingsPage_Select_BackgroundImage_AllFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Select Image 的本地化字符串。
+        /// </summary>
+        public static string SettingsPage_Select_BackgroundImage_Content {
+            get {
+                return ResourceManager.GetString("SettingsPage_Select_BackgroundImage_Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Image File 的本地化字符串。
+        /// </summary>
+        public static string SettingsPage_Select_BackgroundImage_ImageFile {
+            get {
+                return ResourceManager.GetString("SettingsPage_Select_BackgroundImage_ImageFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Select Background Image 的本地化字符串。
+        /// </summary>
+        public static string SettingsPage_Select_BackgroundImage_Title {
+            get {
+                return ResourceManager.GetString("SettingsPage_Select_BackgroundImage_Title", resourceCulture);
             }
         }
         

@@ -898,8 +898,8 @@ public partial class SettingsPage
 
         OpenFileDialog openFileDialog = new OpenFileDialog
         {
-            Filter = "Image File|*.jpg;*.jpeg;*.png;*.bmp|All Files|*.*",
-            Title = "Select Background Image File"
+            Filter = $"{Resource.SettingsPage_Select_BackgroundImage_ImageFile}|*.jpg;*.jpeg;*.png;*.bmp|{Resource.SettingsPage_Select_BackgroundImage_AllFiles}|*.*",
+            Title = $"{Resource.SettingsPage_Select_BackgroundImage_ImageFile}"
         };
 
         string filePath = string.Empty;

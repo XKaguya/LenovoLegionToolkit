@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
 using LenovoLegionToolkit.Lib.System;
 using Newtonsoft.Json;
@@ -23,6 +24,16 @@ public class RunAutomationStep(string? scriptPath, string? scriptArguments, bool
     {
         if (string.IsNullOrWhiteSpace(ScriptPath))
             return;
+
+        // Check if process already started, do not start another instance
+        var processList = Process.GetProcesses();
+        foreach(var process in processList)
+        {
+            if (ScriptPath.Contains(process.ProcessName))
+            {
+                return;
+            }
+        }
 
         var (_, output) = await CMD.RunAsync(ScriptPath,
             ScriptArguments ?? string.Empty,

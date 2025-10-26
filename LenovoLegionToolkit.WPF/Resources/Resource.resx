@@ -2515,4 +2515,22 @@ Click Yes to disable and No to ignore.</value>
   <data name="FloatingGadgets_Cpu" xml:space="preserve">
     <value>CPU</value>
   </data>
+  <data name="SettingsPage_Select_BackgroundImage_Title" xml:space="preserve">
+    <value>Select Background Image</value>
+  </data>
+  <data name="SettingsPage_Select_BackgroundImage_ImageFile" xml:space="preserve">
+    <value>Image File</value>
+  </data>
+  <data name="SettingsPage_Select_BackgroundImage_AllFiles" xml:space="preserve">
+    <value>All Files</value>
+  </data>
+  <data name="SettingsPage_Custom_BackgroundImage_Title" xml:space="preserve">
+    <value>Custom Background Image</value>
+  </data>
+  <data name="SettingsPage_Custom_BackgroundImage_Message" xml:space="preserve">
+    <value>Custom Background Image</value>
+  </data>
+  <data name="SettingsPage_Select_BackgroundImage_Content" xml:space="preserve">
+    <value>Select Image</value>
+  </data>
 </root>
