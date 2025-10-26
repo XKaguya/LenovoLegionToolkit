@@ -104,6 +104,8 @@ public partial class SettingsPage
         _useNewSensorDashboardToggle.IsChecked = _settings.Store.UseNewSensorDashboard;
         _lockWindowSizeToggle.IsChecked = _settings.Store.LockWindowSize;
 
+        _backgroundImageOpacitySlider.Value = _settings.Store.Opcity;
+
         var vantageStatus = await _vantageDisabler.GetStatusAsync();
         _vantageCard.Visibility = vantageStatus != SoftwareStatus.NotFound ? Visibility.Visible : Visibility.Collapsed;
         _vantageToggle.IsChecked = vantageStatus == SoftwareStatus.Disabled;
@@ -930,87 +932,11 @@ public partial class SettingsPage
 
     private void OpacitySlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
     {
-        var rootElement = App.MainWindowInstance!.Content as DependencyObject;
+        if (_isRefreshing)
+            return;
 
-        if (rootElement != null)
-        {
-            var allBorders = FindVisualChildren<Border>(rootElement);
-            foreach (var border in allBorders)
-            {
-                SetBorderOpacity(border, e.NewValue);
-            }
-
-            var allCardControls = FindVisualChildren<CardControl>(rootElement);
-            foreach (var cardControl in allCardControls)
-            {
-                SetCardControlOpacity(cardControl, e.NewValue);
-            }
-        }
+        App.MainWindowInstance!.SetWindowOpacity(e.NewValue);
+        _settings.Store.Opcity = e.NewValue;
+        _settings.SynchronizeStore();
     }
-
-    public static IEnumerable<T> FindVisualChildren<T>(DependencyObject parent) where T : DependencyObject
-    {
-        if (parent == null) yield break;
-
-        for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
-        {
-            var child = VisualTreeHelper.GetChild(parent, i);
-
-            if (child is T result)
-            {
-                yield return result;
-            }
-
-            foreach (var childOfChild in FindVisualChildren<T>(child))
-            {
-                yield return childOfChild;
-            }
-        }
-    }
-
-    private void SetBorderOpacity(Border border, double opacity)
-    {
-        if (border.Background != null)
-        {
-            var background = border.Background.Clone();
-            background.Opacity = opacity;
-            border.Background = background;
-        }
-
-        if (border.BorderBrush != null)
-        {
-            var borderBrush = border.BorderBrush.Clone();
-            borderBrush.Opacity = opacity;
-            border.BorderBrush = borderBrush;
-        }
-    }
-
-    private void SetCardControlOpacity(CardControl cardControl, double opacity)
-    {
-        if (cardControl.Background == null)
-        {
-            cardControl.Background = new SolidColorBrush(Colors.Transparent);
-        }
-
-        if (cardControl.Background.IsFrozen || cardControl.Background.IsSealed)
-        {
-            cardControl.Background = cardControl.Background.Clone();
-        }
-        cardControl.Background.Opacity = opacity;
-
-        if (cardControl.BorderBrush != null)
-        {
-            if (cardControl.BorderBrush.IsFrozen || cardControl.BorderBrush.IsSealed)
-            {
-                cardControl.BorderBrush = cardControl.BorderBrush.Clone();
-            }
-            cardControl.BorderBrush.Opacity = opacity;
-        }
-
-        if (cardControl.Content is UIElement content)
-        {
-            content.Opacity = 1.0;
-        }
-    }
-
 }

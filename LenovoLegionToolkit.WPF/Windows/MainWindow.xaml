@@ -90,7 +90,8 @@
                 Grid.Column="0"
                 Margin="0,0,12,12"
                 Frame="{Binding ElementName=_rootFrame}"
-                SelectedPageIndex="0">
+                SelectedPageIndex="0"
+                Navigated="NavigationStore_Navigated">
 
                 <wpfui:NavigationStore.Items>
                     <custom:NavigationItem

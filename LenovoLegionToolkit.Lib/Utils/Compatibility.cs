@@ -138,7 +138,6 @@ public static partial class Compatibility
             Properties = new()
             {
                 SupportsAlwaysOnAc = GetAlwaysOnAcStatus(),
-                // SupportsDIGPUMode = GetSupportsDIGPUModeAsync().ConfigureAwait(false),
                 SupportsExtremeMode = GetSupportsExtremeMode(supportedPowerModes, smartFanVersion, legionZoneVersion),
                 SupportsGodModeV1 = GetSupportsGodModeV1(supportedPowerModes, smartFanVersion, legionZoneVersion, biosVersion),
                 SupportsGodModeV2 = GetSupportsGodModeV2(supportedPowerModes, smartFanVersion, legionZoneVersion),
@@ -177,6 +176,8 @@ public static partial class Compatibility
             Log.Instance.Trace($"     * SupportsAlwaysOnAc: '{machineInformation.Properties.SupportsAlwaysOnAc.status}, {machineInformation.Properties.SupportsAlwaysOnAc.connectivity}'");
             Log.Instance.Trace($"     * SupportsGodModeV1: '{machineInformation.Properties.SupportsGodModeV1}'");
             Log.Instance.Trace($"     * SupportsGodModeV2: '{machineInformation.Properties.SupportsGodModeV2}'");
+            Log.Instance.Trace($"     * SupportsGodModeV3: '{machineInformation.Properties.SupportsGodModeV3}'");
+            Log.Instance.Trace($"     * SupportsGodModeV4: '{machineInformation.Properties.SupportsGodModeV4}'");
             Log.Instance.Trace($"     * SupportsGSync: '{machineInformation.Properties.SupportsGSync}'");
             Log.Instance.Trace($"     * SupportsIGPUMode: '{machineInformation.Properties.SupportsIGPUMode}'");
             Log.Instance.Trace($"     * SupportsAIMode: '{machineInformation.Properties.SupportsAIMode}'");
@@ -184,6 +185,7 @@ public static partial class Compatibility
             Log.Instance.Trace($"     * HasQuietToPerformanceModeSwitchingBug: '{machineInformation.Properties.HasQuietToPerformanceModeSwitchingBug}'");
             Log.Instance.Trace($"     * HasGodModeToOtherModeSwitchingBug: '{machineInformation.Properties.HasGodModeToOtherModeSwitchingBug}'");
             Log.Instance.Trace($"     * HasReapplyParameterIssue: '{machineInformation.Properties.HasReapplyParameterIssue}'");
+            Log.Instance.Trace($"     * HasSpectrumProfileSwitchingBug: '{machineInformation.Properties.HasSpectrumProfileSwitchingBug}'");
             Log.Instance.Trace($"     * IsExcludedFromLenovoLighting: '{machineInformation.Properties.IsExcludedFromLenovoLighting}'");
             Log.Instance.Trace($"     * IsExcludedFromPanelLogoLenovoLighting: '{machineInformation.Properties.IsExcludedFromPanelLogoLenovoLighting}'");
             Log.Instance.Trace($"     * HasAlternativeFullSpectrumLayout: '{machineInformation.Properties.HasAlternativeFullSpectrumLayout}'");
@@ -372,7 +374,9 @@ public static partial class Compatibility
     private static bool GetSupportsGodModeV3(IEnumerable<PowerModeState> supportedPowerModes, int smartFanVersion, int legionZoneVersion, int gen, string model)
     {
         if (!supportedPowerModes.Contains(PowerModeState.GodMode))
+        {
             return false;
+        }
 
         var affectedSeries = new LegionSeries[]
         {
@@ -382,9 +386,9 @@ public static partial class Compatibility
 
         var affectedModels = new string[]
         {
-            "Legion 5",
-            "Legion 7",
-            "Legion Pro 5 16IAX10H",
+            "Legion 5", // Y7000P
+            "Legion 7", // Y9000X, Not Y9000P.
+            "Legion Pro 5 16IAX10H", // Y7000P With RTX 5070TI
             "LOQ",
             "Y7000" 
         };
@@ -401,6 +405,8 @@ public static partial class Compatibility
     {
         if (!supportedPowerModes.Contains(PowerModeState.GodMode))
             return false;
+
+        // In theory, All models that has denied by GetSupportsGodModeV3() will be supported by GodModeControllerV4.
 
         return smartFanVersion is 8 or 9 || legionZoneVersion is 5 or 6;
     }
@@ -443,7 +449,12 @@ public static partial class Compatibility
         }
     }
 
-    private static bool GetSupportBootLogoChange(int smartFanVersion) => smartFanVersion < 9;
+    private static bool GetSupportBootLogoChange(int smartFanVersion)
+    {
+        // I don't know why. Which means every model should support Boot Logo Change.
+        // return smartFanVersion < 9;
+        return true;
+    }
 
     private static bool GetSupportITSMode(string model)
     {
@@ -509,17 +520,7 @@ public static partial class Compatibility
             return LegionSeries.Lenovo_Slim;
         }
 
-        Match match = Regex.Match(model, @"(Pro\s)?\d+");
-
-        if (match.Success)
-        {
-            var value = match.Value.Replace(" ", "_");
-            return Enum.Parse<LegionSeries>(value);
-        }
-        else
-        {
-            return LegionSeries.Unknown;
-        }
+        return LegionSeries.Unknown;
     }
 
     private static bool GetHasQuietToPerformanceModeSwitchingBug(BiosVersion? biosVersion)
@@ -544,23 +545,38 @@ public static partial class Compatibility
 
     private static bool GetHasReapplyParameterIssue(string? machineModel)
     {
-        var affectedModel = new List<string>
+        if (string.IsNullOrEmpty(machineModel))
         {
-            "IAX10",
-            "NX",
-            "IRX10",
-            "AFR10",
+            return false;
+        }
+
+        var affectedSeries = new LegionSeries[]
+        {
+            LegionSeries.Legion_5,
+            LegionSeries.Legion_7,
+            LegionSeries.Legion_9,
         };
 
-        return affectedModel.Any(model => machineModel?.Contains(model) ?? false);
+        var (_, type, _, _) = GetModelDataAsync().Result;
+        if (type == null)
+        {
+            return false;
+        }
+
+        return affectedSeries.Any(model =>GetLegionSeries(machineModel, type) == model);
     }
 
     private static bool GetHasSpectrumProfileSwitchingBug(string? machineModel)
     {
+        if (string.IsNullOrEmpty(machineModel))
+        {
+            return false;
+        }
+
         var affectedSeries = new LegionSeries[]
-         {
+        {
             LegionSeries.Legion_5,
-         };
+        };
 
         var affectedModel = new List<string>
         {
@@ -568,8 +584,16 @@ public static partial class Compatibility
             "15AHP10"
         };
 
-        var (_, type, _, _) = GetModelDataAsync().Result;
-        return affectedModel.Any(model => machineModel?.Contains(model) ?? false) && affectedSeries.Any(model => GetLegionSeries(machineModel, type) == model);
+        var(_, type, _, _) = GetModelDataAsync().Result;
+        if (type == null)
+        {
+            return false;
+        }
+
+        bool isAffectedModel = affectedModel.Any(model =>machineModel.Contains(model, StringComparison.OrdinalIgnoreCase));
+        bool isAffectedSeries = affectedSeries.Any(model =>GetLegionSeries(machineModel, type) == model);
+
+        return isAffectedModel && isAffectedSeries;
     }
 
     private static bool GetIsExcludedFromLenovoLighting(BiosVersion? biosVersion)
@@ -621,6 +645,12 @@ public static partial class Compatibility
     {
         if (Log.Instance.IsTraceEnabled)
         {
+            if (_machineInformation == null)
+            {
+                Log.Instance.Trace($"Machine information is not retrieved yet.");
+                return;
+            }
+
             Log.Instance.Trace($"Retrieved machine information:");
             Log.Instance.Trace($" * Generation: '{_machineInformation.Value.Generation}'");
             Log.Instance.Trace($" * Legion Series: '{_machineInformation.Value.LegionSeries}'");
@@ -646,6 +676,7 @@ public static partial class Compatibility
             Log.Instance.Trace($"     * HasQuietToPerformanceModeSwitchingBug: '{_machineInformation.Value.Properties.HasQuietToPerformanceModeSwitchingBug}'");
             Log.Instance.Trace($"     * HasGodModeToOtherModeSwitchingBug: '{_machineInformation.Value.Properties.HasGodModeToOtherModeSwitchingBug}'");
             Log.Instance.Trace($"     * HasReapplyParameterIssue: '{_machineInformation.Value.Properties.HasReapplyParameterIssue}'");
+            Log.Instance.Trace($"     * HasSpectrumProfileSwitchingBug: '{_machineInformation.Value.Properties.HasSpectrumProfileSwitchingBug}'");
             Log.Instance.Trace($"     * IsExcludedFromLenovoLighting: '{_machineInformation.Value.Properties.IsExcludedFromLenovoLighting}'");
             Log.Instance.Trace($"     * IsExcludedFromPanelLogoLenovoLighting: '{_machineInformation.Value.Properties.IsExcludedFromPanelLogoLenovoLighting}'");
             Log.Instance.Trace($"     * HasAlternativeFullSpectrumLayout: '{_machineInformation.Value.Properties.HasAlternativeFullSpectrumLayout}'");
