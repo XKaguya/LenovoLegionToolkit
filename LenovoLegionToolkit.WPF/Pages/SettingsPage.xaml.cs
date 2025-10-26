@@ -216,6 +216,7 @@ public partial class SettingsPage
         _floatingGadgetsToggle.Visibility = Visibility.Visible;
         _floatingGadgetsInterval.Visibility = Visibility.Visible;
         _selectBackgroundImageButton.Visibility = Visibility.Visible;
+        _clearBackgroundImageButton.Visibility = Visibility.Visible;
         _backgroundImageOpacitySlider.Visibility = Visibility.Visible;
 
         _isRefreshing = false;
@@ -937,6 +938,12 @@ public partial class SettingsPage
 
         App.MainWindowInstance!.SetWindowOpacity(e.NewValue);
         _settings.Store.Opacity = e.NewValue;
+        _settings.SynchronizeStore();
+    }
+
+    private void ClearBackgroundImageButton_Click(object sender, RoutedEventArgs e)
+    {
+        _settings.Store.BackGroundImageFilePath = string.Empty;
         _settings.SynchronizeStore();
     }
 }
