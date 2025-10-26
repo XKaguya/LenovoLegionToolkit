@@ -9,6 +9,7 @@ using LenovoLegionToolkit.Lib.System;
 using LenovoLegionToolkit.Lib.System.Management;
 using LenovoLegionToolkit.Lib.Utils;
 using LenovoLegionToolkit.WPF.CLI;
+using LenovoLegionToolkit.WPF.Controls.Custom;
 using LenovoLegionToolkit.WPF.Extensions;
 using LenovoLegionToolkit.WPF.Resources;
 using LenovoLegionToolkit.WPF.Utils;
@@ -17,12 +18,14 @@ using LenovoLegionToolkit.WPF.Windows.Settings;
 using LenovoLegionToolkit.WPF.Windows.Utils;
 using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace LenovoLegionToolkit.WPF.Pages;
 
@@ -211,6 +214,7 @@ public partial class SettingsPage
         _floatingGadgetsToggle.Visibility = Visibility.Visible;
         _floatingGadgetsInterval.Visibility = Visibility.Visible;
         _selectBackgroundImageButton.Visibility = Visibility.Visible;
+        _backgroundImageOpacitySlider.Visibility = Visibility.Visible;
 
         _isRefreshing = false;
     }
@@ -923,4 +927,90 @@ public partial class SettingsPage
             }
         }
     }
+
+    private void OpacitySlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+    {
+        var rootElement = App.MainWindowInstance!.Content as DependencyObject;
+
+        if (rootElement != null)
+        {
+            var allBorders = FindVisualChildren<Border>(rootElement);
+            foreach (var border in allBorders)
+            {
+                SetBorderOpacity(border, e.NewValue);
+            }
+
+            var allCardControls = FindVisualChildren<CardControl>(rootElement);
+            foreach (var cardControl in allCardControls)
+            {
+                SetCardControlOpacity(cardControl, e.NewValue);
+            }
+        }
+    }
+
+    public static IEnumerable<T> FindVisualChildren<T>(DependencyObject parent) where T : DependencyObject
+    {
+        if (parent == null) yield break;
+
+        for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
+        {
+            var child = VisualTreeHelper.GetChild(parent, i);
+
+            if (child is T result)
+            {
+                yield return result;
+            }
+
+            foreach (var childOfChild in FindVisualChildren<T>(child))
+            {
+                yield return childOfChild;
+            }
+        }
+    }
+
+    private void SetBorderOpacity(Border border, double opacity)
+    {
+        if (border.Background != null)
+        {
+            var background = border.Background.Clone();
+            background.Opacity = opacity;
+            border.Background = background;
+        }
+
+        if (border.BorderBrush != null)
+        {
+            var borderBrush = border.BorderBrush.Clone();
+            borderBrush.Opacity = opacity;
+            border.BorderBrush = borderBrush;
+        }
+    }
+
+    private void SetCardControlOpacity(CardControl cardControl, double opacity)
+    {
+        if (cardControl.Background == null)
+        {
+            cardControl.Background = new SolidColorBrush(Colors.Transparent);
+        }
+
+        if (cardControl.Background.IsFrozen || cardControl.Background.IsSealed)
+        {
+            cardControl.Background = cardControl.Background.Clone();
+        }
+        cardControl.Background.Opacity = opacity;
+
+        if (cardControl.BorderBrush != null)
+        {
+            if (cardControl.BorderBrush.IsFrozen || cardControl.BorderBrush.IsSealed)
+            {
+                cardControl.BorderBrush = cardControl.BorderBrush.Clone();
+            }
+            cardControl.BorderBrush.Opacity = opacity;
+        }
+
+        if (cardControl.Content is UIElement content)
+        {
+            content.Opacity = 1.0;
+        }
+    }
+
 }
