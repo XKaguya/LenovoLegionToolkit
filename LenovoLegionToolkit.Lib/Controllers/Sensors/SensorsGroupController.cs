@@ -469,6 +469,10 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                             hardware?.Update();
                         }
                     }
+                    catch (AccessViolationException)
+                    {   
+
+                    }
                     catch (Exception ex)
                     {
                         if (Log.Instance.IsTraceEnabled)
