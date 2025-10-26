@@ -455,7 +455,7 @@ public partial class MainWindow
     {
         var settings = IoCContainer.Resolve<ApplicationSettings>();
         var result = settings.Store.BackGroundImageFilePath;
-        var opacity = settings.Store.Opacity;
+        var opacity = settings.Store.Opacity; 
         try
         {
             if (result != string.Empty)

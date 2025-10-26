@@ -104,7 +104,7 @@ public partial class SettingsPage
         _useNewSensorDashboardToggle.IsChecked = _settings.Store.UseNewSensorDashboard;
         _lockWindowSizeToggle.IsChecked = _settings.Store.LockWindowSize;
 
-        _backgroundImageOpacitySlider.Value = _settings.Store.Opcity;
+        _backgroundImageOpacitySlider.Value = _settings.Store.Opacity;
 
         var vantageStatus = await _vantageDisabler.GetStatusAsync();
         _vantageCard.Visibility = vantageStatus != SoftwareStatus.NotFound ? Visibility.Visible : Visibility.Collapsed;
@@ -936,7 +936,7 @@ public partial class SettingsPage
             return;
 
         App.MainWindowInstance!.SetWindowOpacity(e.NewValue);
-        _settings.Store.Opcity = e.NewValue;
+        _settings.Store.Opacity = e.NewValue;
         _settings.SynchronizeStore();
     }
 }
