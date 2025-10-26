@@ -1,4 +1,4 @@
-﻿using LenovoLegionToolkit.Lib;
+﻿    using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Listeners;
 using LenovoLegionToolkit.Lib.Messaging;
 using LenovoLegionToolkit.Lib.Messaging.Messages;
@@ -20,6 +20,7 @@ using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using Windows.Win32;
 using Windows.Win32.System.Threading;
 using Wpf.Ui.Controls;
@@ -361,6 +362,16 @@ public partial class MainWindow
         SetEfficiencyMode(true);
         Hide();
         ShowInTaskbar = true;
+    }
+
+    public void SetMainWindowBackgroundImage(string filePath)
+    {
+        BitmapImage bitmap = new BitmapImage();
+        bitmap.BeginInit();
+        bitmap.UriSource = new Uri(filePath);
+        bitmap.CacheOption = BitmapCacheOption.OnLoad;
+        bitmap.EndInit();
+        _backgroundImage.ImageSource = bitmap;
     }
 
     private static unsafe void SetEfficiencyMode(bool enabled)

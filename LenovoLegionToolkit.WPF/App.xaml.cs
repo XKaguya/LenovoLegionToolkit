@@ -56,6 +56,7 @@ public partial class App
     public FloatingGadget? FloatingGadget = null;
 
     public new static App Current => (App)Application.Current;
+    public static MainWindow? MainWindowInstance = null;
 
     private async void Application_Startup(object sender, StartupEventArgs e)
     {
@@ -149,10 +150,12 @@ public partial class App
             DisableConflictingSoftwareWarning = flags.DisableConflictingSoftwareWarning
         };
         MainWindow = mainWindow;
+        MainWindowInstance = mainWindow;
 
         IoCContainer.Resolve<ThemeManager>().Apply();
 
         InitSetLogIndicator();
+        SetBackgroundImage();
 
         if (flags.Minimized)
         {
@@ -227,6 +230,9 @@ public partial class App
             WindowStartupLocation = WindowStartupLocation.CenterScreen
         };
         MainWindow = mainWindow;
+        MainWindowInstance = mainWindow;
+
+        SetBackgroundImage();
         mainWindow.Show();
     }
 
@@ -759,6 +765,27 @@ public partial class App
     {
         var controller = IoCContainer.Resolve<MacroController>();
         controller.Start();
+    }
+
+    private static void SetBackgroundImage()
+    {
+        var settings = IoCContainer.Resolve<ApplicationSettings>();
+        var result = settings.Store.BackGroundImageFilePath;
+        try
+        {
+            if (result != string.Empty)
+            {
+                MainWindowInstance!.SetMainWindowBackgroundImage(result);
+            }
+        }
+        catch (Exception ex)
+        {
+            SnackbarHelper.Show(Resource.Warning, ex.Message, SnackbarType.Error);
+            if (Log.Instance.IsTraceEnabled)
+            {
+                Log.Instance.Trace($"Exception occured when executing SetBackgroundImage().", ex);
+            }
+        }
     }
 
     private static void ShowPawnIONotify()

@@ -16,6 +16,10 @@
     FlowDirection="{x:Static utils:LocalizationHelper.Direction}">
 
     <Grid>
+        <Grid.Background>
+            <ImageBrush x:Name="_backgroundImage"/>
+        </Grid.Background>
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />

@@ -15,6 +15,7 @@ using LenovoLegionToolkit.WPF.Utils;
 using LenovoLegionToolkit.WPF.Windows;
 using LenovoLegionToolkit.WPF.Windows.Settings;
 using LenovoLegionToolkit.WPF.Windows.Utils;
+using Microsoft.Win32;
 using System;
 using System.Diagnostics;
 using System.Globalization;
@@ -209,6 +210,7 @@ public partial class SettingsPage
         _cliPathToggle.Visibility = Visibility.Visible;
         _floatingGadgetsToggle.Visibility = Visibility.Visible;
         _floatingGadgetsInterval.Visibility = Visibility.Visible;
+        _selectBackgroundImageButton.Visibility = Visibility.Visible;
 
         _isRefreshing = false;
     }
@@ -883,5 +885,42 @@ public partial class SettingsPage
 
         _settings.Store.FloatingGadgetsRefreshInterval = int.TryParse(_floatingGadgetsInterval.Text, out var interval) ? interval : 1;
         _settings.SynchronizeStore();
+    }
+
+    private void SelectBackgroundImageButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (_isRefreshing)
+            return;
+
+        var state = _onBatterySinceResetToggle.IsChecked;
+        if (state is null)
+            return;
+
+        OpenFileDialog openFileDialog = new OpenFileDialog
+        {
+            Filter = "Image File|*.jpg;*.jpeg;*.png;*.bmp|All Files|*.*",
+            Title = "Select Background Image File"
+        };
+
+        string filePath = string.Empty;
+        try
+        {
+            if (openFileDialog.ShowDialog() == true)
+            {
+                filePath = openFileDialog.FileName;
+                App.MainWindowInstance!.SetMainWindowBackgroundImage(filePath);
+
+                _settings.Store.BackGroundImageFilePath = filePath;
+                _settings.SynchronizeStore();
+            }
+        }
+        catch (Exception ex)
+        {
+            SnackbarHelper.Show(Resource.Warning, ex.Message, SnackbarType.Error);
+            if (Log.Instance.IsTraceEnabled)
+            {
+                Log.Instance.Trace($"Exception occured when executing SetBackgroundImage().", ex);
+            }
+        }
     }
 }
