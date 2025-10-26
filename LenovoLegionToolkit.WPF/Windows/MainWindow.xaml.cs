@@ -455,12 +455,17 @@ public partial class MainWindow
     {
         var settings = IoCContainer.Resolve<ApplicationSettings>();
         var result = settings.Store.BackGroundImageFilePath;
+        var opacity = settings.Store.Opacity;
         try
         {
             if (result != string.Empty)
             {
                 SetMainWindowBackgroundImage(result);
-                App.MainWindowInstance?.SetWindowOpacity(settings.Store.Opcity);
+            }
+
+            if (opacity != 1)
+            {
+                App.MainWindowInstance?.SetWindowOpacity(opacity);
             }
         }
         catch (Exception ex)
