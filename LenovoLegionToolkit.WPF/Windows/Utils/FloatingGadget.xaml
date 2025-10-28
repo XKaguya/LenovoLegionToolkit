@@ -130,7 +130,7 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{x:Static resources:Resource.SensorItem_PchTemperature}" Style="{StaticResource SensorLabelStyle}" />
+                        <TextBlock x:Name="_pchName" Grid.Column="0" Text="{x:Static resources:Resource.SensorItem_PchTemperature}" Style="{StaticResource SensorLabelStyle}" />
                         <TextBlock x:Name="_pchTemperature" Grid.Column="2" Text="-" Style="{StaticResource SensorValueStyle}" />
                     </Grid>
 

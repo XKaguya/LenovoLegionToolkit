@@ -1,7 +1,8 @@
 ﻿using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Controllers.Sensors;
 using LenovoLegionToolkit.Lib.Settings;
-using LenovoLegionToolkit.Lib.System;
+using LenovoLegionToolkit.Lib.Utils;
+using LenovoLegionToolkit.WPF.Resources;
 using System;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -36,6 +37,12 @@ public partial class FloatingGadget
         IsVisibleChanged += FloatingGadget_IsVisibleChanged;
         SourceInitialized += OnSourceInitialized!;
         Closed += FloatingGadget_Closed!;
+
+        var mi = Compatibility.GetMachineInformationAsync().Result;
+        if (mi.Properties.IsAmdDevice)
+        {
+            _pchName.Text = Resource.SensorsControl_Motherboard_Temperature;
+        }
     }
 
     [DllImport("user32.dll")]
