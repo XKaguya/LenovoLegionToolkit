@@ -5391,6 +5391,15 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Board Temperature 的本地化字符串。
+        /// </summary>
+        public static string SensorsControl_Motherboard_Temperature {
+            get {
+                return ResourceManager.GetString("SensorsControl_Motherboard_Temperature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Motherboard 的本地化字符串。
         /// </summary>
         public static string SensorsControl_Motherboard_Title {

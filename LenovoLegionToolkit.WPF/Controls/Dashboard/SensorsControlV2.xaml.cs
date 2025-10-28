@@ -63,6 +63,12 @@ public partial class SensorsControlV2
             { SensorItem.Disk1Temperature, _disk1TemperatureGrid },
             { SensorItem.Disk2Temperature, _disk2TemperatureGrid }
         };
+
+        var mi = Compatibility.GetMachineInformationAsync().Result;
+        if (mi.Properties.IsAmdDevice)
+        {
+            _pchGridName.Text = Resource.SensorsControl_Motherboard_Temperature;
+        }
     }
 
     private void InitializeContextMenu()

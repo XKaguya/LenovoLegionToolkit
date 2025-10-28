@@ -155,6 +155,7 @@ public static partial class Compatibility
                 IsExcludedFromLenovoLighting = GetIsExcludedFromLenovoLighting(biosVersion),
                 IsExcludedFromPanelLogoLenovoLighting = GetIsExcludedFromPanelLenovoLighting(machineType, model),
                 HasAlternativeFullSpectrumLayout = GetHasAlternativeFullSpectrumLayout(machineType),
+                IsAmdDevice = GetIsAmdDevice(model),
             }
         };
 
@@ -189,6 +190,7 @@ public static partial class Compatibility
             Log.Instance.Trace($"     * IsExcludedFromLenovoLighting: '{machineInformation.Properties.IsExcludedFromLenovoLighting}'");
             Log.Instance.Trace($"     * IsExcludedFromPanelLogoLenovoLighting: '{machineInformation.Properties.IsExcludedFromPanelLogoLenovoLighting}'");
             Log.Instance.Trace($"     * HasAlternativeFullSpectrumLayout: '{machineInformation.Properties.HasAlternativeFullSpectrumLayout}'");
+            Log.Instance.Trace($"     * IsAmdDevice: '{machineInformation.Properties.IsAmdDevice}'");
         }
 
         return (_machineInformation = machineInformation).Value;
@@ -211,6 +213,30 @@ public static partial class Compatibility
             return (null, null);
 
         return (new(prefix, version), result);
+    }
+
+    private static bool GetIsAmdDevice(string model)
+    {
+        string cleanModel = model.Replace(" ", "").ToUpperInvariant();
+
+        for (int i = 0; i < cleanModel.Length; i++)
+        {
+            char current = cleanModel[i];
+            if (current == 'A' || current == 'I')
+            {
+                if (i + 4 < cleanModel.Length)
+                {
+                    if (char.IsLetter(cleanModel[i + 1]) &&
+                        char.IsLetter(cleanModel[i + 2]) &&
+                        char.IsDigit(cleanModel[i + 3]) &&
+                        char.IsDigit(cleanModel[i + 4]))
+                    {
+                        return current == 'A';
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     private static async Task<MachineInformation.FeatureData> GetFeaturesAsync()
@@ -390,7 +416,8 @@ public static partial class Compatibility
             "Legion 7", // Y9000X, Not Y9000P.
             "Legion Pro 5 16IAX10H", // Y7000P With RTX 5070TI
             "LOQ",
-            "Y7000" 
+            "Y7000", 
+            "R7000"
         };
 
         var (_, type, _, _) = GetModelDataAsync().Result;
@@ -680,6 +707,7 @@ public static partial class Compatibility
             Log.Instance.Trace($"     * IsExcludedFromLenovoLighting: '{_machineInformation.Value.Properties.IsExcludedFromLenovoLighting}'");
             Log.Instance.Trace($"     * IsExcludedFromPanelLogoLenovoLighting: '{_machineInformation.Value.Properties.IsExcludedFromPanelLogoLenovoLighting}'");
             Log.Instance.Trace($"     * HasAlternativeFullSpectrumLayout: '{_machineInformation.Value.Properties.HasAlternativeFullSpectrumLayout}'");
+            Log.Instance.Trace($"     * IsAmdDevice: '{_machineInformation.Value.Properties.IsAmdDevice}'");
         }
     }
 

@@ -471,6 +471,7 @@ public readonly struct MachineInformation
         public bool IsExcludedFromLenovoLighting { get; init; }
         public bool IsExcludedFromPanelLogoLenovoLighting { get; init; }
         public bool HasAlternativeFullSpectrumLayout { get; init; }
+        public bool IsAmdDevice { get; init; }
     }
 
     public int Generation { get; init; }

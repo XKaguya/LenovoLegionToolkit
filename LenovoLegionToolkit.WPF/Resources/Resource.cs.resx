@@ -2541,4 +2541,7 @@ Click Yes to disable and No to ignore.</value>
   <data name="SettingsPage_Clear_BackgroundImage_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
+  <data name="SensorsControl_Motherboard_Temperature" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
 </root>

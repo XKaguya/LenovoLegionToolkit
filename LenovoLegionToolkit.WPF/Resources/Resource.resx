@@ -2539,4 +2539,7 @@ Click Yes to disable and No to ignore.</value>
   <data name="SettingsPage_Clear_BackgroundImage_Message" xml:space="preserve">
     <value>Clear current selected image file.</value>
   </data>
+  <data name="SensorsControl_Motherboard_Temperature" xml:space="preserve">
+    <value>Board Temperature</value>
+  </data>
 </root>

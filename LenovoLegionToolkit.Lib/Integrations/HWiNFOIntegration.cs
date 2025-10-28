@@ -18,7 +18,7 @@ public class HWiNFOIntegration(SensorsController sensorController, IntegrationsS
     private const string SENSOR_TYPE_TEMP = "Temp";
     private const string CPU_FAN_SENSOR_NAME = "CPU Fan";
     private const string GPU_FAN_SENSOR_NAME = "GPU Fan";
-    private const string PCH_FAN_SENSOR_NAME = "PCH Fan";
+    private static string PCH_FAN_SENSOR_NAME = "PCH Fan";
     private const string BATTERY_TEMP_SENSOR_NAME = "Battery Temperature";
 
     private readonly TimeSpan _refreshInterval = TimeSpan.FromSeconds(1);
@@ -88,7 +88,16 @@ public class HWiNFOIntegration(SensorsController sensorController, IntegrationsS
 
         if (fanSpeedTable.PchFanSpeed > 0)
         {
-            SetValue(SENSOR_TYPE_FAN, 2, PCH_FAN_SENSOR_NAME, fanSpeedTable.PchFanSpeed, firstRun);
+            var mi = Compatibility.GetMachineInformationAsync().Result;
+            if (mi.Properties.IsAmdDevice)
+            {
+                PCH_FAN_SENSOR_NAME = "System Fan";
+                SetValue(SENSOR_TYPE_FAN, 2, PCH_FAN_SENSOR_NAME, fanSpeedTable.PchFanSpeed, firstRun);
+            }
+            else
+            {
+                SetValue(SENSOR_TYPE_FAN, 2, PCH_FAN_SENSOR_NAME, fanSpeedTable.PchFanSpeed, firstRun);
+            }
         }
 
         var batteryTemp = Battery.GetBatteryTemperatureC();
