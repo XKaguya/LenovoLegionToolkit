@@ -68,8 +68,29 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
 
         public bool IsLibreHardwareMonitorInitialized()
         {
-            return InitialState == LibreHardwareMonitorInitialState.Initialized ||
-                   InitialState == LibreHardwareMonitorInitialState.Success;
+            return InitialState == LibreHardwareMonitorInitialState.Initialized || InitialState == LibreHardwareMonitorInitialState.Success;
+        }
+
+        public void IsPawnIOInnstalled()
+        {
+            string? pawnIoPath = null;
+            if (Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\PawnIO", "InstallLocation", null) is string path1 && path1.Length > 0)
+            {
+                pawnIoPath = path1;
+            }
+            else if (Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\PawnIO", "Install_Dir", null) is string path2 && path2.Length > 0)
+            {
+                pawnIoPath = path2;
+            }
+            else
+            {
+                pawnIoPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "PawnIO");
+            }
+
+            if (!Directory.Exists(pawnIoPath))
+            {
+                throw new DllNotFoundException();
+            }
         }
 
         private void GetInterestedHardwares()
@@ -78,24 +99,7 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
             {
                 if (_hardwaresInitialized) return;
 
-                string? pawnIoPath = null;
-                if (Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\PawnIO", "InstallLocation", null) is string path1 && path1.Length > 0)
-                {
-                    pawnIoPath = path1;
-                }
-                else if (Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\PawnIO", "Install_Dir", null) is string path2 && path2.Length > 0)
-                {
-                    pawnIoPath = path2;
-                }
-                else
-                {
-                    pawnIoPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "PawnIO");
-                }
-
-                if (!Directory.Exists(pawnIoPath))
-                {
-                    throw new DllNotFoundException();
-                }
+                IsPawnIOInnstalled();
 
                 try
                 {
@@ -123,7 +127,9 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
 
                     _interestedHardwares.AddRange(_computer.Hardware);
                     _cpuHardware = _interestedHardwares.FirstOrDefault(h => h.HardwareType == HardwareType.Cpu);
-                    _amdGpuHardware = _interestedHardwares.FirstOrDefault(h => h.HardwareType == HardwareType.GpuAmd);
+
+                    // The GPU Dashboard card was designed for discrete graphic cards. So we don't pick Intel & Amd's integrated GPUs here.
+                    _amdGpuHardware = _interestedHardwares.FirstOrDefault(h => h.HardwareType == HardwareType.GpuAmd && h.Name.EndsWith("M"));
                     _gpuHardware = _interestedHardwares.FirstOrDefault(h => h.HardwareType == HardwareType.GpuNvidia);
                     _memoryHardware = _interestedHardwares.FirstOrDefault(h => h.HardwareType == HardwareType.Memory && h.Name == "Total Memory");
                 }

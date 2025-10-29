@@ -1,5 +1,6 @@
 ﻿using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Controllers;
+using LenovoLegionToolkit.Lib.Controllers.Sensors;
 using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.Features;
 using LenovoLegionToolkit.Lib.Integrations;
@@ -360,40 +361,61 @@ public partial class SettingsPage
         if (state is null)
             return;
 
+        var feature = IoCContainer.Resolve<SensorsGroupController>();
+
         // To notice user install PawnIO first.
         if (state.Value)
         {
-            var dialog = new DialogWindow
+            var result = true;
+            try
             {
-                Title = Resource.MainWindow_PawnIO_Warning_Title,
-                Content = Resource.MainWindow_PawnIO_Warning_Message,
-                Owner = Application.Current.MainWindow
-            };
-
-            if (state == true)
+                feature.IsPawnIOInnstalled();
+            }
+            catch (DllNotFoundException)
             {
-                dialog.ShowDialog();
-
-                if (dialog.Result.Item1)
-                {
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = "https://pawnio.eu/",
-                        UseShellExecute = true
-                    });
-                }
+                result = false;
             }
 
-            var result = dialog.Result.Item1;
-            if (result)
+            if (!result)
             {
-                SnackbarHelper.Show(Resource.SettingsPage_UseNewDashboard_Switch_Title, Resource.SettingsPage_UseNewDashboard_Restart_Message, SnackbarType.Success);
-                _settings.Store.UseNewSensorDashboard = state.Value;
-                _settings.SynchronizeStore();
+                var dialog = new DialogWindow
+                {
+                    Title = Resource.MainWindow_PawnIO_Warning_Title,
+                    Content = Resource.MainWindow_PawnIO_Warning_Message,
+                    Owner = Application.Current.MainWindow
+                };
+
+                if (state == true)
+                {
+                    dialog.ShowDialog();
+
+                    if (dialog.Result.Item1)
+                    {
+                        Process.Start(new ProcessStartInfo
+                        {
+                            FileName = "https://pawnio.eu/",
+                            UseShellExecute = true
+                        });
+                    }
+                }
+
+                var dialogResult = dialog.Result.Item1;
+                if (dialogResult)
+                {
+                    SnackbarHelper.Show(Resource.SettingsPage_UseNewDashboard_Switch_Title, Resource.SettingsPage_UseNewDashboard_Restart_Message, SnackbarType.Success);
+                    _settings.Store.UseNewSensorDashboard = state.Value;
+                    _settings.SynchronizeStore();
+                }
+                else
+                {
+                    _useNewSensorDashboardToggle.IsChecked = false;
+                    _settings.Store.UseNewSensorDashboard = state.Value;
+                    _settings.SynchronizeStore();
+                }
             }
             else
             {
-                _useNewSensorDashboardToggle.IsChecked = false;
+                SnackbarHelper.Show(Resource.SettingsPage_UseNewDashboard_Switch_Title, Resource.SettingsPage_UseNewDashboard_Restart_Message, SnackbarType.Success);
                 _settings.Store.UseNewSensorDashboard = state.Value;
                 _settings.SynchronizeStore();
             }
