@@ -97,6 +97,7 @@
             <StackPanel Grid.Column="3">
                 <wpfui:Hyperlink Content="LibreHardwareMonitor" NavigateUri="https://github.com/LibreHardwareMonitor/LibreHardwareMonitor" />
                 <wpfui:Hyperlink Content="PawnIO" NavigateUri="https://github.com/namazso/PawnIO" />
+                <wpfui:Hyperlink Content="NvAPIWrapper" NavigateUri="https://github.com/tebjan/NvAPIWrapper" />
             </StackPanel>
 
         </Grid>

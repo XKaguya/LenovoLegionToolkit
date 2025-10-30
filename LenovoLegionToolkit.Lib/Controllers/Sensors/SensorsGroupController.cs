@@ -71,35 +71,39 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
             return InitialState == LibreHardwareMonitorInitialState.Initialized || InitialState == LibreHardwareMonitorInitialState.Success;
         }
 
-        public void IsPawnIOInnstalled()
+
+    public bool IsPawnIOInnstalled()
         {
-            string? pawnIoPath = null;
-            if (Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\PawnIO", "InstallLocation", null) is string path1 && path1.Length > 0)
+            string? pawnIoPath = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\PawnIO", "InstallLocation", null) as string;
+
+            if (string.IsNullOrEmpty(pawnIoPath))
             {
-                pawnIoPath = path1;
+                pawnIoPath = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\PawnIO", "Install_Dir", null) as string;
             }
-            else if (Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\PawnIO", "Install_Dir", null) is string path2 && path2.Length > 0)
-            {
-                pawnIoPath = path2;
-            }
-            else
+
+            if (string.IsNullOrEmpty(pawnIoPath))
             {
                 pawnIoPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "PawnIO");
             }
 
-            if (!Directory.Exists(pawnIoPath))
+            if (Directory.Exists(pawnIoPath))
             {
-                throw new DllNotFoundException();
+                return true;
             }
+
+            return false;
         }
 
-        private void GetInterestedHardwares()
+    private void GetInterestedHardwares()
         {
             lock (_hardwareLock)
             {
                 if (_hardwaresInitialized) return;
 
-                IsPawnIOInnstalled();
+                if (!IsPawnIOInnstalled())
+                {
+                    return;
+                }
 
                 try
                 {
@@ -129,7 +133,7 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                     _cpuHardware = _interestedHardwares.FirstOrDefault(h => h.HardwareType == HardwareType.Cpu);
 
                     // The GPU Dashboard card was designed for discrete graphic cards. So we don't pick Intel & Amd's integrated GPUs here.
-                    _amdGpuHardware = _interestedHardwares.FirstOrDefault(h => h.HardwareType == HardwareType.GpuAmd && h.Name.EndsWith("M"));
+                    _amdGpuHardware = _interestedHardwares.FirstOrDefault(h => h.HardwareType == HardwareType.GpuAmd && !Regex.IsMatch(h.Name, @"AMD Radeon\(TM\)\s+\d+M", RegexOptions.IgnoreCase));
                     _gpuHardware = _interestedHardwares.FirstOrDefault(h => h.HardwareType == HardwareType.GpuNvidia);
                     _memoryHardware = _interestedHardwares.FirstOrDefault(h => h.HardwareType == HardwareType.Memory && h.Name == "Total Memory");
                 }
