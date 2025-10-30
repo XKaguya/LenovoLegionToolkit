@@ -83,7 +83,10 @@ public static partial class Compatibility
         "17IR",
         "15IR",
         "15IC",
-        "15IK"
+        "15IK",
+
+        // ThinkBooks
+        "ThinkBook"
     ];
 
     private static MachineInformation? _machineInformation;
@@ -485,7 +488,7 @@ public static partial class Compatibility
     private static bool GetSupportITSMode(string model)
     {
         var lower = model.ToLowerInvariant();
-        return lower.Contains("IdeaPad".ToLowerInvariant()) || lower.Contains("Lenovo Slim".ToLowerInvariant()); // || lower.Contains("YOGA".ToLowerInvariant());
+        return lower.Contains("IdeaPad".ToLowerInvariant()) || lower.Contains("ThinkBook".ToLowerInvariant()) || lower.Contains("Lenovo Slim".ToLowerInvariant()); // || lower.Contains("YOGA".ToLowerInvariant());
                                                                                                                  // Comment this line due to YOGA does not support ITS Mode from user's report.
     }
 
