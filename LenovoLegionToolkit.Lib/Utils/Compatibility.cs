@@ -382,7 +382,8 @@ public static partial class Compatibility
             "Legion 7",
             "Legion Pro 5 16IAX10H",
             "LOQ",
-            "Y7000" 
+            "Y7000",
+            "R7000"
         };
 
         var (_, type, _, _) = GetModelDataAsync().Result;
