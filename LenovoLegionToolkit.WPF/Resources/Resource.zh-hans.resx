@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -1740,7 +1740,7 @@
     <value>关闭</value>
   </data>
   <data name="SpectrumKeyboardBacklightImportProfileAutomationStepControl_Title" xml:space="preserve">
-    <value>导入键盘背光主题。</value>
+    <value>导入键盘背光主题</value>
   </data>
   <data name="SpectrumKeyboardBacklightImportProfileAutomationStepControl_Message" xml:space="preserve">
     <value>导入并应用键盘背光配置到当前的主题。</value>
@@ -2462,65 +2462,64 @@
   <data name="DialogWindow_DontShowAgain" xml:space="preserve">
     <value>不再显示</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="ITSModeControl_Dialog_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="ITSModeControl_Dialog_Title" xml:space="preserve">
+    <value>缺少组件</value>
   </data>
-  <data name="ITSModeControl_Dialog_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="ITSModeControl_Dialog_Message" xml:space="preserve">
+    <value>缺少 PowerBattery.dll ，请手动放置来使用 ITSMode 功能</value>
   </data>
-  <data name="ITSModeControl_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="ITSModeControl_Title" xml:space="preserve">
+    <value>性能模式</value>
   </data>
-  <data name="ITSModeControl_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="ITSModeControl_Message" xml:space="preserve">
+    <value>更改性能模式</value>
   </data>
-  <data name="ITSModeAutomationStepControl_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="ITSModeAutomationStepControl_Title" xml:space="preserve">
+    <value>性能模式</value>
   </data>
-  <data name="ITSModeAutomationStepControl_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="ITSModeAutomationStepControl_Message" xml:space="preserve">
+    <value>更改性能模式</value>
   </data>
-  <data name="SettingsPage_FloatingGadgets_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="SettingsPage_FloatingGadgets_Title" xml:space="preserve">
+    <value>开启性能悬浮窗</value>
   </data>
-  <data name="SettingsPage_FloatingGadgets_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="SettingsPage_FloatingGadgets_Message" xml:space="preserve">
+    <value>性能悬浮窗是一个显示绝大多数信息的组件</value>
   </data>
-  <data name="SettingsPage_FloatingGadgets_Tooltip" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="SettingsPage_FloatingGadgets_Tooltip" xml:space="preserve">
+    <value>此项控制性能悬浮窗的数据刷新时间</value>
   </data>
-  <data name="FloatingGadgets_Memory_Utilization" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="FloatingGadgets_Memory_Utilization" xml:space="preserve">
+    <value>内存利用率</value>
   </data>
-  <data name="FloatingGadgets_Memory_Temperature" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="FloatingGadgets_Memory_Temperature" xml:space="preserve">
+    <value>内存温度</value>
   </data>
-  <data name="FloatingGadgets_Disk_0_Temperature" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="FloatingGadgets_Disk_0_Temperature" xml:space="preserve">
+    <value>磁盘1温度</value>
   </data>
-  <data name="FloatingGadgets_Disk_1_Temperature" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="FloatingGadgets_Disk_1_Temperature" xml:space="preserve">
+    <value>磁盘2温度</value>
   </data>
-  <data name="FloatingGadgets_CPU_Fan" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="FloatingGadgets_CPU_Fan" xml:space="preserve">
+    <value>处理器风扇</value>
   </data>
-  <data name="FloatingGadgets_GPU_Fan" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="FloatingGadgets_GPU_Fan" xml:space="preserve">
+    <value>显卡风扇</value>
   </data>
-  <data name="FloatingGadgets_PCH_Fan" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="FloatingGadgets_PCH_Fan" xml:space="preserve">
+    <value>系统风扇</value>
   </data>
-  <data name="FloatingGadgets_Fans" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="FloatingGadgets_Fans" xml:space="preserve">
+    <value>风扇</value>
   </data>
-  <data name="FloatingGadgets_Chipset" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="FloatingGadgets_Chipset" xml:space="preserve">
+    <value>芯片组</value>
   </data>
-  <data name="FloatingGadgets_Gpu" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="FloatingGadgets_Gpu" xml:space="preserve">
+    <value>GPU</value>
   </data>
-  <data name="FloatingGadgets_Cpu" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="FloatingGadgets_Cpu" xml:space="preserve">
+    <value>CPU</value>
   </data>
 </root>
