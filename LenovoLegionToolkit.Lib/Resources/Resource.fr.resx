@@ -520,4 +520,8 @@
   <data name="ITSMode_Intelligent_Cooling" xml:space="preserve">
     <value>Refroidissement intelligent</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="ITSMode_Intelligent_Geek" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
 </root>

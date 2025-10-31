@@ -520,4 +520,7 @@
   <data name="ITSMode_Intelligent_Cooling" xml:space="preserve">
     <value>Intelligent Cooling</value>
   </data>
+  <data name="ITSMode_Intelligent_Geek" xml:space="preserve">
+    <value>Geek</value>
+  </data>
 </root>

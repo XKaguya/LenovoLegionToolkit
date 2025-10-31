@@ -358,6 +358,15 @@ namespace LenovoLegionToolkit.Lib.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Geek 的本地化字符串。
+        /// </summary>
+        public static string ITSMode_Intelligent_Geek {
+            get {
+                return ResourceManager.GetString("ITSMode_Intelligent_Geek", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Off 的本地化字符串。
         /// </summary>
         public static string MicrophoneState_Off {

@@ -521,4 +521,7 @@
   <data name="ITSMode_Intelligent_Cooling" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
+  <data name="ITSMode_Intelligent_Geek" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
 </root>
