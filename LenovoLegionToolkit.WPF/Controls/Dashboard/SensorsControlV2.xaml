@@ -388,6 +388,7 @@
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
                                         <TextBlock
+                                            x:Name="_pchGridName"
                                             Grid.Column="0"
                                             Style="{StaticResource DataLabelStyle}"
                                             Text="{x:Static resources:Resource.SensorsControl_PchTemperature_Title}" />

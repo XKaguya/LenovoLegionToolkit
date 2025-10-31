@@ -66,6 +66,42 @@
                 Visibility="Hidden" />
         </custom:CardControl>
 
+        <custom:CardControl Margin="0,0,0,8" Icon="DarkTheme24">
+            <custom:CardControl.Header>
+                <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_Custom_BackgroundImage_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_Custom_BackgroundImage_Message}" />
+            </custom:CardControl.Header>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <Slider
+                    x:Name="_backgroundImageOpacitySlider"
+                    Minimum="0"
+                    Maximum="1"
+                    Margin="0,5,0,0"
+                    SmallChange="0.01"
+                    LargeChange="0.1"
+                    TickFrequency="0.1"
+                    IsSnapToTickEnabled="True"
+                    ValueChanged="OpacitySlider_ValueChanged"
+                    Width="200"
+                    Visibility="Hidden" />
+                <Button
+                    x:Name="_selectBackgroundImageButton"
+                    MinWidth="160"
+                    Margin="10,0,0,0"
+                    AutomationProperties.Name="{x:Static resources:Resource.SettingsPage_Select_BackgroundImage_ImageFile}"
+                    Click="SelectBackgroundImageButton_Click"
+                    Content="{x:Static resources:Resource.SettingsPage_Select_BackgroundImage_Content}"
+                    Visibility="Hidden" />
+                <Button
+                    x:Name="_clearBackgroundImageButton"
+                    MinWidth="160"
+                    Margin="10,0,0,0"
+                    AutomationProperties.Name="{x:Static resources:Resource.SettingsPage_Clear_BackgroundImage_Title}"
+                    Click="ClearBackgroundImageButton_Click"
+                    Content="{x:Static resources:Resource.SettingsPage_Clear_BackgroundImage_Title}"
+                    Visibility="Hidden" />
+            </StackPanel>
+        </custom:CardControl>
+
         <custom:CardControl Margin="0,0,0,24" Icon="Color24">
             <custom:CardControl.Header>
                 <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_AccentColor_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_AccentColor_Description}" />

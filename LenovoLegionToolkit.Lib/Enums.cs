@@ -169,7 +169,9 @@ public enum ITSMode
     [Display(ResourceType = typeof(Resource), Name = "ITSMode_Intelligent_Battery_Saving")]
     MmcCool,
     [Display(ResourceType = typeof(Resource), Name = "ITSMode_Intelligent_Extreme_Performance")]
-    MmcPerformance
+    MmcPerformance,
+    [Display(ResourceType = typeof(Resource), Name = "ITSMode_Intelligent_Geek")]
+    MmcGeek
 }
 
 public enum InstantBootState
@@ -215,9 +217,12 @@ public enum LegionSeries
     Legion_7 = 3,
     Legion_Pro_7 = 4,
     Legion_9 = 5,
-    IdeaPad = 6,
-    LOQ = 7,
-    Lenovo_Slim = 8,
+    Legion_Go = 6,
+    Lenovo_Slim = 7,
+    IdeaPad = 8,
+    LOQ = 9,
+    YOGA = 10,
+    ThinkBook = 11,
     Unknown = 255
 }
 

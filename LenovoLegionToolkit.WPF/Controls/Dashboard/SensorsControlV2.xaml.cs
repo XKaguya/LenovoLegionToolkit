@@ -14,7 +14,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Input;
 using System.Windows.Threading;
 using Wpf.Ui.Common;
 using MenuItem = Wpf.Ui.Controls.MenuItem;
@@ -33,7 +32,7 @@ public partial class SensorsControlV2
     private readonly SemaphoreSlim _refreshLock = new(1, 1);
     private readonly object _updateLock = new();
     private readonly Task<string> _cpuNameTask;
-    private Task<string> _gpuNameTask;
+    private Task<string>? _gpuNameTask;
     private HashSet<SensorItem> _activeSensorItems = new();
     private Dictionary<SensorItem, FrameworkElement> _sensorItemToControlMap;
 
@@ -43,15 +42,6 @@ public partial class SensorsControlV2
         InitializeContextMenu();
         IsVisibleChanged += SensorsControl_IsVisibleChanged;
         _cpuNameTask = GetProcessedCpuName();
-        // _gpuNameTask = GetProcessedGpuName();
-        PreviewKeyDown += (s, e) =>
-        {
-            if (e.Key == Key.System && e.SystemKey == Key.LeftAlt)
-            {
-                e.Handled = true;
-                Keyboard.ClearFocus();
-            }
-        };
         _sensorItemToControlMap = new Dictionary<SensorItem, FrameworkElement>
         {
             { SensorItem.CpuUtilization, _cpuUtilizationGrid },
@@ -73,6 +63,12 @@ public partial class SensorsControlV2
             { SensorItem.Disk1Temperature, _disk1TemperatureGrid },
             { SensorItem.Disk2Temperature, _disk2TemperatureGrid }
         };
+
+        var mi = Compatibility.GetMachineInformationAsync().Result;
+        if (mi.Properties.IsAmdDevice)
+        {
+            _pchGridName.Text = Resource.SensorsControl_Motherboard_Temperature;
+        }
     }
 
     private void InitializeContextMenu()
@@ -103,7 +99,7 @@ public partial class SensorsControlV2
         if (IsVisible)
         {
             _activeSensorItems.Clear();
-            foreach (SensorItem item in _sensorsControlSettings.Store.VisibleItems)
+            foreach (SensorItem item in _sensorsControlSettings.Store.VisibleItems!)
             {
                 _activeSensorItems.Add(item);
             }
@@ -135,6 +131,8 @@ public partial class SensorsControlV2
                 {
                     try
                     {
+                        await _sensorsGroupControllers.UpdateAsync();
+
                         _gpuNameTask = GetProcessedGpuName();
                         var dataTask = _controller.GetDataAsync();
                         var cpuPowerTask = _sensorsGroupControllers.GetCpuPowerAsync();
@@ -154,7 +152,7 @@ public partial class SensorsControlV2
                             memoryTemperaturesTask,
                             batteryInfoTask
                         ).ConfigureAwait(false);
-                        await Dispatcher.InvokeAsync(() => UpdateAllSensorValues(dataTask.Result, cpuPowerTask.Result, gpuPowerTask.Result, gpuVramTask.Result, diskTemperaturesTask.Result, memoryUsageTask.Result, memoryTemperaturesTask.Result, batteryInfoTask.Result), DispatcherPriority.Background);
+                        await Dispatcher.BeginInvoke(() => UpdateAllSensorValues(dataTask.Result, cpuPowerTask.Result, gpuPowerTask.Result, gpuVramTask.Result, diskTemperaturesTask.Result, memoryUsageTask.Result, memoryTemperaturesTask.Result, batteryInfoTask.Result), DispatcherPriority.Background);
                         await Task.Delay(TimeSpan.FromSeconds(_dashboardSettings.Store.SensorsRefreshIntervalSeconds), token);
                     }
                     catch (OperationCanceledException)
@@ -164,7 +162,7 @@ public partial class SensorsControlV2
                     {
                         if (Log.Instance.IsTraceEnabled)
                             Log.Instance.Trace($"Sensor refresh failed: {ex}");
-                        await Dispatcher.InvokeAsync(ClearAllSensorValues);
+                        await Dispatcher.BeginInvoke(ClearAllSensorValues);
                     }
                 }
             }, token);
@@ -221,8 +219,9 @@ public partial class SensorsControlV2
                 control.Visibility = _activeSensorItems.Contains(kv.Key) ? Visibility.Visible : Visibility.Collapsed;
             }
 
-            UpdateValue(_cpuCardName, _cpuNameTask.Result);
-            UpdateValue(_gpuCardName, _gpuNameTask.Result);
+            _cpuCardName.Text = _cpuNameTask.Result;
+            _gpuCardName.Text = _gpuNameTask!.Result;
+
             if (_activeSensorItems.Contains(SensorItem.CpuUtilization)) UpdateValue(_cpuUtilizationBar, _cpuUtilizationLabel, data.CPU.MaxUtilization, data.CPU.Utilization, $"{data.CPU.Utilization}%");
             if (_activeSensorItems.Contains(SensorItem.CpuFrequency)) UpdateValue(_cpuCoreClockBar, _cpuCoreClockLabel, data.CPU.MaxCoreClock, data.CPU.CoreClock, $"{data.CPU.CoreClock / 1000.0:0.0} {Resource.GHz}", $"{data.CPU.MaxCoreClock / 1000.0:0.0} {Resource.GHz}");
             if (_activeSensorItems.Contains(SensorItem.CpuTemperature)) UpdateValue(_cpuTemperatureBar, _cpuTemperatureLabel, data.CPU.MaxTemperature, data.CPU.Temperature, GetTemperatureText(data.CPU.Temperature), GetTemperatureText(data.CPU.MaxTemperature));
@@ -285,14 +284,14 @@ public partial class SensorsControlV2
         _memoryDiskCard.Visibility = (memoryVisible || diskVisible) ? Visibility.Visible : Visibility.Collapsed;
     }
 
-    private async Task<string> GetProcessedCpuName()
+    private Task<string> GetProcessedCpuName()
     {
-        return await _sensorsGroupControllers.GetCpuNameAsync().ConfigureAwait(false);
+        return _sensorsGroupControllers.GetCpuNameAsync();
     }
 
-    private async Task<string> GetProcessedGpuName()
+    private Task<string> GetProcessedGpuName()
     {
-        return await _sensorsGroupControllers.GetGpuNameAsync().ConfigureAwait(false);
+        return _sensorsGroupControllers.GetGpuNameAsync();
     }
 
     private string GetTemperatureText(double temperature)

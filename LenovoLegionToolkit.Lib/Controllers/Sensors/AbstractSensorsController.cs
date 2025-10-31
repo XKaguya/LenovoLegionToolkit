@@ -214,6 +214,26 @@ public abstract class AbstractSensorsController(GPUController gpuController) : I
             var maxCoreClock = (int)gpu.BoostClockFrequencies.GraphicsClock.Frequency / 1000;
             var maxMemoryClock = (int)gpu.BoostClockFrequencies.MemoryClock.Frequency / 1000;
 
+            switch (gpu.MemoryInformation.RAMType)
+            {
+                case GPUMemoryType.GDDR5:
+                case GPUMemoryType.GDDR5X:
+                    currentMemoryClock /= 2;
+                    maxMemoryClock /= 2;
+                    break;
+                case GPUMemoryType.GDDR6:
+                case GPUMemoryType.GDDR6X:
+                    currentMemoryClock /= 4;
+                    maxMemoryClock /= 4;
+                    break;
+                case GPUMemoryType.GDDR7:
+                    currentMemoryClock /= 8;
+                    maxMemoryClock /= 8;
+                    break;
+                default:
+                    break;
+            }
+
             var states = GPUApi.GetPerformanceStates20(gpu.Handle);
             var maxCoreClockOffset = states.Clocks[PerformanceStateId.P0_3DPerformance][0].FrequencyDeltaInkHz.DeltaValue / 1000;
             var maxMemoryClockOffset = states.Clocks[PerformanceStateId.P0_3DPerformance][1].FrequencyDeltaInkHz.DeltaValue / 1000;

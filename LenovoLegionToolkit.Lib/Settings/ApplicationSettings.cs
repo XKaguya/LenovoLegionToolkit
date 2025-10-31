@@ -56,6 +56,8 @@ public class ApplicationSettings : AbstractSettings<ApplicationSettings.Applicat
         public bool DynamicLightingWarningDontShowAgain { get; set; }
         public bool ShowFloatingGadgets { get; set; }
         public int FloatingGadgetsRefreshInterval { get; set; }
+        public string BackGroundImageFilePath { get; set; } = string.Empty;
+        public double Opacity { get; set; } = 1.0f;
     }
 
     public ApplicationSettings() : base("settings.json")

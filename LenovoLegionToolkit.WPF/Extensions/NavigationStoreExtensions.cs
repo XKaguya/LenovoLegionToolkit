@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using LenovoLegionToolkit.Lib;
+using LenovoLegionToolkit.Lib.Settings;
+using System.Linq;
 using Wpf.Ui.Controls;
 using Wpf.Ui.Controls.Interfaces;
 

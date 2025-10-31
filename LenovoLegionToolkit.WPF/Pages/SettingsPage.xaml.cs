@@ -1,5 +1,6 @@
 ﻿using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Controllers;
+using LenovoLegionToolkit.Lib.Controllers.Sensors;
 using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.Features;
 using LenovoLegionToolkit.Lib.Integrations;
@@ -9,19 +10,23 @@ using LenovoLegionToolkit.Lib.System;
 using LenovoLegionToolkit.Lib.System.Management;
 using LenovoLegionToolkit.Lib.Utils;
 using LenovoLegionToolkit.WPF.CLI;
+using LenovoLegionToolkit.WPF.Controls.Custom;
 using LenovoLegionToolkit.WPF.Extensions;
 using LenovoLegionToolkit.WPF.Resources;
 using LenovoLegionToolkit.WPF.Utils;
 using LenovoLegionToolkit.WPF.Windows;
 using LenovoLegionToolkit.WPF.Windows.Settings;
 using LenovoLegionToolkit.WPF.Windows.Utils;
+using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace LenovoLegionToolkit.WPF.Pages;
 
@@ -99,6 +104,8 @@ public partial class SettingsPage
         _minimizeOnCloseToggle.IsChecked = _settings.Store.MinimizeOnClose;
         _useNewSensorDashboardToggle.IsChecked = _settings.Store.UseNewSensorDashboard;
         _lockWindowSizeToggle.IsChecked = _settings.Store.LockWindowSize;
+
+        _backgroundImageOpacitySlider.Value = _settings.Store.Opacity;
 
         var vantageStatus = await _vantageDisabler.GetStatusAsync();
         _vantageCard.Visibility = vantageStatus != SoftwareStatus.NotFound ? Visibility.Visible : Visibility.Collapsed;
@@ -209,6 +216,9 @@ public partial class SettingsPage
         _cliPathToggle.Visibility = Visibility.Visible;
         _floatingGadgetsToggle.Visibility = Visibility.Visible;
         _floatingGadgetsInterval.Visibility = Visibility.Visible;
+        _selectBackgroundImageButton.Visibility = Visibility.Visible;
+        _clearBackgroundImageButton.Visibility = Visibility.Visible;
+        _backgroundImageOpacitySlider.Visibility = Visibility.Visible;
 
         _isRefreshing = false;
     }
@@ -351,8 +361,9 @@ public partial class SettingsPage
         if (state is null)
             return;
 
-        // To notice user install PawnIO first.
-        if (state.Value)
+        var feature = IoCContainer.Resolve<SensorsGroupController>();
+
+        if (state.Value && !feature.IsPawnIOInnstalled())
         {
             var dialog = new DialogWindow
             {
@@ -361,37 +372,36 @@ public partial class SettingsPage
                 Owner = Application.Current.MainWindow
             };
 
-            if (state == true)
-            {
-                dialog.ShowDialog();
+            dialog.ShowDialog();
 
-                if (dialog.Result.Item1)
+            if (dialog.Result.Item1)
+            {
+                Process.Start(new ProcessStartInfo
                 {
-                    Process.Start(new ProcessStartInfo
-                    {
-                        FileName = "https://pawnio.eu/",
-                        UseShellExecute = true
-                    });
-                }
-            }
-
-            var result = dialog.Result.Item1;
-            if (result)
-            {
-                SnackbarHelper.Show(Resource.SettingsPage_UseNewDashboard_Switch_Title, Resource.SettingsPage_UseNewDashboard_Restart_Message, SnackbarType.Success);
+                    FileName = "https://pawnio.eu/",
+                    UseShellExecute = true
+                });
+                SnackbarHelper.Show(Resource.SettingsPage_UseNewDashboard_Switch_Title,
+                                  Resource.SettingsPage_UseNewDashboard_Restart_Message,
+                                  SnackbarType.Success);
                 _settings.Store.UseNewSensorDashboard = state.Value;
                 _settings.SynchronizeStore();
             }
             else
             {
                 _useNewSensorDashboardToggle.IsChecked = false;
-                _settings.Store.UseNewSensorDashboard = state.Value;
+                _settings.Store.UseNewSensorDashboard = false;
                 _settings.SynchronizeStore();
             }
         }
         else
         {
-            _useNewSensorDashboardToggle.IsChecked = false;
+            if (state.Value)
+            {
+                SnackbarHelper.Show(Resource.SettingsPage_UseNewDashboard_Switch_Title,
+                                  Resource.SettingsPage_UseNewDashboard_Restart_Message,
+                                  SnackbarType.Success);
+            }
             _settings.Store.UseNewSensorDashboard = state.Value;
             _settings.SynchronizeStore();
         }
@@ -865,11 +875,11 @@ public partial class SettingsPage
 
         if (state.Value)
         {
-            App.Current.FloatingGadget.Show();
+            App.Current.FloatingGadget!.Show();
         }
         else
         {
-            App.Current.FloatingGadget.Hide();
+            App.Current.FloatingGadget!.Hide();
         }
 
         _settings.Store.ShowFloatingGadgets = state.Value;
@@ -882,6 +892,59 @@ public partial class SettingsPage
             return;
 
         _settings.Store.FloatingGadgetsRefreshInterval = int.TryParse(_floatingGadgetsInterval.Text, out var interval) ? interval : 1;
+        _settings.SynchronizeStore();
+    }
+
+    private void SelectBackgroundImageButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (_isRefreshing)
+            return;
+
+        var state = _onBatterySinceResetToggle.IsChecked;
+        if (state is null)
+            return;
+
+        OpenFileDialog openFileDialog = new OpenFileDialog
+        {
+            Filter = $"{Resource.SettingsPage_Select_BackgroundImage_ImageFile}|*.jpg;*.jpeg;*.png;*.bmp|{Resource.SettingsPage_Select_BackgroundImage_AllFiles}|*.*",
+            Title = $"{Resource.SettingsPage_Select_BackgroundImage_ImageFile}"
+        };
+
+        string filePath = string.Empty;
+        try
+        {
+            if (openFileDialog.ShowDialog() == true)
+            {
+                filePath = openFileDialog.FileName;
+                App.MainWindowInstance!.SetMainWindowBackgroundImage(filePath);
+
+                _settings.Store.BackGroundImageFilePath = filePath;
+                _settings.SynchronizeStore();
+            }
+        }
+        catch (Exception ex)
+        {
+            SnackbarHelper.Show(Resource.Warning, ex.Message, SnackbarType.Error);
+            if (Log.Instance.IsTraceEnabled)
+            {
+                Log.Instance.Trace($"Exception occured when executing SetBackgroundImage().", ex);
+            }
+        }
+    }
+
+    private void OpacitySlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+    {
+        if (_isRefreshing)
+            return;
+
+        App.MainWindowInstance!.SetWindowOpacity(e.NewValue);
+        _settings.Store.Opacity = e.NewValue;
+        _settings.SynchronizeStore();
+    }
+
+    private void ClearBackgroundImageButton_Click(object sender, RoutedEventArgs e)
+    {
+        _settings.Store.BackGroundImageFilePath = string.Empty;
         _settings.SynchronizeStore();
     }
 }

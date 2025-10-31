@@ -5391,6 +5391,15 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Board Temperature 的本地化字符串。
+        /// </summary>
+        public static string SensorsControl_Motherboard_Temperature {
+            get {
+                return ResourceManager.GetString("SensorsControl_Motherboard_Temperature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Motherboard 的本地化字符串。
         /// </summary>
         public static string SensorsControl_Motherboard_Title {
@@ -5562,6 +5571,24 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Clear current selected image file. 的本地化字符串。
+        /// </summary>
+        public static string SettingsPage_Clear_BackgroundImage_Message {
+            get {
+                return ResourceManager.GetString("SettingsPage_Clear_BackgroundImage_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Clear Image 的本地化字符串。
+        /// </summary>
+        public static string SettingsPage_Clear_BackgroundImage_Title {
+            get {
+                return ResourceManager.GetString("SettingsPage_Clear_BackgroundImage_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Enable Command Line Interface that allows control from command line. 的本地化字符串。
         /// </summary>
         public static string SettingsPage_CLI_Message {
@@ -5594,6 +5621,24 @@ namespace LenovoLegionToolkit.WPF.Resources {
         public static string SettingsPage_CLIAddToPath_Title {
             get {
                 return ResourceManager.GetString("SettingsPage_CLIAddToPath_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Custom Background Image 的本地化字符串。
+        /// </summary>
+        public static string SettingsPage_Custom_BackgroundImage_Message {
+            get {
+                return ResourceManager.GetString("SettingsPage_Custom_BackgroundImage_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Custom Background Image 的本地化字符串。
+        /// </summary>
+        public static string SettingsPage_Custom_BackgroundImage_Title {
+            get {
+                return ResourceManager.GetString("SettingsPage_Custom_BackgroundImage_Title", resourceCulture);
             }
         }
         
@@ -6040,6 +6085,42 @@ namespace LenovoLegionToolkit.WPF.Resources {
         public static string SettingsPage_PowerModeMapping_Title {
             get {
                 return ResourceManager.GetString("SettingsPage_PowerModeMapping_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 All Files 的本地化字符串。
+        /// </summary>
+        public static string SettingsPage_Select_BackgroundImage_AllFiles {
+            get {
+                return ResourceManager.GetString("SettingsPage_Select_BackgroundImage_AllFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Select Image 的本地化字符串。
+        /// </summary>
+        public static string SettingsPage_Select_BackgroundImage_Content {
+            get {
+                return ResourceManager.GetString("SettingsPage_Select_BackgroundImage_Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Image File 的本地化字符串。
+        /// </summary>
+        public static string SettingsPage_Select_BackgroundImage_ImageFile {
+            get {
+                return ResourceManager.GetString("SettingsPage_Select_BackgroundImage_ImageFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Select Background Image 的本地化字符串。
+        /// </summary>
+        public static string SettingsPage_Select_BackgroundImage_Title {
+            get {
+                return ResourceManager.GetString("SettingsPage_Select_BackgroundImage_Title", resourceCulture);
             }
         }
         

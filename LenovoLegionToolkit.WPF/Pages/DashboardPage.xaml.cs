@@ -151,6 +151,8 @@ public partial class DashboardPage
             LayoutGroups(ActualWidth);
 
             await Task.WhenAll(initializationTasks);
+
+            App.MainWindowInstance!.SetVisual();
         }
         finally
         {

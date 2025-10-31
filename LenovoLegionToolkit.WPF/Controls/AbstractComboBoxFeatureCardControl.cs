@@ -23,7 +23,7 @@ public abstract class AbstractComboBoxFeatureCardControl<T> : AbstractRefreshing
 
     private readonly CardHeaderControl _cardHeaderControl = new();
 
-    private readonly ComboBox _comboBox = new();
+    protected readonly ComboBox _comboBox = new();
 
     protected SymbolRegular Icon
     {

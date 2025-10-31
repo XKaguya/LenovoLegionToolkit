@@ -1,9 +1,11 @@
 ﻿using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Controllers.Sensors;
 using LenovoLegionToolkit.Lib.Settings;
-using LenovoLegionToolkit.Lib.System;
+using LenovoLegionToolkit.Lib.Utils;
+using LenovoLegionToolkit.WPF.Resources;
 using System;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,6 +17,7 @@ namespace LenovoLegionToolkit.WPF.Windows.Utils;
 public partial class FloatingGadget
 {
     private const int GWL_EXSTYLE = -20;
+    private const int WS_EX_TRANSPARENT = 0x00000020;
     private const int WS_EX_TOOLWINDOW = 0x00000080;
 
     private readonly ApplicationSettings _settings = IoCContainer.Resolve<ApplicationSettings>();
@@ -22,16 +25,24 @@ public partial class FloatingGadget
     private readonly SensorsGroupController _sensorsGroupControllers = IoCContainer.Resolve<SensorsGroupController>();
 
     private readonly SemaphoreSlim _refreshLock = new(1, 1);
-    private Task? _refreshTask;
+    private readonly StringBuilder _stringBuilder = new(64);
+    private DateTime _lastUpdate = DateTime.MinValue;
 
-    private CancellationTokenSource? _cts = null;
+    private CancellationTokenSource? _cts;
 
     public FloatingGadget()
     {
         InitializeComponent();
 
         IsVisibleChanged += FloatingGadget_IsVisibleChanged;
-        this.SourceInitialized += OnSourceInitialized;
+        SourceInitialized += OnSourceInitialized!;
+        Closed += FloatingGadget_Closed!;
+
+        var mi = Compatibility.GetMachineInformationAsync().Result;
+        if (mi.Properties.IsAmdDevice)
+        {
+            _pchName.Text = Resource.SensorsControl_Motherboard_Temperature;
+        }
     }
 
     [DllImport("user32.dll")]
@@ -44,111 +55,180 @@ public partial class FloatingGadget
     {
         var hwnd = new WindowInteropHelper(this).Handle;
         var extendedStyle = GetWindowLong(hwnd, GWL_EXSTYLE);
-        SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle | WS_EX_TOOLWINDOW);
+        SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle | WS_EX_TRANSPARENT | WS_EX_TOOLWINDOW);
     }
 
     private async void FloatingGadget_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
         if (IsVisible)
         {
+            _cts?.Cancel();
+            _cts?.Dispose();
+
             _cts = new CancellationTokenSource();
-            await TheRing(_cts);
+            await TheRing(_cts.Token);
         }
         else
         {
-            if (_cts != null)
-            {
-                await _cts.CancelAsync();
-            }
+            _cts?.Cancel();
         }
     }
 
-    public async void UpdateSensorData(
-                double cpuUsage, double cpuFrequency, double cpuTemp, double cpuPower,
-                double gpuUsage, double gpuFrequency, double gpuTemp, double gpuVramTemp, double gpuPower,
-                double memUsage, double pchTemp, double memTemp, double disk0Temperature, double disk1Temperature,
-                int cpuFanSpeed, int gpuFanSpeed, int pchFanSpeed)
+    private void FloatingGadget_Closed(object sender, EventArgs e)
     {
-        _cpuUsage.Text = $"{cpuUsage:F0}%";
-        _cpuFrequency.Text = $"{cpuFrequency}Mhz";
-        _cpuTemperature.Text = $"{cpuTemp:F0}°C";
-        _cpuPower.Text = $"{cpuPower:F1} W";
-
-        _gpuUsage.Text = $"{gpuUsage:F0}%";
-        _gpuFrequency.Text = $"{gpuFrequency}Mhz";
-        _gpuTemperature.Text = $"{gpuTemp:F0}°C";
-        _gpuVramTemperature.Text = $"{gpuVramTemp:F0}°C";
-        _gpuPower.Text = $"{gpuPower:F1} W";
-
-        _memUsage.Text = $"{memUsage:F0}%";
-        _pchTemperature.Text = $"{pchTemp:F0}°C";
-        _memTemperature.Text = $"{memTemp:F0}°C";
-        _disk0Temperature.Text = $"{disk0Temperature:F0}°C";
-        _disk1Temperature.Text = $"{disk1Temperature:F0}°C";
-
-        _cpuFanSpeed.Text = $"{cpuFanSpeed} RPM";
-        _gpuFanSpeed.Text = $"{gpuFanSpeed} RPM";
-        _pchFanSpeed.Text = $"{pchFanSpeed} RPM";
+        _cts?.Cancel();
+        _cts?.Dispose();
+        _refreshLock.Dispose();
     }
 
-    public async Task TheRing(CancellationTokenSource cancellationTokenSource)
+    public void UpdateSensorData(
+        double cpuUsage, double cpuFrequency, double cpuTemp, double cpuPower,
+        double gpuUsage, double gpuFrequency, double gpuTemp, double gpuVramTemp, double gpuPower,
+        double memUsage, double pchTemp, double memTemp, double disk0Temperature, double disk1Temperature,
+        int cpuFanSpeed, int gpuFanSpeed, int pchFanSpeed)
     {
-        if (!await _refreshLock.WaitAsync(0))
-        {
+        if ((DateTime.Now - _lastUpdate).TotalMilliseconds < 100) return;
+        _lastUpdate = DateTime.Now;
+
+        _stringBuilder.Clear();
+        _stringBuilder.AppendFormat("{0:F0}%", cpuUsage);
+        _cpuUsage.Text = _stringBuilder.ToString();
+
+        _stringBuilder.Clear();
+        _stringBuilder.AppendFormat("{0}Mhz", cpuFrequency);
+        _cpuFrequency.Text = _stringBuilder.ToString();
+
+        _stringBuilder.Clear();
+        _stringBuilder.AppendFormat("{0:F0}°C", cpuTemp);
+        _cpuTemperature.Text = _stringBuilder.ToString();
+
+        _stringBuilder.Clear();
+        _stringBuilder.AppendFormat("{0:F1} W", cpuPower);
+        _cpuPower.Text = _stringBuilder.ToString();
+
+        _stringBuilder.Clear();
+        _stringBuilder.AppendFormat("{0:F0}%", gpuUsage);
+        _gpuUsage.Text = _stringBuilder.ToString();
+
+        _stringBuilder.Clear();
+        _stringBuilder.AppendFormat("{0}Mhz", gpuFrequency);
+        _gpuFrequency.Text = _stringBuilder.ToString();
+
+        _stringBuilder.Clear();
+        _stringBuilder.AppendFormat("{0:F0}°C", gpuTemp);
+        _gpuTemperature.Text = _stringBuilder.ToString();
+
+        _stringBuilder.Clear();
+        _stringBuilder.AppendFormat("{0:F0}°C", gpuVramTemp);
+        _gpuVramTemperature.Text = _stringBuilder.ToString();
+
+        _stringBuilder.Clear();
+        _stringBuilder.AppendFormat("{0:F1} W", gpuPower);
+        _gpuPower.Text = _stringBuilder.ToString();
+
+        _stringBuilder.Clear();
+        _stringBuilder.AppendFormat("{0:F0}%", memUsage);
+        _memUsage.Text = _stringBuilder.ToString();
+
+        _stringBuilder.Clear();
+        _stringBuilder.AppendFormat("{0:F0}°C", pchTemp);
+        _pchTemperature.Text = _stringBuilder.ToString();
+
+        _stringBuilder.Clear();
+        _stringBuilder.AppendFormat("{0:F0}°C", memTemp);
+        _memTemperature.Text = _stringBuilder.ToString();
+
+        _stringBuilder.Clear();
+        _stringBuilder.AppendFormat("{0:F0}°C", disk0Temperature);
+        _disk0Temperature.Text = _stringBuilder.ToString();
+
+        _stringBuilder.Clear();
+        _stringBuilder.AppendFormat("{0:F0}°C", disk1Temperature);
+        _disk1Temperature.Text = _stringBuilder.ToString();
+
+        _stringBuilder.Clear();
+        _stringBuilder.AppendFormat("{0} RPM", cpuFanSpeed);
+        _cpuFanSpeed.Text = _stringBuilder.ToString();
+
+        _stringBuilder.Clear();
+        _stringBuilder.AppendFormat("{0} RPM", gpuFanSpeed);
+        _gpuFanSpeed.Text = _stringBuilder.ToString();
+
+        _stringBuilder.Clear();
+        _stringBuilder.AppendFormat("{0} RPM", pchFanSpeed);
+        _pchFanSpeed.Text = _stringBuilder.ToString();
+    }
+
+    public async Task TheRing(CancellationToken token)
+    {
+        if (!await _refreshLock.WaitAsync(0, token))
             return;
-        }
 
         try
         {
-            while (!cancellationTokenSource.IsCancellationRequested)
+            while (!token.IsCancellationRequested)
             {
-                _refreshTask = Task.Run(async () =>
+                try
                 {
-                    var dataTask = _controller.GetDataAsync();
-                    var cpuPowerTask = _sensorsGroupControllers.GetCpuPowerAsync();
-                    var gpuPowerTask = _sensorsGroupControllers.GetGpuPowerAsync();
-                    var gpuVramTask = _sensorsGroupControllers.GetGpuVramTemperatureAsync();
-                    var diskTemperaturesTask = _sensorsGroupControllers.GetSSDTemperaturesAsync();
-                    var memoryUsageTask = _sensorsGroupControllers.GetMemoryUsageAsync();
-                    var memoryTemperaturesTask = _sensorsGroupControllers.GetHighestMemoryTemperatureAsync();
-
-                    await Task.WhenAll(dataTask, cpuPowerTask, gpuPowerTask, gpuVramTask, diskTemperaturesTask, memoryUsageTask, memoryTemperaturesTask);
-
-                    var data = dataTask.Result;
-                    var cpuPower = cpuPowerTask.Result;
-                    var gpuPower = gpuPowerTask.Result;
-
-                    await Application.Current.Dispatcher.InvokeAsync(() => UpdateSensorData(
-                            data.CPU.Utilization,
-                            data.CPU.CoreClock,
-                            data.CPU.Temperature,
-                            cpuPower,
-                            data.GPU.Utilization,
-                            data.GPU.CoreClock,
-                            data.GPU.Temperature,
-                            gpuVramTask.Result,
-                            gpuPower,
-                            memoryUsageTask.Result,
-                            memoryTemperaturesTask.Result,
-                            data.PCH.Temperature,
-                            diskTemperaturesTask.Result.Item1,
-                            diskTemperaturesTask.Result.Item2,
-                            data.CPU.FanSpeed,
-                            data.GPU.FanSpeed,
-                            data.PCH.FanSpeed
-                        ), DispatcherPriority.Background);
-                });
-
-                await _refreshTask;
-                await Task.Delay(TimeSpan.FromSeconds(_settings.Store.FloatingGadgetsRefreshInterval), cancellationTokenSource.Token);
+                    await RefreshDataAsync(token);
+                    await Task.Delay(
+                        TimeSpan.FromSeconds(_settings.Store.FloatingGadgetsRefreshInterval),
+                        token
+                    );
+                }
+                catch (OperationCanceledException)
+                {
+                    break;
+                }
+                catch (Exception)
+                {
+                    await Task.Delay(5000, token);
+                }
             }
-        }
-        catch (Exception)
-        {
         }
         finally
         {
             _refreshLock.Release();
         }
+    }
+
+    private async Task RefreshDataAsync(CancellationToken token)
+    {
+        await _sensorsGroupControllers.UpdateAsync();
+
+        var dataTask = _controller.GetDataAsync();
+        var cpuPowerTask = _sensorsGroupControllers.GetCpuPowerAsync();
+        var gpuPowerTask = _sensorsGroupControllers.GetGpuPowerAsync();
+        var gpuVramTask = _sensorsGroupControllers.GetGpuVramTemperatureAsync();
+        var diskTemperaturesTask = _sensorsGroupControllers.GetSSDTemperaturesAsync();
+        var memoryUsageTask = _sensorsGroupControllers.GetMemoryUsageAsync();
+        var memoryTemperaturesTask = _sensorsGroupControllers.GetHighestMemoryTemperatureAsync();
+
+        await Task.WhenAll(dataTask, cpuPowerTask, gpuPowerTask, gpuVramTask,
+            diskTemperaturesTask, memoryUsageTask, memoryTemperaturesTask);
+
+        var data = dataTask.Result;
+        var cpuPower = cpuPowerTask.Result;
+        var gpuPower = gpuPowerTask.Result;
+
+        await Dispatcher.BeginInvoke(() => UpdateSensorData(
+            data.CPU.Utilization,
+            data.CPU.CoreClock,
+            data.CPU.Temperature,
+            cpuPower,
+            data.GPU.Utilization,
+            data.GPU.CoreClock,
+            data.GPU.Temperature,
+            gpuVramTask.Result,
+            gpuPower,
+            memoryUsageTask.Result,
+            data.PCH.Temperature,
+            memoryTemperaturesTask.Result,
+            diskTemperaturesTask.Result.Item1,
+            diskTemperaturesTask.Result.Item2,
+            data.CPU.FanSpeed,
+            data.GPU.FanSpeed,
+            data.PCH.FanSpeed
+        ), DispatcherPriority.Background);
     }
 }

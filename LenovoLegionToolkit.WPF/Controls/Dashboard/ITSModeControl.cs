@@ -33,8 +33,38 @@ public class ITSModeControl : AbstractComboBoxFeatureCardControl<ITSMode>
         Title = Resource.ITSModeControl_Title;
         Subtitle = Resource.ITSModeControl_Message;
 
-        AutomationProperties.SetName(_configButton, Resource.PowerModeControl_Title);
+        AutomationProperties.SetName(_configButton, Resource.ITSModeControl_Title);
+
+        IsVisibleChanged += ITSModeControl_IsVisibleChanged;
     }
+
+    private async void ITSModeControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+    {
+        ITSMode mode = ITSMode.None;
+        if (_itsModeFeature.LastItsMode == ITSMode.None)
+        {
+            mode = await _itsModeFeature.GetStateAsync();
+            _itsModeFeature.LastItsMode = mode;
+            if (Log.Instance.IsTraceEnabled)
+            {
+                Log.Instance.Trace($"Read ITSMode from GetStateAsync(): {mode}");
+            }
+        }
+        else
+        {
+            mode = _itsModeFeature.LastItsMode;
+            if (Log.Instance.IsTraceEnabled)
+            {
+                Log.Instance.Trace($"Read ITSMode from LastItsMode: {mode}");
+            }
+        }
+
+        if (Log.Instance.IsTraceEnabled)
+        {
+            Log.Instance.Trace($"Visible changed. Set ITSMode to {mode}");
+        }
+        _comboBox.SelectedItem = mode;
+    }   
 
     protected override async Task OnRefreshAsync()
     {
@@ -43,10 +73,6 @@ public class ITSModeControl : AbstractComboBoxFeatureCardControl<ITSMode>
 
     protected override async Task OnStateChangeAsync(ComboBox comboBox, IFeature<ITSMode> feature, ITSMode? newValue, ITSMode? oldValue)
     {
-        await base.OnStateChangeAsync(comboBox, feature, newValue, oldValue);
-
-        var mi = await Compatibility.GetMachineInformationAsync();
-
         if (newValue == null || oldValue == null)
             return;
 
@@ -69,6 +95,8 @@ public class ITSModeControl : AbstractComboBoxFeatureCardControl<ITSMode>
                 dialog.ShowDialog();
             }
         }
+
+        await base.OnStateChangeAsync(comboBox, feature, newValue, oldValue);
     }
 
     protected override void OnStateChangeException(Exception exception)

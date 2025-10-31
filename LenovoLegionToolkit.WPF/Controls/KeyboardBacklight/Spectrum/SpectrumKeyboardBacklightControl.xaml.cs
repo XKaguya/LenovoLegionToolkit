@@ -23,6 +23,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using static System.Runtime.CompilerServices.RuntimeHelpers;
 
 namespace LenovoLegionToolkit.WPF.Controls.KeyboardBacklight.Spectrum;
 
@@ -277,30 +278,27 @@ public partial class SpectrumKeyboardBacklightControl
 
     private void AddEffectButton_Click(object sender, RoutedEventArgs e)
     {
-        var buttons = _device.GetVisibleButtons().ToArray();
-        var checkedButtons = buttons.Where(b => b.IsChecked ?? false).ToArray();
+        var visibleButtons = _device.GetVisibleButtons().ToList();
+        var ambientButton = _device.GetAmbientButton();
 
-        if (checkedButtons.IsEmpty())
+        if (visibleButtons.All(b => !(b.IsChecked ?? false)) && ambientButton?.IsChecked != true)
         {
             SelectAllButtons();
-            checkedButtons = buttons;
+            visibleButtons = _device.GetVisibleButtons().ToList();
         }
 
-        var keyCodesList = checkedButtons.Select(b => b.KeyCode).ToList();
-
-        SpectrumAmbientZoneControl? ambientButton = _device.GetAmbientButton();
-        if (ambientButton is not null)
-        {
-            keyCodesList.AddRange(ambientButton.KeyCodes);
-        }
-
-        var keyCodes = keyCodesList.ToArray();
-
-        var allKeyboardKeyCodes = _device.GetVisibleKeyboardButtons()
-            .Select(b => b.KeyCode)
+        var selectedKeyCodes = visibleButtons
+            .Where(button => button.IsChecked ?? false)
+            .Select(button => button.KeyCode)
+            .Concat(ambientButton?.IsChecked == true
+                ? ambientButton.KeyCodes
+                : Enumerable.Empty<ushort>())
+            .Distinct()
             .ToArray();
 
-        CreateEffect(keyCodes, allKeyboardKeyCodes);
+        var keyboardKeyCodes = _device.GetVisibleKeyboardButtons().Select(b => b.KeyCode).ToArray();
+
+        CreateEffect(selectedKeyCodes, keyboardKeyCodes);
     }
 
     private async void ResetToDefaultButton_Click(object sender, RoutedEventArgs e) => await ResetToDefaultAsync();

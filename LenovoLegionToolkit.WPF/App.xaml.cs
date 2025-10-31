@@ -56,6 +56,7 @@ public partial class App
     public FloatingGadget? FloatingGadget = null;
 
     public new static App Current => (App)Application.Current;
+    public static MainWindow? MainWindowInstance = null;
 
     private async void Application_Startup(object sender, StartupEventArgs e)
     {
@@ -149,6 +150,7 @@ public partial class App
             DisableConflictingSoftwareWarning = flags.DisableConflictingSoftwareWarning
         };
         MainWindow = mainWindow;
+        MainWindowInstance = mainWindow;
 
         IoCContainer.Resolve<ThemeManager>().Apply();
 
@@ -182,7 +184,9 @@ public partial class App
         CheckFloatingGadget();
 
         if (Log.Instance.IsTraceEnabled)
+        {
             Log.Instance.Trace($"Start up complete");
+        }
     }
 
     private void Application_Exit(object sender, ExitEventArgs e)
@@ -225,6 +229,7 @@ public partial class App
             WindowStartupLocation = WindowStartupLocation.CenterScreen
         };
         MainWindow = mainWindow;
+        MainWindowInstance = mainWindow;
         mainWindow.Show();
     }
 
