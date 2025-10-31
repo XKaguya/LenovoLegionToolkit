@@ -34,6 +34,19 @@ public class ITSModeControl : AbstractComboBoxFeatureCardControl<ITSMode>
         Subtitle = Resource.ITSModeControl_Message;
 
         AutomationProperties.SetName(_configButton, Resource.ITSModeControl_Title);
+
+        IsVisibleChanged += ITSModeControl_IsVisibleChanged;
+    }
+
+    private async void ITSModeControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+    {
+        ITSMode mode = ITSMode.None;
+        if (_itsModeFeature.LastItsMode == ITSMode.None)
+        {
+            mode = await _itsModeFeature.GetStateAsync();
+        }
+
+        _comboBox.SelectedItem = mode;
     }
 
     protected override async Task OnRefreshAsync()

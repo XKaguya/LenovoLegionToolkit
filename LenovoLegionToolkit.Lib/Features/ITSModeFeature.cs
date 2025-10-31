@@ -37,7 +37,7 @@ public partial class ITSModeFeature : IFeature<ITSMode>
     private static uint DISPATCHER_VERSION_4 = 12288U;
     #endregion
 
-    public ITSMode LastItsMode { get; set; }
+    public ITSMode LastItsMode { get; set; } = ITSMode.None;
 
     public async Task<bool> IsSupportedAsync()
     {
