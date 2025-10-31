@@ -62,7 +62,12 @@ public partial class ITSModeFeature : IFeature<ITSMode>
 
                 try
                 {
-                    GetITSMode(ref instance, ref num, ref itsmode);
+                    int errorCode = GetITSMode(ref instance, ref num, ref itsmode);
+
+                    if (Log.Instance.IsTraceEnabled)
+                    {
+                        Log.Instance.Trace($"GetITSMode() executed. Error Code: {errorCode}");
+                    }
                 }
                 catch (DllNotFoundException)
                 {
@@ -157,6 +162,10 @@ public partial class ITSModeFeature : IFeature<ITSMode>
                     Log.Instance.Trace($"ITS mode set successfully, LastItsMode updated to: {itsMode}");
                     Log.Instance.Trace($"LastItsMode == currentMode {LastItsMode == currentMode}");
                 }
+            }
+            catch (DllNotFoundException)
+            {
+                throw new DllNotFoundException("PowerBattery.dll not found.");
             }
             catch (Exception ex)
             {

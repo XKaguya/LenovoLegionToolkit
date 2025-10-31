@@ -33,7 +33,7 @@ public class ITSModeControl : AbstractComboBoxFeatureCardControl<ITSMode>
         Title = Resource.ITSModeControl_Title;
         Subtitle = Resource.ITSModeControl_Message;
 
-        AutomationProperties.SetName(_configButton, Resource.PowerModeControl_Title);
+        AutomationProperties.SetName(_configButton, Resource.ITSModeControl_Title);
     }
 
     protected override async Task OnRefreshAsync()
@@ -43,10 +43,6 @@ public class ITSModeControl : AbstractComboBoxFeatureCardControl<ITSMode>
 
     protected override async Task OnStateChangeAsync(ComboBox comboBox, IFeature<ITSMode> feature, ITSMode? newValue, ITSMode? oldValue)
     {
-        await base.OnStateChangeAsync(comboBox, feature, newValue, oldValue);
-
-        var mi = await Compatibility.GetMachineInformationAsync();
-
         if (newValue == null || oldValue == null)
             return;
 
@@ -69,6 +65,8 @@ public class ITSModeControl : AbstractComboBoxFeatureCardControl<ITSMode>
                 dialog.ShowDialog();
             }
         }
+
+        await base.OnStateChangeAsync(comboBox, feature, newValue, oldValue);
     }
 
     protected override void OnStateChangeException(Exception exception)
