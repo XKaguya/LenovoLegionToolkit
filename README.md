@@ -33,6 +33,11 @@ _Join the Legion Series Discord: https://discord.com/invite/legionseries!_
 
 &nbsp;
 
+# Localization
+This fork has linked to crowdin [LenovoLegionToolkit-Unofficial](https://crowdin.com/project/lenovolegiontoolkit-unofficial)
+
+Contributions to the localization efforts are warmly welcomed and greatly appreciated!
+
 # Table of Contents
   - [Disclaimer](#disclaimer)
   - [Download](#download)

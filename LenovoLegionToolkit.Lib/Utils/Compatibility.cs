@@ -419,7 +419,8 @@ public static partial class Compatibility
             "Legion 7", // Y9000X, Not Y9000P.
             "Legion Pro 5 16IAX10H", // Y7000P With RTX 5070TI
             "LOQ",
-            "Y7000", 
+            "Y7000",
+            "R7000"
         };
 
         var (_, type, _, _) = GetModelDataAsync().Result;
