@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.Features;
+using LenovoLegionToolkit.Lib.Utils;
 using LenovoLegionToolkit.WPF.Resources;
 using LenovoLegionToolkit.WPF.Utils;
 using LenovoLegionToolkit.WPF.Windows.Utils;
@@ -43,10 +44,27 @@ public class ITSModeControl : AbstractComboBoxFeatureCardControl<ITSMode>
         if (_itsModeFeature.LastItsMode == ITSMode.None)
         {
             mode = await _itsModeFeature.GetStateAsync();
+            _itsModeFeature.LastItsMode = mode;
+            if (Log.Instance.IsTraceEnabled)
+            {
+                Log.Instance.Trace($"Read ITSMode from GetStateAsync(): {mode}");
+            }
+        }
+        else
+        {
+            mode = _itsModeFeature.LastItsMode;
+            if (Log.Instance.IsTraceEnabled)
+            {
+                Log.Instance.Trace($"Read ITSMode from LastItsMode: {mode}");
+            }
         }
 
+        if (Log.Instance.IsTraceEnabled)
+        {
+            Log.Instance.Trace($"Visible changed. Set ITSMode to {mode}");
+        }
         _comboBox.SelectedItem = mode;
-    }
+    }   
 
     protected override async Task OnRefreshAsync()
     {

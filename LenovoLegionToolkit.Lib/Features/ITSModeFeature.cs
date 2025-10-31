@@ -8,179 +8,201 @@ namespace LenovoLegionToolkit.Lib.Features;
 
 public partial class ITSModeFeature : IFeature<ITSMode>
 {
-    #region Import
+    #region Constants and Imports
+    private const uint ITS_VERSION_3 = 16384U;
+    private const uint ITS_VERSION_4 = 20480U;
+    private const uint ITS_VERSION_5 = 24576U;
+    private const uint DISPATCHER_VERSION_2 = 4096U;
+    private const uint DISPATCHER_VERSION_3 = 8192U;
+    private const uint DISPATCHER_VERSION_4 = 12288U;
+
     [LibraryImport("PowerBattery.dll", EntryPoint = "?SetITSMode@CIntelligentCooling@PowerBattery@@QEAAHAEAW4ITSMode@12@@Z", SetLastError = true)]
-    [UnmanagedCallConv(CallConvs = new Type[] { typeof(CallConvCdecl) })]
+    [UnmanagedCallConv(CallConvs = new[] { typeof(CallConvCdecl) })]
     internal static partial int SetITSMode(ref CIntelligentCooling instance, ref ITSMode itsMode);
 
     [LibraryImport("PowerBattery.dll", EntryPoint = "?GetITSMode@CIntelligentCooling@PowerBattery@@QEAAHAEAHAEAW4ITSMode@12@@Z", SetLastError = true)]
-    [UnmanagedCallConv(CallConvs = new Type[] { typeof(CallConvCdecl) })]
-    internal static partial int GetITSMode(ref CIntelligentCooling instance, ref int var2, ref ITSMode itsMode);
+    [UnmanagedCallConv(CallConvs = new[] { typeof(CallConvCdecl) })]
+    internal static partial int GetITSMode(ref CIntelligentCooling instance, ref int itsVersion, ref ITSMode itsMode);
 
     [LibraryImport("PowerBattery.dll", EntryPoint = "?GetDispatcherVersion@CIntelligentCooling@PowerBattery@@QEAAHXZ", SetLastError = true)]
-    [UnmanagedCallConv(CallConvs = new Type[] { typeof(CallConvCdecl) })]
+    [UnmanagedCallConv(CallConvs = new[] { typeof(CallConvCdecl) })]
     internal static partial int GetDispatcherVersion(ref CIntelligentCooling instance);
 
+    [LibraryImport("PowerBattery.dll", EntryPoint = "?GetDispatcherMode@CIntelligentCooling@PowerBattery@@QEAAHAEAHAEAW4ITSMode@12@H@Z", SetLastError = true)]
+    [UnmanagedCallConv(CallConvs = new[] { typeof(CallConvCdecl) })]
+    internal static partial int GetDispatcherMode(ref CIntelligentCooling instance, ref int supportItsMode, ref ITSMode itsMode, int geekModeFlag);
+
     [LibraryImport("PowerBattery.dll", EntryPoint = "?GetITSVersion@CIntelligentCooling@PowerBattery@@QEAAHXZ", SetLastError = true)]
-    [UnmanagedCallConv(CallConvs = new Type[] { typeof(CallConvCdecl) })]   
+    [UnmanagedCallConv(CallConvs = new[] { typeof(CallConvCdecl) })]
     internal static partial int GetITSVersion(ref CIntelligentCooling instance);
 
     [LibraryImport("PowerBattery.dll", EntryPoint = "?SetDispatcherMode@CIntelligentCooling@PowerBattery@@QEAAHAEAW4ITSMode@12@H@Z", SetLastError = true)]
-    [UnmanagedCallConv(CallConvs = new Type[] { typeof(CallConvCdecl) })]
+    [UnmanagedCallConv(CallConvs = new[] { typeof(CallConvCdecl) })]
     internal static partial int SetDispatcherMode(ref CIntelligentCooling instance, ref ITSMode itsMode, int var);
 
-    private static uint ITS_VERSION_3 = 16384U;
-    private static uint ITS_VERSION_4 = 20480U;
-    private static uint ITS_VERSION_5 = 24576U;
-    private static uint DISPATCHER_VERSION_2 = 4096U;
-    private static uint DISPATCHER_VERSION_3 = 8192U;
-    private static uint DISPATCHER_VERSION_4 = 12288U;
+    [LibraryImport("PowerBattery.dll", EntryPoint = "?HasDispatcherDeviceNode@CIntelligentCooling@PowerBattery@@QEAAHXZ", SetLastError = true)]
+    [UnmanagedCallConv(CallConvs = new[] { typeof(CallConvCdecl) })]
+    internal static partial int HasDispatcherDeviceNode(ref CIntelligentCooling instance);
     #endregion
 
     public ITSMode LastItsMode { get; set; } = ITSMode.None;
 
     public async Task<bool> IsSupportedAsync()
     {
-        var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
-        return mi.Properties.SupportITSMode;
+        var machineInfo = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
+        return machineInfo.Properties.SupportITSMode;
     }
 
-    public Task<ITSMode[]> GetAllStatesAsync()
-    {
-        return Task.FromResult((ITSMode[])Enum.GetValues(typeof(ITSMode)));
-    }
+    public Task<ITSMode[]> GetAllStatesAsync() => Task.FromResult((ITSMode[])Enum.GetValues(typeof(ITSMode)));
 
-    public Task<ITSMode> GetStateAsync()
+    public async Task<ITSMode> GetStateAsync()
     {
-        return Task.Run(() =>
+        try
         {
-            try
-            {
-                int num = 0;
-                ITSMode itsmode = ITSMode.None;
-                CIntelligentCooling instance = default;
-
-                try
-                {
-                    int errorCode = GetITSMode(ref instance, ref num, ref itsmode);
-
-                    if (Log.Instance.IsTraceEnabled)
-                    {
-                        Log.Instance.Trace($"GetITSMode() executed. Error Code: {errorCode}");
-                    }
-                }
-                catch (DllNotFoundException)
-                {
-                    return ITSMode.None;
-                }
-
-                LastItsMode = itsmode;
-                return itsmode;
-            }
-            catch (Exception ex)
-            {
-                if (Log.Instance.IsTraceEnabled)
-                {
-                    Log.Instance.Trace($"Failed to get ITS mode", ex);
-                }
-
-                return ITSMode.None;
-            }
-        });
-    }
-
-    public Task SetStateAsync(ITSMode itsMode)
-    {
-        return Task.Run(() =>
+            return await Task.Run(GetItsModeInternal).ConfigureAwait(false);
+        }
+        catch (Exception ex)
         {
             if (Log.Instance.IsTraceEnabled)
+                Log.Instance.Trace($"Failed to get ITS mode", ex);
+
+            return ITSMode.None;
+        }
+    }
+
+    public async Task SetStateAsync(ITSMode state)
+    {
+        if (Log.Instance.IsTraceEnabled)
+            Log.Instance.Trace($"Setting ITS mode to: {state}");
+
+        try
+        {
+            await Task.Run(() => SetItsModeInternal(state)).ConfigureAwait(false);
+            LastItsMode = state;
+
+            if (Log.Instance.IsTraceEnabled)
+                Log.Instance.Trace($"ITS mode set successfully to: {state}");
+        }
+        catch (Exception ex)
+        {
+            if (Log.Instance.IsTraceEnabled)
+                Log.Instance.Trace($"Failed to set ITS mode to {state}", ex);
+
+            throw;
+        }
+    }
+
+    private ITSMode GetItsModeInternal()
+    {
+        try
+        {
+            CIntelligentCooling instance = default;
+            var machineInfo = Compatibility.GetMachineInformationAsync().Result;
+            var isThinkBook = machineInfo.LegionSeries == LegionSeries.ThinkBook;
+
+            if (HasDispatcherDeviceNode(ref instance) != 0)
+                return GetDispatcherModeInternal(ref instance, isThinkBook);
+            else
+                return GetStandardModeInternal(ref instance);
+        }
+        catch (DllNotFoundException)
+        {
+            return ITSMode.None;
+        }
+    }
+
+    private ITSMode GetDispatcherModeInternal(ref CIntelligentCooling instance, bool isThinkBook)
+    {
+        var supportFlag = 0;
+        var mode = ITSMode.None;
+        var errorCode = GetDispatcherMode(ref instance, ref supportFlag, ref mode, isThinkBook ? 1 : 0);
+
+        if (Log.Instance.IsTraceEnabled)
+        {
+            Log.Instance.Trace($"GetDispatcherMode() executed. Error Code: {errorCode}");
+        }
+        LogSupportedModes(supportFlag);
+
+        return mode;
+    }
+
+    private ITSMode GetStandardModeInternal(ref CIntelligentCooling instance)
+    {
+        var version = 0;
+        var mode = ITSMode.None;
+        var errorCode = GetITSMode(ref instance, ref version, ref mode);
+
+        if (Log.Instance.IsTraceEnabled)
+        {
+            Log.Instance.Trace($"GetITSMode() executed. Error Code: {errorCode}");
+            Log.Instance.Trace($"ITS Version: {version}");
+        }
+        return mode;
+    }
+
+    private void SetItsModeInternal(ITSMode state)
+    {
+        CIntelligentCooling instance = default;
+        var machineInfo = Compatibility.GetMachineInformationAsync().Result;
+        var isThinkBook = machineInfo.LegionSeries == LegionSeries.ThinkBook;
+        var dispatcherVersion = GetDispatcherVersion(ref instance);
+
+        int errorCode;
+        if (dispatcherVersion >= DISPATCHER_VERSION_3)
+        {
+            errorCode = SetDispatcherMode(ref instance, ref state, isThinkBook ? 1 : 0);
+            if (Log.Instance.IsTraceEnabled)
             {
-                Log.Instance.Trace($"Starting ITS mode setting: {itsMode}");
+                Log.Instance.Trace($"Using SetDispatcherMode()");
+                Log.Instance.Trace($"SetDispatcherMode executed. Error Code: {errorCode}");
             }
-
-            try
+        }
+        else
+        {
+            errorCode = SetITSMode(ref instance, ref state);
+            if (Log.Instance.IsTraceEnabled)
             {
-                CIntelligentCooling instance = default;
-                if (Log.Instance.IsTraceEnabled)
-                {
-                    Log.Instance.Trace($"CIntelligentCooling instance initialized with default value: {instance}");
-                }
-
-                var mi = Compatibility.GetMachineInformationAsync().Result;
-                if (Log.Instance.IsTraceEnabled)
-                {
-                    Log.Instance.Trace($"Machine information retrieved - Series: {mi.LegionSeries}, IsThinkBook: {mi.LegionSeries == LegionSeries.ThinkBook}");
-                }
-
-                var flag = mi.LegionSeries == LegionSeries.ThinkBook;
-                if (Log.Instance.IsTraceEnabled)
-                {
-                    Log.Instance.Trace($"Is ThinkBook and support Geek Mode: {flag}");
-                }
-
-                var version = GetDispatcherVersion(ref instance);
-                if (Log.Instance.IsTraceEnabled)
-                {
-                    Log.Instance.Trace($"Dispatcher version: {version} (threshold: {DISPATCHER_VERSION_3})");
-                }
-
-                if (version >= DISPATCHER_VERSION_3)
-                {
-                    if (Log.Instance.IsTraceEnabled)
-                    {
-                        Log.Instance.Trace($"Using SetDispatcherMode()");
-                    }
-
-                    int? num = SetDispatcherMode(ref instance, ref itsMode, flag ? 1 : 0);
-
-                    if (Log.Instance.IsTraceEnabled)
-                    {
-                        Log.Instance.Trace($"SetDispatcherMode executed. Error Code: {num}");
-                    }
-                }
-                else
-                {
-                    if (Log.Instance.IsTraceEnabled)
-                    {
-                        Log.Instance.Trace($"Using SetITSMode()");
-                    }
-
-                    int? num = SetITSMode(ref instance, ref itsMode);
-
-                    if (Log.Instance.IsTraceEnabled)
-                    {
-                        Log.Instance.Trace($"SetITSMode executed. Error Code: {num}");
-                    }
-                }
-
-                LastItsMode = itsMode;
-                ITSMode currentMode = ITSMode.None;
-                int garbage = 0;
-                GetITSMode(ref instance, ref garbage, ref currentMode);
-                if (Log.Instance.IsTraceEnabled)
-                {
-                    Log.Instance.Trace($"ITS mode set successfully, LastItsMode updated to: {itsMode}");
-                    Log.Instance.Trace($"LastItsMode == currentMode {LastItsMode == currentMode}");
-                }
+                Log.Instance.Trace($"Using SetITSMode()");
+                Log.Instance.Trace($"SetITSMode executed. Error Code: {errorCode}");
             }
-            catch (DllNotFoundException)
+        }
+
+        VerifyModeChange(ref instance, state);
+    }
+
+    private void VerifyModeChange(ref CIntelligentCooling instance, ITSMode expectedMode)
+    {
+        var version = 0;
+        var currentMode = ITSMode.None;
+        GetITSMode(ref instance, ref version, ref currentMode);
+
+        if (Log.Instance.IsTraceEnabled)
+        {
+            Log.Instance.Trace($"Mode verification - Expected: {expectedMode}, Actual: {currentMode}, Match: {expectedMode == currentMode}");
+        }
+    }
+
+    private void LogSupportedModes(int supportFlag)
+    {
+        if (!Log.Instance.IsTraceEnabled)
+        {
+            return;
+        }
+
+        var modes = new[]
+        {
+            (1, ITSMode.ItsAuto),
+            (2, ITSMode.MmcCool),
+            (8, ITSMode.MmcPerformance),
+            (16, ITSMode.MmcGeek)
+        };
+
+        foreach (var (flag, mode) in modes)
+        {
+            if ((supportFlag & flag) != 0)
             {
-                throw new DllNotFoundException("PowerBattery.dll not found.");
+                Log.Instance.Trace($"Support ITSMode: {mode}");
             }
-            catch (Exception ex)
-            {
-                if (Log.Instance.IsTraceEnabled)
-                {
-                    Log.Instance.Trace($"Failed to set ITS mode to {itsMode}", ex);
-                }
-            }
-            finally
-            {
-                if (Log.Instance.IsTraceEnabled)
-                {
-                    Log.Instance.Trace($"ITS mode setting operation completed");
-                }
-            }
-        });
+        }
     }
 }

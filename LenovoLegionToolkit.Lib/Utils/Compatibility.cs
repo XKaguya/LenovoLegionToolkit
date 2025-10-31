@@ -548,6 +548,10 @@ public static partial class Compatibility
         {
             return LegionSeries.Lenovo_Slim;
         }
+        else if (model.ToLowerInvariant().Contains("ThinkBook".ToLowerInvariant()))
+        {
+            return LegionSeries.ThinkBook;
+        }
 
         return LegionSeries.Unknown;
     }
