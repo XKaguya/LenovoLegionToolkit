@@ -3,6 +3,7 @@ using LenovoLegionToolkit.Lib.Controllers.Sensors;
 using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.System;
 using LenovoLegionToolkit.Lib.System.Management;
+using Newtonsoft.Json.Linq;
 using RAMSPDToolkit.Extensions;
 using System;
 using System.Collections.Generic;
@@ -276,9 +277,15 @@ public static partial class Compatibility
     {
         try
         {
-            var powerModes = new List<PowerModeState>();
+            var powerModes = new List<PowerModeState>();    
 
             var value = await WMI.LenovoOtherMethod.GetFeatureValueAsync(CapabilityID.SupportedPowerModes).ConfigureAwait(false);
+
+            // 0    Quiet
+            // 1    Balance
+            // 2    Performance
+            // 3    Extreme
+            // 16   Custom
 
             if (value.IsBitSet(0))
                 powerModes.Add(PowerModeState.Quiet);
@@ -286,11 +293,10 @@ public static partial class Compatibility
                 powerModes.Add(PowerModeState.Balance);
             if (value.IsBitSet(2))
                 powerModes.Add(PowerModeState.Performance);
-            if (value.IsBitSet(16))
-            {
+            if (value.IsBitSet(3))
                 powerModes.Add(PowerModeState.Extreme);
+            if (value.IsBitSet(16))
                 powerModes.Add(PowerModeState.GodMode);
-            }
 
             return powerModes;
         }
@@ -308,11 +314,10 @@ public static partial class Compatibility
                 powerModes.Add(PowerModeState.Balance);
             if (result.IsBitSet(2))
                 powerModes.Add(PowerModeState.Performance);
-            if (result.IsBitSet(16))
-            {
+            if (result.IsBitSet(3))
                 powerModes.Add(PowerModeState.Extreme);
+            if (result.IsBitSet(16))
                 powerModes.Add(PowerModeState.GodMode);
-            }
 
             return powerModes;
         }

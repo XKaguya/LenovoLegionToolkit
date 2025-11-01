@@ -49,6 +49,9 @@ public class SpecialKeyListener(
                 return;
             }
 
+            var mi = Compatibility.GetMachineInformationAsync().Result;
+            var feature = IoCContainer.Resolve<ITSModeFeature>();
+
             switch (value)
             {
                 case SpecialKey.CameraOn or SpecialKey.CameraOff:
@@ -107,6 +110,18 @@ public class SpecialKeyListener(
                     break;
                 case SpecialKey.WhiteBacklight2:
                     NotifyWhiteBacklight(WhiteKeyboardBacklightState.High);
+                    break;
+                case SpecialKey.FnQ:
+                    if (mi.LegionSeries == LegionSeries.Lenovo_Slim || mi.LegionSeries == LegionSeries.IdeaPad || mi.LegionSeries == LegionSeries.ThinkBook)
+                    {
+                        if (await feature.IsSupportedAsync().ConfigureAwait(false))
+                        {
+                            await feature.ToggleItsMode();
+                        }
+                    }
+
+                    Log.Instance.Trace($"FnQ pressed.");
+
                     break;
             }
         }
