@@ -58,6 +58,7 @@ public class ApplicationSettings : AbstractSettings<ApplicationSettings.Applicat
         public int FloatingGadgetsRefreshInterval { get; set; }
         public string BackGroundImageFilePath { get; set; } = string.Empty;
         public double Opacity { get; set; } = 1.0f;
+        public int SelectedStyleIndex { get; set; } = 0;
     }
 
     public ApplicationSettings() : base("settings.json")

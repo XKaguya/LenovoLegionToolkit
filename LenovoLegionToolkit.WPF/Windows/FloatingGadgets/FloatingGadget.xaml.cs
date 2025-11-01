@@ -171,24 +171,18 @@ public partial class FloatingGadget
                 try
                 {
                     await RefreshDataAsync(token);
-                    await Task.Delay(
-                        TimeSpan.FromSeconds(_settings.Store.FloatingGadgetsRefreshInterval),
-                        token
-                    );
+                    await Task.Delay(TimeSpan.FromSeconds(_settings.Store.FloatingGadgetsRefreshInterval), token);
                 }
-                catch (OperationCanceledException)
-                {
-                    break;
-                }
-                catch (Exception)
-                {
-                    await Task.Delay(5000, token);
-                }
+                catch (Exception) { }
             }
         }
         finally
         {
-            _refreshLock.Release();
+            try
+            {
+                _refreshLock.Release();
+            }
+            catch (ObjectDisposedException) { }
         }
     }
 

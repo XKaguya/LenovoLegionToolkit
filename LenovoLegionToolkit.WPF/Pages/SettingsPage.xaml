@@ -489,11 +489,6 @@
                     Subtitle="{x:Static resources:Resource.SettingsPage_FloatingGadgets_Message}" />    
             </custom:CardControl.Header>
             <StackPanel Orientation="Horizontal">
-                <wpfui:ToggleSwitch
-                    x:Name="_floatingGadgetsToggle"
-                    Margin="0,0,8,0"
-                    AutomationProperties.Name="{x:Static resources:Resource.SettingsPage_FloatingGadgets_Title}"
-                    Click="FloatingGadgets_Click" />
                 <wpfui:NumberBox
                     x:Name="_floatingGadgetsInterval"
                     Width="100"
@@ -504,7 +499,23 @@
                     ToolTip="{x:Static resources:Resource.SettingsPage_FloatingGadgets_Tooltip}"
                     SpinButtonPlacementMode="Inline"
                     ValueChanged="FloatingGadgetsInput_ValueChanged"
-                    Visibility="Visible" />
+                    Visibility="Hidden" />
+                <ComboBox
+                        x:Name="_floatingGadgetsStyleComboBox"
+                        Width="120"
+                        Margin="5,0,8,0"
+                        VerticalAlignment="Center"
+                        SelectionChanged="StyleComboBox_SelectionChanged"
+                        Visibility="Hidden">
+                    <ComboBoxItem Content="Default" Tag="Default"/>
+                    <ComboBoxItem Content="Simple" Tag="Simple"/>
+                </ComboBox>
+                <wpfui:ToggleSwitch
+                    x:Name="_floatingGadgetsToggle"
+                    Margin="0,0,0,8"
+                    AutomationProperties.Name="{x:Static resources:Resource.SettingsPage_FloatingGadgets_Title}"
+                    Click="FloatingGadgets_Click"
+                    Visibility="Hidden" />
             </StackPanel>
         </custom:CardControl>
     </StackPanel>

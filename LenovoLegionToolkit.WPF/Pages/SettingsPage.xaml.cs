@@ -190,8 +190,12 @@ public partial class SettingsPage
         _cliInterfaceToggle.IsChecked = _integrationsSettings.Store.CLI;
         _cliPathToggle.IsChecked = SystemPath.HasCLI();
 
-        _floatingGadgetsInterval.Text = _settings.Store.FloatingGadgetsRefreshInterval.ToString();
+        _floatingGadgetsToggle.Visibility = Visibility.Visible;
+        _floatingGadgetsStyleComboBox.Visibility = Visibility.Visible;
         _floatingGadgetsToggle.IsChecked = _settings.Store.ShowFloatingGadgets;
+
+        _floatingGadgetsStyleComboBox.SelectedIndex = _settings.Store.SelectedStyleIndex;
+        _floatingGadgetsInterval.Text = _settings.Store.FloatingGadgetsRefreshInterval.ToString();
 
         await loadingTask;
 
@@ -869,21 +873,97 @@ public partial class SettingsPage
         if (_isRefreshing)
             return;
 
-        var state = _floatingGadgetsToggle.IsChecked;
-        if (state is null)
-            return;
-
-        if (state.Value)
+        try
         {
-            App.Current.FloatingGadget!.Show();
-        }
-        else
-        {
-            App.Current.FloatingGadget!.Hide();
-        }
+            var state = _floatingGadgetsToggle.IsChecked;
+            if (state is null)
+                return;
 
-        _settings.Store.ShowFloatingGadgets = state.Value;
-        _settings.SynchronizeStore();
+            Window? floatingGadget = null;
+
+            if (state.Value)
+            {
+                if (App.Current.FloatingGadget == null)
+                {
+                    if (_settings.Store.SelectedStyleIndex == 0)
+                    {
+                        floatingGadget = new FloatingGadget();
+                    }
+                    else if (_settings.Store.SelectedStyleIndex == 1)
+                    {
+                        floatingGadget = new FloatingGadgetUpper();
+                    }
+
+                    if (floatingGadget != null)
+                    {
+                        App.Current.FloatingGadget = floatingGadget;
+                        App.Current.FloatingGadget.Show();
+                    }
+                }
+                else
+                {
+                    bool needsStyleUpdate = false;
+
+                    if (_settings.Store.SelectedStyleIndex == 0 &&
+                        App.Current.FloatingGadget.GetType() != typeof(FloatingGadget))
+                    {
+                        needsStyleUpdate = true;
+                    }
+                    else if (_settings.Store.SelectedStyleIndex == 1 &&
+                             App.Current.FloatingGadget.GetType() != typeof(FloatingGadgetUpper))
+                    {
+                        needsStyleUpdate = true;
+                    }
+
+                    if (needsStyleUpdate)
+                    {
+                        App.Current.FloatingGadget.Close();
+
+                        if (_settings.Store.SelectedStyleIndex == 0)
+                        {
+                            floatingGadget = new FloatingGadget();
+                        }
+                        else if (_settings.Store.SelectedStyleIndex == 1)
+                        {
+                            floatingGadget = new FloatingGadgetUpper();
+                        }
+
+                        if (floatingGadget != null)
+                        {
+                            App.Current.FloatingGadget = floatingGadget;
+                            App.Current.FloatingGadget.Show();
+                        }
+                    }
+                    else
+                    {
+                        if (!App.Current.FloatingGadget.IsVisible)
+                        {
+                            App.Current.FloatingGadget.Show();
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (App.Current.FloatingGadget != null)
+                {
+                    App.Current.FloatingGadget.Hide();
+                }
+            }
+
+            _settings.Store.ShowFloatingGadgets = state.Value;
+            _settings.SynchronizeStore();
+        }
+        catch (Exception ex)
+        {
+            if (Log.Instance.IsTraceEnabled)
+            {
+                Log.Instance.Trace($"FloatingGadgets_Click error: {ex.Message}");
+            }
+            _floatingGadgetsToggle.IsChecked = false;
+            _settings.Store.ShowFloatingGadgets = false;
+            _settings.SynchronizeStore();
+        }
     }
 
     private void FloatingGadgetsInput_ValueChanged(object sender, RoutedEventArgs e)
@@ -944,7 +1024,66 @@ public partial class SettingsPage
 
     private void ClearBackgroundImageButton_Click(object sender, RoutedEventArgs e)
     {
+        if (_isRefreshing)
+            return;
+
         _settings.Store.BackGroundImageFilePath = string.Empty;
         _settings.SynchronizeStore();
+    }
+
+    private void StyleComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (_isRefreshing)
+            return;
+
+        try
+        {
+            _settings.Store.SelectedStyleIndex = _floatingGadgetsStyleComboBox.SelectedIndex;
+            _settings.SynchronizeStore();
+
+            if (_settings.Store.ShowFloatingGadgets && App.Current.FloatingGadget != null)
+            {
+                bool needsStyleUpdate = false;
+
+                if (_settings.Store.SelectedStyleIndex == 0 && App.Current.FloatingGadget.GetType() != typeof(FloatingGadget))
+                {
+                    needsStyleUpdate = true;
+                }
+                else if (_settings.Store.SelectedStyleIndex == 1 && App.Current.FloatingGadget.GetType() != typeof(FloatingGadgetUpper))
+                {
+                    needsStyleUpdate = true;
+                }
+
+                if (needsStyleUpdate)
+                {
+                    App.Current.FloatingGadget.Close();
+                    Window? newGadget = null;
+                    if (_settings.Store.SelectedStyleIndex == 0)
+                    {
+                        newGadget = new FloatingGadget();
+                    }
+                    else if (_settings.Store.SelectedStyleIndex == 1)
+                    {
+                        newGadget = new FloatingGadgetUpper();
+                    }
+
+                    if (newGadget != null)
+                    {
+                        App.Current.FloatingGadget = newGadget;
+                        App.Current.FloatingGadget.Show();
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            if (Log.Instance.IsTraceEnabled)
+            {
+                Log.Instance.Trace($"StyleComboBox_SelectionChanged error: {ex.Message}");
+            }
+            _isRefreshing = true;
+            _floatingGadgetsStyleComboBox.SelectedIndex = _settings.Store.SelectedStyleIndex;
+            _isRefreshing = false;
+        }
     }
 }

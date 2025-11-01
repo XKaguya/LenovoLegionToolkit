@@ -49,11 +49,12 @@ public partial class App
     private const string MUTEX_NAME = "LenovoLegionToolkit_Mutex_6efcc882-924c-4cbc-8fec-f45c25696f98";
     private const string EVENT_NAME = "LenovoLegionToolkit_Event_6efcc882-924c-4cbc-8fec-f45c25696f98";
 
+    public Window? FloatingGadget = null;
+
     private Mutex? _singleInstanceMutex;
     private EventWaitHandle? _singleInstanceWaitHandle;
 
     private bool _showPawnIONotify;
-    public FloatingGadget? FloatingGadget = null;
 
     public new static App Current => (App)Application.Current;
     public static MainWindow? MainWindowInstance = null;
@@ -180,7 +181,6 @@ public partial class App
         await deferredInitTask;
 
         Compatibility.PrintControllerVersion();
-        FloatingGadget = new FloatingGadget();
         CheckFloatingGadget();
 
         if (Log.Instance.IsTraceEnabled)
@@ -231,6 +231,25 @@ public partial class App
         MainWindow = mainWindow;
         MainWindowInstance = mainWindow;
         mainWindow.Show();
+
+        if (FloatingGadget != null)
+        {
+            FloatingGadget.Hide();
+
+            var type = FloatingGadget.GetType();
+            var windowConstructors = new Dictionary<Type, Func<Window>>
+            {
+                { typeof(FloatingGadget), () => new FloatingGadget() },
+                { typeof(FloatingGadgetUpper), () => new FloatingGadgetUpper() }
+            };
+
+            if (windowConstructors.TryGetValue(type, out var constructor))
+            {
+                FloatingGadget.Close();
+                FloatingGadget = constructor();
+                FloatingGadget.Show();
+            }
+        }
     }
 
     protected override void OnExit(ExitEventArgs e)
@@ -353,6 +372,23 @@ public partial class App
             if (FloatingGadget != null)
             {
                 FloatingGadget.Show();
+            }
+            else
+            {
+                if (_settings.Store.SelectedStyleIndex == 0)
+                {
+                    FloatingGadget = new FloatingGadget();
+                }
+                else if (_settings.Store.SelectedStyleIndex == 1)
+                {
+                    FloatingGadget = new FloatingGadgetUpper();
+                }
+                else
+                {
+                    FloatingGadget = new FloatingGadget();
+                }
+
+                FloatingGadget!.Show();
             }
         }
     }
