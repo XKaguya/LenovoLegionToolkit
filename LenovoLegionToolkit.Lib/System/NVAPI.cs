@@ -20,8 +20,7 @@ internal static class NVAPI
         }
         else
         {
-            var gpu = GetGPU();
-            if (gpu == null)
+            if (GetGPU() == null)
             {
                 NVIDIA.Initialize();
                 IsInitilized = true;

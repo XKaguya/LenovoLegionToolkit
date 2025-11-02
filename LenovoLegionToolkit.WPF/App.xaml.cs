@@ -26,6 +26,7 @@ using LenovoLegionToolkit.WPF.Resources;
 using LenovoLegionToolkit.WPF.Utils;
 using LenovoLegionToolkit.WPF.Windows;
 using LenovoLegionToolkit.WPF.Windows.Utils;
+using RAMSPDToolkit.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -76,9 +77,9 @@ public partial class App
 
         var flags = new Flags(e.Args);
 
-        Log.Instance.IsTraceEnabled = flags.IsTraceEnabled;
+        SetupExceptionHandling();
 
-        AppDomain.CurrentDomain.UnhandledException += AppDomain_UnhandledException;
+        Log.Instance.IsTraceEnabled = flags.IsTraceEnabled;
 
         EnsureSingleInstance();
 
@@ -334,22 +335,47 @@ public partial class App
         Shutdown();
     }
 
-    private void AppDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+    private void LogUnhandledException(Exception exception, string source)
     {
-        var exception = e.ExceptionObject as Exception;
+        string message = $"Unhandled exception ({source})";
+        try
+        {
+            AssemblyName assemblyName = Assembly.GetExecutingAssembly().GetName();
+            message = string.Format("Unhandled exception in {0} v{1}", assemblyName.Name, assemblyName.Version);
+        }
+        catch (Exception ex)
+        {
+            if (Log.Instance.IsTraceEnabled)
+            {
+                Log.Instance.Trace($"Exception in LogUnhandledException", ex);
+            }
+        }
+        finally
+        {
+            if (Log.Instance.IsTraceEnabled)
+            {
+                Log.Instance.Trace($"Exception in LogUnhandledException {message}", exception);
+            }
 
-        Log.Instance.ErrorReport("AppDomain_UnhandledException", exception ?? new Exception($"Unknown exception caught: {e.ExceptionObject}"));
-        Log.Instance.Trace($"Unhandled exception occurred.", exception);
-
-        SnackbarHelper.Show(Resource.UnexpectedException, string.Format(Resource.UnexpectedException, exception?.Message ?? "Unknown exception."), SnackbarType.Error);
+            SnackbarHelper.Show(Resource.UnexpectedException, string.Format(Resource.UnexpectedException, exception?.Message ?? "Unknown exception."), SnackbarType.Error);
+        }
     }
 
-    private void Application_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+    private void SetupExceptionHandling()
     {
-        Log.Instance.ErrorReport("Application_DispatcherUnhandledException", e.Exception);
-        Log.Instance.Trace($"Unhandled exception occurred.", e.Exception);
+        AppDomain.CurrentDomain.UnhandledException += (s, e) => LogUnhandledException((Exception)e.ExceptionObject, "AppDomain.CurrentDomain.UnhandledException");
 
-        SnackbarHelper.Show(Resource.UnexpectedException, e.Exception?.Message ?? "Unknown exception.", SnackbarType.Error);
+        DispatcherUnhandledException += (s, e) =>
+        {
+            LogUnhandledException(e.Exception, "Application.Current.DispatcherUnhandledException");
+            e.Handled = true;
+        };
+
+        TaskScheduler.UnobservedTaskException += (s, e) =>
+        {
+            LogUnhandledException(e.Exception, "TaskScheduler.UnobservedTaskException");
+            e.SetObserved();
+        };
     }
 
     private async Task<bool> CheckBasicCompatibilityAsync()

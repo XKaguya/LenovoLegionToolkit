@@ -113,29 +113,21 @@ public class PowerStateListener : IListener<PowerStateListener.ChangedEventArgs>
             _ => PowerStateEvent.Unknown
         };
 
-        if (mi.Generation == 10)
+        if (powerMode == PowerStateEvent.Suspend)
         {
             if (Log.Instance.IsTraceEnabled)
             {
-                Log.Instance.Trace($"Machine is Generation 10. Have custom issue. PowerMode {powerMode.ToString()}");
+                Log.Instance.Trace($"Going to dark.");
             }
-            PowerModeFeature feature = IoCContainer.Resolve<PowerModeFeature>();
-            if (powerMode == PowerStateEvent.Suspend)
+            await _powerModeFeature.SuspendMode(PowerModeState.Quiet).ConfigureAwait(false);
+        }
+        else if (powerMode == PowerStateEvent.Resume)
+        {
+            if (Log.Instance.IsTraceEnabled)
             {
-                if (Log.Instance.IsTraceEnabled)
-                {
-                    Log.Instance.Trace($"Going to dark.");
-                }
-                await feature.SuspendMode(PowerModeState.Quiet).ConfigureAwait(false);
+                Log.Instance.Trace($"Restore to {_powerModeFeature.LastPowerModeState}");
             }
-            else if (powerMode == PowerStateEvent.Resume)
-            {
-                if (Log.Instance.IsTraceEnabled)
-                {
-                    Log.Instance.Trace($"Restore to {feature.LastPowerModeState}");
-                }
-                await feature.SetStateAsync(feature.LastPowerModeState).ConfigureAwait(false);
-            }
+            await _powerModeFeature.SetStateAsync(_powerModeFeature.LastPowerModeState).ConfigureAwait(false);
         }
 
         if (!mi.Properties.SupportsAlwaysOnAc.status)
