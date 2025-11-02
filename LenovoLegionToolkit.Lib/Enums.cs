@@ -545,8 +545,7 @@ public enum SpecialKey
     FnF8 = 63,
     WhiteBacklightOff = 64,
     WhiteBacklight1 = 65,
-    WhiteBacklight2 = 66,
-    FnQ = 67
+    WhiteBacklight2 = 66
 }
 
 public enum SpectrumKeyboardBacklightBrightness

@@ -111,18 +111,6 @@ public class SpecialKeyListener(
                 case SpecialKey.WhiteBacklight2:
                     NotifyWhiteBacklight(WhiteKeyboardBacklightState.High);
                     break;
-                case SpecialKey.FnQ:
-                    if (mi.LegionSeries == LegionSeries.Lenovo_Slim || mi.LegionSeries == LegionSeries.IdeaPad || mi.LegionSeries == LegionSeries.ThinkBook)
-                    {
-                        if (await feature.IsSupportedAsync().ConfigureAwait(false))
-                        {
-                            await feature.ToggleItsMode();
-                        }
-                    }
-
-                    Log.Instance.Trace($"FnQ pressed.");
-
-                    break;
             }
         }
         catch (Exception ex)
