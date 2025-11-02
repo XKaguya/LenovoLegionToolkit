@@ -9,6 +9,7 @@ using LenovoLegionToolkit.Lib.System;
 using LenovoLegionToolkit.Lib.System.Management;
 using LenovoLegionToolkit.Lib.Utils;
 using NeoSmart.AsyncLock;
+using NvAPIWrapper.GPU;
 
 namespace LenovoLegionToolkit.Lib.Controllers;
 
@@ -32,19 +33,12 @@ public class GPUController
         try
         {
             NVAPI.Initialize();
-            return NVAPI.GetGPU() is not null;
+            PhysicalGPU? gpu = NVAPI.GetGPU();
+            return gpu is not null;
         }
         catch
         {
             return false;
-        }
-        finally
-        {
-            try
-            {
-                NVAPI.Unload();
-            }
-            catch { /* Ignored. */ }
         }
     }
 
@@ -206,16 +200,6 @@ public class GPUController
                 Log.Instance.Trace($"Exception occurred", ex);
 
             throw;
-        }
-        finally
-        {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Unloading NVAPI...");
-
-            NVAPI.Unload();
-
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Unloaded NVAPI");
         }
     }
 

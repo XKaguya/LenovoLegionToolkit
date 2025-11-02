@@ -80,13 +80,12 @@ public partial class FloatingGadgetUpper
             return;
 
         var screenWidth = SystemParameters.PrimaryScreenWidth;
-        var screenHeight = SystemParameters.PrimaryScreenHeight;
         var workArea = SystemParameters.WorkArea;
 
         var left = (screenWidth - ActualWidth) / 2;
         var top = workArea.Top;
 
-        Left = left;
+        Left = left - 35;
         Top = top;
         _positionSet = true;
     }
@@ -128,6 +127,10 @@ public partial class FloatingGadgetUpper
         _cpuFrequency.Text = _stringBuilder.ToString();
 
         _stringBuilder.Clear();
+        _stringBuilder.AppendFormat("{0:F0}%", cpuUsage);
+        _cpuUsage.Text = _stringBuilder.ToString();
+
+        _stringBuilder.Clear();
         _stringBuilder.AppendFormat("{0:F0}°C", cpuTemp);
         _cpuTemperature.Text = _stringBuilder.ToString();
 
@@ -138,6 +141,10 @@ public partial class FloatingGadgetUpper
         _stringBuilder.Clear();
         _stringBuilder.AppendFormat("{0}MHz", gpuFrequency);
         _gpuFrequency.Text = _stringBuilder.ToString();
+
+        _stringBuilder.Clear();
+        _stringBuilder.AppendFormat("{0:F0}%", gpuUsage);
+        _gpuUsage.Text = _stringBuilder.ToString();
 
         _stringBuilder.Clear();
         _stringBuilder.AppendFormat("{0:F0}°C", gpuTemp);

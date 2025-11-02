@@ -10,7 +10,15 @@ namespace LenovoLegionToolkit.Lib.System;
 
 internal static class NVAPI
 {
-    public static void Initialize() => NVIDIA.Initialize();
+    public static bool IsInitilized { get; set; } = false;
+    public static void Initialize()
+    {
+        if (!IsInitilized)
+        {
+            NVIDIA.Initialize();
+            IsInitilized = true;
+        }
+    }
 
     public static void Unload() => NVIDIA.Unload();
 

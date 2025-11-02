@@ -254,9 +254,5 @@ public abstract class AbstractSensorsController(GPUController gpuController) : I
         {
             return GPUInfo.Empty;
         }
-        finally
-        {
-            try { NVAPI.Unload(); } catch { /* Ignored */ }
-        }
     }
 }
