@@ -1,4 +1,7 @@
-﻿using LenovoLegionToolkit.Lib.Utils;
+﻿using LenovoLegionToolkit.Lib.Extensions;
+using LenovoLegionToolkit.Lib.Messaging;
+using LenovoLegionToolkit.Lib.Messaging.Messages;
+using LenovoLegionToolkit.Lib.Utils;
 using System;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -51,8 +54,7 @@ public partial class ITSModeFeature : IFeature<ITSMode>
     public async Task<bool> IsSupportedAsync()
     {
         var machineInfo = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
-        // return machineInfo.Properties.SupportITSMode;
-        return true;
+        return machineInfo.Properties.SupportITSMode;
     }
 
     public async Task<ITSMode[]> GetAllStatesAsync()
@@ -104,6 +106,8 @@ public partial class ITSModeFeature : IFeature<ITSMode>
 
             if (Log.Instance.IsTraceEnabled)
                 Log.Instance.Trace($"ITS mode set successfully to: {state}");
+
+            PublishNotification(state);
         }
         catch (Exception ex)
         {
@@ -268,6 +272,25 @@ public partial class ITSModeFeature : IFeature<ITSMode>
             {
                 Log.Instance.Trace($"Support ITSMode: {mode}");
             }
+        }
+    }
+
+    private static void PublishNotification(ITSMode value)
+    {
+        switch (value)
+        {
+            case ITSMode.ItsAuto:
+                MessagingCenter.Publish(new NotificationMessage(NotificationType.ITSModeAuto, value.GetDisplayName()));
+                break;
+            case ITSMode.MmcCool:
+                MessagingCenter.Publish(new NotificationMessage(NotificationType.ITSModeCool, value.GetDisplayName()));
+                break;
+            case ITSMode.MmcPerformance:
+                MessagingCenter.Publish(new NotificationMessage(NotificationType.ITSModePerformance, value.GetDisplayName()));
+                break;
+            case ITSMode.MmcGeek:
+                MessagingCenter.Publish(new NotificationMessage(NotificationType.ITSModeGeek, value.GetDisplayName()));
+                break;
         }
     }
 }

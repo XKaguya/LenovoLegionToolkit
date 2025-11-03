@@ -317,7 +317,11 @@ public enum NotificationType
     TouchpadOff,
     UpdateAvailable,
     WhiteKeyboardBacklightChanged,
-    WhiteKeyboardBacklightOff
+    WhiteKeyboardBacklightOff,
+    ITSModeAuto,
+    ITSModeCool,
+    ITSModePerformance,
+    ITSModeGeek
 }
 
 public enum NotificationPosition

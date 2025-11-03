@@ -20,6 +20,7 @@ public class ApplicationSettings : AbstractSettings<ApplicationSettings.Applicat
         public bool ACAdapter { get; set; }
         public bool SmartKey { get; set; }
         public bool AutomationNotification { get; set; } = true;
+        public bool ITSMode { get; set; } = true;
     }
 
     public class ApplicationSettingsStore
