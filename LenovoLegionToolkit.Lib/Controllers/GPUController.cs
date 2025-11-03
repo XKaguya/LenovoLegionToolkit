@@ -176,15 +176,7 @@ public class GPUController
 
                 using (await _lock.LockAsync(token).ConfigureAwait(false))
                 {
-
-                    // if (Log.Instance.IsTraceEnabled)
-                        // Log.Instance.Trace($"Will refresh...");
-
                     await RefreshStateAsync().ConfigureAwait(false);
-
-                    // if (Log.Instance.IsTraceEnabled)
-                        // Log.Instance.Trace($"Refreshed");
-
                     Refreshed?.Invoke(this, new GPUStatus(_state, _performanceState, _processes));
                 }
 
@@ -205,9 +197,6 @@ public class GPUController
 
     private async Task RefreshStateAsync()
     {
-        // if (Log.Instance.IsTraceEnabled)
-            // Log.Instance.Trace($"Refresh in progress...");
-
         _state = GPUState.Unknown;
         _processes = [];
         _gpuInstanceId = null;
@@ -262,8 +251,8 @@ public class GPUController
             _processes = processNames;
             _state = GPUState.MonitorConnected;
 
-            // if (Log.Instance.IsTraceEnabled)
-                // Log.Instance.Trace($"Monitor connected [state={_state}, processes.Count={_processes.Count}, gpuInstanceId={_gpuInstanceId}]");
+            if (Log.Instance.IsTraceEnabled)
+                Log.Instance.Trace($"Monitor connected [state={_state}, processes.Count={_processes.Count}, gpuInstanceId={_gpuInstanceId}]");
         }
         else if (processNames.Count != 0)
         {
