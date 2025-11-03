@@ -333,43 +333,29 @@ public partial class App
         Shutdown();
     }
 
-    private void LogUnhandledException(Exception exception, string source)
+    private void LogUnhandledException(Exception exception)
     {
-        try
+        if (Log.Instance.IsTraceEnabled)
         {
-            AssemblyName assemblyName = Assembly.GetExecutingAssembly().GetName();
+            Log.Instance.Trace($"Exception in LogUnhandledException {exception.Message}", exception);
         }
-        catch (Exception ex)
-        {
-            if (Log.Instance.IsTraceEnabled)
-            {
-                Log.Instance.Trace($"Exception in LogUnhandledException", ex);
-            }
-        }
-        finally
-        {
-            if (Log.Instance.IsTraceEnabled)
-            {
-                Log.Instance.Trace($"Exception in LogUnhandledException {exception.Message}", exception);
-            }
 
-            SnackbarHelper.Show(Resource.UnexpectedException, exception?.Message ?? "Unknown exception.", SnackbarType.Error);
-        }
+        SnackbarHelper.Show(Resource.UnexpectedException, exception?.Message ?? "Unknown exception.", SnackbarType.Error);
     }
 
     private void SetupExceptionHandling()
     {
-        AppDomain.CurrentDomain.UnhandledException += (s, e) => LogUnhandledException((Exception)e.ExceptionObject, "AppDomain.CurrentDomain.UnhandledException");
+        AppDomain.CurrentDomain.UnhandledException += (s, e) => LogUnhandledException((Exception)e.ExceptionObject);
 
         DispatcherUnhandledException += (s, e) =>
         {
-            LogUnhandledException(e.Exception, "Application.Current.DispatcherUnhandledException");
+            LogUnhandledException(e.Exception);
             e.Handled = true;
         };
 
         TaskScheduler.UnobservedTaskException += (s, e) =>
         {
-            LogUnhandledException(e.Exception, "TaskScheduler.UnobservedTaskException");
+            LogUnhandledException(e.Exception);
             e.SetObserved();
         };
     }
