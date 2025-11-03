@@ -186,8 +186,6 @@ public partial class App
         {
             Log.Instance.Trace($"Start up complete");
         }
-
-        throw new Exception("TEST Exception");
     }
 
     private void Application_Exit(object sender, ExitEventArgs e)
