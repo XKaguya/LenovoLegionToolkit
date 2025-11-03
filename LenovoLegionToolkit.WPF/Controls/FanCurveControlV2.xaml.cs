@@ -301,7 +301,7 @@ public partial class FanCurveControlV2
             _grid.Children.Add(_cpuDescription);
             _grid.Children.Add(_cpuSensorDescription);
             _grid.Children.Add(_gpuDescription);
-            _grid.Children.Add(_chipsetDescription: _pchDescription);
+            _grid.Children.Add(_chipsetDescription);
             _grid.Children.Add(_cpuValue);
             _grid.Children.Add(_cpuSensorValue);
             _grid.Children.Add(_gpuValue);
