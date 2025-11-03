@@ -161,23 +161,41 @@
                     BorderThickness="2"
                     CornerRadius="8">
 
-                    <controls:SelectableControl Selected="SelectableControl_Selected">
-                        <controls:SelectableControl.Stroke>
-                            <SolidColorBrush Color="{DynamicResource SystemAccentColorSecondary}" />
-                        </controls:SelectableControl.Stroke>
-                        <controls:SelectableControl.Fill>
-                            <SolidColorBrush Opacity="0.25" Color="{DynamicResource SystemAccentColorSecondary}" />
-                        </controls:SelectableControl.Fill>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
 
-                        <device:SpectrumDeviceControl
-                            x:Name="_device"
-                            Padding="32"
-                            HorizontalAlignment="Center">
-                            <device:SpectrumDeviceControl.LayoutTransform>
-                                <ScaleTransform ScaleX="1" ScaleY="1" />
-                            </device:SpectrumDeviceControl.LayoutTransform>
-                        </device:SpectrumDeviceControl>
-                    </controls:SelectableControl>
+                        <controls:SelectableControl Selected="SelectableControl_Selected" Grid.Row="0">
+                            <controls:SelectableControl.Stroke>
+                                <SolidColorBrush Color="{DynamicResource SystemAccentColorSecondary}" />
+                            </controls:SelectableControl.Stroke>
+                            <controls:SelectableControl.Fill>
+                                <SolidColorBrush Opacity="0.25" Color="{DynamicResource SystemAccentColorSecondary}" />
+                            </controls:SelectableControl.Fill>
+
+                            <device:SpectrumDeviceControl
+                                x:Name="_device"
+                                Padding="32"
+                                HorizontalAlignment="Center">
+                                <device:SpectrumDeviceControl.LayoutTransform>
+                                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                                </device:SpectrumDeviceControl.LayoutTransform>
+                            </device:SpectrumDeviceControl>
+                        </controls:SelectableControl>
+                        <controls:SelectableControl Grid.Row="1">
+                            <controls:SelectableControl.Stroke>
+                                <SolidColorBrush Color="{DynamicResource SystemAccentColorSecondary}" />
+                            </controls:SelectableControl.Stroke>
+                            <controls:SelectableControl.Fill>
+                                <SolidColorBrush Opacity="0.25" Color="{DynamicResource SystemAccentColorSecondary}" />
+                            </controls:SelectableControl.Fill>
+
+                            <device:AmbientZoneControl x:Name="_ambientZoneControl" Visibility="Hidden">
+                            </device:AmbientZoneControl>
+                        </controls:SelectableControl>
+                    </Grid>
                 </Border>
 
                 <StackPanel

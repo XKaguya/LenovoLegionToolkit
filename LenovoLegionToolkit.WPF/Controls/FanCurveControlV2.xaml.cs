@@ -9,6 +9,7 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Extensions;
+using LenovoLegionToolkit.Lib.Utils;
 using LenovoLegionToolkit.WPF.Resources;
 
 namespace LenovoLegionToolkit.WPF.Controls;
@@ -252,6 +253,8 @@ public partial class FanCurveControlV2
         private readonly TextBlock _cpuSensorDescription = new() { Text = Resource.FanCurveControl_CPUSensor, FontWeight = FontWeights.Medium, Margin = new(0, 0, 8, 0) };
         private readonly TextBlock _gpuDescription = new() { Text = Resource.FanCurveControl_GPU, FontWeight = FontWeights.Medium, Margin = new(0, 0, 8, 0) };
         private readonly TextBlock _pchDescription = new() { Text = Resource.FanCurveControl_PCH, FontWeight = FontWeights.Medium, Margin = new(0, 0, 8, 0) };
+        private readonly TextBlock _motherboardDescription = new() { Text = Resource.SensorsControl_Motherboard_Title, FontWeight = FontWeights.Medium, Margin = new(0, 0, 8, 0) };
+        private readonly MachineInformation _machineInformation = Compatibility.GetMachineInformationAsync().Result;
 
         private readonly TextBlock _cpuValue = new();
         private readonly TextBlock _cpuSensorValue = new();
@@ -270,7 +273,7 @@ public partial class FanCurveControlV2
             Grid.SetColumn(_cpuDescription, 0);
             Grid.SetColumn(_cpuSensorDescription, 0);
             Grid.SetColumn(_gpuDescription, 0);
-            Grid.SetColumn(_pchDescription, 0);
+            Grid.SetColumn(_machineInformation.Properties.IsAmdDevice ? _motherboardDescription : _pchDescription, 0);
             Grid.SetColumn(_cpuValue, 1);
             Grid.SetColumn(_cpuSensorValue, 1);
             Grid.SetColumn(_gpuValue, 1);
@@ -279,7 +282,7 @@ public partial class FanCurveControlV2
             Grid.SetRow(_cpuDescription, 0);
             Grid.SetRow(_cpuSensorDescription, 1);
             Grid.SetRow(_gpuDescription, 2);
-            Grid.SetRow(_pchDescription, 3);
+            Grid.SetRow(_machineInformation.Properties.IsAmdDevice ? _motherboardDescription : _pchDescription, 3);
             Grid.SetRow(_cpuValue, 0);
             Grid.SetRow(_cpuSensorValue, 1);
             Grid.SetRow(_gpuValue, 2);
@@ -288,7 +291,7 @@ public partial class FanCurveControlV2
             _grid.Children.Add(_cpuDescription);
             _grid.Children.Add(_cpuSensorDescription);
             _grid.Children.Add(_gpuDescription);
-            _grid.Children.Add(_pchDescription);
+            _grid.Children.Add(_machineInformation.Properties.IsAmdDevice ? _motherboardDescription : _pchDescription);
             _grid.Children.Add(_cpuValue);
             _grid.Children.Add(_cpuSensorValue);
             _grid.Children.Add(_gpuValue);
@@ -302,7 +305,7 @@ public partial class FanCurveControlV2
             Update(tableData, index, value, FanTableType.CPU, _cpuDescription, _cpuValue);
             Update(tableData, index, value, FanTableType.CPUSensor, _cpuSensorDescription, _cpuSensorValue);
             Update(tableData, index, value, FanTableType.GPU, _gpuDescription, _gpuValue);
-            Update(tableData, index, value, FanTableType.PCH, _pchDescription, _pchValue);
+            Update(tableData, index, value, FanTableType.PCH, _machineInformation.Properties.IsAmdDevice ? _motherboardDescription : _pchDescription, _pchValue);
         }
 
         private static void Update(FanTableData[] tableData, int index, int value, FanTableType type, TextBlock descriptionTextBlock, TextBlock valueTextBlock)
