@@ -51,10 +51,29 @@ public partial class ITSModeFeature : IFeature<ITSMode>
     public async Task<bool> IsSupportedAsync()
     {
         var machineInfo = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
-        return machineInfo.Properties.SupportITSMode;
+        // return machineInfo.Properties.SupportITSMode;
+        return true;
     }
 
-    public Task<ITSMode[]> GetAllStatesAsync() => Task.FromResult((ITSMode[])Enum.GetValues(typeof(ITSMode)));
+    public async Task<ITSMode[]> GetAllStatesAsync()
+    {
+        var mi = await Compatibility.GetMachineInformationAsync();
+
+        if (mi.LegionSeries == LegionSeries.ThinkBook)
+        {
+            return Enum.GetValues(typeof(ITSMode))
+                       .Cast<ITSMode>()
+                       .Where(mode => mode != ITSMode.None)
+                       .ToArray();
+        }
+        else
+        {
+            return Enum.GetValues(typeof(ITSMode))
+                       .Cast<ITSMode>()
+                       .Where(mode => mode != ITSMode.MmcGeek && mode != ITSMode.None)
+                       .ToArray();
+        }
+    }
 
     public async Task<ITSMode> GetStateAsync()
     {
@@ -65,7 +84,9 @@ public partial class ITSModeFeature : IFeature<ITSMode>
         catch (Exception ex)
         {
             if (Log.Instance.IsTraceEnabled)
+            {
                 Log.Instance.Trace($"Failed to get ITS mode", ex);
+            }
 
             return ITSMode.None;
         }
