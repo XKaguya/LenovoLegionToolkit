@@ -22,6 +22,7 @@ public partial class StatusWindow
 {
     private readonly struct StatusWindowData(
         PowerModeState? powerModeState,
+        ITSMode? itsMode,
         string? godModePresetName,
         GPUStatus? gpuStatus,
         BatteryInformation? batteryInformation,
@@ -29,6 +30,7 @@ public partial class StatusWindow
         bool hasUpdate)
     {
         public PowerModeState? PowerModeState { get; } = powerModeState;
+        public ITSMode? ITSMode { get; } = itsMode;
         public string? GodModePresetName { get; } = godModePresetName;
         public GPUStatus? GPUStatus { get; } = gpuStatus;
         public BatteryInformation? BatteryInformation { get; } = batteryInformation;
@@ -41,6 +43,7 @@ public partial class StatusWindow
     private static async Task<StatusWindowData> GetStatusWindowDataAsync()
     {
         var powerModeFeature = IoCContainer.Resolve<PowerModeFeature>();
+        var itsModeFeature = IoCContainer.Resolve<ITSModeFeature>();
         var godModeController = IoCContainer.Resolve<GodModeController>();
         var gpuController = IoCContainer.Resolve<GPUController>();
         var batteryFeature = IoCContainer.Resolve<BatteryFeature>();
@@ -48,6 +51,7 @@ public partial class StatusWindow
         var updateCheckerSettings = IoCContainer.Resolve<UpdateCheckSettings>();
 
         PowerModeState? state = null;
+        ITSMode? mode = null;
         string? godModePresetName = null;
         GPUStatus? gpuStatus = null;
         BatteryInformation? batteryInformation = null;
@@ -62,6 +66,11 @@ public partial class StatusWindow
 
                 if (state == PowerModeState.GodMode)
                     godModePresetName = await godModeController.GetActivePresetNameAsync();
+            }
+
+            if (await itsModeFeature.IsSupportedAsync())
+            {
+                mode = await itsModeFeature.GetStateAsync();
             }
         }
         catch { /* Ignored */ }
@@ -97,7 +106,7 @@ public partial class StatusWindow
         }
         catch { /* Ignored */ }
 
-        return new(state, godModePresetName, gpuStatus, batteryInformation, batteryState, hasUpdate);
+        return new(state, mode, godModePresetName, gpuStatus, batteryInformation, batteryState, hasUpdate);
     }
 
     private StatusWindow(StatusWindowData data)
@@ -137,7 +146,7 @@ public partial class StatusWindow
         if (Log.Instance.IsTraceEnabled)
             _title.Text += " [LOGGING ENABLED]";
 
-        RefreshPowerMode(data.PowerModeState, data.GodModePresetName);
+        RefreshPowerMode(data.PowerModeState, data.ITSMode, data.GodModePresetName);
         RefreshDiscreteGpu(data.GPUStatus);
         RefreshBattery(data.BatteryInformation, data.BatteryState);
         RefreshUpdate(data.HasUpdate);
@@ -174,20 +183,30 @@ public partial class StatusWindow
             Top = mouse.Y + offset;
     }
 
-    private void RefreshPowerMode(PowerModeState? powerModeState, string? godModePresetName)
+    private void RefreshPowerMode(PowerModeState? powerModeState, ITSMode? itsMode, string? godModePresetName)
     {
-        _powerModeValueLabel.Content = powerModeState?.GetDisplayName() ?? "-";
-        _powerModeValueIndicator.Fill = powerModeState?.GetSolidColorBrush() ?? new(Colors.Transparent);
-
-        if (powerModeState == PowerModeState.GodMode)
+        if (powerModeState != null)
         {
-            _powerModePresetValueLabel.Content = godModePresetName ?? "-";
+            _powerModeValueLabel.Content = powerModeState?.GetDisplayName() ?? "-";
+            _powerModeValueIndicator.Fill = powerModeState?.GetSolidColorBrush() ?? new(Colors.Transparent);
 
-            _powerModePresetLabel.Visibility = Visibility.Visible;
-            _powerModePresetValueLabel.Visibility = Visibility.Visible;
+            if (powerModeState == PowerModeState.GodMode)
+            {
+                _powerModePresetValueLabel.Content = godModePresetName ?? "-";
+
+                _powerModePresetLabel.Visibility = Visibility.Visible;
+                _powerModePresetValueLabel.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                _powerModePresetLabel.Visibility = Visibility.Collapsed;
+                _powerModePresetValueLabel.Visibility = Visibility.Collapsed;
+            }
         }
         else
         {
+            _powerModeValueLabel.Content = itsMode?.GetDisplayName() ?? "-";
+            _powerModeValueIndicator.Fill = itsMode?.GetSolidColorBrush() ?? new(Colors.Transparent);
             _powerModePresetLabel.Visibility = Visibility.Collapsed;
             _powerModePresetValueLabel.Visibility = Visibility.Collapsed;
         }
