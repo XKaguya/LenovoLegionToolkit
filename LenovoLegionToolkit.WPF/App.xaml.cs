@@ -340,7 +340,20 @@ public partial class App
             Log.Instance.Trace($"Exception in LogUnhandledException {exception.Message}", exception);
         }
 
-        SnackbarHelper.Show(Resource.UnexpectedException, exception?.Message ?? "Unknown exception.", SnackbarType.Error);
+        if (Application.Current != null)
+        {
+            if (Application.Current.Dispatcher.CheckAccess())
+            {
+                SnackbarHelper.Show(Resource.UnexpectedException, exception?.Message ?? "Unknown exception.", SnackbarType.Error);
+            }
+            else
+            {
+                Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    SnackbarHelper.Show(Resource.UnexpectedException, exception?.Message ?? "Unknown exception.", SnackbarType.Error);
+                }));
+            }
+        }
     }
 
     private void SetupExceptionHandling()
