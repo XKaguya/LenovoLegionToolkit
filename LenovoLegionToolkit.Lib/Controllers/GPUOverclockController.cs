@@ -37,21 +37,6 @@ public class GPUOverclockController
         _nativeWindowsMessageListener.Changed += NativeWindowsMessageListenerOnChanged;
     }
 
-    public static int GetMaxCoreDeltaMhz() => 500;
-
-    public static int GetMaxMemoryDeltaMhz()
-    {
-        try
-        {
-            NVAPI.Initialize();
-            return GetMaxMemoryDeltaMhz(NVAPI.GetGPU());
-        }
-        catch
-        {
-            return 0;
-        }
-    }
-
     public async Task<bool> IsSupportedAsync()
     {
         bool isSupported;
@@ -214,16 +199,14 @@ public class GPUOverclockController
             await ApplyStateAsync().ConfigureAwait(false);
     }
 
-    private static int GetMaxMemoryDeltaMhz(PhysicalGPU? gpu) => gpu?.MemoryInformation.RAMMaker switch
-    {
-        GPUMemoryMaker.Samsung => 1500,
-        _ => 750
-    };
+    public static int GetMaxCoreDeltaMhz() => 500;
+
+    public static int GetMaxMemoryDeltaMhz() => 2000;
 
     private static void SetOverclockInfo(PhysicalGPU gpu, GPUOverclockInfo info)
     {
         var coreDelta = Math.Clamp(info.CoreDeltaMhz, 0, GetMaxCoreDeltaMhz());
-        var memoryDelta = Math.Clamp(info.MemoryDeltaMhz, 0, GetMaxMemoryDeltaMhz(gpu));
+        var memoryDelta = Math.Clamp(info.MemoryDeltaMhz, 0, GetMaxMemoryDeltaMhz());
 
         var clockEntries = new[]
         {
