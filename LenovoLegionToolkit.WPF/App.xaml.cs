@@ -26,7 +26,6 @@ using LenovoLegionToolkit.WPF.Resources;
 using LenovoLegionToolkit.WPF.Utils;
 using LenovoLegionToolkit.WPF.Windows;
 using LenovoLegionToolkit.WPF.Windows.Utils;
-using RAMSPDToolkit.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -37,7 +36,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
-using System.Windows.Threading;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
 using WinFormsApp = System.Windows.Forms.Application;
@@ -188,6 +186,8 @@ public partial class App
         {
             Log.Instance.Trace($"Start up complete");
         }
+
+        throw new Exception("TEST Exception");
     }
 
     private void Application_Exit(object sender, ExitEventArgs e)
@@ -337,11 +337,9 @@ public partial class App
 
     private void LogUnhandledException(Exception exception, string source)
     {
-        string message = $"Unhandled exception ({source})";
         try
         {
             AssemblyName assemblyName = Assembly.GetExecutingAssembly().GetName();
-            message = string.Format("Unhandled exception in {0} v{1}", assemblyName.Name, assemblyName.Version);
         }
         catch (Exception ex)
         {
@@ -354,10 +352,10 @@ public partial class App
         {
             if (Log.Instance.IsTraceEnabled)
             {
-                Log.Instance.Trace($"Exception in LogUnhandledException {message}", exception);
+                Log.Instance.Trace($"Exception in LogUnhandledException {exception.Message}", exception);
             }
 
-            SnackbarHelper.Show(Resource.UnexpectedException, string.Format(Resource.UnexpectedException, exception?.Message ?? "Unknown exception."), SnackbarType.Error);
+            SnackbarHelper.Show(Resource.UnexpectedException, exception?.Message ?? "Unknown exception.", SnackbarType.Error);
         }
     }
 

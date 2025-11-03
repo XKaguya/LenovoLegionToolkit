@@ -400,12 +400,9 @@ public partial class SettingsPage
         }
         else
         {
-            if (state.Value)
-            {
-                SnackbarHelper.Show(Resource.SettingsPage_UseNewDashboard_Switch_Title,
+            SnackbarHelper.Show(Resource.SettingsPage_UseNewDashboard_Switch_Title,
                                   Resource.SettingsPage_UseNewDashboard_Restart_Message,
                                   SnackbarType.Success);
-            }
             _settings.Store.UseNewSensorDashboard = state.Value;
             _settings.SynchronizeStore();
         }
