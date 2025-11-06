@@ -6765,6 +6765,33 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Fan / Power 的本地化字符串。
+        /// </summary>
+        public static string StatusWindow_Fan_And_Power {
+            get {
+                return ResourceManager.GetString("StatusWindow_Fan_And_Power", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Frequency / Temperature 的本地化字符串。
+        /// </summary>
+        public static string StatusWindow_Frequency_And_Temperature {
+            get {
+                return ResourceManager.GetString("StatusWindow_Frequency_And_Temperature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 System Fan 的本地化字符串。
+        /// </summary>
+        public static string StatusWindow_System_Fan {
+            get {
+                return ResourceManager.GetString("StatusWindow_System_Fan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Select icon 的本地化字符串。
         /// </summary>
         public static string SymbolRegularPicker_Title {

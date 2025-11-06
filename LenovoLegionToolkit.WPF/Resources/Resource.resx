@@ -2541,4 +2541,13 @@ Click Yes to disable and No to ignore.</value>
   <data name="SensorsControl_Motherboard_Temperature" xml:space="preserve">
     <value>Board Temperature</value>
   </data>
+  <data name="StatusWindow_Frequency_And_Temperature" xml:space="preserve">
+    <value>Frequency / Temperature</value>
+  </data>
+  <data name="StatusWindow_Fan_And_Power" xml:space="preserve">
+    <value>Fan / Power</value>
+  </data>
+  <data name="StatusWindow_System_Fan" xml:space="preserve">
+    <value>System Fan</value>
+  </data>
 </root>

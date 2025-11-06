@@ -379,4 +379,13 @@
   <data name="SensorsControl_Motherboard_Temperature" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
+  <data name="StatusWindow_Frequency_And_Temperature" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="StatusWindow_Fan_And_Power" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="StatusWindow_System_Fan" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
 </root>

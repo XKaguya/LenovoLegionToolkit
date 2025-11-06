@@ -9,9 +9,9 @@
     xmlns:utils="clr-namespace:LenovoLegionToolkit.WPF.Utils"
     xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
     Width="300"
-    Height="100"
+    Height="200"
     MinWidth="300"
-    MinHeight="100"
+    MinHeight="200"
     FlowDirection="{x:Static utils:LocalizationHelper.Direction}"
     mc:Ignorable="d">
 
@@ -97,14 +97,83 @@
                 Visibility="Collapsed" />
         </Grid>
 
-        <Grid x:Name="_gpuGrid" Margin="16,16,16,0">
+        <Grid Margin="16,8,16,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <wpfui:SymbolIcon
+                Grid.Row="0"
+                Grid.Column="0"
+                FontSize="{StaticResource SymbolFontSize}"
+                Symbol="DeveloperBoard24" />
+            <Label
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="8,0,0,0"
+                VerticalContentAlignment="Center"
+                Content="CPU"
+                FontSize="{StaticResource PrimaryFontSize}"
+                FontWeight="Medium"
+                Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+
+            <Label
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="8,4,0,0"
+                Content="{x:Static resources:Resource.StatusWindow_Frequency_And_Temperature}"
+                FontSize="{StaticResource SecondaryFontSize}"
+                FontWeight="Medium"
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+            <Label
+                x:Name="_cpuFreqAndTempLabel"
+                Grid.Row="1"
+                Grid.Column="5"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Margin="8,4,0,0"
+                FontSize="{StaticResource SecondaryFontSize}"
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+            <Label
+                Grid.Row="2"
+                Grid.Column="1"
+                Margin="8,4,0,0"
+                Content="{x:Static resources:Resource.StatusWindow_Fan_And_Power}"
+                FontSize="{StaticResource SecondaryFontSize}"
+                FontWeight="Medium"
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+            <Label
+                x:Name="_cpuFanAndPowerLabel"
+                Grid.Row="2"
+                Grid.Column="5"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Margin="8,4,0,0"
+                FontSize="{StaticResource SecondaryFontSize}"
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+        </Grid>
+
+        <Grid x:Name="_gpuGrid" Margin="16,8,16,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
@@ -126,7 +195,7 @@
             <StackPanel
                 x:Name="_gpuActive"
                 Grid.Row="0"
-                Grid.Column="3"
+                Grid.Column="5"
                 Margin="16,0,0,0"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
@@ -147,7 +216,7 @@
             <StackPanel
                 x:Name="_gpuInactive"
                 Grid.Row="0"
-                Grid.Column="3"
+                Grid.Column="5"
                 Margin="16,0,0,0"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
@@ -168,7 +237,7 @@
             <StackPanel
                 x:Name="_gpuPoweredOff"
                 Grid.Row="0"
-                Grid.Column="3"
+                Grid.Column="5"
                 Margin="16,0,0,0"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
@@ -186,7 +255,6 @@
                     FontSize="{StaticResource PrimaryFontSize}"
                     Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
             </StackPanel>
-
             <Label
                 x:Name="_gpuPowerStateValue"
                 Grid.Row="1"
@@ -200,14 +268,49 @@
             <Label
                 x:Name="_gpuPowerStateValueLabel"
                 Grid.Row="1"
-                Grid.Column="3"
+                Grid.Column="5"
                 Margin="16,4,0,0"
                 HorizontalAlignment="Right"
                 FontSize="{StaticResource SecondaryFontSize}"
                 Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+
+            <Label
+                Grid.Row="2"
+                Grid.Column="1"
+                Margin="8,4,0,0"
+                Content="{x:Static resources:Resource.StatusWindow_Frequency_And_Temperature}"
+                FontSize="{StaticResource SecondaryFontSize}"
+                FontWeight="Medium"
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+            <Label
+                x:Name="_gpuFreqAndTempLabel"
+                Grid.Row="2"
+                Grid.Column="5"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Margin="8,4,0,0"
+                FontSize="{StaticResource SecondaryFontSize}"
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+            <Label
+                Grid.Row="3"
+                Grid.Column="1"
+                Margin="8,4,0,0"
+                Content="{x:Static resources:Resource.StatusWindow_Fan_And_Power}"
+                FontSize="{StaticResource SecondaryFontSize}"
+                FontWeight="Medium"
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+            <Label
+                x:Name="_gpuFanAndPowerLabel"
+                Grid.Row="3"
+                Grid.Column="5"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Margin="8,4,0,0"
+                FontSize="{StaticResource SecondaryFontSize}"
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
         </Grid>
 
-        <Grid Margin="16,16,16,16">
+        <Grid Margin="16,8,16,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
@@ -322,6 +425,42 @@
                 Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
         </Grid>
 
+        <Grid Margin="16,8,16,16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <wpfui:SymbolIcon
+                Grid.Row="0"
+                Grid.Column="0"
+                FontSize="{StaticResource SymbolFontSize}"
+                Symbol="WeatherRain24" />
+            <Label
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="8,0,0,0"
+                VerticalContentAlignment="Center"
+                Content="{x:Static resources:Resource.StatusWindow_System_Fan}"
+                FontSize="{StaticResource PrimaryFontSize}"
+                FontWeight="Medium"
+                Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+            <Label
+                x:Name="_systemFanLabel"
+                Grid.Row="0"
+                Grid.Column="3"
+                Margin="16,0,0,0"
+                HorizontalAlignment="Right"
+                VerticalContentAlignment="Center"
+                FontSize="{StaticResource PrimaryFontSize}"
+                Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+        </Grid>
+
         <Border
             x:Name="_updateIndicator"
             Padding="8,4,8,4"
@@ -340,6 +479,5 @@
                     Text="{x:Static resources:Resource.StatusTrayPopup_UpdateAvailable}" />
             </StackPanel>
         </Border>
-
     </StackPanel>
 </wpfui:UiWindow>

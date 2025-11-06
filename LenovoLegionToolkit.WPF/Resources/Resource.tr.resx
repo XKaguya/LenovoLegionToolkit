@@ -2539,4 +2539,14 @@ Click Yes to disable and No to ignore.</value>
   <data name="SensorsControl_Motherboard_Temperature" xml:space="preserve">
     <value>Board Temperature</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="StatusWindow_Frequency_And_Temperature" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="StatusWindow_Fan_And_Power" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="StatusWindow_System_Fan" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
 </root>

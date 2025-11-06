@@ -344,13 +344,13 @@ public partial class App
         {
             if (Application.Current.Dispatcher.CheckAccess())
             {
-                SnackbarHelper.Show(Resource.UnexpectedException, exception?.Message ?? "Unknown exception.", SnackbarType.Error);
+                SnackbarHelper.Show(Resource.UnexpectedException, exception?.Message + exception?.StackTrace ?? "Unknown exception.", SnackbarType.Error);
             }
             else
             {
                 Application.Current.Dispatcher.BeginInvoke(new Action(() =>
                 {
-                    SnackbarHelper.Show(Resource.UnexpectedException, exception?.Message ?? "Unknown exception.", SnackbarType.Error);
+                    SnackbarHelper.Show(Resource.UnexpectedException, exception?.Message + exception?.StackTrace ?? "Unknown exception.", SnackbarType.Error);
                 }));
             }
         }
@@ -588,7 +588,7 @@ public partial class App
                     return;
 
                 Log.Instance.IsTraceEnabled = settings.Store.EnableLogging;
-                mainWindow._openLogIndicator.Visibility = Utils.BooleanToVisibilityConverter.Convert(settings.Store.EnableLogging);
+                mainWindow._openLogIndicator.Visibility = BooleanToVisibilityConverter.Convert(settings.Store.EnableLogging);
 
                 Compatibility.PrintMachineInfo();
             }
@@ -698,7 +698,7 @@ public partial class App
                     }
                     else
                     {
-                        App.Current._showPawnIONotify = true;
+                        Current._showPawnIONotify = true;
                     }
                 }
                 // Why this branch can execute ?
@@ -709,7 +709,7 @@ public partial class App
                         Log.Instance.Trace($"InitSensorsGroupControllerFeatureAsync() raised exception:", ex);
                     }
 
-                    App.Current._showPawnIONotify = true;
+                    Current._showPawnIONotify = true;
                 }
             }
         }
