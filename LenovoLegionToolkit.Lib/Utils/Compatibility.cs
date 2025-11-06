@@ -494,6 +494,10 @@ public static partial class Compatibility
     private static bool GetSupportITSMode(string model)
     {
         var lower = model.ToLowerInvariant();
+        if (lower.Contains("IdeaPad Gaming".ToLowerInvariant()))
+        {
+            return false;
+        }
         return lower.Contains("IdeaPad".ToLowerInvariant()) || lower.Contains("ThinkBook".ToLowerInvariant()) || lower.Contains("Lenovo Slim".ToLowerInvariant()); // || lower.Contains("YOGA".ToLowerInvariant());
                                                                                                                  // Comment this line due to YOGA does not support ITS Mode from user's report.
     }
