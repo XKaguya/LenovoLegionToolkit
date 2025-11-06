@@ -113,23 +113,6 @@ public class PowerStateListener : IListener<PowerStateListener.ChangedEventArgs>
             _ => PowerStateEvent.Unknown
         };
 
-        if (powerMode == PowerStateEvent.Suspend)
-        {
-            if (Log.Instance.IsTraceEnabled)
-            {
-                Log.Instance.Trace($"Going to dark.");
-            }
-            await _powerModeFeature.SuspendMode(PowerModeState.Quiet).ConfigureAwait(false);
-        }
-        else if (powerMode == PowerStateEvent.Resume)
-        {
-            if (Log.Instance.IsTraceEnabled)
-            {
-                Log.Instance.Trace($"Restore to {_powerModeFeature.LastPowerModeState}");
-            }
-            await _powerModeFeature.SetStateAsync(_powerModeFeature.LastPowerModeState).ConfigureAwait(false);
-        }
-
         if (!mi.Properties.SupportsAlwaysOnAc.status)
         {
             if (Log.Instance.IsTraceEnabled)
@@ -154,7 +137,15 @@ public class PowerStateListener : IListener<PowerStateListener.ChangedEventArgs>
         if (Log.Instance.IsTraceEnabled)
             Log.Instance.Trace($"Handle {powerStateEvent}. [newState={powerAdapterState}]");
 
-        if (powerStateEvent is PowerStateEvent.Resume)
+        if (powerStateEvent is PowerStateEvent.Suspend)
+        {
+            if (Log.Instance.IsTraceEnabled)
+            {
+                Log.Instance.Trace($"Going to dark.");
+            }
+            await _powerModeFeature.SuspendMode(PowerModeState.Balance).ConfigureAwait(false);
+        }
+        else if (powerStateEvent is PowerStateEvent.Resume)
         {
             _ = Task.Run(async () =>
             {
@@ -163,6 +154,12 @@ public class PowerStateListener : IListener<PowerStateListener.ChangedEventArgs>
 
                 if (await _rgbController.IsSupportedAsync().ConfigureAwait(false))
                     await _rgbController.SetLightControlOwnerAsync(true, true).ConfigureAwait(false);
+
+                if (Log.Instance.IsTraceEnabled)
+                {
+                    Log.Instance.Trace($"Restore to {_powerModeFeature.LastPowerModeState}");
+                }
+                await _powerModeFeature.SetStateAsync(_powerModeFeature.LastPowerModeState).ConfigureAwait(false);
 
                 if (await _powerModeFeature.IsSupportedAsync().ConfigureAwait(false))
                 {
@@ -177,8 +174,7 @@ public class PowerStateListener : IListener<PowerStateListener.ChangedEventArgs>
                 }
             });
         }
-
-        if (powerStateEvent is PowerStateEvent.StatusChange && powerAdapterState is PowerAdapterStatus.Connected)
+        else if (powerStateEvent is PowerStateEvent.StatusChange && powerAdapterState is PowerAdapterStatus.Connected)
         {
             _ = Task.Run(async () =>
             {
@@ -192,15 +188,18 @@ public class PowerStateListener : IListener<PowerStateListener.ChangedEventArgs>
                 }
             });
         }
+        else if (powerStateEvent is PowerStateEvent.Unknown)
+        {
+            return;
+        }
 
         var powerAdapterStateChanged = powerAdapterState != _lastPowerAdapterState;
         _lastPowerAdapterState = powerAdapterState;
 
-        if (powerStateEvent is PowerStateEvent.Suspend or PowerStateEvent.Unknown)
-            return;
-
         if (powerAdapterStateChanged)
+        {
             Notify(powerAdapterState);
+        }
 
         Changed?.Invoke(this, new(powerStateEvent, powerAdapterStateChanged));
     }
