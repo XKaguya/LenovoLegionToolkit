@@ -184,15 +184,36 @@ public class SensorsGroupController : IDisposable
 
     public Task<float> GetCpuPowerAsync()
     {
-        if (!IsLibreHardwareMonitorInitialized() || _cpuHardware == null)
+        const float MaxValidPower = 300f;
+        const float InvalidPower = -1f;
+
+        try
         {
-            return Task.FromResult(0f);
+            if (!IsLibreHardwareMonitorInitialized() || _cpuHardware == null)
+            {
+                return Task.FromResult(InvalidPower);
+            }
+
+            var sensor = _cpuHardware.Sensors?.FirstOrDefault(s => s.SensorType == SensorType.Power && s.Name == "Package");
+            var powerValue = sensor?.Value;
+
+            if (!powerValue.HasValue || powerValue < 0)
+            {
+                return Task.FromResult(InvalidPower);
+            }
+
+            if (powerValue > MaxValidPower)
+            {
+                _computer?.Reset();
+                return Task.FromResult(InvalidPower);
+            }
+
+            return Task.FromResult(powerValue.Value);
         }
-
-        var sensor = _cpuHardware.Sensors?
-            .FirstOrDefault(s => s.SensorType == SensorType.Power);
-
-        return Task.FromResult(sensor?.Value ?? 0);
+        catch (Exception)
+        {
+            return Task.FromResult(InvalidPower);
+        }
     }
 
     public async Task<float> GetGpuPowerAsync()
