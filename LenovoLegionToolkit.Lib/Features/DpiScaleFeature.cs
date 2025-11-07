@@ -35,8 +35,10 @@ public class DpiScaleFeature : IFeature<DpiScale>
             .Select(s => new DpiScale(s))
             .ToArray();
 
+        var currentDpiScale = (int)pds.CurrentDPIScale;
+
         if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Current DPI scale is {result}");
+            Log.Instance.Trace($"Current DPI scale is {currentDpiScale}");
 
         return Task.FromResult(result);
     }
