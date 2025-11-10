@@ -546,6 +546,10 @@ public static partial class Compatibility
         {
             return LegionSeries.LOQ;
         }
+        else if (model.ToLowerInvariant().Contains("IdeaPad Gaming".ToLowerInvariant()))
+        {
+            return LegionSeries.IdeaPad_Gaming;
+        }
         else if (model.ToLowerInvariant().Contains("IdeaPad".ToLowerInvariant()))
         {
             return LegionSeries.IdeaPad;

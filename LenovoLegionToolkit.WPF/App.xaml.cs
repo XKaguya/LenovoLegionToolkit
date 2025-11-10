@@ -81,6 +81,13 @@ public partial class App
 
         EnsureSingleInstance();
 
+        IoCContainer.Initialize(
+            new Lib.IoCModule(),
+            new Lib.Automation.IoCModule(),
+            new Lib.Macro.IoCModule(),
+            new IoCModule()
+        );
+
         var localizationTask = LocalizationHelper.SetLanguageAsync(true);
         var compatibilityTask = CheckCompatibilityAsyncWrapper(flags);
 
@@ -91,13 +98,6 @@ public partial class App
 
         WinFormsApp.SetHighDpiMode(WinFormsHighDpiMode.PerMonitorV2);
         RenderOptions.ProcessRenderMode = RenderMode.SoftwareOnly;
-
-        IoCContainer.Initialize(
-            new Lib.IoCModule(),
-            new Lib.Automation.IoCModule(),
-            new Lib.Macro.IoCModule(),
-            new IoCModule()
-        );
 
         IoCContainer.Resolve<HttpClientFactory>().SetProxy(flags.ProxyUrl, flags.ProxyUsername, flags.ProxyPassword, flags.ProxyAllowAllCerts);
         IoCContainer.Resolve<PowerModeFeature>().AllowAllPowerModesOnBattery = flags.AllowAllPowerModesOnBattery;

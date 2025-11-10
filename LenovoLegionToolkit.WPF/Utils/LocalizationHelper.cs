@@ -1,4 +1,10 @@
-﻿using System;
+﻿using Humanizer;
+using LenovoLegionToolkit.Lib;
+using LenovoLegionToolkit.Lib.Settings;
+using LenovoLegionToolkit.Lib.Utils;
+using LenovoLegionToolkit.WPF.Resources;
+using LenovoLegionToolkit.WPF.Windows.Utils;
+using System;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -6,10 +12,6 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using Humanizer;
-using LenovoLegionToolkit.Lib.Utils;
-using LenovoLegionToolkit.WPF.Resources;
-using LenovoLegionToolkit.WPF.Windows.Utils;
 using Windows.Win32;
 using Windows.Win32.Foundation;
 
@@ -94,7 +96,17 @@ public static class LocalizationHelper
             window.Show();
             cultureInfo = await window.ShouldContinue;
             if (cultureInfo is not null)
+            {
                 await SaveLanguageToFileAsync(cultureInfo);
+
+                // If install language is Simplified Chinese, set update method to Server instead of Github.
+                if (cultureInfo != null && cultureInfo.IetfLanguageTag.Equals("zh-Hans"))
+                {
+                    var settings = IoCContainer.Resolve<ApplicationSettings>();
+                    settings.Store.UpdateMethod = UpdateMethod.Server;
+                    settings.SynchronizeStore();
+                }
+            }
         }
 
         cultureInfo ??= await GetLanguageAsync();

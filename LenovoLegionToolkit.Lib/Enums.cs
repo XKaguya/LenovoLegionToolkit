@@ -220,9 +220,10 @@ public enum LegionSeries
     Legion_Go = 6,
     Lenovo_Slim = 7,
     IdeaPad = 8,
-    LOQ = 9,
-    YOGA = 10,
-    ThinkBook = 11,
+    IdeaPad_Gaming = 9,
+    LOQ = 10,
+    YOGA = 11,
+    ThinkBook = 12,
     Unknown = 255
 }
 
