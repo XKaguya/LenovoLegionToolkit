@@ -876,6 +876,36 @@ public partial class SettingsPage
             if (state is null)
                 return;
 
+            if (state.Value)
+            {
+                var feature = IoCContainer.Resolve<SensorsGroupController>();
+                if (!feature.IsPawnIOInnstalled())
+                {
+                    var dialog = new DialogWindow
+                    {
+                        Title = Resource.MainWindow_PawnIO_Warning_Title,
+                        Content = Resource.MainWindow_PawnIO_Warning_Message,
+                        Owner = Application.Current.MainWindow
+                    };
+
+                    dialog.ShowDialog();
+
+                    if (dialog.Result.Item1)
+                    {
+                        Process.Start(new ProcessStartInfo
+                        {
+                            FileName = "https://pawnio.eu/",
+                            UseShellExecute = true
+                        });
+                    }
+
+                    _floatingGadgetsToggle.IsChecked = false;
+                    _settings.Store.ShowFloatingGadgets = false;
+                    _settings.SynchronizeStore();
+                    return;
+                }
+            }
+
             Window? floatingGadget = null;
 
             if (state.Value)
@@ -901,13 +931,11 @@ public partial class SettingsPage
                 {
                     bool needsStyleUpdate = false;
 
-                    if (_settings.Store.SelectedStyleIndex == 0 &&
-                        App.Current.FloatingGadget.GetType() != typeof(FloatingGadget))
+                    if (_settings.Store.SelectedStyleIndex == 0 && App.Current.FloatingGadget.GetType() != typeof(FloatingGadget))
                     {
                         needsStyleUpdate = true;
                     }
-                    else if (_settings.Store.SelectedStyleIndex == 1 &&
-                             App.Current.FloatingGadget.GetType() != typeof(FloatingGadgetUpper))
+                    else if (_settings.Store.SelectedStyleIndex == 1 && App.Current.FloatingGadget.GetType() != typeof(FloatingGadgetUpper))
                     {
                         needsStyleUpdate = true;
                     }
