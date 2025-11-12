@@ -194,7 +194,7 @@ public class SensorsGroupController : IDisposable
                 return Task.FromResult(InvalidPower);
             }
 
-            var sensor = _cpuHardware.Sensors?.FirstOrDefault(s => s.SensorType == SensorType.Power && s.Name == "Package");
+            var sensor = _cpuHardware.Sensors?.FirstOrDefault(s => s.SensorType == SensorType.Power && s.Name.Contains("Package"));
             var powerValue = sensor?.Value;
 
             if (!powerValue.HasValue || powerValue < 0)
