@@ -2559,4 +2559,16 @@ Click Yes to disable and No to ignore.</value>
   <data name="FloatingGadgets_Frame_Time" xml:space="preserve">
     <value>Frame Time</value>
   </data>
+  <data name="FloatingGadgetAutomationStepControl_Title" xml:space="preserve">
+    <value>Floating Gadget</value>
+  </data>
+  <data name="FloatingGadgetAutomationStepControl_Message" xml:space="preserve">
+    <value>Show or Hide the Floating Gadget</value>
+  </data>
+  <data name="CloseAutomationStepControl_Title" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="CloseAutomationStepControl_Message" xml:space="preserve">
+    <value>Close the Lenovo Legion Toolkit</value>
+  </data>
 </root>

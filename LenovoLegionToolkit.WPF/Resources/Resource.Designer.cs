@@ -1198,6 +1198,24 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Close the Lenovo Legion Toolkit 的本地化字符串。
+        /// </summary>
+        public static string CloseAutomationStepControl_Message {
+            get {
+                return ResourceManager.GetString("CloseAutomationStepControl_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Close 的本地化字符串。
+        /// </summary>
+        public static string CloseAutomationStepControl_Title {
+            get {
+                return ResourceManager.GetString("CloseAutomationStepControl_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Blue 的本地化字符串。
         /// </summary>
         public static string Color_Blue {
@@ -2187,6 +2205,24 @@ namespace LenovoLegionToolkit.WPF.Resources {
         public static string FlipToStartControl_Title {
             get {
                 return ResourceManager.GetString("FlipToStartControl_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Show or Hide the Floating Gadget 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgetAutomationStepControl_Message {
+            get {
+                return ResourceManager.GetString("FloatingGadgetAutomationStepControl_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Floating Gadget 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgetAutomationStepControl_Title {
+            get {
+                return ResourceManager.GetString("FloatingGadgetAutomationStepControl_Title", resourceCulture);
             }
         }
         

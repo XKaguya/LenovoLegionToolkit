@@ -2553,4 +2553,16 @@ Click Yes to disable and No to ignore.</value>
   <data name="FloatingGadgets_Frame_Time" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
+  <data name="FloatingGadgetAutomationStepControl_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="FloatingGadgetAutomationStepControl_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="CloseAutomationStepControl_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="CloseAutomationStepControl_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
 </root>

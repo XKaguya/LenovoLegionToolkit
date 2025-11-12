@@ -42,6 +42,14 @@ public enum BatteryState
     RapidCharge
 }
 
+public enum Close
+{
+    [Display(ResourceType = typeof(Resource), Name = "Close_Yes")]
+    Yes,
+    [Display(ResourceType = typeof(Resource), Name = "Close_No")]
+    No
+}
+
 public enum CapabilityID
 {
     IGPUMode = 0x00010000,
@@ -105,6 +113,14 @@ public enum FlipToStartState
     Off,
     [Display(ResourceType = typeof(Resource), Name = "FlipToStartState_On")]
     On
+}
+
+public enum FloatingGadgetState
+{
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetState_Hidden")]
+    Hidden,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetState_Show")]
+    Show
 }
 
 public enum FnLockState

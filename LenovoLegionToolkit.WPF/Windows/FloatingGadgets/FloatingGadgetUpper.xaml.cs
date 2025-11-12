@@ -1,7 +1,10 @@
 ﻿using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Controllers.Sensors;
+using LenovoLegionToolkit.Lib.Messaging;
+using LenovoLegionToolkit.Lib.Messaging.Messages;
 using LenovoLegionToolkit.Lib.Settings;
 using LenovoLegionToolkit.Lib.Utils;
+using LenovoLegionToolkit.WPF.Extensions;
 using LenovoLegionToolkit.WPF.Resources;
 using System;
 using System.Runtime.InteropServices;
@@ -48,6 +51,24 @@ public partial class FloatingGadgetUpper
         {
             _pchName.Text = Resource.SensorsControl_Motherboard_Title;
         }
+
+        MessagingCenter.Subscribe<FloatingGadgetChangedMessage>(this, (message) =>
+        {
+            Dispatcher.Invoke(() =>
+            {
+                if (App.Current.FloatingGadget != null)
+                {
+                    if (message.State == FloatingGadgetState.Show)
+                    {
+                        App.Current.FloatingGadget.Show();
+                    }
+                    else
+                    {
+                        App.Current.FloatingGadget.Hide();
+                    }
+                }
+            });
+        });
 
         InitializeFpsSensor();
     }
