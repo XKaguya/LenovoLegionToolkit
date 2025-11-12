@@ -23,12 +23,14 @@ public partial class FloatingGadget
     private readonly ApplicationSettings _settings = IoCContainer.Resolve<ApplicationSettings>();
     private readonly SensorsController _controller = IoCContainer.Resolve<SensorsController>();
     private readonly SensorsGroupController _sensorsGroupControllers = IoCContainer.Resolve<SensorsGroupController>();
+    private readonly FpsSensorController _fpsController = IoCContainer.Resolve<FpsSensorController>();
 
     private readonly SemaphoreSlim _refreshLock = new(1, 1);
     private readonly StringBuilder _stringBuilder = new(64);
     private DateTime _lastUpdate = DateTime.MinValue;
 
     private CancellationTokenSource? _cts;
+    private bool _fpsMonitoringStarted = false;
 
     public FloatingGadget()
     {
@@ -43,6 +45,8 @@ public partial class FloatingGadget
         {
             _pchName.Text = Resource.SensorsControl_Motherboard_Temperature;
         }
+
+        InitializeFpsSensor();
     }
 
     [DllImport("user32.dll")]
@@ -51,11 +55,49 @@ public partial class FloatingGadget
     [DllImport("user32.dll")]
     private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
 
+    private void InitializeFpsSensor()
+    {
+        _fpsController.Blacklist.Add("explorer");
+        _fpsController.Blacklist.Add("taskmgr");
+        _fpsController.Blacklist.Add("ApplicationFrameHost");
+
+        _fpsController.Blacklist.Add("System");
+        _fpsController.Blacklist.Add("svchost");
+        _fpsController.Blacklist.Add("csrss");
+        _fpsController.Blacklist.Add("wininit");
+        _fpsController.Blacklist.Add("services");
+        _fpsController.Blacklist.Add("lsass");
+        _fpsController.Blacklist.Add("winlogon");
+        _fpsController.Blacklist.Add("smss");
+
+        _fpsController.Blacklist.Add("spoolsv");
+        _fpsController.Blacklist.Add("SearchIndexer");
+        _fpsController.Blacklist.Add("SearchUI");
+        _fpsController.Blacklist.Add("RuntimeBroker");
+        _fpsController.Blacklist.Add("dwm");
+        _fpsController.Blacklist.Add("ctfmon");
+        _fpsController.Blacklist.Add("audiodg");
+        _fpsController.Blacklist.Add("fontdrvhost");
+
+        _fpsController.Blacklist.Add("taskhost");
+        _fpsController.Blacklist.Add("conhost");
+        _fpsController.Blacklist.Add("sihost");
+        _fpsController.Blacklist.Add("StartMenuExperienceHost");
+        _fpsController.Blacklist.Add("ShellExperienceHost");
+
+        _fpsController.FpsDataUpdated += OnFpsDataUpdated;
+    }
+
     private void OnSourceInitialized(object sender, EventArgs e)
     {
         var hwnd = new WindowInteropHelper(this).Handle;
         var extendedStyle = GetWindowLong(hwnd, GWL_EXSTYLE);
         SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle | WS_EX_TRANSPARENT | WS_EX_TOOLWINDOW);
+    }
+
+    private async Task StartFpsMonitoringAsync()
+    {
+        await _fpsController.StartMonitoringAsync();
     }
 
     private async void FloatingGadget_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -66,6 +108,13 @@ public partial class FloatingGadget
             _cts?.Dispose();
 
             _cts = new CancellationTokenSource();
+
+            if (!_fpsMonitoringStarted)
+            {
+                await StartFpsMonitoringAsync();
+                _fpsMonitoringStarted = true;
+            }
+
             await TheRing(_cts.Token);
         }
         else
@@ -79,6 +128,9 @@ public partial class FloatingGadget
         _cts?.Cancel();
         _cts?.Dispose();
         _refreshLock.Dispose();
+
+        _fpsController.FpsDataUpdated -= OnFpsDataUpdated;
+        _fpsController.Dispose();
     }
 
     public void UpdateSensorData(
@@ -184,6 +236,21 @@ public partial class FloatingGadget
             }
             catch (ObjectDisposedException) { }
         }
+    }
+
+    private void OnFpsDataUpdated(object? sender, FpsSensorController.FpsData fpsData)
+    {
+        Dispatcher.BeginInvoke(() =>
+        {
+            UpdateFpsDisplay(fpsData.Fps, fpsData.LowFps, fpsData.FrameTime);
+        }, DispatcherPriority.Normal);
+    }
+
+    private void UpdateFpsDisplay(string fps, string lowFps, string frameTime)
+    {
+        _fps.Text = fps;
+        _lowFps.Text = lowFps;
+        _frameTime.Text = $"{frameTime}ms";
     }
 
     private async Task RefreshDataAsync(CancellationToken token)

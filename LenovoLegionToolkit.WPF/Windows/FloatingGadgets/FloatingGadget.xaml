@@ -37,6 +37,35 @@
                 </StackPanel.Resources>
 
                 <StackPanel Margin="0,5,0,0">
+                    <TextBlock Text="{Binding Source={x:Static resources:Resource.FloatingGadgets_Fps}, StringFormat='— {0} —'}" Style="{StaticResource SensorLabelStyle}" FontWeight="Bold" Foreground="#FF5722" FontSize="14" Margin="0,0,0,5"/>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="{x:Static resources:Resource.FloatingGadgets_Fps}" Style="{StaticResource SensorLabelStyle}" />
+                        <TextBlock x:Name="_fps" Grid.Column="1" Text="-" Style="{StaticResource SensorValueStyle}" />
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="{x:Static resources:Resource.FloatingGadgets_Low_Fps}" Style="{StaticResource SensorLabelStyle}" />
+                        <TextBlock x:Name="_lowFps" Grid.Column="1" Text="-" Style="{StaticResource SensorValueStyle}" />
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="{x:Static resources:Resource.FloatingGadgets_Frame_Time}" Style="{StaticResource SensorLabelStyle}" />
+                        <TextBlock x:Name="_frameTime" Grid.Column="1" Text="-" Style="{StaticResource SensorValueStyle}" />
+                    </Grid>
+                </StackPanel>
+
+                <StackPanel Margin="0,5,0,0">
                     <TextBlock Text="{Binding Source={x:Static resources:Resource.FloatingGadgets_Cpu}, StringFormat='— {0} —'}" Style="{StaticResource SensorLabelStyle}" FontWeight="Bold" Foreground="#FF5722" FontSize="14" Margin="0,0,0,5"/>
                     
                     <Grid>

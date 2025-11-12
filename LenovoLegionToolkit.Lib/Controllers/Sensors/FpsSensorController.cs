@@ -134,7 +134,7 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                 if (process == null || string.IsNullOrEmpty(process.ProcessName) || process.HasExited)
                     return null;
 
-                if (Blacklist?.Any(x => process.ProcessName.IndexOf(x, StringComparison.OrdinalIgnoreCase) >= 0) == true)
+                if (IsProcessBlacklisted(process.ProcessName))
                     return null;
 
                 return Process.GetProcessById((int)processId);
@@ -245,6 +245,11 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
             }
 
             FpsDataUpdated?.Invoke(this, fpsData);
+        }
+
+        private bool IsProcessBlacklisted(string processName)
+        {
+            return Blacklist?.Any(x => string.Equals(processName, x, StringComparison.OrdinalIgnoreCase)) == true;
         }
 
         public void Dispose()

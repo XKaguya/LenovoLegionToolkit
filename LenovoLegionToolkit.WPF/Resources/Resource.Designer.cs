@@ -2245,6 +2245,24 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 FPS 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgets_Fps {
+            get {
+                return ResourceManager.GetString("FloatingGadgets_Fps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Frame Time 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgets_Frame_Time {
+            get {
+                return ResourceManager.GetString("FloatingGadgets_Frame_Time", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 GPU 的本地化字符串。
         /// </summary>
         public static string FloatingGadgets_Gpu {
@@ -2259,6 +2277,15 @@ namespace LenovoLegionToolkit.WPF.Resources {
         public static string FloatingGadgets_GPU_Fan {
             get {
                 return ResourceManager.GetString("FloatingGadgets_GPU_Fan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 1% Low 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgets_Low_Fps {
+            get {
+                return ResourceManager.GetString("FloatingGadgets_Low_Fps", resourceCulture);
             }
         }
         
