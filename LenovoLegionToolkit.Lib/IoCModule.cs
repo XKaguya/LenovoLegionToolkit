@@ -130,6 +130,7 @@ public class IoCModule : Module
         builder.Register<SpectrumKeyboardBacklightController>();
         builder.Register<WindowsPowerModeController>();
         builder.Register<WindowsPowerPlanController>();
+        builder.Register<FpsSensorController>();
 
         builder.Register<UpdateChecker>();
         builder.Register<WarrantyChecker>();

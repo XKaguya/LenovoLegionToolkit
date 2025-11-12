@@ -38,6 +38,9 @@
 	  <Reference Include="NvAPIWrapper">
 	    <HintPath>..\..\NvAPIWrapper-main\Release\net9.0\NvAPIWrapper.dll</HintPath>
 	  </Reference>
+	  <Reference Include="PresentMonFps">
+	    <HintPath>..\..\PresentMonFps\src\bin\Release\net9.0\publish\PresentMonFps.dll</HintPath>
+	  </Reference>
 	</ItemGroup>
 	<ItemGroup>
 		<Compile Update="Resources\Resource.Designer.cs">

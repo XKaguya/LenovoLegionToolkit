@@ -23,6 +23,7 @@ public partial class FloatingGadgetUpper
     private readonly ApplicationSettings _settings = IoCContainer.Resolve<ApplicationSettings>();
     private readonly SensorsController _controller = IoCContainer.Resolve<SensorsController>();
     private readonly SensorsGroupController _sensorsGroupControllers = IoCContainer.Resolve<SensorsGroupController>();
+    private readonly FpsSensorController _fpsController = IoCContainer.Resolve<FpsSensorController>();
 
     private readonly SemaphoreSlim _refreshLock = new(1, 1);
     private readonly StringBuilder _stringBuilder = new(64);
@@ -30,6 +31,7 @@ public partial class FloatingGadgetUpper
 
     private CancellationTokenSource? _cts;
     private bool _positionSet;
+    private bool _fpsMonitoringStarted = false;
 
     public FloatingGadgetUpper()
     {
@@ -46,6 +48,12 @@ public partial class FloatingGadgetUpper
         {
             _pchName.Text = Resource.SensorsControl_Motherboard_Title;
         }
+
+        _fpsController.Blacklist.Add("explorer");
+        _fpsController.Blacklist.Add("taskmgr");
+        _fpsController.Blacklist.Add("ApplicationFrameHost");
+
+        _fpsController.FpsDataUpdated += OnFpsDataUpdated;
     }
 
     [DllImport("user32.dll")]
@@ -98,6 +106,13 @@ public partial class FloatingGadgetUpper
             _cts?.Dispose();
 
             _cts = new CancellationTokenSource();
+
+            if (!_fpsMonitoringStarted)
+            {
+                await StartFpsMonitoringAsync();
+                _fpsMonitoringStarted = true;
+            }
+
             await TheRing(_cts.Token);
         }
         else
@@ -111,6 +126,22 @@ public partial class FloatingGadgetUpper
         _cts?.Cancel();
         _cts?.Dispose();
         _refreshLock.Dispose();
+
+        _fpsController.FpsDataUpdated -= OnFpsDataUpdated;
+        _fpsController.Dispose();
+    }
+
+    private void OnFpsDataUpdated(object? sender, FpsSensorController.FpsData fpsData)
+    {
+        Dispatcher.BeginInvoke(() =>
+        {
+            UpdateFpsDisplay(fpsData.Fps, fpsData.LowFps, fpsData.FrameTime);
+        }, DispatcherPriority.Normal);
+    }
+
+    private async Task StartFpsMonitoringAsync()
+    {
+        await _fpsController.StartMonitoringAsync();
     }
 
     public void UpdateSensorData(
@@ -183,6 +214,14 @@ public partial class FloatingGadgetUpper
         _pchFanSpeed.Text = _stringBuilder.ToString();
     }
 
+
+    private void UpdateFpsDisplay(string fps, string lowFps, string frameTime)
+    {
+        _fps.Text = fps;
+        _lowFps.Text = lowFps;
+        _frameTime.Text = $"{frameTime}ms";
+    }
+
     public async Task TheRing(CancellationToken token)
     {
         if (!await _refreshLock.WaitAsync(0, token))
@@ -194,10 +233,16 @@ public partial class FloatingGadgetUpper
             {
                 try
                 {
-                    await RefreshDataAsync(token);
+                    await RefreshSensorsDataAsync(token);
                     await Task.Delay(TimeSpan.FromSeconds(_settings.Store.FloatingGadgetsRefreshInterval), token);
                 }
-                catch (Exception) { }
+                catch (Exception ex)
+                {
+                    if (Log.Instance.IsTraceEnabled)
+                    {
+                        Log.Instance.Trace($"Exception occur when executing TheRing()", ex);
+                    }
+                }
             }
         }
         finally
@@ -210,7 +255,7 @@ public partial class FloatingGadgetUpper
         }
     }
 
-    private async Task RefreshDataAsync(CancellationToken token)
+    private async Task RefreshSensorsDataAsync(CancellationToken token)
     {
         await _sensorsGroupControllers.UpdateAsync();
 
@@ -222,6 +267,8 @@ public partial class FloatingGadgetUpper
         var memoryTemperaturesTask = _sensorsGroupControllers.GetHighestMemoryTemperatureAsync();
 
         await Task.WhenAll(dataTask, cpuPowerTask, gpuPowerTask, gpuVramTask, memoryUsageTask, memoryTemperaturesTask);
+
+        token.ThrowIfCancellationRequested();
 
         var data = dataTask.Result;
         var cpuPower = cpuPowerTask.Result;

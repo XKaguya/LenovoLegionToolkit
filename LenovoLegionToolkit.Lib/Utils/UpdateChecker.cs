@@ -47,10 +47,10 @@ public class UpdateChecker
 
     public async Task<Version?> CheckAsync(bool forceCheck)
     {
-        ApplicationSettings settings = IoCContainer.Resolve<ApplicationSettings>();
-        if (settings.Store.UpdateMethod == UpdateMethod.Github)
+        using (await _updateSemaphore.LockAsync().ConfigureAwait(false))
         {
-            using (await _updateSemaphore.LockAsync().ConfigureAwait(false))
+            ApplicationSettings settings = IoCContainer.Resolve<ApplicationSettings>();
+            if (settings.Store.UpdateMethod == UpdateMethod.Github)
             {
                 if (Disable)
                 {
@@ -125,70 +125,70 @@ public class UpdateChecker
                     _updateCheckSettings.SynchronizeStore();
                 }
             }
-        }
-        else
-        {
-            try
+            else
             {
-                var (currentVersion, newVersion, statusCode, projectInfo) = await TryGetUpdateFromServer();
-
-                if (statusCode == StatusCode.Null)
+                try
                 {
-                    Log.Instance.Trace($"Failed to check for updates.");
-                    Status = UpdateCheckStatus.Error;
-                    return null;
+                    var (currentVersion, newVersion, statusCode, projectInfo) = await TryGetUpdateFromServer();
+
+                    if (statusCode == StatusCode.Null)
+                    {
+                        Log.Instance.Trace($"Failed to check for updates.");
+                        Status = UpdateCheckStatus.Error;
+                        return null;
+                    }
+
+                    if (currentVersion == newVersion && statusCode != StatusCode.ForceUpdate)
+                    {
+                        Log.Instance.Trace($"You are already using the latest version.");
+
+                        Status = UpdateCheckStatus.Success;
+                        return null;
+                    }
+
+                    if (currentVersion > newVersion && statusCode != StatusCode.ForceUpdate)
+                    {
+                        Log.Instance.Trace($"You are using a private version.");
+
+                        Status = UpdateCheckStatus.Success;
+                        return null;
+                    }
+
+                    if (statusCode == StatusCode.ForceUpdate && currentVersion != newVersion)
+                    {
+                        Log.Instance.Trace($"Force update branch");
+
+                        Status = UpdateCheckStatus.Success;
+                        _updateFromServer = new UpdateFromServer(projectInfo);
+                        return newVersion;
+                    }
+                    if (statusCode == StatusCode.Update && currentVersion != newVersion)
+                    {
+                        Log.Instance.Trace($"Normal update branch");
+
+                        Status = UpdateCheckStatus.Success;
+
+                        _updateFromServer = new UpdateFromServer(projectInfo);
+                        return newVersion;
+                    }
+                    if (statusCode == StatusCode.NoUpdate || statusCode == StatusCode.ForceUpdate && newVersion == currentVersion)
+                    {
+                        Log.Instance.Trace($"No updates are available.");
+                        Status = UpdateCheckStatus.Success;
+                        return null;
+                    }
                 }
-
-                if (currentVersion == newVersion && statusCode != StatusCode.ForceUpdate)
+                finally
                 {
-                    Log.Instance.Trace($"You are already using the latest version.");
-
-                    Status = UpdateCheckStatus.Success;
-                    return null;
-                }
-
-                if (currentVersion > newVersion && statusCode != StatusCode.ForceUpdate)
-                {
-                    Log.Instance.Trace($"You are using a private version.");
-
-                    Status = UpdateCheckStatus.Success;
-                    return null;
-                }
-
-                if (statusCode == StatusCode.ForceUpdate && currentVersion != newVersion)
-                {
-                    Log.Instance.Trace($"Force update branch");
-
-                    Status = UpdateCheckStatus.Success;
-                    _updateFromServer = new UpdateFromServer(projectInfo);
-                    return newVersion;
-                }
-                if (statusCode == StatusCode.Update && currentVersion != newVersion)
-                {
-                    Log.Instance.Trace($"Normal update branch");
-
-                    Status = UpdateCheckStatus.Success;
-
-                    _updateFromServer = new UpdateFromServer(projectInfo);
-                    return newVersion;
-                }
-                if (statusCode == StatusCode.NoUpdate || statusCode == StatusCode.ForceUpdate && newVersion == currentVersion)
-                {
-                    Log.Instance.Trace($"No updates are available.");
-                    Status = UpdateCheckStatus.Success;
-                    return null;
+                    _lastUpdate = DateTime.UtcNow;
+                    _updateCheckSettings.Store.LastUpdateCheckDateTime = _lastUpdate;
+                    _updateCheckSettings.SynchronizeStore();
                 }
             }
-            finally
-            {
-                _lastUpdate = DateTime.UtcNow;
-                _updateCheckSettings.Store.LastUpdateCheckDateTime = _lastUpdate;
-                _updateCheckSettings.SynchronizeStore();
-            }
-        }
 
-        Status = UpdateCheckStatus.Error;
-        return null;
+            Status = UpdateCheckStatus.Error;
+            return null;
+        }
     }
 
     public async Task<Update[]> GetUpdatesAsync()
@@ -232,7 +232,7 @@ public class UpdateChecker
 
     public void UpdateMinimumTimeSpanForRefresh() => _minimumTimeSpanForRefresh = _updateCheckSettings.Store.UpdateCheckFrequency switch
     {
-        UpdateCheckFrequency.Never => TimeSpan.FromSeconds(1),
+        UpdateCheckFrequency.Never => TimeSpan.FromSeconds(0),
         UpdateCheckFrequency.PerHour => TimeSpan.FromHours(1),
         UpdateCheckFrequency.PerThreeHours => TimeSpan.FromHours(3),
         UpdateCheckFrequency.PerTwelveHours => TimeSpan.FromHours(13),
@@ -257,27 +257,6 @@ public class UpdateChecker
         Log.Instance.Trace($"Latest version is {version}");
 
         return !string.IsNullOrEmpty(version) ? (status, version) : throw new Exception("Failed to get the latest version.");
-    }
-
-    private static async Task<bool> RetryAsync(Func<Task> operation)
-    {
-        for (int i = 0; i < MaxRetryCount; i++)
-        {
-            try
-            {
-                await operation();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.Trace($"Attempt {i + 1} failed: {ex.Message}");
-                if (i == MaxRetryCount - 1) throw;
-            }
-
-            await Task.Delay(1000);
-        }
-
-        return false;
     }
 
     private static async Task<(StatusCode, string)> RetryAsync(Func<Task<(StatusCode, string)>> operation)
