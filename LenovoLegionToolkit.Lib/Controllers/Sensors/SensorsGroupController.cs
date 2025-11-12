@@ -184,7 +184,7 @@ public class SensorsGroupController : IDisposable
 
     public Task<float> GetCpuPowerAsync()
     {
-        const float MaxValidPower = 300f;
+        const float MaxValidPower = 400f;
         const float InvalidPower = -1f;
 
         try
