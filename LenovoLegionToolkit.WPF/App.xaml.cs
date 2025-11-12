@@ -179,6 +179,11 @@ public partial class App
 
         await deferredInitTask;
 
+        if (Log.Instance.IsTraceEnabled)
+        {
+            Log.Instance.Trace($"Lenovo Legion Toolit Version {Assembly.GetEntryAssembly()?.GetName().Version}");
+        }
+
         Compatibility.PrintControllerVersion();
         CheckFloatingGadget();
 

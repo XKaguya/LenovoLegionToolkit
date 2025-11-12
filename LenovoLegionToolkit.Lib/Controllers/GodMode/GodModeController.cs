@@ -8,7 +8,7 @@ namespace LenovoLegionToolkit.Lib.Controllers.GodMode;
 public class GodModeController(GodModeControllerV1 controllerV1, GodModeControllerV2 controllerV2, GodModeControllerV3 controllerV3, GodModeControllerV4 controllerV4)
     : IGodModeController
 {
-    public IGodModeController? Controller = null;
+    public IGodModeController? Controller { get; private set; } = null;
     private IGodModeController ControllerV1 => controllerV1;
     private IGodModeController ControllerV2 => controllerV2;
     private IGodModeController ControllerV3 => controllerV3;
@@ -104,7 +104,7 @@ public class GodModeController(GodModeControllerV1 controllerV1, GodModeControll
         await controller.RestoreDefaultsInOtherPowerModeAsync(state).ConfigureAwait(false);
     }
 
-    private async Task<IGodModeController> GetControllerAsync()
+    public async Task<IGodModeController> GetControllerAsync()
     {
         if (Controller != null)
         {

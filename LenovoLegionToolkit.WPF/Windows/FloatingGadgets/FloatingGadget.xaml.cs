@@ -248,9 +248,54 @@ public partial class FloatingGadget
 
     private void UpdateFpsDisplay(string fps, string lowFps, string frameTime)
     {
-        _fps.Text = fps;
-        _lowFps.Text = lowFps;
-        _frameTime.Text = $"{frameTime}ms";
+        const string dash = "-";
+        const int redLine = 30;
+        const double maxFrameTime = 10.0;
+
+        var fpsText = dash;
+        int fpsVal = -1;
+        if (int.TryParse(fps?.Trim(), out var fv) && fv >= 0)
+        {
+            fpsVal = fv;
+            fpsText = fv.ToString();
+        }
+
+        var lowFpsText = dash;
+        int lowVal = -1;
+        if (int.TryParse(lowFps?.Trim(), out var lv) && lv >= 0)
+        {
+            lowVal = lv;
+            lowFpsText = lv.ToString();
+        }
+
+        var frameTimeText = dash;
+        double ftVal = -1;
+        if (double.TryParse(frameTime?.Trim(), out var ft) && ft >= 0)
+        {
+            ftVal = ft;
+            frameTimeText = $"{ft:F1}ms";
+        }
+
+        if (!string.Equals(_fps.Text, fpsText, StringComparison.Ordinal))
+            _fps.Text = fpsText;
+        if (!string.Equals(_lowFps.Text, lowFpsText, StringComparison.Ordinal))
+            _lowFps.Text = lowFpsText;
+        if (!string.Equals(_frameTime.Text, frameTimeText, StringComparison.Ordinal))
+            _frameTime.Text = frameTimeText;
+
+        var normalBrush = System.Windows.Media.Brushes.White;
+        var alertBrush = System.Windows.Media.Brushes.Red;
+
+        var fpsBrush = (fpsVal >= 0 && fpsVal < redLine) ? alertBrush : normalBrush;
+        var lowFpsBrush = (lowVal >= 0 && lowVal < (fpsVal - redLine)) ? alertBrush : normalBrush;
+        var frameTimeBrush = (ftVal >= 0 && ftVal > maxFrameTime) ? alertBrush : normalBrush;
+
+        if (!Equals(_fps.Foreground, fpsBrush))
+            _fps.Foreground = fpsBrush;
+        if (!Equals(_lowFps.Foreground, lowFpsBrush))
+            _lowFps.Foreground = lowFpsBrush;
+        if (!Equals(_frameTime.Foreground, frameTimeBrush))
+            _frameTime.Foreground = frameTimeBrush;
     }
 
     private async Task RefreshDataAsync(CancellationToken token)

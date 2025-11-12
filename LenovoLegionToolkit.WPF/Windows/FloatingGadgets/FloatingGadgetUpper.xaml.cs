@@ -4,7 +4,6 @@ using LenovoLegionToolkit.Lib.Messaging;
 using LenovoLegionToolkit.Lib.Messaging.Messages;
 using LenovoLegionToolkit.Lib.Settings;
 using LenovoLegionToolkit.Lib.Utils;
-using LenovoLegionToolkit.WPF.Extensions;
 using LenovoLegionToolkit.WPF.Resources;
 using System;
 using System.Runtime.InteropServices;
@@ -14,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Threading;
+using System.Windows.Media;
 
 namespace LenovoLegionToolkit.WPF.Windows.Utils;
 
@@ -203,73 +203,168 @@ public partial class FloatingGadgetUpper
         if ((DateTime.Now - _lastUpdate).TotalMilliseconds < 100) return;
         _lastUpdate = DateTime.Now;
 
+        // CPU Frequency
         _stringBuilder.Clear();
         _stringBuilder.AppendFormat("{0}MHz", cpuFrequency);
-        _cpuFrequency.Text = _stringBuilder.ToString();
+        SetTextIfChanged(_cpuFrequency, _stringBuilder.ToString());
 
+        // CPU Usage
         _stringBuilder.Clear();
         _stringBuilder.AppendFormat("{0:F0}%", cpuUsage);
-        _cpuUsage.Text = _stringBuilder.ToString();
+        SetTextIfChanged(_cpuUsage, _stringBuilder.ToString());
+        SetForegroundIfChanged(_cpuUsage, SeverityBrush(cpuUsage, 70, 90));
 
+        // CPU Temperature
         _stringBuilder.Clear();
         _stringBuilder.AppendFormat("{0:F0}°C", cpuTemp);
-        _cpuTemperature.Text = _stringBuilder.ToString();
+        SetTextIfChanged(_cpuTemperature, _stringBuilder.ToString());
+        SetForegroundIfChanged(_cpuTemperature, SeverityBrush(cpuTemp, 75, 90));
 
+        // CPU Power
         _stringBuilder.Clear();
         _stringBuilder.AppendFormat("{0:F1}W", cpuPower);
-        _cpuPower.Text = _stringBuilder.ToString();
+        SetTextIfChanged(_cpuPower, _stringBuilder.ToString());
 
+        // GPU Frequency
         _stringBuilder.Clear();
         _stringBuilder.AppendFormat("{0}MHz", gpuFrequency);
-        _gpuFrequency.Text = _stringBuilder.ToString();
+        SetTextIfChanged(_gpuFrequency, _stringBuilder.ToString());
 
+        // GPU Usage
         _stringBuilder.Clear();
         _stringBuilder.AppendFormat("{0:F0}%", gpuUsage);
-        _gpuUsage.Text = _stringBuilder.ToString();
+        SetTextIfChanged(_gpuUsage, _stringBuilder.ToString());
+        SetForegroundIfChanged(_gpuUsage, SeverityBrush(gpuUsage, 70, 90));
 
+        // GPU Temperature
         _stringBuilder.Clear();
         _stringBuilder.AppendFormat("{0:F0}°C", gpuTemp);
-        _gpuTemperature.Text = _stringBuilder.ToString();
+        SetTextIfChanged(_gpuTemperature, _stringBuilder.ToString());
+        SetForegroundIfChanged(_gpuTemperature, SeverityBrush(gpuTemp, 70, 80));
 
+        // GPU VRAM Temperature
         _stringBuilder.Clear();
         _stringBuilder.AppendFormat("{0:F0}°C", gpuVramTemp);
-        _gpuVramTemperature.Text = _stringBuilder.ToString();
+        SetTextIfChanged(_gpuVramTemperature, _stringBuilder.ToString());
+        SetForegroundIfChanged(_gpuVramTemperature, SeverityBrush(gpuVramTemp, 70, 80));
 
+        // GPU Power
         _stringBuilder.Clear();
         _stringBuilder.AppendFormat("{0:F1}W", gpuPower);
-        _gpuPower.Text = _stringBuilder.ToString();
+        SetTextIfChanged(_gpuPower, _stringBuilder.ToString());
 
+        // Memory Usage
         _stringBuilder.Clear();
         _stringBuilder.AppendFormat("{0:F0}%", memUsage);
-        _memUsage.Text = _stringBuilder.ToString();
+        SetTextIfChanged(_memUsage, _stringBuilder.ToString());
+        SetForegroundIfChanged(_memUsage, SeverityBrush(memUsage, 75, 80));
 
+        // Memory Temperature
         _stringBuilder.Clear();
         _stringBuilder.AppendFormat("{0:F0}°C", memTemp);
-        _memTemperature.Text = _stringBuilder.ToString();
+        SetTextIfChanged(_memTemperature, _stringBuilder.ToString());
+        SetForegroundIfChanged(_memTemperature, SeverityBrush(memTemp, 60, 75));
 
+        // PCH Temperature
         _stringBuilder.Clear();
         _stringBuilder.AppendFormat("{0:F0}°C", pchTemp);
-        _pchTemperature.Text = _stringBuilder.ToString();
+        SetTextIfChanged(_pchTemperature, _stringBuilder.ToString());
+        SetForegroundIfChanged(_pchTemperature, SeverityBrush(pchTemp, 60, 75));
 
+        // Fan Speeds
         _stringBuilder.Clear();
         _stringBuilder.AppendFormat("{0}RPM", cpuFanSpeed);
-        _cpuFanSpeed.Text = _stringBuilder.ToString();
+        SetTextIfChanged(_cpuFanSpeed, _stringBuilder.ToString());
+        SetForegroundIfChanged(_cpuFanSpeed, FanBrush(cpuFanSpeed));
 
         _stringBuilder.Clear();
         _stringBuilder.AppendFormat("{0}RPM", gpuFanSpeed);
-        _gpuFanSpeed.Text = _stringBuilder.ToString();
+        SetTextIfChanged(_gpuFanSpeed, _stringBuilder.ToString());
+        SetForegroundIfChanged(_gpuFanSpeed, FanBrush(gpuFanSpeed));
 
         _stringBuilder.Clear();
         _stringBuilder.AppendFormat("{0}RPM", pchFanSpeed);
-        _pchFanSpeed.Text = _stringBuilder.ToString();
+        SetTextIfChanged(_pchFanSpeed, _stringBuilder.ToString());
+        SetForegroundIfChanged(_pchFanSpeed, FanBrush(pchFanSpeed));
     }
 
+    private static Brush SeverityBrush(double value, double yellowThreshold, double redThreshold)
+    {
+        if (double.IsNaN(value)) return Brushes.White;
+        if (value >= redThreshold) return Brushes.Red;
+        if (value >= yellowThreshold) return Brushes.Goldenrod;
+        return Brushes.White;
+    }
+
+    private static Brush FanBrush(int rpm)
+    {
+        if (rpm < 0) return Brushes.Red;
+        if (rpm >= 6500) return Brushes.Goldenrod;
+        return Brushes.White;
+    }
+
+    private static void SetTextIfChanged(System.Windows.Controls.TextBlock tb, string text)
+    {
+        if (!string.Equals(tb.Text, text, StringComparison.Ordinal))
+            tb.Text = text;
+    }
+
+    private static void SetForegroundIfChanged(System.Windows.Controls.TextBlock tb, System.Windows.Media.Brush brush)
+    {
+        if (!Equals(tb.Foreground, brush))
+            tb.Foreground = brush;
+    }
 
     private void UpdateFpsDisplay(string fps, string lowFps, string frameTime)
     {
-        _fps.Text = fps;
-        _lowFps.Text = lowFps;
-        _frameTime.Text = $"{frameTime}ms";
+        const string dash = "-";
+        const int redLine = 30;
+        const double maxFrameTime = 10.0;
+
+        var fpsText = dash;
+        int fpsVal = -1;
+        if (int.TryParse(fps?.Trim(), out var fv) && fv >= 0)
+        {
+            fpsVal = fv;
+            fpsText = fv.ToString();
+        }
+
+        var lowFpsText = dash;
+        int lowVal = -1;
+        if (int.TryParse(lowFps?.Trim(), out var lv) && lv >= 0)
+        {
+            lowVal = lv;
+            lowFpsText = lv.ToString();
+        }
+
+        var frameTimeText = dash;
+        double ftVal = -1;
+        if (double.TryParse(frameTime?.Trim(), out var ft) && ft >= 0)
+        {
+            ftVal = ft;
+            frameTimeText = $"{ft:F1}ms";
+        }
+
+        if (!string.Equals(_fps.Text, fpsText, StringComparison.Ordinal))
+            _fps.Text = fpsText;
+        if (!string.Equals(_lowFps.Text, lowFpsText, StringComparison.Ordinal))
+            _lowFps.Text = lowFpsText;
+        if (!string.Equals(_frameTime.Text, frameTimeText, StringComparison.Ordinal))
+            _frameTime.Text = frameTimeText;
+
+        var normalBrush = Brushes.White;
+        var alertBrush = Brushes.Red;
+
+        var fpsBrush = (fpsVal >= 0 && fpsVal < redLine) ? alertBrush : normalBrush;
+        var lowFpsBrush = (lowVal >= 0 && fpsVal >= 0 && (fpsVal - lowVal) >= 30) ? alertBrush : normalBrush;
+        var frameTimeBrush = (ftVal >= 0 && ftVal > maxFrameTime) ? alertBrush : normalBrush;
+
+        if (!Equals(_fps.Foreground, fpsBrush))
+            _fps.Foreground = fpsBrush;
+        if (!Equals(_lowFps.Foreground, lowFpsBrush))
+            _lowFps.Foreground = lowFpsBrush;
+        if (!Equals(_frameTime.Foreground, frameTimeBrush))
+            _frameTime.Foreground = frameTimeBrush;
     }
 
     public async Task TheRing(CancellationToken token)

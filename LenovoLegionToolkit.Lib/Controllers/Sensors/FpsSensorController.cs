@@ -21,9 +21,9 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
 
         public class FpsData
         {
-            public string Fps { get; set; } = "0";
-            public string LowFps { get; set; } = "0";
-            public string FrameTime { get; set; } = "0";
+            public string Fps { get; set; } = "-1";
+            public string LowFps { get; set; } = "-1";
+            public string FrameTime { get; set; } = "-1";
             public override string ToString() => $"FPS: {Fps}, Low: {LowFps}, Time: {FrameTime}ms";
         }
 

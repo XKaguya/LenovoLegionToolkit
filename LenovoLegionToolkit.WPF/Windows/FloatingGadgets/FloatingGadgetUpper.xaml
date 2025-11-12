@@ -22,6 +22,7 @@
             <Setter Property="FontWeight" Value="SemiBold"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="TextAlignment" Value="Center"/>
             <Setter Property="Margin" Value="0,0,8,0"/>
             <Setter Property="MinWidth" Value="30"/>
         </Style>

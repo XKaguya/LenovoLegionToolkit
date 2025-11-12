@@ -741,7 +741,7 @@ public static partial class Compatibility
 
 
             GodModeController? godModeController = IoCContainer.Resolve<GodModeController>();
-            var godModeControllerTypeName = godModeController?.Controller?.GetType().Name ?? "Null";
+            var godModeControllerTypeName = godModeController?.GetControllerAsync().Result?.GetType().Name ?? "Null GodModeController or Result";
             Log.Instance.Trace($"Using {godModeControllerTypeName}");
         }
     }
