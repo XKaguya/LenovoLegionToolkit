@@ -462,17 +462,17 @@ public readonly struct MachineInformation
         public bool SupportsGSync { get; init; }
         public bool SupportsIGPUMode { get; init; }
         public bool SupportsAIMode { get; init; }
-        public bool SupportBootLogoChange { get; init; }
-        public bool SupportITSMode { get; init; }
-        public bool HasQuietToPerformanceModeSwitchingBug { get; init; }
+        public bool SupportsBootLogoChange { get; init; }
+        public bool SupportsITSMode { get; init; }
+        public bool HasAlternativeFullSpectrumLayout { get; init; }
         public bool HasGodModeToOtherModeSwitchingBug { get; init; }
+        public bool HasQuietToPerformanceModeSwitchingBug { get; init; }
         public bool HasReapplyParameterIssue { get; init; }
         public bool HasSpectrumProfileSwitchingBug { get; init; }
+        public bool IsChineseModel { get; init; }
         public bool IsExcludedFromLenovoLighting { get; init; }
         public bool IsExcludedFromPanelLogoLenovoLighting { get; init; }
-        public bool HasAlternativeFullSpectrumLayout { get; init; }
         public bool IsAmdDevice { get; init; }
-        public bool IsChineseModel { get; init; }
     }
 
     public int Generation { get; init; }

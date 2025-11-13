@@ -4,9 +4,12 @@ using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.System;
 using LenovoLegionToolkit.Lib.System.Management;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Windows.Win32;
@@ -19,6 +22,8 @@ namespace LenovoLegionToolkit.Lib.Utils;
 
 public static partial class Compatibility
 {
+    private static readonly HashSet<object> _visited = new();
+
     [GeneratedRegex("^[A-Z0-9]{4}")]
     private static partial Regex BiosPrefixRegex();
 
@@ -148,8 +153,8 @@ public static partial class Compatibility
                 SupportsGSync = await GetSupportsGSyncAsync().ConfigureAwait(false),
                 SupportsIGPUMode = await GetSupportsIGPUModeAsync().ConfigureAwait(false),
                 SupportsAIMode = await GetSupportsAIModeAsync().ConfigureAwait(false),
-                SupportBootLogoChange = GetSupportBootLogoChange(smartFanVersion),
-                SupportITSMode = GetSupportITSMode(model),
+                SupportsBootLogoChange = GetSupportBootLogoChange(smartFanVersion),
+                SupportsITSMode = GetSupportITSMode(model),
                 HasQuietToPerformanceModeSwitchingBug = GetHasQuietToPerformanceModeSwitchingBug(biosVersion),
                 HasGodModeToOtherModeSwitchingBug = GetHasGodModeToOtherModeSwitchingBug(biosVersion),
                 HasReapplyParameterIssue = GetHasReapplyParameterIssue(model),
@@ -161,40 +166,6 @@ public static partial class Compatibility
                 IsChineseModel = GetIsChineseModel(model),
             }
         };
-
-        if (Log.Instance.IsTraceEnabled)
-        {
-            Log.Instance.Trace($"Retrieved machine information:");
-            Log.Instance.Trace($" * Generation: '{machineInformation.Generation}'");
-            Log.Instance.Trace($" * Legion Series: '{machineInformation.LegionSeries}'");
-            Log.Instance.Trace($" * Vendor: '{machineInformation.Vendor}'");
-            Log.Instance.Trace($" * Machine Type: '{machineInformation.MachineType}'");
-            Log.Instance.Trace($" * Model: '{machineInformation.Model}'");
-            Log.Instance.Trace($" * BIOS: '{machineInformation.BiosVersion}' [{machineInformation.BiosVersionRaw}]");
-            Log.Instance.Trace($" * SupportedPowerModes: '{string.Join(",", machineInformation.SupportedPowerModes)}'");
-            Log.Instance.Trace($" * SmartFanVersion: '{machineInformation.SmartFanVersion}'");
-            Log.Instance.Trace($" * LegionZoneVersion: '{machineInformation.LegionZoneVersion}'");
-            Log.Instance.Trace($" * Features: {machineInformation.Features.Source}:{string.Join(',', machineInformation.Features.All)}");
-            Log.Instance.Trace($" * Properties:");
-            Log.Instance.Trace($"     * SupportsExtremeMode: '{machineInformation.Properties.SupportsExtremeMode}'");
-            Log.Instance.Trace($"     * SupportsAlwaysOnAc: '{machineInformation.Properties.SupportsAlwaysOnAc.status}, {machineInformation.Properties.SupportsAlwaysOnAc.connectivity}'");
-            Log.Instance.Trace($"     * SupportsGodModeV1: '{machineInformation.Properties.SupportsGodModeV1}'");
-            Log.Instance.Trace($"     * SupportsGodModeV2: '{machineInformation.Properties.SupportsGodModeV2}'");
-            Log.Instance.Trace($"     * SupportsGodModeV3: '{machineInformation.Properties.SupportsGodModeV3}'");
-            Log.Instance.Trace($"     * SupportsGodModeV4: '{machineInformation.Properties.SupportsGodModeV4}'");
-            Log.Instance.Trace($"     * SupportsGSync: '{machineInformation.Properties.SupportsGSync}'");
-            Log.Instance.Trace($"     * SupportsIGPUMode: '{machineInformation.Properties.SupportsIGPUMode}'");
-            Log.Instance.Trace($"     * SupportsAIMode: '{machineInformation.Properties.SupportsAIMode}'");
-            Log.Instance.Trace($"     * SupportBootLogoChange: '{machineInformation.Properties.SupportBootLogoChange}'");
-            Log.Instance.Trace($"     * HasQuietToPerformanceModeSwitchingBug: '{machineInformation.Properties.HasQuietToPerformanceModeSwitchingBug}'");
-            Log.Instance.Trace($"     * HasGodModeToOtherModeSwitchingBug: '{machineInformation.Properties.HasGodModeToOtherModeSwitchingBug}'");
-            Log.Instance.Trace($"     * HasReapplyParameterIssue: '{machineInformation.Properties.HasReapplyParameterIssue}'");
-            Log.Instance.Trace($"     * HasSpectrumProfileSwitchingBug: '{machineInformation.Properties.HasSpectrumProfileSwitchingBug}'");
-            Log.Instance.Trace($"     * IsExcludedFromLenovoLighting: '{machineInformation.Properties.IsExcludedFromLenovoLighting}'");
-            Log.Instance.Trace($"     * IsExcludedFromPanelLogoLenovoLighting: '{machineInformation.Properties.IsExcludedFromPanelLogoLenovoLighting}'");
-            Log.Instance.Trace($"     * HasAlternativeFullSpectrumLayout: '{machineInformation.Properties.HasAlternativeFullSpectrumLayout}'");
-            Log.Instance.Trace($"     * IsAmdDevice: '{machineInformation.Properties.IsAmdDevice}'");
-        }
 
         return (_machineInformation = machineInformation).Value;
     }
@@ -700,45 +671,125 @@ public static partial class Compatibility
 
     public static void PrintMachineInfo()
     {
-        if (Log.Instance.IsTraceEnabled)
-        {
-            if (_machineInformation == null)
-            {
-                Log.Instance.Trace($"Machine information is not retrieved yet.");
-                return;
-            }
+        if (!Log.Instance.IsTraceEnabled)
+            return;
 
-            Log.Instance.Trace($"Retrieved machine information:");
-            Log.Instance.Trace($" * Generation: '{_machineInformation.Value.Generation}'");
-            Log.Instance.Trace($" * Legion Series: '{_machineInformation.Value.LegionSeries}'");
-            Log.Instance.Trace($" * Vendor: '{_machineInformation.Value.Vendor}'");
-            Log.Instance.Trace($" * Machine Type: '{_machineInformation.Value.MachineType}'");
-            Log.Instance.Trace($" * Model: '{_machineInformation.Value.Model}'");
-            Log.Instance.Trace($" * BIOS: '{_machineInformation.Value.BiosVersion}' [{_machineInformation.Value.BiosVersionRaw}]");
-            Log.Instance.Trace($" * SupportedPowerModes: '{string.Join(",", _machineInformation.Value.SupportedPowerModes)}'");
-            Log.Instance.Trace($" * SmartFanVersion: '{_machineInformation.Value.SmartFanVersion}'");
-            Log.Instance.Trace($" * LegionZoneVersion: '{_machineInformation.Value.LegionZoneVersion}'");
-            Log.Instance.Trace($" * Features: {_machineInformation.Value.Features.Source}:{string.Join(',', _machineInformation.Value.Features.All)}");
-            Log.Instance.Trace($" * Properties:");
-            Log.Instance.Trace($"     * SupportsExtremeMode: '{_machineInformation.Value.Properties.SupportsExtremeMode}'");
-            Log.Instance.Trace($"     * SupportsAlwaysOnAc: '{_machineInformation.Value.Properties.SupportsAlwaysOnAc.status}, {_machineInformation.Value.Properties.SupportsAlwaysOnAc.connectivity}'");
-            Log.Instance.Trace($"     * SupportsGodModeV1: '{_machineInformation.Value.Properties.SupportsGodModeV1}'");
-            Log.Instance.Trace($"     * SupportsGodModeV2: '{_machineInformation.Value.Properties.SupportsGodModeV2}'");
-            Log.Instance.Trace($"     * SupportsGodModeV3: '{_machineInformation.Value.Properties.SupportsGodModeV3}'");
-            Log.Instance.Trace($"     * SupportsGodModeV4: '{_machineInformation.Value.Properties.SupportsGodModeV4}'");
-            Log.Instance.Trace($"     * SupportsGSync: '{_machineInformation.Value.Properties.SupportsGSync}'");
-            Log.Instance.Trace($"     * SupportsIGPUMode: '{_machineInformation.Value.Properties.SupportsIGPUMode}'");
-            Log.Instance.Trace($"     * SupportsAIMode: '{_machineInformation.Value.Properties.SupportsAIMode}'");
-            Log.Instance.Trace($"     * SupportBootLogoChange: '{_machineInformation.Value.Properties.SupportBootLogoChange}'");
-            Log.Instance.Trace($"     * HasQuietToPerformanceModeSwitchingBug: '{_machineInformation.Value.Properties.HasQuietToPerformanceModeSwitchingBug}'");
-            Log.Instance.Trace($"     * HasGodModeToOtherModeSwitchingBug: '{_machineInformation.Value.Properties.HasGodModeToOtherModeSwitchingBug}'");
-            Log.Instance.Trace($"     * HasReapplyParameterIssue: '{_machineInformation.Value.Properties.HasReapplyParameterIssue}'");
-            Log.Instance.Trace($"     * HasSpectrumProfileSwitchingBug: '{_machineInformation.Value.Properties.HasSpectrumProfileSwitchingBug}'");
-            Log.Instance.Trace($"     * IsExcludedFromLenovoLighting: '{_machineInformation.Value.Properties.IsExcludedFromLenovoLighting}'");
-            Log.Instance.Trace($"     * IsExcludedFromPanelLogoLenovoLighting: '{_machineInformation.Value.Properties.IsExcludedFromPanelLogoLenovoLighting}'");
-            Log.Instance.Trace($"     * HasAlternativeFullSpectrumLayout: '{_machineInformation.Value.Properties.HasAlternativeFullSpectrumLayout}'");
-            Log.Instance.Trace($"     * IsAmdDevice: '{_machineInformation.Value.Properties.IsAmdDevice}'");
+        if (!_machineInformation.HasValue)
+        {
+            Log.Instance.Trace($"Machine information is not retrieved yet.");
+            return;
         }
+
+        var info = _machineInformation.Value;
+
+        Log.Instance.Trace($"Retrieved machine information:");
+
+        var lines = FormatMachineInformation(info);
+        foreach (var line in lines)
+        {
+            Log.Instance.Trace($"{line}");
+        }
+    }
+
+    private static List<string> FormatMachineInformation(MachineInformation info)
+    {
+        var lines = new List<string>();
+
+        var properties = typeof(MachineInformation).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
+        foreach (var prop in properties)
+        {
+            try
+            {
+                var value = prop.GetValue(info);
+                var formattedValue = FormatPropertyValue(prop.Name, value, 0);
+                lines.AddRange(formattedValue);
+            }
+            catch (Exception ex)
+            {
+                lines.Add($" * {prop.Name}: <Error: {ex.Message}>");
+            }
+        }
+
+        return lines;
+    }
+
+    private static List<string> FormatPropertyValue(string propertyName, object value, int indentLevel)
+    {
+        var lines = new List<string>();
+        var indent = new string(' ', indentLevel * 4);
+        var prefix = indentLevel == 0 ? " * " : $"    {indent}* ";
+
+        if (value == null)
+        {
+            lines.Add($"{prefix}{propertyName}: 'null'");
+            return lines;
+        }
+
+        var type = value.GetType();
+
+        switch (propertyName)
+        {
+            case "BiosVersion" when value is BiosVersion biosVersion:
+                lines.Add($"{prefix}BIOS: 'Prefix: {biosVersion.Prefix}, Version: {biosVersion.Version}'");
+                return lines;
+
+            case "SupportedPowerModes" when value is PowerModeState[] powerModes:
+                var modes = string.Join(",", powerModes);
+                lines.Add($"{prefix}{propertyName}: '{modes}'");
+                return lines;
+
+            case "Features" when value is MachineInformation.FeatureData features:
+                var featureStr = features.Source == MachineInformation.FeatureData.SourceType.Unknown
+                    ? "Unknown"
+                    : $"{features.Source}:{string.Join(",", features.All)}";
+                lines.Add($"{prefix}{propertyName}: {featureStr}");
+                return lines;
+
+            case "Properties" when value is MachineInformation.PropertyData properties:
+                lines.Add($"{prefix}{propertyName}:");
+                var propProperties = typeof(MachineInformation.PropertyData).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+                foreach (var prop in propProperties)
+                {
+                    try
+                    {
+                        var propValue = prop.GetValue(properties);
+                        var propLines = FormatPropertyValue(prop.Name, propValue, indentLevel + 1);
+                        lines.AddRange(propLines);
+                    }
+                    catch (Exception ex)
+                    {
+                        lines.Add($"{prefix}    {prop.Name}: <Error: {ex.Message}>");
+                    }
+                }
+                return lines;
+        }
+
+        if (type.FullName?.StartsWith("System.ValueTuple") == true)
+        {
+            var fields = type.GetFields();
+            var tupleValues = fields.Select(f => f.GetValue(value)?.ToString() ?? "null");
+            lines.Add($"{prefix}{propertyName}: '{string.Join(", ", tupleValues)}'");
+            return lines;
+        }
+
+        if (value is IEnumerable enumerable && type != typeof(string))
+        {
+            var items = enumerable.Cast<object>().ToList();
+            if (items.Count == 0)
+            {
+                lines.Add($"{prefix}{propertyName}: 'None'");
+            }
+            else
+            {
+                var itemStr = string.Join(",", items);
+                lines.Add($"{prefix}{propertyName}: '{itemStr}'");
+            }
+            return lines;
+        }
+
+        lines.Add($"{prefix}{propertyName}: '{value}'");
+        return lines;
     }
 
     public static void PrintControllerVersion()
