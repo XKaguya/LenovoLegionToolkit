@@ -123,9 +123,7 @@ public class WarrantyChecker(ApplicationSettings settings, HttpClientFactory htt
         {
             "笔记本标准服务",                              // Standard
             "消费笔记本二年全面保修送修",                  // Year 2
-            "Lenovo Care 智慧 5年",                        // Lenovo Care Standard
-            "Lenovo Care 智享 5年",                        // Lenovo Care Pro
-            "Lenovo Care 智臻 5年",                        // Lenovo Care Ultra
+            "Lenovo Care 智",                              // Lenovo Care
         };
 
         DateTime? startDate = allWarrantyItems
