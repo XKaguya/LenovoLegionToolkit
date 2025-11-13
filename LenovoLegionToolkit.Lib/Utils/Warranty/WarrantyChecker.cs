@@ -32,6 +32,12 @@ public class WarrantyChecker(ApplicationSettings settings, HttpClientFactory htt
             warrantyInfo = await GetStandardWarrantyInfo(httpClient, machineInformation, token).ConfigureAwait(false);
         }
 
+        // Warranty info is null. Consider as chinese model.
+        if (warrantyInfo == null)
+        {
+            warrantyInfo = await GetStandardWarrantyInfoForChineseModel(httpClient, machineInformation, token).ConfigureAwait(false);
+        }
+
         settings.Store.WarrantyInfo = warrantyInfo;
         settings.SynchronizeStore();
 
