@@ -31,7 +31,7 @@
 		<PackageReference Include="TaskScheduler" Version="2.12.1" />
 		<PackageReference Include="WindowsDisplayAPI" Version="1.3.0.13" />
 		<PackageReference Include="PresentMonFps-Modified" Version="2.0.5" />
-		<PackageReference Include="NvAPIWrapper.Net-Modified" Version="0.8.1.116" />
+		<PackageReference Include="NvAPIWrapper.Net-Modified" Version="0.8.1.117" />
 		<PackageReference Include="LibreHardwareMonitorLib" Version="0.9.5-pre506" />
 	</ItemGroup>
 	<ItemGroup>
