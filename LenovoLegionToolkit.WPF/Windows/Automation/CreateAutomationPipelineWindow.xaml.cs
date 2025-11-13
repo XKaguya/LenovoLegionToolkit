@@ -1,6 +1,7 @@
 ﻿using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Automation.Pipeline.Triggers;
 using LenovoLegionToolkit.Lib.Extensions;
+using LenovoLegionToolkit.Lib.Utils;
 using LenovoLegionToolkit.WPF.Controls;
 using LenovoLegionToolkit.WPF.Extensions;
 using LenovoLegionToolkit.WPF.Resources;
@@ -19,12 +20,13 @@ namespace LenovoLegionToolkit.WPF.Windows.Automation;
 
 public partial class CreateAutomationPipelineWindow
 {
-    private readonly IAutomationPipelineTrigger[] _triggers =
+    private readonly MachineInformation machineInformation = Compatibility.GetMachineInformationAsync().Result;
+
+    private List<IAutomationPipelineTrigger> _triggers =
     [
         new ACAdapterConnectedAutomationPipelineTrigger(),
         new LowWattageACAdapterConnectedAutomationPipelineTrigger(),
         new ACAdapterDisconnectedAutomationPipelineTrigger(),
-        new ITSModeAutomationPipelineTrigger(ITSMode.ItsAuto),
         new PowerModeAutomationPipelineTrigger(PowerModeState.Balance),
         new GodModePresetChangedAutomationPipelineTrigger(Guid.Empty),
         new GamesAreRunningAutomationPipelineTrigger(),
@@ -58,13 +60,19 @@ public partial class CreateAutomationPipelineWindow
 
     private bool _multiSelect;
 
-    public CreateAutomationPipelineWindow(HashSet<Type> existingTriggerTypes,
-        Action<IAutomationPipelineTrigger> createPipeline)
+    public CreateAutomationPipelineWindow(HashSet<Type> existingTriggerTypes, Action<IAutomationPipelineTrigger> createPipeline)
     {
         _existingTriggerTypes = existingTriggerTypes;
         _createPipeline = createPipeline;
 
         InitializeComponent();
+
+        if (machineInformation.Properties.SupportsITSMode)
+        {
+            _triggers.Insert(1, new ITSModeAutomationPipelineTrigger(ITSMode.ItsAuto));
+            _triggers.Remove(new PowerModeAutomationPipelineTrigger(PowerModeState.Balance));
+            _triggers.Remove(new GodModePresetChangedAutomationPipelineTrigger(Guid.Empty));
+        }
 
         IsVisibleChanged += CreateAutomationPipelineWindow_IsVisibleChanged;
 
@@ -115,7 +123,9 @@ public partial class CreateAutomationPipelineWindow
             _content.Children.Add(CreateMultipleSelectCardControl());
 
         foreach (var trigger in _triggers)
+        {
             _content.Children.Add(CreateCardControl(trigger));
+        }
 
         _createButton.IsEnabled = false;
         _createButton.Visibility = _multiSelect ? Visibility.Visible : Visibility.Collapsed;
