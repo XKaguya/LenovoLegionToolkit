@@ -275,17 +275,14 @@ public partial class FloatingGadgetUpper
         _stringBuilder.Clear();
         _stringBuilder.AppendFormat("{0}RPM", cpuFanSpeed);
         SetTextIfChanged(_cpuFanSpeed, _stringBuilder.ToString());
-        SetForegroundIfChanged(_cpuFanSpeed, FanBrush(cpuFanSpeed));
 
         _stringBuilder.Clear();
         _stringBuilder.AppendFormat("{0}RPM", gpuFanSpeed);
         SetTextIfChanged(_gpuFanSpeed, _stringBuilder.ToString());
-        SetForegroundIfChanged(_gpuFanSpeed, FanBrush(gpuFanSpeed));
 
         _stringBuilder.Clear();
         _stringBuilder.AppendFormat("{0}RPM", pchFanSpeed);
         SetTextIfChanged(_pchFanSpeed, _stringBuilder.ToString());
-        SetForegroundIfChanged(_pchFanSpeed, FanBrush(pchFanSpeed));
     }
 
     private static Brush SeverityBrush(double value, double yellowThreshold, double redThreshold)
