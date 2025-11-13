@@ -23,19 +23,14 @@ public class WarrantyChecker(ApplicationSettings settings, HttpClientFactory htt
         httpClient.Timeout = TimeSpan.FromSeconds(5);
 
         WarrantyInfo? warrantyInfo = null;
-        if (cultureInfo.IetfLanguageTag.Equals("zh-Hans"))
+
+        if (cultureInfo.IetfLanguageTag.Equals("zh-Hans") || machineInformation.Properties.IsChineseModel)
         {
             warrantyInfo = await GetStandardWarrantyInfoForChineseModel(httpClient, machineInformation, token).ConfigureAwait(false);
         }
         else
         {
             warrantyInfo = await GetStandardWarrantyInfo(httpClient, machineInformation, token).ConfigureAwait(false);
-        }
-
-        // Warranty info is null. Consider as chinese model.
-        if (warrantyInfo == null)
-        {
-            warrantyInfo = await GetStandardWarrantyInfoForChineseModel(httpClient, machineInformation, token).ConfigureAwait(false);
         }
 
         settings.Store.WarrantyInfo = warrantyInfo;

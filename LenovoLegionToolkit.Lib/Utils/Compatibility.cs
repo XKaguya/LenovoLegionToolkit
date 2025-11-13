@@ -160,6 +160,7 @@ public static partial class Compatibility
                 IsExcludedFromPanelLogoLenovoLighting = GetIsExcludedFromPanelLenovoLighting(machineType, model),
                 HasAlternativeFullSpectrumLayout = GetHasAlternativeFullSpectrumLayout(machineType),
                 IsAmdDevice = GetIsAmdDevice(model),
+                IsChineseModel = GetIsChineseModel(model),
             }
         };
 
@@ -217,6 +218,17 @@ public static partial class Compatibility
             return (null, null);
 
         return (new(prefix, version), result);
+    }
+
+    private static bool GetIsChineseModel(string model)
+    {
+        string[] chineseModelIndicators = [
+            "R7000",
+            "R9000",
+            "Y7000",
+            "Y9000"
+        ];
+        return chineseModelIndicators.Any(indicator => model.Contains(indicator));
     }
 
     private static bool GetIsAmdDevice(string model)
