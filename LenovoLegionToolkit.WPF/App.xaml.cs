@@ -707,6 +707,7 @@ public partial class App
                     }
                 }
                 // Why this branch can execute ?
+                // Now i see.
                 catch (Exception ex)
                 {
                     if (Log.Instance.IsTraceEnabled)
@@ -714,7 +715,10 @@ public partial class App
                         Log.Instance.Trace($"InitSensorsGroupControllerFeatureAsync() raised exception:", ex);
                     }
 
-                    Current._showPawnIONotify = true;
+                    if (!ex.Message.Contains("LibreHardwareMonitor initialization failed. Disabling new sensor dashboard."))
+                    {
+                        Current._showPawnIONotify = true;
+                    }
                 }
             }
         }
