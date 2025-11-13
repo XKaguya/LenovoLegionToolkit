@@ -3,8 +3,6 @@ using LenovoLegionToolkit.Lib.Controllers.Sensors;
 using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.System;
 using LenovoLegionToolkit.Lib.System.Management;
-using Newtonsoft.Json.Linq;
-using RAMSPDToolkit.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
