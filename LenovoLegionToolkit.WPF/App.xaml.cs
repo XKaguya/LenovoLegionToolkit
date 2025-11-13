@@ -699,7 +699,7 @@ public partial class App
                     if (state == LibreHardwareMonitorInitialState.Initialized || state == LibreHardwareMonitorInitialState.Success)
                     {
                         if (Log.Instance.IsTraceEnabled)
-                            Log.Instance.Trace($"Init memory sensor control feature.");
+                            Log.Instance.Trace($"Init sensor group controller feature.");
                     }
                     else
                     {
