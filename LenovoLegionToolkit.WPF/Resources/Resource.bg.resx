@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -1386,6 +1386,9 @@ Enable this option if you have conflicts with full screen applications.</value>
   <data name="TryAgain" xml:space="preserve">
     <value>Опитайте отново</value>
   </data>
+  <data name="UnexpectedException" xml:space="preserve">
+    <value>Unexpected exception occurred:</value>
+  </data>
   <data name="Unnamed" xml:space="preserve">
     <value>Без име</value>
   </data>
@@ -2536,47 +2539,46 @@ Click Yes to disable and No to ignore.</value>
   <data name="SensorsControl_Motherboard_Temperature" xml:space="preserve">
     <value>Board Temperature</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="StatusWindow_Frequency_And_Temperature" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="StatusWindow_Frequency_And_Temperature" xml:space="preserve">
+    <value>Frequency / Temperature</value>
   </data>
-  <data name="StatusWindow_Fan_And_Power" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="StatusWindow_Fan_And_Power" xml:space="preserve">
+    <value>Fan / Power</value>
   </data>
-  <data name="StatusWindow_System_Fan" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="StatusWindow_System_Fan" xml:space="preserve">
+    <value>System Fan</value>
   </data>
-  <data name="FloatingGadgets_Fps" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="FloatingGadgets_Fps" xml:space="preserve">
+    <value>FPS</value>
   </data>
-  <data name="FloatingGadgets_Low_Fps" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="FloatingGadgets_Low_Fps" xml:space="preserve">
+    <value>1% Low</value>
   </data>
-  <data name="FloatingGadgets_Frame_Time" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="FloatingGadgets_Frame_Time" xml:space="preserve">
+    <value>Frame Time</value>
   </data>
-  <data name="FloatingGadgetAutomationStepControl_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="FloatingGadgetAutomationStepControl_Title" xml:space="preserve">
+    <value>Floating Gadget</value>
   </data>
-  <data name="FloatingGadgetAutomationStepControl_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="FloatingGadgetAutomationStepControl_Message" xml:space="preserve">
+    <value>Show or Hide the Floating Gadget</value>
   </data>
-  <data name="CloseAutomationStepControl_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="CloseAutomationStepControl_Title" xml:space="preserve">
+    <value>Close</value>
   </data>
-  <data name="CloseAutomationStepControl_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="CloseAutomationStepControl_Message" xml:space="preserve">
+    <value>Close the Lenovo Legion Toolkit</value>
   </data>
-  <data name="FloatingGadget_Custom_Game" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="FloatingGadget_Custom_Game" xml:space="preserve">
+    <value>Game</value>
   </data>
-  <data name="FloatingGadget_Custom_CPU" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="FloatingGadget_Custom_CPU" xml:space="preserve">
+    <value>CPU</value>
   </data>
-  <data name="FloatingGadget_Custom_GPU" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="FloatingGadget_Custom_GPU" xml:space="preserve">
+    <value>GPU</value>
   </data>
-  <data name="FloatingGadget_Custom_Chipset" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="FloatingGadget_Custom_Chipset" xml:space="preserve">
+    <value>Chipset</value>
   </data>
 </root>
