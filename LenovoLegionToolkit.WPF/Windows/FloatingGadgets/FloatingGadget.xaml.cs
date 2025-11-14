@@ -97,12 +97,18 @@ public partial class FloatingGadget
 
     private void InitializeMappings()
     {
+        if (_settings.Store.FloatingGadgetItems.Count == 0)
+        {
+            _settings.Store.FloatingGadgetItems = Enum.GetValues(typeof(FloatingGadgetItem)).Cast<FloatingGadgetItem>().ToList();
+            _settings.SynchronizeStore();
+        }
+
         if (GadgetGroups.Count == 0)
         {
             GadgetGroups.Add(_fpsGroup, (new List<FloatingGadgetItem> { FloatingGadgetItem.Fps, FloatingGadgetItem.LowFps, FloatingGadgetItem.FrameTime }, null));
-            GadgetGroups.Add(_cpuGroup, (new List<FloatingGadgetItem> { FloatingGadgetItem.CpuUtilitazion, FloatingGadgetItem.CpuFrequency, FloatingGadgetItem.CpuTemperature, FloatingGadgetItem.CpuPower, FloatingGadgetItem.CpuFan }, null));
-            GadgetGroups.Add(_gpuGroup, (new List<FloatingGadgetItem> { FloatingGadgetItem.GpuUtilitazion, FloatingGadgetItem.GpuFrequency, FloatingGadgetItem.GpuTemperature, FloatingGadgetItem.GpuVramTemperature, FloatingGadgetItem.GpuPower, FloatingGadgetItem.GpuFan }, null));
-            GadgetGroups.Add(_memoryGroup, (new List<FloatingGadgetItem> { FloatingGadgetItem.MemoryUtilitazion, FloatingGadgetItem.MemoryTemperature }, null));
+            GadgetGroups.Add(_cpuGroup, (new List<FloatingGadgetItem> { FloatingGadgetItem.CpuUtilization, FloatingGadgetItem.CpuFrequency, FloatingGadgetItem.CpuTemperature, FloatingGadgetItem.CpuPower, FloatingGadgetItem.CpuFan }, null));
+            GadgetGroups.Add(_gpuGroup, (new List<FloatingGadgetItem> { FloatingGadgetItem.GpuUtilization, FloatingGadgetItem.GpuFrequency, FloatingGadgetItem.GpuTemperature, FloatingGadgetItem.GpuVramTemperature, FloatingGadgetItem.GpuPower, FloatingGadgetItem.GpuFan }, null));
+            GadgetGroups.Add(_memoryGroup, (new List<FloatingGadgetItem> { FloatingGadgetItem.MemoryUtilization, FloatingGadgetItem.MemoryTemperature }, null));
             GadgetGroups.Add(_pchGroup, (new List<FloatingGadgetItem> { FloatingGadgetItem.PchTemperature, FloatingGadgetItem.PchFan, FloatingGadgetItem.Disk1Temperature, FloatingGadgetItem.Disk2Temperature }, null));
         }
 
@@ -112,20 +118,20 @@ public partial class FloatingGadget
             _itemsMap.Add(FloatingGadgetItem.LowFps, _lowFps);
             _itemsMap.Add(FloatingGadgetItem.FrameTime, _frameTime);
 
-            _itemsMap.Add(FloatingGadgetItem.CpuUtilitazion, _cpuUsage);
+            _itemsMap.Add(FloatingGadgetItem.CpuUtilization, _cpuUsage);
             _itemsMap.Add(FloatingGadgetItem.CpuFrequency, _cpuFrequency);
             _itemsMap.Add(FloatingGadgetItem.CpuTemperature, _cpuTemperature);
             _itemsMap.Add(FloatingGadgetItem.CpuPower, _cpuPower);
             _itemsMap.Add(FloatingGadgetItem.CpuFan, _cpuFanSpeed);
 
-            _itemsMap.Add(FloatingGadgetItem.GpuUtilitazion, _gpuUsage);
+            _itemsMap.Add(FloatingGadgetItem.GpuUtilization, _gpuUsage);
             _itemsMap.Add(FloatingGadgetItem.GpuFrequency, _gpuFrequency);
             _itemsMap.Add(FloatingGadgetItem.GpuTemperature, _gpuTemperature);
             _itemsMap.Add(FloatingGadgetItem.GpuVramTemperature, _gpuVramTemperature);
             _itemsMap.Add(FloatingGadgetItem.GpuPower, _gpuPower);
             _itemsMap.Add(FloatingGadgetItem.GpuFan, _gpuFanSpeed);
 
-            _itemsMap.Add(FloatingGadgetItem.MemoryUtilitazion, _memUsage);
+            _itemsMap.Add(FloatingGadgetItem.MemoryUtilization, _memUsage);
             _itemsMap.Add(FloatingGadgetItem.MemoryTemperature, _memTemperature);
 
             _itemsMap.Add(FloatingGadgetItem.PchTemperature, _pchTemperature);

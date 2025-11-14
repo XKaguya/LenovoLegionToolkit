@@ -1,8 +1,8 @@
 ﻿using LenovoLegionToolkit.Lib;
+using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.Messaging;
 using LenovoLegionToolkit.Lib.Messaging.Messages;
 using LenovoLegionToolkit.Lib.Settings;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -38,9 +38,9 @@ public partial class Custom : Window
         var groups = new List<GadgetItemGroup>
             {
                 new GadgetItemGroup { Header = "FPS & Frame Data", Items = new List<FloatingGadgetItem> { FloatingGadgetItem.Fps, FloatingGadgetItem.LowFps, FloatingGadgetItem.FrameTime } },
-                new GadgetItemGroup { Header = "CPU Metrics", Items = new List<FloatingGadgetItem> { FloatingGadgetItem.CpuUtilitazion, FloatingGadgetItem.CpuFrequency, FloatingGadgetItem.CpuTemperature, FloatingGadgetItem.CpuPower, FloatingGadgetItem.CpuFan } },
-                new GadgetItemGroup { Header = "GPU Metrics", Items = new List<FloatingGadgetItem> { FloatingGadgetItem.GpuUtilitazion, FloatingGadgetItem.GpuFrequency, FloatingGadgetItem.GpuTemperature, FloatingGadgetItem.GpuVramTemperature, FloatingGadgetItem.GpuPower, FloatingGadgetItem.GpuFan } },
-                new GadgetItemGroup { Header = "Memory & PCH", Items = new List<FloatingGadgetItem> { FloatingGadgetItem.MemoryUtilitazion, FloatingGadgetItem.MemoryTemperature, FloatingGadgetItem.PchTemperature, FloatingGadgetItem.PchFan } }
+                new GadgetItemGroup { Header = "CPU Metrics", Items = new List<FloatingGadgetItem> { FloatingGadgetItem.CpuUtilization, FloatingGadgetItem.CpuFrequency, FloatingGadgetItem.CpuTemperature, FloatingGadgetItem.CpuPower, FloatingGadgetItem.CpuFan } },
+                new GadgetItemGroup { Header = "GPU Metrics", Items = new List<FloatingGadgetItem> { FloatingGadgetItem.GpuUtilization, FloatingGadgetItem.GpuFrequency, FloatingGadgetItem.GpuTemperature, FloatingGadgetItem.GpuVramTemperature, FloatingGadgetItem.GpuPower, FloatingGadgetItem.GpuFan } },
+                new GadgetItemGroup { Header = "Memory & PCH", Items = new List<FloatingGadgetItem> { FloatingGadgetItem.MemoryUtilization, FloatingGadgetItem.MemoryTemperature, FloatingGadgetItem.PchTemperature, FloatingGadgetItem.PchFan } }
             };
 
         var activeItems = new HashSet<FloatingGadgetItem>(_settings.Store.FloatingGadgetItems);
@@ -59,7 +59,7 @@ public partial class Custom : Window
             {
                 var checkBox = new CheckBox
                 {
-                    Content = item.ToString(),
+                    Content = item.GetDisplayName(),
                     Tag = item,
                     IsChecked = activeItems.Contains(item)
                 };

@@ -117,25 +117,45 @@ public enum FlipToStartState
 
 public enum FloatingGadgetItem
 {
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Fps")]
     Fps,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_LowFps")]
     LowFps,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_FrameTime")]
     FrameTime,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Frequency")]
     CpuFrequency,
-    CpuUtilitazion,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Utilization")]
+    CpuUtilization,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Temperature")]
     CpuTemperature,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Power")]
     CpuPower,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Fan")]
     CpuFan,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Frequency")]
     GpuFrequency,
-    GpuUtilitazion,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Utilization")]
+    GpuUtilization,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Temperature")]
     GpuTemperature,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_VramTemperature")]
     GpuVramTemperature,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Power")]
     GpuPower,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Fan")]
     GpuFan,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Temperature")]
     Disk1Temperature,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Temperature")]
     Disk2Temperature,
-    MemoryUtilitazion,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Utilization")]
+    MemoryUtilization,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_MemoryTemperature")]
     MemoryTemperature,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_MotherboardTemperature")]
     PchTemperature,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Fan")]
     PchFan,
 }
 
