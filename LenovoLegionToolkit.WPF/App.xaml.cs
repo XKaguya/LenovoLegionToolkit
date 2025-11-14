@@ -690,7 +690,7 @@ public partial class App
 
         try
         {
-            if (settings.Store.UseNewSensorDashboard)
+            if (settings.Store.UseNewSensorDashboard || settings.Store.ShowFloatingGadgets)
             {
                 var feature = IoCContainer.Resolve<SensorsGroupController>();
                 try
