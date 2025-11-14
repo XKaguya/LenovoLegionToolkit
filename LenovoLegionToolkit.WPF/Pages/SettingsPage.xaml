@@ -460,24 +460,24 @@
                     Value="1" />
                 <ComboBox
                     x:Name="_floatingGadgetsStyleComboBox"
-                    Width="120"
+                    Width="100"
                     Margin="5,0,8,0"
                     VerticalAlignment="Center"
                     SelectionChanged="StyleComboBox_SelectionChanged"
                     Visibility="Hidden">
-                    <ComboBoxItem Content="Default" Tag="Default" />
-                    <ComboBoxItem Content="Simple" Tag="Simple" />
+                    <ComboBoxItem Content="{x:Static resources:Resource.Default}" Tag="Default" />
+                    <ComboBoxItem Content="{x:Static resources:Resource.FloatingGadget_Style_Simple}" Tag="Simple" />
                 </ComboBox>
                 <Button
                     x:Name="_customButton"
-                    Width="100"
+                    Width="80"
                     Height="35"
                     Margin="0,0,8,0"
                     VerticalAlignment="Center"
                     Click="CustomButton_Click"
                     ToolTip="Customize which metrics are displayed on the Floating Gadget">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock VerticalAlignment="Center" Text="Customize" />
+                        <TextBlock VerticalAlignment="Center" Text="{x:Static resources:Resource.DashboardPage_Customize}" />
                     </StackPanel>
                 </Button>
                 <wpfui:ToggleSwitch

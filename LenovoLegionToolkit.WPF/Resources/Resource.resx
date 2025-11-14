@@ -2583,4 +2583,7 @@ Click Yes to disable and No to ignore.</value>
   <data name="FloatingGadget_Custom_Chipset" xml:space="preserve">
     <value>Chipset</value>
   </data>
+  <data name="FloatingGadget_Style_Simple" xml:space="preserve">
+    <value>Simple</value>
+  </data>
 </root>

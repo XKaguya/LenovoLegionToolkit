@@ -421,4 +421,7 @@
   <data name="FloatingGadget_Custom_Chipset" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
+  <data name="FloatingGadget_Style_Simple" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
 </root>
