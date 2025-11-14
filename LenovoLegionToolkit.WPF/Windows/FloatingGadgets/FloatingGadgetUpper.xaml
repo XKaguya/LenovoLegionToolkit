@@ -6,115 +6,242 @@
     xmlns:resources="clr-namespace:LenovoLegionToolkit.WPF.Resources"
     xmlns:utils="clr-namespace:LenovoLegionToolkit.WPF.Utils"
     Title="FloatingGadget"
+    Width="Auto"
     Height="25"
-    Width="Auto" 
-    Background="Transparent"
     AllowsTransparency="True"
-    SizeToContent="Width"
-    WindowStyle="None"
+    Background="Transparent"
     ShowInTaskbar="False"
+    SizeToContent="Width"
+    Topmost="True"
     WindowStartupLocation="Manual"
-    Topmost="True">
+    WindowStyle="None">
 
     <Window.Resources>
         <Style x:Key="TextBlockStyle" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="15"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="TextAlignment" Value="Center"/>
-            <Setter Property="Margin" Value="0,0,8,0"/>
-            <Setter Property="MinWidth" Value="30"/>
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="TextAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0,0,8,0" />
+            <Setter Property="MinWidth" Value="30" />
         </Style>
     </Window.Resources>
 
     <Grid>
-        <Border Background="#CC202020" CornerRadius="6" Padding="10, 4" Opacity="0.8"/>
-
-        <Border CornerRadius="6" Padding="10,4" Background="Transparent">
+        <Border
+            Padding="10,4"
+            Background="#CC202020"
+            CornerRadius="6"
+            Opacity="0.8" />
+        <Border
+            Padding="10,4"
+            Background="Transparent"
+            CornerRadius="6">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>    <!-- FPS String -->
-                    <ColumnDefinition Width="Auto"/>    <!-- FPS -->
-                    <ColumnDefinition Width="Auto"/>    <!-- 1% Low -->
-                    <ColumnDefinition Width="Auto"/>    <!-- Frame Time -->
-
-                    <ColumnDefinition Width="Auto"/>    <!-- Seperator -->
-
-                    <ColumnDefinition Width="Auto"/>    <!-- CPU String -->
-                    <ColumnDefinition Width="Auto"/>    <!-- Frequency -->
-                    <ColumnDefinition Width="Auto"/>    <!-- Utulitization -->
-                    <ColumnDefinition Width="Auto"/>    <!-- Temperature -->
-                    <ColumnDefinition Width="Auto"/>    <!-- Power -->
-                    <ColumnDefinition Width="Auto"/>    <!-- CPU Fan -->
-
-                    <ColumnDefinition Width="Auto"/>    <!-- Seperator -->
-
-                    <ColumnDefinition Width="Auto"/>    <!-- GPU String -->
-                    <ColumnDefinition Width="Auto"/>    <!-- Frequency -->
-                    <ColumnDefinition Width="Auto"/>    <!-- Utulitization -->
-                    <ColumnDefinition Width="Auto"/>    <!-- Temperature -->
-                    <ColumnDefinition Width="Auto"/>    <!-- VRAM Temperature -->
-                    <ColumnDefinition Width="Auto"/>    <!-- Power -->
-                    <ColumnDefinition Width="Auto"/>    <!-- GPU Fan -->
-
-                    <ColumnDefinition Width="Auto"/>    <!-- Seperator -->
-
-                    <ColumnDefinition Width="Auto"/>    <!-- Memory String -->
-                    <ColumnDefinition Width="Auto"/>    <!-- Utulitization -->
-                    <ColumnDefinition Width="Auto"/>    <!-- Temperature -->
-
-                    <ColumnDefinition Width="Auto"/>    <!-- Seperator -->
-
-                    <ColumnDefinition Width="Auto"/>    <!-- Motherboard / PCH String -->
-                    <ColumnDefinition Width="Auto"/>    <!-- Temperature -->
-                    <ColumnDefinition Width="Auto"/>    <!-- PCH Fan -->
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <!-- FPS -->
-                <TextBlock Grid.Column="0" Text="FPS" Foreground="#2196F3" Style="{StaticResource TextBlockStyle}" MinWidth="25"/>
-                <TextBlock Grid.Column="1" x:Name="_fps" Text="-" Foreground="White" Style="{StaticResource TextBlockStyle}"/>
-                <TextBlock Grid.Column="2" x:Name="_lowFps" Text="-" Foreground="White" Style="{StaticResource TextBlockStyle}"/>
-                <TextBlock Grid.Column="3" x:Name="_frameTime" Text="-" Foreground="White" Style="{StaticResource TextBlockStyle}"/>
+                <StackPanel
+                    x:Name="_fpsGroup"
+                    Grid.Column="0"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        MinWidth="25"
+                        Foreground="#2196F3"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="FPS" />
+                    <TextBlock
+                        x:Name="_fps"
+                        Foreground="White"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="-" />
+                    <TextBlock
+                        x:Name="_lowFps"
+                        Foreground="White"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="-" />
+                    <TextBlock
+                        x:Name="_frameTime"
+                        Foreground="White"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="-" />
+                </StackPanel>
 
-                <!-- Seperator -->
-                <Rectangle Grid.Column="4" Width="1" Height="12" Margin="10,0" Fill="#555555" VerticalAlignment="Center"/>
+                <Rectangle
+                    x:Name="_separatorFps"
+                    Grid.Column="1"
+                    Width="1"
+                    Height="12"
+                    Margin="10,0"
+                    VerticalAlignment="Center"
+                    Fill="#555555" />
 
-                <!-- CPU -->
-                <TextBlock Grid.Column="5" Text="{Binding Source={x:Static resources:Resource.FloatingGadgets_Cpu}}" Foreground="#FF5722" Style="{StaticResource TextBlockStyle}" MinWidth="25"/>
-                <TextBlock Grid.Column="6" x:Name="_cpuFrequency" Text="-" Foreground="White" Style="{StaticResource TextBlockStyle}" MinWidth="40"/>
-                <TextBlock Grid.Column="7" x:Name="_cpuUsage" Text="-" Foreground="White" Style="{StaticResource TextBlockStyle}"/>
-                <TextBlock Grid.Column="8" x:Name="_cpuTemperature" Text="-" Foreground="White" Style="{StaticResource TextBlockStyle}"/>
-                <TextBlock Grid.Column="9" x:Name="_cpuPower" Text="-" Foreground="White" Style="{StaticResource TextBlockStyle}"/>
-                <TextBlock Grid.Column="10" x:Name="_cpuFanSpeed" Text="-" Foreground="White" Style="{StaticResource TextBlockStyle}" MinWidth="40" Margin="0"/>
+                <StackPanel
+                    x:Name="_cpuGroup"
+                    Grid.Column="2"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        MinWidth="25"
+                        Foreground="#FF5722"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="{Binding Source={x:Static resources:Resource.FloatingGadgets_Cpu}}" />
+                    <TextBlock
+                        x:Name="_cpuFrequency"
+                        MinWidth="40"
+                        Foreground="White"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="-" />
+                    <TextBlock
+                        x:Name="_cpuUsage"
+                        Foreground="White"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="-" />
+                    <TextBlock
+                        x:Name="_cpuTemperature"
+                        Foreground="White"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="-" />
+                    <TextBlock
+                        x:Name="_cpuPower"
+                        Foreground="White"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="-" />
+                    <TextBlock
+                        x:Name="_cpuFanSpeed"
+                        MinWidth="40"
+                        Margin="0"
+                        Foreground="White"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="-" />
+                </StackPanel>
 
-                <!-- Seperator -->
-                <Rectangle Grid.Column="11" Width="1" Height="12" Margin="10,0" Fill="#555555" VerticalAlignment="Center"/>
+                <Rectangle
+                    x:Name="_separatorCpu"
+                    Grid.Column="3"
+                    Width="1"
+                    Height="12"
+                    Margin="10,0"
+                    VerticalAlignment="Center"
+                    Fill="#555555" />
 
-                <!-- GPU -->
-                <TextBlock Grid.Column="12" Text="{Binding Source={x:Static resources:Resource.FloatingGadgets_Gpu}}" Foreground="#4CAF50" Style="{StaticResource TextBlockStyle}" MinWidth="25"/>
-                <TextBlock Grid.Column="13" x:Name="_gpuFrequency" Text="-" Foreground="White" Style="{StaticResource TextBlockStyle}" MinWidth="40"/>
-                <TextBlock Grid.Column="14" x:Name="_gpuUsage" Text="-" Foreground="White" Style="{StaticResource TextBlockStyle}"/>
-                <TextBlock Grid.Column="15" x:Name="_gpuTemperature" Text="-" Foreground="White" Style="{StaticResource TextBlockStyle}"/>
-                <TextBlock Grid.Column="16" x:Name="_gpuVramTemperature" Text="-" Foreground="White" Style="{StaticResource TextBlockStyle}"/>
-                <TextBlock Grid.Column="17" x:Name="_gpuPower" Text="-" Foreground="White" Style="{StaticResource TextBlockStyle}"/>
-                <TextBlock Grid.Column="18" x:Name="_gpuFanSpeed" Text="-" Foreground="White" Style="{StaticResource TextBlockStyle}" MinWidth="40" Margin="0"/>
+                <StackPanel
+                    x:Name="_gpuGroup"
+                    Grid.Column="4"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        MinWidth="25"
+                        Foreground="#4CAF50"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="{Binding Source={x:Static resources:Resource.FloatingGadgets_Gpu}}" />
+                    <TextBlock
+                        x:Name="_gpuFrequency"
+                        MinWidth="40"
+                        Foreground="White"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="-" />
+                    <TextBlock
+                        x:Name="_gpuUsage"
+                        Foreground="White"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="-" />
+                    <TextBlock
+                        x:Name="_gpuTemperature"
+                        Foreground="White"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="-" />
+                    <TextBlock
+                        x:Name="_gpuVramTemperature"
+                        Foreground="White"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="-" />
+                    <TextBlock
+                        x:Name="_gpuPower"
+                        Foreground="White"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="-" />
+                    <TextBlock
+                        x:Name="_gpuFanSpeed"
+                        MinWidth="40"
+                        Margin="0"
+                        Foreground="White"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="-" />
+                </StackPanel>
 
-                <!-- Seperator -->
-                <Rectangle Grid.Column="19" Width="1" Height="12" Margin="10,0" Fill="#555555" VerticalAlignment="Center"/>
+                <Rectangle
+                    x:Name="_separatorGpu"
+                    Grid.Column="5"
+                    Width="1"
+                    Height="12"
+                    Margin="10,0"
+                    VerticalAlignment="Center"
+                    Fill="#555555" />
 
-                <!-- Memory -->
-                <TextBlock Grid.Column="20" Text="{Binding Source={x:Static resources:Resource.SensorsControl_Memory_Title}}" Foreground="#FFC107" Style="{StaticResource TextBlockStyle}" MinWidth="25"/>
-                <TextBlock Grid.Column="21" x:Name="_memUsage" Text="-" Foreground="White" Style="{StaticResource TextBlockStyle}"/>
-                <TextBlock Grid.Column="22" x:Name="_memTemperature" Text="-" Foreground="White" Style="{StaticResource TextBlockStyle}" Margin="0"/>
+                <StackPanel
+                    x:Name="_memoryGroup"
+                    Grid.Column="6"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        MinWidth="25"
+                        Foreground="#FFC107"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="{Binding Source={x:Static resources:Resource.SensorsControl_Memory_Title}}" />
+                    <TextBlock
+                        x:Name="_memUsage"
+                        Foreground="White"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="-" />
+                    <TextBlock
+                        x:Name="_memTemperature"
+                        Margin="0"
+                        Foreground="White"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="-" />
+                </StackPanel>
 
-                <!-- Seperator -->
-                <Rectangle Grid.Column="23" Width="1" Height="12" Margin="10,0" Fill="#555555" VerticalAlignment="Center"/>
+                <Rectangle
+                    x:Name="_separatorMemory"
+                    Grid.Column="7"
+                    Width="1"
+                    Height="12"
+                    Margin="10,0"
+                    VerticalAlignment="Center"
+                    Fill="#555555" />
 
-                <!-- Motherboard / PCH -->
-                <TextBlock Grid.Column="24" x:Name="_pchName" Text="{Binding Source={x:Static resources:Resource.FanCurveControl_PCH}}" Foreground="#9C27B0" Style="{StaticResource TextBlockStyle}" MinWidth="25"/>
-                <TextBlock Grid.Column="25" x:Name="_pchTemperature" Text="-" Foreground="White" Style="{StaticResource TextBlockStyle}"/>
-                <TextBlock Grid.Column="26" x:Name="_pchFanSpeed" Text="-" Foreground="White" Style="{StaticResource TextBlockStyle}" MinWidth="40" Margin="0"/>
+                <StackPanel
+                    x:Name="_pchGroup"
+                    Grid.Column="8"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        x:Name="_pchName"
+                        MinWidth="25"
+                        Foreground="#9C27B0"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="{Binding Source={x:Static resources:Resource.FanCurveControl_PCH}}" />
+                    <TextBlock
+                        x:Name="_pchTemperature"
+                        Foreground="White"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="-" />
+                    <TextBlock
+                        x:Name="_pchFanSpeed"
+                        MinWidth="40"
+                        Margin="0"
+                        Foreground="White"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="-" />
+                </StackPanel>
+
             </Grid>
         </Border>
     </Grid>

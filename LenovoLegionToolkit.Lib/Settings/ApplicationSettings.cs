@@ -60,6 +60,7 @@ public class ApplicationSettings : AbstractSettings<ApplicationSettings.Applicat
         public string BackGroundImageFilePath { get; set; } = string.Empty;
         public double Opacity { get; set; } = 1.0f;
         public int SelectedStyleIndex { get; set; } = 0;
+        public List<FloatingGadgetItem> FloatingGadgetItems { get; set; } = [];
     }
 
     public ApplicationSettings() : base("settings.json")

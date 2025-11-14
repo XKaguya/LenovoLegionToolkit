@@ -15,6 +15,7 @@ using LenovoLegionToolkit.WPF.Extensions;
 using LenovoLegionToolkit.WPF.Resources;
 using LenovoLegionToolkit.WPF.Utils;
 using LenovoLegionToolkit.WPF.Windows;
+using LenovoLegionToolkit.WPF.Windows.FloatingGadgets;
 using LenovoLegionToolkit.WPF.Windows.Settings;
 using LenovoLegionToolkit.WPF.Windows.Utils;
 using Microsoft.Win32;
@@ -1110,5 +1111,14 @@ public partial class SettingsPage
             _floatingGadgetsStyleComboBox.SelectedIndex = _settings.Store.SelectedStyleIndex;
             _isRefreshing = false;
         }
+    }
+
+    private void CustomButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (_isRefreshing)
+            return;
+
+        var temp = new Custom();
+        temp.Show();
     }
 }

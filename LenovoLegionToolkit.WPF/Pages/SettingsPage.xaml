@@ -10,9 +10,7 @@
     Title="{x:Static resources:Resource.SettingsPage_Title}"
     FlowDirection="{x:Static utils:LocalizationHelper.Direction}"
     Scrollable="True">
-
     <StackPanel Margin="0,0,16,12">
-
         <TextBlock
             Margin="0,16,0,24"
             AutomationProperties.Name="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Text}"
@@ -20,7 +18,6 @@
             FontSize="24"
             FontWeight="Medium"
             Text="{x:Static resources:Resource.SettingsPage_Title}" />
-
         <custom:CardControl
             x:Name="_langCardControl"
             Margin="0,0,0,8"
@@ -37,7 +34,6 @@
                 SelectionChanged="LangComboBox_SelectionChanged"
                 Visibility="Hidden" />
         </custom:CardControl>
-
         <custom:CardControl Margin="0,0,0,8" Icon="Temperature24">
             <custom:CardControl.Header>
                 <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_Temperature_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_Temperature_Message}" />
@@ -51,7 +47,6 @@
                 SelectionChanged="TemperatureComboBox_SelectionChanged"
                 Visibility="Hidden" />
         </custom:CardControl>
-
         <custom:CardControl Margin="0,0,0,8" Icon="DarkTheme24">
             <custom:CardControl.Header>
                 <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_Theme_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_Theme_Description}" />
@@ -65,23 +60,22 @@
                 SelectionChanged="ThemeComboBox_SelectionChanged"
                 Visibility="Hidden" />
         </custom:CardControl>
-
         <custom:CardControl Margin="0,0,0,8" Icon="DarkTheme24">
             <custom:CardControl.Header>
                 <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_Custom_BackgroundImage_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_Custom_BackgroundImage_Message}" />
             </custom:CardControl.Header>
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+            <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                 <Slider
                     x:Name="_backgroundImageOpacitySlider"
-                    Minimum="0"
-                    Maximum="1"
-                    Margin="0,5,0,0"
-                    SmallChange="0.01"
-                    LargeChange="0.1"
-                    TickFrequency="0.1"
-                    IsSnapToTickEnabled="True"
-                    ValueChanged="OpacitySlider_ValueChanged"
                     Width="200"
+                    Margin="0,5,0,0"
+                    IsSnapToTickEnabled="True"
+                    LargeChange="0.1"
+                    Maximum="1"
+                    Minimum="0"
+                    SmallChange="0.01"
+                    TickFrequency="0.1"
+                    ValueChanged="OpacitySlider_ValueChanged"
                     Visibility="Hidden" />
                 <Button
                     x:Name="_selectBackgroundImageButton"
@@ -101,7 +95,6 @@
                     Visibility="Hidden" />
             </StackPanel>
         </custom:CardControl>
-
         <custom:CardControl Margin="0,0,0,24" Icon="Color24">
             <custom:CardControl.Header>
                 <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_AccentColor_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_AccentColor_Description}" />
@@ -117,7 +110,6 @@
                     SelectionChanged="AccentColorSourceComboBox_SelectionChanged" />
             </StackPanel>
         </custom:CardControl>
-
         <custom:CardControl Margin="0,0,0,24">
             <custom:CardControl.Header>
                 <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_LockWindowSize_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_LockWindowSize_Message}" />
@@ -129,7 +121,6 @@
                 Click="LockWindowSizeToggle_Click"
                 Visibility="Hidden" />
         </custom:CardControl>
-
         <custom:CardControl Margin="0,0,0,8">
             <custom:CardControl.Header>
                 <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_EnableLogging_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_EnableLogging_Message}" />
@@ -141,7 +132,6 @@
                 Click="EnableLoggingToggle_Click"
                 Visibility="Hidden" />
         </custom:CardControl>
-
         <custom:CardControl Margin="0,0,0,24">
             <custom:CardControl.Header>
                 <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_MinimizeToTray_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_MinimizeToTray_Message}" />
@@ -153,7 +143,6 @@
                 Click="MinimizeToTrayToggle_Click"
                 Visibility="Hidden" />
         </custom:CardControl>
-
         <custom:CardControl Margin="0,0,0,8">
             <custom:CardControl.Header>
                 <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_Autorun_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_Autorun_Message}" />
@@ -167,7 +156,6 @@
                 SelectionChanged="AutorunComboBox_SelectionChanged"
                 Visibility="Hidden" />
         </custom:CardControl>
-
         <custom:CardControl Margin="0,0,0,24">
             <custom:CardControl.Header>
                 <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_MinimizeOnClose_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_MinimizeOnClose_Message}" />
@@ -179,7 +167,6 @@
                 Click="MinimizeOnCloseToggle_Click"
                 Visibility="Hidden" />
         </custom:CardControl>
-
         <custom:CardControl Margin="0,0,0,24">
             <custom:CardControl.Header>
                 <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_UseNewSensorDashboard_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_UseNewSensorDashboard_Message}" />
@@ -191,7 +178,6 @@
                 Click="UseNewSensorDashboard_Toggle"
                 Visibility="Hidden" />
         </custom:CardControl>
-
         <custom:CardControl x:Name="_vantageCard" Margin="0,0,0,8">
             <custom:CardControl.Header>
                 <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_DisableVantage_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_DisableVantage_Message}" />
@@ -203,7 +189,6 @@
                 Click="VantageToggle_Click"
                 Visibility="Hidden" />
         </custom:CardControl>
-
         <custom:CardControl x:Name="_legionZoneCard" Margin="0,0,0,8">
             <custom:CardControl.Header>
                 <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_DisableLegionZone_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_DisableLegionZone_Message}" />
@@ -215,7 +200,6 @@
                 Click="LegionZoneToggle_Click"
                 Visibility="Hidden" />
         </custom:CardControl>
-
         <custom:CardControl x:Name="_legionSpaceCard" Margin="0,0,0,8">
             <custom:CardControl.Header>
                 <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_DisableLegionSpace_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_DisableLegionSpace_Message}" />
@@ -227,7 +211,6 @@
                 Click="LegionSpaceToggle_Click"
                 Visibility="Hidden" />
         </custom:CardControl>
-
         <custom:CardControl x:Name="_fnKeysCard" Margin="0,0,0,24">
             <custom:CardControl.Header>
                 <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_DisableLenovoHotkeys_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_DisableLenovoHotkeys_Message}" />
@@ -239,7 +222,6 @@
                 Click="FnKeysToggle_Click"
                 Visibility="Hidden" />
         </custom:CardControl>
-
         <custom:CardControl Margin="0,0,0,8">
             <custom:CardControl.Header>
                 <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_SmartFnLock_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_SmartFnLock_Message}" />
@@ -252,7 +234,6 @@
                 SelectionChanged="SmartFnLockComboBox_SelectionChanged"
                 Visibility="Hidden" />
         </custom:CardControl>
-
         <custom:CardAction
             x:Name="_smartKeySinglePressActionCard"
             Margin="0,0,0,8"
@@ -261,7 +242,6 @@
                 <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_SmartKeySinglePressAction_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_SmartKeySinglePressAction_Message}" />
             </custom:CardAction.Content>
         </custom:CardAction>
-
         <custom:CardAction
             x:Name="_smartKeyDoublePressActionCard"
             Margin="0,0,0,8"
@@ -270,7 +250,6 @@
                 <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_SmartKeyDoublePressAction_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_SmartKeyDoublePressAction_Message}" />
             </custom:CardAction.Content>
         </custom:CardAction>
-
         <custom:CardAction
             x:Name="_notificationsCard"
             Margin="0,0,0,8"
@@ -279,7 +258,6 @@
                 <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_Notifications_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_Notifications_Message}" />
             </custom:CardAction.Content>
         </custom:CardAction>
-
         <custom:CardAction
             x:Name="_excludeRefreshRatesCard"
             Margin="0,0,0,8"
@@ -288,7 +266,6 @@
                 <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_ExcludeRefreshRates_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_ExcludeRefreshRates_Message}" />
             </custom:CardAction.Content>
         </custom:CardAction>
-
         <custom:CardControl Margin="0,0,0,8">
             <custom:CardControl.Header>
                 <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_SynchronizeBrightnessToAllPowerPlans_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_SynchronizeBrightnessToAllPowerPlans_Message}" />
@@ -300,7 +277,6 @@
                 Click="SynchronizeBrightnessToAllPowerPlansToggle_Click"
                 Visibility="Hidden" />
         </custom:CardControl>
-
         <custom:CardAction
             x:Name="_bootLogoCard"
             Margin="0,0,0,8"
@@ -309,7 +285,6 @@
                 <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_BootLogo_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_BootLogo_Message}" />
             </custom:CardAction.Content>
         </custom:CardAction>
-
         <TextBlock
             x:Name="_updateTextBlock"
             Margin="0,16,0,24"
@@ -318,7 +293,6 @@
             FontSize="24"
             FontWeight="Medium"
             Text="{x:Static resources:Resource.SettingsPage_Update_Title}" />
-
         <custom:CardControl x:Name="_checkUpdatesCard" Margin="0,0,0,8">
             <custom:CardControl.Header>
                 <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_CheckUpdates_Title}" />
@@ -332,7 +306,6 @@
                 Content="{x:Static resources:Resource.SettingsPage_CheckUpdatesButton_Content}"
                 Visibility="Hidden" />
         </custom:CardControl>
-
         <custom:CardControl x:Name="_updateMethodCard" Margin="0,0,0,8">
             <custom:CardControl.Header>
                 <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_UpdateMethod_Title}" />
@@ -346,7 +319,6 @@
                 SelectionChanged="UpdateMethodComboBox_SelectionChanged"
                 Visibility="Hidden" />
         </custom:CardControl>
-
         <custom:CardControl x:Name="_updateCheckFrequencyCard" Margin="0,0,0,8">
             <custom:CardControl.Header>
                 <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_UpdateCheckFrequency_Title}" />
@@ -360,7 +332,6 @@
                 SelectionChanged="UpdateCheckFrequencyComboBox_SelectionChanged"
                 Visibility="Hidden" />
         </custom:CardControl>
-
         <TextBlock
             Margin="0,16,0,24"
             AutomationProperties.Name="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Text}"
@@ -368,7 +339,6 @@
             FontSize="24"
             FontWeight="Medium"
             Text="{x:Static resources:Resource.SettingsPage_Power_Title}" />
-
         <custom:CardControl x:Name="_godModeFnQSwitchableCard" Margin="0,0,0,24">
             <custom:CardControl.Header>
                 <controls:CardHeaderControl Title="{x:Static resources:Resource.Settings_GodModeFnQSwitchable_Title}" Subtitle="{x:Static resources:Resource.Settings_GodModeFnQSwitchable_Message}" />
@@ -380,7 +350,6 @@
                 Click="GodModeFnQSwitchableToggle_Click"
                 Visibility="Hidden" />
         </custom:CardControl>
-
         <custom:CardControl x:Name="_powerModeMappingCard" Margin="0,0,0,8">
             <custom:CardControl.Header>
                 <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_PowerModeMapping_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_PowerModeMapping_Message}" />
@@ -394,7 +363,6 @@
                 SelectionChanged="PowerModeMappingComboBox_SelectionChanged"
                 Visibility="Hidden" />
         </custom:CardControl>
-
         <custom:CardAction
             x:Name="_powerModesCard"
             Margin="0,0,0,8"
@@ -403,7 +371,6 @@
                 <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_WindowsPowerModes_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_WindowsPowerModes_Message}" />
             </custom:CardAction.Content>
         </custom:CardAction>
-
         <custom:CardAction
             x:Name="_windowsPowerPlansCard"
             Margin="0,0,0,8"
@@ -412,7 +379,6 @@
                 <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_WindowsPowerPlans_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_WindowsPowerPlans_Message}" />
             </custom:CardAction.Content>
         </custom:CardAction>
-
         <custom:CardControl
             x:Name="_windowsPowerPlansControlPanelCard"
             Margin="0,0,0,8"
@@ -425,7 +391,6 @@
                 FontSize="20"
                 Symbol="Open24" />
         </custom:CardControl>
-
         <custom:CardControl Margin="0,16,0,8">
             <custom:CardControl.Header>
                 <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_OnBatterySinceReset_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_OnBatterySinceReset_Message}" />
@@ -437,7 +402,6 @@
                 Click="OnBatterySinceResetToggle_Click"
                 Visibility="Hidden" />
         </custom:CardControl>
-
         <TextBlock
             Margin="0,16,0,24"
             AutomationProperties.Name="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Text}"
@@ -445,7 +409,6 @@
             FontSize="24"
             FontWeight="Medium"
             Text="{x:Static resources:Resource.SettingsPage_Integrations_Title}" />
-
         <custom:CardControl Margin="0,0,0,16">
             <custom:CardControl.Header>
                 <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_HWiNFO_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_HWiNFO_Message}" />
@@ -457,7 +420,6 @@
                 Click="HWiNFOIntegrationToggle_Click"
                 Visibility="Hidden" />
         </custom:CardControl>
-
         <custom:CardControl Margin="0,0,0,8">
             <custom:CardControl.Header>
                 <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_CLI_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_CLI_Message}" />
@@ -469,7 +431,6 @@
                 Click="CLIInterfaceToggle_Click"
                 Visibility="Hidden" />
         </custom:CardControl>
-
         <custom:CardControl Margin="0,0,0,8">
             <custom:CardControl.Header>
                 <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_CLIAddToPath_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_CLIAddToPath_Message}" />
@@ -481,38 +442,48 @@
                 Click="CLIPathToggle_Click"
                 Visibility="Hidden" />
         </custom:CardControl>
-
         <custom:CardControl Margin="0,0,0,8">
             <custom:CardControl.Header>
-                <controls:CardHeaderControl 
-                    Title="{x:Static resources:Resource.SettingsPage_FloatingGadgets_Title}" 
-                    Subtitle="{x:Static resources:Resource.SettingsPage_FloatingGadgets_Message}" />    
+                <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_FloatingGadgets_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_FloatingGadgets_Message}" />
             </custom:CardControl.Header>
             <StackPanel Orientation="Horizontal">
                 <wpfui:NumberBox
                     x:Name="_floatingGadgetsInterval"
                     Width="100"
                     VerticalAlignment="Center"
-                    Value="1"
-                    Minimum="1"
                     Maximum="5"
-                    ToolTip="{x:Static resources:Resource.SettingsPage_FloatingGadgets_Tooltip}"
+                    Minimum="1"
                     SpinButtonPlacementMode="Inline"
+                    ToolTip="{x:Static resources:Resource.SettingsPage_FloatingGadgets_Tooltip}"
                     ValueChanged="FloatingGadgetsInput_ValueChanged"
-                    Visibility="Hidden" />
+                    Visibility="Hidden"
+                    Value="1" />
                 <ComboBox
-                        x:Name="_floatingGadgetsStyleComboBox"
-                        Width="120"
-                        Margin="5,0,8,0"
-                        VerticalAlignment="Center"
-                        SelectionChanged="StyleComboBox_SelectionChanged"
-                        Visibility="Hidden">
-                    <ComboBoxItem Content="Default" Tag="Default"/>
-                    <ComboBoxItem Content="Simple" Tag="Simple"/>
+                    x:Name="_floatingGadgetsStyleComboBox"
+                    Width="120"
+                    Margin="5,0,8,0"
+                    VerticalAlignment="Center"
+                    SelectionChanged="StyleComboBox_SelectionChanged"
+                    Visibility="Hidden">
+                    <ComboBoxItem Content="Default" Tag="Default" />
+                    <ComboBoxItem Content="Simple" Tag="Simple" />
                 </ComboBox>
+                <Button
+                    x:Name="_customButton"
+                    Width="100"
+                    Height="35"
+                    Margin="0,0,8,0"
+                    VerticalAlignment="Center"
+                    Click="CustomButton_Click"
+                    ToolTip="Customize which metrics are displayed on the Floating Gadget">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock VerticalAlignment="Center" Text="Customize" />
+                    </StackPanel>
+                </Button>
                 <wpfui:ToggleSwitch
                     x:Name="_floatingGadgetsToggle"
                     Margin="0,0,0,8"
+                    VerticalAlignment="Center"
                     AutomationProperties.Name="{x:Static resources:Resource.SettingsPage_FloatingGadgets_Title}"
                     Click="FloatingGadgets_Click"
                     Visibility="Hidden" />

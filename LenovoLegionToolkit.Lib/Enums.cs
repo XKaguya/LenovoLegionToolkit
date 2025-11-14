@@ -115,6 +115,30 @@ public enum FlipToStartState
     On
 }
 
+public enum FloatingGadgetItem
+{
+    Fps,
+    LowFps,
+    FrameTime,
+    CpuFrequency,
+    CpuUtilitazion,
+    CpuTemperature,
+    CpuPower,
+    CpuFan,
+    GpuFrequency,
+    GpuUtilitazion,
+    GpuTemperature,
+    GpuVramTemperature,
+    GpuPower,
+    GpuFan,
+    Disk1Temperature,
+    Disk2Temperature,
+    MemoryUtilitazion,
+    MemoryTemperature,
+    PchTemperature,
+    PchFan,
+}
+
 public enum FloatingGadgetState
 {
     [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetState_Hidden")]
