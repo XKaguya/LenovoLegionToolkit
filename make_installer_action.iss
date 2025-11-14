@@ -10,10 +10,6 @@
   #define MyAppVersion "0.0.1"
 #endif
 
-#ifndef MyTimestamp
-#define MyTimestamp ""
-#endif
-
 [Setup]
 UsedUserAreasWarning=false
 AppId={{0C37B9AC-9C3D-4302-8ABB-125C7C7D83D5}
