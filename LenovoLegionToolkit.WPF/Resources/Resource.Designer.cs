@@ -2209,6 +2209,42 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Chipset 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadget_Custom_Chipset {
+            get {
+                return ResourceManager.GetString("FloatingGadget_Custom_Chipset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 CPU 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadget_Custom_CPU {
+            get {
+                return ResourceManager.GetString("FloatingGadget_Custom_CPU", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Game 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadget_Custom_Game {
+            get {
+                return ResourceManager.GetString("FloatingGadget_Custom_Game", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 GPU 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadget_Custom_GPU {
+            get {
+                return ResourceManager.GetString("FloatingGadget_Custom_GPU", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Show or Hide the Floating Gadget 的本地化字符串。
         /// </summary>
         public static string FloatingGadgetAutomationStepControl_Message {
