@@ -1,15 +1,21 @@
 ﻿using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Controllers.Sensors;
+using LenovoLegionToolkit.Lib.Messaging;
+using LenovoLegionToolkit.Lib.Messaging.Messages;
 using LenovoLegionToolkit.Lib.Settings;
 using LenovoLegionToolkit.Lib.Utils;
 using LenovoLegionToolkit.WPF.Resources;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
+using System.Windows.Media;
+using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace LenovoLegionToolkit.WPF.Windows.Utils;
@@ -19,6 +25,25 @@ public partial class FloatingGadget
     private const int GWL_EXSTYLE = -20;
     private const int WS_EX_TRANSPARENT = 0x00000020;
     private const int WS_EX_TOOLWINDOW = 0x00000080;
+
+    private const int UI_UPDATE_THROTTLE_MS = 100;
+
+    private const int FpsRedLine = 30;
+    private const double MaxFrameTimeMs = 10.0;
+
+    private const double UsageYellow = 70;
+    private const double UsageRed = 90;
+    private const double MemUsageYellow = 75;
+    private const double MemUsageRed = 80;
+
+    private const double CpuTempYellow = 75;
+    private const double CpuTempRed = 90;
+    private const double GpuTempYellow = 70;
+    private const double GpuTempRed = 80;
+    private const double MemTempYellow = 60;
+    private const double MemTempRed = 75;
+    private const double PchTempYellow = 60;
+    private const double PchTempRed = 75;
 
     private readonly ApplicationSettings _settings = IoCContainer.Resolve<ApplicationSettings>();
     private readonly SensorsController _controller = IoCContainer.Resolve<SensorsController>();
@@ -32,6 +57,14 @@ public partial class FloatingGadget
     private CancellationTokenSource? _cts;
     private bool _fpsMonitoringStarted = false;
 
+    private HashSet<FloatingGadgetItem> _activeItems = new();
+    private List<FloatingGadgetItem> _visibleItems = new();
+    private static Dictionary<FrameworkElement, (List<FloatingGadgetItem> Items, FrameworkElement? Separator)> GadgetGroups { get; } =
+        new Dictionary<FrameworkElement, (List<FloatingGadgetItem> Items, FrameworkElement? Separator)>();
+
+    private static Dictionary<FloatingGadgetItem, FrameworkElement> _itemsMap { get; } =
+        new Dictionary<FloatingGadgetItem, FrameworkElement>();
+
     public FloatingGadget()
     {
         InitializeComponent();
@@ -40,6 +73,15 @@ public partial class FloatingGadget
         SourceInitialized += OnSourceInitialized!;
         Closed += FloatingGadget_Closed!;
 
+        InitializeComponentSpecifics();
+        InitializeMappings();
+        SubscribeEvents();
+
+        _activeItems = new HashSet<FloatingGadgetItem>(_settings.Store.FloatingGadgetItems);
+        _visibleItems.AddRange(_activeItems);
+
+        UpdateGadgetControlsVisibility();
+
         var mi = Compatibility.GetMachineInformationAsync().Result;
         if (mi.Properties.IsAmdDevice)
         {
@@ -47,6 +89,184 @@ public partial class FloatingGadget
         }
 
         InitializeFpsSensor();
+    }
+
+    private void InitializeComponentSpecifics()
+    {
+    }
+
+    private void InitializeMappings()
+    {
+        if (GadgetGroups.Count == 0)
+        {
+            GadgetGroups.Add(_fpsGroup, (new List<FloatingGadgetItem> { FloatingGadgetItem.Fps, FloatingGadgetItem.LowFps, FloatingGadgetItem.FrameTime }, null));
+            GadgetGroups.Add(_cpuGroup, (new List<FloatingGadgetItem> { FloatingGadgetItem.CpuUtilitazion, FloatingGadgetItem.CpuFrequency, FloatingGadgetItem.CpuTemperature, FloatingGadgetItem.CpuPower, FloatingGadgetItem.CpuFan }, null));
+            GadgetGroups.Add(_gpuGroup, (new List<FloatingGadgetItem> { FloatingGadgetItem.GpuUtilitazion, FloatingGadgetItem.GpuFrequency, FloatingGadgetItem.GpuTemperature, FloatingGadgetItem.GpuVramTemperature, FloatingGadgetItem.GpuPower, FloatingGadgetItem.GpuFan }, null));
+            GadgetGroups.Add(_memoryGroup, (new List<FloatingGadgetItem> { FloatingGadgetItem.MemoryUtilitazion, FloatingGadgetItem.MemoryTemperature }, null));
+            GadgetGroups.Add(_pchGroup, (new List<FloatingGadgetItem> { FloatingGadgetItem.PchTemperature, FloatingGadgetItem.PchFan, FloatingGadgetItem.Disk1Temperature, FloatingGadgetItem.Disk2Temperature }, null));
+        }
+
+        if (_itemsMap.Count == 0)
+        {
+            _itemsMap.Add(FloatingGadgetItem.Fps, _fps);
+            _itemsMap.Add(FloatingGadgetItem.LowFps, _lowFps);
+            _itemsMap.Add(FloatingGadgetItem.FrameTime, _frameTime);
+
+            _itemsMap.Add(FloatingGadgetItem.CpuUtilitazion, _cpuUsage);
+            _itemsMap.Add(FloatingGadgetItem.CpuFrequency, _cpuFrequency);
+            _itemsMap.Add(FloatingGadgetItem.CpuTemperature, _cpuTemperature);
+            _itemsMap.Add(FloatingGadgetItem.CpuPower, _cpuPower);
+            _itemsMap.Add(FloatingGadgetItem.CpuFan, _cpuFanSpeed);
+
+            _itemsMap.Add(FloatingGadgetItem.GpuUtilitazion, _gpuUsage);
+            _itemsMap.Add(FloatingGadgetItem.GpuFrequency, _gpuFrequency);
+            _itemsMap.Add(FloatingGadgetItem.GpuTemperature, _gpuTemperature);
+            _itemsMap.Add(FloatingGadgetItem.GpuVramTemperature, _gpuVramTemperature);
+            _itemsMap.Add(FloatingGadgetItem.GpuPower, _gpuPower);
+            _itemsMap.Add(FloatingGadgetItem.GpuFan, _gpuFanSpeed);
+
+            _itemsMap.Add(FloatingGadgetItem.MemoryUtilitazion, _memUsage);
+            _itemsMap.Add(FloatingGadgetItem.MemoryTemperature, _memTemperature);
+
+            _itemsMap.Add(FloatingGadgetItem.PchTemperature, _pchTemperature);
+            _itemsMap.Add(FloatingGadgetItem.PchFan, _pchFanSpeed);
+
+            _itemsMap.Add(FloatingGadgetItem.Disk1Temperature, _disk0Temperature);
+            _itemsMap.Add(FloatingGadgetItem.Disk2Temperature, _disk1Temperature);
+        }
+    }
+
+    private void SubscribeEvents()
+    {
+        MessagingCenter.Subscribe<FloatingGadgetChangedMessage>(this, (message) =>
+        {
+            Dispatcher.Invoke(() =>
+            {
+                if (App.Current.FloatingGadget == null) return;
+
+                if (message.State == FloatingGadgetState.Show)
+                {
+                    App.Current.FloatingGadget.Show();
+                }
+                else
+                {
+                    App.Current.FloatingGadget.Hide();
+                }
+            });
+        });
+
+        MessagingCenter.Subscribe<FloatingGadgetElementChangedMessage>(this, (message) =>
+        {
+            Dispatcher.Invoke(() =>
+            {
+                if (App.Current.FloatingGadget == null) return;
+
+                var newItemsSet = new HashSet<FloatingGadgetItem>(message.Items);
+                if (!_activeItems.SetEquals(newItemsSet))
+                {
+                    _visibleItems.Clear();
+                    _visibleItems.AddRange(message.Items);
+
+                    _activeItems = newItemsSet;
+                    UpdateGadgetControlsVisibility();
+                }
+            });
+        });
+    }
+
+    private void UpdateGadgetGroupVisibility()
+    {
+        var visibleGroups = new List<FrameworkElement>();
+        var allGroups = GadgetGroups.ToList();
+
+        foreach (var kvp in allGroups)
+        {
+            var groupPanel = kvp.Key;
+            var (items, separator) = kvp.Value;
+
+            var isGroupActive = items.Any(item => _activeItems.Contains(item));
+
+            groupPanel.Visibility = isGroupActive ? Visibility.Visible : Visibility.Collapsed;
+
+            if (isGroupActive)
+            {
+                visibleGroups.Add(groupPanel);
+            }
+        }
+
+        for (int i = 0; i < allGroups.Count; i++)
+        {
+            var (_, separator) = allGroups[i].Value;
+
+            if (separator != null)
+            {
+                bool isCurrentGroupVisible = visibleGroups.Contains(allGroups[i].Key);
+
+                if (isCurrentGroupVisible)
+                {
+                    int indexInVisible = visibleGroups.IndexOf(allGroups[i].Key);
+                    bool nextGroupIsVisible = indexInVisible < visibleGroups.Count - 1;
+
+                    separator.Visibility = nextGroupIsVisible ? Visibility.Visible : Visibility.Collapsed;
+                }
+                else
+                {
+                    separator.Visibility = Visibility.Collapsed;
+                }
+            }
+        }
+    }
+
+    private void UpdateGadgetControlsVisibility()
+    {
+        foreach (var kv in _itemsMap)
+        {
+            var control = kv.Value;
+            var visible = _activeItems.Contains(kv.Key) ? Visibility.Visible : Visibility.Collapsed;
+
+            control.Visibility = visible;
+            SetSiblingLabelsVisibility(control, visible);
+        }
+
+        UpdateGadgetGroupVisibility();
+    }
+    private void SetSiblingLabelsVisibility(FrameworkElement valueControl, Visibility visibility)
+    {
+        if (valueControl == null) return;
+
+        if (valueControl.Parent is System.Windows.Controls.Panel panel)
+        {
+            foreach (var child in panel.Children.OfType<FrameworkElement>())
+            {
+                if (child == valueControl) continue;
+                if (child is System.Windows.Controls.TextBlock tb)
+                {
+                    tb.Visibility = visibility;
+                }
+            }
+        }
+        else if (valueControl.Parent is System.Windows.Controls.ContentControl contentControl)
+        {
+            if (contentControl.Content is FrameworkElement fe && fe is System.Windows.Controls.TextBlock tb)
+            {
+                tb.Visibility = visibility;
+            }
+        }
+        else
+        {
+            var parent = System.Windows.Media.VisualTreeHelper.GetParent(valueControl);
+            if (parent is DependencyObject dob)
+            {
+                int count = System.Windows.Media.VisualTreeHelper.GetChildrenCount(dob);
+                for (int i = 0; i < count; i++)
+                {
+                    var child = System.Windows.Media.VisualTreeHelper.GetChild(dob, i) as FrameworkElement;
+                    if (child == null || child == valueControl) continue;
+                    if (child is System.Windows.Controls.TextBlock tb)
+                        tb.Visibility = visibility;
+                }
+            }
+        }
     }
 
     [DllImport("user32.dll")]
@@ -60,7 +280,6 @@ public partial class FloatingGadget
         _fpsController.Blacklist.Add("explorer");
         _fpsController.Blacklist.Add("taskmgr");
         _fpsController.Blacklist.Add("ApplicationFrameHost");
-
         _fpsController.Blacklist.Add("System");
         _fpsController.Blacklist.Add("svchost");
         _fpsController.Blacklist.Add("csrss");
@@ -69,7 +288,6 @@ public partial class FloatingGadget
         _fpsController.Blacklist.Add("lsass");
         _fpsController.Blacklist.Add("winlogon");
         _fpsController.Blacklist.Add("smss");
-
         _fpsController.Blacklist.Add("spoolsv");
         _fpsController.Blacklist.Add("SearchIndexer");
         _fpsController.Blacklist.Add("SearchUI");
@@ -78,7 +296,6 @@ public partial class FloatingGadget
         _fpsController.Blacklist.Add("ctfmon");
         _fpsController.Blacklist.Add("audiodg");
         _fpsController.Blacklist.Add("fontdrvhost");
-
         _fpsController.Blacklist.Add("taskhost");
         _fpsController.Blacklist.Add("conhost");
         _fpsController.Blacklist.Add("sihost");
@@ -133,82 +350,150 @@ public partial class FloatingGadget
         _fpsController.Dispose();
     }
 
+    // ------------ 辅助：颜色与文本更新 ------------
+    private static Brush SeverityBrush(double value, double yellowThreshold, double redThreshold)
+    {
+        if (double.IsNaN(value)) return Brushes.White;
+        if (value >= redThreshold) return Brushes.Red;
+        if (value >= yellowThreshold) return Brushes.Goldenrod;
+        return Brushes.White;
+    }
+
+    private static void SetTextIfChanged(System.Windows.Controls.TextBlock tb, string text)
+    {
+        if (!string.Equals(tb.Text, text, StringComparison.Ordinal))
+            tb.Text = text;
+    }
+
+    private static void SetForegroundIfChanged(System.Windows.Controls.TextBlock tb, Brush brush)
+    {
+        if (!Equals(tb.Foreground, brush))
+            tb.Foreground = brush;
+    }
+
+    private void UpdateTextBlock(System.Windows.Controls.TextBlock tb, double value, string format, double yellowThreshold, double redThreshold)
+    {
+        if (tb.Visibility != Visibility.Visible) return;
+
+        _stringBuilder.Clear();
+        if (double.IsNaN(value) || value < 0)
+        {
+            SetTextIfChanged(tb, "-");
+            SetForegroundIfChanged(tb, Brushes.White);
+        }
+        else
+        {
+            _stringBuilder.AppendFormat(format, value);
+            SetTextIfChanged(tb, _stringBuilder.ToString());
+            SetForegroundIfChanged(tb, SeverityBrush(value, yellowThreshold, redThreshold));
+        }
+    }
+
+    private void UpdateTextBlock(System.Windows.Controls.TextBlock tb, double value, string format)
+    {
+        if (tb.Visibility != Visibility.Visible) return;
+
+        _stringBuilder.Clear();
+        if (double.IsNaN(value) || value < 0)
+        {
+            SetTextIfChanged(tb, "-");
+        }
+        else
+        {
+            _stringBuilder.AppendFormat(format, value);
+            SetTextIfChanged(tb, _stringBuilder.ToString());
+        }
+    }
+
+    private void UpdateTextBlock(System.Windows.Controls.TextBlock tb, int value)
+    {
+        if (tb.Visibility != Visibility.Visible) return;
+
+        _stringBuilder.Clear();
+        if (value < 0)
+        {
+            SetTextIfChanged(tb, "-");
+        }
+        else
+        {
+            _stringBuilder.AppendFormat("{0} RPM", value);
+            SetTextIfChanged(tb, _stringBuilder.ToString());
+        }
+    }
+
     public void UpdateSensorData(
         double cpuUsage, double cpuFrequency, double cpuTemp, double cpuPower,
         double gpuUsage, double gpuFrequency, double gpuTemp, double gpuVramTemp, double gpuPower,
         double memUsage, double pchTemp, double memTemp, double disk0Temperature, double disk1Temperature,
         int cpuFanSpeed, int gpuFanSpeed, int pchFanSpeed)
     {
-        if ((DateTime.Now - _lastUpdate).TotalMilliseconds < 100) return;
+        if ((DateTime.Now - _lastUpdate).TotalMilliseconds < UI_UPDATE_THROTTLE_MS) return;
         _lastUpdate = DateTime.Now;
 
-        _stringBuilder.Clear();
-        _stringBuilder.AppendFormat("{0:F0}%", cpuUsage);
-        _cpuUsage.Text = _stringBuilder.ToString();
+        // CPU
+        UpdateTextBlock(_cpuFrequency, cpuFrequency, "{0}Mhz");
+        UpdateTextBlock(_cpuUsage, cpuUsage, "{0:F0}%", UsageYellow, UsageRed);
+        UpdateTextBlock(_cpuTemperature, cpuTemp, "{0:F0}°C", CpuTempYellow, CpuTempRed);
+        UpdateTextBlock(_cpuPower, cpuPower, "{0:F1} W");
+        UpdateTextBlock(_cpuFanSpeed, cpuFanSpeed);
 
-        _stringBuilder.Clear();
-        _stringBuilder.AppendFormat("{0}Mhz", cpuFrequency);
-        _cpuFrequency.Text = _stringBuilder.ToString();
+        // GPU
+        UpdateTextBlock(_gpuFrequency, gpuFrequency, "{0}Mhz");
+        UpdateTextBlock(_gpuUsage, gpuUsage, "{0:F0}%", UsageYellow, UsageRed);
+        UpdateTextBlock(_gpuTemperature, gpuTemp, "{0:F0}°C", GpuTempYellow, GpuTempRed);
+        UpdateTextBlock(_gpuVramTemperature, gpuVramTemp, "{0:F0}°C", GpuTempYellow, GpuTempRed);
+        UpdateTextBlock(_gpuPower, gpuPower, "{0:F1} W");
+        UpdateTextBlock(_gpuFanSpeed, gpuFanSpeed);
 
-        _stringBuilder.Clear();
-        _stringBuilder.AppendFormat("{0:F0}°C", cpuTemp);
-        _cpuTemperature.Text = _stringBuilder.ToString();
+        // Memory & PCH
+        UpdateTextBlock(_memUsage, memUsage, "{0:F0}%", MemUsageYellow, MemUsageRed);
+        UpdateTextBlock(_pchTemperature, pchTemp, "{0:F0}°C", PchTempYellow, PchTempRed);
+        UpdateTextBlock(_memTemperature, memTemp, "{0:F0}°C", MemTempYellow, MemTempRed);
 
-        _stringBuilder.Clear();
-        _stringBuilder.AppendFormat("{0:F1} W", cpuPower);
-        _cpuPower.Text = _stringBuilder.ToString();
+        // Disks
+        UpdateTextBlock(_disk0Temperature, disk0Temperature, "{0:F0}°C");
+        UpdateTextBlock(_disk1Temperature, disk1Temperature, "{0:F0}°C");
 
-        _stringBuilder.Clear();
-        _stringBuilder.AppendFormat("{0:F0}%", gpuUsage);
-        _gpuUsage.Text = _stringBuilder.ToString();
+        // Fans
+        UpdateTextBlock(_cpuFanSpeed, cpuFanSpeed);
+        UpdateTextBlock(_gpuFanSpeed, gpuFanSpeed);
+        UpdateTextBlock(_pchFanSpeed, pchFanSpeed);
+    }
 
-        _stringBuilder.Clear();
-        _stringBuilder.AppendFormat("{0}Mhz", gpuFrequency);
-        _gpuFrequency.Text = _stringBuilder.ToString();
+    private void OnFpsDataUpdated(object? sender, FpsSensorController.FpsData fpsData)
+    {
+        Dispatcher.BeginInvoke(() =>
+        {
+            UpdateFpsDisplay(fpsData.Fps, fpsData.LowFps, fpsData.FrameTime);
+        }, DispatcherPriority.Normal);
+    }
 
-        _stringBuilder.Clear();
-        _stringBuilder.AppendFormat("{0:F0}°C", gpuTemp);
-        _gpuTemperature.Text = _stringBuilder.ToString();
+    private void UpdateFpsDisplay(string fps, string lowFps, string frameTime)
+    {
+        const string dash = "-";
 
-        _stringBuilder.Clear();
-        _stringBuilder.AppendFormat("{0:F0}°C", gpuVramTemp);
-        _gpuVramTemperature.Text = _stringBuilder.ToString();
+        int.TryParse(fps?.Trim(), out var fpsVal);
+        int.TryParse(lowFps?.Trim(), out var lowVal);
+        double.TryParse(frameTime?.Trim(), out var ftVal);
 
-        _stringBuilder.Clear();
-        _stringBuilder.AppendFormat("{0:F1} W", gpuPower);
-        _gpuPower.Text = _stringBuilder.ToString();
+        var fpsText = (fpsVal >= 0) ? fpsVal.ToString() : dash;
+        var lowFpsText = (lowVal >= 0) ? lowVal.ToString() : dash;
+        var frameTimeText = (ftVal >= 0) ? $"{ftVal:F1}ms" : dash;
 
-        _stringBuilder.Clear();
-        _stringBuilder.AppendFormat("{0:F0}%", memUsage);
-        _memUsage.Text = _stringBuilder.ToString();
+        SetTextIfChanged(_fps, fpsText);
+        SetTextIfChanged(_lowFps, lowFpsText);
+        SetTextIfChanged(_frameTime, frameTimeText);
 
-        _stringBuilder.Clear();
-        _stringBuilder.AppendFormat("{0:F0}°C", pchTemp);
-        _pchTemperature.Text = _stringBuilder.ToString();
+        var normalBrush = Brushes.White;
+        var alertBrush = Brushes.Red;
 
-        _stringBuilder.Clear();
-        _stringBuilder.AppendFormat("{0:F0}°C", memTemp);
-        _memTemperature.Text = _stringBuilder.ToString();
+        var fpsBrush = (fpsVal >= 0 && fpsVal < FpsRedLine) ? alertBrush : normalBrush;
+        var lowFpsBrush = (lowVal >= 0 && fpsVal >= 0 && (fpsVal - lowVal) >= 30) ? alertBrush : normalBrush;
+        var frameTimeBrush = (ftVal >= 0 && ftVal > MaxFrameTimeMs) ? alertBrush : normalBrush;
 
-        _stringBuilder.Clear();
-        _stringBuilder.AppendFormat("{0:F0}°C", disk0Temperature);
-        _disk0Temperature.Text = _stringBuilder.ToString();
-
-        _stringBuilder.Clear();
-        _stringBuilder.AppendFormat("{0:F0}°C", disk1Temperature);
-        _disk1Temperature.Text = _stringBuilder.ToString();
-
-        _stringBuilder.Clear();
-        _stringBuilder.AppendFormat("{0} RPM", cpuFanSpeed);
-        _cpuFanSpeed.Text = _stringBuilder.ToString();
-
-        _stringBuilder.Clear();
-        _stringBuilder.AppendFormat("{0} RPM", gpuFanSpeed);
-        _gpuFanSpeed.Text = _stringBuilder.ToString();
-
-        _stringBuilder.Clear();
-        _stringBuilder.AppendFormat("{0} RPM", pchFanSpeed);
-        _pchFanSpeed.Text = _stringBuilder.ToString();
+        SetForegroundIfChanged(_fps, fpsBrush);
+        SetForegroundIfChanged(_lowFps, lowFpsBrush);
+        SetForegroundIfChanged(_frameTime, frameTimeBrush);
     }
 
     public async Task TheRing(CancellationToken token)
@@ -225,6 +510,7 @@ public partial class FloatingGadget
                     await RefreshDataAsync(token);
                     await Task.Delay(TimeSpan.FromSeconds(_settings.Store.FloatingGadgetsRefreshInterval), token);
                 }
+                catch (OperationCanceledException) { }
                 catch (Exception) { }
             }
         }
@@ -236,66 +522,6 @@ public partial class FloatingGadget
             }
             catch (ObjectDisposedException) { }
         }
-    }
-
-    private void OnFpsDataUpdated(object? sender, FpsSensorController.FpsData fpsData)
-    {
-        Dispatcher.BeginInvoke(() =>
-        {
-            UpdateFpsDisplay(fpsData.Fps, fpsData.LowFps, fpsData.FrameTime);
-        }, DispatcherPriority.Normal);
-    }
-
-    private void UpdateFpsDisplay(string fps, string lowFps, string frameTime)
-    {
-        const string dash = "-";
-        const int redLine = 30;
-        const double maxFrameTime = 10.0;
-
-        var fpsText = dash;
-        int fpsVal = -1;
-        if (int.TryParse(fps?.Trim(), out var fv) && fv >= 0)
-        {
-            fpsVal = fv;
-            fpsText = fv.ToString();
-        }
-
-        var lowFpsText = dash;
-        int lowVal = -1;
-        if (int.TryParse(lowFps?.Trim(), out var lv) && lv >= 0)
-        {
-            lowVal = lv;
-            lowFpsText = lv.ToString();
-        }
-
-        var frameTimeText = dash;
-        double ftVal = -1;
-        if (double.TryParse(frameTime?.Trim(), out var ft) && ft >= 0)
-        {
-            ftVal = ft;
-            frameTimeText = $"{ft:F1}ms";
-        }
-
-        if (!string.Equals(_fps.Text, fpsText, StringComparison.Ordinal))
-            _fps.Text = fpsText;
-        if (!string.Equals(_lowFps.Text, lowFpsText, StringComparison.Ordinal))
-            _lowFps.Text = lowFpsText;
-        if (!string.Equals(_frameTime.Text, frameTimeText, StringComparison.Ordinal))
-            _frameTime.Text = frameTimeText;
-
-        var normalBrush = System.Windows.Media.Brushes.White;
-        var alertBrush = System.Windows.Media.Brushes.Red;
-
-        var fpsBrush = (fpsVal >= 0 && fpsVal < redLine) ? alertBrush : normalBrush;
-        var lowFpsBrush = (lowVal >= 0 && lowVal < (fpsVal - redLine)) ? alertBrush : normalBrush;
-        var frameTimeBrush = (ftVal >= 0 && ftVal > maxFrameTime) ? alertBrush : normalBrush;
-
-        if (!Equals(_fps.Foreground, fpsBrush))
-            _fps.Foreground = fpsBrush;
-        if (!Equals(_lowFps.Foreground, lowFpsBrush))
-            _lowFps.Foreground = lowFpsBrush;
-        if (!Equals(_frameTime.Foreground, frameTimeBrush))
-            _frameTime.Foreground = frameTimeBrush;
     }
 
     private async Task RefreshDataAsync(CancellationToken token)
@@ -312,6 +538,8 @@ public partial class FloatingGadget
 
         await Task.WhenAll(dataTask, cpuPowerTask, gpuPowerTask, gpuVramTask,
             diskTemperaturesTask, memoryUsageTask, memoryTemperaturesTask);
+
+        token.ThrowIfCancellationRequested();
 
         var data = dataTask.Result;
         var cpuPower = cpuPowerTask.Result;
@@ -335,6 +563,6 @@ public partial class FloatingGadget
             data.CPU.FanSpeed,
             data.GPU.FanSpeed,
             data.PCH.FanSpeed
-        ), DispatcherPriority.Background);
+        ), DispatcherPriority.Normal);
     }
 }

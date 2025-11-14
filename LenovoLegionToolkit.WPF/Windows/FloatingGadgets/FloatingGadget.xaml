@@ -6,161 +6,127 @@
     xmlns:resources="clr-namespace:LenovoLegionToolkit.WPF.Resources"
     xmlns:utils="clr-namespace:LenovoLegionToolkit.WPF.Utils"
     Title="FloatingGadget"
+    Width="280"
     Height="630"
-    Width="280" 
-    Background="Transparent"
     AllowsTransparency="True"
-    WindowStyle="None"
+    Background="Transparent"
+    Left="0"
     ShowInTaskbar="False"
-    WindowStartupLocation="Manual"
-    Topmost="True"
     Top="20"
-    Left="0">
+    Topmost="True"
+    WindowStartupLocation="Manual"
+    WindowStyle="None">
 
-    <Border Background="Transparent" CornerRadius="12" Padding="15">
+    <Border
+        Padding="15"
+        Background="Transparent"
+        CornerRadius="12">
         <StackPanel>
             <StackPanel x:Name="_sensorsPanel">
 
                 <StackPanel.Resources>
                     <Style x:Key="SensorLabelStyle" TargetType="TextBlock">
-                        <Setter Property="Foreground" Value="DeepSkyBlue"/>
-                        <Setter Property="FontSize" Value="13"/>
-                        <Setter Property="Margin" Value="0,3"/>
+                        <Setter Property="Foreground" Value="DeepSkyBlue" />
+                        <Setter Property="FontSize" Value="13" />
+                        <Setter Property="Margin" Value="0,3" />
                     </Style>
                     <Style x:Key="SensorValueStyle" TargetType="TextBlock">
-                        <Setter Property="Foreground" Value="#FFFFFF"/>
-                        <Setter Property="FontSize" Value="14"/>
-                        <Setter Property="FontWeight" Value="Bold"/>
-                        <Setter Property="HorizontalAlignment" Value="Right"/>
-                        <Setter Property="Margin" Value="0,3"/>
+                        <Setter Property="Foreground" Value="#FFFFFF" />
+                        <Setter Property="FontSize" Value="14" />
+                        <Setter Property="FontWeight" Value="Bold" />
+                        <Setter Property="HorizontalAlignment" Value="Right" />
+                        <Setter Property="Margin" Value="0,3" />
                     </Style>
                 </StackPanel.Resources>
 
-                <StackPanel Margin="0,5,0,0">
-                    <TextBlock Text="{Binding Source={x:Static resources:Resource.FloatingGadgets_Fps}, StringFormat='— {0} —'}" Style="{StaticResource SensorLabelStyle}" FontWeight="Bold" Foreground="#FF5722" FontSize="14" Margin="0,0,0,5"/>
+                <!--  FPS Group  -->
+                <StackPanel x:Name="_fpsGroup" Margin="0,5,0,0">
+                    <TextBlock
+                        Margin="0,0,0,5"
+                        FontSize="14"
+                        FontWeight="Bold"
+                        Foreground="#FF5722"
+                        Style="{StaticResource SensorLabelStyle}"
+                        Text="{Binding Source={x:Static resources:Resource.FloatingGadgets_Fps}, StringFormat='— {0} —'}" />
 
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{x:Static resources:Resource.FloatingGadgets_Fps}" Style="{StaticResource SensorLabelStyle}" />
-                        <TextBlock x:Name="_fps" Grid.Column="1" Text="-" Style="{StaticResource SensorValueStyle}" />
+                        <TextBlock
+                            Grid.Column="0"
+                            Style="{StaticResource SensorLabelStyle}"
+                            Text="{x:Static resources:Resource.FloatingGadgets_Fps}" />
+                        <TextBlock
+                            x:Name="_fps"
+                            Grid.Column="1"
+                            Style="{StaticResource SensorValueStyle}"
+                            Text="-" />
                     </Grid>
+
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{x:Static resources:Resource.FloatingGadgets_Low_Fps}" Style="{StaticResource SensorLabelStyle}" />
-                        <TextBlock x:Name="_lowFps" Grid.Column="1" Text="-" Style="{StaticResource SensorValueStyle}" />
+                        <TextBlock
+                            Grid.Column="0"
+                            Style="{StaticResource SensorLabelStyle}"
+                            Text="{x:Static resources:Resource.FloatingGadgets_Low_Fps}" />
+                        <TextBlock
+                            x:Name="_lowFps"
+                            Grid.Column="1"
+                            Style="{StaticResource SensorValueStyle}"
+                            Text="-" />
                     </Grid>
+
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{x:Static resources:Resource.FloatingGadgets_Frame_Time}" Style="{StaticResource SensorLabelStyle}" />
-                        <TextBlock x:Name="_frameTime" Grid.Column="1" Text="-" Style="{StaticResource SensorValueStyle}" />
+                        <TextBlock
+                            Grid.Column="0"
+                            Style="{StaticResource SensorLabelStyle}"
+                            Text="{x:Static resources:Resource.FloatingGadgets_Frame_Time}" />
+                        <TextBlock
+                            x:Name="_frameTime"
+                            Grid.Column="1"
+                            Style="{StaticResource SensorValueStyle}"
+                            Text="-" />
                     </Grid>
                 </StackPanel>
 
-                <StackPanel Margin="0,5,0,0">
-                    <TextBlock Text="{Binding Source={x:Static resources:Resource.FloatingGadgets_Cpu}, StringFormat='— {0} —'}" Style="{StaticResource SensorLabelStyle}" FontWeight="Bold" Foreground="#FF5722" FontSize="14" Margin="0,0,0,5"/>
-                    
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{x:Static resources:Resource.SensorsControl_Utilization_Title}" Style="{StaticResource SensorLabelStyle}" />
-                        <TextBlock x:Name="_cpuUsage" Grid.Column="1" Text="-" Style="{StaticResource SensorValueStyle}" />
-                    </Grid>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{x:Static resources:Resource.SensorsControl_CoreClock_Title}" Style="{StaticResource SensorLabelStyle}" />
-                        <TextBlock x:Name="_cpuFrequency" Grid.Column="1" Text="-" Style="{StaticResource SensorValueStyle}" />
-                    </Grid>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{x:Static resources:Resource.SensorsControl_Temperature_Title}" Style="{StaticResource SensorLabelStyle}" />
-                        <TextBlock x:Name="_cpuTemperature" Grid.Column="1" Text="-" Style="{StaticResource SensorValueStyle}" />
-                    </Grid>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{x:Static resources:Resource.SensorsControl_CPU_Power}" Style="{StaticResource SensorLabelStyle}" />
-                        <TextBlock x:Name="_cpuPower" Grid.Column="1" Text="-" Style="{StaticResource SensorValueStyle}" />
-                    </Grid>
-                </StackPanel>
-                
-                <Separator Background="#3A3A3A" Margin="0,8"/>
+                <Rectangle
+                    x:Name="_separatorFps"
+                    Height="8"
+                    Fill="Transparent" />
 
-                <StackPanel>
-                    <TextBlock Text="{Binding Source={x:Static resources:Resource.FloatingGadgets_Gpu}, StringFormat='— {0} —'}" Style="{StaticResource SensorLabelStyle}" FontWeight="Bold" Foreground="#4CAF50" FontSize="14" Margin="0,0,0,5"/>
+                <!--  CPU Group  -->
+                <StackPanel x:Name="_cpuGroup" Margin="0,5,0,0">
+                    <TextBlock
+                        Margin="0,0,0,5"
+                        FontSize="14"
+                        FontWeight="Bold"
+                        Foreground="#FF5722"
+                        Style="{StaticResource SensorLabelStyle}"
+                        Text="{Binding Source={x:Static resources:Resource.FloatingGadgets_Cpu}, StringFormat='— {0} —'}" />
 
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{x:Static resources:Resource.SensorsControl_Utilization_Title}" Style="{StaticResource SensorLabelStyle}" />
-                        <TextBlock x:Name="_gpuUsage" Grid.Column="1" Text="-" Style="{StaticResource SensorValueStyle}" />
-                    </Grid>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{x:Static resources:Resource.SensorsControl_CoreClock_Title}" Style="{StaticResource SensorLabelStyle}" />
-                        <TextBlock x:Name="_gpuFrequency" Grid.Column="1" Text="-" Style="{StaticResource SensorValueStyle}" />
-                    </Grid>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{x:Static resources:Resource.SensorsControl_GpuCore_Title}" Style="{StaticResource SensorLabelStyle}" />
-                        <TextBlock x:Name="_gpuTemperature" Grid.Column="1" Text="-" Style="{StaticResource SensorValueStyle}" />
-                    </Grid>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{x:Static resources:Resource.SensorsControl_GpuMemoryTemperature_Title}" Style="{StaticResource SensorLabelStyle}" />
-                        <TextBlock x:Name="_gpuVramTemperature" Grid.Column="1" Text="-" Style="{StaticResource SensorValueStyle}" />
-                    </Grid>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{x:Static resources:Resource.SensorsControl_CPU_Power}" Style="{StaticResource SensorLabelStyle}" />
-                        <TextBlock x:Name="_gpuPower" Grid.Column="1" Text="-" Style="{StaticResource SensorValueStyle}" />
-                    </Grid>
-                </StackPanel>
-
-                <Separator Background="#3A3A3A" Margin="0,8"/>
-
-                <StackPanel>
-                    <TextBlock Text="{Binding Source={x:Static resources:Resource.FloatingGadgets_Chipset}, StringFormat='— {0} —'}" Style="{StaticResource SensorLabelStyle}" FontWeight="Bold" Foreground="#FFC107" FontSize="14" Margin="0,0,0,5"/>
-
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock x:Name="_pchName" Grid.Column="0" Text="{x:Static resources:Resource.SensorItem_PchTemperature}" Style="{StaticResource SensorLabelStyle}" />
-                        <TextBlock x:Name="_pchTemperature" Grid.Column="2" Text="-" Style="{StaticResource SensorValueStyle}" />
+                        <TextBlock
+                            Grid.Column="0"
+                            Style="{StaticResource SensorLabelStyle}"
+                            Text="{x:Static resources:Resource.SensorsControl_Utilization_Title}" />
+                        <TextBlock
+                            x:Name="_cpuUsage"
+                            Grid.Column="1"
+                            Style="{StaticResource SensorValueStyle}"
+                            Text="-" />
                     </Grid>
 
                     <Grid>
@@ -168,8 +134,15 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{x:Static resources:Resource.FloatingGadgets_Memory_Utilization}" Style="{StaticResource SensorLabelStyle}" />
-                        <TextBlock x:Name="_memUsage" Grid.Column="1" Text="-" Style="{StaticResource SensorValueStyle}" />
+                        <TextBlock
+                            Grid.Column="0"
+                            Style="{StaticResource SensorLabelStyle}"
+                            Text="{x:Static resources:Resource.SensorsControl_CoreClock_Title}" />
+                        <TextBlock
+                            x:Name="_cpuFrequency"
+                            Grid.Column="1"
+                            Style="{StaticResource SensorValueStyle}"
+                            Text="-" />
                     </Grid>
 
                     <Grid>
@@ -177,8 +150,15 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{x:Static resources:Resource.FloatingGadgets_Memory_Temperature}" Style="{StaticResource SensorLabelStyle}" />
-                        <TextBlock x:Name="_memTemperature" Grid.Column="2" Text="-" Style="{StaticResource SensorValueStyle}" />
+                        <TextBlock
+                            Grid.Column="0"
+                            Style="{StaticResource SensorLabelStyle}"
+                            Text="{x:Static resources:Resource.SensorsControl_Temperature_Title}" />
+                        <TextBlock
+                            x:Name="_cpuTemperature"
+                            Grid.Column="1"
+                            Style="{StaticResource SensorValueStyle}"
+                            Text="-" />
                     </Grid>
 
                     <Grid>
@@ -186,48 +166,266 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{x:Static resources:Resource.FloatingGadgets_Disk_0_Temperature}" Style="{StaticResource SensorLabelStyle}" />
-                        <TextBlock x:Name="_disk0Temperature" Grid.Column="2" Text="-" Style="{StaticResource SensorValueStyle}" />
+                        <TextBlock
+                            Grid.Column="0"
+                            Style="{StaticResource SensorLabelStyle}"
+                            Text="{x:Static resources:Resource.SensorsControl_CPU_Power}" />
+                        <TextBlock
+                            x:Name="_cpuPower"
+                            Grid.Column="1"
+                            Style="{StaticResource SensorValueStyle}"
+                            Text="-" />
                     </Grid>
 
+                    <!--  CPU Fan inside CPU group  -->
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{x:Static resources:Resource.FloatingGadgets_Disk_1_Temperature}" Style="{StaticResource SensorLabelStyle}" />
-                        <TextBlock x:Name="_disk1Temperature" Grid.Column="2" Text="-" Style="{StaticResource SensorValueStyle}" />
+                        <TextBlock
+                            Grid.Column="0"
+                            Style="{StaticResource SensorLabelStyle}"
+                            Text="{x:Static resources:Resource.FloatingGadgets_CPU_Fan}" />
+                        <TextBlock
+                            x:Name="_cpuFanSpeed"
+                            Grid.Column="1"
+                            Style="{StaticResource SensorValueStyle}"
+                            Text="-" />
                     </Grid>
                 </StackPanel>
 
-                <Separator Background="#3A3A3A" Margin="0,8"/>
+                <Separator Margin="0,8" Background="#3A3A3A" />
 
-                <StackPanel>
-                    <TextBlock Text="{Binding Source={x:Static resources:Resource.FloatingGadgets_Fans}, StringFormat='— {0} —'}"  Style="{StaticResource SensorLabelStyle}" FontWeight="Bold" Foreground="#E91E63" FontSize="14" Margin="0,0,0,5"/>
+                <!--  GPU Group  -->
+                <StackPanel x:Name="_gpuGroup">
+                    <TextBlock
+                        Margin="0,0,0,5"
+                        FontSize="14"
+                        FontWeight="Bold"
+                        Foreground="#4CAF50"
+                        Style="{StaticResource SensorLabelStyle}"
+                        Text="{Binding Source={x:Static resources:Resource.FloatingGadgets_Gpu}, StringFormat='— {0} —'}" />
 
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{x:Static resources:Resource.FloatingGadgets_CPU_Fan}" Style="{StaticResource SensorLabelStyle}" />
-                        <TextBlock x:Name="_cpuFanSpeed" Grid.Column="1" Text="-" Style="{StaticResource SensorValueStyle}" />
+                        <TextBlock
+                            Grid.Column="0"
+                            Style="{StaticResource SensorLabelStyle}"
+                            Text="{x:Static resources:Resource.SensorsControl_Utilization_Title}" />
+                        <TextBlock
+                            x:Name="_gpuUsage"
+                            Grid.Column="1"
+                            Style="{StaticResource SensorValueStyle}"
+                            Text="-" />
                     </Grid>
+
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{x:Static resources:Resource.FloatingGadgets_GPU_Fan}" Style="{StaticResource SensorLabelStyle}" />
-                        <TextBlock x:Name="_gpuFanSpeed" Grid.Column="1" Text="-" Style="{StaticResource SensorValueStyle}" />
+                        <TextBlock
+                            Grid.Column="0"
+                            Style="{StaticResource SensorLabelStyle}"
+                            Text="{x:Static resources:Resource.SensorsControl_CoreClock_Title}" />
+                        <TextBlock
+                            x:Name="_gpuFrequency"
+                            Grid.Column="1"
+                            Style="{StaticResource SensorValueStyle}"
+                            Text="-" />
                     </Grid>
+
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{x:Static resources:Resource.FloatingGadgets_PCH_Fan}" Style="{StaticResource SensorLabelStyle}" />
-                        <TextBlock x:Name="_pchFanSpeed" Grid.Column="1" Text="-" Style="{StaticResource SensorValueStyle}" />
+                        <TextBlock
+                            Grid.Column="0"
+                            Style="{StaticResource SensorLabelStyle}"
+                            Text="{x:Static resources:Resource.SensorsControl_GpuCore_Title}" />
+                        <TextBlock
+                            x:Name="_gpuTemperature"
+                            Grid.Column="1"
+                            Style="{StaticResource SensorValueStyle}"
+                            Text="-" />
+                    </Grid>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Column="0"
+                            Style="{StaticResource SensorLabelStyle}"
+                            Text="{x:Static resources:Resource.SensorsControl_GpuMemoryTemperature_Title}" />
+                        <TextBlock
+                            x:Name="_gpuVramTemperature"
+                            Grid.Column="1"
+                            Style="{StaticResource SensorValueStyle}"
+                            Text="-" />
+                    </Grid>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Column="0"
+                            Style="{StaticResource SensorLabelStyle}"
+                            Text="{x:Static resources:Resource.SensorsControl_CPU_Power}" />
+                        <TextBlock
+                            x:Name="_gpuPower"
+                            Grid.Column="1"
+                            Style="{StaticResource SensorValueStyle}"
+                            Text="-" />
+                    </Grid>
+
+                    <!--  GPU Fan inside GPU group  -->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Column="0"
+                            Style="{StaticResource SensorLabelStyle}"
+                            Text="{x:Static resources:Resource.FloatingGadgets_GPU_Fan}" />
+                        <TextBlock
+                            x:Name="_gpuFanSpeed"
+                            Grid.Column="1"
+                            Style="{StaticResource SensorValueStyle}"
+                            Text="-" />
+                    </Grid>
+                </StackPanel>
+
+                <Separator Margin="0,8" Background="#3A3A3A" />
+
+                <!--  Memory Group  -->
+                <StackPanel x:Name="_memoryGroup">
+                    <TextBlock
+                        Margin="0,0,0,5"
+                        FontSize="14"
+                        FontWeight="Bold"
+                        Foreground="#FFC107"
+                        Style="{StaticResource SensorLabelStyle}"
+                        Text="{Binding Source={x:Static resources:Resource.SensorsControl_Memory_Title}, StringFormat='— {0} —'}" />
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Column="0"
+                            Style="{StaticResource SensorLabelStyle}"
+                            Text="{x:Static resources:Resource.FloatingGadgets_Memory_Utilization}" />
+                        <TextBlock
+                            x:Name="_memUsage"
+                            Grid.Column="1"
+                            Style="{StaticResource SensorValueStyle}"
+                            Text="-" />
+                    </Grid>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Column="0"
+                            Style="{StaticResource SensorLabelStyle}"
+                            Text="{x:Static resources:Resource.FloatingGadgets_Memory_Temperature}" />
+                        <TextBlock
+                            x:Name="_memTemperature"
+                            Grid.Column="1"
+                            Style="{StaticResource SensorValueStyle}"
+                            Text="-" />
+                    </Grid>
+                </StackPanel>
+
+                <Separator Margin="0,8" Background="#3A3A3A" />
+
+                <!--  PCH / Disks Group  -->
+                <StackPanel x:Name="_pchGroup">
+                    <TextBlock
+                        Margin="0,0,0,5"
+                        FontSize="14"
+                        FontWeight="Bold"
+                        Foreground="#9C27B0"
+                        Style="{StaticResource SensorLabelStyle}"
+                        Text="{Binding Source={x:Static resources:Resource.FloatingGadgets_Chipset}, StringFormat='— {0} —'}" />
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            x:Name="_pchName"
+                            Grid.Column="0"
+                            Style="{StaticResource SensorLabelStyle}"
+                            Text="{x:Static resources:Resource.SensorItem_PchTemperature}" />
+                        <TextBlock
+                            x:Name="_pchTemperature"
+                            Grid.Column="1"
+                            Style="{StaticResource SensorValueStyle}"
+                            Text="-" />
+                    </Grid>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Column="0"
+                            Style="{StaticResource SensorLabelStyle}"
+                            Text="{x:Static resources:Resource.FloatingGadgets_Disk_0_Temperature}" />
+                        <TextBlock
+                            x:Name="_disk0Temperature"
+                            Grid.Column="1"
+                            Style="{StaticResource SensorValueStyle}"
+                            Text="-" />
+                    </Grid>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Column="0"
+                            Style="{StaticResource SensorLabelStyle}"
+                            Text="{x:Static resources:Resource.FloatingGadgets_Disk_1_Temperature}" />
+                        <TextBlock
+                            x:Name="_disk1Temperature"
+                            Grid.Column="1"
+                            Style="{StaticResource SensorValueStyle}"
+                            Text="-" />
+                    </Grid>
+
+                    <!--  PCH Fan inside PCH group  -->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Column="0"
+                            Style="{StaticResource SensorLabelStyle}"
+                            Text="{x:Static resources:Resource.FloatingGadgets_PCH_Fan}" />
+                        <TextBlock
+                            x:Name="_pchFanSpeed"
+                            Grid.Column="1"
+                            Style="{StaticResource SensorValueStyle}"
+                            Text="-" />
                     </Grid>
                 </StackPanel>
 
