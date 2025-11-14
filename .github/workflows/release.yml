@@ -39,7 +39,7 @@ jobs:
       run: dotnet restore
       
     - name: Build
-      run: .\make.bat ${{ steps.set_version.outputs.version }}
+      run: .\make_action.bat ${{ steps.set_version.outputs.version }}
       
     - name: Verify installer
       run: |

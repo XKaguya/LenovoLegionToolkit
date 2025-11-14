@@ -22,7 +22,7 @@ jobs:
     - name: Restore
       run: dotnet restore
     - name: Build
-      run: .\make.bat
+      run: .\make_action.bat
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
