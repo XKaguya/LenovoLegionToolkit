@@ -474,8 +474,7 @@
                     Height="35"
                     Margin="0,0,8,0"
                     VerticalAlignment="Center"
-                    Click="CustomButton_Click"
-                    ToolTip="Customize which metrics are displayed on the Floating Gadget">
+                    Click="CustomButton_Click">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock VerticalAlignment="Center" Text="{x:Static resources:Resource.DashboardPage_Customize}" />
                     </StackPanel>
