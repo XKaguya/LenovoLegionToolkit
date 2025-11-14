@@ -38,9 +38,9 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
 
         public event EventHandler<FpsData>? FpsDataUpdated;
 
-        public async Task StartMonitoringAsync()
+        public Task StartMonitoringAsync()
         {
-            if (_isRunning) return;
+            if (_isRunning) return Task.CompletedTask;
 
             _isRunning = true;
             _cancellationTokenSource = new CancellationTokenSource();
@@ -92,6 +92,8 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                     }
                 }
             }, _cancellationTokenSource.Token);
+
+            return Task.CompletedTask;
         }
 
         public void StopMonitoring()
@@ -144,7 +146,7 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
             catch (Win32Exception) { return null; }
         }
 
-        private async Task StartProcessMonitoringAsync(Process process)
+        private Task StartProcessMonitoringAsync(Process process)
         {
             try
             {
@@ -196,6 +198,8 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                     _currentMonitoredProcess = null;
                 }
             }
+
+            return Task.CompletedTask;
         }
 
         private void StopProcessMonitoring()

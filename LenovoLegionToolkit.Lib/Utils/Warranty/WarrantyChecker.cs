@@ -126,6 +126,15 @@ public class WarrantyChecker(ApplicationSettings settings, HttpClientFactory htt
             "Lenovo Care 智",                              // Lenovo Care
         };
 
+        List<string> excludedProductPartNames = new()
+        {
+            "综合软件支持",
+            "7*24技术支持服务",
+            "一年一次到店体检",
+            "专属人工 ",
+            "硬盘不回收",
+        };
+
         DateTime? startDate = allWarrantyItems
                 .Where(w => w.ServiceProductName == prooducts[0])
                 .Select(w => DateTime.TryParse(w.StartDateString, out var parsedDate) ? parsedDate : (DateTime?)null)
@@ -135,8 +144,9 @@ public class WarrantyChecker(ApplicationSettings settings, HttpClientFactory htt
         var extendedProducts = prooducts.Skip(1).ToList();
 
         DateTime? endDate = allWarrantyItems
-            .Where(w => extendedProducts.Any(
-                shortName => w.ServiceProductName.Contains(shortName)
+            .Where(w => !string.IsNullOrEmpty(w.ServiceProductName) && extendedProducts.Any(
+                shortName => w.ServiceProductName.Contains(shortName) &&
+                !excludedProductPartNames.Any(excludedName => w.ServiceProductName.Contains(excludedName))
             ))
             .Select(w => DateTime.TryParse(w.EndDateString, out var parsedDate) ? parsedDate : (DateTime?)null)
             .Where(d => d.HasValue)
