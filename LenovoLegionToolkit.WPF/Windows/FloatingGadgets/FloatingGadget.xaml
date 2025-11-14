@@ -7,7 +7,7 @@
     xmlns:utils="clr-namespace:LenovoLegionToolkit.WPF.Utils"
     Title="FloatingGadget"
     Width="280"
-    Height="630"
+    Height="740"
     AllowsTransparency="True"
     Background="Transparent"
     Left="0"
