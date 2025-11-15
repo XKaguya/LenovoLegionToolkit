@@ -295,6 +295,24 @@ namespace LenovoLegionToolkit.Lib.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Hidden 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgetState_Hidden {
+            get {
+                return ResourceManager.GetString("FloatingGadgetState_Hidden", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Show 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgetState_Show {
+            get {
+                return ResourceManager.GetString("FloatingGadgetState_Show", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Off 的本地化字符串。
         /// </summary>
         public static string FnLockState_Off {
