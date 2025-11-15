@@ -14,8 +14,8 @@ namespace LenovoLegionToolkit.WPF.Windows.FloatingGadgets;
 
 public class GadgetItemGroup
 {
-    public string Header { get; set; }
-    public List<FloatingGadgetItem> Items { get; set; }
+    public string Header { get; set; } = string.Empty;
+    public List<FloatingGadgetItem> Items { get; set; } = new List<FloatingGadgetItem>();
 }
 
 public partial class Custom : Window

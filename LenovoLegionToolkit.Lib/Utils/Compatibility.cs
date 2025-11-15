@@ -701,8 +701,13 @@ public static partial class Compatibility
         {
             try
             {
-                var value = prop.GetValue(info);
-                var formattedValue = FormatPropertyValue(prop.Name, value, 0);
+                Object? value = prop.GetValue(info);
+                if (value == null)
+                {
+                    lines.Add($" * {prop.Name}: 'null'");
+                    continue;
+                }
+                List<string>? formattedValue = FormatPropertyValue(prop.Name, value, 0);
                 lines.AddRange(formattedValue);
             }
             catch (Exception ex)
@@ -753,8 +758,13 @@ public static partial class Compatibility
                 {
                     try
                     {
-                        var propValue = prop.GetValue(properties);
-                        var propLines = FormatPropertyValue(prop.Name, propValue, indentLevel + 1);
+                        Object? propValue = prop.GetValue(properties);
+                        if (value == null)
+                        {
+                            lines.Add($" * {prop.Name}: 'null'");
+                            continue;
+                        }
+                        List<string>? propLines = FormatPropertyValue(prop.Name, value, 0);
                         lines.AddRange(propLines);
                     }
                     catch (Exception ex)

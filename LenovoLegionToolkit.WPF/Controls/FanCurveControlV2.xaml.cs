@@ -315,7 +315,7 @@ public partial class FanCurveControlV2
             Update(tableData, index, value, FanTableType.CPU, _cpuDescription, _cpuValue);
             Update(tableData, index, value, FanTableType.CPUSensor, _cpuSensorDescription, _cpuSensorValue);
             Update(tableData, index, value, FanTableType.GPU, _gpuDescription, _gpuValue);
-            Update(tableData, index, value, FanTableType.PCH, _chipsetDescription, _pchValue);
+            Update(tableData, index, value, FanTableType.PCH, _chipsetDescription!, _pchValue);
         }
 
         private static void Update(FanTableData[] tableData, int index, int value, FanTableType type, TextBlock descriptionTextBlock, TextBlock valueTextBlock)

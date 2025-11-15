@@ -1,7 +1,4 @@
-﻿#if !DEBUG
-using LenovoLegionToolkit.Lib.System;
-#endif
-using LenovoLegionToolkit.Lib;
+﻿using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Automation;
 using LenovoLegionToolkit.Lib.Controllers;
 using LenovoLegionToolkit.Lib.Controllers.Sensors;

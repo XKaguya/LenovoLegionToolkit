@@ -180,19 +180,19 @@ public partial class FloatingGadgetUpper
         });
     }
 
-    private void OnSourceInitialized(object sender, EventArgs e)
+    private void OnSourceInitialized(object? sender, EventArgs e)
     {
         var hwnd = new WindowInteropHelper(this).Handle;
         var extendedStyle = GetWindowLong(hwnd, GWL_EXSTYLE);
         SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle | WS_EX_TRANSPARENT | WS_EX_TOOLWINDOW);
     }
 
-    private void OnLoaded(object sender, RoutedEventArgs e)
+    private void OnLoaded(object? sender, RoutedEventArgs e)
     {
         Dispatcher.BeginInvoke(new Action(SetWindowPosition), DispatcherPriority.Loaded);
     }
 
-    private void OnContentRendered(object sender, EventArgs e)
+    private void OnContentRendered(object? sender, EventArgs e)
     {
         if (!_positionSet)
         {
@@ -200,7 +200,7 @@ public partial class FloatingGadgetUpper
         }
     }
 
-    private async void FloatingGadget_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+    private async void FloatingGadget_IsVisibleChanged(object? sender, DependencyPropertyChangedEventArgs e)
     {
         if (IsVisible)
         {
@@ -224,7 +224,7 @@ public partial class FloatingGadgetUpper
         }
     }
 
-    private void FloatingGadget_Closed(object sender, EventArgs e)
+    private void FloatingGadget_Closed(object? sender, EventArgs e)
     {
         _cts?.Cancel();
         _cts?.Dispose();
