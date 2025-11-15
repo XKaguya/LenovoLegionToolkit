@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using System.Diagnostics;
 using LenovoLegionToolkit.Lib.System;
 using LenovoLegionToolkit.Lib.System.Management;
 using LenovoLegionToolkit.Lib.Utils;
@@ -35,7 +36,9 @@ public abstract class AbstractSensorsController(GPUController gpuController) : I
     }
 
     private readonly SafePerformanceCounter _percentProcessorPerformanceCounter = new("Processor Information", "% Processor Performance", "_Total");
-    private readonly SafePerformanceCounter _percentProcessorUtilityCounter = new("Processor Information", "% Processor Utility", "_Total");
+    private readonly SafePerformanceCounter _percentProcessorUtilityCounter = new("Processor", "% Processor Time", "_Total");
+    private readonly SafePerformanceCounter _percentProcessorIdleCounter = new("Processor", "% Idle Time", "_Total");
+    private PerformanceCounter[]? _perCoreCounters;
 
     protected int? _cpuBaseClockCache;
     protected int? _cpuMaxCoreClockCache;
@@ -45,11 +48,49 @@ public abstract class AbstractSensorsController(GPUController gpuController) : I
 
     public abstract Task<bool> IsSupportedAsync();
 
-    public Task PrepareAsync()
+    public async Task PrepareAsync()
     {
         _percentProcessorPerformanceCounter.Reset();
         _percentProcessorUtilityCounter.Reset();
-        return Task.CompletedTask;
+        _percentProcessorIdleCounter.Reset();
+
+        try
+        {
+            var category = new PerformanceCounterCategory("Processor");
+            var instances = category.GetInstanceNames().Where(n => n != "_Total").ToArray();
+            if (instances.Length >0)
+            {
+                _perCoreCounters = instances.Select(inst => new PerformanceCounter("Processor", "% Processor Time", inst, readOnly: true)).ToArray();
+                foreach (var pc in _perCoreCounters)
+                    pc.NextValue();
+            }
+        }
+        catch
+        {
+            _perCoreCounters = null;
+        }
+
+        _percentProcessorUtilityCounter.NextValue();
+        _percentProcessorPerformanceCounter.NextValue();
+        _percentProcessorIdleCounter.NextValue();
+
+        if (_perCoreCounters != null)
+        {
+            foreach (var pc in _perCoreCounters)
+                pc.NextValue();
+        }
+
+        await Task.Delay(500).ConfigureAwait(false);
+
+        _percentProcessorUtilityCounter.NextValue();
+        _percentProcessorPerformanceCounter.NextValue();
+        _percentProcessorIdleCounter.NextValue();
+
+        if (_perCoreCounters != null)
+        {
+            foreach (var pc in _perCoreCounters)
+                pc.NextValue();
+        }
     }
 
     public virtual async Task<SensorsData> GetDataAsync()
@@ -136,23 +177,6 @@ public abstract class AbstractSensorsController(GPUController gpuController) : I
     protected abstract Task<int> GetGpuMaxFanSpeedAsync();
 
     protected virtual Task<int> GetPchMaxFanSpeedAsync() => Task.FromResult(-1);
-
-    protected int GetCpuUtilization(int maxUtilization)
-    {
-        var result = (int)_percentProcessorUtilityCounter.NextValue();
-        if (result < 0)
-            return -1;
-        return Math.Min(result, maxUtilization);
-    }
-
-    protected int GetCpuCoreClock()
-    {
-        var baseClock = _cpuBaseClockCache ??= GetCpuBaseClock();
-        var clock = (int)(baseClock * (_percentProcessorPerformanceCounter.NextValue() / 100f));
-        if (clock < 1)
-            return -1;
-        return clock;
-    }
 
     protected static unsafe int GetCpuBaseClock()
     {
@@ -254,9 +278,57 @@ public abstract class AbstractSensorsController(GPUController gpuController) : I
         {
             return GPUInfo.Empty;
         }
-        finally
+    }
+
+    protected int GetCpuUtilization(int maxUtilization)
+    {
+        if (_perCoreCounters != null && _perCoreCounters.Length >0)
         {
-            try { NVAPI.Unload(); } catch { /* Ignored */ }
+            try
+            {
+                var values = _perCoreCounters.Select(pc => pc.NextValue()).ToArray();
+                if (values.Length >0)
+                {
+                    var avg = values.Average();
+                    if (!double.IsNaN(avg))
+                    {
+                        var rounded = (int)Math.Round(avg);
+                        return Math.Min(Math.Max(rounded,0), maxUtilization);
+                    }
+                }
+            }
+            catch { }
         }
+
+        var idleRaw = _percentProcessorIdleCounter.NextValue();
+        if (!float.IsNaN(idleRaw) && idleRaw >=0)
+        {
+            var usage =100.0f - idleRaw;
+            if (!float.IsNaN(usage) && usage >=0)
+            {
+                var rounded = (int)Math.Round(usage);
+                return Math.Min(Math.Max(rounded,0), maxUtilization);
+            }
+        }
+
+        var raw = _percentProcessorUtilityCounter.NextValue();
+        if (float.IsNaN(raw) || raw <0)
+            return -1;
+
+        var roundedFallback = (int)Math.Round(raw);
+        return Math.Min(Math.Max(roundedFallback,0), maxUtilization);
+    }
+
+    protected int GetCpuCoreClock()
+    {
+        var baseClock = _cpuBaseClockCache ??= GetCpuBaseClock();
+        var perfValue = _percentProcessorPerformanceCounter.NextValue();
+        if (float.IsNaN(perfValue) || perfValue <=0)
+            return -1;
+
+        var clock = (int)(baseClock * (perfValue /100f));
+        if (clock <1)
+            return -1;
+        return clock;
     }
 }

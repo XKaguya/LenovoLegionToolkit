@@ -107,6 +107,58 @@ public enum FlipToStartState
     On
 }
 
+public enum FloatingGadgetItem
+{
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Fps")]
+    Fps,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_LowFps")]
+    LowFps,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_FrameTime")]
+    FrameTime,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Frequency")]
+    CpuFrequency,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Utilization")]
+    CpuUtilization,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Temperature")]
+    CpuTemperature,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Power")]
+    CpuPower,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Fan")]
+    CpuFan,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Frequency")]
+    GpuFrequency,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Utilization")]
+    GpuUtilization,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Temperature")]
+    GpuTemperature,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_VramTemperature")]
+    GpuVramTemperature,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Power")]
+    GpuPower,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Fan")]
+    GpuFan,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Temperature")]
+    Disk1Temperature,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Temperature")]
+    Disk2Temperature,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Utilization")]
+    MemoryUtilization,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_MemoryTemperature")]
+    MemoryTemperature,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_MotherboardTemperature")]
+    PchTemperature,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Fan")]
+    PchFan,
+}
+
+public enum FloatingGadgetState
+{
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetState_Hidden")]
+    Hidden,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetState_Show")]
+    Show
+}
+
 public enum FnLockState
 {
     [Display(ResourceType = typeof(Resource), Name = "FnLockState_Off")]
@@ -220,9 +272,10 @@ public enum LegionSeries
     Legion_Go = 6,
     Lenovo_Slim = 7,
     IdeaPad = 8,
-    LOQ = 9,
-    YOGA = 10,
-    ThinkBook = 11,
+    IdeaPad_Gaming = 9,
+    LOQ = 10,
+    YOGA = 11,
+    ThinkBook = 12,
     Unknown = 255
 }
 
@@ -317,7 +370,11 @@ public enum NotificationType
     TouchpadOff,
     UpdateAvailable,
     WhiteKeyboardBacklightChanged,
-    WhiteKeyboardBacklightOff
+    WhiteKeyboardBacklightOff,
+    ITSModeAuto,
+    ITSModeCool,
+    ITSModePerformance,
+    ITSModeGeek
 }
 
 public enum NotificationPosition

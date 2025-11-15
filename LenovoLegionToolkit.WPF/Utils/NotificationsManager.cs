@@ -92,6 +92,10 @@ public class NotificationsManager
                 NotificationType.UpdateAvailable => _settings.Store.Notifications.UpdateAvailable,
                 NotificationType.WhiteKeyboardBacklightOff => _settings.Store.Notifications.KeyboardBacklight,
                 NotificationType.WhiteKeyboardBacklightChanged => _settings.Store.Notifications.KeyboardBacklight,
+                NotificationType.ITSModeAuto => _settings.Store.Notifications.ITSMode,
+                NotificationType.ITSModeCool => _settings.Store.Notifications.ITSMode,
+                NotificationType.ITSModePerformance => _settings.Store.Notifications.ITSMode,
+                NotificationType.ITSModeGeek => _settings.Store.Notifications.ITSMode,
                 _ => throw new ArgumentException(nameof(notification.Type))
             };
 
@@ -140,6 +144,10 @@ public class NotificationsManager
                 NotificationType.UpdateAvailable => SymbolRegular.ArrowSync24,
                 NotificationType.WhiteKeyboardBacklightOff => SymbolRegular.Lightbulb24,
                 NotificationType.WhiteKeyboardBacklightChanged => SymbolRegular.Lightbulb24,
+                NotificationType.ITSModeAuto => SymbolRegular.Gauge24,
+                NotificationType.ITSModeCool => SymbolRegular.Gauge24,
+                NotificationType.ITSModePerformance => SymbolRegular.Gauge24,
+                NotificationType.ITSModeGeek => SymbolRegular.Gauge24,
                 _ => throw new ArgumentException(nameof(notification.Type))
             };
 
@@ -197,6 +205,10 @@ public class NotificationsManager
                 NotificationType.UpdateAvailable => string.Format(Resource.Notification_UpdateAvailable, notification.Args),
                 NotificationType.WhiteKeyboardBacklightOff => string.Format(Resource.Notification_WhiteKeyboardBacklight, notification.Args),
                 NotificationType.WhiteKeyboardBacklightChanged => string.Format(Resource.Notification_WhiteKeyboardBacklight, notification.Args),
+                NotificationType.ITSModeAuto => string.Format("{0}", notification.Args),
+                NotificationType.ITSModeCool => string.Format("{0}", notification.Args),
+                NotificationType.ITSModePerformance => string.Format("{0}", notification.Args),
+                NotificationType.ITSModeGeek => string.Format("{0}", notification.Args),
                 _ => throw new ArgumentException(nameof(notification.Type))
             };
 
@@ -206,6 +218,10 @@ public class NotificationsManager
                 NotificationType.PowerModePerformance => si => si.Foreground = PowerModeState.Performance.GetSolidColorBrush(),
                 NotificationType.PowerModeExtreme => si => si.Foreground = PowerModeState.Extreme.GetSolidColorBrush(),
                 NotificationType.PowerModeGodMode => si => si.Foreground = PowerModeState.GodMode.GetSolidColorBrush(),
+                NotificationType.ITSModeAuto => si => si.Foreground = PowerModeState.Quiet.GetSolidColorBrush(),
+                NotificationType.ITSModeCool => si => si.Foreground = PowerModeState.Performance.GetSolidColorBrush(),
+                NotificationType.ITSModePerformance => si => si.Foreground = PowerModeState.Extreme.GetSolidColorBrush(),
+                NotificationType.ITSModeGeek => si => si.Foreground = PowerModeState.GodMode.GetSolidColorBrush(),
                 _ => null
             };
 

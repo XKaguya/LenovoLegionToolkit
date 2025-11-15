@@ -20,6 +20,7 @@ public class ApplicationSettings : AbstractSettings<ApplicationSettings.Applicat
         public bool ACAdapter { get; set; }
         public bool SmartKey { get; set; }
         public bool AutomationNotification { get; set; } = true;
+        public bool ITSMode { get; set; } = true;
     }
 
     public class ApplicationSettingsStore
@@ -58,6 +59,8 @@ public class ApplicationSettings : AbstractSettings<ApplicationSettings.Applicat
         public int FloatingGadgetsRefreshInterval { get; set; }
         public string BackGroundImageFilePath { get; set; } = string.Empty;
         public double Opacity { get; set; } = 1.0f;
+        public int SelectedStyleIndex { get; set; } = 0;
+        public List<FloatingGadgetItem> FloatingGadgetItems { get; set; } = [];
     }
 
     public ApplicationSettings() : base("settings.json")

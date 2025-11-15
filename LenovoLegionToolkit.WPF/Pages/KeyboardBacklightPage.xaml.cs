@@ -32,10 +32,10 @@ public partial class KeyboardBacklightPage
 
         if (!_settings.Store.DynamicLightingWarningDontShowAgain)
         {
-            using RegistryKey key = Registry.CurrentUser.OpenSubKey(registryPath);
+            using RegistryKey? key = Registry.CurrentUser.OpenSubKey(registryPath);
             if (key != null)
             {
-                object value = key.GetValue(valueName);
+                object? value = key.GetValue(valueName);
                 if (value != null)
                 {
                     if (value is int intValue)

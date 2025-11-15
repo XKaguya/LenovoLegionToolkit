@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AccentColorSource_Custom" xml:space="preserve">
-    <value>Vlastný</value>
-  </data>
   <data name="AccentColorSource_System" xml:space="preserve">
     <value>Systém</value>
   </data>
@@ -522,5 +519,47 @@
   </data>
   <data name="ITSMode_Intelligent_Geek" xml:space="preserve">
     <value>Geek</value>
+  </data>
+  <data name="FloatingGadgetItem_Fps" xml:space="preserve">
+    <value>FPS</value>
+  </data>
+  <data name="FloatingGadgetItem_LowFps" xml:space="preserve">
+    <value>1% Low</value>
+  </data>
+  <data name="FloatingGadgetItem_FrameTime" xml:space="preserve">
+    <value>Frame Time</value>
+  </data>
+  <data name="FloatingGadgetItem_Frequency" xml:space="preserve">
+    <value>Frequency</value>
+  </data>
+  <data name="FloatingGadgetItem_Utilization" xml:space="preserve">
+    <value>Utilization</value>
+  </data>
+  <data name="FloatingGadgetItem_Temperature" xml:space="preserve">
+    <value>Temperature</value>
+  </data>
+  <data name="FloatingGadgetItem_Power" xml:space="preserve">
+    <value>Power</value>
+  </data>
+  <data name="FloatingGadgetItem_Fan" xml:space="preserve">
+    <value>Fan</value>
+  </data>
+  <data name="FloatingGadgetItem_VramTemperature" xml:space="preserve">
+    <value>Vram Temperature</value>
+  </data>
+  <data name="FloatingGadgetItem_MemoryTemperature" xml:space="preserve">
+    <value>Memory Temperature</value>
+  </data>
+  <data name="FloatingGadgetItem_MotherboardTemperature" xml:space="preserve">
+    <value>Motherboard Temperature</value>
+  </data>
+  <data name="AccentColorSource_Custom" xml:space="preserve">
+    <value>Vlastný</value>
+  </data>
+  <data name="FloatingGadgetState_Hidden" xml:space="preserve">
+    <value>Hidden</value>
+  </data>
+  <data name="FloatingGadgetState_Show" xml:space="preserve">
+    <value>Show</value>
   </data>
 </root>

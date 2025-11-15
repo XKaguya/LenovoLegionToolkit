@@ -1383,8 +1383,7 @@ Richiede il riavvio.</value>
     <value>Riprova</value>
   </data>
   <data name="UnexpectedException" xml:space="preserve">
-    <value>Unexpected exception occurred:
-{0}</value>
+    <value>Unexpected exception occurred:</value>
   </data>
   <data name="Unnamed" xml:space="preserve">
     <value>Senza nome</value>
@@ -2537,5 +2536,50 @@ Click Yes to disable and No to ignore.</value>
   </data>
   <data name="SensorsControl_Motherboard_Temperature" xml:space="preserve">
     <value>Board Temperature</value>
+  </data>
+  <data name="StatusWindow_Frequency_And_Temperature" xml:space="preserve">
+    <value>Frequency / Temperature</value>
+  </data>
+  <data name="StatusWindow_Fan_And_Power" xml:space="preserve">
+    <value>Fan / Power</value>
+  </data>
+  <data name="StatusWindow_System_Fan" xml:space="preserve">
+    <value>System Fan</value>
+  </data>
+  <data name="FloatingGadgets_Fps" xml:space="preserve">
+    <value>FPS</value>
+  </data>
+  <data name="FloatingGadgets_Low_Fps" xml:space="preserve">
+    <value>1% Low</value>
+  </data>
+  <data name="FloatingGadgets_Frame_Time" xml:space="preserve">
+    <value>Frame Time</value>
+  </data>
+  <data name="FloatingGadgetAutomationStepControl_Title" xml:space="preserve">
+    <value>Floating Gadget</value>
+  </data>
+  <data name="FloatingGadgetAutomationStepControl_Message" xml:space="preserve">
+    <value>Show or Hide the Floating Gadget</value>
+  </data>
+  <data name="CloseAutomationStepControl_Title" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="CloseAutomationStepControl_Message" xml:space="preserve">
+    <value>Close the Lenovo Legion Toolkit</value>
+  </data>
+  <data name="FloatingGadget_Custom_Game" xml:space="preserve">
+    <value>Game</value>
+  </data>
+  <data name="FloatingGadget_Custom_CPU" xml:space="preserve">
+    <value>CPU</value>
+  </data>
+  <data name="FloatingGadget_Custom_GPU" xml:space="preserve">
+    <value>GPU</value>
+  </data>
+  <data name="FloatingGadget_Custom_Chipset" xml:space="preserve">
+    <value>Chipset</value>
+  </data>
+  <data name="FloatingGadget_Style_Simple" xml:space="preserve">
+    <value>Simple</value>
   </data>
 </root>

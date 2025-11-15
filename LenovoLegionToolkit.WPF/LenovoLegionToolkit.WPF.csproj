@@ -80,6 +80,9 @@
 	    <DependentUpon>Resource.resx</DependentUpon>
 	    <Generator>PublicResXFileCodeGenerator</Generator>
 	  </Compile>
+	  <Compile Update="Windows\FloatingGadgets\FloatingGadgetUpper.xaml.cs">
+	    <SubType>Code</SubType>
+	  </Compile>
 	</ItemGroup>
 	<ItemGroup>
 	  <EmbeddedResource Update="Assets\AssetResources.resx">

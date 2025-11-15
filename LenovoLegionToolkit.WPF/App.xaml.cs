@@ -1,7 +1,4 @@
-﻿#if !DEBUG
-using LenovoLegionToolkit.Lib.System;
-#endif
-using LenovoLegionToolkit.Lib;
+﻿using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Automation;
 using LenovoLegionToolkit.Lib.Controllers;
 using LenovoLegionToolkit.Lib.Controllers.Sensors;
@@ -36,7 +33,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
-using System.Windows.Threading;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
 using WinFormsApp = System.Windows.Forms.Application;
@@ -49,11 +45,12 @@ public partial class App
     private const string MUTEX_NAME = "LenovoLegionToolkit_Mutex_6efcc882-924c-4cbc-8fec-f45c25696f98";
     private const string EVENT_NAME = "LenovoLegionToolkit_Event_6efcc882-924c-4cbc-8fec-f45c25696f98";
 
+    public Window? FloatingGadget = null;
+
     private Mutex? _singleInstanceMutex;
     private EventWaitHandle? _singleInstanceWaitHandle;
 
     private bool _showPawnIONotify;
-    public FloatingGadget? FloatingGadget = null;
 
     public new static App Current => (App)Application.Current;
     public static MainWindow? MainWindowInstance = null;
@@ -75,11 +72,18 @@ public partial class App
 
         var flags = new Flags(e.Args);
 
+        SetupExceptionHandling();
+
         Log.Instance.IsTraceEnabled = flags.IsTraceEnabled;
 
-        AppDomain.CurrentDomain.UnhandledException += AppDomain_UnhandledException;
-
         EnsureSingleInstance();
+
+        IoCContainer.Initialize(
+            new Lib.IoCModule(),
+            new Lib.Automation.IoCModule(),
+            new Lib.Macro.IoCModule(),
+            new IoCModule()
+        );
 
         var localizationTask = LocalizationHelper.SetLanguageAsync(true);
         var compatibilityTask = CheckCompatibilityAsyncWrapper(flags);
@@ -91,13 +95,6 @@ public partial class App
 
         WinFormsApp.SetHighDpiMode(WinFormsHighDpiMode.PerMonitorV2);
         RenderOptions.ProcessRenderMode = RenderMode.SoftwareOnly;
-
-        IoCContainer.Initialize(
-            new Lib.IoCModule(),
-            new Lib.Automation.IoCModule(),
-            new Lib.Macro.IoCModule(),
-            new IoCModule()
-        );
 
         IoCContainer.Resolve<HttpClientFactory>().SetProxy(flags.ProxyUrl, flags.ProxyUsername, flags.ProxyPassword, flags.ProxyAllowAllCerts);
         IoCContainer.Resolve<PowerModeFeature>().AllowAllPowerModesOnBattery = flags.AllowAllPowerModesOnBattery;
@@ -179,8 +176,12 @@ public partial class App
 
         await deferredInitTask;
 
+        if (Log.Instance.IsTraceEnabled)
+        {
+            Log.Instance.Trace($"Lenovo Legion Toolit Version {Assembly.GetEntryAssembly()?.GetName().Version}");
+        }
+
         Compatibility.PrintControllerVersion();
-        FloatingGadget = new FloatingGadget();
         CheckFloatingGadget();
 
         if (Log.Instance.IsTraceEnabled)
@@ -231,6 +232,25 @@ public partial class App
         MainWindow = mainWindow;
         MainWindowInstance = mainWindow;
         mainWindow.Show();
+
+        if (FloatingGadget != null)
+        {
+            FloatingGadget.Hide();
+
+            var type = FloatingGadget.GetType();
+            var windowConstructors = new Dictionary<Type, Func<Window>>
+            {
+                { typeof(FloatingGadget), () => new FloatingGadget() },
+                { typeof(FloatingGadgetUpper), () => new FloatingGadgetUpper() }
+            };
+
+            if (windowConstructors.TryGetValue(type, out var constructor))
+            {
+                FloatingGadget.Close();
+                FloatingGadget = constructor();
+                FloatingGadget.Show();
+            }
+        }
     }
 
     protected override void OnExit(ExitEventArgs e)
@@ -315,22 +335,44 @@ public partial class App
         Shutdown();
     }
 
-    private void AppDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+    private void LogUnhandledException(Exception exception)
     {
-        var exception = e.ExceptionObject as Exception;
+        if (Log.Instance.IsTraceEnabled)
+        {
+            Log.Instance.Trace($"Exception in LogUnhandledException {exception.Message}", exception);
+        }
 
-        Log.Instance.ErrorReport("AppDomain_UnhandledException", exception ?? new Exception($"Unknown exception caught: {e.ExceptionObject}"));
-        Log.Instance.Trace($"Unhandled exception occurred.", exception);
-
-        SnackbarHelper.Show(Resource.UnexpectedException, string.Format(Resource.UnexpectedException, exception?.Message ?? "Unknown exception."), SnackbarType.Error);
+        if (Application.Current != null)
+        {
+            if (Application.Current.Dispatcher.CheckAccess())
+            {
+                SnackbarHelper.Show(Resource.UnexpectedException, exception?.Message + exception?.StackTrace ?? "Unknown exception.", SnackbarType.Error);
+            }
+            else
+            {
+                Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    SnackbarHelper.Show(Resource.UnexpectedException, exception?.Message + exception?.StackTrace ?? "Unknown exception.", SnackbarType.Error);
+                }));
+            }
+        }
     }
 
-    private void Application_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+    private void SetupExceptionHandling()
     {
-        Log.Instance.ErrorReport("Application_DispatcherUnhandledException", e.Exception);
-        Log.Instance.Trace($"Unhandled exception occurred.", e.Exception);
+        AppDomain.CurrentDomain.UnhandledException += (s, e) => LogUnhandledException((Exception)e.ExceptionObject);
 
-        SnackbarHelper.Show(Resource.UnexpectedException, e.Exception?.Message ?? "Unknown exception.", SnackbarType.Error);
+        DispatcherUnhandledException += (s, e) =>
+        {
+            LogUnhandledException(e.Exception);
+            e.Handled = true;
+        };
+
+        TaskScheduler.UnobservedTaskException += (s, e) =>
+        {
+            LogUnhandledException(e.Exception);
+            e.SetObserved();
+        };
     }
 
     private async Task<bool> CheckBasicCompatibilityAsync()
@@ -353,6 +395,23 @@ public partial class App
             if (FloatingGadget != null)
             {
                 FloatingGadget.Show();
+            }
+            else
+            {
+                if (_settings.Store.SelectedStyleIndex == 0)
+                {
+                    FloatingGadget = new FloatingGadget();
+                }
+                else if (_settings.Store.SelectedStyleIndex == 1)
+                {
+                    FloatingGadget = new FloatingGadgetUpper();
+                }
+                else
+                {
+                    FloatingGadget = new FloatingGadget();
+                }
+
+                FloatingGadget!.Show();
             }
         }
     }
@@ -531,7 +590,7 @@ public partial class App
                     return;
 
                 Log.Instance.IsTraceEnabled = settings.Store.EnableLogging;
-                mainWindow._openLogIndicator.Visibility = Utils.BooleanToVisibilityConverter.Convert(settings.Store.EnableLogging);
+                mainWindow._openLogIndicator.Visibility = BooleanToVisibilityConverter.Convert(settings.Store.EnableLogging);
 
                 Compatibility.PrintMachineInfo();
             }
@@ -628,7 +687,7 @@ public partial class App
 
         try
         {
-            if (settings.Store.UseNewSensorDashboard)
+            if (settings.Store.UseNewSensorDashboard || settings.Store.ShowFloatingGadgets)
             {
                 var feature = IoCContainer.Resolve<SensorsGroupController>();
                 try
@@ -637,14 +696,15 @@ public partial class App
                     if (state == LibreHardwareMonitorInitialState.Initialized || state == LibreHardwareMonitorInitialState.Success)
                     {
                         if (Log.Instance.IsTraceEnabled)
-                            Log.Instance.Trace($"Init memory sensor control feature.");
+                            Log.Instance.Trace($"Init sensor group controller feature.");
                     }
                     else
                     {
-                        App.Current._showPawnIONotify = true;
+                        Current._showPawnIONotify = true;
                     }
                 }
                 // Why this branch can execute ?
+                // Now i see.
                 catch (Exception ex)
                 {
                     if (Log.Instance.IsTraceEnabled)
@@ -652,7 +712,10 @@ public partial class App
                         Log.Instance.Trace($"InitSensorsGroupControllerFeatureAsync() raised exception:", ex);
                     }
 
-                    App.Current._showPawnIONotify = true;
+                    if (!ex.Message.Contains("LibreHardwareMonitor initialization failed. Disabling new sensor dashboard."))
+                    {
+                        Current._showPawnIONotify = true;
+                    }
                 }
             }
         }

@@ -1,5 +1,9 @@
-﻿using LenovoLegionToolkit.Lib.Utils;
+﻿using LenovoLegionToolkit.Lib.Extensions;
+using LenovoLegionToolkit.Lib.Messaging;
+using LenovoLegionToolkit.Lib.Messaging.Messages;
+using LenovoLegionToolkit.Lib.Utils;
 using System;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
@@ -50,10 +54,28 @@ public partial class ITSModeFeature : IFeature<ITSMode>
     public async Task<bool> IsSupportedAsync()
     {
         var machineInfo = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
-        return machineInfo.Properties.SupportITSMode;
+        return machineInfo.Properties.SupportsITSMode;
     }
 
-    public Task<ITSMode[]> GetAllStatesAsync() => Task.FromResult((ITSMode[])Enum.GetValues(typeof(ITSMode)));
+    public async Task<ITSMode[]> GetAllStatesAsync()
+    {
+        var mi = await Compatibility.GetMachineInformationAsync();
+
+        if (mi.LegionSeries == LegionSeries.ThinkBook)
+        {
+            return Enum.GetValues(typeof(ITSMode))
+                       .Cast<ITSMode>()
+                       .Where(mode => mode != ITSMode.None)
+                       .ToArray();
+        }
+        else
+        {
+            return Enum.GetValues(typeof(ITSMode))
+                       .Cast<ITSMode>()
+                       .Where(mode => mode != ITSMode.MmcGeek && mode != ITSMode.None)
+                       .ToArray();
+        }
+    }
 
     public async Task<ITSMode> GetStateAsync()
     {
@@ -64,7 +86,9 @@ public partial class ITSModeFeature : IFeature<ITSMode>
         catch (Exception ex)
         {
             if (Log.Instance.IsTraceEnabled)
+            {
                 Log.Instance.Trace($"Failed to get ITS mode", ex);
+            }
 
             return ITSMode.None;
         }
@@ -82,6 +106,8 @@ public partial class ITSModeFeature : IFeature<ITSMode>
 
             if (Log.Instance.IsTraceEnabled)
                 Log.Instance.Trace($"ITS mode set successfully to: {state}");
+
+            PublishNotification(state);
         }
         catch (Exception ex)
         {
@@ -89,6 +115,49 @@ public partial class ITSModeFeature : IFeature<ITSMode>
                 Log.Instance.Trace($"Failed to set ITS mode to {state}", ex);
 
             throw;
+        }
+    }
+
+    public async Task ToggleItsMode()
+    {
+        try
+        {
+            var currentState = await GetStateAsync().ConfigureAwait(false);
+            var allStates = await GetAllStatesAsync().ConfigureAwait(false);
+            var availableStates = allStates.Where(state => state != ITSMode.None).ToArray();
+
+            if (availableStates.Length == 0)
+            {
+                return;
+            }
+
+            ITSMode nextState;
+
+            if (currentState == ITSMode.None)
+            {
+                nextState = LastItsMode != ITSMode.None && availableStates.Contains(LastItsMode)
+                    ? LastItsMode
+                    : availableStates[0];
+            }
+            else
+            {
+                var currentIndex = Array.IndexOf(availableStates, currentState);
+                nextState = availableStates[(currentIndex + 1) % availableStates.Length];
+            }
+
+            if (Log.Instance.IsTraceEnabled)
+            {
+                Log.Instance.Trace($"Toggling ITS mode: {currentState} -> {nextState}");
+            }
+
+            await SetStateAsync(nextState).ConfigureAwait(false);
+        }
+        catch (Exception ex)
+        {
+            if (Log.Instance.IsTraceEnabled)
+            {
+                Log.Instance.Trace($"Failed to toggle ITS mode", ex);
+            }
         }
     }
 
@@ -203,6 +272,25 @@ public partial class ITSModeFeature : IFeature<ITSMode>
             {
                 Log.Instance.Trace($"Support ITSMode: {mode}");
             }
+        }
+    }
+
+    private static void PublishNotification(ITSMode value)
+    {
+        switch (value)
+        {
+            case ITSMode.ItsAuto:
+                MessagingCenter.Publish(new NotificationMessage(NotificationType.ITSModeAuto, value.GetDisplayName()));
+                break;
+            case ITSMode.MmcCool:
+                MessagingCenter.Publish(new NotificationMessage(NotificationType.ITSModeCool, value.GetDisplayName()));
+                break;
+            case ITSMode.MmcPerformance:
+                MessagingCenter.Publish(new NotificationMessage(NotificationType.ITSModePerformance, value.GetDisplayName()));
+                break;
+            case ITSMode.MmcGeek:
+                MessagingCenter.Publish(new NotificationMessage(NotificationType.ITSModeGeek, value.GetDisplayName()));
+                break;
         }
     }
 }

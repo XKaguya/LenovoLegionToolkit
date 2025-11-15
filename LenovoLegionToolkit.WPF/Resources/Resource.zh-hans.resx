@@ -1395,8 +1395,7 @@
     <value>重试</value>
   </data>
   <data name="UnexpectedException" xml:space="preserve">
-    <value>发生意外异常：
-{0}</value>
+    <value>发生意外异常：</value>
   </data>
   <data name="Unnamed" xml:space="preserve">
     <value>未命名</value>
@@ -2548,5 +2547,50 @@
   </data>
   <data name="SensorsControl_Motherboard_Temperature" xml:space="preserve">
     <value>主板温度</value>
+  </data>
+  <data name="StatusWindow_Frequency_And_Temperature" xml:space="preserve">
+    <value>频率 / 温度</value>
+  </data>
+  <data name="StatusWindow_Fan_And_Power" xml:space="preserve">
+    <value>风扇 / 功耗</value>
+  </data>
+  <data name="StatusWindow_System_Fan" xml:space="preserve">
+    <value>系统风扇</value>
+  </data>
+  <data name="FloatingGadgets_Fps" xml:space="preserve">
+    <value>FPS</value>
+  </data>
+  <data name="FloatingGadgets_Low_Fps" xml:space="preserve">
+    <value>1% Low</value>
+  </data>
+  <data name="FloatingGadgets_Frame_Time" xml:space="preserve">
+    <value>帧时间</value>
+  </data>
+  <data name="FloatingGadgetAutomationStepControl_Title" xml:space="preserve">
+    <value>悬浮窗</value>
+  </data>
+  <data name="FloatingGadgetAutomationStepControl_Message" xml:space="preserve">
+    <value>显示或隐藏悬浮窗</value>
+  </data>
+  <data name="CloseAutomationStepControl_Title" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="CloseAutomationStepControl_Message" xml:space="preserve">
+    <value>关闭 Lenovo Legion Toolkit</value>
+  </data>
+  <data name="FloatingGadget_Custom_Game" xml:space="preserve">
+    <value>游戏</value>
+  </data>
+  <data name="FloatingGadget_Custom_CPU" xml:space="preserve">
+    <value>CPU</value>
+  </data>
+  <data name="FloatingGadget_Custom_GPU" xml:space="preserve">
+    <value>GPU</value>
+  </data>
+  <data name="FloatingGadget_Custom_Chipset" xml:space="preserve">
+    <value>芯片组</value>
+  </data>
+  <data name="FloatingGadget_Style_Simple" xml:space="preserve">
+    <value>简洁</value>
   </data>
 </root>

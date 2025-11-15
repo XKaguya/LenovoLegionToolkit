@@ -1,5 +1,6 @@
 ﻿using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Utils;
+using LenovoLegionToolkit.Lib.Utils.Warranty;
 using LenovoLegionToolkit.WPF.Extensions;
 using LenovoLegionToolkit.WPF.Resources;
 using LenovoLegionToolkit.WPF.Utils;
@@ -50,7 +51,8 @@ public partial class DeviceInformationWindow
             _warrantyLinkCardAction.Tag = null;
             _warrantyLinkCardAction.IsEnabled = false;
 
-            var warrantyInfo = await _warrantyChecker.GetWarrantyInfo(mi, forceRefresh);
+            var language = await LocalizationHelper.GetLanguageAsync(); 
+            var warrantyInfo = await _warrantyChecker.GetWarrantyInfo(mi, language, forceRefresh);
 
             if (!warrantyInfo.HasValue)
                 return;

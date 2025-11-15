@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using LenovoLegionToolkit.Lib.Utils;
 using NvAPIWrapper;
 using NvAPIWrapper.Display;
 using NvAPIWrapper.GPU;
@@ -10,7 +12,33 @@ namespace LenovoLegionToolkit.Lib.System;
 
 internal static class NVAPI
 {
-    public static void Initialize() => NVIDIA.Initialize();
+    public static bool IsInitilized { get; set; } = false;
+    public static void Initialize()
+    {
+        try
+        {
+            if (!IsInitilized)
+            {
+                NVIDIA.Initialize();
+                IsInitilized = true;
+            }
+            else
+            {
+                if (GetGPU() == null)
+                {
+                    NVIDIA.Initialize();
+                    IsInitilized = true;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            if (Log.Instance.IsTraceEnabled)
+            {
+                Log.Instance.Trace($"Exception occured when calling Initialize() in NVAPI.", ex);
+            }
+        }
+    }
 
     public static void Unload() => NVIDIA.Unload();
 

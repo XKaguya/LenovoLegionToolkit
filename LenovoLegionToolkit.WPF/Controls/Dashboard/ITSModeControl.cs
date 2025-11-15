@@ -1,15 +1,15 @@
-﻿using System;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Automation;
-using System.Windows.Controls;
-using LenovoLegionToolkit.Lib;
+﻿using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.Features;
 using LenovoLegionToolkit.Lib.Utils;
 using LenovoLegionToolkit.WPF.Resources;
 using LenovoLegionToolkit.WPF.Utils;
 using LenovoLegionToolkit.WPF.Windows.Utils;
+using System;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Automation;
+using System.Windows.Controls;
 using Wpf.Ui.Common;
 using Button = Wpf.Ui.Controls.Button;
 
@@ -64,11 +64,6 @@ public class ITSModeControl : AbstractComboBoxFeatureCardControl<ITSMode>
             Log.Instance.Trace($"Visible changed. Set ITSMode to {mode}");
         }
         _comboBox.SelectedItem = mode;
-    }   
-
-    protected override async Task OnRefreshAsync()
-    {
-        await base.OnRefreshAsync();
     }
 
     protected override async Task OnStateChangeAsync(ComboBox comboBox, IFeature<ITSMode> feature, ITSMode? newValue, ITSMode? oldValue)

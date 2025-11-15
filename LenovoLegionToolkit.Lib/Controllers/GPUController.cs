@@ -9,6 +9,7 @@ using LenovoLegionToolkit.Lib.System;
 using LenovoLegionToolkit.Lib.System.Management;
 using LenovoLegionToolkit.Lib.Utils;
 using NeoSmart.AsyncLock;
+using NvAPIWrapper.GPU;
 
 namespace LenovoLegionToolkit.Lib.Controllers;
 
@@ -32,19 +33,12 @@ public class GPUController
         try
         {
             NVAPI.Initialize();
-            return NVAPI.GetGPU() is not null;
+            PhysicalGPU? gpu = NVAPI.GetGPU();
+            return gpu is not null;
         }
         catch
         {
             return false;
-        }
-        finally
-        {
-            try
-            {
-                NVAPI.Unload();
-            }
-            catch { /* Ignored. */ }
         }
     }
 
@@ -182,15 +176,7 @@ public class GPUController
 
                 using (await _lock.LockAsync(token).ConfigureAwait(false))
                 {
-
-                    // if (Log.Instance.IsTraceEnabled)
-                        // Log.Instance.Trace($"Will refresh...");
-
                     await RefreshStateAsync().ConfigureAwait(false);
-
-                    // if (Log.Instance.IsTraceEnabled)
-                        // Log.Instance.Trace($"Refreshed");
-
                     Refreshed?.Invoke(this, new GPUStatus(_state, _performanceState, _processes));
                 }
 
@@ -207,23 +193,10 @@ public class GPUController
 
             throw;
         }
-        finally
-        {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Unloading NVAPI...");
-
-            NVAPI.Unload();
-
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Unloaded NVAPI");
-        }
     }
 
     private async Task RefreshStateAsync()
     {
-        // if (Log.Instance.IsTraceEnabled)
-            // Log.Instance.Trace($"Refresh in progress...");
-
         _state = GPUState.Unknown;
         _processes = [];
         _gpuInstanceId = null;
@@ -278,8 +251,8 @@ public class GPUController
             _processes = processNames;
             _state = GPUState.MonitorConnected;
 
-            // if (Log.Instance.IsTraceEnabled)
-                // Log.Instance.Trace($"Monitor connected [state={_state}, processes.Count={_processes.Count}, gpuInstanceId={_gpuInstanceId}]");
+            if (Log.Instance.IsTraceEnabled)
+                Log.Instance.Trace($"Monitor connected [state={_state}, processes.Count={_processes.Count}, gpuInstanceId={_gpuInstanceId}]");
         }
         else if (processNames.Count != 0)
         {

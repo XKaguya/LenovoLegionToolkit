@@ -19,6 +19,12 @@ public partial class SpectrumZoneControl
         }
     }
 
+    public double RotationAngle
+    {
+        get => _rotateTransform.Angle;
+        set => _rotateTransform.Angle = value;
+    }
+
     public Color? Color
     {
         get => (_background.Background as SolidColorBrush)?.Color;

@@ -139,7 +139,7 @@
     <value>当较低功率电源适配器插入时</value>
   </data>
   <data name="OnStartupAutomationPipelineTrigger_DisplayName" xml:space="preserve">
-    <value>当开机时</value>
+    <value>当程序启动时</value>
   </data>
   <data name="PowerModeAutomationPipelineTrigger_DisplayName" xml:space="preserve">
     <value>当性能模式改变时</value>

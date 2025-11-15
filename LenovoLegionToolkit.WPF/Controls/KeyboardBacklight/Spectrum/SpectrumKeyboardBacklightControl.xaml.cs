@@ -15,7 +15,6 @@ using LenovoLegionToolkit.WPF.Windows.KeyboardBacklight.Spectrum;
 using Microsoft.Win32;
 using NeoSmart.AsyncLock;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,7 +22,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using static System.Runtime.CompilerServices.RuntimeHelpers;
 
 namespace LenovoLegionToolkit.WPF.Controls.KeyboardBacklight.Spectrum;
 
@@ -95,6 +93,12 @@ public partial class SpectrumKeyboardBacklightControl
             _profileButton5.Visibility = Visibility.Collapsed;
             _profileButton6.Visibility = Visibility.Collapsed;
         }
+
+        // Future codes for independent Ambient Aft RGB Zone control.
+        //if ((mi.LegionSeries == LegionSeries.Legion_Pro_7 || mi.LegionSeries == LegionSeries.Legion_9) && mi.Generation == 10)
+        //{
+        //    _ambientZoneControl.Visibility = Visibility.Visible;
+        //}
 
         if (IsVisible)
             return;

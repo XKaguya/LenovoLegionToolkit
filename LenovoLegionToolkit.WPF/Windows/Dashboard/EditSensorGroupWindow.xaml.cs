@@ -90,7 +90,7 @@ public partial class EditSensorGroupWindow : BaseWindow
     private void AddButton_Click(object sender, RoutedEventArgs e)
     {
         var allSensors = Enum.GetValues(typeof(SensorItem)).Cast<SensorItem>().ToList();
-        var currentSensors = _settings.Store.VisibleItems.ToList();
+        var currentSensors = (_settings.Store.VisibleItems ?? Array.Empty<SensorItem>()).ToList();
         var availableSensors = allSensors.Except(currentSensors).ToList();
 
         if (availableSensors.Any())
@@ -109,7 +109,7 @@ public partial class EditSensorGroupWindow : BaseWindow
     {
         if (sender is Wpf.Ui.Controls.Button button && button.Tag is SensorItem itemToRemove)
         {
-            var newItems = _settings.Store.VisibleItems.ToList();
+            var newItems = (_settings.Store.VisibleItems ?? Array.Empty<SensorItem>()).ToList();
             newItems.Remove(itemToRemove);
             _settings.Store.VisibleItems = newItems.ToArray();
             LoadSensors(false);

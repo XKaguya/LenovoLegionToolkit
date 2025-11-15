@@ -136,4 +136,43 @@
   <data name="ITSMode_Intelligent_Geek" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
+  <data name="FloatingGadgetItem_Fps" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="FloatingGadgetItem_LowFps" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="FloatingGadgetItem_FrameTime" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="FloatingGadgetItem_Frequency" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="FloatingGadgetItem_Utilization" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="FloatingGadgetItem_Temperature" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="FloatingGadgetItem_Power" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="FloatingGadgetItem_Fan" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="FloatingGadgetItem_VramTemperature" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="FloatingGadgetItem_MemoryTemperature" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="FloatingGadgetItem_MotherboardTemperature" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="FloatingGadgetState_Hidden" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="FloatingGadgetState_Show" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
 </root>

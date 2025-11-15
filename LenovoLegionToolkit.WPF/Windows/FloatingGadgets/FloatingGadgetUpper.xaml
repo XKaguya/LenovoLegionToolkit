@@ -1,0 +1,248 @@
+﻿<Window
+    x:Class="LenovoLegionToolkit.WPF.Windows.Utils.FloatingGadgetUpper"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:LenovoLegionToolkit.WPF.Windows"
+    xmlns:resources="clr-namespace:LenovoLegionToolkit.WPF.Resources"
+    xmlns:utils="clr-namespace:LenovoLegionToolkit.WPF.Utils"
+    Title="FloatingGadget"
+    Width="Auto"
+    Height="25"
+    AllowsTransparency="True"
+    Background="Transparent"
+    ShowInTaskbar="False"
+    SizeToContent="Width"
+    Topmost="True"
+    WindowStartupLocation="Manual"
+    WindowStyle="None">
+
+    <Window.Resources>
+        <Style x:Key="TextBlockStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="TextAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0,0,8,0" />
+            <Setter Property="MinWidth" Value="30" />
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Border
+            Padding="10,4"
+            Background="#CC202020"
+            CornerRadius="6"
+            Opacity="0.8" />
+        <Border
+            Padding="10,4"
+            Background="Transparent"
+            CornerRadius="6">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel
+                    x:Name="_fpsGroup"
+                    Grid.Column="0"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        MinWidth="25"
+                        Foreground="#2196F3"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="FPS" />
+                    <TextBlock
+                        x:Name="_fps"
+                        Foreground="White"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="-" />
+                    <TextBlock
+                        x:Name="_lowFps"
+                        Foreground="White"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="-" />
+                    <TextBlock
+                        x:Name="_frameTime"
+                        Foreground="White"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="-" />
+                </StackPanel>
+
+                <Rectangle
+                    x:Name="_separatorFps"
+                    Grid.Column="1"
+                    Width="1"
+                    Height="12"
+                    Margin="10,0"
+                    VerticalAlignment="Center"
+                    Fill="#555555" />
+
+                <StackPanel
+                    x:Name="_cpuGroup"
+                    Grid.Column="2"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        MinWidth="25"
+                        Foreground="#FF5722"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="{Binding Source={x:Static resources:Resource.FloatingGadgets_Cpu}}" />
+                    <TextBlock
+                        x:Name="_cpuFrequency"
+                        MinWidth="40"
+                        Foreground="White"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="-" />
+                    <TextBlock
+                        x:Name="_cpuUsage"
+                        Foreground="White"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="-" />
+                    <TextBlock
+                        x:Name="_cpuTemperature"
+                        Foreground="White"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="-" />
+                    <TextBlock
+                        x:Name="_cpuPower"
+                        Foreground="White"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="-" />
+                    <TextBlock
+                        x:Name="_cpuFanSpeed"
+                        MinWidth="40"
+                        Margin="0"
+                        Foreground="White"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="-" />
+                </StackPanel>
+
+                <Rectangle
+                    x:Name="_separatorCpu"
+                    Grid.Column="3"
+                    Width="1"
+                    Height="12"
+                    Margin="10,0"
+                    VerticalAlignment="Center"
+                    Fill="#555555" />
+
+                <StackPanel
+                    x:Name="_gpuGroup"
+                    Grid.Column="4"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        MinWidth="25"
+                        Foreground="#4CAF50"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="{Binding Source={x:Static resources:Resource.FloatingGadgets_Gpu}}" />
+                    <TextBlock
+                        x:Name="_gpuFrequency"
+                        MinWidth="40"
+                        Foreground="White"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="-" />
+                    <TextBlock
+                        x:Name="_gpuUsage"
+                        Foreground="White"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="-" />
+                    <TextBlock
+                        x:Name="_gpuTemperature"
+                        Foreground="White"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="-" />
+                    <TextBlock
+                        x:Name="_gpuVramTemperature"
+                        Foreground="White"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="-" />
+                    <TextBlock
+                        x:Name="_gpuPower"
+                        Foreground="White"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="-" />
+                    <TextBlock
+                        x:Name="_gpuFanSpeed"
+                        MinWidth="40"
+                        Margin="0"
+                        Foreground="White"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="-" />
+                </StackPanel>
+
+                <Rectangle
+                    x:Name="_separatorGpu"
+                    Grid.Column="5"
+                    Width="1"
+                    Height="12"
+                    Margin="10,0"
+                    VerticalAlignment="Center"
+                    Fill="#555555" />
+
+                <StackPanel
+                    x:Name="_memoryGroup"
+                    Grid.Column="6"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        MinWidth="25"
+                        Foreground="#FFC107"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="{Binding Source={x:Static resources:Resource.SensorsControl_Memory_Title}}" />
+                    <TextBlock
+                        x:Name="_memUsage"
+                        Foreground="White"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="-" />
+                    <TextBlock
+                        x:Name="_memTemperature"
+                        Margin="0"
+                        Foreground="White"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="-" />
+                </StackPanel>
+
+                <Rectangle
+                    x:Name="_separatorMemory"
+                    Grid.Column="7"
+                    Width="1"
+                    Height="12"
+                    Margin="10,0"
+                    VerticalAlignment="Center"
+                    Fill="#555555" />
+
+                <StackPanel
+                    x:Name="_pchGroup"
+                    Grid.Column="8"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        x:Name="_pchName"
+                        MinWidth="25"
+                        Foreground="#9C27B0"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="{Binding Source={x:Static resources:Resource.FanCurveControl_PCH}}" />
+                    <TextBlock
+                        x:Name="_pchTemperature"
+                        Foreground="White"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="-" />
+                    <TextBlock
+                        x:Name="_pchFanSpeed"
+                        MinWidth="40"
+                        Margin="0"
+                        Foreground="White"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="-" />
+                </StackPanel>
+
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

@@ -49,6 +49,9 @@ public class SpecialKeyListener(
                 return;
             }
 
+            var mi = Compatibility.GetMachineInformationAsync().Result;
+            var feature = IoCContainer.Resolve<ITSModeFeature>();
+
             switch (value)
             {
                 case SpecialKey.CameraOn or SpecialKey.CameraOff:

@@ -196,6 +196,123 @@ namespace LenovoLegionToolkit.Lib.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Fan 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgetItem_Fan {
+            get {
+                return ResourceManager.GetString("FloatingGadgetItem_Fan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 FPS 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgetItem_Fps {
+            get {
+                return ResourceManager.GetString("FloatingGadgetItem_Fps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Frame Time 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgetItem_FrameTime {
+            get {
+                return ResourceManager.GetString("FloatingGadgetItem_FrameTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Frequency 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgetItem_Frequency {
+            get {
+                return ResourceManager.GetString("FloatingGadgetItem_Frequency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 1% Low 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgetItem_LowFps {
+            get {
+                return ResourceManager.GetString("FloatingGadgetItem_LowFps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Memory Temperature 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgetItem_MemoryTemperature {
+            get {
+                return ResourceManager.GetString("FloatingGadgetItem_MemoryTemperature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Motherboard Temperature 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgetItem_MotherboardTemperature {
+            get {
+                return ResourceManager.GetString("FloatingGadgetItem_MotherboardTemperature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Power 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgetItem_Power {
+            get {
+                return ResourceManager.GetString("FloatingGadgetItem_Power", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Temperature 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgetItem_Temperature {
+            get {
+                return ResourceManager.GetString("FloatingGadgetItem_Temperature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Utilization 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgetItem_Utilization {
+            get {
+                return ResourceManager.GetString("FloatingGadgetItem_Utilization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Vram Temperature 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgetItem_VramTemperature {
+            get {
+                return ResourceManager.GetString("FloatingGadgetItem_VramTemperature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Hidden 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgetState_Hidden {
+            get {
+                return ResourceManager.GetString("FloatingGadgetState_Hidden", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Show 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgetState_Show {
+            get {
+                return ResourceManager.GetString("FloatingGadgetState_Show", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Off 的本地化字符串。
         /// </summary>
         public static string FnLockState_Off {

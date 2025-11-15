@@ -78,7 +78,6 @@ public class PowerModeFeature(
 
         thermalModeListener.SuppressNext();
         await base.SetStateAsync(state).ConfigureAwait(false);
-
         await powerModeListener.NotifyAsync(state).ConfigureAwait(false);
     }
 

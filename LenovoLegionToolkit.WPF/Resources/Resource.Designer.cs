@@ -1198,6 +1198,24 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Close the Lenovo Legion Toolkit 的本地化字符串。
+        /// </summary>
+        public static string CloseAutomationStepControl_Message {
+            get {
+                return ResourceManager.GetString("CloseAutomationStepControl_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Close 的本地化字符串。
+        /// </summary>
+        public static string CloseAutomationStepControl_Title {
+            get {
+                return ResourceManager.GetString("CloseAutomationStepControl_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Blue 的本地化字符串。
         /// </summary>
         public static string Color_Blue {
@@ -2193,6 +2211,69 @@ namespace LenovoLegionToolkit.WPF.Resources {
         /// <summary>
         ///   查找类似 Chipset 的本地化字符串。
         /// </summary>
+        public static string FloatingGadget_Custom_Chipset {
+            get {
+                return ResourceManager.GetString("FloatingGadget_Custom_Chipset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 CPU 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadget_Custom_CPU {
+            get {
+                return ResourceManager.GetString("FloatingGadget_Custom_CPU", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Game 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadget_Custom_Game {
+            get {
+                return ResourceManager.GetString("FloatingGadget_Custom_Game", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 GPU 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadget_Custom_GPU {
+            get {
+                return ResourceManager.GetString("FloatingGadget_Custom_GPU", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Simple 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadget_Style_Simple {
+            get {
+                return ResourceManager.GetString("FloatingGadget_Style_Simple", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Show or Hide the Floating Gadget 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgetAutomationStepControl_Message {
+            get {
+                return ResourceManager.GetString("FloatingGadgetAutomationStepControl_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Floating Gadget 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgetAutomationStepControl_Title {
+            get {
+                return ResourceManager.GetString("FloatingGadgetAutomationStepControl_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Chipset 的本地化字符串。
+        /// </summary>
         public static string FloatingGadgets_Chipset {
             get {
                 return ResourceManager.GetString("FloatingGadgets_Chipset", resourceCulture);
@@ -2245,6 +2326,24 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 FPS 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgets_Fps {
+            get {
+                return ResourceManager.GetString("FloatingGadgets_Fps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Frame Time 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgets_Frame_Time {
+            get {
+                return ResourceManager.GetString("FloatingGadgets_Frame_Time", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 GPU 的本地化字符串。
         /// </summary>
         public static string FloatingGadgets_Gpu {
@@ -2259,6 +2358,15 @@ namespace LenovoLegionToolkit.WPF.Resources {
         public static string FloatingGadgets_GPU_Fan {
             get {
                 return ResourceManager.GetString("FloatingGadgets_GPU_Fan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 1% Low 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgets_Low_Fps {
+            get {
+                return ResourceManager.GetString("FloatingGadgets_Low_Fps", resourceCulture);
             }
         }
         
@@ -6765,6 +6873,33 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Fan / Power 的本地化字符串。
+        /// </summary>
+        public static string StatusWindow_Fan_And_Power {
+            get {
+                return ResourceManager.GetString("StatusWindow_Fan_And_Power", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Frequency / Temperature 的本地化字符串。
+        /// </summary>
+        public static string StatusWindow_Frequency_And_Temperature {
+            get {
+                return ResourceManager.GetString("StatusWindow_Frequency_And_Temperature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 System Fan 的本地化字符串。
+        /// </summary>
+        public static string StatusWindow_System_Fan {
+            get {
+                return ResourceManager.GetString("StatusWindow_System_Fan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Select icon 的本地化字符串。
         /// </summary>
         public static string SymbolRegularPicker_Title {
@@ -6966,8 +7101,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   查找类似 Unexpected exception occurred:
-        ///{0} 的本地化字符串。
+        ///   查找类似 Unexpected exception occurred: 的本地化字符串。
         /// </summary>
         public static string UnexpectedException {
             get {

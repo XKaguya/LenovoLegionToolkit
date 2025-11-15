@@ -19,6 +19,7 @@ using LenovoLegionToolkit.Lib.Services;
 using LenovoLegionToolkit.Lib.Settings;
 using LenovoLegionToolkit.Lib.SoftwareDisabler;
 using LenovoLegionToolkit.Lib.Utils;
+using LenovoLegionToolkit.Lib.Utils.Warranty;
 
 namespace LenovoLegionToolkit.Lib;
 
@@ -130,6 +131,7 @@ public class IoCModule : Module
         builder.Register<SpectrumKeyboardBacklightController>();
         builder.Register<WindowsPowerModeController>();
         builder.Register<WindowsPowerPlanController>();
+        builder.Register<FpsSensorController>();
 
         builder.Register<UpdateChecker>();
         builder.Register<WarrantyChecker>();

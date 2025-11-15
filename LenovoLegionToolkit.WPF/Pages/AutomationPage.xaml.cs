@@ -196,7 +196,9 @@ public partial class AutomationPage
             new TurnOffWiFiAutomationStep(),
             new TurnOnWiFiAutomationStep(),
             new WhiteKeyboardBacklightAutomationStep(default),
-            new WinKeyAutomationStep(default)
+            new WinKeyAutomationStep(default),
+            new CloseAutomationStep(),
+            new FloatingGadgetAutomationStep(default),
         };
 
         if (EnableHybridModeAutomation)

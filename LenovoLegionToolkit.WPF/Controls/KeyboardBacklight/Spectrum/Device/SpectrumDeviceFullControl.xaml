@@ -51,22 +51,26 @@
             Grid.Row="1"
             Grid.Column="1"
             Margin="2"
-            KeyCode="0x03EB" />
+            KeyCode="0x03EB"
+            x:Name="_ambient1" />
         <controls:SpectrumZoneControl
             Grid.Row="1"
             Grid.Column="2"
             Margin="2"
-            KeyCode="0x03EC" />
+            KeyCode="0x03EC"
+            x:Name="_ambient2" />
         <controls:SpectrumZoneControl
             Grid.Row="1"
             Grid.Column="5"
             Margin="2"
-            KeyCode="0x03ED" />
+            KeyCode="0x03ED"
+            x:Name="_ambient3" />
         <controls:SpectrumZoneControl
             Grid.Row="1"
             Grid.Column="6"
             Margin="2"
-            KeyCode="0x03EE" />
+            KeyCode="0x03EE"
+            x:Name="_ambient4" />
         <controls:SpectrumAmbientZoneControl
             Grid.Row="1"
             Grid.Column="6"
@@ -77,12 +81,14 @@
             Grid.Row="2"
             Grid.Column="0"
             Margin="2"
-            KeyCode="0x03EA" />
+            KeyCode="0x03EA"
+            x:Name="_ambient5" />
         <controls:SpectrumZoneControl
             Grid.Row="3"
             Grid.Column="0"
             Margin="2"
-            KeyCode="0x03E9" />
+            KeyCode="0x03E9"
+            x:Name="_ambient6" />
         <controls:SpectrumZoneControl
             Grid.Row="5"
             Grid.Column="0"
@@ -99,12 +105,14 @@
             Grid.Row="2"
             Grid.Column="7"
             Margin="2"
-            KeyCode="0x03EF" />
+            KeyCode="0x03EF"
+            x:Name="_ambient7" />
         <controls:SpectrumZoneControl
             Grid.Row="3"
             Grid.Column="7"
             Margin="2"
-            KeyCode="0x03F0" />
+            KeyCode="0x03F0"
+            x:Name="_ambient8" />
         <controls:SpectrumZoneControl
             Grid.Row="5"
             Grid.Column="7"
