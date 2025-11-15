@@ -197,7 +197,7 @@ public partial class AutomationPage
             new TurnOnWiFiAutomationStep(),
             new WhiteKeyboardBacklightAutomationStep(default),
             new WinKeyAutomationStep(default),
-            new CloseAutomationStep(default),
+            new CloseAutomationStep(),
             new FloatingGadgetAutomationStep(default),
         };
 

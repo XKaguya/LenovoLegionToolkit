@@ -42,14 +42,6 @@ public enum BatteryState
     RapidCharge
 }
 
-public enum Close
-{
-    [Display(ResourceType = typeof(Resource), Name = "Close_Yes")]
-    Yes,
-    [Display(ResourceType = typeof(Resource), Name = "Close_No")]
-    No
-}
-
 public enum CapabilityID
 {
     IGPUMode = 0x00010000,
