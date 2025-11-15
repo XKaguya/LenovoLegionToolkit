@@ -282,7 +282,6 @@ public abstract class AbstractSensorsController(GPUController gpuController) : I
 
     protected int GetCpuUtilization(int maxUtilization)
     {
-        // If per-core counters are available, average them — this often matches Task Manager closely.
         if (_perCoreCounters != null && _perCoreCounters.Length >0)
         {
             try
@@ -298,13 +297,9 @@ public abstract class AbstractSensorsController(GPUController gpuController) : I
                     }
                 }
             }
-            catch
-            {
-                // ignore and fallback
-            }
+            catch { }
         }
 
-        // Try using the idle counter: usage =100 - idle.
         var idleRaw = _percentProcessorIdleCounter.NextValue();
         if (!float.IsNaN(idleRaw) && idleRaw >=0)
         {
@@ -316,7 +311,6 @@ public abstract class AbstractSensorsController(GPUController gpuController) : I
             }
         }
 
-        // Fallback to total processor counter if idle counter isn't ready or failed.
         var raw = _percentProcessorUtilityCounter.NextValue();
         if (float.IsNaN(raw) || raw <0)
             return -1;

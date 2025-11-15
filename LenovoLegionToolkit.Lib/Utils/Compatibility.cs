@@ -759,17 +759,17 @@ public static partial class Compatibility
                     try
                     {
                         Object? propValue = prop.GetValue(properties);
-                        if (value == null)
+                        if (propValue == null)
                         {
-                            lines.Add($" * {prop.Name}: 'null'");
+                            lines.Add($"{prefix} {prop.Name}: 'null'");
                             continue;
                         }
-                        List<string>? propLines = FormatPropertyValue(prop.Name, value, 0);
+                        List<string>? propLines = FormatPropertyValue(prop.Name, propValue, indentLevel +1);
                         lines.AddRange(propLines);
                     }
                     catch (Exception ex)
                     {
-                        lines.Add($"{prefix}    {prop.Name}: <Error: {ex.Message}>");
+                        lines.Add($"{prefix} {prop.Name}: <Error: {ex.Message}>");
                     }
                 }
                 return lines;
