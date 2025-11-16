@@ -1053,6 +1053,8 @@ public partial class SettingsPage
         if (_isRefreshing)
             return;
 
+        SnackbarHelper.Show(Resource.SettingsPage_ClearBackgroundImage_Title, Resource.SettingsPage_UseNewDashboard_Restart_Message, SnackbarType.Success);
+
         _settings.Store.BackGroundImageFilePath = string.Empty;
         _settings.SynchronizeStore();
     }

@@ -2586,4 +2586,7 @@ Click Yes to disable and No to ignore.</value>
   <data name="FloatingGadget_Style_Simple" xml:space="preserve">
     <value>Simple</value>
   </data>
+  <data name="SettingsPage_ClearBackgroundImage_Title" xml:space="preserve">
+    <value>Image Cleared</value>
+  </data>
 </root>

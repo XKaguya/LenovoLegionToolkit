@@ -5697,6 +5697,15 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Image Cleared 的本地化字符串。
+        /// </summary>
+        public static string SettingsPage_ClearBackgroundImage_Title {
+            get {
+                return ResourceManager.GetString("SettingsPage_ClearBackgroundImage_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Enable Command Line Interface that allows control from command line. 的本地化字符串。
         /// </summary>
         public static string SettingsPage_CLI_Message {
