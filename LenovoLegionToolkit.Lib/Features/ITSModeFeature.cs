@@ -85,10 +85,7 @@ public partial class ITSModeFeature : IFeature<ITSMode>
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-            {
-                Log.Instance.Trace($"Failed to get ITS mode", ex);
-            }
+            Log.Instance.Trace($"Failed to get ITS mode", ex);
 
             return ITSMode.None;
         }
@@ -96,23 +93,20 @@ public partial class ITSModeFeature : IFeature<ITSMode>
 
     public async Task SetStateAsync(ITSMode state)
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Setting ITS mode to: {state}");
+        Log.Instance.Trace($"Setting ITS mode to: {state}");
 
         try
         {
             await Task.Run(() => SetItsModeInternal(state)).ConfigureAwait(false);
             LastItsMode = state;
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"ITS mode set successfully to: {state}");
+            Log.Instance.Trace($"ITS mode set successfully to: {state}");
 
             PublishNotification(state);
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Failed to set ITS mode to {state}", ex);
+            Log.Instance.Trace($"Failed to set ITS mode to {state}", ex);
 
             throw;
         }
@@ -145,19 +139,13 @@ public partial class ITSModeFeature : IFeature<ITSMode>
                 nextState = availableStates[(currentIndex + 1) % availableStates.Length];
             }
 
-            if (Log.Instance.IsTraceEnabled)
-            {
-                Log.Instance.Trace($"Toggling ITS mode: {currentState} -> {nextState}");
-            }
+            Log.Instance.Trace($"Toggling ITS mode: {currentState} -> {nextState}");
 
             await SetStateAsync(nextState).ConfigureAwait(false);
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-            {
-                Log.Instance.Trace($"Failed to toggle ITS mode", ex);
-            }
+            Log.Instance.Trace($"Failed to toggle ITS mode", ex);
         }
     }
 
@@ -186,10 +174,7 @@ public partial class ITSModeFeature : IFeature<ITSMode>
         var mode = ITSMode.None;
         var errorCode = GetDispatcherMode(ref instance, ref supportFlag, ref mode, isThinkBook ? 1 : 0);
 
-        if (Log.Instance.IsTraceEnabled)
-        {
-            Log.Instance.Trace($"GetDispatcherMode() executed. Error Code: {errorCode}");
-        }
+        Log.Instance.Trace($"GetDispatcherMode() executed. Error Code: {errorCode}");
         LogSupportedModes(supportFlag);
 
         return mode;
@@ -201,11 +186,8 @@ public partial class ITSModeFeature : IFeature<ITSMode>
         var mode = ITSMode.None;
         var errorCode = GetITSMode(ref instance, ref version, ref mode);
 
-        if (Log.Instance.IsTraceEnabled)
-        {
-            Log.Instance.Trace($"GetITSMode() executed. Error Code: {errorCode}");
-            Log.Instance.Trace($"ITS Version: {version}");
-        }
+        Log.Instance.Trace($"GetITSMode() executed. Error Code: {errorCode}");
+        Log.Instance.Trace($"ITS Version: {version}");
         return mode;
     }
 
@@ -220,20 +202,14 @@ public partial class ITSModeFeature : IFeature<ITSMode>
         if (dispatcherVersion >= DISPATCHER_VERSION_3)
         {
             errorCode = SetDispatcherMode(ref instance, ref state, isThinkBook ? 1 : 0);
-            if (Log.Instance.IsTraceEnabled)
-            {
-                Log.Instance.Trace($"Using SetDispatcherMode()");
-                Log.Instance.Trace($"SetDispatcherMode executed. Error Code: {errorCode}");
-            }
+            Log.Instance.Trace($"Using SetDispatcherMode()");
+            Log.Instance.Trace($"SetDispatcherMode executed. Error Code: {errorCode}");
         }
         else
         {
             errorCode = SetITSMode(ref instance, ref state);
-            if (Log.Instance.IsTraceEnabled)
-            {
-                Log.Instance.Trace($"Using SetITSMode()");
-                Log.Instance.Trace($"SetITSMode executed. Error Code: {errorCode}");
-            }
+            Log.Instance.Trace($"Using SetITSMode()");
+            Log.Instance.Trace($"SetITSMode executed. Error Code: {errorCode}");
         }
 
         VerifyModeChange(ref instance, state);
@@ -245,10 +221,7 @@ public partial class ITSModeFeature : IFeature<ITSMode>
         var currentMode = ITSMode.None;
         GetITSMode(ref instance, ref version, ref currentMode);
 
-        if (Log.Instance.IsTraceEnabled)
-        {
-            Log.Instance.Trace($"Mode verification - Expected: {expectedMode}, Actual: {currentMode}, Match: {expectedMode == currentMode}");
-        }
+        Log.Instance.Trace($"Mode verification - Expected: {expectedMode}, Actual: {currentMode}, Match: {expectedMode == currentMode}");
     }
 
     private void LogSupportedModes(int supportFlag)

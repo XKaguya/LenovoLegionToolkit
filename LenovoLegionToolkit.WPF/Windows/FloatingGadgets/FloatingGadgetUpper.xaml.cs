@@ -485,10 +485,7 @@ public partial class FloatingGadgetUpper
                 catch (OperationCanceledException) { }
                 catch (Exception ex)
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                    {
-                        Log.Instance.Trace($"Exception occurred when executing TheRing()", ex);
-                    }
+                    Log.Instance.Trace($"Exception occurred when executing TheRing()", ex);
                     await Task.Delay(1000, token);
                 }
             }

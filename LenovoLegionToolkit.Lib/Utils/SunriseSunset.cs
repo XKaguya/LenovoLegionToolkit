@@ -42,8 +42,7 @@ public class SunriseSunset(SunriseSunsetSettings settings, HttpClientFactory htt
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Failed to get geolocation.", ex);
+            Log.Instance.Trace($"Failed to get geolocation.", ex);
         }
 
         return null;

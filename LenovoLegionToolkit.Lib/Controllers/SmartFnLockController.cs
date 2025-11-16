@@ -33,8 +33,7 @@ public class SmartFnLockController(FnLockFeature feature, ApplicationSettings se
             }
             catch (Exception ex)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Failed to handle keyboard event.", ex);
+                Log.Instance.Trace($"Failed to handle keyboard event.", ex);
             }
         });
     }
@@ -50,16 +49,14 @@ public class SmartFnLockController(FnLockFeature feature, ApplicationSettings se
             if (state == FnLockState.Off)
                 return;
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Disabling Fn Lock temporarily...");
+            Log.Instance.Trace($"Disabling Fn Lock temporarily...");
 
             await feature.SetStateAsync(FnLockState.Off).ConfigureAwait(false);
             _restoreFnLock = true;
         }
         else if (_restoreFnLock)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Re-enabling Fn Lock...");
+            Log.Instance.Trace($"Re-enabling Fn Lock...");
 
             await feature.SetStateAsync(FnLockState.On).ConfigureAwait(false);
             _restoreFnLock = false;
@@ -95,8 +92,7 @@ public class SmartFnLockController(FnLockFeature feature, ApplicationSettings se
         if (flags.HasFlag(ModifierKey.Alt))
             result |= _altDepressed;
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Modifier key is depressed: {result} [ctrl={_ctrlDepressed}, shift={_shiftDepressed}, alt={_altDepressed}, flags={flags}]");
+        Log.Instance.Trace($"Modifier key is depressed: {result} [ctrl={_ctrlDepressed}, shift={_shiftDepressed}, alt={_altDepressed}, flags={flags}]");
 
         return result;
     }

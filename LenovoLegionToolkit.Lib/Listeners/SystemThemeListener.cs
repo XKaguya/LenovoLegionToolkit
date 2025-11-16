@@ -50,8 +50,7 @@ public class SystemThemeListener : IListener<EventArgs>
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Failed to notify on accent color change.", ex);
+            Log.Instance.Trace($"Failed to notify on accent color change.", ex);
         }
     }
 

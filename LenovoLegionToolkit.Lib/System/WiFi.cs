@@ -17,8 +17,7 @@ public static class WiFi
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Failed to turn on WiFi.", ex);
+            Log.Instance.Trace($"Failed to turn on WiFi.", ex);
         }
     }
 
@@ -31,8 +30,7 @@ public static class WiFi
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Failed to turn off WiFi.", ex);
+            Log.Instance.Trace($"Failed to turn off WiFi.", ex);
         }
     }
 

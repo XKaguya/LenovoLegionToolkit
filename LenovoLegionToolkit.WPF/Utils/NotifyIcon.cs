@@ -91,25 +91,21 @@ public class NotifyIcon : NativeWindow, IDisposable
                 switch ((uint)m.LParam & 0xFFFF)
                 {
                     case PInvoke.NIN_POPUPOPEN:
-                        if (Log.Instance.IsTraceEnabled)
-                            Log.Instance.Trace($"NIN_POPUPOPEN");
+                        Log.Instance.Trace($"NIN_POPUPOPEN");
                         ShowToolTipAsync();
                         break;
                     case PInvoke.NIN_POPUPCLOSE:
-                        if (Log.Instance.IsTraceEnabled)
-                            Log.Instance.Trace($"NIN_POPUPCLOSE");
+                        Log.Instance.Trace($"NIN_POPUPCLOSE");
                         HideToolTip();
                         break;
                     case PInvoke.WM_LBUTTONUP:
-                        if (Log.Instance.IsTraceEnabled)
-                            Log.Instance.Trace($"WM_LBUTTONUP");
+                        Log.Instance.Trace($"WM_LBUTTONUP");
                         HideToolTip();
                         HideContextMenu();
                         OnClick?.Invoke(this, EventArgs.Empty);
                         break;
                     case PInvoke.WM_RBUTTONUP:
-                        if (Log.Instance.IsTraceEnabled)
-                            Log.Instance.Trace($"WM_RBUTTONUP");
+                        Log.Instance.Trace($"WM_RBUTTONUP");
                         HideToolTip();
                         ShowContextMenu();
                         break;
@@ -167,8 +163,7 @@ public class NotifyIcon : NativeWindow, IDisposable
             _currentToolTipWindow?.Close();
             _currentToolTipWindow = null;
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Failed to show tooltip.", ex);
+            Log.Instance.Trace($"Failed to show tooltip.", ex);
         }
     }
 

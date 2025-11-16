@@ -46,8 +46,7 @@ public class DisplayConfigurationListener : IListener<DisplayConfigurationListen
 
     private void SystemEvents_DisplaySettingsChanged(object? sender, EventArgs e)
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Event received.");
+        Log.Instance.Trace($"Event received.");
 
         InternalDisplay.SetNeedsRefresh();
 
@@ -66,8 +65,7 @@ public class DisplayConfigurationListener : IListener<DisplayConfigurationListen
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Failed to get HDR status. Assuming unavailable.", ex);
+            Log.Instance.Trace($"Failed to get HDR status. Assuming unavailable.", ex);
             return null;
         }
     }

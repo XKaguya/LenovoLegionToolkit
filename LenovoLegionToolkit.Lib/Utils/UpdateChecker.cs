@@ -69,8 +69,7 @@ public class UpdateChecker
                     if (!forceCheck && !shouldCheck)
                         return _updates.Length != 0 ? _updates.First().Version : null;
 
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Checking...");
+                    Log.Instance.Trace($"Checking...");
 
                     var adapter = new HttpClientAdapter(_httpClientFactory.CreateHandler);
                     var productInformation = new ProductHeaderValue("LenovoLegionToolkit-UpdateChecker");
@@ -96,8 +95,7 @@ public class UpdateChecker
                         .OrderByDescending(r => r.Version)
                         .ToArray();
 
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Checked [updates.Length={updates.Length}]");
+                    Log.Instance.Trace($"Checked [updates.Length={updates.Length}]");
 
                     _updates = updates;
                     Status = UpdateCheckStatus.Success;
@@ -106,16 +104,14 @@ public class UpdateChecker
                 }
                 catch (RateLimitExceededException ex)
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Reached API Rate Limitation.", ex);
+                    Log.Instance.Trace($"Reached API Rate Limitation.", ex);
 
                     Status = UpdateCheckStatus.RateLimitReached;
                     return null;
                 }
                 catch (Exception ex)
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Error checking for updates.", ex);
+                    Log.Instance.Trace($"Error checking for updates.", ex);
 
                     Status = UpdateCheckStatus.Error;
                     return null;

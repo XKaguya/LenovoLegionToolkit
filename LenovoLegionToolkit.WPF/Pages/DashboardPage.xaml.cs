@@ -78,12 +78,9 @@ public partial class DashboardPage
 
             var groups = _dashboardSettings.Store.Groups ?? DashboardGroup.DefaultGroups;
 
-            if (Log.Instance.IsTraceEnabled)
-            {
-                Log.Instance.Trace($"Groups:");
-                foreach (var group in groups)
-                    Log.Instance.Trace($" - {group}");
-            }
+            Log.Instance.Trace($"Groups:");
+            foreach (var group in groups)
+                Log.Instance.Trace($" - {group}");
 
             _content.ColumnDefinitions.Add(new ColumnDefinition { Width = new(1, GridUnitType.Star) });
             _content.ColumnDefinitions.Add(new ColumnDefinition { Width = new(1, GridUnitType.Star) });
@@ -180,12 +177,9 @@ public partial class DashboardPage
 
         var groups = _dashboardSettings.Store.Groups ?? DashboardGroup.DefaultGroups;
 
-        if (Log.Instance.IsTraceEnabled)
-        {
-            Log.Instance.Trace($"Groups:");
-            foreach (var group in groups)
-                Log.Instance.Trace($" - {group}");
-        }
+        Log.Instance.Trace($"Groups:");
+        foreach (var group in groups)
+            Log.Instance.Trace($" - {group}");
 
         _content.ColumnDefinitions.Add(new ColumnDefinition { Width = new(1, GridUnitType.Star) });
         _content.ColumnDefinitions.Add(new ColumnDefinition { Width = new(1, GridUnitType.Star) });

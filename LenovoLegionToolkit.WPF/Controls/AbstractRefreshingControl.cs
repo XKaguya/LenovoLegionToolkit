@@ -37,8 +37,7 @@ public abstract class AbstractRefreshingControl : UserControl
 
     protected async Task RefreshAsync()
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Refreshing control... [feature={GetType().Name}]");
+        Log.Instance.Trace($"Refreshing control... [feature={GetType().Name}]");
 
         var exceptions = false;
 
@@ -54,15 +53,13 @@ public abstract class AbstractRefreshingControl : UserControl
         {
             exceptions = true;
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Unsupported. [feature={GetType().Name}]");
+            Log.Instance.Trace($"Unsupported. [feature={GetType().Name}]");
         }
         catch (Exception ex)
         {
             exceptions = true;
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Exception when refreshing control. [feature={GetType().Name}]", ex);
+            Log.Instance.Trace($"Exception when refreshing control. [feature={GetType().Name}]", ex);
         }
         finally
         {

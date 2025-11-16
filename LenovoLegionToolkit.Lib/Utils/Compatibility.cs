@@ -804,16 +804,13 @@ public static partial class Compatibility
 
     public static void PrintControllerVersion()
     {
-        if (Log.Instance.IsTraceEnabled)
-        {
-            SensorsController? sensorsController = IoCContainer.Resolve<SensorsController>();
-            var sensorsControllerTypeName = sensorsController?.GetControllerAsync().Result?.GetType().Name ?? "Null SensorsController or Result";
-            Log.Instance.Trace($"Using {sensorsControllerTypeName}");
+        SensorsController? sensorsController = IoCContainer.Resolve<SensorsController>();
+        var sensorsControllerTypeName = sensorsController?.GetControllerAsync().Result?.GetType().Name ?? "Null SensorsController or Result";
+        Log.Instance.Trace($"Using {sensorsControllerTypeName}");
 
 
-            GodModeController? godModeController = IoCContainer.Resolve<GodModeController>();
-            var godModeControllerTypeName = godModeController?.GetControllerAsync().Result?.GetType().Name ?? "Null GodModeController or Result";
-            Log.Instance.Trace($"Using {godModeControllerTypeName}");
-        }
+        GodModeController? godModeController = IoCContainer.Resolve<GodModeController>();
+        var godModeControllerTypeName = godModeController?.GetControllerAsync().Result?.GetType().Name ?? "Null GodModeController or Result";
+        Log.Instance.Trace($"Using {godModeControllerTypeName}");
     }
 }

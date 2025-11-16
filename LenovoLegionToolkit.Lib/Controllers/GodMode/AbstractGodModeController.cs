@@ -33,16 +33,14 @@ public abstract class AbstractGodModeController(GodModeSettings settings)
 
     public async Task<GodModeState> GetStateAsync()
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Getting state...");
+        Log.Instance.Trace($"Getting state...");
 
         var store = settings.Store;
         var defaultState = await GetDefaultStateAsync().ConfigureAwait(false);
 
         if (!IsValidStore(store))
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Loading default state...");
+            Log.Instance.Trace($"Loading default state...");
 
             var id = Guid.NewGuid();
             return new GodModeState
@@ -52,16 +50,14 @@ public abstract class AbstractGodModeController(GodModeSettings settings)
             };
         }
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Loading state from store...");
+        Log.Instance.Trace($"Loading state from store...");
 
         return await LoadStateFromStoreAsync(store, defaultState).ConfigureAwait(false);
     }
 
     public Task SetStateAsync(GodModeState state)
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Setting state...");
+        Log.Instance.Trace($"Setting state...");
 
         var activePresetId = state.ActivePresetId;
         var presets = new Dictionary<Guid, GodModeSettings.GodModeSettingsStore.Preset>();
@@ -94,8 +90,7 @@ public abstract class AbstractGodModeController(GodModeSettings settings)
         settings.Store.Presets = presets;
         settings.SynchronizeStore();
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"State saved.");
+        Log.Instance.Trace($"State saved.");
 
         return Task.CompletedTask;
     }
@@ -122,8 +117,7 @@ public abstract class AbstractGodModeController(GodModeSettings settings)
     {
         if (!IsValidStore(settings.Store))
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Invalid store, generating default one.");
+            Log.Instance.Trace($"Invalid store, generating default one.");
 
             var state = await GetStateAsync().ConfigureAwait(false);
             await SetStateAsync(state).ConfigureAwait(false);
@@ -226,28 +220,23 @@ public abstract class AbstractGodModeController(GodModeSettings settings)
 
     private async Task<FanTableInfo?> GetFanTableInfoAsync(GodModeSettings.GodModeSettingsStore.Preset preset, FanTableData[]? fanTableData)
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Getting fan table info...");
+        Log.Instance.Trace($"Getting fan table info...");
 
         if (fanTableData is null)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Fan table data is null");
+            Log.Instance.Trace($"Fan table data is null");
             return null;
         }
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Fan table data retrieved: {string.Join(", ", fanTableData)}");
+        Log.Instance.Trace($"Fan table data retrieved: {string.Join(", ", fanTableData)}");
 
         var fanTable = preset.FanTable ?? await GetDefaultFanTableAsync().ConfigureAwait(false);
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Fan table retrieved: {fanTable}");
+        Log.Instance.Trace($"Fan table retrieved: {fanTable}");
 
         if (!await IsValidFanTableAsync(fanTable).ConfigureAwait(false))
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Fan table invalid, replacing with default...");
+            Log.Instance.Trace($"Fan table invalid, replacing with default...");
 
             fanTable = await GetDefaultFanTableAsync().ConfigureAwait(false);
         }

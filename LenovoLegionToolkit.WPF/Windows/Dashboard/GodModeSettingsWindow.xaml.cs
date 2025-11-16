@@ -101,8 +101,7 @@ public partial class GodModeSettingsWindow
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Couldn't load settings.", ex);
+            Log.Instance.Trace($"Couldn't load settings.", ex);
 
             await _snackBar.ShowAsync(Resource.GodModeSettingsWindow_Error_Load_Title, ex.Message);
 
@@ -167,8 +166,7 @@ public partial class GodModeSettingsWindow
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Couldn't apply settings", ex);
+            Log.Instance.Trace($"Couldn't apply settings", ex);
 
             await _snackBar.ShowAsync(Resource.GodModeSettingsWindow_Error_Apply_Title, ex.Message);
 

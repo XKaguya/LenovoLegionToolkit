@@ -31,65 +31,54 @@ public class WindowsPowerPlanController(ApplicationSettings settings, VantageDis
     {
         if (settings.Store.PowerModeMappingMode is not PowerModeMappingMode.WindowsPowerPlan)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Ignoring... [powerModeMappingMode={settings.Store.PowerModeMappingMode}]");
+            Log.Instance.Trace($"Ignoring... [powerModeMappingMode={settings.Store.PowerModeMappingMode}]");
             return;
         }
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Activating... [powerModeState={powerModeState}, alwaysActivateDefaults={alwaysActivateDefaults}]");
+        Log.Instance.Trace($"Activating... [powerModeState={powerModeState}, alwaysActivateDefaults={alwaysActivateDefaults}]");
 
         var powerPlanId = settings.Store.PowerPlans.GetValueOrDefault(powerModeState);
         var isDefault = false;
 
         if (powerPlanId == Guid.Empty)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Power plan for power mode {powerModeState} was not found in settings");
+            Log.Instance.Trace($"Power plan for power mode {powerModeState} was not found in settings");
 
             powerPlanId = DefaultPowerPlan;
             isDefault = true;
         }
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Power plan to be activated is {powerPlanId} [isDefault={isDefault}]");
+        Log.Instance.Trace($"Power plan to be activated is {powerPlanId} [isDefault={isDefault}]");
 
         if (!await ShouldSetPowerPlanAsync(alwaysActivateDefaults, isDefault).ConfigureAwait(false))
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Power plan {powerPlanId} will not be activated [isDefault={isDefault}]");
+            Log.Instance.Trace($"Power plan {powerPlanId} will not be activated [isDefault={isDefault}]");
 
             return;
         }
 
         var powerPlans = GetPowerPlans().ToArray();
 
-        if (Log.Instance.IsTraceEnabled)
-        {
-            Log.Instance.Trace($"Available power plans:");
-            foreach (var powerPlan in powerPlans)
-                Log.Instance.Trace($" - {powerPlan}");
-        }
+        Log.Instance.Trace($"Available power plans:");
+        foreach (var powerPlan in powerPlans)
+            Log.Instance.Trace($" - {powerPlan}");
 
         var powerPlanToActivate = powerPlans.FirstOrDefault(pp => pp.Guid == powerPlanId);
         if (powerPlanToActivate.Equals(default(WindowsPowerPlan)))
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Power plan {powerPlanId} was not found");
+            Log.Instance.Trace($"Power plan {powerPlanId} was not found");
             return;
         }
 
         if (powerPlanToActivate.IsActive)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Power plan {powerPlanToActivate.Guid} is already active. [name={powerPlanToActivate.Name}]");
+            Log.Instance.Trace($"Power plan {powerPlanToActivate.Guid} is already active. [name={powerPlanToActivate.Name}]");
             return;
         }
 
         SetActivePowerPlan(powerPlanToActivate.Guid);
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Power plan {powerPlanToActivate.Guid} activated. [name={powerPlanToActivate.Name}]");
+        Log.Instance.Trace($"Power plan {powerPlanToActivate.Guid} activated. [name={powerPlanToActivate.Name}]");
     }
 
     public void SetPowerPlanParameter(WindowsPowerPlan windowsPowerPlan, Brightness brightness)
@@ -102,8 +91,7 @@ public class WindowsPowerPlanController(ApplicationSettings settings, VantageDis
     {
         if (isDefault && alwaysActivateDefaults)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Power plan is default and always active defaults is set");
+            Log.Instance.Trace($"Power plan is default and always active defaults is set");
 
             return true;
         }
@@ -111,14 +99,12 @@ public class WindowsPowerPlanController(ApplicationSettings settings, VantageDis
         var status = await vantageDisabler.GetStatusAsync().ConfigureAwait(false);
         if (status is SoftwareStatus.NotFound or SoftwareStatus.Disabled)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Vantage is active [status={status}]");
+            Log.Instance.Trace($"Vantage is active [status={status}]");
 
             return true;
         }
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Criteria for activation not met [isDefault={isDefault}, alwaysActivateDefaults={alwaysActivateDefaults}, status={status}]");
+        Log.Instance.Trace($"Criteria for activation not met [isDefault={isDefault}, alwaysActivateDefaults={alwaysActivateDefaults}, status={status}]");
 
         return false;
     }

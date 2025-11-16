@@ -160,8 +160,7 @@ public partial class SensorsControlV2
                     }
                     catch (Exception ex)
                     {
-                        if (Log.Instance.IsTraceEnabled)
-                            Log.Instance.Trace($"Sensor refresh failed: {ex}");
+                        Log.Instance.Trace($"Sensor refresh failed: {ex}");
                         await Dispatcher.BeginInvoke(ClearAllSensorValues);
                     }
                 }

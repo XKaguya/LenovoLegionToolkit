@@ -56,10 +56,7 @@ public class SensorsGroupController : IDisposable
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-            {
-                Log.Instance.Trace($"Sensor group check failed: {ex}");
-            }
+            Log.Instance.Trace($"Sensor group check failed: {ex}");
             return result;
         }
 
@@ -121,12 +118,9 @@ public class SensorsGroupController : IDisposable
                 _computer.Open();
                 _computer.Accept(new UpdateVisitor());
 
-                if (Log.Instance.IsTraceEnabled)
+                foreach (var hardware in _computer.Hardware)
                 {
-                    foreach (var hardware in _computer.Hardware)
-                    {
-                        Log.Instance.Trace($"Detected hardware: {hardware.HardwareType} - {hardware.Name}");
-                    }
+                    Log.Instance.Trace($"Detected hardware: {hardware.HardwareType} - {hardware.Name}");
                 }
 
                 _interestedHardwares.AddRange(_computer.Hardware);
@@ -244,10 +238,7 @@ public class SensorsGroupController : IDisposable
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-            {
-                Log.Instance.Trace($"GetGpuPowerAsync() raised exception: ", ex);
-            }
+            Log.Instance.Trace($"GetGpuPowerAsync() raised exception: ", ex);
 
             return -1;
         }
@@ -304,10 +295,7 @@ public class SensorsGroupController : IDisposable
         }
         catch (ArgumentOutOfRangeException ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-            {
-                Log.Instance.Trace($"SSD temperature read error: {ex.Message}");
-            }
+            Log.Instance.Trace($"SSD temperature read error: {ex.Message}");
 
             return Task.FromResult((0f, 0f));
         }
@@ -414,13 +402,9 @@ public class SensorsGroupController : IDisposable
             settings.Store.UseNewSensorDashboard = false;
             settings.SynchronizeStore();
             InitialState = LibreHardwareMonitorInitialState.Fail;
-            if (Log.Instance.IsTraceEnabled)
-            {
-                string msg = $"LibreHardwareMonitor initialization failed. Disabling new sensor dashboard. [type={GetType().Name}]";
-                Log.Instance.Trace($"{msg}");
-                throw new Exception(msg, ex);
-            }
-            return InitialState;
+            string msg = $"LibreHardwareMonitor initialization failed. Disabling new sensor dashboard. [type={GetType().Name}]";
+            Log.Instance.Trace($"{msg}");
+            throw new Exception(msg, ex);
         }
         finally
         {
@@ -513,10 +497,7 @@ public class SensorsGroupController : IDisposable
                 }
                 catch (Exception ex)
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                    {
-                        Log.Instance.Trace($"Failed to update sensors: {ex.Message}", ex);
-                    }
+                    Log.Instance.Trace($"Failed to update sensors: {ex.Message}", ex);
                 }
             }
         }).ConfigureAwait(false);

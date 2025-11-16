@@ -36,21 +36,18 @@ public class NotificationsManager
     {
         Dispatcher.Invoke(() =>
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Notification {notification} received");
+            Log.Instance.Trace($"Notification {notification} received");
 
             if (_settings.Store.DontShowNotifications)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Notifications are disabled.");
+                Log.Instance.Trace($"Notifications are disabled.");
 
                 return;
             }
 
             if (FullscreenHelper.IsAnyApplicationFullscreen() && !_settings.Store.NotificationAlwaysOnTop)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Some application is in fullscreen.");
+                Log.Instance.Trace($"Some application is in fullscreen.");
 
                 return;
             }
@@ -101,8 +98,7 @@ public class NotificationsManager
 
             if (!allow)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Notification type {notification.Type} is disabled.");
+                Log.Instance.Trace($"Notification type {notification.Type} is disabled.");
 
                 return;
             }
@@ -236,8 +232,7 @@ public class NotificationsManager
 
             ShowNotification(symbol, overlaySymbol, symbolTransform, text, clickAction);
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Notification {notification} shown.");
+            Log.Instance.Trace($"Notification {notification} shown.");
         });
     }
 

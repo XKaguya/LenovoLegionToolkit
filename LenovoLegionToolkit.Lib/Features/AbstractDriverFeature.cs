@@ -31,27 +31,23 @@ public abstract class AbstractDriverFeature<T>(Func<SafeFileHandle> driverHandle
 
     public virtual async Task<T> GetStateAsync()
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Getting state... [feature={GetType().Name}]");
+        Log.Instance.Trace($"Getting state... [feature={GetType().Name}]");
 
         var outBuffer = await SendCodeAsync(DriverHandle(), ControlCode, GetInBufferValue()).ConfigureAwait(false);
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Buffer value: {outBuffer} [feature={GetType().Name}]");
+        Log.Instance.Trace($"Buffer value: {outBuffer} [feature={GetType().Name}]");
 
         var state = await FromInternalAsync(outBuffer).ConfigureAwait(false);
         LastState = state;
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"State is {state} [feature={GetType().Name}]");
+        Log.Instance.Trace($"State is {state} [feature={GetType().Name}]");
 
         return state;
     }
 
     public virtual async Task SetStateAsync(T state)
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Setting state to {state}... [feature={GetType().Name}]");
+        Log.Instance.Trace($"Setting state to {state}... [feature={GetType().Name}]");
 
         var codes = await ToInternalAsync(state).ConfigureAwait(false);
         foreach (var code in codes)
@@ -60,8 +56,7 @@ public abstract class AbstractDriverFeature<T>(Func<SafeFileHandle> driverHandle
 
         await VerifyStateSetAsync(state).ConfigureAwait(false);
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"State set to {state} [feature={GetType().Name}]");
+        Log.Instance.Trace($"State set to {state} [feature={GetType().Name}]");
     }
 
     protected abstract Task<T> FromInternalAsync(uint state);
@@ -77,8 +72,7 @@ public abstract class AbstractDriverFeature<T>(Func<SafeFileHandle> driverHandle
 
         var error = Marshal.GetLastWin32Error();
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"DeviceIoControl returned 0, last error: {error} [feature={GetType().Name}]");
+        Log.Instance.Trace($"DeviceIoControl returned 0, last error: {error} [feature={GetType().Name}]");
 
         throw new InvalidOperationException($"DeviceIoControl returned 0, last error: {error}");
     });
@@ -101,7 +95,6 @@ public abstract class AbstractDriverFeature<T>(Func<SafeFileHandle> driverHandle
             await Task.Delay(50).ConfigureAwait(false);
         }
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Verify state {state} set {(verified ? "succeeded" : "failed")}. [feature={GetType().Name}]");
+        Log.Instance.Trace($"Verify state {state} set {(verified ? "succeeded" : "failed")}. [feature={GetType().Name}]");
     }
 }

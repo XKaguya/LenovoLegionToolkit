@@ -84,10 +84,7 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                     }
                     catch (Exception ex)
                     {
-                        if (Log.Instance.IsTraceEnabled)
-                        {
-                            Log.Instance.Trace($"Monitoring loop error: {ex.Message}");
-                        }
+                        Log.Instance.Trace($"Monitoring loop error: {ex.Message}");
                         await Task.Delay(1000, _cancellationTokenSource.Token);
                     }
                 }
@@ -167,10 +164,7 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                     catch (OperationCanceledException) { }
                     catch (Exception ex)
                     {
-                        if (Log.Instance.IsTraceEnabled)
-                        {
-                            Log.Instance.Trace($"Monitoring failed for {process.ProcessName}", ex);
-                        }
+                        Log.Instance.Trace($"Monitoring failed for {process.ProcessName}", ex);
                         lock (_lockObject)
                         {
                             if (_currentMonitoredProcess?.Id == process.Id)
@@ -181,17 +175,11 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                     }
                 }, linkedTokenSource.Token);
 
-                if (Log.Instance.IsTraceEnabled)
-                {
-                    Log.Instance.Trace($"Started monitoring {process.ProcessName} (PID: {process.Id})");
-                }
+                Log.Instance.Trace($"Started monitoring {process.ProcessName} (PID: {process.Id})");
             }
             catch (Exception ex)
             {
-                if (Log.Instance.IsTraceEnabled)
-                {
-                    Log.Instance.Trace($"Failed to start monitoring for {process.ProcessName}", ex);
-                }
+                Log.Instance.Trace($"Failed to start monitoring for {process.ProcessName}", ex);
 
                 lock (_lockObject)
                 {
@@ -214,10 +202,7 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                 {
                     if (_currentMonitoredProcess != null)
                     {
-                        if (Log.Instance.IsTraceEnabled)
-                        {
-                            Log.Instance.Trace($"Stopped monitoring: {_currentMonitoredProcess.ProcessName}");
-                        }
+                        Log.Instance.Trace($"Stopped monitoring: {_currentMonitoredProcess.ProcessName}");
                         _currentMonitoredProcess = null;
                         _currentFpsData = new FpsData();
                     }
@@ -227,10 +212,7 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
             }
             catch (Exception ex)
             {
-                if (Log.Instance.IsTraceEnabled)
-                {
-                    Log.Instance.Trace($"Error stopping process monitoring", ex);
-                }
+                Log.Instance.Trace($"Error stopping process monitoring", ex);
             }
         }
 

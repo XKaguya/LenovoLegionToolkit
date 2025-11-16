@@ -33,10 +33,7 @@ internal static class NVAPI
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-            {
-                Log.Instance.Trace($"Exception occured when calling Initialize() in NVAPI.", ex);
-            }
+            Log.Instance.Trace($"Exception occured when calling Initialize() in NVAPI.", ex);
         }
     }
 

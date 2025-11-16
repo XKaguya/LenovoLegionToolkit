@@ -34,8 +34,7 @@ public static class InternalDisplay
     {
         lock (Lock)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Resetting holder...");
+            Log.Instance.Trace($"Resetting holder...");
 
             _displayHolder = null;
         }
@@ -52,8 +51,7 @@ public static class InternalDisplay
             var internalDisplay = FindInternalDisplay(displays);
             if (internalDisplay is not null)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Found internal display: {internalDisplay}");
+                Log.Instance.Trace($"Found internal display: {internalDisplay}");
 
                 return (_displayHolder = internalDisplay);
             }
@@ -61,14 +59,12 @@ public static class InternalDisplay
             var aoDisplay = FindInternalAdvancedOptimusDisplay(displays);
             if (aoDisplay is not null)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Found internal AO display: {aoDisplay}");
+                Log.Instance.Trace($"Found internal AO display: {aoDisplay}");
 
                 return (_displayHolder = aoDisplay);
             }
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"No internal displays found.");
+            Log.Instance.Trace($"No internal displays found.");
 
             return (_displayHolder = DisplayHolder.Empty);
         }

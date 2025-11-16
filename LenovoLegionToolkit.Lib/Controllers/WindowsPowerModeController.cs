@@ -28,22 +28,19 @@ public partial class WindowsPowerModeController(ApplicationSettings settings, IM
     {
         if (settings.Store.PowerModeMappingMode is not PowerModeMappingMode.WindowsPowerMode)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Ignoring... [powerModeMappingMode={settings.Store.PowerModeMappingMode}]");
+            Log.Instance.Trace($"Ignoring... [powerModeMappingMode={settings.Store.PowerModeMappingMode}]");
 
             return;
         }
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Activating... [powerModeState={powerModeState}]");
+        Log.Instance.Trace($"Activating... [powerModeState={powerModeState}]");
 
         var powerMode = settings.Store.PowerModes.GetValueOrDefault(powerModeState, WindowsPowerMode.Balanced);
         var powerModeGuid = GuidForWindowsPowerMode(powerMode);
 
         if (Power.IsBatterySaverEnabled())
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Battery saver is on - will not set overlay scheme.");
+            Log.Instance.Trace($"Battery saver is on - will not set overlay scheme.");
 
             return;
         }
@@ -56,8 +53,7 @@ public partial class WindowsPowerModeController(ApplicationSettings settings, IM
             {
                 var result = PowerSetActiveOverlayScheme(powerModeGuid);
 
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Overlay scheme set. [result={result}]");
+                Log.Instance.Trace($"Overlay scheme set. [result={result}]");
             });
 
             try
@@ -66,15 +62,13 @@ public partial class WindowsPowerModeController(ApplicationSettings settings, IM
             }
             catch (Exception ex)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Failed to update registry.", ex);
+                Log.Instance.Trace($"Failed to update registry.", ex);
             }
 
             return Task.CompletedTask;
         }).ConfigureAwait(false);
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Power mode {powerMode} activated... [powerModeState={powerModeState}, powerModeGuid={powerModeGuid}]");
+        Log.Instance.Trace($"Power mode {powerMode} activated... [powerModeState={powerModeState}, powerModeGuid={powerModeGuid}]");
     }
 
     private static void UpdateRegistry(Guid guid)
@@ -101,8 +95,7 @@ public partial class WindowsPowerModeController(ApplicationSettings settings, IM
         if (PInvoke.PowerSetActiveScheme(null, DefaultPowerPlan) != WIN32_ERROR.ERROR_SUCCESS)
             PInvokeExtensions.ThrowIfWin32Error("PowerSetActiveScheme");
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Activated default power plan.");
+        Log.Instance.Trace($"Activated default power plan.");
     }
 
     [LibraryImport("powrprof.dll", EntryPoint = "PowerSetActiveOverlayScheme")]

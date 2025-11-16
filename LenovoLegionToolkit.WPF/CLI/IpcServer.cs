@@ -36,28 +36,24 @@ public class IpcServer(
         if (!settings.Store.CLI)
             return;
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Starting...");
+        Log.Instance.Trace($"Starting...");
 
         _cancellationTokenSource = new();
 
         var token = _cancellationTokenSource.Token;
         _handler = Task.Run(() => Handler(token), token);
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Started");
+        Log.Instance.Trace($"Started");
     }
 
     public async Task StopAsync()
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Stopping...");
+        Log.Instance.Trace($"Stopping...");
 
         await _cancellationTokenSource.CancelAsync();
         await _handler;
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Stopped");
+        Log.Instance.Trace($"Stopped");
     }
 
     private async Task Handler(CancellationToken token)
@@ -81,8 +77,7 @@ public class IpcServer(
             {
                 await pipe.WaitForConnectionAsync(token).ConfigureAwait(false);
 
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Connection received.");
+                Log.Instance.Trace($"Connection received.");
 
                 try
                 {
@@ -105,8 +100,7 @@ public class IpcServer(
                 }
                 finally
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Disconnecting...");
+                    Log.Instance.Trace($"Disconnecting...");
 
                     pipe.Disconnect();
                 }
@@ -115,8 +109,7 @@ public class IpcServer(
         catch (OperationCanceledException) { }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Unknown failure.", ex);
+            Log.Instance.Trace($"Unknown failure.", ex);
         }
     }
 

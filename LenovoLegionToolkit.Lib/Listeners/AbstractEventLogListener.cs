@@ -43,8 +43,7 @@ public abstract class AbstractEventLogListener : IListener<EventArgs>
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Failed to handle event.  [listener={GetType().Name}]", ex);
+            Log.Instance.Trace($"Failed to handle event.  [listener={GetType().Name}]", ex);
         }
     }
 }

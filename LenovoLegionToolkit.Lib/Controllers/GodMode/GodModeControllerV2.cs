@@ -24,20 +24,17 @@ public class GodModeControllerV2(
     {
         if (await vantageDisabler.GetStatusAsync().ConfigureAwait(false) == SoftwareStatus.Enabled)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Can't correctly apply state when Vantage is running.");
+            Log.Instance.Trace($"Can't correctly apply state when Vantage is running.");
             return;
         }
 
         if (await legionZoneDisabler.GetStatusAsync().ConfigureAwait(false) == SoftwareStatus.Enabled)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Can't correctly apply state when Legion Zone is running.");
+            Log.Instance.Trace($"Can't correctly apply state when Legion Zone is running.");
             return;
         }
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Applying state...");
+        Log.Instance.Trace($"Applying state...");
 
         var (presetId, preset) = await GetActivePresetAsync().ConfigureAwait(false);
 
@@ -94,15 +91,13 @@ public class GodModeControllerV2(
             {
                 try
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Applying {id}: {value}...");
+                    Log.Instance.Trace($"Applying {id}: {value}...");
 
                     await SetValueAsync(id, value.Value).ConfigureAwait(false);
                 }
                 catch (Exception ex)
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Failed to apply {id}. [value={value}]", ex);
+                    Log.Instance.Trace($"Failed to apply {id}. [value={value}]", ex);
 
                     if (!failAllowedSettings.Contains(id))
                         throw;
@@ -112,15 +107,13 @@ public class GodModeControllerV2(
             {
                 try
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Applying default {id}: {defaultPerformanceValue}...");
+                    Log.Instance.Trace($"Applying default {id}: {defaultPerformanceValue}...");
 
                     await SetValueAsync(id, defaultPerformanceValue).ConfigureAwait(false);
                 }
                 catch (Exception ex)
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Failed to apply default {id}. [value={defaultPerformanceValue}]", ex);
+                    Log.Instance.Trace($"Failed to apply default {id}. [value={defaultPerformanceValue}]", ex);
 
                     if (!failAllowedSettings.Contains(id))
                         throw;
@@ -128,8 +121,7 @@ public class GodModeControllerV2(
             }
             else
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Failed to apply {id}, because neither value nor default value was available.");
+                Log.Instance.Trace($"Failed to apply {id}, because neither value nor default value was available.");
             }
         }
 
@@ -137,15 +129,13 @@ public class GodModeControllerV2(
         {
             try
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Applying Fan Full Speed {fanFullSpeed}...");
+                Log.Instance.Trace($"Applying Fan Full Speed {fanFullSpeed}...");
 
                 await SetFanFullSpeedAsync(fanFullSpeed).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Apply failed. [setting=fanFullSpeed]", ex);
+                Log.Instance.Trace($"Apply failed. [setting=fanFullSpeed]", ex);
                 throw;
             }
         }
@@ -153,27 +143,23 @@ public class GodModeControllerV2(
         {
             try
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Making sure Fan Full Speed is false...");
+                Log.Instance.Trace($"Making sure Fan Full Speed is false...");
 
                 await SetFanFullSpeedAsync(false).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Apply failed. [setting=fanFullSpeed]", ex);
+                Log.Instance.Trace($"Apply failed. [setting=fanFullSpeed]", ex);
                 throw;
             }
 
             try
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Applying Fan Table {fanTable}...");
+                Log.Instance.Trace($"Applying Fan Table {fanTable}...");
 
                 if (!await IsValidFanTableAsync(fanTable).ConfigureAwait(false))
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Fan table invalid, replacing with default...");
+                    Log.Instance.Trace($"Fan table invalid, replacing with default...");
 
                     fanTable = await GetDefaultFanTableAsync().ConfigureAwait(false);
                 }
@@ -182,16 +168,14 @@ public class GodModeControllerV2(
             }
             catch (Exception ex)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Apply failed. [setting=fanTable]", ex);
+                Log.Instance.Trace($"Apply failed. [setting=fanTable]", ex);
                 throw;
             }
         }
 
         RaisePresetChanged(presetId);
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"State applied. [name={preset.Name}, id={presetId}]");
+        Log.Instance.Trace($"State applied. [name={preset.Name}, id={presetId}]");
     }
 
     public override Task<FanTable> GetMinimumFanTableAsync()
@@ -204,8 +188,7 @@ public class GodModeControllerV2(
     {
         try
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Getting defaults in other power modes...");
+            Log.Instance.Trace($"Getting defaults in other power modes...");
 
             var result = new Dictionary<PowerModeState, GodModeDefaults>();
 
@@ -235,19 +218,15 @@ public class GodModeControllerV2(
                 result[powerMode] = defaults;
             }
 
-            if (Log.Instance.IsTraceEnabled)
-            {
-                Log.Instance.Trace($"Defaults in other power modes retrieved:");
-                foreach (var (powerMode, defaults) in result)
-                    Log.Instance.Trace($" - {powerMode}: {defaults}");
-            }
+            Log.Instance.Trace($"Defaults in other power modes retrieved:");
+            foreach (var (powerMode, defaults) in result)
+                Log.Instance.Trace($" - {powerMode}: {defaults}");
 
             return result;
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Failed to get defaults in other power modes.", ex);
+            Log.Instance.Trace($"Failed to get defaults in other power modes.", ex);
 
             return [];
         }
@@ -281,14 +260,12 @@ public class GodModeControllerV2(
 
             if (c.Step == 0 && steps.Length < 1)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Skipping {c.Id}... [idRaw={(int)c.Id:X}, defaultValue={c.DefaultValue}, min={c.Min}, max={c.Max}, step={c.Step}, steps={string.Join(", ", steps)}]");
+                Log.Instance.Trace($"Skipping {c.Id}... [idRaw={(int)c.Id:X}, defaultValue={c.DefaultValue}, min={c.Min}, max={c.Max}, step={c.Step}, steps={string.Join(", ", steps)}]");
 
                 continue;
             }
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Creating StepperValue {c.Id}... [idRaw={(int)c.Id:X}, defaultValue={c.DefaultValue}, min={c.Min}, max={c.Max}, step={c.Step}, steps={string.Join(", ", steps)}]");
+            Log.Instance.Trace($"Creating StepperValue {c.Id}... [idRaw={(int)c.Id:X}, defaultValue={c.DefaultValue}, min={c.Min}, max={c.Max}, step={c.Step}, steps={string.Join(", ", steps)}]");
 
             var stepperValue = new StepperValue(value, c.Min, c.Max, c.Step, steps, c.DefaultValue);
             stepperValues[c.Id] = stepperValue;
@@ -317,8 +294,7 @@ public class GodModeControllerV2(
             MaxValueOffset = 0
         };
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Default state retrieved: {preset}");
+        Log.Instance.Trace($"Default state retrieved: {preset}");
 
         return preset;
     }
@@ -363,8 +339,7 @@ public class GodModeControllerV2(
 
     private static async Task<FanTableData[]?> GetFanTableDataAsync(PowerModeState powerModeState = PowerModeState.GodMode)
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Reading fan table data...");
+        Log.Instance.Trace($"Reading fan table data...");
 
         var data = await WMI.LenovoFanTableData.ReadAsync().ConfigureAwait(false);
         var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
@@ -392,30 +367,26 @@ public class GodModeControllerV2(
 
         if (fanTableData.Length != length)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Bad fan table length: {string.Join(", ", fanTableData)}");
+            Log.Instance.Trace($"Bad fan table length: {string.Join(", ", fanTableData)}");
 
             return null;
         }
 
         if (fanTableData.Count(ftd => ftd.FanSpeeds.Length == 10) != length)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Bad fan table fan speeds length: {string.Join(", ", fanTableData)}");
+            Log.Instance.Trace($"Bad fan table fan speeds length: {string.Join(", ", fanTableData)}");
 
             return null;
         }
 
         if (fanTableData.Count(ftd => ftd.Temps.Length == 10) != length)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Bad fan table temps length: {string.Join(", ", fanTableData)}");
+            Log.Instance.Trace($"Bad fan table temps length: {string.Join(", ", fanTableData)}");
 
             return null;
         }
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Fan table data: {string.Join(", ", fanTableData)}");
+        Log.Instance.Trace($"Fan table data: {string.Join(", ", fanTableData)}");
 
         return fanTableData;
     }

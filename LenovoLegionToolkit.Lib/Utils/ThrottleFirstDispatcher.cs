@@ -18,13 +18,13 @@ public class ThrottleFirstDispatcher(TimeSpan interval, string? tag = null)
 
             if (diff < interval)
             {
-                if (tag is not null && Log.Instance.IsTraceEnabled)
+                if (tag is not null)
                     Log.Instance.Trace($"Throttling... [tag={tag}, diff={diff.TotalMilliseconds}ms]");
 
                 return;
             }
 
-            if (tag is not null && Log.Instance.IsTraceEnabled)
+            if (tag is not null)
                 Log.Instance.Trace($"Allowing... [tag={tag}, diff={diff.TotalMilliseconds}ms]");
 
             await task().ConfigureAwait(false);

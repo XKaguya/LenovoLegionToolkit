@@ -33,20 +33,17 @@ public class HWiNFOIntegration(SensorsController sensorController, IntegrationsS
         if (!settings.Store.HWiNFO)
             return;
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Starting...");
+        Log.Instance.Trace($"Starting...");
 
         _cts = new();
         _refreshTask = RefreshLoopAsync(_cts.Token);
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Started.");
+        Log.Instance.Trace($"Started.");
     }
 
     public async Task StopAsync()
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Stopping...");
+        Log.Instance.Trace($"Stopping...");
 
         if (_cts is not null)
             await _cts.CancelAsync().ConfigureAwait(false);
@@ -56,8 +53,7 @@ public class HWiNFOIntegration(SensorsController sensorController, IntegrationsS
 
         ClearValues();
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Stopped.");
+        Log.Instance.Trace($"Stopped.");
     }
 
     private async Task RefreshLoopAsync(CancellationToken token)
@@ -75,8 +71,7 @@ public class HWiNFOIntegration(SensorsController sensorController, IntegrationsS
         catch (OperationCanceledException) { }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Failed to set values.", ex);
+            Log.Instance.Trace($"Failed to set values.", ex);
         }
     }
 
@@ -135,8 +130,7 @@ public class HWiNFOIntegration(SensorsController sensorController, IntegrationsS
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Failed to clear values.", ex);
+            Log.Instance.Trace($"Failed to clear values.", ex);
         }
     }
 }

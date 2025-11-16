@@ -47,8 +47,7 @@ public abstract class AbstractPackageDownloader(HttpClientFactory httpClientFact
 
         if (!string.IsNullOrEmpty(package.FileCrc) && fileSha256.Equals(package.FileCrc, StringComparison.InvariantCultureIgnoreCase))
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Package file checksum match. [fileName={package.FileName}, fileLocation={package.FileLocation}, fileCrc={package.FileCrc}]");
+            Log.Instance.Trace($"Package file checksum match. [fileName={package.FileName}, fileLocation={package.FileLocation}, fileCrc={package.FileCrc}]");
             return;
         }
 
@@ -57,19 +56,16 @@ public abstract class AbstractPackageDownloader(HttpClientFactory httpClientFact
             var externalSha256 = await httpClient.GetStringAsync($"{package.FileLocation}.sha256", token).ConfigureAwait(false);
             if (fileSha256.Equals(externalSha256, StringComparison.InvariantCultureIgnoreCase))
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"External file checksum match. [fileName={package.FileName}, fileLocation={package.FileLocation}, fileCrc={package.FileCrc}]");
+                Log.Instance.Trace($"External file checksum match. [fileName={package.FileName}, fileLocation={package.FileLocation}, fileCrc={package.FileCrc}]");
                 return;
             }
         }
         catch (HttpRequestException ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"External file checksum not found. [statusCode={ex.StatusCode}, fileName={package.FileName}, fileLocation={package.FileLocation}, fileCrc={package.FileCrc}]");
+            Log.Instance.Trace($"External file checksum not found. [statusCode={ex.StatusCode}, fileName={package.FileName}, fileLocation={package.FileLocation}, fileCrc={package.FileCrc}]");
         }
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"File checksum mismatch. [fileName={package.FileName}, fileLocation={package.FileLocation}]");
+        Log.Instance.Trace($"File checksum mismatch. [fileName={package.FileName}, fileLocation={package.FileLocation}]");
 
         throw new InvalidDataException("File checksum mismatch");
     }

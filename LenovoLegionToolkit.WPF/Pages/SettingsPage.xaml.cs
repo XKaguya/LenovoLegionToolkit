@@ -172,8 +172,7 @@ public partial class SettingsPage
         {
             _godModeFnQSwitchableCard.Visibility = Visibility.Collapsed;
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Failed to get GodModeFnQSwitchable status.", ex);
+            Log.Instance.Trace($"Failed to get GodModeFnQSwitchable status.", ex);
         }
 
         _powerModeMappingComboBox.SetItems(Enum.GetValues<PowerModeMappingMode>(), _settings.Store.PowerModeMappingMode, t => t.GetDisplayName());
@@ -481,16 +480,14 @@ public partial class SettingsPage
             {
                 if (await _rgbKeyboardBacklightController.IsSupportedAsync())
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Setting light control owner and restoring preset...");
+                    Log.Instance.Trace($"Setting light control owner and restoring preset...");
 
                     await _rgbKeyboardBacklightController.SetLightControlOwnerAsync(true, true);
                 }
             }
             catch (Exception ex)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Couldn't set light control owner or current preset.", ex);
+                Log.Instance.Trace($"Couldn't set light control owner or current preset.", ex);
             }
 
             try
@@ -498,26 +495,22 @@ public partial class SettingsPage
                 var controller = IoCContainer.Resolve<SpectrumKeyboardBacklightController>();
                 if (await controller.IsSupportedAsync())
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Starting Aurora if needed...");
+                    Log.Instance.Trace($"Starting Aurora if needed...");
 
                     var result = await controller.StartAuroraIfNeededAsync();
                     if (result)
                     {
-                        if (Log.Instance.IsTraceEnabled)
-                            Log.Instance.Trace($"Aurora started.");
+                        Log.Instance.Trace($"Aurora started.");
                     }
                     else
                     {
-                        if (Log.Instance.IsTraceEnabled)
-                            Log.Instance.Trace($"Aurora not needed.");
+                        Log.Instance.Trace($"Aurora not needed.");
                     }
                 }
             }
             catch (Exception ex)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Couldn't start Aurora if needed.", ex);
+                Log.Instance.Trace($"Couldn't start Aurora if needed.", ex);
             }
         }
         else
@@ -526,24 +519,21 @@ public partial class SettingsPage
             {
                 if (await _rgbKeyboardBacklightController.IsSupportedAsync())
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Setting light control owner...");
+                    Log.Instance.Trace($"Setting light control owner...");
 
                     await _rgbKeyboardBacklightController.SetLightControlOwnerAsync(false);
                 }
             }
             catch (Exception ex)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Couldn't set light control owner.", ex);
+                Log.Instance.Trace($"Couldn't set light control owner.", ex);
             }
 
             try
             {
                 if (IoCContainer.TryResolve<SpectrumKeyboardBacklightController>() is { } spectrumKeyboardBacklightController)
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Making sure Aurora is stopped...");
+                    Log.Instance.Trace($"Making sure Aurora is stopped...");
 
                     if (await spectrumKeyboardBacklightController.IsSupportedAsync())
                         await spectrumKeyboardBacklightController.StopAuroraIfNeededAsync();
@@ -551,8 +541,7 @@ public partial class SettingsPage
             }
             catch (Exception ex)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Couldn't stop Aurora.", ex);
+                Log.Instance.Trace($"Couldn't stop Aurora.", ex);
             }
 
             try
@@ -982,10 +971,8 @@ public partial class SettingsPage
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-            {
-                Log.Instance.Trace($"FloatingGadgets_Click error: {ex.Message}");
-            }
+            Log.Instance.Trace($"FloatingGadgets_Click error: {ex.Message}");
+
             _floatingGadgetsToggle.IsChecked = false;
             _settings.Store.ShowFloatingGadgets = false;
             _settings.SynchronizeStore();
@@ -1031,10 +1018,7 @@ public partial class SettingsPage
         catch (Exception ex)
         {
             SnackbarHelper.Show(Resource.Warning, ex.Message, SnackbarType.Error);
-            if (Log.Instance.IsTraceEnabled)
-            {
-                Log.Instance.Trace($"Exception occured when executing SetBackgroundImage().", ex);
-            }
+            Log.Instance.Trace($"Exception occured when executing SetBackgroundImage().", ex);
         }
     }
 
@@ -1105,10 +1089,8 @@ public partial class SettingsPage
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-            {
-                Log.Instance.Trace($"StyleComboBox_SelectionChanged error: {ex.Message}");
-            }
+            Log.Instance.Trace($"StyleComboBox_SelectionChanged error: {ex.Message}");
+
             _isRefreshing = true;
             _floatingGadgetsStyleComboBox.SelectedIndex = _settings.Store.SelectedStyleIndex;
             _isRefreshing = false;

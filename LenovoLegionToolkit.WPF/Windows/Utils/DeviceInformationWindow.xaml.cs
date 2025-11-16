@@ -65,8 +65,7 @@ public partial class DeviceInformationWindow
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Couldn't load warranty info.", ex);
+            Log.Instance.Trace($"Couldn't load warranty info.", ex);
         }
         finally
         {
@@ -88,8 +87,7 @@ public partial class DeviceInformationWindow
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Couldn't copy to clipboard", ex);
+            Log.Instance.Trace($"Couldn't copy to clipboard", ex);
         }
     }
 

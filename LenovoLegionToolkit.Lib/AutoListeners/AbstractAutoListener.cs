@@ -31,8 +31,7 @@ public abstract class AbstractAutoListener<TEventArgs> : IAutoListener<TEventArg
         {
             var subscribers = Changed?.GetInvocationList().Length ?? 0;
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Subscribers: {subscribers}. [type={GetType().Name}]");
+            Log.Instance.Trace($"Subscribers: {subscribers}. [type={GetType().Name}]");
 
             if (subscribers > 0)
                 await StartInternalAsync().ConfigureAwait(false);
@@ -45,42 +44,36 @@ public abstract class AbstractAutoListener<TEventArgs> : IAutoListener<TEventArg
     {
         if (_started)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Already started. [type={GetType().Name}]");
+            Log.Instance.Trace($"Already started. [type={GetType().Name}]");
 
             return;
         }
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Starting... [type={GetType().Name}]");
+        Log.Instance.Trace($"Starting... [type={GetType().Name}]");
 
         await StartAsync().ConfigureAwait(false);
 
         _started = true;
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Started. [type={GetType().Name}]");
+        Log.Instance.Trace($"Started. [type={GetType().Name}]");
     }
 
     private async Task StopInternalAsync()
     {
         if (!_started)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Already stopped. [type={GetType().Name}]");
+            Log.Instance.Trace($"Already stopped. [type={GetType().Name}]");
 
             return;
         }
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Stopping... [type={GetType().Name}]");
+        Log.Instance.Trace($"Stopping... [type={GetType().Name}]");
 
         await StopAsync().ConfigureAwait(false);
 
         _started = false;
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Stopped. [type={GetType().Name}]");
+        Log.Instance.Trace($"Stopped. [type={GetType().Name}]");
     }
 
     protected abstract Task StartAsync();
