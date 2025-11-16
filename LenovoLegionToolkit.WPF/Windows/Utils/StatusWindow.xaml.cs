@@ -23,6 +23,11 @@ namespace LenovoLegionToolkit.WPF.Windows.Utils;
 
 public partial class StatusWindow
 {
+    private readonly ApplicationSettings _settings = IoCContainer.Resolve<ApplicationSettings>();
+    private readonly SemaphoreSlim _refreshLock = new(1, 1);
+    private DateTime _lastUpdate = DateTime.MinValue;
+    private const int UI_UPDATE_THROTTLE_MS = 100;
+
     private readonly CancellationTokenSource _cancellationTokenSource;
 
     private readonly PowerModeFeature _powerModeFeature;
@@ -208,31 +213,7 @@ public partial class StatusWindow
         var token = _cancellationTokenSource.Token;
         await Task.Run(async () =>
         {
-            while (!token.IsCancellationRequested)
-            {
-                try
-                {
-                    var data = await GetStatusWindowDataAsync(token);
-                    if (token.IsCancellationRequested)
-                        break;
-
-                    await Dispatcher.InvokeAsync(() => TheRing(data), System.Windows.Threading.DispatcherPriority.Normal, token);
-                }
-                catch (OperationCanceledException)
-                {
-                    break;
-                }
-                catch { /* Ignored */ }
-
-                try
-                {
-                    await Task.Delay(1000, token);
-                }
-                catch (OperationCanceledException)
-                {
-                    break;
-                }
-            }
+            await TheRing(token);
         }, token);
     }
 
@@ -407,5 +388,49 @@ public partial class StatusWindow
         label.Content = fan < 0
             ? "-"
             : $"{fan:0}RPM";
+    }
+
+    private async Task TheRing(CancellationToken token)
+    {
+        if (!await _refreshLock.WaitAsync(0, token))
+            return;
+
+        try
+        {
+            while (!token.IsCancellationRequested)
+            {
+                try
+                {
+                    var data = await GetStatusWindowDataAsync(token);
+
+                    token.ThrowIfCancellationRequested();
+
+                    if ((DateTime.Now - _lastUpdate).TotalMilliseconds >= UI_UPDATE_THROTTLE_MS)
+                    {
+                        _lastUpdate = DateTime.Now;
+                        await Dispatcher.InvokeAsync(() => TheRing(data), System.Windows.Threading.DispatcherPriority.Normal, token);
+                    }
+
+                    await Task.Delay(TimeSpan.FromSeconds(_settings.Store.FloatingGadgetsRefreshInterval), token);
+                }
+                catch (OperationCanceledException)
+                {
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    Log.Instance.Trace($"Exception occurred when executing TheRing()", ex);
+                    await Task.Delay(1000, token);
+                }
+            }
+        }
+        finally
+        {
+            try
+            {
+                _refreshLock.Release();
+            }
+            catch (ObjectDisposedException) { }
+        }
     }
 }
