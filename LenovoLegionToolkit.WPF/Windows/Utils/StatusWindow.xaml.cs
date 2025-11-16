@@ -420,7 +420,7 @@ public partial class StatusWindow
                 catch (Exception ex)
                 {
                     Log.Instance.Trace($"Exception occurred when executing TheRing()", ex);
-                    await Task.Delay(1000, token);
+                    await Task.Delay(TimeSpan.FromSeconds(_settings.Store.FloatingGadgetsRefreshInterval), token);
                 }
             }
         }
