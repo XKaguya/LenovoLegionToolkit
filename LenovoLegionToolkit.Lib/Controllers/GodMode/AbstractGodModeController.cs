@@ -237,7 +237,7 @@ public abstract class AbstractGodModeController(GodModeSettings settings)
         }
 
         if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Fan table data retrieved: {fanTableData}");
+            Log.Instance.Trace($"Fan table data retrieved: {string.Join(", ", fanTableData)}");
 
         var fanTable = preset.FanTable ?? await GetDefaultFanTableAsync().ConfigureAwait(false);
 

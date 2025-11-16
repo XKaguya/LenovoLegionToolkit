@@ -637,7 +637,7 @@ public class GodModeControllerV1(
         }
 
         if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Fan table data: {fanTableData}");
+            Log.Instance.Trace($"Fan table data: {string.Join(", ", fanTableData)}");
 
         return fanTableData;
     }
