@@ -2398,8 +2398,7 @@ Andere Vollbildfenster werden dadurch nicht beeinträchtigt, aber Sie können ni
     <value>Neues Sensor Dashboard verwenden</value>
   </data>
   <data name="SettingsPage_UseNewSensorDashboard_Message" xml:space="preserve">
-    <value>Verwenden Sie das neue Sensor-Dashboard anstelle des alten. 
-Hinweis: Die Verwendung des neuen Sensor-Dashboards kann dazu führen, dass einige Antivirenprogramme einen Warnhinweis anzeigen. Weitere Informationen finden Sie hier: LibreHardwareMonitor/LibreHardwareMonitor#984</value>
+    <value>Use new sensor dashboard instead of the old one. </value>
   </data>
   <data name="SettingsPage_LockWindowSize_Title" xml:space="preserve">
     <value>Fenstergröße sperren</value>
