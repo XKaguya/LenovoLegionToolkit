@@ -27,6 +27,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Management;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -330,37 +331,70 @@ public partial class App
 
     private void LogUnhandledException(Exception exception)
     {
+        if (exception == null) return;
+
         Log.Instance.Trace($"Exception in LogUnhandledException {exception.Message}", exception);
 
         if (Application.Current != null)
         {
+            Action showSnackbarAction = () =>
+            {
+                SnackbarHelper.Show(
+                    Resource.UnexpectedException,
+                    exception.Message + exception.StackTrace ?? "Unknown exception.",
+                    SnackbarType.Error);
+            };
+
             if (Application.Current.Dispatcher.CheckAccess())
             {
-                SnackbarHelper.Show(Resource.UnexpectedException, exception?.Message + exception?.StackTrace ?? "Unknown exception.", SnackbarType.Error);
+                showSnackbarAction();
             }
             else
             {
-                Application.Current.Dispatcher.BeginInvoke(new Action(() =>
-                {
-                    SnackbarHelper.Show(Resource.UnexpectedException, exception?.Message + exception?.StackTrace ?? "Unknown exception.", SnackbarType.Error);
-                }));
+                Application.Current.Dispatcher.BeginInvoke(showSnackbarAction);
             }
         }
     }
 
     private void SetupExceptionHandling()
     {
-        AppDomain.CurrentDomain.UnhandledException += (s, e) => LogUnhandledException((Exception)e.ExceptionObject);
+        List<Type> ignoreExceptionTypes = new()
+        {
+            typeof(ManagementException),
+        };
+
+        Func<Exception, bool> shouldIgnore = (ex) =>
+        {
+            return ignoreExceptionTypes.Contains(ex.GetType());
+        };
+
+        AppDomain.CurrentDomain.UnhandledException += (s, e) =>
+        {
+            var exception = (Exception)e.ExceptionObject;
+
+            if (!shouldIgnore(exception))
+            {
+                LogUnhandledException(exception);
+            }
+        };
 
         DispatcherUnhandledException += (s, e) =>
         {
-            LogUnhandledException(e.Exception);
+            if (!shouldIgnore(e.Exception))
+            {
+                LogUnhandledException(e.Exception);
+            }
+
             e.Handled = true;
         };
 
         TaskScheduler.UnobservedTaskException += (s, e) =>
         {
-            LogUnhandledException(e.Exception);
+            if (!shouldIgnore(e.Exception))
+            {
+                LogUnhandledException(e.Exception);
+            }
+
             e.SetObserved();
         };
     }
