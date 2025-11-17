@@ -195,7 +195,14 @@ public class GodModeControllerV2(
             var allCapabilityData = await WMI.LenovoCapabilityData01.ReadAsync().ConfigureAwait(false);
             allCapabilityData = allCapabilityData.ToArray();
 
-            foreach (var powerMode in new[] { PowerModeState.Quiet, PowerModeState.Balance, PowerModeState.Performance, PowerModeState.Extreme })
+            List<PowerModeState> powerModes = new() { PowerModeState.Quiet, PowerModeState.Balance, PowerModeState.Performance };
+            var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
+            if (mi.Properties.SupportsExtremeMode)
+            {
+                powerModes.Add(PowerModeState.Extreme);
+            }
+
+            foreach (var powerMode in powerModes)
             {
                 var defaults = new GodModeDefaults
                 {

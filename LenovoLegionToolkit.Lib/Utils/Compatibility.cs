@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Windows.Win32;
@@ -22,7 +21,6 @@ namespace LenovoLegionToolkit.Lib.Utils;
 
 public static partial class Compatibility
 {
-    private static readonly HashSet<object> _visited = new();
 
     [GeneratedRegex("^[A-Z0-9]{4}")]
     private static partial Regex BiosPrefixRegex();
