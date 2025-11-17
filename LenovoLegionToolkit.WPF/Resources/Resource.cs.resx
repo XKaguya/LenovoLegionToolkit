@@ -2399,8 +2399,7 @@ Nebude to mít vliv na ostatní celoobrazovková okna, ale nebudete moci kliknou
     <value>Použít nový ovládací panel senzoru</value>
   </data>
   <data name="SettingsPage_UseNewSensorDashboard_Message" xml:space="preserve">
-    <value>Používat nový ovládací panel senzorů namísto starého.
-Pozn.: Použití nového panelu může způsobit, že některé antivirové programy zobrazí varovné vyskakovací okno. Pro více informací viz: LibreHardwareMonitor/LibreHardwareMonitor#984</value>
+    <value>Use new sensor dashboard instead of the old one. </value>
   </data>
   <data name="SettingsPage_LockWindowSize_Title" xml:space="preserve">
     <value>Uzamknout velikost okna</value>
