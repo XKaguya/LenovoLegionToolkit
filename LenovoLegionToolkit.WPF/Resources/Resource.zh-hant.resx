@@ -2397,8 +2397,7 @@
     <value>使用新的儀表盤</value>
   </data>
   <data name="SettingsPage_UseNewSensorDashboard_Message" xml:space="preserve">
-    <value>使用新的傳感器儀錶板而不是舊的。
-注意：使用新的傳感器儀錶板可能會導致某些防病毒程式顯示警告彈出窗口。詳細信息請參見: LibreHardwareMonitor/LibreHardwareMonitor#984</value>
+    <value>Use new sensor dashboard instead of the old one. </value>
   </data>
   <data name="SettingsPage_LockWindowSize_Title" xml:space="preserve">
     <value>鎖定窗口大小</value>
