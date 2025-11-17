@@ -2399,9 +2399,7 @@
     <value>Χρήση Νέου Πίνακα Αισθητήρων</value>
   </data>
   <data name="SettingsPage_UseNewSensorDashboard_Message" xml:space="preserve">
-    <value>Χρησιμοποιήστε τον νέο πίνακα αισθητήρων αντί για τον παλιό.
-
-Σημείωση: Η χρήση του νέου πίνακα αισθητήρων ενδέχεται να προκαλέσει την εμφάνιση ενός αναδυόμενου παραθύρου προειδοποίησης σε ορισμένα προγράμματα προστασίας από ιούς. Για περισσότερες πληροφορίες, δείτε το: LibreHardwareMonitor/LibreHardwareMonitor#984</value>
+    <value>Use new sensor dashboard instead of the old one. </value>
   </data>
   <data name="SettingsPage_LockWindowSize_Title" xml:space="preserve">
     <value>Κλείδωμα Μεγέθους Παραθύρου</value>
