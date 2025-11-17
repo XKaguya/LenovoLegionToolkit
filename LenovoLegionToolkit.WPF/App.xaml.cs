@@ -386,7 +386,7 @@ public partial class App
             : inner.Message;
     }
 
-    private void SetupExceptionHandling()
+    private bool ShouldIgnoreException(Exception ex)
     {
         List<Type> ignoreExceptionTypes = new()
         {
@@ -394,16 +394,36 @@ public partial class App
             typeof(OperationCanceledException),
         };
 
-        Func<Exception, bool> shouldIgnore = (ex) =>
+        if (ignoreExceptionTypes.Contains(ex.GetType()))
         {
-            return ignoreExceptionTypes.Contains(ex.GetType());
-        };
+            return true;
+        }
 
+        if (ex is AggregateException aggregateException)
+        {
+            foreach (var innerException in aggregateException.InnerExceptions)
+            {
+                if (ShouldIgnoreException(innerException))
+                {
+                    return true;
+                }
+            }
+        }
+        else if (ex.InnerException != null)
+        {
+            return ShouldIgnoreException(ex.InnerException);
+        }
+
+        return false;
+    }
+
+    private void SetupExceptionHandling()
+    {
         AppDomain.CurrentDomain.UnhandledException += (s, e) =>
         {
             var exception = (Exception)e.ExceptionObject;
 
-            if (!shouldIgnore(exception))
+            if (!ShouldIgnoreException(exception))
             {
                 LogUnhandledException(exception);
             }
@@ -411,7 +431,7 @@ public partial class App
 
         DispatcherUnhandledException += (s, e) =>
         {
-            if (!shouldIgnore(e.Exception))
+            if (!ShouldIgnoreException(e.Exception))
             {
                 LogUnhandledException(e.Exception);
             }
@@ -421,7 +441,7 @@ public partial class App
 
         TaskScheduler.UnobservedTaskException += (s, e) =>
         {
-            if (!shouldIgnore(e.Exception))
+            if (!ShouldIgnoreException(e.Exception))
             {
                 LogUnhandledException(e.Exception);
             }
