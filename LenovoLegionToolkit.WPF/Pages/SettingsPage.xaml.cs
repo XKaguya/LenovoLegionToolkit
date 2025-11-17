@@ -48,8 +48,8 @@ public partial class SettingsPage
 
     private bool _isRefreshing;
 
-    private Custom? CustomWindow = new Custom();
-    private EditSensorGroupWindow? EditSensorGroupWindow = new EditSensorGroupWindow();
+    private Custom? CustomWindow;
+    private EditSensorGroupWindow? EditSensorGroupWindow;
 
     public SettingsPage()
     {
@@ -1103,7 +1103,9 @@ public partial class SettingsPage
         if (_isRefreshing)
             return;
 
-        ShowOrActivateWindow(ref CustomWindow, CreateCustomWindow, BringCustomWindow);
+        CustomWindow = ShowOrActivateWindow(CustomWindow,
+            () => new Custom { Owner = Window.GetWindow(this) },
+            w => w.BringToForeground());
     }
 
     private void DashboardCustomButton_Click(object sender, RoutedEventArgs e)
@@ -1111,70 +1113,59 @@ public partial class SettingsPage
         if (_isRefreshing)
             return;
 
-        ShowOrActivateWindow(ref EditSensorGroupWindow, CreateEditSensorGroupWindow, BringEditSensorGroupWindow);
+        EditSensorGroupWindow = ShowOrActivateWindow(EditSensorGroupWindow,
+            () => new EditSensorGroupWindow { Owner = Window.GetWindow(this) },
+            w => w.BringToForeground());
     }
 
     #region Helper
     private static bool IsWindowValid(Window? window)
     {
-        if (window == null) return false;
-        if (window.Dispatcher.HasShutdownStarted || window.Dispatcher.HasShutdownFinished) return false;
-        return window.IsLoaded;
+        return window is not null
+        && !window.Dispatcher.HasShutdownStarted
+        && !window.Dispatcher.HasShutdownFinished
+        && window.IsLoaded;
     }
 
-    private void ShowOrActivateWindow<T>(ref T? window, Func<T> factory, Action<T>? bringToForeground = null) where T : Window
+    private T ShowOrActivateWindow<T>(T? window, Func<T> factory, Action<T>? bringToForeground = null)
+    where T : Window
     {
-        if (window == null || !IsWindowValid(window))
-        {
+        if (window is null || !IsWindowValid(window))
             window = factory();
-        }
 
-        try
+        if (window.IsVisible)
         {
-            if (window.IsVisible)
-            {
-                if (window.WindowState == WindowState.Minimized)
-                    window.WindowState = WindowState.Normal;
+            if (window.WindowState == WindowState.Minimized)
+                window.WindowState = WindowState.Normal;
 
-                try
+            try
+            {
+                if (bringToForeground is not null && window.ShowActivated)
                 {
-                    if (bringToForeground is not null && window.ShowActivated)
-                        bringToForeground(window);
-                    else
-                        window.Activate();
+                    bringToForeground(window);
                 }
-                catch
+                else
                 {
                     window.Activate();
                 }
             }
-            else
-            {
-                window.Show();
-            }
+            catch { }
+
+            return window;
+        }
+
+        try
+        {
+            window.Show();
+            return window;
         }
         catch (InvalidOperationException)
         {
             window = factory();
             window.Show();
+            return window;
         }
     }
-    private Custom CreateCustomWindow()
-    {
-        return new Custom { Owner = Window.GetWindow(this) };
-    }
-    private void BringCustomWindow(Window window)
-    {
-        ((Custom)window).BringToForeground();
-    }
 
-    private EditSensorGroupWindow CreateEditSensorGroupWindow()
-    {
-        return new EditSensorGroupWindow { Owner = Window.GetWindow(this) };
-    }
-    private void BringEditSensorGroupWindow(Window window)
-    {
-        ((EditSensorGroupWindow)window).BringToForeground();
-    }
     #endregion
 }
