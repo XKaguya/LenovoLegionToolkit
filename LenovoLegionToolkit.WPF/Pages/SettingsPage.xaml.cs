@@ -10,24 +10,22 @@ using LenovoLegionToolkit.Lib.System;
 using LenovoLegionToolkit.Lib.System.Management;
 using LenovoLegionToolkit.Lib.Utils;
 using LenovoLegionToolkit.WPF.CLI;
-using LenovoLegionToolkit.WPF.Controls.Custom;
 using LenovoLegionToolkit.WPF.Extensions;
 using LenovoLegionToolkit.WPF.Resources;
 using LenovoLegionToolkit.WPF.Utils;
 using LenovoLegionToolkit.WPF.Windows;
+using LenovoLegionToolkit.WPF.Windows.Dashboard;
 using LenovoLegionToolkit.WPF.Windows.FloatingGadgets;
 using LenovoLegionToolkit.WPF.Windows.Settings;
 using LenovoLegionToolkit.WPF.Windows.Utils;
 using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace LenovoLegionToolkit.WPF.Pages;
 
@@ -49,6 +47,9 @@ public partial class SettingsPage
     private readonly UpdateCheckSettings _updateCheckSettings = IoCContainer.Resolve<UpdateCheckSettings>();
 
     private bool _isRefreshing;
+
+    private Custom? CustomWindow = new Custom();
+    private EditSensorGroupWindow? EditSensorGroupWindow = new EditSensorGroupWindow();
 
     public SettingsPage()
     {
@@ -1102,7 +1103,34 @@ public partial class SettingsPage
         if (_isRefreshing)
             return;
 
-        var temp = new Custom();
-        temp.Show();
+        if (CustomWindow == null)
+        {
+            CustomWindow = new Custom();
+        }
+
+        if (CustomWindow.ShowActivated)
+        {
+            CustomWindow.BringToForeground();
+        }
+
+        CustomWindow.Show();
+    }
+
+    private void DashboardCustomButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (_isRefreshing)
+            return;
+
+        if (EditSensorGroupWindow == null)
+        {
+            EditSensorGroupWindow = new EditSensorGroupWindow();
+        }
+
+        if (EditSensorGroupWindow.ShowActivated)
+        {
+            EditSensorGroupWindow.BringToForeground();
+        }
+
+        EditSensorGroupWindow.Show();
     }
 }

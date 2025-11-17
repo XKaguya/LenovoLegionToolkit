@@ -80,7 +80,9 @@ public partial class DashboardPage
 
             Log.Instance.Trace($"Groups:");
             foreach (var group in groups)
+            {
                 Log.Instance.Trace($" - {group}");
+            }
 
             _content.ColumnDefinitions.Add(new ColumnDefinition { Width = new(1, GridUnitType.Star) });
             _content.ColumnDefinitions.Add(new ColumnDefinition { Width = new(1, GridUnitType.Star) });
@@ -116,7 +118,8 @@ public partial class DashboardPage
             {
                 Icon = SymbolRegular.Edit24,
                 Content = Resource.DashboardPage_Customize,
-                Margin = new(0, 0, 8, 0)
+                Margin = new(0, 16, 0, 0),
+                HorizontalAlignment = HorizontalAlignment.Center
             };
             editDashboardHyperlink.Click += (_, _) =>
             {
@@ -124,26 +127,12 @@ public partial class DashboardPage
                 window.Apply += async (_, _) => await RefreshAsync();
                 window.ShowDialog();
             };
-            hyperlinksPanel.Children.Add(editDashboardHyperlink);
 
-            var editSensorGroupHyperlink = new Hyperlink
-            {
-                Icon = SymbolRegular.Edit24,
-                Content = Resource.DashboardPage_Customize,
-                Margin = new(8, 0, 0, 0)
-            };
-            editSensorGroupHyperlink.Click += (_, _) =>
-            {
-                var window = new EditSensorGroupWindow { Owner = Window.GetWindow(this) };
-                window.Apply += async (_, _) => await RefreshAsync();
-                window.ShowDialog();
-            };
-            hyperlinksPanel.Children.Add(editSensorGroupHyperlink);
+            Grid.SetRow(editDashboardHyperlink, groups.Length);
+            Grid.SetColumn(editDashboardHyperlink, 0);
+            Grid.SetColumnSpan(editDashboardHyperlink, 2);
 
-            Grid.SetRow(hyperlinksPanel, groups.Length);
-            Grid.SetColumn(hyperlinksPanel, 0);
-            Grid.SetColumnSpan(hyperlinksPanel, 2);
-            _content.Children.Add(hyperlinksPanel);
+            _content.Children.Add(editDashboardHyperlink);
 
             LayoutGroups(ActualWidth);
 
@@ -155,92 +144,6 @@ public partial class DashboardPage
         {
             _loader.IsLoading = false;
         }
-    }
-
-    private async Task RefreshAsyncEx()
-    {
-        _loader.IsLoading = true;
-
-        var initializedTasks = new List<Task> { Task.Delay(TimeSpan.FromSeconds(1)) };
-
-        ScrollHost?.ScrollToTop();
-
-        if (sensorControl != null)
-        {
-            sensorControl.Visibility = _dashboardSettings.Store.ShowSensors ? Visibility.Visible : Visibility.Collapsed;
-        }
-
-        _dashboardGroupControls.Clear();
-        _content.ColumnDefinitions.Clear();
-        _content.RowDefinitions.Clear();
-        _content.Children.Clear();
-
-        var groups = _dashboardSettings.Store.Groups ?? DashboardGroup.DefaultGroups;
-
-        Log.Instance.Trace($"Groups:");
-        foreach (var group in groups)
-            Log.Instance.Trace($" - {group}");
-
-        _content.ColumnDefinitions.Add(new ColumnDefinition { Width = new(1, GridUnitType.Star) });
-        _content.ColumnDefinitions.Add(new ColumnDefinition { Width = new(1, GridUnitType.Star) });
-
-        foreach (var group in groups)
-        {
-            _content.RowDefinitions.Add(new RowDefinition { Height = new(1, GridUnitType.Auto) });
-
-            var control = new DashboardGroupControl(group);
-            _content.Children.Add(control);
-            _dashboardGroupControls.Add(control);
-            initializedTasks.Add(control.InitializedTask);
-        }
-
-        _content.RowDefinitions.Add(new RowDefinition { Height = new(1, GridUnitType.Auto) });
-
-        var hyperlinksPanel = new StackPanel
-        {
-            Orientation = Orientation.Horizontal,
-            HorizontalAlignment = HorizontalAlignment.Center,
-            Margin = new(0, 16, 0, 0)
-        };
-
-        var editDashboardHyperlink = new Hyperlink
-        {
-            Icon = SymbolRegular.Edit24,
-            Content = Resource.DashboardPage_Customize,
-            Margin = new(0, 0, 8, 0)
-        };
-        editDashboardHyperlink.Click += (_, _) =>
-        {
-            var window = new EditDashboardWindow { Owner = Window.GetWindow(this) };
-            window.Apply += async (_, _) => await RefreshAsync();
-            window.ShowDialog();
-        };
-        hyperlinksPanel.Children.Add(editDashboardHyperlink);
-
-        var editSensorGroupHyperlink = new Hyperlink
-        {
-            Icon = SymbolRegular.Edit24,
-            Content = Resource.DashboardPage_Customize,
-            Margin = new(8, 0, 0, 0)
-        };
-        editSensorGroupHyperlink.Click += (_, _) =>
-        {
-            var window = new EditSensorGroupWindow { Owner = Window.GetWindow(this) };
-            window.Apply += async (_, _) => await RefreshAsync();
-            window.ShowDialog();
-        };
-        hyperlinksPanel.Children.Add(editSensorGroupHyperlink);
-
-        Grid.SetRow(hyperlinksPanel, groups.Length);
-        Grid.SetColumn(hyperlinksPanel, 0);
-        Grid.SetColumnSpan(hyperlinksPanel, 2);
-        _content.Children.Add(hyperlinksPanel);
-
-        LayoutGroups(ActualWidth);
-
-        await Task.WhenAll(initializedTasks);
-
-        _loader.IsLoading = false;
     }
 
     private void DashboardPage_SizeChanged(object sender, SizeChangedEventArgs e)
