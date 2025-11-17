@@ -2406,8 +2406,7 @@
     <value>使用新的状态面板</value>
   </data>
   <data name="SettingsPage_UseNewSensorDashboard_Message" xml:space="preserve">
-    <value>使用新的状态面板，此项会导致 LLT 启动时间变长。
-使用新的传感器仪表板可能会导致一些防病毒程序显示警告弹出窗口。有关更多信息，请参阅：LibreHardwareMonitor/LibreHardwareMonitor#984</value>
+    <value>Use new sensor dashboard instead of the old one. </value>
   </data>
   <data name="SettingsPage_LockWindowSize_Title" xml:space="preserve">
     <value>锁定窗口大小</value>
