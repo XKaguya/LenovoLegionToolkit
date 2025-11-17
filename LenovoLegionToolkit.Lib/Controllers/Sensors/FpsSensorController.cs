@@ -155,27 +155,33 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                     _currentProcessTokenSource.Token,
                     _cancellationTokenSource?.Token ?? CancellationToken.None);
 
-                _ = Task.Run(async () =>
+                var monitoringTask = Task.Run(async () =>
                 {
-                    try
+                    await FpsInspector.StartForeverAsync(request, OnFpsDataReceived, linkedTokenSource.Token);
+                }, linkedTokenSource.Token);
+
+                monitoringTask.ContinueWith(t =>
+                {
+                    if (t.IsCanceled)
                     {
-                        await FpsInspector.StartForeverAsync(request, OnFpsDataReceived, linkedTokenSource.Token);
+                        return;
                     }
-                    catch (OperationCanceledException) { }
-                    catch (Exception ex)
+
+                    if (t.IsFaulted)
                     {
-                        Log.Instance.Trace($"Monitoring failed for {process.ProcessName}", ex);
+                        var ex = t.Exception?.Flatten().InnerException ?? t.Exception;
+
+                        Log.Instance.Trace($"Monitoring failed for {process.ProcessName}", ex!);
+
                         lock (_lockObject)
                         {
                             if (_currentMonitoredProcess?.Id == process.Id)
-                            {   
+                            {
                                 _currentMonitoredProcess = null;
                             }
                         }
                     }
-                }, linkedTokenSource.Token);
-
-                Log.Instance.Trace($"Started monitoring {process.ProcessName} (PID: {process.Id})");
+                }, TaskContinuationOptions.ExecuteSynchronously);
             }
             catch (Exception ex)
             {
@@ -202,7 +208,6 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                 {
                     if (_currentMonitoredProcess != null)
                     {
-                        Log.Instance.Trace($"Stopped monitoring: {_currentMonitoredProcess.ProcessName}");
                         _currentMonitoredProcess = null;
                         _currentFpsData = new FpsData();
                     }

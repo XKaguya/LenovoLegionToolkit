@@ -23,12 +23,14 @@ using LenovoLegionToolkit.WPF.Resources;
 using LenovoLegionToolkit.WPF.Utils;
 using LenovoLegionToolkit.WPF.Windows;
 using LenovoLegionToolkit.WPF.Windows.Utils;
+using PresentMonFps;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Management;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -335,13 +337,15 @@ public partial class App
 
         Log.Instance.Trace($"Exception in LogUnhandledException {exception.Message}", exception);
 
+        string userMessage = GetFriendlyErrorMessage(exception);
+
         if (Application.Current != null)
         {
             Action showSnackbarAction = () =>
             {
                 SnackbarHelper.Show(
                     Resource.UnexpectedException,
-                    exception.Message + exception.StackTrace ?? "Unknown exception.",
+                    userMessage,
                     SnackbarType.Error);
             };
 
@@ -356,11 +360,38 @@ public partial class App
         }
     }
 
+    private Exception GetInnermostException(Exception ex)
+    {
+        if (ex is AggregateException aggEx && aggEx.InnerExceptions.Count > 0)
+        {
+            return GetInnermostException(aggEx.InnerExceptions[0]);
+        }
+
+        if (ex.InnerException != null)
+        {
+            return GetInnermostException(ex.InnerException);
+        }
+
+        return ex;
+    }
+
+    private string GetFriendlyErrorMessage(Exception ex)
+    {
+        if (ex == null) return "An unknown error occurred.";
+
+        Exception inner = GetInnermostException(ex);
+
+        return string.IsNullOrWhiteSpace(inner.Message)
+            ? "An unexpected error occurred, please try again."
+            : inner.Message;
+    }
+
     private void SetupExceptionHandling()
     {
         List<Type> ignoreExceptionTypes = new()
         {
             typeof(ManagementException),
+            typeof(OperationCanceledException),
         };
 
         Func<Exception, bool> shouldIgnore = (ex) =>
