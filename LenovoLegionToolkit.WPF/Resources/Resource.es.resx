@@ -2402,7 +2402,7 @@ No afectará a otras ventanas a pantalla completa, pero no podrá hacer clic en 
     <value>Utiliza el nuevo panel de control</value>
   </data>
   <data name="SettingsPage_UseNewSensorDashboard_Message" xml:space="preserve">
-    <value>Utiliza el nuevo panel de control en lugar del antiguo. Nota: El uso del nuevo panel de control puede provocar que algunos programas antivirus muestren una ventana emergente de advertencia. Para obtener más información, consulte: LibreHardwareMonitor/LibreHardwareMonitor#984</value>
+    <value>Use new sensor dashboard instead of the old one. </value>
   </data>
   <data name="SettingsPage_LockWindowSize_Title" xml:space="preserve">
     <value>Bloquear el tamaño de ventana</value>
