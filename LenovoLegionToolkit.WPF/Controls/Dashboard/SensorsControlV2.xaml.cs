@@ -49,11 +49,13 @@ public partial class SensorsControlV2
             { SensorItem.CpuFanSpeed, _cpuFanSpeedGrid },
             { SensorItem.CpuTemperature, _cpuTemperatureGrid },
             { SensorItem.CpuPower, _cpuPowerGrid },
+
             { SensorItem.GpuUtilization, _gpuUtilizationGrid },
             { SensorItem.GpuFrequency, _gpuCoreClockGrid },
             { SensorItem.GpuFanSpeed, _gpuFanSpeedGrid },
-            { SensorItem.GpuTemperatures, _gpuTemperatureGrid },
+            { SensorItem.GpuTemperatures, _gpuTemperaturesGrid },
             { SensorItem.GpuPower, _gpuPowerGrid },
+
             { SensorItem.PchFanSpeed, _pchFanSpeedGrid },
             { SensorItem.PchTemperature, _pchTemperatureGrid },
             { SensorItem.BatteryState, _batteryStateGrid },
@@ -194,8 +196,13 @@ public partial class SensorsControlV2
             UpdateValue(_gpuUtilizationBar, _gpuUtilizationLabel, -1, -1, "-");
             UpdateValue(_gpuCoreClockBar, _gpuCoreClockLabel, -1, -1, "-");
             UpdateValue(_gpuFanSpeedBar, _gpuFanSpeedLabel, -1, -1, "-");
-            UpdateValue(_gpuCoreTemperatureLabel, "-");
-            UpdateValue(_gpuMemoryTemperatureLabel, "-");
+
+            _gpuCoreTemperatureLabel.Text = "-";
+            _gpuMemoryTemperatureLabel.Text = "-";
+            Grid.SetColumn(_gpuCoreTempPanel, 2);
+            Grid.SetColumn(_gpuVramTempPanel, 3);
+            _gpuVramTempPanel.Margin = new Thickness(12, 0, 0, 0);
+
             UpdateValue(_gpuPowerLabel, "-");
             UpdateValue(_pchTemperatureBar, _pchTemperatureLabel, -1, -1, "-");
             UpdateValue(_pchFanSpeedBar, _pchFanSpeedLabel, -1, -1, "-");
@@ -228,8 +235,36 @@ public partial class SensorsControlV2
             if (_activeSensorItems.Contains(SensorItem.CpuPower)) UpdateValue(_cpuPowerLabel, $"{cpuPower:0}W");
             if (_activeSensorItems.Contains(SensorItem.GpuUtilization)) UpdateValue(_gpuUtilizationBar, _gpuUtilizationLabel, data.GPU.MaxUtilization, data.GPU.Utilization, $"{data.GPU.Utilization}%");
             if (_activeSensorItems.Contains(SensorItem.GpuFrequency)) UpdateValue(_gpuCoreClockBar, _gpuCoreClockLabel, data.GPU.MaxCoreClock, data.GPU.CoreClock, $"{data.GPU.CoreClock} {Resource.MHz}", $"{data.GPU.MaxCoreClock} {Resource.MHz}");
-            if (_activeSensorItems.Contains(SensorItem.GpuCoreTemperature)) UpdateValue(_gpuCoreTemperatureLabel, data.GPU.MaxTemperature, data.GPU.Temperature, GetTemperatureText(data.GPU.Temperature), GetTemperatureText(data.GPU.MaxTemperature));
-            if (_activeSensorItems.Contains(SensorItem.GpuVramTemperature)) UpdateValue(_gpuMemoryTemperatureLabel, data.GPU.MaxTemperature, data.GPU.Temperature, GetTemperatureText(gpuVramTemp), GetTemperatureText(data.GPU.MaxTemperature));
+            if (_activeSensorItems.Contains(SensorItem.GpuTemperatures))
+            {
+                bool showCoreTemp = _activeSensorItems.Contains(SensorItem.GpuCoreTemperature);
+                bool showVramTemp = _activeSensorItems.Contains(SensorItem.GpuVramTemperature);
+
+                _gpuCoreTempPanel.Visibility = showCoreTemp ? Visibility.Visible : Visibility.Collapsed;
+                _gpuVramTempPanel.Visibility = showVramTemp ? Visibility.Visible : Visibility.Collapsed;
+
+                if (showCoreTemp)
+                    UpdateTemperatureValue(_gpuCoreTemperatureLabel, data.GPU.Temperature);
+
+                if (showVramTemp)
+                    UpdateTemperatureValue(_gpuMemoryTemperatureLabel, gpuVramTemp);
+
+                if (showCoreTemp && showVramTemp)
+                {
+                    Grid.SetColumn(_gpuCoreTempPanel, 2);
+                    Grid.SetColumn(_gpuVramTempPanel, 3);
+                    _gpuVramTempPanel.Margin = new Thickness(12, 0, 0, 0);
+                }
+                else if (showCoreTemp)
+                {
+                    Grid.SetColumn(_gpuCoreTempPanel, 3);
+                }
+                else if (showVramTemp)
+                {
+                    Grid.SetColumn(_gpuVramTempPanel, 3);
+                    _gpuVramTempPanel.Margin = new Thickness(0);
+                }
+            }
             if (_activeSensorItems.Contains(SensorItem.GpuFanSpeed)) UpdateValue(_gpuFanSpeedBar, _gpuFanSpeedLabel, data.GPU.MaxFanSpeed, data.GPU.FanSpeed, $"{data.GPU.FanSpeed} {Resource.RPM}", $"{data.GPU.MaxFanSpeed} {Resource.RPM}");
             if (_activeSensorItems.Contains(SensorItem.GpuPower)) UpdateValue(_gpuPowerLabel, $"{gpuPower:0}W");
             if (_activeSensorItems.Contains(SensorItem.PchTemperature)) UpdateValue(_pchTemperatureBar, _pchTemperatureLabel, data.PCH.MaxTemperature, data.PCH.Temperature, GetTemperatureText(data.PCH.Temperature), GetTemperatureText(data.PCH.MaxTemperature));
@@ -242,7 +277,7 @@ public partial class SensorsControlV2
             if (_activeSensorItems.Contains(SensorItem.BatteryLevel)) UpdateValue(_batteryLevelBar, _batteryLevelLabel, 100, batteryInfo?.BatteryPercentage ?? 0, batteryInfo != null ? $"{batteryInfo.Value.BatteryPercentage}%" : "-", "100%");
 
             UpdateCardVisibility(_cpuCard, new[] { SensorItem.CpuUtilization, SensorItem.CpuFrequency, SensorItem.CpuFanSpeed, SensorItem.CpuTemperature, SensorItem.CpuPower });
-            UpdateCardVisibility(_gpuCard, new[] { SensorItem.GpuUtilization, SensorItem.GpuFrequency, SensorItem.GpuFanSpeed, SensorItem.GpuTemperatures, SensorItem.GpuPower });
+            UpdateCardVisibility(_gpuCard, new[] { SensorItem.GpuUtilization, SensorItem.GpuFrequency, SensorItem.GpuFanSpeed, SensorItem.GpuCoreTemperature, SensorItem.GpuVramTemperature, SensorItem.GpuPower });
             UpdateMotherboardCardVisibility();
             UpdateMemoryDiskCardVisibility();
         }
@@ -375,6 +410,20 @@ public partial class SensorsControlV2
         else
         {
             label.Text = str;
+        }
+    }
+
+    private void UpdateTemperatureValue(TextBlock label, double temperature)
+    {
+        if (temperature <= 0)
+        {
+            label.Text = "-";
+            label.ToolTip = null;
+        }
+        else
+        {
+            label.Text = GetTemperatureText(temperature);
+            label.ToolTip = null;
         }
     }
 }

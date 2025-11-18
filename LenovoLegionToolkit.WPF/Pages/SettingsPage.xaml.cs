@@ -1166,6 +1166,5 @@ public partial class SettingsPage
             return window;
         }
     }
-
     #endregion
 }
