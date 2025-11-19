@@ -201,7 +201,7 @@ public partial class FloatingGadgetUpper
             _cts?.Dispose();
             _cts = new CancellationTokenSource();
 
-            if (!_fpsMonitoringStarted)
+            if (!_fpsMonitoringStarted && ShouldMonitorFps())
             {
                 await StartFpsMonitoringAsync();
                 _fpsMonitoringStarted = true;
@@ -214,6 +214,12 @@ public partial class FloatingGadgetUpper
         else
         {
             _cts?.CancelAsync();
+
+            if (_fpsMonitoringStarted)
+            {
+                StopFpsMonitoring();
+                _fpsMonitoringStarted = false;
+            }
         }
     }
 
@@ -263,6 +269,8 @@ public partial class FloatingGadgetUpper
             }
         }
 
+        CheckAndUpdateFpsMonitoring();
+
         foreach (var group in allGroups)
         {
             var (_, separator) = group.Value;
@@ -297,6 +305,28 @@ public partial class FloatingGadgetUpper
         UpdateGadgetGroupVisibility();
     }
 
+    private async void CheckAndUpdateFpsMonitoring()
+    {
+        bool shouldMonitor = ShouldMonitorFps();
+
+        if (shouldMonitor && !_fpsMonitoringStarted && IsVisible)
+        {
+            await StartFpsMonitoringAsync();
+            _fpsMonitoringStarted = true;
+        }
+        else if (!shouldMonitor && _fpsMonitoringStarted)
+        {
+            StopFpsMonitoring();
+            _fpsMonitoringStarted = false;
+        }
+    }
+
+    private bool ShouldMonitorFps()
+    {
+        var fpsItems = new[] { FloatingGadgetItem.Fps, FloatingGadgetItem.LowFps, FloatingGadgetItem.FrameTime };
+        return fpsItems.Any(item => _activeItems.Contains(item));
+    }
+
     private void UpdateTextBlock(System.Windows.Controls.TextBlock tb, double value, string format, double yellowThreshold, double redThreshold)
     {
         if (tb.Visibility != Visibility.Visible) return;
@@ -314,6 +344,7 @@ public partial class FloatingGadgetUpper
             SetForegroundIfChanged(tb, SeverityBrush(value, yellowThreshold, redThreshold));
         }
     }
+
     private void UpdateTextBlock(System.Windows.Controls.TextBlock tb, double value, string format)
     {
         if (tb.Visibility != Visibility.Visible) return;
@@ -329,6 +360,7 @@ public partial class FloatingGadgetUpper
             SetTextIfChanged(tb, _stringBuilder.ToString());
         }
     }
+
     private void UpdateTextBlock(System.Windows.Controls.TextBlock tb, int value)
     {
         if (tb.Visibility != Visibility.Visible) return;
@@ -344,6 +376,7 @@ public partial class FloatingGadgetUpper
             SetTextIfChanged(tb, _stringBuilder.ToString());
         }
     }
+
     public void UpdateSensorData(
         double cpuUsage, double cpuFrequency, double cpuTemp, double cpuPower,
         double gpuUsage, double gpuFrequency, double gpuTemp, double gpuVramTemp, double gpuPower,
@@ -422,15 +455,37 @@ public partial class FloatingGadgetUpper
 
     private async Task StartFpsMonitoringAsync()
     {
-        await _fpsController.StartMonitoringAsync();
+        try
+        {
+            await _fpsController.StartMonitoringAsync();
+        }
+        catch (Exception ex)
+        {
+            Log.Instance.Trace($"Failed to start FPS monitoring", ex);
+        }
+    }
+
+    private void StopFpsMonitoring()
+    {
+        try
+        {
+            _fpsController.StopMonitoring();
+        }
+        catch (Exception ex)
+        {
+            Log.Instance.Trace($"Failed to stop FPS monitoring", ex);
+        }
     }
 
     private void OnFpsDataUpdated(object? sender, FpsSensorController.FpsData fpsData)
     {
-        Dispatcher.BeginInvoke(() =>
+        if (_fpsMonitoringStarted)
         {
-            UpdateFpsDisplay(fpsData.Fps, fpsData.LowFps, fpsData.FrameTime);
-        }, DispatcherPriority.Normal);
+            Dispatcher.BeginInvoke(() =>
+            {
+                UpdateFpsDisplay(fpsData.Fps, fpsData.LowFps, fpsData.FrameTime);
+            }, DispatcherPriority.Normal);
+        }
     }
 
     private void UpdateFpsDisplay(string fps, string lowFps, string frameTime)
@@ -489,7 +544,7 @@ public partial class FloatingGadgetUpper
             {
                 _refreshLock.Release();
             }
-            catch (ObjectDisposedException) {}
+            catch (ObjectDisposedException) { }
         }
     }
 

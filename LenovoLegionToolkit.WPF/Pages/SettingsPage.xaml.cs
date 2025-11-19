@@ -20,6 +20,7 @@ using LenovoLegionToolkit.WPF.Windows.Settings;
 using LenovoLegionToolkit.WPF.Windows.Utils;
 using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
@@ -1056,33 +1057,27 @@ public partial class SettingsPage
 
             if (_settings.Store.ShowFloatingGadgets && App.Current.FloatingGadget != null)
             {
-                bool needsStyleUpdate = false;
-
-                if (_settings.Store.SelectedStyleIndex == 0 && App.Current.FloatingGadget.GetType() != typeof(FloatingGadget))
+                var styleTypeMapping = new Dictionary<int, Type>
                 {
-                    needsStyleUpdate = true;
-                }
-                else if (_settings.Store.SelectedStyleIndex == 1 && App.Current.FloatingGadget.GetType() != typeof(FloatingGadgetUpper))
-                {
-                    needsStyleUpdate = true;
-                }
+                    [0] = typeof(FloatingGadget),
+                    [1] = typeof(FloatingGadgetUpper)
+                };
 
-                if (needsStyleUpdate)
+                var constructorMapping = new Dictionary<int, Func<Window>>
+                {
+                    [0] = () => new FloatingGadget(),
+                    [1] = () => new FloatingGadgetUpper()
+                };
+
+                int selectedStyle = _settings.Store.SelectedStyleIndex;
+                if (styleTypeMapping.TryGetValue(selectedStyle, out Type? targetType) &&
+                    App.Current.FloatingGadget.GetType() != targetType)
                 {
                     App.Current.FloatingGadget.Close();
-                    Window? newGadget = null;
-                    if (_settings.Store.SelectedStyleIndex == 0)
-                    {
-                        newGadget = new FloatingGadget();
-                    }
-                    else if (_settings.Store.SelectedStyleIndex == 1)
-                    {
-                        newGadget = new FloatingGadgetUpper();
-                    }
 
-                    if (newGadget != null)
+                    if (constructorMapping.TryGetValue(selectedStyle, out Func<Window>? constructor))
                     {
-                        App.Current.FloatingGadget = newGadget;
+                        App.Current.FloatingGadget = constructor();
                         App.Current.FloatingGadget.Show();
                     }
                 }
