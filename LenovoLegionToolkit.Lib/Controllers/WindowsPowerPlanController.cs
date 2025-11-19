@@ -1,15 +1,16 @@
-﻿using System;
+﻿using LenovoLegionToolkit.Lib.Extensions;
+using LenovoLegionToolkit.Lib.Settings;
+using LenovoLegionToolkit.Lib.SoftwareDisabler;
+using LenovoLegionToolkit.Lib.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-using LenovoLegionToolkit.Lib.Extensions;
-using LenovoLegionToolkit.Lib.Settings;
-using LenovoLegionToolkit.Lib.SoftwareDisabler;
-using LenovoLegionToolkit.Lib.Utils;
 using Windows.Win32;
 using Windows.Win32.Foundation;
 using Windows.Win32.System.Power;
+using static LenovoLegionToolkit.Lib.Settings.GodModeSettings;
 
 namespace LenovoLegionToolkit.Lib.Controllers;
 
@@ -27,7 +28,7 @@ public class WindowsPowerPlanController(ApplicationSettings settings, VantageDis
         }
     }
 
-    public async Task SetPowerPlanAsync(PowerModeState powerModeState, bool alwaysActivateDefaults = false)
+    public async Task SetPowerPlanAsync(PowerModeState powerModeState, bool alwaysActivateDefaults = false, GodModeSettingsStore.Preset? preset = null)
     {
         if (settings.Store.PowerModeMappingMode is not PowerModeMappingMode.WindowsPowerPlan)
         {
@@ -37,7 +38,9 @@ public class WindowsPowerPlanController(ApplicationSettings settings, VantageDis
 
         Log.Instance.Trace($"Activating... [powerModeState={powerModeState}, alwaysActivateDefaults={alwaysActivateDefaults}]");
 
-        var powerPlanId = settings.Store.PowerPlans.GetValueOrDefault(powerModeState);
+        Guid? powerPlanId = null;
+        powerPlanId = (preset == null) ? settings.Store.PowerPlans.GetValueOrDefault(powerModeState) : preset.PowerPlanGuid;
+
         var isDefault = false;
 
         if (powerPlanId == Guid.Empty)

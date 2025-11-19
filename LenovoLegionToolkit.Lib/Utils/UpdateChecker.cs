@@ -48,7 +48,6 @@ public class UpdateChecker
 #if DEBUG
         return null;
 #endif
-
         using (await _updateSemaphore.LockAsync().ConfigureAwait(false))
         {
             ApplicationSettings settings = IoCContainer.Resolve<ApplicationSettings>();

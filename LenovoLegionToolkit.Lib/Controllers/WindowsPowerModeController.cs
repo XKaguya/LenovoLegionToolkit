@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using System.Threading.Tasks;
-using LenovoLegionToolkit.Lib.Extensions;
+﻿using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.Settings;
 using LenovoLegionToolkit.Lib.System;
 using LenovoLegionToolkit.Lib.Utils;
+using System;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using Windows.Win32;
 using Windows.Win32.Foundation;
+using static LenovoLegionToolkit.Lib.Settings.GodModeSettings;
 
 namespace LenovoLegionToolkit.Lib.Controllers;
 
@@ -24,7 +25,7 @@ public partial class WindowsPowerModeController(ApplicationSettings settings, IM
 
     private readonly ThrottleLastDispatcher _dispatcher = new(TimeSpan.FromSeconds(2), nameof(WindowsPowerModeController));
 
-    public async Task SetPowerModeAsync(PowerModeState powerModeState)
+    public async Task SetPowerModeAsync(PowerModeState powerModeState, GodModeSettingsStore.Preset? preset = null)
     {
         if (settings.Store.PowerModeMappingMode is not PowerModeMappingMode.WindowsPowerMode)
         {
@@ -35,8 +36,17 @@ public partial class WindowsPowerModeController(ApplicationSettings settings, IM
 
         Log.Instance.Trace($"Activating... [powerModeState={powerModeState}]");
 
-        var powerMode = settings.Store.PowerModes.GetValueOrDefault(powerModeState, WindowsPowerMode.Balanced);
-        var powerModeGuid = GuidForWindowsPowerMode(powerMode);
+        WindowsPowerMode? powerMode = null;
+
+        powerMode = (preset == null) ? settings.Store.PowerModes.GetValueOrDefault(powerModeState, WindowsPowerMode.Balanced) : preset.PowerMode;
+
+        if (powerMode == null)
+        {
+            Log.Instance.Trace($"I don't think this is possible.");
+            return;
+        }
+
+        var powerModeGuid = GuidForWindowsPowerMode(powerMode.Value);
 
         if (Power.IsBatterySaverEnabled())
         {

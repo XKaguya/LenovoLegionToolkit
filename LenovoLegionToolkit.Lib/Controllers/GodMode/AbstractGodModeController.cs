@@ -1,10 +1,11 @@
-﻿using System;
+﻿using LenovoLegionToolkit.Lib.Extensions;
+using LenovoLegionToolkit.Lib.Features;
+using LenovoLegionToolkit.Lib.Settings;
+using LenovoLegionToolkit.Lib.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using LenovoLegionToolkit.Lib.Extensions;
-using LenovoLegionToolkit.Lib.Settings;
-using LenovoLegionToolkit.Lib.Utils;
 
 namespace LenovoLegionToolkit.Lib.Controllers.GodMode;
 
@@ -29,6 +30,11 @@ public abstract class AbstractGodModeController(GodModeSettings settings)
             .Select(p => p.Value.Name)
             .FirstOrDefault();
         return Task.FromResult(name);
+    }
+
+    public virtual async Task<Dictionary<Guid, GodModeSettings.GodModeSettingsStore.Preset>> GetGodModePresetsAsync()
+    {
+        return await Task.FromResult(settings.Store.Presets).ConfigureAwait(false);
     }
 
     public async Task<GodModeState> GetStateAsync()
@@ -62,11 +68,29 @@ public abstract class AbstractGodModeController(GodModeSettings settings)
         var activePresetId = state.ActivePresetId;
         var presets = new Dictionary<Guid, GodModeSettings.GodModeSettingsStore.Preset>();
 
+        var currentPresets = settings.Store.Presets;
+
+        // Lazy way to fix.
         foreach (var (id, preset) in state.Presets)
         {
+            Guid? powerPlanGuid = null;
+            WindowsPowerMode? windowsPowerMode = null;
+            if (currentPresets.TryGetValue(id, out var currentPreset) && currentPreset.PowerPlanGuid.HasValue)
+            {
+                powerPlanGuid = currentPreset.PowerPlanGuid;
+                windowsPowerMode = currentPreset.PowerMode;
+            }
+            else
+            {
+                powerPlanGuid = Guid.Empty;
+                windowsPowerMode = WindowsPowerMode.Balanced;
+            }
+
             presets.Add(id, new()
             {
                 Name = preset.Name,
+                PowerPlanGuid = powerPlanGuid,
+                PowerMode = windowsPowerMode,
                 CPULongTermPowerLimit = preset.CPULongTermPowerLimit,
                 CPUShortTermPowerLimit = preset.CPUShortTermPowerLimit,
                 CPUPeakPowerLimit = preset.CPUPeakPowerLimit,
@@ -111,9 +135,15 @@ public abstract class AbstractGodModeController(GodModeSettings settings)
 
     protected abstract Task<GodModePreset> GetDefaultStateAsync();
 
-    protected void RaisePresetChanged(Guid presetId) => PresetChanged?.Invoke(this, presetId);
+    protected async void RaisePresetChanged(Guid presetId)
+    {
+        var feature = IoCContainer.Resolve<PowerModeFeature>();
+        var (_, preset) = await GetActivePresetAsync().ConfigureAwait(false);
+        await feature.EnsureCorrectWindowsPowerSettingsAreSetAsync(preset).ConfigureAwait(false);
+        PresetChanged?.Invoke(this, presetId);
+    }
 
-    protected async Task<(Guid, GodModeSettings.GodModeSettingsStore.Preset)> GetActivePresetAsync()
+    public async Task<(Guid, GodModeSettings.GodModeSettingsStore.Preset)> GetActivePresetAsync()
     {
         if (!IsValidStore(settings.Store))
         {

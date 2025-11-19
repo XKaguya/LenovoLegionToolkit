@@ -125,13 +125,18 @@
                         <custom:CardControl.Header>
                             <controls:CardHeaderControl Title="{x:Static resourcesLib:Resource.PowerModeState_GodMode}" />
                         </custom:CardControl.Header>
-                        <ComboBox
-                            x:Name="_godModeComboBox"
-                            MinWidth="200"
-                            Margin="0,0,0,8"
-                            AutomationProperties.Name="{x:Static resourcesLib:Resource.PowerModeState_GodMode}"
-                            MaxDropDownHeight="Auto"
-                            SelectionChanged="GodModeComboBox_SelectionChanged" />
+
+                        <StackPanel>
+                            <ComboBox
+                                x:Name="_godModeComboBox"
+                                MinWidth="200"
+                                Margin="0,0,0,8"
+                                AutomationProperties.Name="{x:Static resourcesLib:Resource.PowerModeState_GodMode}"
+                                MaxDropDownHeight="Auto"
+                                SelectionChanged="GodModeComboBox_SelectionChanged" />
+
+                            <StackPanel x:Name="_godModePresetsContainer" Visibility="Collapsed" />
+                        </StackPanel>
                     </custom:CardControl>
 
                 </StackPanel>

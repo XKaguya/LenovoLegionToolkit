@@ -336,6 +336,8 @@ public readonly struct GodModeState
 public readonly struct GodModePreset
 {
     public string Name { get; init; }
+    public Guid? PowerPlanGuid { get; init; }
+    public WindowsPowerMode? PowerMode { get; init; }
     public StepperValue? CPULongTermPowerLimit { get; init; }
     public StepperValue? CPUShortTermPowerLimit { get; init; }
     public StepperValue? CPUPeakPowerLimit { get; init; }

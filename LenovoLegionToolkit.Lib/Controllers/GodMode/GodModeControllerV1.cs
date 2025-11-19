@@ -229,6 +229,11 @@ public class GodModeControllerV1(
         Log.Instance.Trace($"State applied. [name={preset.Name}, id={presetId}]");
     }
 
+    public async Task<Dictionary<Guid, GodModeSettings.GodModeSettingsStore.Preset>> GetGodModePresetsAsync()
+    {
+        return await base.GetGodModePresetsAsync().ConfigureAwait(false);
+    }
+
     public override Task<FanTable> GetMinimumFanTableAsync()
     {
         var fanTable = new FanTable([0, 0, 0, 0, 0, 0, 0, 1, 3, 5]);

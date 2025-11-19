@@ -271,7 +271,7 @@ public class NativeWindowsMessageListener : NativeWindow, IListener<NativeWindow
 
     private void OnBatterySaverEnabled()
     {
-        Task.Run(_powerModeFeature.EnsureCorrectWindowsPowerSettingsAreSetAsync);
+        Task.Run(async () => await _powerModeFeature.EnsureCorrectWindowsPowerSettingsAreSetAsync().ConfigureAwait(false));
 
         RaiseChanged(NativeWindowsMessage.BatterySaverEnabled);
     }
