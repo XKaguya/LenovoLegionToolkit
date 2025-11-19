@@ -68,29 +68,13 @@ public abstract class AbstractGodModeController(GodModeSettings settings)
         var activePresetId = state.ActivePresetId;
         var presets = new Dictionary<Guid, GodModeSettings.GodModeSettingsStore.Preset>();
 
-        var currentPresets = settings.Store.Presets;
-
-        // Lazy way to fix.
         foreach (var (id, preset) in state.Presets)
         {
-            Guid? powerPlanGuid = null;
-            WindowsPowerMode? windowsPowerMode = null;
-            if (currentPresets.TryGetValue(id, out var currentPreset) && currentPreset.PowerPlanGuid.HasValue)
-            {
-                powerPlanGuid = currentPreset.PowerPlanGuid;
-                windowsPowerMode = currentPreset.PowerMode;
-            }
-            else
-            {
-                powerPlanGuid = Guid.Empty;
-                windowsPowerMode = WindowsPowerMode.Balanced;
-            }
-
             presets.Add(id, new()
             {
                 Name = preset.Name,
-                PowerPlanGuid = powerPlanGuid,
-                PowerMode = windowsPowerMode,
+                PowerPlanGuid = preset.PowerPlanGuid,
+                PowerMode = preset.PowerMode,
                 CPULongTermPowerLimit = preset.CPULongTermPowerLimit,
                 CPUShortTermPowerLimit = preset.CPUShortTermPowerLimit,
                 CPUPeakPowerLimit = preset.CPUPeakPowerLimit,
@@ -180,6 +164,8 @@ public abstract class AbstractGodModeController(GodModeSettings settings)
             states.Add(id, new GodModePreset
             {
                 Name = preset.Name,
+                PowerPlanGuid = preset.PowerPlanGuid,
+                PowerMode = preset.PowerMode,
                 CPULongTermPowerLimit = CreateStepperValue(defaultState.CPULongTermPowerLimit, preset.CPULongTermPowerLimit, preset.MinValueOffset, preset.MaxValueOffset),
                 CPUShortTermPowerLimit = CreateStepperValue(defaultState.CPUShortTermPowerLimit, preset.CPUShortTermPowerLimit, preset.MinValueOffset, preset.MaxValueOffset),
                 CPUPeakPowerLimit = CreateStepperValue(defaultState.CPUPeakPowerLimit, preset.CPUPeakPowerLimit, preset.MinValueOffset, preset.MaxValueOffset),

@@ -127,6 +127,8 @@ public partial class GodModeSettingsWindow
             var newPreset = new GodModePreset
             {
                 Name = preset.Name,
+                PowerPlanGuid = preset.PowerPlanGuid,
+                PowerMode = preset.PowerMode,
                 CPULongTermPowerLimit = preset.CPULongTermPowerLimit?.WithValue(_cpuLongTermPowerLimitControl.Value),
                 CPUShortTermPowerLimit = preset.CPUShortTermPowerLimit?.WithValue(_cpuShortTermPowerLimitControl.Value),
                 CPUPeakPowerLimit = preset.CPUPeakPowerLimit?.WithValue(_cpuPeakPowerLimitControl.Value),
