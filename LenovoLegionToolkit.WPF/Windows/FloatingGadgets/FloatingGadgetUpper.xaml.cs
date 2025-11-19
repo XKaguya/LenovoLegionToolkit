@@ -18,7 +18,7 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
-namespace LenovoLegionToolkit.WPF.Windows.Utils;
+namespace LenovoLegionToolkit.WPF.Windows.FloatingGadgets;
 
 public partial class FloatingGadgetUpper
 {
@@ -59,12 +59,9 @@ public partial class FloatingGadgetUpper
     private bool _fpsMonitoringStarted = false;
 
     private HashSet<FloatingGadgetItem> _activeItems = new();
-    private List<FloatingGadgetItem> _visibleItems = new();
-    private static Dictionary<FrameworkElement, (List<FloatingGadgetItem> Items, Rectangle? Separator)> GadgetGroups { get; } =
-        new Dictionary<FrameworkElement, (List<FloatingGadgetItem> Items, Rectangle? Separator)>();
+    private static Dictionary<FrameworkElement, (List<FloatingGadgetItem> Items, Rectangle? Separator)> GadgetGroups { get; } = new();
 
-    private static Dictionary<FloatingGadgetItem, FrameworkElement> _itemsMap { get; } =
-        new Dictionary<FloatingGadgetItem, FrameworkElement>();
+    private static Dictionary<FloatingGadgetItem, FrameworkElement> _itemsMap { get; } = new();
 
     public FloatingGadgetUpper()
     {
@@ -82,7 +79,6 @@ public partial class FloatingGadgetUpper
         InitializeFpsSensor();
 
         _activeItems = new HashSet<FloatingGadgetItem>(_settings.Store.FloatingGadgetItems);
-        _visibleItems.AddRange(_activeItems);
 
         UpdateGadgetControlsVisibility();
     }
@@ -170,9 +166,6 @@ public partial class FloatingGadgetUpper
                 var newItemsSet = new HashSet<FloatingGadgetItem>(message.Items);
                 if (!_activeItems.SetEquals(newItemsSet))
                 {
-                    _visibleItems.Clear();
-                    _visibleItems.AddRange(message.Items);
-
                     _activeItems = newItemsSet;
                     UpdateGadgetControlsVisibility();
                 }
@@ -204,7 +197,7 @@ public partial class FloatingGadgetUpper
     {
         if (IsVisible)
         {
-            _cts?.Cancel();
+            _cts?.CancelAsync();
             _cts?.Dispose();
             _cts = new CancellationTokenSource();
 
@@ -220,7 +213,7 @@ public partial class FloatingGadgetUpper
         }
         else
         {
-            _cts?.Cancel();
+            _cts?.CancelAsync();
         }
     }
 
@@ -270,17 +263,17 @@ public partial class FloatingGadgetUpper
             }
         }
 
-        for (int i = 0; i < allGroups.Count; i++)
+        foreach (var group in allGroups)
         {
-            var (_, separator) = allGroups[i].Value;
+            var (_, separator) = group.Value;
 
             if (separator != null)
             {
-                bool isCurrentGroupVisible = visibleGroups.Contains(allGroups[i].Key);
+                bool isCurrentGroupVisible = visibleGroups.Contains(group.Key);
 
                 if (isCurrentGroupVisible)
                 {
-                    int indexInVisible = visibleGroups.IndexOf(allGroups[i].Key);
+                    int indexInVisible = visibleGroups.IndexOf(group.Key);
                     bool nextGroupIsVisible = indexInVisible < visibleGroups.Count - 1;
 
                     separator.Visibility = nextGroupIsVisible ? Visibility.Visible : Visibility.Collapsed;

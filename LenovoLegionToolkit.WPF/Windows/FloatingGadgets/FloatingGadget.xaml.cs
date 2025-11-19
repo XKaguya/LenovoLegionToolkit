@@ -15,10 +15,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 
-namespace LenovoLegionToolkit.WPF.Windows.Utils;
+namespace LenovoLegionToolkit.WPF.Windows.FloatingGadgets;
 
 public partial class FloatingGadget
 {
@@ -538,7 +537,7 @@ public partial class FloatingGadget
         var cpuPowerTask = _sensorsGroupControllers.GetCpuPowerAsync();
         var gpuPowerTask = _sensorsGroupControllers.GetGpuPowerAsync();
         var gpuVramTask = _sensorsGroupControllers.GetGpuVramTemperatureAsync();
-        var diskTemperaturesTask = _sensorsGroupControllers.GetSSDTemperaturesAsync();
+        var diskTemperaturesTask = _sensorsGroupControllers.GetSsdTemperaturesAsync();
         var memoryUsageTask = _sensorsGroupControllers.GetMemoryUsageAsync();
         var memoryTemperaturesTask = _sensorsGroupControllers.GetHighestMemoryTemperatureAsync();
 

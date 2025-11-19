@@ -140,7 +140,7 @@ public partial class SensorsControlV2
                         var cpuPowerTask = _sensorsGroupControllers.GetCpuPowerAsync();
                         var gpuPowerTask = _sensorsGroupControllers.GetGpuPowerAsync();
                         var gpuVramTask = _sensorsGroupControllers.GetGpuVramTemperatureAsync();
-                        var diskTemperaturesTask = _sensorsGroupControllers.GetSSDTemperaturesAsync();
+                        var diskTemperaturesTask = _sensorsGroupControllers.GetSsdTemperaturesAsync();
                         var memoryUsageTask = _sensorsGroupControllers.GetMemoryUsageAsync();
                         var memoryTemperaturesTask = _sensorsGroupControllers.GetHighestMemoryTemperatureAsync();
                         var batteryInfoTask = Task.Run(() => Battery.GetBatteryInformation());
