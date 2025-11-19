@@ -228,11 +228,9 @@ public class SensorsGroupController : IDisposable
             {
                 _cachedCpuPower = power;
                 _cachedCpuPowerTime = 0;
-
-                return Task.FromResult(power);
             }
 
-            return Task.FromResult(InvalidPower);
+            return Task.FromResult(power);
         }
         catch (Exception)
         {
