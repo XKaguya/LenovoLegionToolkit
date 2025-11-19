@@ -35,6 +35,8 @@ public class SensorsGroupController : IDisposable
     private bool _needRefreshGpuHardware;
     private string _cachedCpuName = string.Empty;
     private string _cachedGpuName = string.Empty;
+    private double _cachedCpuPower = 0f;
+    private int _cachedCpuPowerTime = 0;
 
     private readonly object _hardwareLock = new object();
     private volatile bool _hardwaresInitialized;
@@ -204,7 +206,33 @@ public class SensorsGroupController : IDisposable
                 return Task.FromResult(InvalidPower);
             }
 
-            return Task.FromResult(powerValue.Value);
+            var power = powerValue.Value;
+
+            // Can't exactly same for 10 times.
+            if (power == _cachedCpuPower)
+            {
+                if (_cachedCpuPowerTime >= 10)
+                {
+                    _computer?.Open();
+                    _computer?.Accept(new UpdateVisitor());
+                    _computer?.Reset();
+                    Log.Instance.Trace($"Detected CPU Power invalid for serval times, Resetting sensors...");
+                    return Task.FromResult(InvalidPower);
+                }
+                else
+                {
+                    ++_cachedCpuPowerTime;
+                }
+            }
+            else
+            {
+                _cachedCpuPower = power;
+                _cachedCpuPowerTime = 0;
+
+                return Task.FromResult(power);
+            }
+
+            return Task.FromResult(InvalidPower);
         }
         catch (Exception)
         {
