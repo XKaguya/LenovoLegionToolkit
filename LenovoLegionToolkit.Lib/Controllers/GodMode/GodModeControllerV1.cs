@@ -229,7 +229,7 @@ public class GodModeControllerV1(
         Log.Instance.Trace($"State applied. [name={preset.Name}, id={presetId}]");
     }
 
-    public async Task<Dictionary<Guid, GodModeSettings.GodModeSettingsStore.Preset>> GetGodModePresetsAsync()
+    public override async Task<Dictionary<Guid, GodModeSettings.GodModeSettingsStore.Preset>> GetGodModePresetsAsync()
     {
         return await base.GetGodModePresetsAsync().ConfigureAwait(false);
     }

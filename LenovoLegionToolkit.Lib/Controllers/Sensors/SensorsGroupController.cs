@@ -468,6 +468,7 @@ public class SensorsGroupController : IDisposable
     #region Helper
     private void ResetSensors()
     {
+        _computer?.Close();
         _computer?.Open();
         _computer?.Accept(new UpdateVisitor());
         _computer?.Reset();
