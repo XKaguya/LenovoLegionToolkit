@@ -2406,7 +2406,7 @@
     <value>使用新的状态面板</value>
   </data>
   <data name="SettingsPage_UseNewSensorDashboard_Message" xml:space="preserve">
-    <value>Use new sensor dashboard instead of the old one. </value>
+    <value>使用新的仪表盘</value>
   </data>
   <data name="SettingsPage_LockWindowSize_Title" xml:space="preserve">
     <value>锁定窗口大小</value>
@@ -2593,6 +2593,6 @@
     <value>简洁</value>
   </data>
   <data name="SettingsPage_ClearBackgroundImage_Title" xml:space="preserve">
-    <value>Image Cleared</value>
+    <value>背景图片已清除</value>
   </data>
 </root>
