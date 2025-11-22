@@ -2458,55 +2458,55 @@ Haga clic en Sí para deshabilitarla y en No para ignorarla.</value>
     <value>No mostrar de nuevo.</value>
   </data>
   <data name="ITSModeControl_Dialog_Title" xml:space="preserve">
-    <value>Missing Compoment</value>
+    <value>Componente faltante</value>
   </data>
   <data name="ITSModeControl_Dialog_Message" xml:space="preserve">
-    <value>PowerBattery.dll is missing. Please place it manually to use ITSMode feature.</value>
+    <value>Falta el archivo PowerBattery.dll. Por favor, colóquelo manualmente para utilizar la función ITSMode.</value>
   </data>
   <data name="ITSModeControl_Title" xml:space="preserve">
-    <value>IdeaPad Power Mode</value>
+    <value>Modo de energía del IdeaPad</value>
   </data>
   <data name="ITSModeControl_Message" xml:space="preserve">
-    <value>Change IdeaPad Power Mode</value>
+    <value>Cambiar el modo de energía del IdeaPad</value>
   </data>
   <data name="ITSModeAutomationStepControl_Title" xml:space="preserve">
-    <value>IdeaPad Power Mode</value>
+    <value>Modo de energía del IdeaPad</value>
   </data>
   <data name="ITSModeAutomationStepControl_Message" xml:space="preserve">
-    <value>Change IdeaPad Power Mode</value>
+    <value>Cambiar el modo de energía del IdeaPad</value>
   </data>
   <data name="SettingsPage_FloatingGadgets_Title" xml:space="preserve">
-    <value>Enable Floating Gadget</value>
+    <value>Habilitar widget flotante</value>
   </data>
   <data name="SettingsPage_FloatingGadgets_Message" xml:space="preserve">
-    <value>Floating Gadgets​​ is a floating window that displays real-time sensor information in an overlay style.</value>
+    <value>El widget flotante es una ventana flotante que muestra información del sensor en tiempo real en forma de superposición.</value>
   </data>
   <data name="SettingsPage_FloatingGadgets_Tooltip" xml:space="preserve">
-    <value>Controls sensor refresh interval.</value>
+    <value>Controla el intervalo de actualización del sensor.</value>
   </data>
   <data name="FloatingGadgets_Memory_Utilization" xml:space="preserve">
-    <value>Memory Utilization</value>
+    <value>Uso de memoria</value>
   </data>
   <data name="FloatingGadgets_Memory_Temperature" xml:space="preserve">
-    <value>Memory Temperature</value>
+    <value>Temperatura memoria</value>
   </data>
   <data name="FloatingGadgets_Disk_0_Temperature" xml:space="preserve">
-    <value>Disk 1 Temperature</value>
+    <value>Temperatura Disco 1</value>
   </data>
   <data name="FloatingGadgets_Disk_1_Temperature" xml:space="preserve">
-    <value>Disk 2 Temperature</value>
+    <value>Temperatura Disco 2</value>
   </data>
   <data name="FloatingGadgets_CPU_Fan" xml:space="preserve">
-    <value>CPU Fan</value>
+    <value>Ventilador CPU</value>
   </data>
   <data name="FloatingGadgets_GPU_Fan" xml:space="preserve">
-    <value>GPU Fan</value>
+    <value>Ventilador GPU</value>
   </data>
   <data name="FloatingGadgets_PCH_Fan" xml:space="preserve">
-    <value>PCH Fan</value>
+    <value>Ventilador PCH</value>
   </data>
   <data name="FloatingGadgets_Fans" xml:space="preserve">
-    <value>Fans</value>
+    <value>Ventiladores</value>
   </data>
   <data name="FloatingGadgets_Chipset" xml:space="preserve">
     <value>Chipset</value>
@@ -2518,64 +2518,64 @@ Haga clic en Sí para deshabilitarla y en No para ignorarla.</value>
     <value>CPU</value>
   </data>
   <data name="SettingsPage_Select_BackgroundImage_Title" xml:space="preserve">
-    <value>Select Background Image</value>
+    <value>Seleccionar la imagen de fondo</value>
   </data>
   <data name="SettingsPage_Select_BackgroundImage_ImageFile" xml:space="preserve">
-    <value>Image File</value>
+    <value>Fichero de imagen</value>
   </data>
   <data name="SettingsPage_Select_BackgroundImage_AllFiles" xml:space="preserve">
-    <value>All Files</value>
+    <value>Todos los ficheros</value>
   </data>
   <data name="SettingsPage_Custom_BackgroundImage_Title" xml:space="preserve">
-    <value>Custom Background Image</value>
+    <value>Imagen de fondo personalizada</value>
   </data>
   <data name="SettingsPage_Custom_BackgroundImage_Message" xml:space="preserve">
-    <value>Custom Background Image</value>
+    <value>Imagen de fondo personalizada</value>
   </data>
   <data name="SettingsPage_Select_BackgroundImage_Content" xml:space="preserve">
-    <value>Select Image</value>
+    <value>Seleccionar imagen</value>
   </data>
   <data name="SettingsPage_Clear_BackgroundImage_Title" xml:space="preserve">
-    <value>Clear Image</value>
+    <value>Quitar imagen</value>
   </data>
   <data name="SettingsPage_Clear_BackgroundImage_Message" xml:space="preserve">
-    <value>Clear current selected image file.</value>
+    <value>Quitar el fichero de imagen seleccionado actualmente.</value>
   </data>
   <data name="SensorsControl_Motherboard_Temperature" xml:space="preserve">
-    <value>Board Temperature</value>
+    <value>Temperatura de la placa base</value>
   </data>
   <data name="StatusWindow_Frequency_And_Temperature" xml:space="preserve">
-    <value>Frequency / Temperature</value>
+    <value>Frecuencia / Temperatura</value>
   </data>
   <data name="StatusWindow_Fan_And_Power" xml:space="preserve">
-    <value>Fan / Power</value>
+    <value>Ventilador / Consumo</value>
   </data>
   <data name="StatusWindow_System_Fan" xml:space="preserve">
-    <value>System Fan</value>
+    <value>Ventilador del sistema</value>
   </data>
   <data name="FloatingGadgets_Fps" xml:space="preserve">
     <value>FPS</value>
   </data>
   <data name="FloatingGadgets_Low_Fps" xml:space="preserve">
-    <value>1% Low</value>
+    <value>1% Mínimo</value>
   </data>
   <data name="FloatingGadgets_Frame_Time" xml:space="preserve">
-    <value>Frame Time</value>
+    <value>Tiempo de fotograma</value>
   </data>
   <data name="FloatingGadgetAutomationStepControl_Title" xml:space="preserve">
-    <value>Floating Gadget</value>
+    <value>Widget flotante</value>
   </data>
   <data name="FloatingGadgetAutomationStepControl_Message" xml:space="preserve">
-    <value>Show or Hide the Floating Gadget</value>
+    <value>Mostrar u ocultar el widget flotante</value>
   </data>
   <data name="CloseAutomationStepControl_Title" xml:space="preserve">
-    <value>Close</value>
+    <value>Cerrar</value>
   </data>
   <data name="CloseAutomationStepControl_Message" xml:space="preserve">
-    <value>Close the Lenovo Legion Toolkit</value>
+    <value>Cerrar Lenovo Legion Toolkit</value>
   </data>
   <data name="FloatingGadget_Custom_Game" xml:space="preserve">
-    <value>Game</value>
+    <value>Juego</value>
   </data>
   <data name="FloatingGadget_Custom_CPU" xml:space="preserve">
     <value>CPU</value>
@@ -2587,9 +2587,9 @@ Haga clic en Sí para deshabilitarla y en No para ignorarla.</value>
     <value>Chipset</value>
   </data>
   <data name="FloatingGadget_Style_Simple" xml:space="preserve">
-    <value>Simple</value>
+    <value>Sencillo</value>
   </data>
   <data name="SettingsPage_ClearBackgroundImage_Title" xml:space="preserve">
-    <value>Image Cleared</value>
+    <value>Imagen borrada</value>
   </data>
 </root>
