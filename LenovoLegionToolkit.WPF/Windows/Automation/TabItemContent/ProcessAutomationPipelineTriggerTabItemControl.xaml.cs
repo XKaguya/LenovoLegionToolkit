@@ -86,8 +86,7 @@ public partial class ProcessAutomationPipelineTriggerTabItemControl : IAutomatio
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Couldn't copy to clipboard", ex);
+            Log.Instance.Trace($"Couldn't copy to clipboard", ex);
         }
     }
 
@@ -106,8 +105,7 @@ public partial class ProcessAutomationPipelineTriggerTabItemControl : IAutomatio
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Couldn't paste from clipboard", ex);
+            Log.Instance.Trace($"Couldn't paste from clipboard", ex);
         }
     }
 

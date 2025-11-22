@@ -39,26 +39,22 @@ public class DisplayBrightnessListener(WindowsPowerPlanController windowsPowerPl
     {
         try
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Setting brightness to {brightness.Value}...");
+            Log.Instance.Trace($"Setting brightness to {brightness.Value}...");
 
             var powerPlans = windowsPowerPlanController.GetPowerPlans();
 
             foreach (var powerPlan in powerPlans)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Modifying power plan {powerPlan.Name}... [powerPlan.Guid={powerPlan.Guid}, brightness={brightness.Value}]");
+                Log.Instance.Trace($"Modifying power plan {powerPlan.Name}... [powerPlan.Guid={powerPlan.Guid}, brightness={brightness.Value}]");
 
                 windowsPowerPlanController.SetPowerPlanParameter(powerPlan, brightness);
             }
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Brightness set to {brightness.Value}.");
+            Log.Instance.Trace($"Brightness set to {brightness.Value}.");
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Failed to set brightness to {brightness.Value}.", ex);
+            Log.Instance.Trace($"Failed to set brightness to {brightness.Value}.", ex);
         }
     }
 }

@@ -51,8 +51,7 @@ public class GPUOverclockController
             isSupported = false;
         }
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"NVAPI status: {isSupported}.");
+        Log.Instance.Trace($"NVAPI status: {isSupported}.");
 
         if (!isSupported)
             return isSupported;
@@ -63,8 +62,7 @@ public class GPUOverclockController
 
             if (!isSupported)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Clearing settings...");
+                Log.Instance.Trace($"Clearing settings...");
 
                 _settings.Store.Enabled = false;
                 _settings.Store.Info = GPUOverclockInfo.Zero;
@@ -76,8 +74,7 @@ public class GPUOverclockController
             isSupported = false;
         }
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Supports GPU OC status: {isSupported}");
+        Log.Instance.Trace($"Supports GPU OC status: {isSupported}");
 
         return isSupported;
     }
@@ -95,8 +92,7 @@ public class GPUOverclockController
     {
         if (await _vantageDisabler.GetStatusAsync().ConfigureAwait(false) == SoftwareStatus.Enabled)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Can't correctly apply state when Vantage is running.");
+            Log.Instance.Trace($"Can't correctly apply state when Vantage is running.");
 
             Changed?.Invoke(this, EventArgs.Empty);
             return;
@@ -104,8 +100,7 @@ public class GPUOverclockController
 
         if (await _legionSpaceDisabler.GetStatusAsync().ConfigureAwait(false) == SoftwareStatus.Enabled)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Can't correctly apply state when Legion Space is running.");
+            Log.Instance.Trace($"Can't correctly apply state when Legion Space is running.");
 
             Changed?.Invoke(this, EventArgs.Empty);
             return;
@@ -113,8 +108,7 @@ public class GPUOverclockController
 
         if (await _legionZoneDisabler.GetStatusAsync().ConfigureAwait(false) == SoftwareStatus.Enabled)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Can't correctly apply state when Legion Zone is running.");
+            Log.Instance.Trace($"Can't correctly apply state when Legion Zone is running.");
 
             Changed?.Invoke(this, EventArgs.Empty);
             return;
@@ -128,22 +122,19 @@ public class GPUOverclockController
             info = enabled ? info : GPUOverclockInfo.Zero;
             enabled = true;
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Forcing... [enabled=true, info={info}]");
+            Log.Instance.Trace($"Forcing... [enabled=true, info={info}]");
         }
 
         if (!enabled)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Not enabled.");
+            Log.Instance.Trace($"Not enabled.");
 
             Changed?.Invoke(this, EventArgs.Empty);
 
             return;
         }
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Applying overclock: {info}.");
+        Log.Instance.Trace($"Applying overclock: {info}.");
 
         try
         {
@@ -152,8 +143,7 @@ public class GPUOverclockController
             var gpu = NVAPI.GetGPU();
             if (gpu is null)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"dGPU not found.");
+                Log.Instance.Trace($"dGPU not found.");
 
                 Changed?.Invoke(this, EventArgs.Empty);
 
@@ -162,13 +152,11 @@ public class GPUOverclockController
 
             SetOverclockInfo(gpu, info);
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Applied overclock: {info}, current: {GetOverclockInfo(gpu)}.");
+            Log.Instance.Trace($"Applied overclock: {info}, current: {GetOverclockInfo(gpu)}.");
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Failed to apply overclock: {info}, clearing settings...", ex);
+            Log.Instance.Trace($"Failed to apply overclock: {info}, clearing settings...", ex);
 
             _settings.Store.Enabled = false;
             _settings.Store.Info = GPUOverclockInfo.Zero;

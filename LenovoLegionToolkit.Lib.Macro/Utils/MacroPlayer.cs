@@ -64,8 +64,7 @@ internal class MacroPlayer
                     }
                     catch (Exception ex)
                     {
-                        if (Log.Instance.IsTraceEnabled)
-                            Log.Instance.Trace($"Failed to send input for event {macroEvent}", ex);
+                        Log.Instance.Trace($"Failed to send input for event {macroEvent}", ex);
                     }
                 }
             }

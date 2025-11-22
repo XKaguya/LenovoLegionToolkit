@@ -57,31 +57,26 @@ namespace LenovoLegionToolkit.Lib.Controllers
 
                     await ThrowIfVantageEnabled().ConfigureAwait(false);
 
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Taking ownership...");
+                    Log.Instance.Trace($"Taking ownership...");
 
 #if !MOCK_RGB
                     await WMI.LenovoGameZoneData.SetLightControlOwnerAsync(enable ? 1 : 0).ConfigureAwait(false);
 #endif
 
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Ownership set to {enable}, restoring profile...");
+                    Log.Instance.Trace($"Ownership set to {enable}, restoring profile...");
 
                     if (restorePreset)
                     {
-                        if (Log.Instance.IsTraceEnabled)
-                            Log.Instance.Trace($"Restoring preset...");
+                        Log.Instance.Trace($"Restoring preset...");
 
                         await SetCurrentPresetAsync().ConfigureAwait(false);
 
-                        if (Log.Instance.IsTraceEnabled)
-                            Log.Instance.Trace($"Restored preset");
+                        Log.Instance.Trace($"Restored preset");
                     }
                 }
                 catch (Exception ex)
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Can't take ownership.", ex);
+                    Log.Instance.Trace($"Can't take ownership.", ex);
 
                     throw;
                 }
@@ -117,14 +112,12 @@ namespace LenovoLegionToolkit.Lib.Controllers
 
                 var selectedPreset = state.SelectedPreset;
 
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Selected preset: {selectedPreset}");
+                Log.Instance.Trace($"Selected preset: {selectedPreset}");
 
                 LENOVO_RGB_KEYBOARD_STATE str;
                 if (selectedPreset == RGBKeyboardBacklightPreset.Off)
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Creating off state.");
+                    Log.Instance.Trace($"Creating off state.");
 
                     str = CreateOffState();
                 }
@@ -132,8 +125,7 @@ namespace LenovoLegionToolkit.Lib.Controllers
                 {
                     var presetDescription = state.Presets.GetValueOrDefault(selectedPreset, RGBKeyboardBacklightBacklightPresetDescription.Default);
 
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Creating state: {presetDescription}");
+                    Log.Instance.Trace($"Creating state: {presetDescription}");
 
                     str = Convert(presetDescription);
                 }
@@ -158,14 +150,12 @@ namespace LenovoLegionToolkit.Lib.Controllers
                 settings.Store.State = new(preset, presets);
                 settings.SynchronizeStore();
 
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Preset is {preset}.");
+                Log.Instance.Trace($"Preset is {preset}.");
 
                 LENOVO_RGB_KEYBOARD_STATE str;
                 if (preset == RGBKeyboardBacklightPreset.Off)
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Creating off state.");
+                    Log.Instance.Trace($"Creating off state.");
 
                     str = CreateOffState();
                 }
@@ -173,8 +163,7 @@ namespace LenovoLegionToolkit.Lib.Controllers
                 {
                     var presetDescription = state.Presets.GetValueOrDefault(preset, RGBKeyboardBacklightBacklightPresetDescription.Default);
 
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Creating state: {presetDescription}");
+                    Log.Instance.Trace($"Creating state: {presetDescription}");
 
                     str = Convert(presetDescription);
                 }
@@ -201,14 +190,12 @@ namespace LenovoLegionToolkit.Lib.Controllers
                 settings.Store.State = new(newPreset, presets);
                 settings.SynchronizeStore();
 
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"New preset is {newPreset}.");
+                Log.Instance.Trace($"New preset is {newPreset}.");
 
                 LENOVO_RGB_KEYBOARD_STATE str;
                 if (newPreset == RGBKeyboardBacklightPreset.Off)
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Creating off state.");
+                    Log.Instance.Trace($"Creating off state.");
 
                     str = CreateOffState();
                 }
@@ -216,8 +203,7 @@ namespace LenovoLegionToolkit.Lib.Controllers
                 {
                     var presetDescription = state.Presets.GetValueOrDefault(newPreset, RGBKeyboardBacklightBacklightPresetDescription.Default);
 
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Creating state: {presetDescription}");
+                    Log.Instance.Trace($"Creating state: {presetDescription}");
 
                     str = Convert(presetDescription);
                 }
@@ -240,14 +226,12 @@ namespace LenovoLegionToolkit.Lib.Controllers
 
             var preset = state.SelectedPreset;
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Current preset is {preset}.");
+            Log.Instance.Trace($"Current preset is {preset}.");
 
             LENOVO_RGB_KEYBOARD_STATE str;
             if (preset == RGBKeyboardBacklightPreset.Off)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Creating off state.");
+                Log.Instance.Trace($"Creating off state.");
 
                 str = CreateOffState();
             }
@@ -255,8 +239,7 @@ namespace LenovoLegionToolkit.Lib.Controllers
             {
                 var presetDescription = state.Presets.GetValueOrDefault(preset, RGBKeyboardBacklightBacklightPresetDescription.Default);
 
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Creating state: {presetDescription}");
+                Log.Instance.Trace($"Creating state: {presetDescription}");
 
                 str = Convert(presetDescription);
             }

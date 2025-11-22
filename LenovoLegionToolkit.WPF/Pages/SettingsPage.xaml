@@ -171,12 +171,25 @@
             <custom:CardControl.Header>
                 <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_UseNewSensorDashboard_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_UseNewSensorDashboard_Message}" />
             </custom:CardControl.Header>
-            <wpfui:ToggleSwitch
-                x:Name="_useNewSensorDashboardToggle"
-                Margin="0,0,0,8"
-                AutomationProperties.Name="{x:Static resources:Resource.SettingsPage_UseNewSensorDashboard_Title}"
-                Click="UseNewSensorDashboard_Toggle"
-                Visibility="Hidden" />
+            <StackPanel Orientation="Horizontal">
+                <Button
+                    x:Name="_dashboardCustomButton"
+                    Width="100"
+                    Height="35"
+                    Margin="5,0,8,0"
+                    VerticalAlignment="Center"
+                    Click="DashboardCustomButton_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock VerticalAlignment="Center" Text="{x:Static resources:Resource.DashboardPage_Customize}" />
+                    </StackPanel>
+                </Button>
+                <wpfui:ToggleSwitch
+                    x:Name="_useNewSensorDashboardToggle"
+                    Margin="5,0,0,8"
+                    AutomationProperties.Name="{x:Static resources:Resource.SettingsPage_UseNewSensorDashboard_Title}"
+                    Click="UseNewSensorDashboard_Toggle"
+                    Visibility="Hidden" />
+            </StackPanel>
         </custom:CardControl>
         <custom:CardControl x:Name="_vantageCard" Margin="0,0,0,8">
             <custom:CardControl.Header>
@@ -450,6 +463,7 @@
                 <wpfui:NumberBox
                     x:Name="_floatingGadgetsInterval"
                     Width="100"
+                    Margin="5,0,8,0"
                     VerticalAlignment="Center"
                     Maximum="5"
                     Minimum="1"
@@ -470,9 +484,9 @@
                 </ComboBox>
                 <Button
                     x:Name="_customButton"
-                    Width="80"
+                    Width="100"
                     Height="35"
-                    Margin="0,0,8,0"
+                    Margin="5,0,8,0"
                     VerticalAlignment="Center"
                     Click="CustomButton_Click">
                     <StackPanel Orientation="Horizontal">
@@ -481,7 +495,7 @@
                 </Button>
                 <wpfui:ToggleSwitch
                     x:Name="_floatingGadgetsToggle"
-                    Margin="0,0,0,8"
+                    Margin="5,0,0,8"
                     VerticalAlignment="Center"
                     AutomationProperties.Name="{x:Static resources:Resource.SettingsPage_FloatingGadgets_Title}"
                     Click="FloatingGadgets_Click"

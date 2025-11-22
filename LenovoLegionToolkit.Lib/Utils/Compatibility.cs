@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Windows.Win32;
@@ -22,7 +21,6 @@ namespace LenovoLegionToolkit.Lib.Utils;
 
 public static partial class Compatibility
 {
-    private static readonly HashSet<object> _visited = new();
 
     [GeneratedRegex("^[A-Z0-9]{4}")]
     private static partial Regex BiosPrefixRegex();
@@ -804,16 +802,13 @@ public static partial class Compatibility
 
     public static void PrintControllerVersion()
     {
-        if (Log.Instance.IsTraceEnabled)
-        {
-            SensorsController? sensorsController = IoCContainer.Resolve<SensorsController>();
-            var sensorsControllerTypeName = sensorsController?.GetControllerAsync().Result?.GetType().Name ?? "Null SensorsController or Result";
-            Log.Instance.Trace($"Using {sensorsControllerTypeName}");
+        SensorsController? sensorsController = IoCContainer.Resolve<SensorsController>();
+        var sensorsControllerTypeName = sensorsController?.GetControllerAsync().Result?.GetType().Name ?? "Null SensorsController or Result";
+        Log.Instance.Trace($"Using {sensorsControllerTypeName}");
 
 
-            GodModeController? godModeController = IoCContainer.Resolve<GodModeController>();
-            var godModeControllerTypeName = godModeController?.GetControllerAsync().Result?.GetType().Name ?? "Null GodModeController or Result";
-            Log.Instance.Trace($"Using {godModeControllerTypeName}");
-        }
+        GodModeController? godModeController = IoCContainer.Resolve<GodModeController>();
+        var godModeControllerTypeName = godModeController?.GetControllerAsync().Result?.GetType().Name ?? "Null GodModeController or Result";
+        Log.Instance.Trace($"Using {godModeControllerTypeName}");
     }
 }

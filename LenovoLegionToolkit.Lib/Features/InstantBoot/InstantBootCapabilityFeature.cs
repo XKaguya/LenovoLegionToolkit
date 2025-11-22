@@ -27,8 +27,7 @@ public class InstantBootCapabilityFeature : IFeature<InstantBootState>
 
     public async Task<InstantBootState> GetStateAsync()
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Getting state...");
+        Log.Instance.Trace($"Getting state...");
 
         var ac = await _ac.GetStateAsync().ConfigureAwait(false);
         var usbPowerDelivery = await _usbPowerDelivery.GetStateAsync().ConfigureAwait(false);
@@ -41,16 +40,14 @@ public class InstantBootCapabilityFeature : IFeature<InstantBootState>
             _ => InstantBootState.Off
         };
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"State is {result}");
+        Log.Instance.Trace($"State is {result}");
 
         return result;
     }
 
     public async Task SetStateAsync(InstantBootState state)
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Setting state to {state}...");
+        Log.Instance.Trace($"Setting state to {state}...");
 
         var (ac, usbPowerDelivery) = state switch
         {
@@ -63,7 +60,6 @@ public class InstantBootCapabilityFeature : IFeature<InstantBootState>
         await _ac.SetStateAsync(ac).ConfigureAwait(false);
         await _usbPowerDelivery.SetStateAsync(usbPowerDelivery).ConfigureAwait(false);
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Set state to {state}");
+        Log.Instance.Trace($"Set state to {state}");
     }
 }

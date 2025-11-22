@@ -23,8 +23,8 @@ public class SensorsGroupController : IDisposable
     private bool _initialized;
     public LibreHardwareMonitorInitialState InitialState { get; private set; }
     private float _lastGpuPower;
-    private readonly SemaphoreSlim _initSemaphore = new SemaphoreSlim(1, 1);
-    private readonly List<IHardware> _interestedHardwares = new();
+    private readonly SemaphoreSlim _initSemaphore = new(1, 1);
+    private readonly List<IHardware> _hardware = new();
 
     private Computer? _computer;
     private IHardware? _cpuHardware;
@@ -35,11 +35,13 @@ public class SensorsGroupController : IDisposable
     private bool _needRefreshGpuHardware;
     private string _cachedCpuName = string.Empty;
     private string _cachedGpuName = string.Empty;
+    private float _cachedCpuPower;
+    private int _cachedCpuPowerTime;
 
-    private readonly object _hardwareLock = new object();
-    private volatile bool _hardwaresInitialized;
+    private readonly Lock _hardwareLock = new();
+    private volatile bool _hardwareInitialized;
 
-    private GPUController _gpuController = IoCContainer.Resolve<GPUController>();
+    private readonly GPUController _gpuController = IoCContainer.Resolve<GPUController>();
 
     public async Task<LibreHardwareMonitorInitialState> IsSupportedAsync()
     {
@@ -47,7 +49,7 @@ public class SensorsGroupController : IDisposable
 
         try
         {
-            bool haveHardware = _interestedHardwares.Count != 0;
+            bool haveHardware = _hardware.Count != 0;
 
             if (haveHardware && result == LibreHardwareMonitorInitialState.Initialized || result == LibreHardwareMonitorInitialState.Success)
             {
@@ -56,49 +58,18 @@ public class SensorsGroupController : IDisposable
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-            {
-                Log.Instance.Trace($"Sensor group check failed: {ex}");
-            }
+            Log.Instance.Trace($"Sensor group check failed: {ex}");
             return result;
         }
 
         return LibreHardwareMonitorInitialState.Fail;
     }
 
-    public bool IsLibreHardwareMonitorInitialized()
-    {
-        return InitialState == LibreHardwareMonitorInitialState.Initialized || InitialState == LibreHardwareMonitorInitialState.Success;
-    }
-
-
-    public bool IsPawnIOInnstalled()
-    {
-        string? pawnIoPath = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\PawnIO", "InstallLocation", null) as string;
-
-        if (string.IsNullOrEmpty(pawnIoPath))
-        {
-            pawnIoPath = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\PawnIO", "Install_Dir", null) as string;
-        }
-
-        if (string.IsNullOrEmpty(pawnIoPath))
-        {
-            pawnIoPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "PawnIO");
-        }
-
-        if (Directory.Exists(pawnIoPath))
-        {
-            return true;
-        }
-
-        return false;
-    }
-
-    private void GetInterestedHardwares()
+    private void GetHardware()
     {
         lock (_hardwareLock)
         {
-            if (_hardwaresInitialized) return;
+            if (_hardwareInitialized) return;
 
             if (!IsPawnIOInnstalled())
             {
@@ -121,25 +92,22 @@ public class SensorsGroupController : IDisposable
                 _computer.Open();
                 _computer.Accept(new UpdateVisitor());
 
-                if (Log.Instance.IsTraceEnabled)
+                foreach (var hardware in _computer.Hardware)
                 {
-                    foreach (var hardware in _computer.Hardware)
-                    {
-                        Log.Instance.Trace($"Detected hardware: {hardware.HardwareType} - {hardware.Name}");
-                    }
+                    Log.Instance.Trace($"Detected hardware: {hardware.HardwareType} - {hardware.Name}");
                 }
 
-                _interestedHardwares.AddRange(_computer.Hardware);
-                _cpuHardware = _interestedHardwares.FirstOrDefault(h => h.HardwareType == HardwareType.Cpu);
+                _hardware.AddRange(_computer.Hardware);
+                _cpuHardware = _hardware.FirstOrDefault(h => h.HardwareType == HardwareType.Cpu);
 
                 // The GPU Dashboard card was designed for discrete graphic cards. So we don't pick Intel & Amd's integrated GPUs here.
-                _amdGpuHardware = _interestedHardwares.FirstOrDefault(h => h.HardwareType == HardwareType.GpuAmd && !Regex.IsMatch(h.Name, @"AMD Radeon\(TM\)\s+\d+M", RegexOptions.IgnoreCase));
-                _gpuHardware = _interestedHardwares.FirstOrDefault(h => h.HardwareType == HardwareType.GpuNvidia);
-                _memoryHardware = _interestedHardwares.FirstOrDefault(h => h.HardwareType == HardwareType.Memory && h.Name == "Total Memory");
+                _amdGpuHardware = _hardware.FirstOrDefault(h => h.HardwareType == HardwareType.GpuAmd && !Regex.IsMatch(h.Name, @"AMD Radeon\(TM\)\s+\d+M", RegexOptions.IgnoreCase));
+                _gpuHardware = _hardware.FirstOrDefault(h => h.HardwareType == HardwareType.GpuNvidia);
+                _memoryHardware = _hardware.FirstOrDefault(h => h.HardwareType == HardwareType.Memory && h.Name == "Total Memory");
             }
             finally
             {
-                _hardwaresInitialized = true;
+                _hardwareInitialized = true;
             }
         }
     }
@@ -172,49 +140,71 @@ public class SensorsGroupController : IDisposable
             return Task.FromResult("UNKNOWN");
         }
 
-        if (string.IsNullOrEmpty(_cachedGpuName) || _needRefreshGpuHardware)
+        if (!string.IsNullOrEmpty(_cachedGpuName) && !_needRefreshGpuHardware)
         {
-            var gpu = _gpuHardware ?? _amdGpuHardware;
-            _cachedGpuName = gpu != null ? StripName(gpu.Name) : "UNKNOWN";
-            _needRefreshGpuHardware = false;
+            return Task.FromResult(_cachedGpuName);
         }
+
+        var gpu = _gpuHardware ?? _amdGpuHardware;
+        _cachedGpuName = gpu != null ? StripName(gpu.Name) : "UNKNOWN";
+        _needRefreshGpuHardware = false;
 
         return Task.FromResult(_cachedGpuName);
     }
 
     public Task<float> GetCpuPowerAsync()
     {
-        const float MaxValidPower = 400f;
-        const float InvalidPower = -1f;
+        const float maxValidPower = 400f;
+        const float invalidPower = -1f;
 
         try
         {
             if (!IsLibreHardwareMonitorInitialized() || _cpuHardware == null)
             {
-                return Task.FromResult(InvalidPower);
+                return Task.FromResult(invalidPower);
             }
 
             var sensor = _cpuHardware.Sensors?.FirstOrDefault(s => s.SensorType == SensorType.Power && s.Name.Contains("Package"));
             var powerValue = sensor?.Value;
 
-            if (!powerValue.HasValue || powerValue < 0)
+            if (powerValue is null or <= 0)
             {
-                return Task.FromResult(InvalidPower);
+                return Task.FromResult(invalidPower);
             }
 
-            if (powerValue > MaxValidPower)
+            if (powerValue > maxValidPower)
             {
-                _computer?.Open();
-                _computer?.Accept(new UpdateVisitor());
-                _computer?.Reset();
-                return Task.FromResult(InvalidPower);
+                ResetSensors();
+                return Task.FromResult(invalidPower);
             }
 
-            return Task.FromResult(powerValue.Value);
+            var power = powerValue.Value;
+
+            // Can't exactly same for 10 times.
+            if (power.Equals(_cachedCpuPower))
+            {
+                if (_cachedCpuPowerTime >= 10)
+                {
+                    ResetSensors();
+                    Log.Instance.Trace($"Detected CPU Power invalid for serval times, Resetting sensors...");
+                    return Task.FromResult(invalidPower);
+                }
+                else
+                {
+                    ++_cachedCpuPowerTime;
+                }
+            }
+            else
+            {
+                _cachedCpuPower = power;
+                _cachedCpuPowerTime = 0;
+            }
+
+            return Task.FromResult(power);
         }
         catch (Exception)
         {
-            return Task.FromResult(InvalidPower);
+            return Task.FromResult(invalidPower);
         }
     }
 
@@ -225,7 +215,7 @@ public class SensorsGroupController : IDisposable
             return -1;
         }
 
-        var state = await _gpuController.GetLastKnownStateAsync();
+        var state = await _gpuController.GetLastKnownStateAsync().ConfigureAwait(false);
         if (_lastGpuPower <= 10 && IsGpuInActive(state))
         {
             return -1;
@@ -244,10 +234,7 @@ public class SensorsGroupController : IDisposable
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-            {
-                Log.Instance.Trace($"GetGpuPowerAsync() raised exception: ", ex);
-            }
+            Log.Instance.Trace($"GetGpuPowerAsync() raised exception: ", ex);
 
             return -1;
         }
@@ -260,7 +247,7 @@ public class SensorsGroupController : IDisposable
             return 0;
         }
 
-        var gpuState = await _gpuController.GetLastKnownStateAsync();
+        var gpuState = await _gpuController.GetLastKnownStateAsync().ConfigureAwait(false);
         if (_lastGpuPower <= 10 && (gpuState == GPUState.Inactive || gpuState == GPUState.PoweredOff))
         {
             return 0;
@@ -275,7 +262,7 @@ public class SensorsGroupController : IDisposable
         return sensor?.Value ?? 0;
     }
 
-    public Task<(float, float)> GetSSDTemperaturesAsync()
+    public Task<(float, float)> GetSsdTemperaturesAsync()
     {
         if (!IsLibreHardwareMonitorInitialized())
         {
@@ -286,28 +273,25 @@ public class SensorsGroupController : IDisposable
 
         try
         {
-            var storageHardwares = _interestedHardwares.Where(h => h.HardwareType == HardwareType.Storage).ToList();
+            var storageHardware = _hardware.Where(h => h.HardwareType == HardwareType.Storage).ToList();
 
-            if (storageHardwares.Count == 0)
+            if (storageHardware.Count == 0)
             {
                 return Task.FromResult((0f, 0f));
             }
 
-            foreach (var storage in storageHardwares)
+            foreach (var storage in storageHardware)
             {
                 var tempSensor = storage.Sensors?.FirstOrDefault(s => s.SensorType == SensorType.Temperature);
-                if (tempSensor?.Value is float value && value > 0)
+                if (tempSensor is { SensorType: SensorType.Temperature, Value: > 0 })
                 {
-                    temps.Add(value);
+                    temps.Add(tempSensor.Value.Value);
                 }
             }
         }
         catch (ArgumentOutOfRangeException ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-            {
-                Log.Instance.Trace($"SSD temperature read error: {ex.Message}");
-            }
+            Log.Instance.Trace($"SSD temperature read error: {ex.Message}");
 
             return Task.FromResult((0f, 0f));
         }
@@ -337,21 +321,24 @@ public class SensorsGroupController : IDisposable
             return Task.FromResult(0.0);
         }
 
-        var memoryHardwares = _interestedHardwares.Where(h => h.HardwareType == HardwareType.Memory);
+        var memoryHardware = _hardware.Where(h => h.HardwareType == HardwareType.Memory).ToList(); // 或者 .ToArray()
 
-        if (memoryHardwares == null || !memoryHardwares.Any()) return Task.FromResult(0.0);
+        if (memoryHardware.Count == 0)
+        {
+            return Task.FromResult(0.0);
+        }
 
         float maxTemperature = 0;
-        foreach (var memoryHardware in memoryHardwares)
+        foreach (var hardware in memoryHardware)
         {
-            if (memoryHardware.Sensors == null)
+            if (hardware.Sensors == null)
             {
                 continue;
             }
 
-            foreach (var sensor in memoryHardware.Sensors)
+            foreach (var sensor in hardware.Sensors)
             {
-                if (sensor.SensorType == SensorType.Temperature && sensor.Value.HasValue && sensor.Value > 0)
+                if (sensor is { SensorType: SensorType.Temperature, Value: > 0 })
                 {
                     if (sensor.Value.Value > maxTemperature)
                     {
@@ -363,14 +350,6 @@ public class SensorsGroupController : IDisposable
         return Task.FromResult((double)maxTemperature);
     }
 
-    public bool IsGpuInActive(GPUState state)
-    {
-        return state == GPUState.Inactive ||
-            state == GPUState.PoweredOff ||
-            state == GPUState.Unknown ||
-            state == GPUState.NvidiaGpuNotFound;
-    }
-
     private async Task<LibreHardwareMonitorInitialState> InitializeAsync()
     {
         if (_initialized)
@@ -379,7 +358,7 @@ public class SensorsGroupController : IDisposable
             return InitialState;
         }
 
-        await _initSemaphore.WaitAsync();
+        await _initSemaphore.WaitAsync().ConfigureAwait(false);
         try
         {
             if (_initialized)
@@ -388,10 +367,10 @@ public class SensorsGroupController : IDisposable
                 return InitialState;
             }
 
-            await Task.Run(() => GetInterestedHardwares()).ConfigureAwait(false);
+            await Task.Run(GetHardware).ConfigureAwait(false);
             _initialized = true;
 
-            if (_interestedHardwares.Count == 0)
+            if (_hardware.Count == 0)
             {
                 InitialState = LibreHardwareMonitorInitialState.Fail;
                 return InitialState;
@@ -414,13 +393,9 @@ public class SensorsGroupController : IDisposable
             settings.Store.UseNewSensorDashboard = false;
             settings.SynchronizeStore();
             InitialState = LibreHardwareMonitorInitialState.Fail;
-            if (Log.Instance.IsTraceEnabled)
-            {
-                string msg = $"LibreHardwareMonitor initialization failed. Disabling new sensor dashboard. [type={GetType().Name}]";
-                Log.Instance.Trace($"{msg}");
-                throw new Exception(msg, ex);
-            }
-            return InitialState;
+            var msg = $"LibreHardwareMonitor initialization failed. Disabling new sensor dashboard. [type={GetType().Name}]";
+            Log.Instance.Trace($"{msg}");
+            throw new Exception(msg, ex);
         }
         finally
         {
@@ -440,29 +415,73 @@ public class SensorsGroupController : IDisposable
             return;
         }
 
-        if (hardware == "NvidiaGPU")
+        if (hardware != "NvidiaGPU")
         {
-            _gpuHardware = null;
-
-            _computer.Open();
-            _computer.Accept(new UpdateVisitor());
-            _computer.Reset();
-            _interestedHardwares.Clear();
-            _interestedHardwares.AddRange(_computer.Hardware);
-            _gpuHardware = _interestedHardwares.FirstOrDefault(h => h.HardwareType == HardwareType.GpuNvidia);
-
-            _needRefreshGpuHardware = true;
+            return;
         }
+
+        _gpuHardware = null;
+
+        ResetSensors();
+        _hardware.Clear();
+        _hardware.AddRange(_computer.Hardware);
+        _gpuHardware = _hardware.FirstOrDefault(h => h.HardwareType == HardwareType.GpuNvidia);
+
+        _needRefreshGpuHardware = true;
     }
 
-    private string StripName(string name)
+    public async Task UpdateAsync()
+    {
+        if (!IsLibreHardwareMonitorInitialized())
+        {
+            return;
+        }
+
+        await Task.Run(() =>
+        {
+            lock (_hardwareLock)
+            {
+                if (_computer == null || !_hardwareInitialized)
+                {
+                    return;
+                }
+
+                try
+                {
+                    foreach (var hardware in _hardware)
+                    {
+                        hardware?.Update();
+                    }
+                }
+                catch (AccessViolationException)
+                {
+
+                }
+                catch (Exception ex)
+                {
+                    Log.Instance.Trace($"Failed to update sensors: {ex.Message}", ex);
+                }
+            }
+        }).ConfigureAwait(false);
+    }
+
+    #region Helper
+    private void ResetSensors()
+    {
+        _computer?.Close();
+        _computer?.Open();
+        _computer?.Accept(new UpdateVisitor());
+        _computer?.Reset();
+    }
+
+    private static string StripName(string name)
     {
         if (string.IsNullOrEmpty(name))
         {
             return "UNKNOWN";
         }
 
-        string cleanedName = name.Trim();
+        var cleanedName = name.Trim();
 
         if (cleanedName.Contains("AMD", StringComparison.OrdinalIgnoreCase))
         {
@@ -484,43 +503,34 @@ public class SensorsGroupController : IDisposable
         return Regex.Replace(cleanedName, @"\s+", " ").Trim();
     }
 
-    public async Task UpdateAsync()
+    public bool IsGpuInActive(GPUState state)
     {
-        if (!IsLibreHardwareMonitorInitialized())
+        return state is GPUState.Inactive or GPUState.PoweredOff or GPUState.Unknown or GPUState.NvidiaGpuNotFound;
+    }
+
+    public bool IsLibreHardwareMonitorInitialized()
+    {
+        return InitialState is LibreHardwareMonitorInitialState.Initialized or LibreHardwareMonitorInitialState.Success;
+    }
+
+
+    public bool IsPawnIOInnstalled()
+    {
+        string? pawnIoPath = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\PawnIO", "InstallLocation", null) as string;
+
+        if (string.IsNullOrEmpty(pawnIoPath))
         {
-            return;
+            pawnIoPath = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\PawnIO", "Install_Dir", null) as string;
         }
 
-        await Task.Run(() =>
+        if (string.IsNullOrEmpty(pawnIoPath))
         {
-            lock (_hardwareLock)
-            {
-                if (_computer == null || !_hardwaresInitialized)
-                {
-                    return;
-                }
+            pawnIoPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "PawnIO");
+        }
 
-                try
-                {
-                    foreach (var hardware in _interestedHardwares)
-                    {
-                        hardware?.Update();
-                    }
-                }
-                catch (AccessViolationException)
-                {
-
-                }
-                catch (Exception ex)
-                {
-                    if (Log.Instance.IsTraceEnabled)
-                    {
-                        Log.Instance.Trace($"Failed to update sensors: {ex.Message}", ex);
-                    }
-                }
-            }
-        }).ConfigureAwait(false);
+        return Directory.Exists(pawnIoPath);
     }
+    #endregion
 
     public void Dispose()
     {

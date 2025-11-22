@@ -73,8 +73,7 @@ public class DriverKeyListener(
 
                 if (await fnKeysDisabler.GetStatusAsync().ConfigureAwait(false) == SoftwareStatus.Enabled)
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Ignoring, FnKeys are enabled.");
+                    Log.Instance.Trace($"Ignoring, FnKeys are enabled.");
 
                     resetEvent.Reset();
                     continue;
@@ -85,8 +84,7 @@ public class DriverKeyListener(
                     PInvokeExtensions.ThrowIfWin32Error("DeviceIoControl, getValueResult");
 
                 var key = (DriverKey)value;
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Event received. [key={key}, value={value}]");
+                Log.Instance.Trace($"Event received. [key={key}, value={value}]");
 
                 await OnChangedAsync(key).ConfigureAwait(false);
                 Changed?.Invoke(this, new(key));
@@ -98,8 +96,7 @@ public class DriverKeyListener(
         catch (ThreadAbortException) { }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Unknown error.", ex);
+            Log.Instance.Trace($"Unknown error.", ex);
         }
     }
 
@@ -152,8 +149,7 @@ public class DriverKeyListener(
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Couldn't handle key press. [value={value}]", ex);
+            Log.Instance.Trace($"Couldn't handle key press. [value={value}]", ex);
         }
     }
 

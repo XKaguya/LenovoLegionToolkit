@@ -101,8 +101,7 @@ public partial class GodModeSettingsWindow
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Couldn't load settings.", ex);
+            Log.Instance.Trace($"Couldn't load settings.", ex);
 
             await _snackBar.ShowAsync(Resource.GodModeSettingsWindow_Error_Load_Title, ex.Message);
 
@@ -128,6 +127,8 @@ public partial class GodModeSettingsWindow
             var newPreset = new GodModePreset
             {
                 Name = preset.Name,
+                PowerPlanGuid = preset.PowerPlanGuid,
+                PowerMode = preset.PowerMode,
                 CPULongTermPowerLimit = preset.CPULongTermPowerLimit?.WithValue(_cpuLongTermPowerLimitControl.Value),
                 CPUShortTermPowerLimit = preset.CPUShortTermPowerLimit?.WithValue(_cpuShortTermPowerLimitControl.Value),
                 CPUPeakPowerLimit = preset.CPUPeakPowerLimit?.WithValue(_cpuPeakPowerLimitControl.Value),
@@ -167,8 +168,7 @@ public partial class GodModeSettingsWindow
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Couldn't apply settings", ex);
+            Log.Instance.Trace($"Couldn't apply settings", ex);
 
             await _snackBar.ShowAsync(Resource.GodModeSettingsWindow_Error_Apply_Title, ex.Message);
 

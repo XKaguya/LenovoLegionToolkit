@@ -24,8 +24,7 @@ public class LightingChangeListener(
 
     protected override LightingChangeState GetValue(int value)
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Event received. [value={value}]");
+        Log.Instance.Trace($"Event received. [value={value}]");
 
         var result = (LightingChangeState)value;
         return result;
@@ -39,8 +38,7 @@ public class LightingChangeListener(
         {
             if (await fnKeysDisabler.GetStatusAsync().ConfigureAwait(false) == SoftwareStatus.Enabled)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Ignoring, FnKeys are enabled.");
+                Log.Instance.Trace($"Ignoring, FnKeys are enabled.");
 
                 return;
             }

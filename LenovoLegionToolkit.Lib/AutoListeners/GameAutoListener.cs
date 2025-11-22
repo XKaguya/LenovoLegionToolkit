@@ -121,8 +121,7 @@ public class GameAutoListener : AbstractAutoListener<GameAutoListener.ChangedEve
                     }
                     catch (Exception)
                     {
-                        if (Log.Instance.IsTraceEnabled)
-                            Log.Instance.Trace($"Can't get game \"{game}\" details.");
+                        Log.Instance.Trace($"Can't get game \"{game}\" details.");
                     }
                 }
             }
@@ -135,8 +134,7 @@ public class GameAutoListener : AbstractAutoListener<GameAutoListener.ChangedEve
         {
             if (_processCache.Count != 0)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Ignoring, process cache is not empty.");
+                Log.Instance.Trace($"Ignoring, process cache is not empty.");
                 return;
             }
 
@@ -161,8 +159,7 @@ public class GameAutoListener : AbstractAutoListener<GameAutoListener.ChangedEve
 
                 if (string.IsNullOrEmpty(processPath))
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Can't get path for {e.ProcessName}. [processId={e.ProcessId}]");
+                    Log.Instance.Trace($"Can't get path for {e.ProcessName}. [processId={e.ProcessId}]");
 
                     return;
                 }
@@ -171,8 +168,7 @@ public class GameAutoListener : AbstractAutoListener<GameAutoListener.ChangedEve
                 if (!_detectedGamePathsCache.Contains(processInfo))
                     return;
 
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Game {processInfo} is running. [processId={e.ProcessId}, processPath={processPath}]");
+                Log.Instance.Trace($"Game {processInfo} is running. [processId={e.ProcessId}, processPath={processPath}]");
 
                 Attach(process);
                 _processCache.Add(process);
@@ -181,8 +177,7 @@ public class GameAutoListener : AbstractAutoListener<GameAutoListener.ChangedEve
             }
             catch (Exception ex)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Failed to attach to {e.ProcessName}. [processId={e.ProcessId}]", ex);
+                Log.Instance.Trace($"Failed to attach to {e.ProcessName}. [processId={e.ProcessId}]", ex);
             }
         }
     }
@@ -202,8 +197,7 @@ public class GameAutoListener : AbstractAutoListener<GameAutoListener.ChangedEve
 
     private void Attach(Process process)
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Attaching to process {process.Id}...");
+        Log.Instance.Trace($"Attaching to process {process.Id}...");
 
         process.EnableRaisingEvents = true;
         process.Exited += Process_Exited;
@@ -214,8 +208,7 @@ public class GameAutoListener : AbstractAutoListener<GameAutoListener.ChangedEve
         process.EnableRaisingEvents = false;
         process.Exited -= Process_Exited;
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Detached from process {process.Id}.");
+        Log.Instance.Trace($"Detached from process {process.Id}.");
     }
 
     private void Process_Exited(object? o, EventArgs args)
@@ -225,8 +218,7 @@ public class GameAutoListener : AbstractAutoListener<GameAutoListener.ChangedEve
             if (o is not Process process)
                 return;
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Process {process.Id} exited.");
+            Log.Instance.Trace($"Process {process.Id} exited.");
 
             var staleProcesses = _processCache.RemoveWhere(p =>
             {
@@ -236,20 +228,17 @@ public class GameAutoListener : AbstractAutoListener<GameAutoListener.ChangedEve
 
             if (staleProcesses > 1)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Removed {staleProcesses} stale processes.");
+                Log.Instance.Trace($"Removed {staleProcesses} stale processes.");
             }
 
             if (_processCache.Count != 0)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"More games are running...");
+                Log.Instance.Trace($"More games are running...");
 
                 return;
             }
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"No more games are running.");
+            Log.Instance.Trace($"No more games are running.");
 
             RaiseChangedIfNeeded(false);
         }

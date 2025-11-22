@@ -209,8 +209,7 @@ public class AutomationPipelineControl : UserControl
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Run now completed with errors", ex);
+            Log.Instance.Trace($"Run now completed with errors", ex);
 
             _runNowButton.Content = Resource.AutomationPipelineControl_RunNow;
             _runNowButton.IsEnabled = true;

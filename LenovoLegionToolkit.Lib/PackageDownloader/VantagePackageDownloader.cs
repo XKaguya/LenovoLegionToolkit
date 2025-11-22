@@ -130,8 +130,7 @@ public class VantagePackageDownloader(HttpClientFactory httpClientFactory)
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Couldn't detect update for package {id}. [title={title}, location={location}]",
+            Log.Instance.Trace($"Couldn't detect update for package {id}. [title={title}, location={location}]",
                     ex);
         }
 
