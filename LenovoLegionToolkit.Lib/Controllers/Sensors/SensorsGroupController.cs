@@ -204,10 +204,7 @@ public class SensorsGroupController : IDisposable
 
     public Task<float> GetCpuPowerAsync()
     {
-        if (_isResetting)
-        {
-            return Task.FromResult(INVALID_VALUE_FLOAT);
-        }
+        if (_isResetting) return Task.FromResult(INVALID_VALUE_FLOAT);
 
         try
         {
@@ -228,6 +225,8 @@ public class SensorsGroupController : IDisposable
             {
                 Log.Instance.Trace($"CPU Power spike detected ({powerValue}). Resetting sensors.");
                 ResetSensors();
+                _cachedCpuPowerTime = 0;
+                _cachedCpuPower = -1f;
                 return Task.FromResult(INVALID_VALUE_FLOAT);
             }
 
@@ -239,6 +238,10 @@ public class SensorsGroupController : IDisposable
                 {
                     Log.Instance.Trace($"Detected CPU Power stuck at {_cachedCpuPower} for serval cycles, Resetting sensors...");
                     ResetSensors();
+
+                    _cachedCpuPowerTime = 0;
+                    _cachedCpuPower = -1f;
+
                     return Task.FromResult(INVALID_VALUE_FLOAT);
                 }
                 else
@@ -583,11 +586,29 @@ public class SensorsGroupController : IDisposable
                 try
                 {
                     Log.Instance.Trace($"Starting sensor reset...");
+
                     _computer?.Close();
+
+                    _hardware.Clear();
+                    _cpuHardware = null;
+                    _gpuHardware = null;
+                    _amdGpuHardware = null;
+                    _memoryHardware = null;
+
                     _computer?.Open();
                     _computer?.Accept(new UpdateVisitor());
                     _computer?.Reset();
-                    Log.Instance.Trace($"Sensors have been reset successfully.");
+
+                    if (_computer != null)
+                    {
+                        _hardware.AddRange(_computer.Hardware);
+                        _cpuHardware = _hardware.FirstOrDefault(h => h.HardwareType == HardwareType.Cpu);
+                        _amdGpuHardware = _hardware.FirstOrDefault(h => h.HardwareType == HardwareType.GpuAmd && !Regex.IsMatch(h.Name, REGEX_AMD_GPU_INTEGRATED, RegexOptions.IgnoreCase));
+                        _gpuHardware = _hardware.FirstOrDefault(h => h.HardwareType == HardwareType.GpuNvidia);
+                        _memoryHardware = _hardware.FirstOrDefault(h => h.HardwareType == HardwareType.Memory && h.Name == SENSOR_NAME_TOTAL_MEMORY);
+                    }
+
+                    Log.Instance.Trace($"Sensors have been reset and hardware references refreshed.");
                 }
                 catch (Exception ex)
                 {
