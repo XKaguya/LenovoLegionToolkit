@@ -73,6 +73,7 @@ public static partial class Compatibility
 
         "14APH",
         "14IRP",
+        "14AKP",
 
         // Chinese variants
         "G5000",
