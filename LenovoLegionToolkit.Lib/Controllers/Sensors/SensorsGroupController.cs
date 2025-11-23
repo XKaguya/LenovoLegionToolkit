@@ -7,7 +7,6 @@
 using LenovoLegionToolkit.Lib.Settings;
 using LenovoLegionToolkit.Lib.Utils;
 using LibreHardwareMonitor.Hardware;
-using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,6 +14,8 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using LenovoLegionToolkit.Lib.System;
+using Registry = Microsoft.Win32.Registry;
 
 namespace LenovoLegionToolkit.Lib.Controllers.Sensors;
 
@@ -426,6 +427,7 @@ public class SensorsGroupController : IDisposable
         _hardware.Clear();
         _hardware.AddRange(_computer.Hardware);
         _gpuHardware = _hardware.FirstOrDefault(h => h.HardwareType == HardwareType.GpuNvidia);
+        NVAPI.Initialize();
 
         _needRefreshGpuHardware = true;
     }
@@ -460,6 +462,11 @@ public class SensorsGroupController : IDisposable
                 catch (Exception ex)
                 {
                     Log.Instance.Trace($"Failed to update sensors: {ex.Message}", ex);
+
+                    if (ex is IndexOutOfRangeException)
+                    {
+                        ResetSensors();
+                    }
                 }
             }
         }).ConfigureAwait(false);
