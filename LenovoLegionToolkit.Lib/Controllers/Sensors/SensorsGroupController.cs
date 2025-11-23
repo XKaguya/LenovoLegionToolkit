@@ -21,11 +21,45 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors;
 
 public class SensorsGroupController : IDisposable
 {
+    #region Constants (Magic Words & Numbers)
+
+    private const float INVALID_VALUE_FLOAT = -1f;
+    private const double INVALID_VALUE_DOUBLE = 0.0;
+    private const string UNKNOWN_NAME = "UNKNOWN";
+
+    private const string SENSOR_NAME_TOTAL_MEMORY = "Total Memory";
+    private const string SENSOR_NAME_PACKAGE = "Package";
+    private const string SENSOR_NAME_GPU_HOTSPOT = "GPU Memory Junction";
+
+    private const string HARDWARE_ID_NVIDIA_GPU = "NvidiaGPU";
+
+    private const string REGEX_AMD_GPU_INTEGRATED = @"AMD Radeon\(TM\)\s+\d+M";
+    private const string REGEX_STRIP_AMD = @"\s+with\s+Radeon\s+Graphics$";
+    private const string REGEX_STRIP_INTEL = @"\s*\d+(?:th|st|nd|rd)?\s+Gen\b";
+    private const string REGEX_STRIP_NVIDIA = @"(?i)\b(?:Nvidia\s+)?(GeForce\s+(?:RTX|GTX)\s+\d{3,4}(?:\s+(Ti|SUPER|Ti\s+SUPER|M))?)\b(?:\s+Laptop\s+GPU)?(?!\S)";
+    private const string REGEX_CLEAN_SPACES = @"\s+";
+
+    private const float MAX_VALID_CPU_POWER = 400f;
+    private const float MIN_VALID_POWER_READING = 0f;
+    private const int MAX_CPU_POWER_STUCK_RETRIES = 10;
+    private const float MIN_ACTIVE_GPU_POWER = 10f;
+
+    private const string REG_KEY_PAWN_IO = @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\PawnIO";
+    private const string REG_VAL_INSTALL_LOC = "InstallLocation";
+    private const string REG_KEY_PAWN_IO_WOW64 = @"HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\PawnIO";
+    private const string REG_VAL_INSTALL_DIR = "Install_Dir";
+    private const string FOLDER_PAWN_IO = "PawnIO";
+
+    #endregion
+
     private bool _initialized;
     public LibreHardwareMonitorInitialState InitialState { get; private set; }
+
     private float _lastGpuPower;
     private readonly SemaphoreSlim _initSemaphore = new(1, 1);
     private readonly List<IHardware> _hardware = new();
+
+    private volatile bool _isResetting;
 
     private Computer? _computer;
     private IHardware? _cpuHardware;
@@ -50,9 +84,13 @@ public class SensorsGroupController : IDisposable
 
         try
         {
-            bool haveHardware = _hardware.Count != 0;
+            bool haveHardware;
+            lock (_hardwareLock)
+            {
+                haveHardware = _hardware.Count != 0;
+            }
 
-            if (haveHardware && result == LibreHardwareMonitorInitialState.Initialized || result == LibreHardwareMonitorInitialState.Success)
+            if (haveHardware && (result == LibreHardwareMonitorInitialState.Initialized || result == LibreHardwareMonitorInitialState.Success))
             {
                 return result;
             }
@@ -100,11 +138,17 @@ public class SensorsGroupController : IDisposable
 
                 _hardware.AddRange(_computer.Hardware);
                 _cpuHardware = _hardware.FirstOrDefault(h => h.HardwareType == HardwareType.Cpu);
-
-                // The GPU Dashboard card was designed for discrete graphic cards. So we don't pick Intel & Amd's integrated GPUs here.
-                _amdGpuHardware = _hardware.FirstOrDefault(h => h.HardwareType == HardwareType.GpuAmd && !Regex.IsMatch(h.Name, @"AMD Radeon\(TM\)\s+\d+M", RegexOptions.IgnoreCase));
+                _amdGpuHardware = _hardware.FirstOrDefault(h => h.HardwareType == HardwareType.GpuAmd && !Regex.IsMatch(h.Name, REGEX_AMD_GPU_INTEGRATED, RegexOptions.IgnoreCase));
                 _gpuHardware = _hardware.FirstOrDefault(h => h.HardwareType == HardwareType.GpuNvidia);
-                _memoryHardware = _hardware.FirstOrDefault(h => h.HardwareType == HardwareType.Memory && h.Name == "Total Memory");
+                _memoryHardware = _hardware.FirstOrDefault(h => h.HardwareType == HardwareType.Memory && h.Name == SENSOR_NAME_TOTAL_MEMORY);
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.Trace($"GetHardware failed: {ex}");
+                _computer?.Close();
+                _computer = null;
+                _hardware.Clear();
+                throw;
             }
             finally
             {
@@ -115,14 +159,14 @@ public class SensorsGroupController : IDisposable
 
     public Task<string> GetCpuNameAsync()
     {
-        if (!IsLibreHardwareMonitorInitialized())
+        if (_isResetting)
         {
-            return Task.FromResult("UNKNOWN");
+            return Task.FromResult(UNKNOWN_NAME);
         }
 
-        if (_cpuHardware == null)
+        if (!IsLibreHardwareMonitorInitialized() || _cpuHardware == null)
         {
-            return Task.FromResult("UNKNOWN");
+            return Task.FromResult(UNKNOWN_NAME);
         }
 
         if (!string.IsNullOrEmpty(_cachedCpuName))
@@ -136,9 +180,14 @@ public class SensorsGroupController : IDisposable
 
     public Task<string> GetGpuNameAsync()
     {
+        if (_isResetting)
+        {
+            return Task.FromResult(UNKNOWN_NAME);
+        }
+
         if (!IsLibreHardwareMonitorInitialized())
         {
-            return Task.FromResult("UNKNOWN");
+            return Task.FromResult(UNKNOWN_NAME);
         }
 
         if (!string.IsNullOrEmpty(_cachedGpuName) && !_needRefreshGpuHardware)
@@ -147,7 +196,7 @@ public class SensorsGroupController : IDisposable
         }
 
         var gpu = _gpuHardware ?? _amdGpuHardware;
-        _cachedGpuName = gpu != null ? StripName(gpu.Name) : "UNKNOWN";
+        _cachedGpuName = gpu != null ? StripName(gpu.Name) : UNKNOWN_NAME;
         _needRefreshGpuHardware = false;
 
         return Task.FromResult(_cachedGpuName);
@@ -155,40 +204,42 @@ public class SensorsGroupController : IDisposable
 
     public Task<float> GetCpuPowerAsync()
     {
-        const float maxValidPower = 400f;
-        const float invalidPower = -1f;
+        if (_isResetting)
+        {
+            return Task.FromResult(INVALID_VALUE_FLOAT);
+        }
 
         try
         {
             if (!IsLibreHardwareMonitorInitialized() || _cpuHardware == null)
             {
-                return Task.FromResult(invalidPower);
+                return Task.FromResult(INVALID_VALUE_FLOAT);
             }
 
-            var sensor = _cpuHardware.Sensors?.FirstOrDefault(s => s.SensorType == SensorType.Power && s.Name.Contains("Package"));
+            var sensor = _cpuHardware.Sensors?.FirstOrDefault(s => s.SensorType == SensorType.Power && s.Name.Contains(SENSOR_NAME_PACKAGE));
             var powerValue = sensor?.Value;
 
-            if (powerValue is null or <= 0)
+            if (powerValue is null or <= MIN_VALID_POWER_READING)
             {
-                return Task.FromResult(invalidPower);
+                return Task.FromResult(INVALID_VALUE_FLOAT);
             }
 
-            if (powerValue > maxValidPower)
+            if (powerValue > MAX_VALID_CPU_POWER)
             {
+                Log.Instance.Trace($"CPU Power spike detected ({powerValue}). Resetting sensors.");
                 ResetSensors();
-                return Task.FromResult(invalidPower);
+                return Task.FromResult(INVALID_VALUE_FLOAT);
             }
 
             var power = powerValue.Value;
 
-            // Can't exactly same for 10 times.
-            if (power.Equals(_cachedCpuPower))
+            if (Math.Abs(power - _cachedCpuPower) < float.Epsilon)
             {
-                if (_cachedCpuPowerTime >= 10)
+                if (_cachedCpuPowerTime >= MAX_CPU_POWER_STUCK_RETRIES)
                 {
+                    Log.Instance.Trace($"Detected CPU Power stuck at {_cachedCpuPower} for serval cycles, Resetting sensors...");
                     ResetSensors();
-                    Log.Instance.Trace($"Detected CPU Power invalid for serval times, Resetting sensors...");
-                    return Task.FromResult(invalidPower);
+                    return Task.FromResult(INVALID_VALUE_FLOAT);
                 }
                 else
                 {
@@ -205,26 +256,32 @@ public class SensorsGroupController : IDisposable
         }
         catch (Exception)
         {
-            return Task.FromResult(invalidPower);
+            return Task.FromResult(INVALID_VALUE_FLOAT);
         }
     }
 
     public async Task<float> GetGpuPowerAsync()
     {
+        if (_isResetting)
+        {
+            return INVALID_VALUE_FLOAT;
+        }
+
         if (!IsLibreHardwareMonitorInitialized())
         {
-            return -1;
+            return INVALID_VALUE_FLOAT;
         }
 
         var state = await _gpuController.GetLastKnownStateAsync().ConfigureAwait(false);
-        if (_lastGpuPower <= 10 && IsGpuInActive(state))
+
+        if (_lastGpuPower <= MIN_ACTIVE_GPU_POWER && IsGpuInActive(state))
         {
-            return -1;
+            return INVALID_VALUE_FLOAT;
         }
 
         if (_gpuHardware == null)
         {
-            return -1;
+            return INVALID_VALUE_FLOAT;
         }
 
         try
@@ -235,50 +292,63 @@ public class SensorsGroupController : IDisposable
         }
         catch (Exception ex)
         {
-            Log.Instance.Trace($"GetGpuPowerAsync() raised exception: ", ex);
-
-            return -1;
+            Log.Instance.Trace($"GetGpuPowerAsync() exception: {ex.Message}");
+            return INVALID_VALUE_FLOAT;
         }
     }
 
     public async Task<float> GetGpuVramTemperatureAsync()
     {
+        if (_isResetting)
+        {
+            return INVALID_VALUE_FLOAT;
+        }
+
         if (!IsLibreHardwareMonitorInitialized())
         {
-            return 0;
+            return INVALID_VALUE_FLOAT;
         }
 
         var gpuState = await _gpuController.GetLastKnownStateAsync().ConfigureAwait(false);
-        if (_lastGpuPower <= 10 && (gpuState == GPUState.Inactive || gpuState == GPUState.PoweredOff))
+        if (_lastGpuPower <= MIN_ACTIVE_GPU_POWER && (gpuState == GPUState.Inactive || gpuState == GPUState.PoweredOff))
         {
-            return 0;
+            return INVALID_VALUE_FLOAT;
         }
 
         if (_gpuHardware == null)
         {
-            return 0;
+            return INVALID_VALUE_FLOAT;
         }
 
-        var sensor = _gpuHardware.Sensors?.FirstOrDefault(s => s.SensorType == SensorType.Temperature && s.Name.Contains("GPU Memory Junction", StringComparison.OrdinalIgnoreCase));
-        return sensor?.Value ?? 0;
+        var sensor = _gpuHardware.Sensors?.FirstOrDefault(s => s.SensorType == SensorType.Temperature && s.Name.Contains(SENSOR_NAME_GPU_HOTSPOT, StringComparison.OrdinalIgnoreCase));
+        return sensor?.Value ?? INVALID_VALUE_FLOAT;
     }
 
     public Task<(float, float)> GetSsdTemperaturesAsync()
     {
+        if (_isResetting)
+        {
+            return Task.FromResult((INVALID_VALUE_FLOAT, INVALID_VALUE_FLOAT));
+        }
+
         if (!IsLibreHardwareMonitorInitialized())
         {
-            return Task.FromResult((0f, 0f));
+            return Task.FromResult((INVALID_VALUE_FLOAT, INVALID_VALUE_FLOAT));
         }
 
         var temps = new List<float>();
 
         try
         {
-            var storageHardware = _hardware.Where(h => h.HardwareType == HardwareType.Storage).ToList();
+            List<IHardware> storageHardware;
+            lock (_hardwareLock)
+            {
+                storageHardware = _hardware.Where(h => h.HardwareType == HardwareType.Storage).ToList();
+            }
 
             if (storageHardware.Count == 0)
             {
-                return Task.FromResult((0f, 0f));
+                return Task.FromResult((INVALID_VALUE_FLOAT, INVALID_VALUE_FLOAT));
             }
 
             foreach (var storage in storageHardware)
@@ -290,26 +360,30 @@ public class SensorsGroupController : IDisposable
                 }
             }
         }
-        catch (ArgumentOutOfRangeException ex)
+        catch (Exception ex)
         {
             Log.Instance.Trace($"SSD temperature read error: {ex.Message}");
-
-            return Task.FromResult((0f, 0f));
+            return Task.FromResult((INVALID_VALUE_FLOAT, INVALID_VALUE_FLOAT));
         }
 
-        switch (temps.Count)
+        return temps.Count switch
         {
-            case 0: return Task.FromResult((0f, 0f));
-            case 1: return Task.FromResult((temps[0], 0f));
-            default: return Task.FromResult((temps[0], temps[1]));
-        }
+            0 => Task.FromResult((INVALID_VALUE_FLOAT, INVALID_VALUE_FLOAT)),
+            1 => Task.FromResult((temps[0], INVALID_VALUE_FLOAT)),
+            _ => Task.FromResult((temps[0], temps[1]))
+        };
     }
 
     public Task<float> GetMemoryUsageAsync()
     {
+        if (_isResetting)
+        {
+            return Task.FromResult(INVALID_VALUE_FLOAT);
+        }
+
         if (!IsLibreHardwareMonitorInitialized() || _memoryHardware == null)
         {
-            return Task.FromResult(0f);
+            return Task.FromResult(INVALID_VALUE_FLOAT);
         }
 
         return Task.FromResult(_memoryHardware.Sensors?.FirstOrDefault(s => s.SensorType == SensorType.Load)?.Value ?? 0);
@@ -317,25 +391,31 @@ public class SensorsGroupController : IDisposable
 
     public Task<double> GetHighestMemoryTemperatureAsync()
     {
-        if (!IsLibreHardwareMonitorInitialized())
+        if (_isResetting)
         {
-            return Task.FromResult(0.0);
+            return Task.FromResult(INVALID_VALUE_DOUBLE);
         }
 
-        var memoryHardware = _hardware.Where(h => h.HardwareType == HardwareType.Memory).ToList(); // 或者 .ToArray()
+        if (!IsLibreHardwareMonitorInitialized())
+        {
+            return Task.FromResult(INVALID_VALUE_DOUBLE);
+        }
+
+        List<IHardware> memoryHardware;
+        lock (_hardwareLock)
+        {
+            memoryHardware = _hardware.Where(h => h.HardwareType == HardwareType.Memory).ToList();
+        }
 
         if (memoryHardware.Count == 0)
         {
-            return Task.FromResult(0.0);
+            return Task.FromResult(INVALID_VALUE_DOUBLE);
         }
 
         float maxTemperature = 0;
         foreach (var hardware in memoryHardware)
         {
-            if (hardware.Sensors == null)
-            {
-                continue;
-            }
+            if (hardware.Sensors == null) continue;
 
             foreach (var sensor in hardware.Sensors)
             {
@@ -382,21 +462,15 @@ public class SensorsGroupController : IDisposable
         }
         catch (DllNotFoundException)
         {
-            var settings = IoCContainer.Resolve<ApplicationSettings>();
-            settings.Store.UseNewSensorDashboard = false;
-            settings.SynchronizeStore();
+            HandleInitException("DLL Not Found");
             InitialState = LibreHardwareMonitorInitialState.PawnIONotInstalled;
             return InitialState;
         }
         catch (Exception ex)
         {
-            var settings = IoCContainer.Resolve<ApplicationSettings>();
-            settings.Store.UseNewSensorDashboard = false;
-            settings.SynchronizeStore();
-            InitialState = LibreHardwareMonitorInitialState.Fail;
-            var msg = $"LibreHardwareMonitor initialization failed. Disabling new sensor dashboard. [type={GetType().Name}]";
-            Log.Instance.Trace($"{msg}");
-            throw new Exception(msg, ex);
+            HandleInitException(ex.Message);
+            Log.Instance.Trace($"LibreHardwareMonitor initialization failed: {ex}");
+            throw;
         }
         finally
         {
@@ -404,7 +478,16 @@ public class SensorsGroupController : IDisposable
         }
     }
 
-    public void NeedRefreshHardware(string hardware)
+    private void HandleInitException(string reason)
+    {
+        var settings = IoCContainer.Resolve<ApplicationSettings>();
+        settings.Store.UseNewSensorDashboard = false;
+        settings.SynchronizeStore();
+        InitialState = LibreHardwareMonitorInitialState.Fail;
+        Log.Instance.Trace($"Disabling new sensor dashboard due to error: {reason}");
+    }
+
+    public void NeedRefreshHardware(string hardwareId)
     {
         if (!IsLibreHardwareMonitorInitialized())
         {
@@ -416,24 +499,32 @@ public class SensorsGroupController : IDisposable
             return;
         }
 
-        if (hardware != "NvidiaGPU")
+        if (hardwareId != HARDWARE_ID_NVIDIA_GPU)
         {
             return;
         }
 
-        _gpuHardware = null;
+        lock (_hardwareLock)
+        {
+            _gpuHardware = null;
+            ResetSensors();
+            _hardware.Clear();
+            _hardware.AddRange(_computer.Hardware);
+            _gpuHardware = _hardware.FirstOrDefault(h => h.HardwareType == HardwareType.GpuNvidia);
 
-        ResetSensors();
-        _hardware.Clear();
-        _hardware.AddRange(_computer.Hardware);
-        _gpuHardware = _hardware.FirstOrDefault(h => h.HardwareType == HardwareType.GpuNvidia);
-        NVAPI.Initialize();
+            try { NVAPI.Initialize(); } catch { /* Ignore NVAPI init fail */ }
 
-        _needRefreshGpuHardware = true;
+            _needRefreshGpuHardware = true;
+        }
     }
 
     public async Task UpdateAsync()
     {
+        if (_isResetting)
+        {
+            return;
+        }
+
         if (!IsLibreHardwareMonitorInitialized())
         {
             return;
@@ -441,8 +532,18 @@ public class SensorsGroupController : IDisposable
 
         await Task.Run(() =>
         {
+            if (_isResetting)
+            {
+                return;
+            }
+
             lock (_hardwareLock)
             {
+                if (_isResetting)
+                {
+                    return;
+                }
+
                 if (_computer == null || !_hardwareInitialized)
                 {
                     return;
@@ -455,17 +556,14 @@ public class SensorsGroupController : IDisposable
                         hardware?.Update();
                     }
                 }
-                catch (AccessViolationException)
-                {
-
-                }
+                catch (AccessViolationException){ }
                 catch (Exception ex)
                 {
-                    Log.Instance.Trace($"Failed to update sensors: {ex.Message}", ex);
+                    Log.Instance.Trace($"Failed to update sensors: {ex.Message}");
 
                     if (ex is IndexOutOfRangeException)
                     {
-                        ResetSensors();
+                        Task.Run(ResetSensors);
                     }
                 }
             }
@@ -473,41 +571,63 @@ public class SensorsGroupController : IDisposable
     }
 
     #region Helper
+
     private void ResetSensors()
     {
-        _computer?.Close();
-        _computer?.Open();
-        _computer?.Accept(new UpdateVisitor());
-        _computer?.Reset();
+        _isResetting = true;
+
+        try
+        {
+            lock (_hardwareLock)
+            {
+                try
+                {
+                    Log.Instance.Trace($"Starting sensor reset...");
+                    _computer?.Close();
+                    _computer?.Open();
+                    _computer?.Accept(new UpdateVisitor());
+                    _computer?.Reset();
+                    Log.Instance.Trace($"Sensors have been reset successfully.");
+                }
+                catch (Exception ex)
+                {
+                    Log.Instance.Trace($"Error resetting sensors: {ex}");
+                }
+            }
+        }
+        finally
+        {
+            _isResetting = false;
+        }
     }
 
     private static string StripName(string name)
     {
         if (string.IsNullOrEmpty(name))
         {
-            return "UNKNOWN";
+            return UNKNOWN_NAME;
         }
 
         var cleanedName = name.Trim();
 
         if (cleanedName.Contains("AMD", StringComparison.OrdinalIgnoreCase))
         {
-            cleanedName = Regex.Replace(cleanedName, @"\s+with\s+Radeon\s+Graphics$", "", RegexOptions.IgnoreCase);
+            cleanedName = Regex.Replace(cleanedName, REGEX_STRIP_AMD, "", RegexOptions.IgnoreCase);
         }
         else if (cleanedName.Contains("Intel", StringComparison.OrdinalIgnoreCase))
         {
-            cleanedName = Regex.Replace(cleanedName, @"\s*\d+(?:th|st|nd|rd)?\s+Gen\b", "", RegexOptions.IgnoreCase);
+            cleanedName = Regex.Replace(cleanedName, REGEX_STRIP_INTEL, "", RegexOptions.IgnoreCase);
         }
         else if (cleanedName.Contains("Nvidia", StringComparison.OrdinalIgnoreCase) || cleanedName.Contains("GeForce", StringComparison.OrdinalIgnoreCase))
         {
-            var match = Regex.Match(cleanedName, @"(?i)\b(?:Nvidia\s+)?(GeForce\s+(?:RTX|GTX)\s+\d{3,4}(?:\s+(Ti|SUPER|Ti\s+SUPER|M))?)\b(?:\s+Laptop\s+GPU)?(?!\S)");
+            var match = Regex.Match(cleanedName, REGEX_STRIP_NVIDIA);
             if (match.Success)
             {
                 cleanedName = match.Groups[1].Value;
             }
         }
 
-        return Regex.Replace(cleanedName, @"\s+", " ").Trim();
+        return Regex.Replace(cleanedName, REGEX_CLEAN_SPACES, " ").Trim();
     }
 
     public bool IsGpuInActive(GPUState state)
@@ -520,19 +640,18 @@ public class SensorsGroupController : IDisposable
         return InitialState is LibreHardwareMonitorInitialState.Initialized or LibreHardwareMonitorInitialState.Success;
     }
 
-
     public bool IsPawnIOInnstalled()
     {
-        string? pawnIoPath = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\PawnIO", "InstallLocation", null) as string;
+        string? pawnIoPath = Registry.GetValue(REG_KEY_PAWN_IO, REG_VAL_INSTALL_LOC, null) as string;
 
         if (string.IsNullOrEmpty(pawnIoPath))
         {
-            pawnIoPath = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\PawnIO", "Install_Dir", null) as string;
+            pawnIoPath = Registry.GetValue(REG_KEY_PAWN_IO_WOW64, REG_VAL_INSTALL_DIR, null) as string;
         }
 
         if (string.IsNullOrEmpty(pawnIoPath))
         {
-            pawnIoPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "PawnIO");
+            pawnIoPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), FOLDER_PAWN_IO);
         }
 
         return Directory.Exists(pawnIoPath);
@@ -541,6 +660,13 @@ public class SensorsGroupController : IDisposable
 
     public void Dispose()
     {
+        lock (_hardwareLock)
+        {
+            _computer?.Close();
+            _computer = null;
+            _hardwareInitialized = false;
+        }
+        _initSemaphore.Dispose();
         GC.SuppressFinalize(this);
     }
 }
