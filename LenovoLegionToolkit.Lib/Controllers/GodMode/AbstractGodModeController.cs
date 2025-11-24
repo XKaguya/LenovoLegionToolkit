@@ -94,6 +94,7 @@ public abstract class AbstractGodModeController(GodModeSettings settings)
                 PrecisionBoostOverdriveScaler = preset.PrecisionBoostOverdriveScaler,
                 PrecisionBoostOverdriveBoostFrequency = preset.PrecisionBoostOverdriveBoostFrequency,
                 AllCoreCurveOptimizer = preset.AllCoreCurveOptimizer,
+                EnableOverclocking = preset.EnableOverclocking,
             });
         }
 
@@ -191,6 +192,7 @@ public abstract class AbstractGodModeController(GodModeSettings settings)
                 PrecisionBoostOverdriveScaler = preset.PrecisionBoostOverdriveScaler,
                 PrecisionBoostOverdriveBoostFrequency = preset.PrecisionBoostOverdriveBoostFrequency,
                 AllCoreCurveOptimizer = preset.AllCoreCurveOptimizer,
+                EnableOverclocking = preset.EnableOverclocking,
             });
         }
 

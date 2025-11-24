@@ -37,7 +37,6 @@
                 HorizontalContentAlignment="Right"
                 VerticalContentAlignment="Center"
                 Content="{Binding ElementName=_slider, Path=Value}"
-                ContentStringFormat="{}{0} W"
                 FlowDirection="LeftToRight"
                 Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
             <ComboBox
