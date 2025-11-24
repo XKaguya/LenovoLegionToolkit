@@ -445,4 +445,10 @@
   <data name="GodModeSettingsWindow_AllCoreCurveOptimizer_Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
+  <data name="GodModeSettingsWindow_Toggle_OC_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="GodModeSettingsWindow_Toggle_OC_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
 </root>

@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using LenovoLegionToolkit.Lib.Extensions;
+﻿using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.Settings;
 using LenovoLegionToolkit.Lib.SoftwareDisabler;
 using LenovoLegionToolkit.Lib.System.Management;
 using LenovoLegionToolkit.Lib.Utils;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace LenovoLegionToolkit.Lib.Controllers.GodMode;
 
@@ -188,7 +189,7 @@ public class GodModeControllerV4(
             }
         }
 
-        if (isOcEnabled)
+        if (isOcEnabled && preset.EnableOverclocking == true)
         {
             foreach (var (id, value) in overclockingData)
             {
@@ -198,6 +199,10 @@ public class GodModeControllerV4(
                     await SetOCValueAsync(id, 17, value.Value).ConfigureAwait(false);
                 }
             }
+        }
+        else if (preset.EnableOverclocking == false)
+        {
+            Log.Instance.Trace($"Overclocking is disabled.");
         }
 
         RaisePresetChanged(presetId);
@@ -248,6 +253,7 @@ public class GodModeControllerV4(
                     PrecisionBoostOverdriveScaler = 0,
                     PrecisionBoostOverdriveBoostFrequency = 0,
                     AllCoreCurveOptimizer = 0,
+                    EnableOverclocking = false,
                 };
 
                 result[powerMode] = defaults;
@@ -333,6 +339,8 @@ public class GodModeControllerV4(
             PrecisionBoostOverdriveScaler = isAmdDevice ? new StepperValue(0, 0, 7, 1, [], 0) : null,
             PrecisionBoostOverdriveBoostFrequency = isAmdDevice ? new StepperValue(0, 0, 200, 1, [], 0) : null,
             AllCoreCurveOptimizer = isAmdDevice ? new StepperValue(0, 0, 20, 1, [], 0) : null,
+            // Currently only do for Amd Laptops.
+            EnableOverclocking = isAmdDevice ? true : false,
         };
 
         Log.Instance.Trace($"Default state retrieved: {preset}");

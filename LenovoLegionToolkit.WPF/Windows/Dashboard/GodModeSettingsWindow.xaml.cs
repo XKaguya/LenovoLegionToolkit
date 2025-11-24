@@ -149,6 +149,7 @@ public partial class GodModeSettingsWindow
                 PrecisionBoostOverdriveScaler = preset.PrecisionBoostOverdriveScaler?.WithValue(_cpuPrecisionBoostOverdriveScaler.Value),
                 PrecisionBoostOverdriveBoostFrequency = preset.PrecisionBoostOverdriveBoostFrequency?.WithValue(_cpuPrecisionBoostOverdriveBoostFrequency.Value),
                 AllCoreCurveOptimizer = preset.AllCoreCurveOptimizer?.WithValue(_cpuAllCoreCurveOptimizer.Value),
+                EnableOverclocking = preset.EnableOverclocking is not null ? _overclockingToggle.IsChecked : null,
             };
 
             var newPresets = new Dictionary<Guid, GodModePreset>(presets)
@@ -289,6 +290,7 @@ public partial class GodModeSettingsWindow
         _cpuPrecisionBoostOverdriveScaler.Visibility = isLegionOptimizeEnabled ? Visibility.Visible : Visibility.Collapsed;
         _cpuPrecisionBoostOverdriveBoostFrequency.Visibility = isLegionOptimizeEnabled ? Visibility.Visible : Visibility.Collapsed;
         _cpuAllCoreCurveOptimizer.Visibility = isLegionOptimizeEnabled ? Visibility.Visible : Visibility.Collapsed;
+        _toggleOcCard.Visibility = isLegionOptimizeEnabled ? Visibility.Visible : Visibility.Collapsed;
 
         _cpuLongTermPowerLimitControl.ValueChanged += CpuLongTermPowerLimitSlider_ValueChanged;
         _cpuShortTermPowerLimitControl.ValueChanged += CpuShortTermPowerLimitSlider_ValueChanged;
@@ -325,6 +327,9 @@ public partial class GodModeSettingsWindow
 
         if (_cpuAllCoreCurveOptimizer.Visibility == Visibility.Visible && defaults.AllCoreCurveOptimizer is { } allCoreCurveOptimizer)
             _cpuAllCoreCurveOptimizer.Value = allCoreCurveOptimizer;
+
+        if (_toggleOcCard.Visibility == Visibility.Visible && defaults.EnableOverclocking is { } enableOverclocking)
+            _overclockingToggle.IsChecked = enableOverclocking;
 
         if (_gpuPowerBoostControl.Visibility == Visibility.Visible && defaults.GPUPowerBoost is { } gpuPowerBoost)
             _gpuPowerBoostControl.Value = gpuPowerBoost;

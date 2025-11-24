@@ -2927,6 +2927,24 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Enable / Disable Advanced Overclocking options 的本地化字符串。
+        /// </summary>
+        public static string GodModeSettingsWindow_Toggle_OC_Message {
+            get {
+                return ResourceManager.GetString("GodModeSettingsWindow_Toggle_OC_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Advanced Overclocking Options 的本地化字符串。
+        /// </summary>
+        public static string GodModeSettingsWindow_Toggle_OC_Title {
+            get {
+                return ResourceManager.GetString("GodModeSettingsWindow_Toggle_OC_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Custom Mode settings will not be applied correctly when Lenovo Vantage or its services are running. 的本地化字符串。
         /// </summary>
         public static string GodModeSettingsWindow_VantageWarning_Title {
