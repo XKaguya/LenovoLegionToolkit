@@ -340,7 +340,7 @@ public class GodModeControllerV4(
             PrecisionBoostOverdriveBoostFrequency = isAmdDevice ? new StepperValue(0, 0, 200, 1, [], 0) : null,
             AllCoreCurveOptimizer = isAmdDevice ? new StepperValue(0, 0, 20, 1, [], 0) : null,
             // Currently only do for Amd Laptops.
-            EnableOverclocking = isAmdDevice ? true : false,
+            EnableOverclocking = isAmdDevice,
         };
 
         Log.Instance.Trace($"Default state retrieved: {preset}");

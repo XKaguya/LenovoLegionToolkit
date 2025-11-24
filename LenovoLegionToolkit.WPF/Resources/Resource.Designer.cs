@@ -2527,7 +2527,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   查找类似 All Core Curve Optimizer 的本地化字符串。
+        ///   查找类似 All Core Curve Optimizer. 的本地化字符串。
         /// </summary>
         public static string GodModeSettingsWindow_AllCoreCurveOptimizer_Description {
             get {
@@ -2882,7 +2882,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   查找类似 Precision Boost Overdrive Boost Frequency 的本地化字符串。
+        ///   查找类似 Precision Boost Overdrive Boost Frequency. 的本地化字符串。
         /// </summary>
         public static string GodModeSettingsWindow_PrecisionBoostOverdriveBoostFrequency_Description {
             get {
@@ -2900,7 +2900,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   查找类似 Precision Boost Overdrive Scaler 的本地化字符串。
+        ///   查找类似 Precision Boost Overdrive Scaler. 的本地化字符串。
         /// </summary>
         public static string GodModeSettingsWindow_PrecisionBoostOverdriveScaler_Description {
             get {
@@ -2927,7 +2927,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   查找类似 Enable / Disable Advanced Overclocking options 的本地化字符串。
+        ///   查找类似 Enable / Disable Advanced Overclocking options. 的本地化字符串。
         /// </summary>
         public static string GodModeSettingsWindow_Toggle_OC_Message {
             get {
