@@ -271,6 +271,9 @@ public class GodModeControllerV4(
 
     protected override async Task<GodModePreset> GetDefaultStateAsync()
     {
+        var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
+        var isAmdDevice = mi.Properties.IsAmdDevice;
+
         var allCapabilityData = await WMI.LenovoCapabilityData01.ReadAsync().ConfigureAwait(false);
         allCapabilityData = allCapabilityData.ToArray();
 
@@ -327,9 +330,9 @@ public class GodModeControllerV4(
             FanFullSpeed = await GetFanFullSpeedAsync().ConfigureAwait(false),
             MinValueOffset = 0,
             MaxValueOffset = 0,
-            PrecisionBoostOverdriveScaler = new StepperValue(0, 0, 7, 1, [], 0),
-            PrecisionBoostOverdriveBoostFrequency = new StepperValue(0, 0, 200, 1, [], 0),
-            AllCoreCurveOptimizer = new StepperValue(0, 0, 20, 1, [], 0),
+            PrecisionBoostOverdriveScaler = isAmdDevice ? new StepperValue(0, 0, 7, 1, [], 0) : null,
+            PrecisionBoostOverdriveBoostFrequency = isAmdDevice ? new StepperValue(0, 0, 200, 1, [], 0) : null,
+            AllCoreCurveOptimizer = isAmdDevice ? new StepperValue(0, 0, 20, 1, [], 0) : null,
         };
 
         Log.Instance.Trace($"Default state retrieved: {preset}");
