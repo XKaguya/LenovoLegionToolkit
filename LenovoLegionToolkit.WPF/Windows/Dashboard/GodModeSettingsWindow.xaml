@@ -186,6 +186,27 @@
                         Description="{x:Static resources:Resource.GodModeSettingsWindow_CPU_TempLimit_Description}"
                         Unit="°C" />
 
+                    <godMode:GodModeValueControl
+                        x:Name="_cpuPrecisionBoostOverdriveScaler"
+                        Title="{x:Static resources:Resource.GodModeSettingsWindow_PrecisionBoostOverdriveScaler_Title}"
+                        Margin="0,0,0,8"
+                        Description="{x:Static resources:Resource.GodModeSettingsWindow_PrecisionBoostOverdriveScaler_Description}"
+                        Unit="x" />
+
+                    <godMode:GodModeValueControl
+                        x:Name="_cpuPrecisionBoostOverdriveBoostFrequency"
+                        Title="{x:Static resources:Resource.GodModeSettingsWindow_PrecisionBoostOverdriveBoostFrequency_Title}"
+                        Margin="0,0,0,8"
+                        Description="{x:Static resources:Resource.GodModeSettingsWindow_PrecisionBoostOverdriveBoostFrequency_Description}"
+                        Unit="MHz" />
+
+                    <godMode:GodModeValueControl
+                        x:Name="_cpuAllCoreCurveOptimizer"
+                        Title="{x:Static resources:Resource.GodModeSettingsWindow_AllCoreCurveOptimizer_Title}"
+                        Margin="0,0,0,8"
+                        Description="{x:Static resources:Resource.GodModeSettingsWindow_AllCoreCurveOptimizer_Description}"
+                        Unit="x" />
+
                     <TextBlock
                         x:Name="_gpuSectionTitle"
                         Margin="0,16,0,24"

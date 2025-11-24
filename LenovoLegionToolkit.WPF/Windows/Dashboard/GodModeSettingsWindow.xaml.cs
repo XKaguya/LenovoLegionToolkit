@@ -15,6 +15,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using LenovoLegionToolkit.Lib.System.Management;
 
 namespace LenovoLegionToolkit.WPF.Windows.Dashboard;
 
@@ -144,7 +145,10 @@ public partial class GodModeSettingsWindow
                 FanTableInfo = preset.FanTableInfo is not null ? _fanCurveControl.GetFanTableInfo() : null,
                 FanFullSpeed = preset.FanFullSpeed is not null ? _fanFullSpeedToggle.IsChecked : null,
                 MaxValueOffset = preset.MaxValueOffset is not null ? (int?)_maxValueOffsetNumberBox.Value : null,
-                MinValueOffset = preset.MinValueOffset is not null ? (int?)_minValueOffsetNumberBox.Value : null
+                MinValueOffset = preset.MinValueOffset is not null ? (int?)_minValueOffsetNumberBox.Value : null,
+                PrecisionBoostOverdriveScaler = preset.PrecisionBoostOverdriveScaler?.WithValue(_cpuPrecisionBoostOverdriveScaler.Value),
+                PrecisionBoostOverdriveBoostFrequency = preset.PrecisionBoostOverdriveBoostFrequency?.WithValue(_cpuPrecisionBoostOverdriveBoostFrequency.Value),
+                AllCoreCurveOptimizer = preset.AllCoreCurveOptimizer?.WithValue(_cpuAllCoreCurveOptimizer.Value),
             };
 
             var newPresets = new Dictionary<Guid, GodModePreset>(presets)
@@ -195,6 +199,11 @@ public partial class GodModeSettingsWindow
         _cpuPL1TauControl.Set(preset.CPUPL1Tau);
         _apuSPPTPowerLimitControl.Set(preset.APUsPPTPowerLimit);
         _cpuTemperatureLimitControl.Set(preset.CPUTemperatureLimit);
+
+        _cpuPrecisionBoostOverdriveScaler.Set(preset.PrecisionBoostOverdriveScaler);
+        _cpuPrecisionBoostOverdriveBoostFrequency.Set(preset.PrecisionBoostOverdriveBoostFrequency);
+        _cpuAllCoreCurveOptimizer.Set(preset.AllCoreCurveOptimizer);
+
         _gpuPowerBoostControl.Set(preset.GPUPowerBoost);
         _gpuConfigurableTGPControl.Set(preset.GPUConfigurableTGP);
         _gpuTemperatureLimitControl.Set(preset.GPUTemperatureLimit);
@@ -274,6 +283,13 @@ public partial class GodModeSettingsWindow
         _advancedSectionTitle.Visibility = advancedSectionVisible ? Visibility.Visible : Visibility.Collapsed;
         _advancedSectionMessage.Visibility = advancedSectionVisible ? Visibility.Visible : Visibility.Collapsed;
 
+        var result = WMI.LenovoGameZoneData.GetBIOSOCMode().Result;
+        var isLegionOptimizeEnabled = result == 3;
+
+        _cpuPrecisionBoostOverdriveScaler.Visibility = isLegionOptimizeEnabled ? Visibility.Visible : Visibility.Collapsed;
+        _cpuPrecisionBoostOverdriveBoostFrequency.Visibility = isLegionOptimizeEnabled ? Visibility.Visible : Visibility.Collapsed;
+        _cpuAllCoreCurveOptimizer.Visibility = isLegionOptimizeEnabled ? Visibility.Visible : Visibility.Collapsed;
+
         _cpuLongTermPowerLimitControl.ValueChanged += CpuLongTermPowerLimitSlider_ValueChanged;
         _cpuShortTermPowerLimitControl.ValueChanged += CpuShortTermPowerLimitSlider_ValueChanged;
     }
@@ -300,6 +316,15 @@ public partial class GodModeSettingsWindow
 
         if (_cpuTemperatureLimitControl.Visibility == Visibility.Visible && defaults.CPUTemperatureLimit is { } cpuTemperatureLimit)
             _cpuTemperatureLimitControl.Value = cpuTemperatureLimit;
+
+        if (_cpuPrecisionBoostOverdriveScaler.Visibility == Visibility.Visible && defaults.PrecisionBoostOverdriveScaler is { } precisionBoostOverdriveScaler)
+            _cpuPrecisionBoostOverdriveScaler.Value = precisionBoostOverdriveScaler;
+
+        if (_cpuPrecisionBoostOverdriveBoostFrequency.Visibility == Visibility.Visible && defaults.PrecisionBoostOverdriveBoostFrequency is { } precisionBoostOverdriveBoostFrequency)
+            _cpuPrecisionBoostOverdriveBoostFrequency.Value = precisionBoostOverdriveBoostFrequency;
+
+        if (_cpuAllCoreCurveOptimizer.Visibility == Visibility.Visible && defaults.AllCoreCurveOptimizer is { } allCoreCurveOptimizer)
+            _cpuAllCoreCurveOptimizer.Value = allCoreCurveOptimizer;
 
         if (_gpuPowerBoostControl.Visibility == Visibility.Visible && defaults.GPUPowerBoost is { } gpuPowerBoost)
             _gpuPowerBoostControl.Value = gpuPowerBoost;

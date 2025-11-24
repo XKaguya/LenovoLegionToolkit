@@ -20,6 +20,9 @@ public class GodModeSettings() : AbstractSettings<GodModeSettings.GodModeSetting
             public StepperValue? CPUPL1Tau { get; init; }
             public StepperValue? APUsPPTPowerLimit { get; init; }
             public StepperValue? CPUTemperatureLimit { get; init; }
+            public StepperValue? PrecisionBoostOverdriveScaler { get; init; }
+            public StepperValue? PrecisionBoostOverdriveBoostFrequency { get; init; }
+            public StepperValue? AllCoreCurveOptimizer { get; init; }
             public StepperValue? GPUPowerBoost { get; init; }
             public StepperValue? GPUConfigurableTGP { get; init; }
             public StepperValue? GPUTemperatureLimit { get; init; }

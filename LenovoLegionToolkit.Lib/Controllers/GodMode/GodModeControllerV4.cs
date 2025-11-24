@@ -45,6 +45,14 @@ public class GodModeControllerV4(
 
         var (presetId, preset) = await GetActivePresetAsync().ConfigureAwait(false);
 
+        var isOcEnabled = GetBIOSOCMode();
+        var overclockingData = new Dictionary<CPUOverclockingID, StepperValue?>
+        {
+            { CPUOverclockingID.PrecisionBoostOverdriveScaler, preset.PrecisionBoostOverdriveScaler },
+            { CPUOverclockingID.PrecisionBoostOverdriveBoostFrequency, preset.PrecisionBoostOverdriveBoostFrequency },
+            { CPUOverclockingID.AllCoreCurveOptimizer, preset.AllCoreCurveOptimizer },
+        };
+
         var settings = new Dictionary<CapabilityID, StepperValue?>
         {
             { CapabilityID.CPULongTermPowerLimit, preset.CPULongTermPowerLimit },
@@ -180,6 +188,18 @@ public class GodModeControllerV4(
             }
         }
 
+        if (isOcEnabled)
+        {
+            foreach (var (id, value) in overclockingData)
+            {
+                if (value.HasValue)
+                {
+                    Log.Instance.Trace($"Applying {id}: {value}...");
+                    await SetOCValueAsync(id, 17, value.Value).ConfigureAwait(false);
+                }
+            }
+        }
+
         RaisePresetChanged(presetId);
 
         Log.Instance.Trace($"State applied. [name={preset.Name}, id={presetId}]");
@@ -224,7 +244,10 @@ public class GodModeControllerV4(
                     GPUTotalProcessingPowerTargetOnAcOffsetFromBaseline = GetDefaultCapabilityIdValueInPowerMode(allCapabilityData, CapabilityID.GPUTotalProcessingPowerTargetOnAcOffsetFromBaseline, powerMode),
                     GPUToCPUDynamicBoost = GetDefaultCapabilityIdValueInPowerMode(allCapabilityData, CapabilityID.GPUToCPUDynamicBoost, powerMode),
                     FanTable = await GetDefaultFanTableAsync().ConfigureAwait(false),
-                    FanFullSpeed = false
+                    FanFullSpeed = false,
+                    PrecisionBoostOverdriveScaler = 0,
+                    PrecisionBoostOverdriveBoostFrequency = 0,
+                    AllCoreCurveOptimizer = 0,
                 };
 
                 result[powerMode] = defaults;
@@ -303,7 +326,10 @@ public class GodModeControllerV4(
             FanTableInfo = fanTableData is null ? null : new FanTableInfo(fanTableData, await GetDefaultFanTableAsync().ConfigureAwait(false)),
             FanFullSpeed = await GetFanFullSpeedAsync().ConfigureAwait(false),
             MinValueOffset = 0,
-            MaxValueOffset = 0
+            MaxValueOffset = 0,
+            PrecisionBoostOverdriveScaler = new StepperValue(0, 0, 7, 1, [], 0),
+            PrecisionBoostOverdriveBoostFrequency = new StepperValue(0, 0, 200, 1, [], 0),
+            AllCoreCurveOptimizer = new StepperValue(0, 0, 20, 1, [], 0),
         };
 
         Log.Instance.Trace($"Default state retrieved: {preset}");
@@ -343,6 +369,27 @@ public class GodModeControllerV4(
     {
         var idRaw = (uint)id & 0xFFFF00FF;
         return WMI.LenovoOtherMethod.SetFeatureValueAsync(idRaw, value);
+    }
+
+    private static Task SetOCValueAsync(CPUOverclockingID id, byte mode, StepperValue value)
+    {
+        return WMI.LenovoCpuMethod.CPUSetOCDataAsync(mode, (uint)id, value.Value);
+    }
+
+    private static bool GetBIOSOCMode()
+    {
+        var result = WMI.LenovoGameZoneData.GetBIOSOCMode().Result;
+        switch (result)
+        {
+            case 0:
+            case 1:
+            case 2:
+                break;
+            case 3:
+                return true;
+        }
+
+        return false;
     }
 
     #endregion

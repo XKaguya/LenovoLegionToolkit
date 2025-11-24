@@ -32,7 +32,7 @@
             <Label
                 x:Name="_sliderLabel"
                 Grid.Column="1"
-                Width="50"
+                Width="60"
                 Margin="8,0,0,0"
                 HorizontalContentAlignment="Right"
                 VerticalContentAlignment="Center"

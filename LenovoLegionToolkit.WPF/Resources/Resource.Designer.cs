@@ -2527,6 +2527,24 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 All Core Curve Optimizer 的本地化字符串。
+        /// </summary>
+        public static string GodModeSettingsWindow_AllCoreCurveOptimizer_Description {
+            get {
+                return ResourceManager.GetString("GodModeSettingsWindow_AllCoreCurveOptimizer_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 All Core Curve Optimizer 的本地化字符串。
+        /// </summary>
+        public static string GodModeSettingsWindow_AllCoreCurveOptimizer_Title {
+            get {
+                return ResourceManager.GetString("GodModeSettingsWindow_AllCoreCurveOptimizer_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 APU sPPT Power Limit 的本地化字符串。
         /// </summary>
         public static string GodModeSettingsWindow_CPU_APUsPPT_PL {
@@ -2860,6 +2878,42 @@ namespace LenovoLegionToolkit.WPF.Resources {
         public static string GodModeSettingsWindow_LegionZoneWarning_Title {
             get {
                 return ResourceManager.GetString("GodModeSettingsWindow_LegionZoneWarning_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Precision Boost Overdrive Boost Frequency 的本地化字符串。
+        /// </summary>
+        public static string GodModeSettingsWindow_PrecisionBoostOverdriveBoostFrequency_Description {
+            get {
+                return ResourceManager.GetString("GodModeSettingsWindow_PrecisionBoostOverdriveBoostFrequency_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Precision Boost Overdrive Boost Frequency 的本地化字符串。
+        /// </summary>
+        public static string GodModeSettingsWindow_PrecisionBoostOverdriveBoostFrequency_Title {
+            get {
+                return ResourceManager.GetString("GodModeSettingsWindow_PrecisionBoostOverdriveBoostFrequency_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Precision Boost Overdrive Scaler 的本地化字符串。
+        /// </summary>
+        public static string GodModeSettingsWindow_PrecisionBoostOverdriveScaler_Description {
+            get {
+                return ResourceManager.GetString("GodModeSettingsWindow_PrecisionBoostOverdriveScaler_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Precision Boost Overdrive Scaler 的本地化字符串。
+        /// </summary>
+        public static string GodModeSettingsWindow_PrecisionBoostOverdriveScaler_Title {
+            get {
+                return ResourceManager.GetString("GodModeSettingsWindow_PrecisionBoostOverdriveScaler_Title", resourceCulture);
             }
         }
         

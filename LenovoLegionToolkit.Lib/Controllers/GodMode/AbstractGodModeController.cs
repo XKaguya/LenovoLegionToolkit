@@ -70,7 +70,7 @@ public abstract class AbstractGodModeController(GodModeSettings settings)
 
         foreach (var (id, preset) in state.Presets)
         {
-            presets.Add(id, new()
+            presets.Add(id, new()   
             {
                 Name = preset.Name,
                 PowerPlanGuid = preset.PowerPlanGuid,
@@ -91,6 +91,9 @@ public abstract class AbstractGodModeController(GodModeSettings settings)
                 FanFullSpeed = preset.FanFullSpeed,
                 MinValueOffset = preset.MinValueOffset,
                 MaxValueOffset = preset.MaxValueOffset,
+                PrecisionBoostOverdriveScaler = preset.PrecisionBoostOverdriveScaler,
+                PrecisionBoostOverdriveBoostFrequency = preset.PrecisionBoostOverdriveBoostFrequency,
+                AllCoreCurveOptimizer = preset.AllCoreCurveOptimizer,
             });
         }
 
@@ -184,7 +187,10 @@ public abstract class AbstractGodModeController(GodModeSettings settings)
                 FanTableInfo = await GetFanTableInfoAsync(preset, defaultState.FanTableInfo?.Data).ConfigureAwait(false),
                 FanFullSpeed = preset.FanFullSpeed,
                 MinValueOffset = preset.MinValueOffset ?? defaultState.MinValueOffset,
-                MaxValueOffset = preset.MaxValueOffset ?? defaultState.MaxValueOffset
+                MaxValueOffset = preset.MaxValueOffset ?? defaultState.MaxValueOffset,
+                PrecisionBoostOverdriveScaler = preset.PrecisionBoostOverdriveScaler,
+                PrecisionBoostOverdriveBoostFrequency = preset.PrecisionBoostOverdriveBoostFrequency,
+                AllCoreCurveOptimizer = preset.AllCoreCurveOptimizer,
             });
         }
 

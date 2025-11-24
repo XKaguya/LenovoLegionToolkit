@@ -80,6 +80,13 @@ public enum CapabilityID
     GpuCurrentTemperature = 0x05050000
 }
 
+public enum CPUOverclockingID
+{
+    PrecisionBoostOverdriveScaler = 0x414D4401,
+    PrecisionBoostOverdriveBoostFrequency = 0x414D4402,
+    AllCoreCurveOptimizer = 0x414D4403,
+}
+
 [Flags]
 public enum DriverKey
 {
