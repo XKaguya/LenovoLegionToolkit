@@ -287,6 +287,7 @@ public class GodModeControllerV4(
         }
 
         var fanTableData = await GetFanTableDataAsync().ConfigureAwait(false);
+        var (precisionBoostScaler, precisionBoostFrequency, coreCurveOptimizer) = CreateAmdOverclockingValues(isAmdDevice);
 
         var preset = new GodModePreset
         {
@@ -307,15 +308,27 @@ public class GodModeControllerV4(
             FanFullSpeed = await GetFanFullSpeedAsync().ConfigureAwait(false),
             MinValueOffset = 0,
             MaxValueOffset = 0,
-            PrecisionBoostOverdriveScaler = isAmdDevice ? new StepperValue(0, 0, 7, 1, [], 0) : null,
-            PrecisionBoostOverdriveBoostFrequency = isAmdDevice ? new StepperValue(0, 0, 200, 1, [], 0) : null,
-            AllCoreCurveOptimizer = isAmdDevice ? new StepperValue(0, 0, 20, 1, [], 0) : null,
+            PrecisionBoostOverdriveScaler = precisionBoostScaler,
+            PrecisionBoostOverdriveBoostFrequency = precisionBoostFrequency,
+            AllCoreCurveOptimizer = coreCurveOptimizer,
             EnableOverclocking = false,
         };
 
         Log.Instance.Trace($"Default state retrieved: {preset}");
         return preset;
     }
+
+    private static (StepperValue?, StepperValue?, StepperValue?) CreateAmdOverclockingValues(bool isAmdDevice)
+    {
+        if (!isAmdDevice)
+            return (null, null, null);
+
+        return (new StepperValue(0, 0, 7, 1, [], 0),
+            new StepperValue(0, 0, 200, 1, [], 0),
+            new StepperValue(0, 0, 20, 1, [], 0));
+    }
+
+
 
     private static CapabilityID AdjustCapabilityIdForPowerMode(CapabilityID id, PowerModeState powerMode)
     {
