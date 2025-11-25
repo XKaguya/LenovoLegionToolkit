@@ -288,6 +288,7 @@ public partial class GodModeSettingsWindow
         var isLegionOptimizeEnabled = result == 3;
 
         _toggleOcCard.Visibility = isLegionOptimizeEnabled ? Visibility.Visible : Visibility.Collapsed;
+        _overclockingToggle.IsChecked = preset.EnableOverclocking;
         _cpuPrecisionBoostOverdriveScaler.Visibility = (isLegionOptimizeEnabled && _overclockingToggle.IsChecked == true) ? Visibility.Visible : Visibility.Collapsed;
         _cpuPrecisionBoostOverdriveBoostFrequency.Visibility = (isLegionOptimizeEnabled && _overclockingToggle.IsChecked == true) ? Visibility.Visible : Visibility.Collapsed;
         _cpuAllCoreCurveOptimizer.Visibility = (isLegionOptimizeEnabled && _overclockingToggle.IsChecked == true) ? Visibility.Visible : Visibility.Collapsed;

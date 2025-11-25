@@ -392,8 +392,7 @@ public class GodModeControllerV4(
 
     private static Task SetCPUOverclockingMode(bool enable)
     {
-        var idRaw = (uint)CapabilityID.CPUOverclockingEnable & 0xFFFF00FF;
-        return WMI.LenovoOtherMethod.SetFeatureValueAsync(idRaw, enable ? 1 : 0);
+        return WMI.LenovoOtherMethod.SetFeatureValueAsync((uint)CapabilityID.CPUOverclockingEnable, enable ? 1 : 0);
     }
 
     private static bool GetBIOSOCMode()
