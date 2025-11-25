@@ -191,6 +191,8 @@ public class GodModeControllerV4(
 
         if (isOcEnabled && preset.EnableOverclocking == true)
         {
+            await SetCPUOverclockingMode(true).ConfigureAwait(false);
+
             foreach (var (id, value) in overclockingData)
             {
                 if (value.HasValue)
@@ -202,6 +204,7 @@ public class GodModeControllerV4(
         }
         else if (preset.EnableOverclocking == false)
         {
+            await SetCPUOverclockingMode(false).ConfigureAwait(false);
             Log.Instance.Trace($"Overclocking is disabled.");
         }
 
@@ -385,6 +388,12 @@ public class GodModeControllerV4(
     private static Task SetOCValueAsync(CPUOverclockingID id, byte mode, StepperValue value)
     {
         return WMI.LenovoCpuMethod.CPUSetOCDataAsync(mode, (uint)id, value.Value);
+    }
+
+    private static Task SetCPUOverclockingMode(bool enable)
+    {
+        var idRaw = (uint)CapabilityID.CPUOverclockingEnable & 0xFFFF00FF;
+        return WMI.LenovoOtherMethod.SetFeatureValueAsync(idRaw, enable ? 1 : 0);
     }
 
     private static bool GetBIOSOCMode()
