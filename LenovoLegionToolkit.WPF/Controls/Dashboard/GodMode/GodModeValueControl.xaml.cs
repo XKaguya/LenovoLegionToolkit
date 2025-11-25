@@ -56,6 +56,7 @@ public partial class GodModeValueControl
 
                 newValue = Math.Clamp(MathExtensions.RoundNearest((int)newValue, (int)_slider.TickFrequency), _slider.Minimum, _slider.Maximum);
                 _slider.Value = newValue;
+                UpdateSliderLabelContent();
                 return;
             }
 
@@ -86,6 +87,8 @@ public partial class GodModeValueControl
     public GodModeValueControl()
     {
         InitializeComponent();
+
+        _slider.ValueChanged += (s, e) => UpdateSliderLabelContent();
     }
 
     public void Set(StepperValue? stepperValue)
@@ -132,6 +135,7 @@ public partial class GodModeValueControl
             _slider.Value = value.Value;
 
             _sliderLabel.ContentStringFormat = $"{0} {Unit}";
+            UpdateSliderLabelContent();
 
             _comboBox.Items.Clear();
             _comboBox.SelectedItem = null;
@@ -156,5 +160,13 @@ public partial class GodModeValueControl
 
         if (_comboBox.Visibility == Visibility.Visible)
             _comboBox.SelectItem(_defaultValue.Value);
+    }
+
+    private void UpdateSliderLabelContent()
+    {
+        if (_sliderLabel.Visibility == Visibility.Visible)
+        {
+            _sliderLabel.Content = _slider.Value;
+        }
     }
 }

@@ -287,10 +287,10 @@ public partial class GodModeSettingsWindow
         var result = WMI.LenovoGameZoneData.GetBIOSOCMode().Result;
         var isLegionOptimizeEnabled = result == 3;
 
-        _cpuPrecisionBoostOverdriveScaler.Visibility = isLegionOptimizeEnabled ? Visibility.Visible : Visibility.Collapsed;
-        _cpuPrecisionBoostOverdriveBoostFrequency.Visibility = isLegionOptimizeEnabled ? Visibility.Visible : Visibility.Collapsed;
-        _cpuAllCoreCurveOptimizer.Visibility = isLegionOptimizeEnabled ? Visibility.Visible : Visibility.Collapsed;
         _toggleOcCard.Visibility = isLegionOptimizeEnabled ? Visibility.Visible : Visibility.Collapsed;
+        _cpuPrecisionBoostOverdriveScaler.Visibility = (isLegionOptimizeEnabled && _overclockingToggle.IsChecked == true) ? Visibility.Visible : Visibility.Collapsed;
+        _cpuPrecisionBoostOverdriveBoostFrequency.Visibility = (isLegionOptimizeEnabled && _overclockingToggle.IsChecked == true) ? Visibility.Visible : Visibility.Collapsed;
+        _cpuAllCoreCurveOptimizer.Visibility = (isLegionOptimizeEnabled && _overclockingToggle.IsChecked == true) ? Visibility.Visible : Visibility.Collapsed;
 
         _cpuLongTermPowerLimitControl.ValueChanged += CpuLongTermPowerLimitSlider_ValueChanged;
         _cpuShortTermPowerLimitControl.ValueChanged += CpuShortTermPowerLimitSlider_ValueChanged;
@@ -538,5 +538,13 @@ public partial class GodModeSettingsWindow
     private void FanFullSpeedToggle_Click(object sender, RoutedEventArgs e)
     {
         _fanCurveCardControl.IsEnabled = !(_fanFullSpeedToggle.IsChecked ?? false);
+    }
+
+    private void OverclockingToggle_Click(object sender, RoutedEventArgs e)
+    {
+        if (_isRefreshing)
+            return;
+
+        RefreshAsync().ConfigureAwait(false);
     }
 }
