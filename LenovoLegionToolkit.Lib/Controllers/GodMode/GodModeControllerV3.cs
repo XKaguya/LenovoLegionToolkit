@@ -17,6 +17,9 @@ public class GodModeControllerV3(
     LegionSpaceDisabler legionSpaceDisabler)
     : AbstractGodModeController(settings)
 {
+    private const uint CAPABILITY_ID_MASK = 0xFFFF00FF;
+    private const int BIOS_OC_MODE_ENABLED = 3;
+
     public override Task<bool> NeedsVantageDisabledAsync() => Task.FromResult(true);
     public override Task<bool> NeedsLegionSpaceDisabledAsync() => Task.FromResult(true);
     public override Task<bool> NeedsLegionZoneDisabledAsync() => Task.FromResult(true);
@@ -44,6 +47,14 @@ public class GodModeControllerV3(
         Log.Instance.Trace($"Applying state...");
 
         var (presetId, preset) = await GetActivePresetAsync().ConfigureAwait(false);
+
+        var isOcEnabled = await IsBiosOcEnabledAsync().ConfigureAwait(false);
+        var overclockingData = new Dictionary<CPUOverclockingID, StepperValue?>
+        {
+            { CPUOverclockingID.PrecisionBoostOverdriveScaler, preset.PrecisionBoostOverdriveScaler },
+            { CPUOverclockingID.PrecisionBoostOverdriveBoostFrequency, preset.PrecisionBoostOverdriveBoostFrequency },
+            { CPUOverclockingID.AllCoreCurveOptimizer, preset.AllCoreCurveOptimizer },
+        };
 
         var settings = new Dictionary<CapabilityID, StepperValue?>
         {
@@ -180,6 +191,25 @@ public class GodModeControllerV3(
             }
         }
 
+        if (isOcEnabled && preset.EnableOverclocking == true)
+        {
+            await SetCPUOverclockingMode(true).ConfigureAwait(false);
+
+            foreach (var (id, value) in overclockingData)
+            {
+                if (value.HasValue)
+                {
+                    Log.Instance.Trace($"Applying {id}: {value}...");
+                    await SetOCValueAsync(id, 17, value.Value).ConfigureAwait(false);
+                }
+            }
+        }
+        else if (preset.EnableOverclocking == false)
+        {
+            await SetCPUOverclockingMode(false).ConfigureAwait(false);
+            Log.Instance.Trace($"Overclocking is disabled.");
+        }
+
         RaisePresetChanged(presetId);
 
         Log.Instance.Trace($"State applied. [name={preset.Name}, id={presetId}]");
@@ -224,7 +254,11 @@ public class GodModeControllerV3(
                     GPUTotalProcessingPowerTargetOnAcOffsetFromBaseline = GetDefaultCapabilityIdValueInPowerMode(allCapabilityData, CapabilityID.GPUTotalProcessingPowerTargetOnAcOffsetFromBaseline, powerMode),
                     GPUToCPUDynamicBoost = GetDefaultCapabilityIdValueInPowerMode(allCapabilityData, CapabilityID.GPUToCPUDynamicBoost, powerMode),
                     FanTable = await GetDefaultFanTableAsync().ConfigureAwait(false),
-                    FanFullSpeed = false
+                    FanFullSpeed = false,
+                    PrecisionBoostOverdriveScaler = 0,
+                    PrecisionBoostOverdriveBoostFrequency = 0,
+                    AllCoreCurveOptimizer = 0,
+                    EnableOverclocking = false,
                 };
 
                 result[powerMode] = defaults;
@@ -248,6 +282,9 @@ public class GodModeControllerV3(
 
     protected override async Task<GodModePreset> GetDefaultStateAsync()
     {
+        var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
+        var isAmdDevice = mi.Properties.IsAmdDevice;
+
         var allCapabilityData = await WMI.LenovoCapabilityData01.ReadAsync().ConfigureAwait(false);
         allCapabilityData = allCapabilityData.ToArray();
 
@@ -303,7 +340,12 @@ public class GodModeControllerV3(
             FanTableInfo = fanTableData is null ? null : new FanTableInfo(fanTableData, await GetDefaultFanTableAsync().ConfigureAwait(false)),
             FanFullSpeed = await GetFanFullSpeedAsync().ConfigureAwait(false),
             MinValueOffset = 0,
-            MaxValueOffset = 0
+            MaxValueOffset = 0,
+            PrecisionBoostOverdriveScaler = isAmdDevice ? new StepperValue(0, 0, 7, 1, [], 0) : null,
+            PrecisionBoostOverdriveBoostFrequency = isAmdDevice ? new StepperValue(0, 0, 200, 1, [], 0) : null,
+            AllCoreCurveOptimizer = isAmdDevice ? new StepperValue(0, 0, 20, 1, [], 0) : null,
+            // Currently only do for Amd Laptops.
+            EnableOverclocking = isAmdDevice,
         };
 
         Log.Instance.Trace($"Default state retrieved: {preset}");
@@ -333,7 +375,7 @@ public class GodModeControllerV3(
 
     private static Task<int> GetValueAsync(CapabilityID id)
     {
-        var idRaw = (uint)id & 0xFFFF00FF;
+        var idRaw = (uint)id & CAPABILITY_ID_MASK;
         return WMI.LenovoOtherMethod.GetFeatureValueAsync(idRaw);
     }
 
@@ -341,8 +383,24 @@ public class GodModeControllerV3(
 
     private static Task SetValueAsync(CapabilityID id, int value)
     {
-        var idRaw = (uint)id & 0xFFFF00FF;
+        var idRaw = (uint)id & CAPABILITY_ID_MASK;
         return WMI.LenovoOtherMethod.SetFeatureValueAsync(idRaw, value);
+    }
+
+    private static Task SetOCValueAsync(CPUOverclockingID id, byte mode, StepperValue value)
+    {
+        return WMI.LenovoCpuMethod.CPUSetOCDataAsync(mode, (uint)id, value.Value);
+    }
+
+    private static Task SetCPUOverclockingMode(bool enable)
+    {
+        return WMI.LenovoOtherMethod.SetFeatureValueAsync((uint)CapabilityID.CPUOverclockingEnable, enable ? 1 : 0);
+    }
+
+    private static async Task<bool> IsBiosOcEnabledAsync()
+    {
+        var result = await WMI.LenovoGameZoneData.GetBIOSOCMode().ConfigureAwait(false);
+        return result == BIOS_OC_MODE_ENABLED;
     }
 
     #endregion

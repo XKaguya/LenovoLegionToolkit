@@ -18,6 +18,9 @@ public class GodModeControllerV4(
     LegionSpaceDisabler legionSpaceDisabler)
     : AbstractGodModeController(settings)
 {
+    private const uint CAPABILITY_ID_MASK = 0xFFFF00FF;
+    private const int BIOS_OC_MODE_ENABLED = 3;
+
     public override Task<bool> NeedsVantageDisabledAsync() => Task.FromResult(true);
     public override Task<bool> NeedsLegionSpaceDisabledAsync() => Task.FromResult(true);
     public override Task<bool> NeedsLegionZoneDisabledAsync() => Task.FromResult(true);
@@ -46,7 +49,7 @@ public class GodModeControllerV4(
 
         var (presetId, preset) = await GetActivePresetAsync().ConfigureAwait(false);
 
-        var isOcEnabled = GetBIOSOCMode();
+        var isOcEnabled = await IsBiosOcEnabledAsync().ConfigureAwait(false);
         var overclockingData = new Dictionary<CPUOverclockingID, StepperValue?>
         {
             { CPUOverclockingID.PrecisionBoostOverdriveScaler, preset.PrecisionBoostOverdriveScaler },
@@ -373,7 +376,7 @@ public class GodModeControllerV4(
 
     private static Task<int> GetValueAsync(CapabilityID id)
     {
-        var idRaw = (uint)id & 0xFFFF00FF;
+        var idRaw = (uint)id & CAPABILITY_ID_MASK;
         return WMI.LenovoOtherMethod.GetFeatureValueAsync(idRaw);
     }
 
@@ -381,7 +384,7 @@ public class GodModeControllerV4(
 
     private static Task SetValueAsync(CapabilityID id, int value)
     {
-        var idRaw = (uint)id & 0xFFFF00FF;
+        var idRaw = (uint)id & CAPABILITY_ID_MASK;
         return WMI.LenovoOtherMethod.SetFeatureValueAsync(idRaw, value);
     }
 
@@ -395,20 +398,10 @@ public class GodModeControllerV4(
         return WMI.LenovoOtherMethod.SetFeatureValueAsync((uint)CapabilityID.CPUOverclockingEnable, enable ? 1 : 0);
     }
 
-    private static bool GetBIOSOCMode()
+    private static async Task<bool> IsBiosOcEnabledAsync()
     {
-        var result = WMI.LenovoGameZoneData.GetBIOSOCMode().Result;
-        switch (result)
-        {
-            case 0:
-            case 1:
-            case 2:
-                break;
-            case 3:
-                return true;
-        }
-
-        return false;
+        var result = await WMI.LenovoGameZoneData.GetBIOSOCMode().ConfigureAwait(false);
+        return result == BIOS_OC_MODE_ENABLED;
     }
 
     #endregion
