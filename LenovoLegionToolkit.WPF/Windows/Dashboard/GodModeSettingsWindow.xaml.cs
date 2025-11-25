@@ -278,7 +278,9 @@ public partial class GodModeSettingsWindow
             _advancedSectionMessage.Visibility = advancedSectionVisible ? Visibility.Visible : Visibility.Collapsed;
 
             _overclockingToggle.IsChecked = preset.EnableOverclocking;
-            await UpdateOverclockingVisibilityAsync();
+            if (preset.EnableOverclocking.HasValue)
+                await UpdateOverclockingVisibilityAsync();
+
         }
         finally
         {
