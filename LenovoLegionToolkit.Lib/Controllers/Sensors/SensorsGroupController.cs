@@ -57,7 +57,7 @@ public class SensorsGroupController : IDisposable
 
     private float _lastGpuPower;
     private readonly SemaphoreSlim _initSemaphore = new(1, 1);
-    private readonly List<IHardware> _hardware = new();
+    private readonly List<IHardware> _hardware = [];
 
     private volatile bool _isResetting;
 
@@ -80,7 +80,7 @@ public class SensorsGroupController : IDisposable
 
     public async Task<LibreHardwareMonitorInitialState> IsSupportedAsync()
     {
-        LibreHardwareMonitorInitialState result = await InitializeAsync();
+        LibreHardwareMonitorInitialState result = await InitializeAsync().ConfigureAwait(false);
 
         try
         {
@@ -90,7 +90,7 @@ public class SensorsGroupController : IDisposable
                 haveHardware = _hardware.Count != 0;
             }
 
-            if (haveHardware && (result == LibreHardwareMonitorInitialState.Initialized || result == LibreHardwareMonitorInitialState.Success))
+            if (haveHardware && result is LibreHardwareMonitorInitialState.Initialized or LibreHardwareMonitorInitialState.Success)
             {
                 return result;
             }
@@ -159,12 +159,7 @@ public class SensorsGroupController : IDisposable
 
     public Task<string> GetCpuNameAsync()
     {
-        if (_isResetting)
-        {
-            return Task.FromResult(UNKNOWN_NAME);
-        }
-
-        if (!IsLibreHardwareMonitorInitialized() || _cpuHardware == null)
+        if (_isResetting || !IsLibreHardwareMonitorInitialized() || _cpuHardware == null)
         {
             return Task.FromResult(UNKNOWN_NAME);
         }
@@ -180,12 +175,7 @@ public class SensorsGroupController : IDisposable
 
     public Task<string> GetGpuNameAsync()
     {
-        if (_isResetting)
-        {
-            return Task.FromResult(UNKNOWN_NAME);
-        }
-
-        if (!IsLibreHardwareMonitorInitialized())
+        if (_isResetting || !IsLibreHardwareMonitorInitialized())
         {
             return Task.FromResult(UNKNOWN_NAME);
         }
@@ -216,18 +206,16 @@ public class SensorsGroupController : IDisposable
             var sensor = _cpuHardware.Sensors?.FirstOrDefault(s => s.SensorType == SensorType.Power && s.Name.Contains(SENSOR_NAME_PACKAGE));
             var powerValue = sensor?.Value;
 
-            if (powerValue is null or <= MIN_VALID_POWER_READING)
+            switch (powerValue)
             {
-                return Task.FromResult(INVALID_VALUE_FLOAT);
-            }
-
-            if (powerValue > MAX_VALID_CPU_POWER)
-            {
-                Log.Instance.Trace($"CPU Power spike detected ({powerValue}). Resetting sensors.");
-                ResetSensors();
-                _cachedCpuPowerTime = 0;
-                _cachedCpuPower = -1f;
-                return Task.FromResult(INVALID_VALUE_FLOAT);
+                case null or <= MIN_VALID_POWER_READING:
+                    return Task.FromResult(INVALID_VALUE_FLOAT);
+                case > MAX_VALID_CPU_POWER:
+                    Log.Instance.Trace($"CPU Power spike detected ({powerValue}). Resetting sensors.");
+                    ResetSensors();
+                    _cachedCpuPowerTime = 0;
+                    _cachedCpuPower = -1f;
+                    return Task.FromResult(INVALID_VALUE_FLOAT);
             }
 
             var power = powerValue.Value;
@@ -244,10 +232,8 @@ public class SensorsGroupController : IDisposable
 
                     return Task.FromResult(INVALID_VALUE_FLOAT);
                 }
-                else
-                {
-                    ++_cachedCpuPowerTime;
-                }
+
+                ++_cachedCpuPowerTime;
             }
             else
             {
@@ -265,24 +251,14 @@ public class SensorsGroupController : IDisposable
 
     public async Task<float> GetGpuPowerAsync()
     {
-        if (_isResetting)
-        {
-            return INVALID_VALUE_FLOAT;
-        }
-
-        if (!IsLibreHardwareMonitorInitialized())
+        if (_isResetting || !IsLibreHardwareMonitorInitialized())
         {
             return INVALID_VALUE_FLOAT;
         }
 
         var state = await _gpuController.GetLastKnownStateAsync().ConfigureAwait(false);
 
-        if (_lastGpuPower <= MIN_ACTIVE_GPU_POWER && IsGpuInActive(state))
-        {
-            return INVALID_VALUE_FLOAT;
-        }
-
-        if (_gpuHardware == null)
+        if ((_lastGpuPower <= MIN_ACTIVE_GPU_POWER && IsGpuInActive(state)) || _gpuHardware == null)
         {
             return INVALID_VALUE_FLOAT;
         }
@@ -302,23 +278,13 @@ public class SensorsGroupController : IDisposable
 
     public async Task<float> GetGpuVramTemperatureAsync()
     {
-        if (_isResetting)
-        {
-            return INVALID_VALUE_FLOAT;
-        }
-
-        if (!IsLibreHardwareMonitorInitialized())
+        if (_isResetting || !IsLibreHardwareMonitorInitialized())
         {
             return INVALID_VALUE_FLOAT;
         }
 
         var gpuState = await _gpuController.GetLastKnownStateAsync().ConfigureAwait(false);
-        if (_lastGpuPower <= MIN_ACTIVE_GPU_POWER && (gpuState == GPUState.Inactive || gpuState == GPUState.PoweredOff))
-        {
-            return INVALID_VALUE_FLOAT;
-        }
-
-        if (_gpuHardware == null)
+        if ((_lastGpuPower <= MIN_ACTIVE_GPU_POWER && gpuState is GPUState.Inactive or GPUState.PoweredOff) || _gpuHardware == null)
         {
             return INVALID_VALUE_FLOAT;
         }
@@ -329,12 +295,7 @@ public class SensorsGroupController : IDisposable
 
     public Task<(float, float)> GetSsdTemperaturesAsync()
     {
-        if (_isResetting)
-        {
-            return Task.FromResult((INVALID_VALUE_FLOAT, INVALID_VALUE_FLOAT));
-        }
-
-        if (!IsLibreHardwareMonitorInitialized())
+        if (_isResetting || !IsLibreHardwareMonitorInitialized())
         {
             return Task.FromResult((INVALID_VALUE_FLOAT, INVALID_VALUE_FLOAT));
         }
@@ -354,9 +315,8 @@ public class SensorsGroupController : IDisposable
                 return Task.FromResult((INVALID_VALUE_FLOAT, INVALID_VALUE_FLOAT));
             }
 
-            foreach (var storage in storageHardware)
+            foreach (var tempSensor in storageHardware.Select(storage => storage.Sensors?.FirstOrDefault(s => s.SensorType == SensorType.Temperature)))
             {
-                var tempSensor = storage.Sensors?.FirstOrDefault(s => s.SensorType == SensorType.Temperature);
                 if (tempSensor is { SensorType: SensorType.Temperature, Value: > 0 })
                 {
                     temps.Add(tempSensor.Value.Value);
@@ -379,12 +339,7 @@ public class SensorsGroupController : IDisposable
 
     public Task<float> GetMemoryUsageAsync()
     {
-        if (_isResetting)
-        {
-            return Task.FromResult(INVALID_VALUE_FLOAT);
-        }
-
-        if (!IsLibreHardwareMonitorInitialized() || _memoryHardware == null)
+        if (_isResetting || !IsLibreHardwareMonitorInitialized() || _memoryHardware == null)
         {
             return Task.FromResult(INVALID_VALUE_FLOAT);
         }
@@ -394,12 +349,7 @@ public class SensorsGroupController : IDisposable
 
     public Task<double> GetHighestMemoryTemperatureAsync()
     {
-        if (_isResetting)
-        {
-            return Task.FromResult(INVALID_VALUE_DOUBLE);
-        }
-
-        if (!IsLibreHardwareMonitorInitialized())
+        if (_isResetting || !IsLibreHardwareMonitorInitialized())
         {
             return Task.FromResult(INVALID_VALUE_DOUBLE);
         }
@@ -422,12 +372,13 @@ public class SensorsGroupController : IDisposable
 
             foreach (var sensor in hardware.Sensors)
             {
-                if (sensor is { SensorType: SensorType.Temperature, Value: > 0 })
+                if (sensor is not { SensorType: SensorType.Temperature, Value: > 0 })
                 {
-                    if (sensor.Value.Value > maxTemperature)
-                    {
-                        maxTemperature = sensor.Value.Value;
-                    }
+                    continue;
+                }
+                if (sensor.Value.Value > maxTemperature)
+                {
+                    maxTemperature = sensor.Value.Value;
                 }
             }
         }
@@ -605,7 +556,7 @@ public class SensorsGroupController : IDisposable
                         _cpuHardware = _hardware.FirstOrDefault(h => h.HardwareType == HardwareType.Cpu);
                         _amdGpuHardware = _hardware.FirstOrDefault(h => h.HardwareType == HardwareType.GpuAmd && !Regex.IsMatch(h.Name, REGEX_AMD_GPU_INTEGRATED, RegexOptions.IgnoreCase));
                         _gpuHardware = _hardware.FirstOrDefault(h => h.HardwareType == HardwareType.GpuNvidia);
-                        _memoryHardware = _hardware.FirstOrDefault(h => h.HardwareType == HardwareType.Memory && h.Name == SENSOR_NAME_TOTAL_MEMORY);
+                        _memoryHardware = _hardware.FirstOrDefault(h => h is { HardwareType: HardwareType.Memory, Name: SENSOR_NAME_TOTAL_MEMORY });
                     }
 
                     Log.Instance.Trace($"Sensors have been reset and hardware references refreshed.");
