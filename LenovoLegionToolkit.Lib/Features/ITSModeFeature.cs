@@ -59,7 +59,7 @@ public partial class ITSModeFeature : IFeature<ITSMode>
 
     public async Task<ITSMode[]> GetAllStatesAsync()
     {
-        var mi = await Compatibility.GetMachineInformationAsync();
+        var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
 
         if (mi.LegionSeries == LegionSeries.ThinkBook)
         {
@@ -159,8 +159,8 @@ public partial class ITSModeFeature : IFeature<ITSMode>
 
             if (HasDispatcherDeviceNode(ref instance) != 0)
                 return GetDispatcherModeInternal(ref instance, isThinkBook);
-            else
-                return GetStandardModeInternal(ref instance);
+
+            return GetStandardModeInternal(ref instance);
         }
         catch (DllNotFoundException)
         {

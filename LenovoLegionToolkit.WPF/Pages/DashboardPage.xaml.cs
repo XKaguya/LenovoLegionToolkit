@@ -107,13 +107,6 @@ public partial class DashboardPage
 
             _content.RowDefinitions.Add(new RowDefinition { Height = new(1, GridUnitType.Auto) });
 
-            var hyperlinksPanel = new StackPanel
-            {
-                Orientation = Orientation.Horizontal,
-                HorizontalAlignment = HorizontalAlignment.Center,
-                Margin = new(0, 16, 0, 0)
-            };
-
             var editDashboardHyperlink = new Hyperlink
             {
                 Icon = SymbolRegular.Edit24,
