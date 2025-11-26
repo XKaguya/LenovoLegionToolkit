@@ -315,12 +315,10 @@ public class GodModeControllerV3(
         return preset;
     }
 
-    private static (StepperValue, StepperValue, StepperValue) CreateAmdOverclockingValues(bool isAmdDevice)
+    private static (StepperValue?, StepperValue?, StepperValue?) CreateAmdOverclockingValues(bool isAmdDevice)
     {
         if (!isAmdDevice)
-            return (new StepperValue(0, 0, 0, 0, [], 0),
-                new StepperValue(0, 0, 0, 0, [], 0),
-                new StepperValue(0, 0, 0, 0, [], 0));
+            return (null, null, null);
 
         return (new StepperValue(0, 0, 7, 1, [], 0),
             new StepperValue(0, 0, 200, 1, [], 0),

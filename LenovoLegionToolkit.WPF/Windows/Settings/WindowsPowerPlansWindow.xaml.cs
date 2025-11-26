@@ -36,14 +36,6 @@ public partial class WindowsPowerPlansWindow
         InitializeComponent();
 
         IsVisibleChanged += PowerPlansWindow_IsVisibleChanged;
-
-        PreviewKeyDown += (s, e) => {
-            if (e.Key == Key.System && e.SystemKey == Key.LeftAlt)
-            {
-                e.Handled = true;
-                Keyboard.ClearFocus();
-            }
-        };
     }
 
     private async void PowerPlansWindow_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)

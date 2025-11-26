@@ -40,15 +40,6 @@ public partial class GodModeSettingsWindow
 
         IsVisibleChanged += GodModeSettingsWindow_IsVisibleChanged;
 
-        PreviewKeyDown += (s, e) =>
-        {
-            if (e.Key == Key.System && e.SystemKey == Key.LeftAlt)
-            {
-                e.Handled = true;
-                Keyboard.ClearFocus();
-            }
-        };
-
         var mi = Compatibility.GetMachineInformationAsync().GetAwaiter().GetResult();
         int contentIndex = _fanCurveControlStackPanel.Children.IndexOf(_fanCurveButton);
 
@@ -84,14 +75,14 @@ public partial class GodModeSettingsWindow
             };
 
             var vantageTask = _godModeController.NeedsVantageDisabledAsync();
-            var lSpaceTask = _godModeController.NeedsLegionSpaceDisabledAsync();
-            var lZoneTask = _godModeController.NeedsLegionZoneDisabledAsync();
+            var legionSpace = _godModeController.NeedsLegionSpaceDisabledAsync();
+            var legionZoneTask = _godModeController.NeedsLegionZoneDisabledAsync();
 
-            await Task.WhenAll(tasks.Concat(new[] { vantageTask, lSpaceTask, lZoneTask }));
+            await Task.WhenAll(tasks.Concat([vantageTask, legionSpace, legionZoneTask]));
 
             _vantageRunningWarningInfoBar.IsOpen = vantageTask.Result && await _vantageDisabler.GetStatusAsync() == SoftwareStatus.Enabled;
-            _legionSpaceRunningWarningInfoBar.IsOpen = lSpaceTask.Result && await _legionSpaceDisabler.GetStatusAsync() == SoftwareStatus.Enabled;
-            _legionZoneRunningWarningInfoBar.IsOpen = lZoneTask.Result && await _legionZoneDisabler.GetStatusAsync() == SoftwareStatus.Enabled;
+            _legionSpaceRunningWarningInfoBar.IsOpen = legionSpace.Result && await _legionSpaceDisabler.GetStatusAsync() == SoftwareStatus.Enabled;
+            _legionZoneRunningWarningInfoBar.IsOpen = legionZoneTask.Result && await _legionZoneDisabler.GetStatusAsync() == SoftwareStatus.Enabled;
 
             if (_state is null || _defaults is null)
                 throw new InvalidOperationException("Failed to load state or defaults.");

@@ -162,9 +162,31 @@ public abstract class AbstractGodModeController(GodModeSettings settings)
     private async Task<GodModeState> LoadStateFromStoreAsync(GodModeSettings.GodModeSettingsStore store, GodModePreset defaultState)
     {
         var states = new Dictionary<Guid, GodModePreset>();
+        var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
+        var isAmdDevice = mi.Properties.IsAmdDevice;
+        StepperValue? scaler = null, freq = null, curve = null;
 
         foreach (var (id, preset) in store.Presets)
         {
+            var pboSettings = new StepperValue?[]
+            {
+            preset.PrecisionBoostOverdriveScaler,
+            preset.PrecisionBoostOverdriveBoostFrequency,
+            preset.AllCoreCurveOptimizer
+            };
+
+            var pboScaler = preset.PrecisionBoostOverdriveScaler;
+            var pboFreq = preset.PrecisionBoostOverdriveBoostFrequency;
+            var allCoreCurve = preset.AllCoreCurveOptimizer;
+            var enableOverclocking = preset.EnableOverclocking;
+
+            if (pboSettings.Any(s => s is null) && isAmdDevice)
+            {
+                scaler = new StepperValue(0, 0, 7, 1, [], 0);
+                freq = new StepperValue(0, 0, 200, 1, [], 0);
+                curve = new StepperValue(0, 0, 20, 1, [], 0);
+            }
+
             states.Add(id, new GodModePreset
             {
                 Name = preset.Name,
@@ -189,10 +211,10 @@ public abstract class AbstractGodModeController(GodModeSettings settings)
                 FanFullSpeed = preset.FanFullSpeed,
                 MinValueOffset = preset.MinValueOffset ?? defaultState.MinValueOffset,
                 MaxValueOffset = preset.MaxValueOffset ?? defaultState.MaxValueOffset,
-                PrecisionBoostOverdriveScaler = preset.PrecisionBoostOverdriveScaler,
-                PrecisionBoostOverdriveBoostFrequency = preset.PrecisionBoostOverdriveBoostFrequency,
-                AllCoreCurveOptimizer = preset.AllCoreCurveOptimizer,
-                EnableOverclocking = preset.EnableOverclocking,
+                PrecisionBoostOverdriveScaler = (isAmdDevice && pboScaler is null) ? scaler : preset.PrecisionBoostOverdriveScaler,
+                PrecisionBoostOverdriveBoostFrequency = (isAmdDevice && pboFreq is null) ? freq : preset.PrecisionBoostOverdriveBoostFrequency,
+                AllCoreCurveOptimizer = (isAmdDevice && allCoreCurve is null) ? curve : preset.AllCoreCurveOptimizer,
+                EnableOverclocking = (isAmdDevice && enableOverclocking is null) ? false : preset.EnableOverclocking,
             });
         }
 

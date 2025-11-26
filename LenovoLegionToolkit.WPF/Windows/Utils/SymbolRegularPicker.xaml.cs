@@ -22,14 +22,6 @@ public partial class SymbolRegularPicker
     public SymbolRegularPicker()
     {
         InitializeComponent();
-
-        PreviewKeyDown += (s, e) => {
-            if (e.Key == Key.System && e.SystemKey == Key.LeftAlt)
-            {
-                e.Handled = true;
-                Keyboard.ClearFocus();
-            }
-        };
     }
 
     private void SymbolRegularPicker_Loaded(object sender, RoutedEventArgs e) => Refresh();

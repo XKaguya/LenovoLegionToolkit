@@ -25,14 +25,6 @@ public partial class AddDashboardItemWindow
         InitializeComponent();
 
         IsVisibleChanged += AddAutomationStepWindow_IsVisibleChanged;
-
-        PreviewKeyDown += (s, e) => {
-            if (e.Key == Key.System && e.SystemKey == Key.LeftAlt)
-            {
-                e.Handled = true;
-                Keyboard.ClearFocus();
-            }
-        };
     }
 
     private async void AddAutomationStepWindow_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)

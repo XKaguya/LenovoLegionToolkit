@@ -176,15 +176,6 @@ public partial class StatusWindow
         ShowInTaskbar = false;
         ShowActivated = false;
 
-        PreviewKeyDown += (s, e) =>
-        {
-            if (e.Key == Key.System && e.SystemKey == Key.LeftAlt)
-            {
-                e.Handled = true;
-                Keyboard.ClearFocus();
-            }
-        };
-
 #if DEBUG
         _title.Text += " [DEBUG]";
 #else

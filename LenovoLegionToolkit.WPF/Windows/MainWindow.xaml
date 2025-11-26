@@ -17,9 +17,9 @@
 
     <Grid>
         <Grid.Background>
-            <ImageBrush x:Name="_backgroundImage"/>
+            <ImageBrush x:Name="_backgroundImage" />
         </Grid.Background>
-        
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -90,8 +90,8 @@
                 Grid.Column="0"
                 Margin="0,0,12,12"
                 Frame="{Binding ElementName=_rootFrame}"
-                SelectedPageIndex="0"
-                Navigated="NavigationStore_Navigated">
+                Navigated="NavigationStore_Navigated"
+                SelectedPageIndex="0">
 
                 <wpfui:NavigationStore.Items>
                     <custom:NavigationItem
@@ -147,10 +147,7 @@
 
             </wpfui:NavigationStore>
 
-            <Border
-                Grid.Column="1"
-                Background="{DynamicResource ControlFillColorDefaultBrush}"
-                CornerRadius="8,0,0,0">
+            <Border Grid.Column="1" Background="{DynamicResource ControlFillColorDefaultBrush}">
                 <Frame Name="_rootFrame" Margin="24,0,0,0" />
             </Border>
 

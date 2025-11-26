@@ -21,14 +21,6 @@ public partial class UpdateWindow : IProgress<float>
     public UpdateWindow()
     {
         InitializeComponent();
-
-        PreviewKeyDown += (s, e) => {
-            if (e.Key == Key.System && e.SystemKey == Key.LeftAlt)
-            {
-                e.Handled = true;
-                Keyboard.ClearFocus();
-            }
-        };
     }
 
     private async void UpdateWindow_Loaded(object sender, RoutedEventArgs e)
