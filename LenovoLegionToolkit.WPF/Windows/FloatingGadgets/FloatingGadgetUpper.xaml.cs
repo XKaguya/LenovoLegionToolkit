@@ -76,7 +76,7 @@ public partial class FloatingGadgetUpper
         InitializeComponentSpecifics();
         InitializeMappings();
         SubscribeEvents();
-        InitializeFpsSensor();
+        _fpsController.FpsDataUpdated += OnFpsDataUpdated;
 
         _activeItems = new HashSet<FloatingGadgetItem>(_settings.Store.FloatingGadgetItems);
 
@@ -423,34 +423,6 @@ public partial class FloatingGadgetUpper
     {
         if (!Equals(tb.Foreground, brush))
             tb.Foreground = brush;
-    }
-
-    private void InitializeFpsSensor()
-    {
-        _fpsController.Blacklist.Add("explorer");
-        _fpsController.Blacklist.Add("taskmgr");
-        _fpsController.Blacklist.Add("ApplicationFrameHost");
-        _fpsController.Blacklist.Add("System");
-        _fpsController.Blacklist.Add("svchost");
-        _fpsController.Blacklist.Add("csrss");
-        _fpsController.Blacklist.Add("wininit");
-        _fpsController.Blacklist.Add("services");
-        _fpsController.Blacklist.Add("lsass");
-        _fpsController.Blacklist.Add("winlogon");
-        _fpsController.Blacklist.Add("smss");
-        _fpsController.Blacklist.Add("spoolsv");
-        _fpsController.Blacklist.Add("SearchIndexer");
-        _fpsController.Blacklist.Add("SearchUI");
-        _fpsController.Blacklist.Add("RuntimeBroker");
-        _fpsController.Blacklist.Add("dwm");
-        _fpsController.Blacklist.Add("ctfmon");
-        _fpsController.Blacklist.Add("audiodg");
-        _fpsController.Blacklist.Add("fontdrvhost");
-        _fpsController.Blacklist.Add("taskhost");
-        _fpsController.Blacklist.Add("conhost");
-        _fpsController.Blacklist.Add("sihost");
-
-        _fpsController.FpsDataUpdated += OnFpsDataUpdated;
     }
 
     private async Task StartFpsMonitoringAsync()

@@ -38,6 +38,27 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
 
         public event EventHandler<FpsData>? FpsDataUpdated;
 
+        public void InitializeBlacklist()
+        {
+            var systemProcesses = new[]
+            {
+                "explorer", "taskmgr", "ApplicationFrameHost", "System",
+                "svchost", "csrss", "wininit", "services", "lsass",
+                "winlogon", "smss", "spoolsv", "SearchIndexer", "SearchUI",
+                "RuntimeBroker", "dwm", "ctfmon", "audiodg", "fontdrvhost",
+                "taskhost", "conhost", "sihost", "StartMenuExperienceHost",
+                "ShellExperienceHost"
+            };
+
+            foreach (var process in systemProcesses)
+            {
+                if (!Blacklist.Contains(process))
+                {
+                    Blacklist.Add(process);
+                }
+            }
+        }
+
         public Task StartMonitoringAsync()
         {
             if (_isRunning) return Task.CompletedTask;
