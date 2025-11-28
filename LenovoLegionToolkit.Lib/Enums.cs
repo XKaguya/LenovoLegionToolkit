@@ -51,6 +51,7 @@ public enum CapabilityID
     AMDSkinTemperatureTracking = 0x00050002,
     SupportedPowerModes = 0x00070000,
     LegionZoneSupportVersion = 0x00090000,
+    AutoSwitchRefreshRate = 0x000A0000,
     GodModeFnQSwitchable = 0x00100000,
     OverDrive = 0x001A0000,
     AIChip = 0x000E0000,

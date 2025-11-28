@@ -90,7 +90,7 @@ public class GodModeControllerV3(
                 }
             }
         }
-        else if (preset.EnableOverclocking == false)
+        else if (isOcEnabled && preset.EnableOverclocking == false)
         {
             await SetCPUOverclockingMode(false).ConfigureAwait(false);
             Log.Instance.Trace($"Overclocking is disabled.");
