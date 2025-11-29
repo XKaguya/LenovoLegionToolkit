@@ -80,6 +80,13 @@ public class PowerModeControl : AbstractComboBoxFeatureCardControl<PowerModeStat
 
         var mi = await Compatibility.GetMachineInformationAsync();
 
+        if (await Power.IsPowerAdapterConnectedAsync() != PowerAdapterStatus.Connected)
+        {
+            _configButton.ToolTip = null;
+            _configButton.Visibility = Visibility.Collapsed;
+            return;
+        }
+
         switch (newValue)
         {
             case PowerModeState.Balance when mi.Properties.SupportsAIMode:
