@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LenovoLegionToolkit.Lib.Settings;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -10,8 +11,10 @@ public interface IGodModeController
     Task<bool> NeedsVantageDisabledAsync();
     Task<bool> NeedsLegionZoneDisabledAsync();
     Task<bool> NeedsLegionSpaceDisabledAsync();
+    Task<(Guid, GodModeSettings.GodModeSettingsStore.Preset)> GetActivePresetAsync();
     Task<Guid> GetActivePresetIdAsync();
     Task<string?> GetActivePresetNameAsync();
+    Task<Dictionary<Guid, GodModeSettings.GodModeSettingsStore.Preset>> GetGodModePresetsAsync();
     Task<GodModeState> GetStateAsync();
     Task SetStateAsync(GodModeState state);
     Task ApplyStateAsync();

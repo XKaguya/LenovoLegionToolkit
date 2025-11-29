@@ -22,19 +22,16 @@ public class RGBKeyboardBacklightListener(RGBKeyboardBacklightController control
         {
             if (!await controller.IsSupportedAsync().ConfigureAwait(false))
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Not supported.");
+                Log.Instance.Trace($"Not supported.");
 
                 return;
             }
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Taking ownership...");
+            Log.Instance.Trace($"Taking ownership...");
 
             await controller.SetLightControlOwnerAsync(true).ConfigureAwait(false);
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Setting next preset set...");
+            Log.Instance.Trace($"Setting next preset set...");
 
             var preset = await controller.SetNextPresetAsync().ConfigureAwait(false);
 
@@ -42,13 +39,11 @@ public class RGBKeyboardBacklightListener(RGBKeyboardBacklightController control
                 ? new NotificationMessage(NotificationType.RGBKeyboardBacklightOff, preset.GetDisplayName())
                 : new NotificationMessage(NotificationType.RGBKeyboardBacklightChanged, preset.GetDisplayName()));
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Next preset set");
+            Log.Instance.Trace($"Next preset set");
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Failed to set next keyboard backlight preset.", ex);
+            Log.Instance.Trace($"Failed to set next keyboard backlight preset.", ex);
         }
     }
 }

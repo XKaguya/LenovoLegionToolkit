@@ -51,6 +51,7 @@ public static partial class WMI
         }
         catch (ManagementException ex)
         {
+            Log.Instance.Trace($"Read failed: {ex.Message} [scope={scope}, query={query}]", ex);
             throw new ManagementException($"Read failed: {ex.Message} [scope={scope}, query={query}]", ex);
         }
     }
@@ -73,7 +74,8 @@ public static partial class WMI
         }
         catch (ManagementException ex)
         {
-            throw new ManagementException($"Call failed: {ex.Message} [scope={scope}, query={query}, methodName={methodName}]", ex);
+            Log.Instance.Trace($"Call failed: {ex.Message}. [scope={scope}, query={query}, methodName={methodName}]", ex);
+            throw new ManagementException($"Call failed: {ex.Message}. [scope={scope}, query={query}, methodName={methodName}]", ex);
         }
     }
 
@@ -98,6 +100,7 @@ public static partial class WMI
         }
         catch (ManagementException ex)
         {
+            Log.Instance.Trace($"Call failed: {ex.Message}. [scope={scope}, query={query}, methodName={methodName}]", ex);
             throw new ManagementException($"Call failed: {ex.Message}. [scope={scope}, query={query}, methodName={methodName}]", ex);
         }
     }

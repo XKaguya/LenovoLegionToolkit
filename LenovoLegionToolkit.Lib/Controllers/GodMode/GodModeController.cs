@@ -1,7 +1,8 @@
-﻿using System;
+﻿using LenovoLegionToolkit.Lib.Settings;
+using LenovoLegionToolkit.Lib.Utils;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using LenovoLegionToolkit.Lib.Utils;
 
 namespace LenovoLegionToolkit.Lib.Controllers.GodMode;
 
@@ -50,6 +51,12 @@ public class GodModeController(GodModeControllerV1 controllerV1, GodModeControll
         return await controller.NeedsLegionZoneDisabledAsync().ConfigureAwait(false);
     }
 
+    public async Task<(Guid, GodModeSettings.GodModeSettingsStore.Preset)> GetActivePresetAsync()
+    {
+        var controller = await GetControllerAsync().ConfigureAwait(false);
+        return await controller.GetActivePresetAsync().ConfigureAwait(false);
+    }
+
     public async Task<Guid> GetActivePresetIdAsync()
     {
         var controller = await GetControllerAsync().ConfigureAwait(false);
@@ -60,6 +67,12 @@ public class GodModeController(GodModeControllerV1 controllerV1, GodModeControll
     {
         var controller = await GetControllerAsync().ConfigureAwait(false);
         return await controller.GetActivePresetNameAsync().ConfigureAwait(false);
+    }
+
+    public async Task<Dictionary<Guid, GodModeSettings.GodModeSettingsStore.Preset>> GetGodModePresetsAsync()
+    {
+        var controller = await GetControllerAsync().ConfigureAwait(false);
+        return await controller.GetGodModePresetsAsync().ConfigureAwait(false);
     }
 
     public async Task<GodModeState> GetStateAsync()

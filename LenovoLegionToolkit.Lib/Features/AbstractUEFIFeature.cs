@@ -30,8 +30,7 @@ public abstract class AbstractUEFIFeature<T>(string guid, string scopeName, uint
 
     protected unsafe Task<TS> ReadFromUefiAsync<TS>() where TS : struct => Task.Run(() =>
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Reading from UEFI... [feature={GetType().Name}]");
+        Log.Instance.Trace($"Reading from UEFI... [feature={GetType().Name}]");
 
         var ptr = Marshal.AllocHGlobal(Marshal.SizeOf<TS>());
 
@@ -39,8 +38,7 @@ public abstract class AbstractUEFIFeature<T>(string guid, string scopeName, uint
         {
             if (!TokenManipulator.AddPrivileges(TokenManipulator.SE_SYSTEM_ENVIRONMENT_PRIVILEGE))
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Cannot set UEFI privileges [feature={GetType().Name}]");
+                Log.Instance.Trace($"Cannot set UEFI privileges [feature={GetType().Name}]");
 
                 throw new InvalidOperationException("Cannot set privileges UEFI");
             }
@@ -50,15 +48,13 @@ public abstract class AbstractUEFIFeature<T>(string guid, string scopeName, uint
             {
                 var result = Marshal.PtrToStructure<TS>(ptr);
 
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Read from UEFI successful [feature={GetType().Name}]");
+                Log.Instance.Trace($"Read from UEFI successful [feature={GetType().Name}]");
 
                 return result;
             }
             else
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Cannot read variable {scopeName} from UEFI [feature={GetType().Name}]");
+                Log.Instance.Trace($"Cannot read variable {scopeName} from UEFI [feature={GetType().Name}]");
 
                 throw new InvalidOperationException($"Cannot read variable {scopeName} from UEFI");
             }
@@ -78,8 +74,7 @@ public abstract class AbstractUEFIFeature<T>(string guid, string scopeName, uint
         {
             if (!TokenManipulator.AddPrivileges(TokenManipulator.SE_SYSTEM_ENVIRONMENT_PRIVILEGE))
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Cannot set UEFI privileges [feature={GetType().Name}]");
+                Log.Instance.Trace($"Cannot set UEFI privileges [feature={GetType().Name}]");
 
                 throw new InvalidOperationException("Cannot set UEFI privileges");
             }
@@ -88,15 +83,13 @@ public abstract class AbstractUEFIFeature<T>(string guid, string scopeName, uint
             var ptrSize = (uint)Marshal.SizeOf<TS>();
             if (!PInvoke.SetFirmwareEnvironmentVariableEx(scopeName, guid, ptr.ToPointer(), ptrSize, scopeAttribute))
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Cannot write variable {scopeName} to UEFI [feature={GetType().Name}]");
+                Log.Instance.Trace($"Cannot write variable {scopeName} to UEFI [feature={GetType().Name}]");
 
                 throw new InvalidOperationException($"Cannot write variable {scopeName} to UEFI");
             }
             else
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"WriteAsync to UEFI successful [feature={GetType().Name}]");
+                Log.Instance.Trace($"WriteAsync to UEFI successful [feature={GetType().Name}]");
             }
         }
         finally

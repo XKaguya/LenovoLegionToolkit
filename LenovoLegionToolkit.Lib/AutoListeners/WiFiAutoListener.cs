@@ -96,14 +96,12 @@ public class WiFiAutoListener : AbstractAutoListener<WiFiAutoListener.ChangedEve
                 var dot11Ssid = notificationData.dot11Ssid;
                 var ssid = Encoding.UTF8.GetString(dot11Ssid.ucSSID.Value, (int)dot11Ssid.uSSIDLength);
 
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"WiFi connected. [ssid={ssid}]");
+                Log.Instance.Trace($"WiFi connected. [ssid={ssid}]");
 
                 RaiseChanged(new ChangedEventArgs(true, ssid));
                 break;
             case 0x15: /* Disconnected */
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"WiFi disconnected.");
+                Log.Instance.Trace($"WiFi disconnected.");
 
                 RaiseChanged(new ChangedEventArgs(false, null));
                 break;

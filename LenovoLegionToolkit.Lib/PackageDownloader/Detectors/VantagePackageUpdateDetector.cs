@@ -147,8 +147,7 @@ internal class VantagePackageUpdateDetector
                     }
                 default:
                     {
-                        if (Log.Instance.IsTraceEnabled)
-                            Log.Instance.Trace($"Unknown rule: {childNode.Name}.");
+                        Log.Instance.Trace($"Unknown rule: {childNode.Name}.");
                         break;
                     }
             }

@@ -15,25 +15,21 @@ public class ResolutionFeature : IFeature<Resolution>
 
     public Task<Resolution[]> GetAllStatesAsync()
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Getting all resolutions...");
+        Log.Instance.Trace($"Getting all resolutions...");
 
         var display = InternalDisplay.Get();
         if (display is null)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Built in display not found");
+            Log.Instance.Trace($"Built in display not found");
 
             return Task.FromResult(Array.Empty<Resolution>());
         }
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Built in display found: {display}");
+        Log.Instance.Trace($"Built in display found: {display}");
 
         var currentSettings = display.CurrentSetting;
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Current built in display settings: {currentSettings.ToExtendedString()}");
+        Log.Instance.Trace($"Current built in display settings: {currentSettings.ToExtendedString()}");
 
         var result = display.GetPossibleSettings()
             .Where(dps => Match(dps, currentSettings))
@@ -43,22 +39,19 @@ public class ResolutionFeature : IFeature<Resolution>
             .OrderByDescending(res => res)
             .ToArray();
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Possible resolutions are {string.Join(", ", result)}");
+        Log.Instance.Trace($"Possible resolutions are {string.Join(", ", result)}");
 
         return Task.FromResult(result);
     }
 
     public Task<Resolution> GetStateAsync()
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Getting current resolution...");
+        Log.Instance.Trace($"Getting current resolution...");
 
         var display = InternalDisplay.Get();
         if (display is null)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Built in display not found");
+            Log.Instance.Trace($"Built in display not found");
 
             return Task.FromResult(default(Resolution));
         }
@@ -66,8 +59,7 @@ public class ResolutionFeature : IFeature<Resolution>
         var currentSettings = display.CurrentSetting;
         var result = new Resolution(currentSettings.Resolution);
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Current resolution is {result} [currentSettings={currentSettings.ToExtendedString()}]");
+        Log.Instance.Trace($"Current resolution is {result} [currentSettings={currentSettings.ToExtendedString()}]");
 
         return Task.FromResult(result);
     }
@@ -77,8 +69,7 @@ public class ResolutionFeature : IFeature<Resolution>
         var display = InternalDisplay.Get();
         if (display is null)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Built in display not found");
+            Log.Instance.Trace($"Built in display not found");
             throw new InvalidOperationException("Built in display not found");
         }
 
@@ -86,16 +77,14 @@ public class ResolutionFeature : IFeature<Resolution>
 
         if (currentSettings.Resolution == state)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Resolution already set to {state}");
+            Log.Instance.Trace($"Resolution already set to {state}");
 
             return Task.CompletedTask;
         }
 
         var possibleSettings = display.GetPossibleSettings();
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Current built in display settings: {currentSettings.ToExtendedString()}");
+        Log.Instance.Trace($"Current built in display settings: {currentSettings.ToExtendedString()}");
 
         var newSettings = possibleSettings
             .Where(dps => Match(dps, currentSettings))
@@ -105,18 +94,15 @@ public class ResolutionFeature : IFeature<Resolution>
 
         if (newSettings is not null)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Setting display to {newSettings.ToExtendedString()}");
+            Log.Instance.Trace($"Setting display to {newSettings.ToExtendedString()}");
 
             display.SetSettingsUsingPathInfo(newSettings);
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Display set to {newSettings.ToExtendedString()}");
+            Log.Instance.Trace($"Display set to {newSettings.ToExtendedString()}");
         }
         else
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Could not find matching settings for resolution {state}");
+            Log.Instance.Trace($"Could not find matching settings for resolution {state}");
         }
 
         return Task.CompletedTask;

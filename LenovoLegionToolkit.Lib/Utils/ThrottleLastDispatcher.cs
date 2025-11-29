@@ -22,14 +22,14 @@ public class ThrottleLastDispatcher(TimeSpan interval, string? tag = null)
             await Task.Delay(interval, token).ConfigureAwait(false);
             token.ThrowIfCancellationRequested();
 
-            if (tag is not null && Log.Instance.IsTraceEnabled)
+            if (tag is not null)
                 Log.Instance.Trace($"Allowing... [tag={tag}]");
 
             await task().ConfigureAwait(false);
         }
         catch (OperationCanceledException)
         {
-            if (tag is not null && Log.Instance.IsTraceEnabled)
+            if (tag is not null)
                 Log.Instance.Trace($"Throttling... [tag={tag}]");
         }
     }

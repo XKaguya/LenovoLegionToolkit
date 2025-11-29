@@ -1,41 +1,61 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
+using LenovoLegionToolkit.Lib;
+using LenovoLegionToolkit.Lib.Utils;
 using LenovoLegionToolkit.WPF.Resources;
 
 namespace LenovoLegionToolkit.WPF;
 
 public readonly struct DashboardGroup(DashboardGroupType type, string? customName, params DashboardItem[] items)
 {
-    public static readonly DashboardGroup[] DefaultGroups =
-    [
-        new(DashboardGroupType.Power, null,
-            DashboardItem.ItsMode,
-            DashboardItem.PowerMode,
-            DashboardItem.BatteryMode,
-            DashboardItem.BatteryNightChargeMode,
-            DashboardItem.AlwaysOnUsb,
-            DashboardItem.InstantBoot,
-            DashboardItem.FlipToStart),
-        new(DashboardGroupType.Graphics, null,
-            DashboardItem.HybridMode,
-            DashboardItem.DiscreteGpu,
-            DashboardItem.OverclockDiscreteGpu),
-        new(DashboardGroupType.Display, null,
-            DashboardItem.Resolution,
-            DashboardItem.RefreshRate,
-            DashboardItem.DpiScale,
-            DashboardItem.Hdr,
-            DashboardItem.OverDrive,
-            DashboardItem.TurnOffMonitors),
-        new(DashboardGroupType.Other, null,
-            DashboardItem.Microphone,
-            DashboardItem.WhiteKeyboardBacklight,
-            DashboardItem.PanelLogoBacklight,
-            DashboardItem.PortsBacklight,
-            DashboardItem.TouchpadLock,
-            DashboardItem.FnLock,
-            DashboardItem.WinKeyLock)
-    ];
+    public static DashboardGroup[] DefaultGroups => GetDefaultGroups();
+
+    private static DashboardGroup[] GetDefaultGroups()
+    {
+        var mi = Compatibility.GetMachineInformationAsync().Result;
+        var groups = new List<DashboardGroup>
+        {
+            new(DashboardGroupType.Power, null,
+                DashboardItem.PowerMode,
+                DashboardItem.BatteryMode,
+                DashboardItem.BatteryNightChargeMode,
+                DashboardItem.AlwaysOnUsb,
+                DashboardItem.InstantBoot,
+                DashboardItem.FlipToStart),
+            new(DashboardGroupType.Graphics, null,
+                DashboardItem.HybridMode,
+                DashboardItem.DiscreteGpu,
+                DashboardItem.OverclockDiscreteGpu),
+            new(DashboardGroupType.Display, null,
+                DashboardItem.Resolution,
+                DashboardItem.RefreshRate,
+                DashboardItem.DpiScale,
+                DashboardItem.Hdr,
+                DashboardItem.OverDrive,
+                DashboardItem.TurnOffMonitors),
+            new(DashboardGroupType.Other, null,
+                DashboardItem.Microphone,
+                DashboardItem.WhiteKeyboardBacklight,
+                DashboardItem.PanelLogoBacklight,
+                DashboardItem.PortsBacklight,
+                DashboardItem.TouchpadLock,
+                DashboardItem.FnLock,
+                DashboardItem.WinKeyLock)
+        };
+
+        if (mi.LegionSeries == LegionSeries.ThinkBook || mi.LegionSeries == LegionSeries.IdeaPad)
+        {
+            var powerGroup = groups.First(g => g.Type == DashboardGroupType.Power);
+            var items = powerGroup.Items.ToList();
+            items.Add(DashboardItem.ItsMode);
+            groups[0] = new(DashboardGroupType.Power, null, items.ToArray());
+        }
+
+        return groups.ToArray();
+    }
+
 
     public DashboardGroupType Type { get; } = type;
 

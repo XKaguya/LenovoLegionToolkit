@@ -86,13 +86,11 @@ public class ProcessAutoListener(
             }
             catch (ArgumentException)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Process {e.ProcessName} isn't running, ignoring... [processId={e.ProcessId}]");
+                Log.Instance.Trace($"Process {e.ProcessName} isn't running, ignoring... [processId={e.ProcessId}]");
             }
             catch (Exception ex)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Can't get process {e.ProcessName} details. [processId={e.ProcessId}]", ex);
+                Log.Instance.Trace($"Can't get process {e.ProcessName} details. [processId={e.ProcessId}]", ex);
             }
 
             if (!string.IsNullOrEmpty(processPath) && IgnoredPaths.Any(p => processPath.StartsWith(p, StringComparison.InvariantCultureIgnoreCase)))
@@ -134,8 +132,7 @@ public class ProcessAutoListener(
         if (_processCache.Count < 250)
             return;
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Cleaning up process cache. Current size: {_processCache.Count}.");
+        Log.Instance.Trace($"Cleaning up process cache. Current size: {_processCache.Count}.");
 
         foreach (var (processId, _) in _processCache)
         {
@@ -149,7 +146,6 @@ public class ProcessAutoListener(
             }
         }
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Cleaned up process cache. Current size: {_processCache.Count}.");
+        Log.Instance.Trace($"Cleaned up process cache. Current size: {_processCache.Count}.");
     }
 }

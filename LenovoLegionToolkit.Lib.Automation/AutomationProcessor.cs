@@ -72,13 +72,11 @@ public class AutomationProcessor(
 
     public async Task ReloadPipelinesAsync(List<AutomationPipeline> pipelines)
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Pipelines reload pending...");
+        Log.Instance.Trace($"Pipelines reload pending...");
 
         using (await _ioLock.LockAsync().ConfigureAwait(false))
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Pipelines reloading...");
+            Log.Instance.Trace($"Pipelines reloading...");
 
             _pipelines = pipelines.Select(p => p.DeepCopy()).ToList();
 
@@ -89,8 +87,7 @@ public class AutomationProcessor(
 
             await UpdateListenersAsync().ConfigureAwait(false);
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Pipelines reloaded.");
+            Log.Instance.Trace($"Pipelines reloaded.");
         }
     }
 
@@ -108,27 +105,23 @@ public class AutomationProcessor(
     {
         if (!IsEnabled)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Not enabled. Pipeline run on startup ignored.");
+            Log.Instance.Trace($"Not enabled. Pipeline run on startup ignored.");
 
             return;
         }
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Pipeline run on startup pending...");
+        Log.Instance.Trace($"Pipeline run on startup pending...");
 
         Task.Run(() => ProcessEvent(new StartupAutomationEvent()));
     }
 
     public async Task RunNowAsync(AutomationPipeline pipeline)
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Pipeline run now pending...");
+        Log.Instance.Trace($"Pipeline run now pending...");
 
         using (await _runLock.LockAsync().ConfigureAwait(false))
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Pipeline run starting...");
+            Log.Instance.Trace($"Pipeline run starting...");
 
             try
             {
@@ -139,13 +132,11 @@ public class AutomationProcessor(
                 var otherPipelines = pipelines.Where(p => p.Id != pipeline.Id).ToList();
                 await pipeline.DeepCopy().RunAsync(otherPipelines).ConfigureAwait(false);
 
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Pipeline run finished successfully.");
+                Log.Instance.Trace($"Pipeline run finished successfully.");
             }
             catch (Exception ex)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Pipeline run failed.", ex);
+                Log.Instance.Trace($"Pipeline run failed.", ex);
 
                 throw;
             }
@@ -166,13 +157,11 @@ public class AutomationProcessor(
 
     private async Task RunAsync(IAutomationEvent automationEvent)
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Run pending...");
+        Log.Instance.Trace($"Run pending...");
 
         using (await _runLock.LockAsync().ConfigureAwait(false))
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Run starting...");
+            Log.Instance.Trace($"Run starting...");
 
             if (_cts is not null)
                 await _cts.CancelAsync().ConfigureAwait(false);
@@ -191,8 +180,7 @@ public class AutomationProcessor(
             {
                 if (ct.IsCancellationRequested)
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Run interrupted.");
+                    Log.Instance.Trace($"Run interrupted.");
                     break;
                 }
 
@@ -200,36 +188,30 @@ public class AutomationProcessor(
                 {
                     if (pipeline.Trigger is null || !await pipeline.Trigger.IsMatchingEvent(automationEvent).ConfigureAwait(false))
                     {
-                        if (Log.Instance.IsTraceEnabled)
-                            Log.Instance.Trace($"Pipeline triggers not satisfied. [name={pipeline.Name}, trigger={pipeline.Trigger}, steps.Count={pipeline.Steps.Count}]");
+                        Log.Instance.Trace($"Pipeline triggers not satisfied. [name={pipeline.Name}, trigger={pipeline.Trigger}, steps.Count={pipeline.Steps.Count}]");
                         continue;
                     }
 
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Running pipeline... [name={pipeline.Name}, trigger={pipeline.Trigger}, steps.Count={pipeline.Steps.Count}]");
+                    Log.Instance.Trace($"Running pipeline... [name={pipeline.Name}, trigger={pipeline.Trigger}, steps.Count={pipeline.Steps.Count}]");
 
                     var otherPipelines = pipelines.Where(p => p.Id != pipeline.Id).ToList();
                     await pipeline.RunAsync(otherPipelines, ct).ConfigureAwait(false);
 
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Pipeline completed successfully. [name={pipeline.Name}, trigger={pipeline.Trigger}]");
+                    Log.Instance.Trace($"Pipeline completed successfully. [name={pipeline.Name}, trigger={pipeline.Trigger}]");
                 }
                 catch (Exception ex)
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Pipeline run failed. [name={pipeline.Name}, trigger={pipeline.Trigger}]", ex);
+                    Log.Instance.Trace($"Pipeline run failed. [name={pipeline.Name}, trigger={pipeline.Trigger}]", ex);
                 }
 
                 if (pipeline.IsExclusive)
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Pipeline is exclusive. Breaking. [name={pipeline.Name}, trigger={pipeline.Trigger}, steps.Count={pipeline.Steps.Count}]");
+                    Log.Instance.Trace($"Pipeline is exclusive. Breaking. [name={pipeline.Name}, trigger={pipeline.Trigger}, steps.Count={pipeline.Steps.Count}]");
                     break;
                 }
             }
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Run finished successfully.");
+            Log.Instance.Trace($"Run finished successfully.");
         }
     }
 
@@ -318,8 +300,7 @@ public class AutomationProcessor(
         if (!potentialMatch)
             return;
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Processing event {e}... [type={e.GetType().Name}]");
+        Log.Instance.Trace($"Processing event {e}... [type={e.GetType().Name}]");
 
         await RunAsync(e).ConfigureAwait(false);
     }
@@ -330,8 +311,7 @@ public class AutomationProcessor(
 
     private async Task UpdateListenersAsync()
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Stopping listeners...");
+        Log.Instance.Trace($"Stopping listeners...");
 
         await gameAutoListener.UnsubscribeChangedAsync(GameAutoListener_Changed).ConfigureAwait(false);
         await processAutoListener.UnsubscribeChangedAsync(ProcessAutoListener_Changed).ConfigureAwait(false);
@@ -339,63 +319,54 @@ public class AutomationProcessor(
         await userInactivityAutoListener.UnsubscribeChangedAsync(UserInactivityAutoListener_Changed).ConfigureAwait(false);
         await wifiAutoListener.UnsubscribeChangedAsync(WiFiAutoListener_Changed).ConfigureAwait(false);
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Stopped listeners...");
+        Log.Instance.Trace($"Stopped listeners...");
 
         if (!IsEnabled)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Not enabled. Will not start listeners.");
+            Log.Instance.Trace($"Not enabled. Will not start listeners.");
             return;
         }
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Starting listeners...");
+        Log.Instance.Trace($"Starting listeners...");
 
         var triggers = _pipelines.SelectMany(p => p.AllTriggers).ToArray();
 
         if (triggers.OfType<IGameAutomationPipelineTrigger>().Any())
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Starting game listener...");
+            Log.Instance.Trace($"Starting game listener...");
 
             await gameAutoListener.SubscribeChangedAsync(GameAutoListener_Changed).ConfigureAwait(false);
         }
 
         if (triggers.OfType<IProcessesAutomationPipelineTrigger>().Any())
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Starting process listener...");
+            Log.Instance.Trace($"Starting process listener...");
 
             await processAutoListener.SubscribeChangedAsync(ProcessAutoListener_Changed).ConfigureAwait(false);
         }
 
         if (triggers.OfType<ITimeAutomationPipelineTrigger>().Any() || triggers.OfType<IPeriodicAutomationPipelineTrigger>().Any())
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Starting time listener...");
+            Log.Instance.Trace($"Starting time listener...");
 
             await timeAutoListener.SubscribeChangedAsync(TimeAutoListener_Changed).ConfigureAwait(false);
         }
 
         if (triggers.OfType<IUserInactivityPipelineTrigger>().Any())
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Starting user inactivity listener...");
+            Log.Instance.Trace($"Starting user inactivity listener...");
 
             await userInactivityAutoListener.SubscribeChangedAsync(UserInactivityAutoListener_Changed).ConfigureAwait(false);
         }
 
         if (triggers.OfType<IWiFiConnectedPipelineTrigger>().Any() || triggers.OfType<WiFiDisconnectedAutomationPipelineTrigger>().Any())
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Starting WiFi listener...");
+            Log.Instance.Trace($"Starting WiFi listener...");
 
             await wifiAutoListener.SubscribeChangedAsync(WiFiAutoListener_Changed).ConfigureAwait(false);
         }
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Started relevant listeners.");
+        Log.Instance.Trace($"Started relevant listeners.");
     }
 
     private void RaisePipelinesChanged()

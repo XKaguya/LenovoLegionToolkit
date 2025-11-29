@@ -302,6 +302,10 @@ public readonly struct GodModeDefaults
     public int? CPUPL1Tau { get; init; }
     public int? APUsPPTPowerLimit { get; init; }
     public int? CPUTemperatureLimit { get; init; }
+    public int? PrecisionBoostOverdriveScaler { get; init; }
+    public int? PrecisionBoostOverdriveBoostFrequency { get; init; }
+    public int? AllCoreCurveOptimizer { get; init; }
+    public bool? EnableOverclocking { get; init; }
     public int? GPUPowerBoost { get; init; }
     public int? GPUConfigurableTGP { get; init; }
     public int? GPUTemperatureLimit { get; init; }
@@ -336,6 +340,8 @@ public readonly struct GodModeState
 public readonly struct GodModePreset
 {
     public string Name { get; init; }
+    public Guid? PowerPlanGuid { get; init; }
+    public WindowsPowerMode? PowerMode { get; init; }
     public StepperValue? CPULongTermPowerLimit { get; init; }
     public StepperValue? CPUShortTermPowerLimit { get; init; }
     public StepperValue? CPUPeakPowerLimit { get; init; }
@@ -343,6 +349,10 @@ public readonly struct GodModePreset
     public StepperValue? CPUPL1Tau { get; init; }
     public StepperValue? APUsPPTPowerLimit { get; init; }
     public StepperValue? CPUTemperatureLimit { get; init; }
+    public StepperValue? PrecisionBoostOverdriveScaler { get; init; }
+    public StepperValue? PrecisionBoostOverdriveBoostFrequency { get; init; }
+    public StepperValue? AllCoreCurveOptimizer { get; init; }
+    public bool? EnableOverclocking { get; init; }
     public StepperValue? GPUPowerBoost { get; init; }
     public StepperValue? GPUConfigurableTGP { get; init; }
     public StepperValue? GPUTemperatureLimit { get; init; }

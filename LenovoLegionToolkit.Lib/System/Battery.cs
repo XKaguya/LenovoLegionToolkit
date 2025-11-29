@@ -67,8 +67,7 @@ public static class Battery
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Failed to get temperature of battery.", ex);
+            Log.Instance.Trace($"Failed to get temperature of battery.", ex);
         }
 
         return new(powerStatus.ACLineStatus == 1,
@@ -97,8 +96,7 @@ public static class Battery
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Failed to get temperature of battery.", ex);
+            Log.Instance.Trace($"Failed to get temperature of battery.", ex);
             return null;
         }
     }
@@ -144,8 +142,7 @@ public static class Battery
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Failed to get event.", ex);
+            Log.Instance.Trace($"Failed to get event.", ex);
         }
 
         return null;
@@ -227,8 +224,7 @@ public static class Battery
             return info;
         }
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Battery data not found.");
+        Log.Instance.Trace($"Battery data not found.");
 
         return null;
     }

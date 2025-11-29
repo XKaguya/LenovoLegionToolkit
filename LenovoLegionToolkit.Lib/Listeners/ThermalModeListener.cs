@@ -24,8 +24,7 @@ public class ThermalModeListener(
 
         if (!Enum.IsDefined(state))
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Unknown value received: {value}");
+            Log.Instance.Trace($"Unknown value received: {value}");
 
             state = ThermalModeState.Unknown;
         }
@@ -39,8 +38,7 @@ public class ThermalModeListener(
     {
         if (!_suppressCounter.Decrement())
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Suppressed.");
+            Log.Instance.Trace($"Suppressed.");
             return;
         }
 
@@ -63,8 +61,7 @@ public class ThermalModeListener(
 
     public void SuppressNext()
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Suppressing next...");
+        Log.Instance.Trace($"Suppressing next...");
 
         _suppressCounter.Increment();
     }

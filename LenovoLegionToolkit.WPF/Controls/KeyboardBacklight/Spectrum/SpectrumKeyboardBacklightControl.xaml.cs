@@ -243,8 +243,7 @@ public partial class SpectrumKeyboardBacklightControl
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Couldn't export profile.", ex);
+            Log.Instance.Trace($"Couldn't export profile.", ex);
 
             await SnackbarHelper.ShowAsync(Resource.SpectrumKeyboardBacklightControl_ExportProfileError_Title, Resource.SpectrumKeyboardBacklightControl_ExportProfileError_Message, SnackbarType.Error);
         }
@@ -273,8 +272,7 @@ public partial class SpectrumKeyboardBacklightControl
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Couldn't import profile.", ex);
+            Log.Instance.Trace($"Couldn't import profile.", ex);
 
             await SnackbarHelper.ShowAsync(Resource.SpectrumKeyboardBacklightControl_ImportProfileError_Title, Resource.SpectrumKeyboardBacklightControl_ImportProfileError_Message, SnackbarType.Error);
         }
@@ -494,8 +492,7 @@ public partial class SpectrumKeyboardBacklightControl
         catch (OperationCanceledException) { }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Failed to refresh state.", ex);
+            Log.Instance.Trace($"Failed to refresh state.", ex);
         }
         finally
         {
@@ -548,8 +545,7 @@ public partial class SpectrumKeyboardBacklightControl
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Couldn't apply profile.", ex);
+            Log.Instance.Trace($"Couldn't apply profile.", ex);
 
             await SnackbarHelper.ShowAsync(Resource.SpectrumKeyboardBacklightControl_ApplyProfileError_Title, Resource.SpectrumKeyboardBacklightControl_ApplyProfileError_Message, SnackbarType.Error);
         }
