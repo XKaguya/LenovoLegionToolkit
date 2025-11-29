@@ -12,22 +12,23 @@ namespace LenovoLegionToolkit.Lib.System;
 
 internal static class NVAPI
 {
-    public static bool IsInitilized { get; set; } = false;
+    public static bool IsInitialized { get; set; }
     public static void Initialize()
     {
         try
         {
-            if (!IsInitilized)
+            if (!IsInitialized)
             {
                 NVIDIA.Initialize();
-                IsInitilized = true;
+                IsInitialized = true;
             }
             else
             {
                 if (GetGPU() == null)
                 {
+                    Log.Instance.Trace($"GetGPU() returns null. NVIDIA.Initialize().");
                     NVIDIA.Initialize();
-                    IsInitilized = true;
+                    IsInitialized = true;
                 }
             }
         }

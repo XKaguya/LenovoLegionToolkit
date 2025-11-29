@@ -194,12 +194,17 @@ public class SensorsGroupController : IDisposable
 
     public Task<float> GetCpuPowerAsync()
     {
-        if (_isResetting) return Task.FromResult(INVALID_VALUE_FLOAT);
+        if (_isResetting)
+        {
+            Log.Instance.Trace($"GetCpuPowerAsync(): _isResetting");
+            return Task.FromResult(INVALID_VALUE_FLOAT);
+        }
 
         try
         {
             if (!IsLibreHardwareMonitorInitialized() || _cpuHardware == null)
             {
+                Log.Instance.Trace($"GetCpuPowerAsync(): !IsLibreHardwareMonitorInitialized() || _cpuHardware == null");
                 return Task.FromResult(INVALID_VALUE_FLOAT);
             }
 
@@ -215,6 +220,7 @@ public class SensorsGroupController : IDisposable
                     ResetSensors();
                     _cachedCpuPowerTime = 0;
                     _cachedCpuPower = -1f;
+
                     return Task.FromResult(INVALID_VALUE_FLOAT);
             }
 
@@ -243,8 +249,9 @@ public class SensorsGroupController : IDisposable
 
             return Task.FromResult(power);
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            Log.Instance.Trace($"GetCpuPowerAsync() exception", ex);
             return Task.FromResult(INVALID_VALUE_FLOAT);
         }
     }

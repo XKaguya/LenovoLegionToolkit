@@ -61,8 +61,9 @@ public class GPUController
     {
         if (IsStarted)
             return Task.CompletedTask;
-
-        Log.Instance.Trace($"Starting... [delay={delay}, interval={interval}]");
+        
+        // Comment for quiet debugging.
+        // Log.Instance.Trace($"Starting... [delay={delay}, interval={interval}]");
 
         _refreshCancellationTokenSource = new CancellationTokenSource();
         var token = _refreshCancellationTokenSource.Token;
@@ -72,14 +73,14 @@ public class GPUController
 
     public async Task StopAsync(bool waitForFinish = false)
     {
-        Log.Instance.Trace($"Stopping... [refreshTask.isNull={_refreshTask is null}, _refreshCancellationTokenSource.IsCancellationRequested={_refreshCancellationTokenSource?.IsCancellationRequested}]");
+        // Log.Instance.Trace($"Stopping... [refreshTask.isNull={_refreshTask is null}, _refreshCancellationTokenSource.IsCancellationRequested={_refreshCancellationTokenSource?.IsCancellationRequested}]");
 
         if (_refreshCancellationTokenSource is not null)
             await _refreshCancellationTokenSource.CancelAsync().ConfigureAwait(false);
 
         if (waitForFinish)
         {
-            Log.Instance.Trace($"Waiting to finish...");
+            // Log.Instance.Trace($"Waiting to finish...");
 
             if (_refreshTask is not null)
             {
@@ -90,13 +91,13 @@ public class GPUController
                 catch (OperationCanceledException) { }
             }
 
-            Log.Instance.Trace($"Finished");
+            // Log.Instance.Trace($"Finished");
         }
 
         _refreshCancellationTokenSource = null;
         _refreshTask = null;
 
-        Log.Instance.Trace($"Stopped");
+        // Log.Instance.Trace($"Stopped");
     }
 
     public async Task RestartGPUAsync()
