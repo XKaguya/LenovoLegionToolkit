@@ -214,14 +214,17 @@ public class SensorsGroupController : IDisposable
             switch (powerValue)
             {
                 case null or <= MIN_VALID_POWER_READING:
+                    Log.Instance.Trace($"Invalid CPU Power detected.");
                     return Task.FromResult(INVALID_VALUE_FLOAT);
                 case > MAX_VALID_CPU_POWER:
                     Log.Instance.Trace($"CPU Power spike detected ({powerValue}). Resetting sensors.");
                     ResetSensors();
                     _cachedCpuPowerTime = 0;
                     _cachedCpuPower = -1f;
-
                     return Task.FromResult(INVALID_VALUE_FLOAT);
+                default:
+                    Log.Instance.Trace($"Normal CPU Power reading.");
+                    break;
             }
 
             var power = powerValue.Value;
@@ -245,8 +248,10 @@ public class SensorsGroupController : IDisposable
             {
                 _cachedCpuPower = power;
                 _cachedCpuPowerTime = 0;
+                Log.Instance.Trace($"CPU Power reading restored.");
             }
 
+            Log.Instance.Trace($"Success retrieve CPU Power. {power}");
             return Task.FromResult(power);
         }
         catch (Exception ex)
