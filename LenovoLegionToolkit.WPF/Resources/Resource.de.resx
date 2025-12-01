@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -719,7 +719,7 @@ Ernsthaft, seien Sie vorsichtig mit dieser Option!</value>
     <value>Konfigurierbare TGP</value>
   </data>
   <data name="GodModeSettingsWindow_GPU_DynamicBoost" xml:space="preserve">
-    <value>Dynamic Boost</value>
+    <value>Dynamischer Boost</value>
   </data>
   <data name="GodModeSettingsWindow_GPU_TempLimit" xml:space="preserve">
     <value>GPU Temperatur-Grenzwert</value>
@@ -1387,7 +1387,7 @@ Erfordert einen Neustart.</value>
     <value>Erneut versuchen</value>
   </data>
   <data name="UnexpectedException" xml:space="preserve">
-    <value>Unexpected exception occurred:</value>
+    <value>Unerwartete Ausnahme aufgetreten:</value>
   </data>
   <data name="Unnamed" xml:space="preserve">
     <value>Ohne Titel</value>
@@ -2411,102 +2411,102 @@ Hinweis: Die Verwendung des neuen Sensor-Dashboards kann dazu führen, dass eini
     <value>PCH</value>
   </data>
   <data name="SettingsPage_EnableLegionSpace_Error_Title" xml:space="preserve">
-    <value>Couldn't enable Legion Space</value>
+    <value>Legion Space konnte nicht aktiviert werden</value>
   </data>
   <data name="SettingsPage_EnableLegionSpace_Error_Message" xml:space="preserve">
-    <value>Legion Space may have not been enabled correctly</value>
+    <value>Legion Space wurde möglicherweise nicht korrekt aktiviert</value>
   </data>
   <data name="SettingsPage_DisableLegionSpace_Title" xml:space="preserve">
-    <value>Disable Legion Space</value>
+    <value>Legion Space deaktivieren</value>
   </data>
   <data name="MainWindow_LegionSpaceRunning" xml:space="preserve">
-    <value>Legion Space is running in the background.</value>
+    <value>Legion Space wird im Hintergrund ausgeführt.</value>
   </data>
   <data name="GodModeSettingsWindow_LegionSpaceWarning_Title" xml:space="preserve">
-    <value>Custom Mode settings will not be applied correctly when Legion Space or its services are running.</value>
+    <value>Die Einstellungen des benutzerdefinierten Modus werden nicht korrekt angewendet, wenn Legion Space oder dessen Dienste ausgeführt werden.</value>
   </data>
   <data name="SettingsPage_DisableLegionSpace_Error_Title" xml:space="preserve">
-    <value>Couldn't disable Legion Space</value>
+    <value>Legion Space konnte nicht deaktiviert werden</value>
   </data>
   <data name="SettingsPage_DisableLegionSpace_Error_Message" xml:space="preserve">
-    <value>Legion Space may have not been disabled correctly</value>
+    <value>Legion Space wurde möglicherweise nicht korrekt deaktiviert</value>
   </data>
   <data name="SettingsPage_UseNewDashboard_Restart_Message" xml:space="preserve">
-    <value>Restart to apply changes.</value>
+    <value>Zur Anwendung der Änderungen neu starten.</value>
   </data>
   <data name="SettingsPage_UseNewDashboard_Switch_Title" xml:space="preserve">
-    <value>Dashboard changed</value>
+    <value>Dashboard geändert</value>
   </data>
   <data name="MainWindow_PawnIO_Warning_Title" xml:space="preserve">
-    <value>Warning</value>
+    <value>Warnung</value>
   </data>
   <data name="MainWindow_PawnIO_Warning_Message" xml:space="preserve">
-    <value>You need install PawnIO first to use the new dashboard!</value>
+    <value>Sie müssen zuerst PawnIO installieren, um das neue Dashboard zu verwenden!</value>
   </data>
   <data name="Warning" xml:space="preserve">
-    <value>Warning</value>
+    <value>Warnung</value>
   </data>
   <data name="KeyboardBacklightPage_DynamicLightingEnabled" xml:space="preserve">
-    <value>Windows Dynamic lighting is enabled.
-This feature might prevent LLT to control the keyboard.
-Click Yes to disable and No to ignore.</value>
+    <value>Windows Dynamische Beleuchtung ist aktiviert.
+Diese Funktion kann verhindern, dass LLT die Tastatur kontrolliert.
+Klicken Sie auf Ja zum Deaktivieren und Nein zum Ignorieren.</value>
   </data>
   <data name="DialogWindow_DontShowAgain" xml:space="preserve">
-    <value>Don't show again.</value>
+    <value>Nicht wieder anzeigen.</value>
   </data>
   <data name="ITSModeControl_Dialog_Title" xml:space="preserve">
-    <value>Missing Compoment</value>
+    <value>Fehlende Komponente</value>
   </data>
   <data name="ITSModeControl_Dialog_Message" xml:space="preserve">
-    <value>PowerBattery.dll is missing. Please place it manually to use ITSMode feature.</value>
+    <value>PowerBattery.dll fehlt. Bitte fügen Sie sie manuell ein, um die ITSMode-Funktion zu verwenden.</value>
   </data>
   <data name="ITSModeControl_Title" xml:space="preserve">
-    <value>IdeaPad Power Mode</value>
+    <value>IdeaPad Energiemodus</value>
   </data>
   <data name="ITSModeControl_Message" xml:space="preserve">
-    <value>Change IdeaPad Power Mode</value>
+    <value>Ändere IdeaPad Energiemodus</value>
   </data>
   <data name="ITSModeAutomationStepControl_Title" xml:space="preserve">
-    <value>IdeaPad Power Mode</value>
+    <value>IdeaPad Energiemodus</value>
   </data>
   <data name="ITSModeAutomationStepControl_Message" xml:space="preserve">
-    <value>Change IdeaPad Power Mode</value>
+    <value>Ändere IdeaPad Energiemodus</value>
   </data>
   <data name="SettingsPage_FloatingGadgets_Title" xml:space="preserve">
-    <value>Enable Floating Gadget</value>
+    <value>Aktiviere Floating Gadget</value>
   </data>
   <data name="SettingsPage_FloatingGadgets_Message" xml:space="preserve">
-    <value>Floating Gadgets​​ is a floating window that displays real-time sensor information in an overlay style.</value>
+    <value>Schwebende Gadgets ist ein schwebendes Fenster, das Sensor-Informationen in Echtzeit im Overlay-Stil anzeigt.</value>
   </data>
   <data name="SettingsPage_FloatingGadgets_Tooltip" xml:space="preserve">
-    <value>Controls sensor refresh interval.</value>
+    <value>Steuert Sensor Aktualisierungsintervall.</value>
   </data>
   <data name="FloatingGadgets_Memory_Utilization" xml:space="preserve">
-    <value>Memory Utilization</value>
+    <value>Arbeitsspeicherauslastung</value>
   </data>
   <data name="FloatingGadgets_Memory_Temperature" xml:space="preserve">
-    <value>Memory Temperature</value>
+    <value>Arbeitsspeichertemperatur</value>
   </data>
   <data name="FloatingGadgets_Disk_0_Temperature" xml:space="preserve">
-    <value>Disk 1 Temperature</value>
+    <value>Datenträger 1 Temperatur</value>
   </data>
   <data name="FloatingGadgets_Disk_1_Temperature" xml:space="preserve">
-    <value>Disk 2 Temperature</value>
+    <value>Datenträger 2 Temperatur</value>
   </data>
   <data name="FloatingGadgets_CPU_Fan" xml:space="preserve">
-    <value>CPU Fan</value>
+    <value>CPU Lüfter</value>
   </data>
   <data name="FloatingGadgets_GPU_Fan" xml:space="preserve">
-    <value>GPU Fan</value>
+    <value>GPU Lüfter</value>
   </data>
   <data name="FloatingGadgets_PCH_Fan" xml:space="preserve">
-    <value>PCH Fan</value>
+    <value>PCH Lüfter</value>
   </data>
   <data name="FloatingGadgets_Fans" xml:space="preserve">
-    <value>Fans</value>
+    <value>Lüfter</value>
   </data>
   <data name="FloatingGadgets_Chipset" xml:space="preserve">
-    <value>Chipset</value>
+    <value>Chipsatz</value>
   </data>
   <data name="FloatingGadgets_Gpu" xml:space="preserve">
     <value>GPU</value>
@@ -2515,64 +2515,64 @@ Click Yes to disable and No to ignore.</value>
     <value>CPU</value>
   </data>
   <data name="SettingsPage_Select_BackgroundImage_Title" xml:space="preserve">
-    <value>Select Background Image</value>
+    <value>Hintergrundbild auswählen</value>
   </data>
   <data name="SettingsPage_Select_BackgroundImage_ImageFile" xml:space="preserve">
-    <value>Image File</value>
+    <value>Bilddatei</value>
   </data>
   <data name="SettingsPage_Select_BackgroundImage_AllFiles" xml:space="preserve">
-    <value>All Files</value>
+    <value>Alle Dateien</value>
   </data>
   <data name="SettingsPage_Custom_BackgroundImage_Title" xml:space="preserve">
-    <value>Custom Background Image</value>
+    <value>Individuelles Hintergrundbild</value>
   </data>
   <data name="SettingsPage_Custom_BackgroundImage_Message" xml:space="preserve">
-    <value>Custom Background Image</value>
+    <value>Individuelles Hintergrundbild</value>
   </data>
   <data name="SettingsPage_Select_BackgroundImage_Content" xml:space="preserve">
-    <value>Select Image</value>
+    <value>Bild auswählen</value>
   </data>
   <data name="SettingsPage_Clear_BackgroundImage_Title" xml:space="preserve">
-    <value>Clear Image</value>
+    <value>Bild löschen</value>
   </data>
   <data name="SettingsPage_Clear_BackgroundImage_Message" xml:space="preserve">
-    <value>Clear current selected image file.</value>
+    <value>Aktuelle Bilddatei löschen.</value>
   </data>
   <data name="SensorsControl_Motherboard_Temperature" xml:space="preserve">
-    <value>Board Temperature</value>
+    <value>Motherboard Temperatur</value>
   </data>
   <data name="StatusWindow_Frequency_And_Temperature" xml:space="preserve">
-    <value>Frequency / Temperature</value>
+    <value>Frequenz / Temperatur</value>
   </data>
   <data name="StatusWindow_Fan_And_Power" xml:space="preserve">
-    <value>Fan / Power</value>
+    <value>Lüfter / Energie</value>
   </data>
   <data name="StatusWindow_System_Fan" xml:space="preserve">
-    <value>System Fan</value>
+    <value>Systemlüfter</value>
   </data>
   <data name="FloatingGadgets_Fps" xml:space="preserve">
     <value>FPS</value>
   </data>
   <data name="FloatingGadgets_Low_Fps" xml:space="preserve">
-    <value>1% Low</value>
+    <value>1% niedrig</value>
   </data>
   <data name="FloatingGadgets_Frame_Time" xml:space="preserve">
-    <value>Frame Time</value>
+    <value>Frame Dauer</value>
   </data>
   <data name="FloatingGadgetAutomationStepControl_Title" xml:space="preserve">
-    <value>Floating Gadget</value>
+    <value>Schwebendes Gadget</value>
   </data>
   <data name="FloatingGadgetAutomationStepControl_Message" xml:space="preserve">
-    <value>Show or Hide the Floating Gadget</value>
+    <value>Schwebendes Gadget anzeigen oder verstecken</value>
   </data>
   <data name="CloseAutomationStepControl_Title" xml:space="preserve">
-    <value>Close</value>
+    <value>Beenden</value>
   </data>
   <data name="CloseAutomationStepControl_Message" xml:space="preserve">
-    <value>Close the Lenovo Legion Toolkit</value>
+    <value>Beendet Lenovo Legion Toolkit</value>
   </data>
   <data name="FloatingGadget_Custom_Game" xml:space="preserve">
-    <value>Game</value>
+    <value>Spiel</value>
   </data>
   <data name="FloatingGadget_Custom_CPU" xml:space="preserve">
     <value>CPU</value>
@@ -2581,37 +2581,36 @@ Click Yes to disable and No to ignore.</value>
     <value>GPU</value>
   </data>
   <data name="FloatingGadget_Custom_Chipset" xml:space="preserve">
-    <value>Chipset</value>
+    <value>Chipsatz</value>
   </data>
   <data name="FloatingGadget_Style_Simple" xml:space="preserve">
-    <value>Simple</value>
+    <value>Einfach</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="SettingsPage_ClearBackgroundImage_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="SettingsPage_ClearBackgroundImage_Title" xml:space="preserve">
+    <value>Bild gelöscht</value>
   </data>
-  <data name="GodModeSettingsWindow_PrecisionBoostOverdriveScaler_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="GodModeSettingsWindow_PrecisionBoostOverdriveScaler_Title" xml:space="preserve">
+    <value>Präzisions-Boost Overdrive Scaler</value>
   </data>
-  <data name="GodModeSettingsWindow_PrecisionBoostOverdriveScaler_Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="GodModeSettingsWindow_PrecisionBoostOverdriveScaler_Description" xml:space="preserve">
+    <value>Präzisions-Boost Overdrive Scaler.</value>
   </data>
-  <data name="GodModeSettingsWindow_PrecisionBoostOverdriveBoostFrequency_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="GodModeSettingsWindow_PrecisionBoostOverdriveBoostFrequency_Title" xml:space="preserve">
+    <value>Präzisions-Boost Overdrive Boost Frequenz</value>
   </data>
-  <data name="GodModeSettingsWindow_PrecisionBoostOverdriveBoostFrequency_Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="GodModeSettingsWindow_PrecisionBoostOverdriveBoostFrequency_Description" xml:space="preserve">
+    <value>Präzisions-Boost Overdrive Boost Frequenz.</value>
   </data>
-  <data name="GodModeSettingsWindow_AllCoreCurveOptimizer_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="GodModeSettingsWindow_AllCoreCurveOptimizer_Title" xml:space="preserve">
+    <value>Alle Kerne Kurven-Optimierer</value>
   </data>
-  <data name="GodModeSettingsWindow_AllCoreCurveOptimizer_Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="GodModeSettingsWindow_AllCoreCurveOptimizer_Description" xml:space="preserve">
+    <value>Alle Kerne Kurven-Optimierer.</value>
   </data>
-  <data name="GodModeSettingsWindow_Toggle_OC_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="GodModeSettingsWindow_Toggle_OC_Title" xml:space="preserve">
+    <value>Erweiterte Overclocking Optionen</value>
   </data>
-  <data name="GodModeSettingsWindow_Toggle_OC_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="GodModeSettingsWindow_Toggle_OC_Message" xml:space="preserve">
+    <value>Erweiterte Overclocking Optionen aktivieren/deaktivieren.</value>
   </data>
 </root>
