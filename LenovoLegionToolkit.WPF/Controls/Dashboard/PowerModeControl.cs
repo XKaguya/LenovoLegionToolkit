@@ -79,26 +79,18 @@ public class PowerModeControl : AbstractComboBoxFeatureCardControl<PowerModeStat
         await base.OnStateChangeAsync(comboBox, feature, newValue, oldValue);
 
         var mi = await Compatibility.GetMachineInformationAsync();
+        var adapterStatus = await Power.IsPowerAdapterConnectedAsync();
+        bool isAdapterConnected = adapterStatus is PowerAdapterStatus.Connected or PowerAdapterStatus.ConnectedLowWattage;
 
-        if (await Power.IsPowerAdapterConnectedAsync() != PowerAdapterStatus.Connected)
+        bool shouldShowButton = newValue switch
         {
-            _configButton.ToolTip = null;
-            _configButton.Visibility = Visibility.Collapsed;
-            return;
-        }
+            PowerModeState.Balance when mi.Properties.SupportsAIMode => true,
+            PowerModeState.GodMode when mi.Properties.SupportsGodMode => true,
+            _ => false
+        } && isAdapterConnected;
 
-        switch (newValue)
-        {
-            case PowerModeState.Balance when mi.Properties.SupportsAIMode:
-            case PowerModeState.GodMode when mi.Properties.SupportsGodMode:
-                _configButton.ToolTip = Resource.PowerModeControl_Settings;
-                _configButton.Visibility = Visibility.Visible;
-                break;
-            default:
-                _configButton.ToolTip = null;
-                _configButton.Visibility = Visibility.Collapsed;
-                break;
-        }
+        _configButton.ToolTip = shouldShowButton ? Resource.PowerModeControl_Settings : null;
+        _configButton.Visibility = shouldShowButton ? Visibility.Visible : Visibility.Collapsed;
     }
 
     protected override void OnStateChangeException(Exception exception)
