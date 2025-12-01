@@ -223,7 +223,6 @@ public class SensorsGroupController : IDisposable
                     _cachedCpuPower = -1f;
                     return Task.FromResult(INVALID_VALUE_FLOAT);
                 default:
-                    Log.Instance.Trace($"Normal CPU Power reading.");
                     break;
             }
 
@@ -248,10 +247,8 @@ public class SensorsGroupController : IDisposable
             {
                 _cachedCpuPower = power;
                 _cachedCpuPowerTime = 0;
-                Log.Instance.Trace($"CPU Power reading restored.");
             }
 
-            Log.Instance.Trace($"Success retrieve CPU Power. {power}");
             return Task.FromResult(power);
         }
         catch (Exception ex)

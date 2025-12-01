@@ -29,7 +29,7 @@ public partial class StatusWindow
 
     private const int MAX_RETRY_COUNT = 3;
     private const int RETRY_DELAY_MS = 1000;
-    private int _currentRetryCount = 0;
+    private int _currentRetryCount;
 
     private readonly CancellationTokenSource _cancellationTokenSource;
 
@@ -90,7 +90,6 @@ public partial class StatusWindow
             if (await _powerModeFeature.IsSupportedAsync().WaitAsync(token))
             {
                 state = await _powerModeFeature.GetStateAsync().WaitAsync(token);
-
                 if (state == PowerModeState.GodMode)
                 {
                     godModePresetName = await _godModeController.GetActivePresetNameAsync().WaitAsync(token);
@@ -169,6 +168,8 @@ public partial class StatusWindow
             var states = await _sensorsGroupController.IsSupportedAsync().WaitAsync(token);
             if (states is LibreHardwareMonitorInitialState.Success or LibreHardwareMonitorInitialState.Initialized)
             {
+                await _sensorsGroupController.UpdateAsync().WaitAsync(token);
+
                 var retryCount = 0;
                 while (retryCount < MAX_RETRY_COUNT)
                 {
@@ -183,31 +184,25 @@ public partial class StatusWindow
                             {
                                 if (gpuPower > 0)
                                 {
-                                    Log.Instance.Trace($"Successfully retrieved power values - CPU: {cpuPower}W, GPU: {gpuPower}W");
                                     break;
                                 }
-                                Log.Instance.Trace($"Invalid GPU power reading: {gpuPower}W while GPU is active, retry {retryCount + 1}/{MAX_RETRY_COUNT}");
                             }
                             else
                             {
-                                Log.Instance.Trace($"Successfully retrieved CPU power value: {cpuPower}W (GPU inactive)");
                                 break;
                             }
                         }
-                        else
-                        {
-                            Log.Instance.Trace($"Invalid CPU power reading: {cpuPower}W, retry {retryCount + 1}/{MAX_RETRY_COUNT}");
-                        }
 
                         retryCount++;
-                        if (retryCount < MAX_RETRY_COUNT)
+                        if (retryCount >= MAX_RETRY_COUNT)
                         {
-                            await Task.Delay(RETRY_DELAY_MS, token);
+                            continue;
                         }
+                        await Task.Delay(RETRY_DELAY_MS, token);
+                        await _sensorsGroupController.UpdateAsync().WaitAsync(token);
                     }
-                    catch (Exception ex)
+                    catch
                     {
-                        Log.Instance.Trace($"Error in power readings (attempt {retryCount + 1}/{MAX_RETRY_COUNT}): {ex.Message}", ex);
                         retryCount++;
                         if (retryCount < MAX_RETRY_COUNT)
                         {
@@ -218,13 +213,17 @@ public partial class StatusWindow
 
                 if (retryCount >= MAX_RETRY_COUNT)
                 {
-                    Log.Instance.Trace($"Failed to retrieve valid power readings after {MAX_RETRY_COUNT} attempts");
+                    Log.Instance.Trace($"Failed to get valid power after {MAX_RETRY_COUNT} attempts. CPU: {cpuPower}W, GPU: {gpuPower}W");
                 }
+            }
+            else
+            {
+                Log.Instance.Trace($"SensorsGroupController not initialized: {states}");
             }
         }
         catch (Exception ex)
         {
-            Log.Instance.Trace($"Error in power monitoring initialization: {ex.Message}", ex);
+            Log.Instance.Trace($"Error in power monitoring: {ex.Message}", ex);
         }
 
         return new(state, mode, godModePresetName, gpuStatus, batteryInformation, batteryState, hasUpdate, sensorsData, cpuPower, gpuPower);
@@ -490,10 +489,10 @@ public partial class StatusWindow
                     _currentRetryCount = 0;
                     await Task.Delay(TimeSpan.FromSeconds(_settings.Store.FloatingGadgetsRefreshInterval), token);
                 }
-                catch (OperationCanceledException) { /* Ignore */ }
+                catch (OperationCanceledException) { }
                 catch (Exception ex)
                 {
-                    Log.Instance.Trace($"Exception occurred when executing TheRing()", ex);
+                    Log.Instance.Trace($"Exception in loop: {ex.Message}", ex);
 
                     if (_currentRetryCount < MAX_RETRY_COUNT)
                     {
