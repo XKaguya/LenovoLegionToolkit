@@ -2605,7 +2605,7 @@
     <value>Precision Boost Overdrive 提高频率</value>
   </data>
   <data name="GodModeSettingsWindow_PrecisionBoostOverdriveBoostFrequency_Description" xml:space="preserve">
-    <value>调整 Precision Boost Overdrive 提高频率</value>
+    <value>调整 Precision Boost Overdrive 提高频率。</value>
   </data>
   <data name="GodModeSettingsWindow_AllCoreCurveOptimizer_Title" xml:space="preserve">
     <value>全核电压曲线调节</value>
@@ -2617,12 +2617,12 @@
     <value>高级超频选项</value>
   </data>
   <data name="GodModeSettingsWindow_Toggle_OC_Message" xml:space="preserve">
-    <value>启用 / 禁用 高级超频选项</value>
+    <value>启用 / 禁用 高级超频选项。</value>
   </data>
   <data name="GodModeSettingsWindow_Toggle_CoreCurve_Title" xml:space="preserve">
     <value>全核电压曲线调节</value>
   </data>
   <data name="GodModeSettingsWindow_Toggle_CoreCurve_Message" xml:space="preserve">
-    <value>启用 / 关闭 全核电压调节。关闭后全核电压数据将不会被应用。</value>
+    <value>启用 / 关闭 全核电压调节，关闭后全核电压数据将不会被应用。</value>
   </data>
 </root>
