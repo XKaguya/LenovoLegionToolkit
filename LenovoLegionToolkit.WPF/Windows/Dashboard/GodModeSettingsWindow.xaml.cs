@@ -138,8 +138,8 @@ public partial class GodModeSettingsWindow
                 PrecisionBoostOverdriveScaler = preset.PrecisionBoostOverdriveScaler?.WithValue(_cpuPrecisionBoostOverdriveScaler.Value),
                 PrecisionBoostOverdriveBoostFrequency = preset.PrecisionBoostOverdriveBoostFrequency?.WithValue(_cpuPrecisionBoostOverdriveBoostFrequency.Value),
                 AllCoreCurveOptimizer = preset.AllCoreCurveOptimizer?.WithValue(_cpuAllCoreCurveOptimizer.Value),
-                EnableAllCoreCurveOptimizer = preset.EnableAllCoreCurveOptimizer is not null ? _coreCurveToggle.IsChecked : null,
-                EnableOverclocking = preset.EnableOverclocking is not null ? _overclockingToggle.IsChecked : null,
+                EnableAllCoreCurveOptimizer = _toggleCoreCurveCard.Visibility == Visibility.Visible ? _coreCurveToggle.IsChecked : preset.EnableAllCoreCurveOptimizer,
+                EnableOverclocking = _toggleOcCard.Visibility == Visibility.Visible ? _overclockingToggle.IsChecked : preset.EnableOverclocking,
             };
 
             var newPresets = new Dictionary<Guid, GodModePreset>(_state.Value.Presets)
@@ -270,9 +270,7 @@ public partial class GodModeSettingsWindow
             _advancedSectionMessage.Visibility = advancedSectionVisible ? Visibility.Visible : Visibility.Collapsed;
 
             _overclockingToggle.IsChecked = preset.EnableOverclocking;
-
-            if (preset.EnableAllCoreCurveOptimizer.HasValue)
-                _coreCurveToggle.IsChecked = preset.EnableAllCoreCurveOptimizer.Value;
+            _coreCurveToggle.IsChecked = preset.EnableAllCoreCurveOptimizer;
 
             if (preset.EnableOverclocking.HasValue)
                 await UpdateOverclockingVisibilityAsync();
