@@ -543,82 +543,61 @@ public class SpectrumKeyboardBacklightController
 
     private async Task<SafeFileHandle?> GetDeviceHandleAsync2()
     {
-        SafeFileHandle? TryGetDevice(SafeFileHandle? handle) =>
-            handle is not null && IsReady(handle) ? handle : null;
+        if (ForceDisable) return null;
 
-        var devices = Devices.GetSpectrumRGBKeyboards(true);
-        SafeFileHandle? finalDevice = null;
-
-        foreach (var device in devices)
+        using (await GetDeviceHandleLock.LockAsync().ConfigureAwait(false))
         {
-            finalDevice = await GetDeviceHandleAsyncEx(device).ConfigureAwait(false);
-
-            if (TryGetDevice(finalDevice) is not null)
+            if (IsReady(_deviceHandle!))
             {
-                return finalDevice;
+                return _deviceHandle;
+            }
+        }
+
+        var devices = Devices.GetSpectrumRGBKeyboards(forceRefresh: true);
+
+        foreach (var candidateDevice in devices)
+        {
+            var handle = await TryInitializeDeviceAsync(candidateDevice).ConfigureAwait(false);
+
+            if (handle is not null)
+            {
+                return handle;
             }
         }
 
         return null;
     }
 
-    private async Task<SafeFileHandle?> GetDeviceHandleAsyncEx(SafeFileHandle? device)
+    private async Task<SafeFileHandle?> TryInitializeDeviceAsync(SafeFileHandle candidateDevice)
     {
-        if (ForceDisable)
-            return null;
-
         try
         {
             using (await GetDeviceHandleLock.LockAsync().ConfigureAwait(false))
             {
-                if (_deviceHandle is not null && IsReady(_deviceHandle))
+                if (IsReady(_deviceHandle!))
+                {
                     return _deviceHandle;
-
-                SafeFileHandle? newDeviceHandle = null;
-
-                const int retries = 3;
-                const int delay = 50;
-
-                for (var i = 0; i < retries; i++)
-                {
-                    Log.Instance.Trace($"Refreshing handle... [retry={i + 1}]");
-
-                    if (device != null)
-                    {
-                        newDeviceHandle = device;
-                        break;
-                    }
-
-                    await Task.Delay(delay).ConfigureAwait(false);
                 }
 
-                if (newDeviceHandle is null)
-                {
-                    Log.Instance.Trace($"Handle couldn't be refreshed.");
-
-                    return null;
-                }
-
-                SetAndGetFeature(newDeviceHandle,
+                SetAndGetFeature(candidateDevice,
                     new LENOVO_SPECTRUM_GET_COMPATIBILITY_REQUEST(),
                     out LENOVO_SPECTRUM_GET_COMPATIBILITY_RESPONSE res);
 
                 if (!res.IsCompatible)
                 {
                     Log.Instance.Trace($"Handle not compatible.");
-
                     return null;
                 }
 
-                Log.Instance.Trace($"Handle refreshed.");
-
                 Log.Instance.Trace($"SpectrumKeyboard found and compatible.");
-                _deviceHandle = newDeviceHandle;
-                return newDeviceHandle;
+                _deviceHandle = candidateDevice;
+
+                return _deviceHandle;
             }
         }
-        catch
+        catch (Exception ex)
         {
+            Log.Instance.Trace($"Error initializing device: {ex.Message}");
             return null;
         }
     }

@@ -423,6 +423,18 @@ public readonly struct HardwareId(string vendor, string device)
     #endregion
 }
 
+public readonly struct HidDeviceConfig(
+    ushort vendorId,
+    ushort productIdMasked,
+    ushort productIdMask,
+    ushort descriptorLength)
+{
+    public ushort VendorId { get; } = vendorId;
+    public ushort ProductIdMasked { get; } = productIdMasked;
+    public ushort ProductIdMask { get; } = productIdMask;
+    public ushort DescriptorLength { get; } = descriptorLength;
+}
+
 public readonly struct MachineInformation
 {
     public readonly struct FeatureData(FeatureData.SourceType sourceType, IEnumerable<CapabilityID> capabilities)
