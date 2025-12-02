@@ -45,7 +45,7 @@ public readonly struct DashboardGroup(DashboardGroupType type, string? customNam
                 DashboardItem.WinKeyLock)
         };
 
-        if (mi.LegionSeries == LegionSeries.ThinkBook || mi.LegionSeries == LegionSeries.IdeaPad)
+        if (mi.LegionSeries is LegionSeries.ThinkBook or LegionSeries.IdeaPad)
         {
             var powerGroup = groups.First(g => g.Type == DashboardGroupType.Power);
             var items = powerGroup.Items.ToList();

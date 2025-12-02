@@ -300,22 +300,22 @@ public static class Devices
             const ushort descriptorLength = 0x03C0;
 
             // Legion 9
-            const ushort productIdMasked_NX = 0xC900;
-            const ushort productIdMask_NX = 0xFF00;
+            const ushort productIdMaskedNx = 0xC900;
+            const ushort productIdMaskNx = 0xFF00;
 
             var mi = Compatibility.GetMachineInformationAsync().Result;
 
-            if (mi.LegionSeries == LegionSeries.Legion_Pro_7 && mi.Generation >= 10)
+            if (mi is { LegionSeries: LegionSeries.Legion_Pro_7, Generation: >= 10 })
             {
                 _spectrumRgbKeyboards = FindHidDevices(vendorId, productIdMask, productIdMasked, descriptorLength);
             }
             else if (mi.LegionSeries == LegionSeries.Legion_9)
             {
-                _spectrumRgbKeyboards = FindHidDevices(vendorId, productIdMask_NX, productIdMasked_NX, descriptorLength);
+                _spectrumRgbKeyboards = FindHidDevices(vendorId, productIdMaskNx, productIdMaskedNx, descriptorLength);
             }
             else
             {
-                _spectrumRgbKeyboards = FindHidDevices(vendorId, productIdMask_NX, productIdMasked_NX, descriptorLength);
+                _spectrumRgbKeyboards = FindHidDevices(vendorId, productIdMaskNx, productIdMaskedNx, descriptorLength);
             }
         }
 
