@@ -2927,6 +2927,24 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Enable / Disable Core Curve Adjustment. 的本地化字符串。
+        /// </summary>
+        public static string GodModeSettingsWindow_Toggle_CoreCurve_Message {
+            get {
+                return ResourceManager.GetString("GodModeSettingsWindow_Toggle_CoreCurve_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Core Curve Adjustment 的本地化字符串。
+        /// </summary>
+        public static string GodModeSettingsWindow_Toggle_CoreCurve_Title {
+            get {
+                return ResourceManager.GetString("GodModeSettingsWindow_Toggle_CoreCurve_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Enable / Disable Advanced Overclocking options. 的本地化字符串。
         /// </summary>
         public static string GodModeSettingsWindow_Toggle_OC_Message {

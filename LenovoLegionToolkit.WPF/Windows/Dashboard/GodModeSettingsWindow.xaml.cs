@@ -138,6 +138,7 @@ public partial class GodModeSettingsWindow
                 PrecisionBoostOverdriveScaler = preset.PrecisionBoostOverdriveScaler?.WithValue(_cpuPrecisionBoostOverdriveScaler.Value),
                 PrecisionBoostOverdriveBoostFrequency = preset.PrecisionBoostOverdriveBoostFrequency?.WithValue(_cpuPrecisionBoostOverdriveBoostFrequency.Value),
                 AllCoreCurveOptimizer = preset.AllCoreCurveOptimizer?.WithValue(_cpuAllCoreCurveOptimizer.Value),
+                EnableAllCoreCurveOptimizer = preset.EnableAllCoreCurveOptimizer is not null ? _coreCurveToggle.IsChecked : null,
                 EnableOverclocking = preset.EnableOverclocking is not null ? _overclockingToggle.IsChecked : null,
             };
 
@@ -269,6 +270,10 @@ public partial class GodModeSettingsWindow
             _advancedSectionMessage.Visibility = advancedSectionVisible ? Visibility.Visible : Visibility.Collapsed;
 
             _overclockingToggle.IsChecked = preset.EnableOverclocking;
+
+            if (preset.EnableAllCoreCurveOptimizer.HasValue)
+                _coreCurveToggle.IsChecked = preset.EnableAllCoreCurveOptimizer.Value;
+
             if (preset.EnableOverclocking.HasValue)
                 await UpdateOverclockingVisibilityAsync();
 
@@ -288,12 +293,27 @@ public partial class GodModeSettingsWindow
         _toggleOcCard.Visibility = isLegionOptimizeEnabled ? Visibility.Visible : Visibility.Collapsed;
 
         var ocVisible = (isLegionOptimizeEnabled && _overclockingToggle.IsChecked == true)
-                        ? Visibility.Visible
-                        : Visibility.Collapsed;
+            ? Visibility.Visible
+            : Visibility.Collapsed;
 
         _cpuPrecisionBoostOverdriveScaler.Visibility = ocVisible;
         _cpuPrecisionBoostOverdriveBoostFrequency.Visibility = ocVisible;
-        _cpuAllCoreCurveOptimizer.Visibility = ocVisible;
+
+        _toggleCoreCurveCard.Visibility = ocVisible;
+
+        await UpdateCoreCurveVisibilityAsync();
+    }
+
+    private async Task UpdateCoreCurveVisibilityAsync()
+    {
+        bool isCurveEnabled = _toggleCoreCurveCard.Visibility == Visibility.Visible &&
+                              _coreCurveToggle.IsChecked == true;
+
+        _cpuAllCoreCurveOptimizer.Visibility = isCurveEnabled
+            ? Visibility.Visible
+            : Visibility.Collapsed;
+
+        await Task.CompletedTask;
     }
 
     private async void SetDefaults(GodModeDefaults defaults)
@@ -311,6 +331,12 @@ public partial class GodModeSettingsWindow
         SetVal<int>(_cpuAllCoreCurveOptimizer, defaults.AllCoreCurveOptimizer, v => _cpuAllCoreCurveOptimizer.Value = v);
 
         SetVal<bool>(_overclockingToggle, defaults.EnableOverclocking, v => _overclockingToggle.IsChecked = v);
+        SetVal<bool>(_coreCurveToggle, defaults.EnableAllCoreCurveOptimizer, v => _coreCurveToggle.IsChecked = v);
+        SetVal<int>(_cpuAllCoreCurveOptimizer, defaults.AllCoreCurveOptimizer, v => _cpuAllCoreCurveOptimizer.Value = v);
+        SetVal<bool>(_overclockingToggle, defaults.EnableOverclocking, v => {
+            _overclockingToggle.IsChecked = v;
+            _ = UpdateOverclockingVisibilityAsync();
+        });
 
         SetVal<int>(_gpuPowerBoostControl, defaults.GPUPowerBoost, v => _gpuPowerBoostControl.Value = v);
         SetVal<int>(_gpuConfigurableTGPControl, defaults.GPUConfigurableTGP, v => _gpuConfigurableTGPControl.Value = v);
@@ -490,12 +516,26 @@ public partial class GodModeSettingsWindow
 
     private async void OverclockingToggle_Click(object sender, RoutedEventArgs e)
     {
-        if (_isRefreshing) return;
+        if (_isRefreshing)
+        {
+            return;
+        }
+
         await UpdateOverclockingVisibilityAsync();
     }
 
     private void SetVal<T>(Control control, T? value, Action<T> setter) where T : struct
     {
         if (control.Visibility == Visibility.Visible && value.HasValue) setter(value.Value);
+    }
+
+    private async void CoreCurveToggle_Click(object sender, RoutedEventArgs e)
+    {
+        if (_isRefreshing)
+        {
+            return;
+        }
+
+        await UpdateCoreCurveVisibilityAsync();
     }
 }

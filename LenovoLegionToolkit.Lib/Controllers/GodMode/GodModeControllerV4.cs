@@ -84,16 +84,21 @@ public class GodModeControllerV4(
         if (isOcEnabled && preset.EnableOverclocking == true)
         {
             await SetCPUOverclockingMode(true).ConfigureAwait(false);
+
             foreach (var (id, value) in overclockingData)
             {
-                if (value.HasValue)
+                if (!value.HasValue) continue;
+
+                if (id == CPUOverclockingID.AllCoreCurveOptimizer && preset.EnableAllCoreCurveOptimizer != true)
                 {
-                    Log.Instance.Trace($"Applying {id}: {value}...");
-                    await SetOCValueAsync(id, 17, value.Value).ConfigureAwait(false);
+                    continue;
                 }
+
+                Log.Instance.Trace($"Applying {id}: {value}...");
+                await SetOCValueAsync(id, 17, value.Value).ConfigureAwait(false);
             }
         }
-        else if (isOcEnabled && preset.EnableOverclocking == false)
+        else
         {
             await SetCPUOverclockingMode(false).ConfigureAwait(false);
             Log.Instance.Trace($"Overclocking is disabled.");
@@ -228,6 +233,7 @@ public class GodModeControllerV4(
                     PrecisionBoostOverdriveScaler = 0,
                     PrecisionBoostOverdriveBoostFrequency = 0,
                     AllCoreCurveOptimizer = 0,
+                    EnableAllCoreCurveOptimizer = false,
                     EnableOverclocking = false,
                 };
                 result[powerMode] = defaults;
@@ -311,6 +317,7 @@ public class GodModeControllerV4(
             PrecisionBoostOverdriveScaler = precisionBoostScaler,
             PrecisionBoostOverdriveBoostFrequency = precisionBoostFrequency,
             AllCoreCurveOptimizer = coreCurveOptimizer,
+            EnableAllCoreCurveOptimizer = false,
             EnableOverclocking = false,
         };
 

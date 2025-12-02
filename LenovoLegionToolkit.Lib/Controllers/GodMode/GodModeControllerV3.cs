@@ -225,6 +225,7 @@ public class GodModeControllerV3(
                     PrecisionBoostOverdriveScaler = 0,
                     PrecisionBoostOverdriveBoostFrequency = 0,
                     AllCoreCurveOptimizer = 0,
+                    EnableAllCoreCurveOptimizer = false,
                     EnableOverclocking = false,
                 };
                 result[powerMode] = defaults;
@@ -308,6 +309,7 @@ public class GodModeControllerV3(
             PrecisionBoostOverdriveScaler = precisionBoostScaler,
             PrecisionBoostOverdriveBoostFrequency = precisionBoostFrequency,
             AllCoreCurveOptimizer = coreCurveOptimizer,
+            EnableAllCoreCurveOptimizer = false,
             EnableOverclocking = false,
         };
 

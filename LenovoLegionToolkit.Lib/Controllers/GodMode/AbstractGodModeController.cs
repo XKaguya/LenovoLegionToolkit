@@ -94,6 +94,7 @@ public abstract class AbstractGodModeController(GodModeSettings settings)
                 PrecisionBoostOverdriveScaler = preset.PrecisionBoostOverdriveScaler,
                 PrecisionBoostOverdriveBoostFrequency = preset.PrecisionBoostOverdriveBoostFrequency,
                 AllCoreCurveOptimizer = preset.AllCoreCurveOptimizer,
+                EnableAllCoreCurveOptimizer = preset.EnableAllCoreCurveOptimizer,
                 EnableOverclocking = preset.EnableOverclocking,
             });
         }
@@ -214,6 +215,7 @@ public abstract class AbstractGodModeController(GodModeSettings settings)
                 PrecisionBoostOverdriveScaler = (isAmdDevice && pboScaler is null) ? scaler : preset.PrecisionBoostOverdriveScaler,
                 PrecisionBoostOverdriveBoostFrequency = (isAmdDevice && pboFreq is null) ? freq : preset.PrecisionBoostOverdriveBoostFrequency,
                 AllCoreCurveOptimizer = (isAmdDevice && allCoreCurve is null) ? curve : preset.AllCoreCurveOptimizer,
+                EnableAllCoreCurveOptimizer = (isAmdDevice && enableOverclocking is null) ? false : preset.EnableAllCoreCurveOptimizer,
                 EnableOverclocking = (isAmdDevice && enableOverclocking is null) ? false : preset.EnableOverclocking,
             });
         }

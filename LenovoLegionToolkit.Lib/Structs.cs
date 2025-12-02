@@ -305,6 +305,7 @@ public readonly struct GodModeDefaults
     public int? PrecisionBoostOverdriveScaler { get; init; }
     public int? PrecisionBoostOverdriveBoostFrequency { get; init; }
     public int? AllCoreCurveOptimizer { get; init; }
+    public bool? EnableAllCoreCurveOptimizer { get; init; }
     public bool? EnableOverclocking { get; init; }
     public int? GPUPowerBoost { get; init; }
     public int? GPUConfigurableTGP { get; init; }
@@ -352,6 +353,7 @@ public readonly struct GodModePreset
     public StepperValue? PrecisionBoostOverdriveScaler { get; init; }
     public StepperValue? PrecisionBoostOverdriveBoostFrequency { get; init; }
     public StepperValue? AllCoreCurveOptimizer { get; init; }
+    public bool? EnableAllCoreCurveOptimizer { get; init; }
     public bool? EnableOverclocking { get; init; }
     public StepperValue? GPUPowerBoost { get; init; }
     public StepperValue? GPUConfigurableTGP { get; init; }

@@ -23,6 +23,7 @@ public class GodModeSettings() : AbstractSettings<GodModeSettings.GodModeSetting
             public StepperValue? PrecisionBoostOverdriveScaler { get; init; }
             public StepperValue? PrecisionBoostOverdriveBoostFrequency { get; init; }
             public StepperValue? AllCoreCurveOptimizer { get; init; }
+            public bool? EnableAllCoreCurveOptimizer { get; init; }
             public bool? EnableOverclocking { get; init; }
             public StepperValue? GPUPowerBoost { get; init; }
             public StepperValue? GPUConfigurableTGP { get; init; }

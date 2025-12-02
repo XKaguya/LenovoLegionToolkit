@@ -2612,4 +2612,10 @@ Click Yes to disable and No to ignore.</value>
   <data name="GodModeSettingsWindow_Toggle_OC_Message" xml:space="preserve">
     <value>Enable / Disable Advanced Overclocking options.</value>
   </data>
+  <data name="GodModeSettingsWindow_Toggle_CoreCurve_Title" xml:space="preserve">
+    <value>Core Curve Adjustment</value>
+  </data>
+  <data name="GodModeSettingsWindow_Toggle_CoreCurve_Message" xml:space="preserve">
+    <value>Enable / Disable Core Curve Adjustment.</value>
+  </data>
 </root>
