@@ -251,7 +251,8 @@ public enum KeyboardLayout
 {
     Ansi,
     Iso,
-    Jis
+    Jis,
+    Keyboard24Zone,
 }
 
 public enum KnownFolder

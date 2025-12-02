@@ -105,11 +105,14 @@ public class SpectrumKeyboardBacklightController
             (22, 9) when mi.Properties.HasAlternativeFullSpectrumLayout => SpectrumLayout.FullAlternative,
             (22, 9) => SpectrumLayout.Full,
             (20, 8) => SpectrumLayout.KeyboardAndFront,
+            _ when mi.Properties.HasSpectrumProfileSwitchingBug => SpectrumLayout.KeyboardOnly,
             _ => SpectrumLayout.KeyboardOnly // (20, 7)
         };
 
         KeyboardLayout keyboardLayout;
-        if (keys.Contains(0xA9))
+        if (keys.Count == 0x18)
+            keyboardLayout = KeyboardLayout.Keyboard24Zone;
+        else if (keys.Contains(0xA9))
             keyboardLayout = KeyboardLayout.Jis;
         else if (keys.Contains(0xA8))
             keyboardLayout = KeyboardLayout.Iso;

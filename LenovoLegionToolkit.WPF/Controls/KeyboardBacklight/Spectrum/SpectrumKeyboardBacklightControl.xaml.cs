@@ -20,7 +20,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
 
 namespace LenovoLegionToolkit.WPF.Controls.KeyboardBacklight.Spectrum;
@@ -34,6 +33,8 @@ public partial class SpectrumKeyboardBacklightControl
     private readonly SpectrumKeyboardBacklightController _controller = IoCContainer.Resolve<SpectrumKeyboardBacklightController>();
     private readonly SpecialKeyListener _listener = IoCContainer.Resolve<SpecialKeyListener>();
     private readonly VantageDisabler _vantageDisabler = IoCContainer.Resolve<VantageDisabler>();
+    private readonly LegionSpaceDisabler _legionSpaceDisabler = IoCContainer.Resolve<LegionSpaceDisabler>();
+    private readonly LegionZoneDisabler _legionZoneDisabler = IoCContainer.Resolve<LegionZoneDisabler>();
     private readonly SpectrumKeyboardSettings _settings = IoCContainer.Resolve<SpectrumKeyboardSettings>();
 
     private CancellationTokenSource? _refreshStateCancellationTokenSource;
@@ -61,14 +62,6 @@ public partial class SpectrumKeyboardBacklightControl
         _listener.Changed += Listener_Changed;
 
         Focusable = false;
-        PreviewKeyDown += (s, e) =>
-        {
-            if (e.Key == Key.System && e.SystemKey == Key.LeftAlt)
-            {
-                e.Handled = true;
-                Keyboard.ClearFocus();
-            }
-        };
 
         MessagingCenter.Subscribe<SpectrumBacklightChangedMessage>(this, () => Dispatcher.InvokeTask(async () =>
         {
@@ -84,7 +77,7 @@ public partial class SpectrumKeyboardBacklightControl
     private async void SpectrumKeyboardBacklightControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
         // Temporary set to collapsed to avoid profile switching issue.
-        var mi = Compatibility.GetMachineInformationAsync().Result;
+        var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
         if (mi.Properties.HasSpectrumProfileSwitchingBug)
         {
             _profileButton2.Visibility = Visibility.Collapsed;
@@ -92,6 +85,13 @@ public partial class SpectrumKeyboardBacklightControl
             _profileButton4.Visibility = Visibility.Collapsed;
             _profileButton5.Visibility = Visibility.Collapsed;
             _profileButton6.Visibility = Visibility.Collapsed;
+            _layoutSwitchButton.Visibility = Visibility.Collapsed;
+
+            var (_, _, keys) = await _controller.GetKeyboardLayoutAsync().ConfigureAwait(false);
+            _device.SetLayout(SpectrumLayout.KeyboardOnly, KeyboardLayout.Keyboard24Zone, keys);
+
+            _settings.Store.KeyboardLayout = KeyboardLayout.Keyboard24Zone;
+            _settings.SynchronizeStore();
         }
 
         // Future codes for independent Ambient Aft RGB Zone control.
@@ -208,6 +208,7 @@ public partial class SpectrumKeyboardBacklightControl
             KeyboardLayout.Ansi => KeyboardLayout.Iso,
             KeyboardLayout.Iso => KeyboardLayout.Jis,
             KeyboardLayout.Jis => KeyboardLayout.Ansi,
+            KeyboardLayout.Keyboard24Zone => KeyboardLayout.Keyboard24Zone,
             _ => throw new ArgumentException(nameof(currentKeyboardLayout))
         };
 
@@ -310,12 +311,18 @@ public partial class SpectrumKeyboardBacklightControl
         if (!await _controller.IsSupportedAsync())
             throw new InvalidOperationException("Spectrum Keyboard does not seem to be supported");
 
+        var (spectrumLayout, keyboardLayout, keys) = await _controller.GetKeyboardLayoutAsync();
+
         var vantageStatus = await _vantageDisabler.GetStatusAsync();
-        if (vantageStatus == SoftwareStatus.Enabled)
+        var legionSpaceStatus = await _legionSpaceDisabler.GetStatusAsync();
+        var legionZoneStatus = await _legionZoneDisabler.GetStatusAsync();
+
+        if (vantageStatus is SoftwareStatus.Enabled || legionSpaceStatus is SoftwareStatus.Enabled || legionZoneStatus is SoftwareStatus.Enabled)
         {
             _vantageWarningInfoBar.IsOpen = true;
 
-            _device.SetLayout(SpectrumLayout.Full, KeyboardLayout.Ansi, []);
+
+            _device.SetLayout(spectrumLayout, keyboardLayout, keys);
             _content.IsEnabled = false;
 
             _noEffectsText.Visibility = Visibility.Collapsed;
@@ -323,8 +330,6 @@ public partial class SpectrumKeyboardBacklightControl
         }
 
         _vantageWarningInfoBar.IsOpen = false;
-
-        var (spectrumLayout, keyboardLayout, keys) = await _controller.GetKeyboardLayoutAsync();
 
         if (!_settings.Store.KeyboardLayout.HasValue)
         {

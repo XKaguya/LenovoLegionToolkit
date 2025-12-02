@@ -5,8 +5,7 @@
     <Grid>
         <Grid.RenderTransform>
             <TransformGroup>
-                <RotateTransform x:Name="_rotateTransform" Angle="0"/>
-                <!-- 可以添加其他变换如ScaleTransform等 -->
+                <RotateTransform x:Name="_rotateTransform" Angle="0" />
             </TransformGroup>
         </Grid.RenderTransform>
         <Border
