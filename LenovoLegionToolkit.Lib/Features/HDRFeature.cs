@@ -14,7 +14,7 @@ public class HDRFeature : IFeature<HDRState>
         {
             Log.Instance.Trace($"Checking HDR support...");
 
-            var display = await InternalDisplay.GetAsync().ConfigureAwait(true);
+            var display = await InternalDisplay.GetAsync().ConfigureAwait(false);
             if (display is null)
             {
                 Log.Instance.Trace($"Built in display not found");
@@ -38,7 +38,7 @@ public class HDRFeature : IFeature<HDRState>
 
     public async Task<bool> IsHdrBlockedAsync()
     {
-        var display = await InternalDisplay.GetAsync().ConfigureAwait(true);
+        var display = await InternalDisplay.GetAsync().ConfigureAwait(false);
 
         if (display is null)
             throw new InvalidOperationException("Built in display not found");
@@ -53,7 +53,7 @@ public class HDRFeature : IFeature<HDRState>
     {
         Log.Instance.Trace($"Getting current HDR state...");
 
-        var display = await InternalDisplay.GetAsync().ConfigureAwait(true);
+        var display = await InternalDisplay.GetAsync().ConfigureAwait(false);
 
         if (display is null)
             throw new InvalidOperationException("Built in display not found");
@@ -75,7 +75,7 @@ public class HDRFeature : IFeature<HDRState>
             return;
         }
 
-        var display = await InternalDisplay.GetAsync().ConfigureAwait(true);
+        var display = await InternalDisplay.GetAsync().ConfigureAwait(false);
 
         if (display is null)
             throw new InvalidOperationException("Built in display not found");

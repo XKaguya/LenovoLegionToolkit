@@ -180,7 +180,7 @@ public partial class App
             Log.Instance.Trace($"Lenovo Legion Toolkit Version {Assembly.GetEntryAssembly()?.GetName().Version}");
         }
 
-        await Compatibility.PrintControllerVersionAsync();
+        await Compatibility.PrintControllerVersionAsync().ConfigureAwait(false);
         CheckFloatingGadget();
 
         Log.Instance.Trace($"Start up complete");

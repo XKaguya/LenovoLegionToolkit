@@ -17,7 +17,7 @@ public class ResolutionFeature : IFeature<Resolution>
     {
         Log.Instance.Trace($"Getting all resolutions...");
 
-        var display = await InternalDisplay.GetAsync().ConfigureAwait(true);
+        var display = await InternalDisplay.GetAsync().ConfigureAwait(false);
         if (display is null)
         {
             Log.Instance.Trace($"Built in display not found");
@@ -48,7 +48,7 @@ public class ResolutionFeature : IFeature<Resolution>
     {
         Log.Instance.Trace($"Getting current resolution...");
 
-        var display = await InternalDisplay.GetAsync().ConfigureAwait(true);
+        var display = await InternalDisplay.GetAsync().ConfigureAwait(false);
         if (display is null)
         {
             Log.Instance.Trace($"Built in display not found");
@@ -66,7 +66,7 @@ public class ResolutionFeature : IFeature<Resolution>
 
     public async Task SetStateAsync(Resolution state)
     {
-        var display = await InternalDisplay.GetAsync().ConfigureAwait(true);
+        var display = await InternalDisplay.GetAsync().ConfigureAwait(false);
         if (display is null)
         {
             Log.Instance.Trace($"Built in display not found");

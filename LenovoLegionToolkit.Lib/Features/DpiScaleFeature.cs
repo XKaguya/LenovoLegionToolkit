@@ -9,13 +9,13 @@ namespace LenovoLegionToolkit.Lib.Features;
 
 public class DpiScaleFeature : IFeature<DpiScale>
 {
-    public Task<bool> IsSupportedAsync() => Task.FromResult(true);
+    public Task<bool> IsSupportedAsync() => Task.FromResult(false);
 
     public async Task<DpiScale[]> GetAllStatesAsync()
     {
         Log.Instance.Trace($"Getting all DPI scales...");
 
-        var display = await InternalDisplay.GetAsync().ConfigureAwait(true);
+        var display = await InternalDisplay.GetAsync().ConfigureAwait(false);
         var pds = display?.ToPathDisplaySource();
         if (pds is null)
         {
@@ -44,7 +44,7 @@ public class DpiScaleFeature : IFeature<DpiScale>
     {
         Log.Instance.Trace($"Getting current DPI scale...");
 
-        var display = await InternalDisplay.GetAsync().ConfigureAwait(true);
+        var display = await InternalDisplay.GetAsync().ConfigureAwait(false);
         var pds = display?.ToPathDisplaySource();
         if (pds is null)
         {
@@ -62,7 +62,7 @@ public class DpiScaleFeature : IFeature<DpiScale>
 
     public async Task SetStateAsync(DpiScale state)
     {
-        var display = await InternalDisplay.GetAsync().ConfigureAwait(true);
+        var display = await InternalDisplay.GetAsync().ConfigureAwait(false);
         var pds = display?.ToPathDisplaySource();
         if (pds is null)
         {
