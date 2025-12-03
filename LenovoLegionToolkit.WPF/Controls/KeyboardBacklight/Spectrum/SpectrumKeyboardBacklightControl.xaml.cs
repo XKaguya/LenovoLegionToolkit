@@ -77,6 +77,9 @@ public partial class SpectrumKeyboardBacklightControl
 
     private async void SpectrumKeyboardBacklightControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
+        if (!IsLoaded || Application.Current == null)
+            return;
+
         // Temporary set to collapsed to avoid profile switching issue.
         var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
         if (mi.Properties.HasSpectrumProfileSwitchingBug)
@@ -89,6 +92,7 @@ public partial class SpectrumKeyboardBacklightControl
             _layoutSwitchButton.Visibility = Visibility.Collapsed;
 
             var (_, _, keys) = await _controller.GetKeyboardLayoutAsync().ConfigureAwait(false);
+
 
             await Application.Current.Dispatcher.InvokeAsync(() =>
             {
