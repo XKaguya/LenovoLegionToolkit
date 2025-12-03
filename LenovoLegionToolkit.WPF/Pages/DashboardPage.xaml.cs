@@ -11,7 +11,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using Wpf.Ui.Common;
 using Wpf.Ui.Controls;
 
@@ -28,14 +27,6 @@ public partial class DashboardPage
     public DashboardPage()
     {
         InitializeComponent();
-
-        PreviewKeyDown += (s, e) => {
-            if (e.Key == Key.System && e.SystemKey == Key.LeftAlt)
-            {
-                e.Handled = true;
-                Keyboard.ClearFocus();
-            }
-        };
 
         if (!_settings.Store.UseNewSensorDashboard)
         {

@@ -231,24 +231,28 @@ public partial class App
         MainWindowInstance = mainWindow;
         mainWindow.Show();
 
-        if (FloatingGadget != null)
+        if (FloatingGadget == null)
         {
-            FloatingGadget.Hide();
-
-            var type = FloatingGadget.GetType();
-            var windowConstructors = new Dictionary<Type, Func<Window>>
-            {
-                { typeof(FloatingGadget), () => new FloatingGadget() },
-                { typeof(FloatingGadgetUpper), () => new FloatingGadgetUpper() }
-            };
-
-            if (windowConstructors.TryGetValue(type, out var constructor))
-            {
-                FloatingGadget.Close();
-                FloatingGadget = constructor();
-                FloatingGadget.Show();
-            }
+            return;
         }
+
+        FloatingGadget.Hide();
+
+        var type = FloatingGadget.GetType();
+        var windowConstructors = new Dictionary<Type, Func<Window>>
+        {
+            { typeof(FloatingGadget), () => new FloatingGadget() },
+            { typeof(FloatingGadgetUpper), () => new FloatingGadgetUpper() }
+        };
+
+        if (!windowConstructors.TryGetValue(type, out var constructor))
+        {
+            return;
+        }
+
+        FloatingGadget.Close();
+        FloatingGadget = constructor();
+        FloatingGadget.Show();
     }
 
     protected override void OnExit(ExitEventArgs e)
@@ -335,30 +339,35 @@ public partial class App
 
     private void LogUnhandledException(Exception exception)
     {
-        if (exception == null) return;
+        if (exception == null)
+        {
+            return;
+        }
 
         Log.Instance.Trace($"Exception in LogUnhandledException {exception.Message}", exception);
 
         string userMessage = GetFriendlyErrorMessage(exception);
 
-        if (Application.Current != null)
+        if (Application.Current == null)
         {
-            Action showSnackbarAction = () =>
-            {
-                SnackbarHelper.Show(
-                    Resource.UnexpectedException,
-                    userMessage,
-                    SnackbarType.Error);
-            };
+            return;
+        }
 
-            if (Application.Current.Dispatcher.CheckAccess())
-            {
-                showSnackbarAction();
-            }
-            else
-            {
-                Application.Current.Dispatcher.BeginInvoke(showSnackbarAction);
-            }
+        Action showSnackbarAction = () =>
+        {
+            SnackbarHelper.Show(
+                Resource.UnexpectedException,
+                userMessage,
+                SnackbarType.Error);
+        };
+
+        if (Application.Current.Dispatcher.CheckAccess())
+        {
+            showSnackbarAction();
+        }
+        else
+        {
+            Application.Current.Dispatcher.BeginInvoke(showSnackbarAction);
         }
     }
 
@@ -369,12 +378,7 @@ public partial class App
             return GetInnermostException(aggEx.InnerExceptions[0]);
         }
 
-        if (ex.InnerException != null)
-        {
-            return GetInnermostException(ex.InnerException);
-        }
-
-        return ex;
+        return ex.InnerException != null ? GetInnermostException(ex.InnerException) : ex;
     }
 
     private string GetFriendlyErrorMessage(Exception ex)
@@ -390,11 +394,11 @@ public partial class App
 
     private bool ShouldIgnoreException(Exception ex)
     {
-        List<Type> ignoreExceptionTypes = new()
-        {
+        List<Type> ignoreExceptionTypes =
+        [
             typeof(ManagementException),
-            typeof(OperationCanceledException),
-        };
+            typeof(OperationCanceledException)
+        ];
 
         if (ignoreExceptionTypes.Contains(ex.GetType()))
         {
@@ -403,13 +407,7 @@ public partial class App
 
         if (ex is AggregateException aggregateException)
         {
-            foreach (var innerException in aggregateException.InnerExceptions)
-            {
-                if (ShouldIgnoreException(innerException))
-                {
-                    return true;
-                }
-            }
+            return aggregateException.InnerExceptions.Any(ShouldIgnoreException);
         }
         else if (ex.InnerException != null)
         {
@@ -473,29 +471,26 @@ public partial class App
         }
 
         ApplicationSettings settings = IoCContainer.Resolve<ApplicationSettings>();
-        if (settings.Store.ShowFloatingGadgets)
-        {
-            if (FloatingGadget != null)
-            {
-                FloatingGadget.Show();
-            }
-            else
-            {
-                if (settings.Store.SelectedStyleIndex == 0)
-                {
-                    FloatingGadget = new FloatingGadget();
-                }
-                else if (settings.Store.SelectedStyleIndex == 1)
-                {
-                    FloatingGadget = new FloatingGadgetUpper();
-                }
-                else
-                {
-                    FloatingGadget = new FloatingGadget();
-                }
 
-                FloatingGadget!.Show();
-            }
+        if (!settings.Store.ShowFloatingGadgets)
+        {
+            return;
+        }
+
+        if (FloatingGadget != null)
+        {
+            FloatingGadget.Show();
+        }
+        else
+        {
+            FloatingGadget = settings.Store.SelectedStyleIndex switch
+            {
+                0 => new FloatingGadget(),
+                1 => new FloatingGadgetUpper(),
+                _ => new FloatingGadget()
+            };
+
+            FloatingGadget!.Show();
         }
     }
 
@@ -649,16 +644,20 @@ public partial class App
         try
         {
             ApplicationSettings settings = IoCContainer.Resolve<ApplicationSettings>();
-            if (settings.Store.EnableLogging)
+            if (!settings.Store.EnableLogging)
             {
-                if (App.Current.MainWindow is not MainWindow mainWindow)
-                    return;
-
-                Log.Instance.IsTraceEnabled = settings.Store.EnableLogging;
-                mainWindow._openLogIndicator.Visibility = BooleanToVisibilityConverter.Convert(settings.Store.EnableLogging);
-
-                Compatibility.PrintMachineInfo();
+                return;
             }
+
+            if (Current.MainWindow is not MainWindow mainWindow)
+            {
+                return;
+            }
+
+            Log.Instance.IsTraceEnabled = settings.Store.EnableLogging;
+            mainWindow._openLogIndicator.Visibility = BooleanToVisibilityConverter.Convert(settings.Store.EnableLogging);
+
+            Compatibility.PrintMachineInfo();
         }
         catch (Exception ex)
         {
@@ -747,7 +746,7 @@ public partial class App
                 try
                 {
                     LibreHardwareMonitorInitialState state = await feature.IsSupportedAsync();
-                    if (state == LibreHardwareMonitorInitialState.Initialized || state == LibreHardwareMonitorInitialState.Success)
+                    if (state is LibreHardwareMonitorInitialState.Initialized or LibreHardwareMonitorInitialState.Success)
                     {
                         Log.Instance.Trace($"Init sensor group controller feature.");
                     }
@@ -757,7 +756,7 @@ public partial class App
                     }
                 }
                 // Why this branch can execute ?
-                // Now i see.
+                // Now I see.
                 catch (Exception ex)
                 {
                     Log.Instance.Trace($"InitSensorsGroupControllerFeatureAsync() raised exception:", ex);
@@ -807,14 +806,7 @@ public partial class App
                 Log.Instance.Trace($"Starting Aurora if needed...");
 
                 var result = await controller.StartAuroraIfNeededAsync();
-                if (result)
-                {
-                    Log.Instance.Trace($"Aurora started.");
-                }
-                else
-                {
-                     Log.Instance.Trace($"Aurora not needed.");
-                }
+                Log.Instance.Trace(result ? (FormattableString)$"Aurora started." : (FormattableString)$"Aurora not needed.");
             }
             else
             {
@@ -837,14 +829,7 @@ public partial class App
                 Log.Instance.Trace($"Ensuring GPU overclock is applied...");
 
                 var result = await controller.EnsureOverclockIsAppliedAsync();
-                if (result)
-                {
-                    Log.Instance.Trace($"GPU overclock applied.");
-                }
-                else
-                {
-                    Log.Instance.Trace($"GPU overclock not needed.");
-                }
+                Log.Instance.Trace(result ? (FormattableString)$"GPU overclock applied." : (FormattableString)$"GPU overclock not needed.");
             }
             else
             {
