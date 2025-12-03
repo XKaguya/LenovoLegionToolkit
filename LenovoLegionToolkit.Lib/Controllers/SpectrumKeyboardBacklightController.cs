@@ -101,10 +101,10 @@ public class SpectrumKeyboardBacklightController
 
         var spectrumLayout = (width, height) switch
         {
+            _ when mi.Properties.HasSpectrumProfileSwitchingBug => SpectrumLayout.KeyboardOnly,
             (22, 9) when mi.Properties.HasAlternativeFullSpectrumLayout => SpectrumLayout.FullAlternative,
             (22, 9) => SpectrumLayout.Full,
             (20, 8) => SpectrumLayout.KeyboardAndFront,
-            _ when mi.Properties.HasSpectrumProfileSwitchingBug => SpectrumLayout.KeyboardOnly,
             _ => SpectrumLayout.KeyboardOnly
         };
 

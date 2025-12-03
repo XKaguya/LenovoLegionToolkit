@@ -16,6 +16,7 @@ using Microsoft.Win32;
 using NeoSmart.AsyncLock;
 using System;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -88,7 +89,11 @@ public partial class SpectrumKeyboardBacklightControl
             _layoutSwitchButton.Visibility = Visibility.Collapsed;
 
             var (_, _, keys) = await _controller.GetKeyboardLayoutAsync().ConfigureAwait(false);
-            _device.SetLayout(SpectrumLayout.KeyboardOnly, KeyboardLayout.Keyboard24Zone, keys);
+
+            await Application.Current.Dispatcher.InvokeAsync(() =>
+            {
+                _device.SetLayout(SpectrumLayout.KeyboardOnly, KeyboardLayout.Keyboard24Zone, keys);
+            });
 
             _settings.Store.KeyboardLayout = KeyboardLayout.Keyboard24Zone;
             _settings.SynchronizeStore();
