@@ -603,10 +603,12 @@ public static partial class Compatibility
         var affectedSeries = new LegionSeries[]
         {
             LegionSeries.Legion_5,
+            LegionSeries.Legion_Pro_5,
         };
 
         var affectedModel = new List<string>
         {
+            "16IAX10H",
             "15IRX10",
             "15AHP10"
         };
