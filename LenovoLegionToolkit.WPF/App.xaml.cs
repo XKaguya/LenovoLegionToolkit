@@ -177,10 +177,10 @@ public partial class App
 
         if (Log.Instance.IsTraceEnabled)
         {
-            Log.Instance.Trace($"Lenovo Legion Toolit Version {Assembly.GetEntryAssembly()?.GetName().Version}");
+            Log.Instance.Trace($"Lenovo Legion Toolkit Version {Assembly.GetEntryAssembly()?.GetName().Version}");
         }
 
-        Compatibility.PrintControllerVersion();
+        await Compatibility.PrintControllerVersionAsync();
         CheckFloatingGadget();
 
         Log.Instance.Trace($"Start up complete");

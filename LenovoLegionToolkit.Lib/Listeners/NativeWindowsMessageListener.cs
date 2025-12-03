@@ -143,26 +143,7 @@ public class NativeWindowsMessageListener : NativeWindow, IListener<NativeWindow
 
                 if (devBroadcastDeviceInterface.dbcc_classguid == PInvoke.GUID_DEVINTERFACE_MONITOR)
                 {
-                    var id = InternalDisplay.Get();
-                    var isExternal = !name.Equals(id?.DevicePath, StringComparison.Ordinal);
-
-                    switch (state)
-                    {
-                        case PInvoke.DBT_DEVICEARRIVAL:
-                            {
-                                Log.Instance.Trace($"Event received: Monitor Connected");
-
-                                OnMonitorConnected(isExternal);
-                                break;
-                            }
-                        case PInvoke.DBT_DEVICEREMOVECOMPLETE:
-                            {
-                                Log.Instance.Trace($"Event received: Monitor Disconnected");
-
-                                OnMonitorDisconnected(isExternal);
-                                break;
-                            }
-                    }
+                    HandleMonitorEvent(name, state);
                 }
             }
         }
@@ -235,6 +216,38 @@ public class NativeWindowsMessageListener : NativeWindow, IListener<NativeWindow
         {
             Log.Instance.Trace($"Delay expired, state might be inconsistent! [IsMonitorOn={IsMonitorOn}, IsLidOpen={IsLidOpen}]");
         }
+    }
+
+    private void HandleMonitorEvent(string name, uint state)
+    {
+        Task.Run(async () =>
+        {
+            try
+            {
+                var id = await InternalDisplay.GetAsync().ConfigureAwait(false);
+                var isExternal = !name.Equals(id?.DevicePath, StringComparison.Ordinal);
+
+                switch (state)
+                {
+                    case PInvoke.DBT_DEVICEARRIVAL:
+                    {
+                        Log.Instance.Trace($"Event received: Monitor Connected");
+                        OnMonitorConnected(isExternal);
+                        break;
+                    }
+                    case PInvoke.DBT_DEVICEREMOVECOMPLETE:
+                    {
+                        Log.Instance.Trace($"Event received: Monitor Disconnected");
+                        OnMonitorDisconnected(isExternal);
+                        break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.Trace($"Error handling monitor event", ex);
+            }
+        });
     }
 
     private void OnMonitorOn()

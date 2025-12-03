@@ -791,15 +791,18 @@ public static partial class Compatibility
         return lines;
     }
 
-    public static void PrintControllerVersion()
+    public static async Task PrintControllerVersionAsync()
     {
-        SensorsController? sensorsController = IoCContainer.Resolve<SensorsController>();
-        var sensorsControllerTypeName = sensorsController?.GetControllerAsync().Result?.GetType().Name ?? "Null SensorsController or Result";
+        SensorsController sensorsController = IoCContainer.Resolve<SensorsController>();
+
+        var sensorCtrl = await sensorsController.GetControllerAsync().ConfigureAwait(true);
+        var sensorsControllerTypeName = sensorCtrl?.GetType().Name ?? "Null SensorsController or Result";
         Log.Instance.Trace($"Using {sensorsControllerTypeName}");
 
+        GodModeController godModeController = IoCContainer.Resolve<GodModeController>();
 
-        GodModeController? godModeController = IoCContainer.Resolve<GodModeController>();
-        var godModeControllerTypeName = godModeController?.GetControllerAsync().Result?.GetType().Name ?? "Null GodModeController or Result";
+        var godModeCtrl = await godModeController.GetControllerAsync().ConfigureAwait(true);
+        var godModeControllerTypeName = godModeCtrl?.GetType().Name ?? "Null GodModeController or Result";
         Log.Instance.Trace($"Using {godModeControllerTypeName}");
     }
 }

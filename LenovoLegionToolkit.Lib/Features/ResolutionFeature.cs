@@ -13,16 +13,16 @@ public class ResolutionFeature : IFeature<Resolution>
 {
     public Task<bool> IsSupportedAsync() => Task.FromResult(true);
 
-    public Task<Resolution[]> GetAllStatesAsync()
+    public async Task<Resolution[]> GetAllStatesAsync()
     {
         Log.Instance.Trace($"Getting all resolutions...");
 
-        var display = InternalDisplay.Get();
+        var display = await InternalDisplay.GetAsync().ConfigureAwait(true);
         if (display is null)
         {
             Log.Instance.Trace($"Built in display not found");
 
-            return Task.FromResult(Array.Empty<Resolution>());
+            return [];
         }
 
         Log.Instance.Trace($"Built in display found: {display}");
@@ -41,19 +41,19 @@ public class ResolutionFeature : IFeature<Resolution>
 
         Log.Instance.Trace($"Possible resolutions are {string.Join(", ", result)}");
 
-        return Task.FromResult(result);
+        return result;
     }
 
-    public Task<Resolution> GetStateAsync()
+    public async Task<Resolution> GetStateAsync()
     {
         Log.Instance.Trace($"Getting current resolution...");
 
-        var display = InternalDisplay.Get();
+        var display = await InternalDisplay.GetAsync().ConfigureAwait(true);
         if (display is null)
         {
             Log.Instance.Trace($"Built in display not found");
 
-            return Task.FromResult(default(Resolution));
+            return default(Resolution);
         }
 
         var currentSettings = display.CurrentSetting;
@@ -61,12 +61,12 @@ public class ResolutionFeature : IFeature<Resolution>
 
         Log.Instance.Trace($"Current resolution is {result} [currentSettings={currentSettings.ToExtendedString()}]");
 
-        return Task.FromResult(result);
+        return result;
     }
 
-    public Task SetStateAsync(Resolution state)
+    public async Task SetStateAsync(Resolution state)
     {
-        var display = InternalDisplay.Get();
+        var display = await InternalDisplay.GetAsync().ConfigureAwait(true);
         if (display is null)
         {
             Log.Instance.Trace($"Built in display not found");
@@ -78,8 +78,7 @@ public class ResolutionFeature : IFeature<Resolution>
         if (currentSettings.Resolution == state)
         {
             Log.Instance.Trace($"Resolution already set to {state}");
-
-            return Task.CompletedTask;
+            return;
         }
 
         var possibleSettings = display.GetPossibleSettings();
@@ -104,8 +103,6 @@ public class ResolutionFeature : IFeature<Resolution>
         {
             Log.Instance.Trace($"Could not find matching settings for resolution {state}");
         }
-
-        return Task.CompletedTask;
     }
 
     private static bool Match(DisplayPossibleSetting dps, DisplayPossibleSetting ds)

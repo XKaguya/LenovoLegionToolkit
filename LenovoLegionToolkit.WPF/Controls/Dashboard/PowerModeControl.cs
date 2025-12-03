@@ -78,9 +78,15 @@ public class PowerModeControl : AbstractComboBoxFeatureCardControl<PowerModeStat
     {
         await base.OnStateChangeAsync(comboBox, feature, newValue, oldValue);
 
+        if (newValue is null)
+        {
+            return;
+        }
+
         var mi = await Compatibility.GetMachineInformationAsync();
         var adapterStatus = await Power.IsPowerAdapterConnectedAsync();
-        bool isAdapterConnected = adapterStatus is PowerAdapterStatus.Connected or PowerAdapterStatus.ConnectedLowWattage;
+
+        bool isAdapterConnected = adapterStatus != PowerAdapterStatus.Disconnected;
 
         bool shouldShowButton = newValue switch
         {

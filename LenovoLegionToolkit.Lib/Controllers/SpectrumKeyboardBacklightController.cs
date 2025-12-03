@@ -11,10 +11,8 @@ using LenovoLegionToolkit.Lib.SoftwareDisabler;
 using LenovoLegionToolkit.Lib.System;
 using LenovoLegionToolkit.Lib.Utils;
 using Microsoft.Win32.SafeHandles;
-using NeoSmart.AsyncLock;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using Windows.Win32;
 
 namespace LenovoLegionToolkit.Lib.Controllers;
 
@@ -35,16 +33,12 @@ public class SpectrumKeyboardBacklightController
         public readonly ushort[] AdditionalKeyCodes = additionalKeyCodes;
     }
 
-    private static readonly AsyncLock GetDeviceHandleLock = new();
-    private static readonly object IoLock = new();
-
     private readonly TimeSpan _auroraRefreshInterval = TimeSpan.FromMilliseconds(60);
 
     private readonly SpecialKeyListener _listener;
     private readonly VantageDisabler _vantageDisabler;
     private readonly IScreenCapture _screenCapture;
-
-    private SafeFileHandle? _deviceHandle;
+    private readonly SpectrumDeviceFactory _deviceFactory;
 
     private CancellationTokenSource? _auroraRefreshCancellationTokenSource;
     private Task? _auroraRefreshTask;
@@ -57,13 +51,18 @@ public class SpectrumKeyboardBacklightController
         Converters = [new StringEnumConverter()]
     };
 
-    public bool ForceDisable { get; set; }
+    public bool ForceDisable
+    {
+        get => _deviceFactory.ForceDisable;
+        set => _deviceFactory.ForceDisable = value;
+    }
 
     public SpectrumKeyboardBacklightController(SpecialKeyListener listener, VantageDisabler vantageDisabler, IScreenCapture screenCapture)
     {
         _listener = listener;
         _vantageDisabler = vantageDisabler;
         _screenCapture = screenCapture;
+        _deviceFactory = new SpectrumDeviceFactory();
 
         _listener.Changed += Listener_Changed;
     }
@@ -91,7 +90,7 @@ public class SpectrumKeyboardBacklightController
         }
     }
 
-    public async Task<bool> IsSupportedAsync() => await GetDeviceHandleAsync2().ConfigureAwait(false) is not null;
+    public async Task<bool> IsSupportedAsync() => await _deviceFactory.GetHandleAsync().ConfigureAwait(false) is not null;
 
     public async Task<(SpectrumLayout, KeyboardLayout, HashSet<ushort>)> GetKeyboardLayoutAsync()
     {
@@ -106,7 +105,7 @@ public class SpectrumKeyboardBacklightController
             (22, 9) => SpectrumLayout.Full,
             (20, 8) => SpectrumLayout.KeyboardAndFront,
             _ when mi.Properties.HasSpectrumProfileSwitchingBug => SpectrumLayout.KeyboardOnly,
-            _ => SpectrumLayout.KeyboardOnly // (20, 7)
+            _ => SpectrumLayout.KeyboardOnly
         };
 
         KeyboardLayout keyboardLayout;
@@ -126,16 +125,12 @@ public class SpectrumKeyboardBacklightController
 
     public async Task<int> GetBrightnessAsync()
     {
-        await ThrowIfVantageEnabled().ConfigureAwait(false);
-
-        var handle = await GetDeviceHandleAsync().ConfigureAwait(false);
-        if (handle is null)
-            throw new InvalidOperationException(nameof(handle));
+        var handle = await GetHandleOrThrow().ConfigureAwait(false);
 
         Log.Instance.Trace($"Getting keyboard brightness...");
 
         var input = new LENOVO_SPECTRUM_GET_BRIGHTNESS_REQUEST();
-        SetAndGetFeature(handle, input, out LENOVO_SPECTRUM_GET_BRIGHTNESS_RESPONSE output);
+        var output = await SetAndGetFeatureAsync<LENOVO_SPECTRUM_GET_BRIGHTNESS_REQUEST, LENOVO_SPECTRUM_GET_BRIGHTNESS_RESPONSE>(handle, input).ConfigureAwait(false);
         var result = output.Brightness;
 
         Log.Instance.Trace($"Keyboard brightness is {result}.");
@@ -145,11 +140,7 @@ public class SpectrumKeyboardBacklightController
 
     public async Task SetBrightnessAsync(int brightness)
     {
-        await ThrowIfVantageEnabled().ConfigureAwait(false);
-
-        var handle = await GetDeviceHandleAsync().ConfigureAwait(false);
-        if (handle is null)
-            throw new InvalidOperationException(nameof(handle));
+        var handle = await GetHandleOrThrow().ConfigureAwait(false);
 
         if (brightness is < 0 or > 9)
             throw new InvalidOperationException("Brightness must be between 0 and 9");
@@ -157,23 +148,19 @@ public class SpectrumKeyboardBacklightController
         Log.Instance.Trace($"Setting keyboard brightness to: {brightness}.");
 
         var input = new LENOVO_SPECTRUM_SET_BRIGHTNESS_REQUEST((byte)brightness);
-        SetFeature(handle, input);
+        await SetFeatureAsync(handle, input).ConfigureAwait(false);
 
         Log.Instance.Trace($"Keyboard brightness set.");
     }
 
     public async Task<bool> GetLogoStatusAsync()
     {
-        await ThrowIfVantageEnabled().ConfigureAwait(false);
-
-        var handle = await GetDeviceHandleAsync().ConfigureAwait(false);
-        if (handle is null)
-            throw new InvalidOperationException(nameof(handle));
+        var handle = await GetHandleOrThrow().ConfigureAwait(false);
 
         Log.Instance.Trace($"Getting logo status...");
 
         var input = new LENOVO_SPECTRUM_GET_LOGO_STATUS();
-        SetAndGetFeature(handle, input, out LENOVO_SPECTRUM_GET_LOGO_STATUS_RESPONSE output);
+        var output = await SetAndGetFeatureAsync<LENOVO_SPECTRUM_GET_LOGO_STATUS, LENOVO_SPECTRUM_GET_LOGO_STATUS_RESPONSE>(handle, input).ConfigureAwait(false);
         var result = output.IsOn;
 
         Log.Instance.Trace($"Logo status is {result}.");
@@ -183,32 +170,24 @@ public class SpectrumKeyboardBacklightController
 
     public async Task SetLogoStatusAsync(bool isOn)
     {
-        await ThrowIfVantageEnabled().ConfigureAwait(false);
-
-        var handle = await GetDeviceHandleAsync().ConfigureAwait(false);
-        if (handle is null)
-            throw new InvalidOperationException(nameof(handle));
+        var handle = await GetHandleOrThrow().ConfigureAwait(false);
 
         Log.Instance.Trace($"Setting logo status to: {isOn}.");
 
         var input = new LENOVO_SPECTRUM_SET_LOGO_STATUS_REQUEST(isOn);
-        SetFeature(handle, input);
+        await SetFeatureAsync(handle, input).ConfigureAwait(false);
 
         Log.Instance.Trace($"Logo status set.");
     }
 
     public async Task<int> GetProfileAsync()
     {
-        await ThrowIfVantageEnabled().ConfigureAwait(false);
-
-        var handle = await GetDeviceHandleAsync().ConfigureAwait(false);
-        if (handle is null)
-            throw new InvalidOperationException(nameof(handle));
+        var handle = await GetHandleOrThrow().ConfigureAwait(false);
 
         Log.Instance.Trace($"Getting keyboard profile...");
 
         var input = new LENOVO_SPECTRUM_GET_PROFILE_REQUEST();
-        SetAndGetFeature(handle, input, out LENOVO_SPECTRUM_GET_PROFILE_RESPONSE output);
+        var output = await SetAndGetFeatureAsync<LENOVO_SPECTRUM_GET_PROFILE_REQUEST, LENOVO_SPECTRUM_GET_PROFILE_RESPONSE>(handle, input).ConfigureAwait(false);
         var result = output.Profile;
 
         Log.Instance.Trace($"Keyboard profile is {result}.");
@@ -218,11 +197,7 @@ public class SpectrumKeyboardBacklightController
 
     public async Task SetProfileAsync(int profile)
     {
-        await ThrowIfVantageEnabled().ConfigureAwait(false);
-
-        var handle = await GetDeviceHandleAsync().ConfigureAwait(false);
-        if (handle is null)
-            throw new InvalidOperationException(nameof(handle));
+        var handle = await GetHandleOrThrow().ConfigureAwait(false);
 
         await StopAuroraIfNeededAsync().ConfigureAwait(false);
 
@@ -232,7 +207,7 @@ public class SpectrumKeyboardBacklightController
         Log.Instance.Trace($"Setting keyboard profile to {profile}...");
 
         var input = new LENOVO_SPECTRUM_SET_PROFILE_REQUEST((byte)profile);
-        SetFeature(handle, input);
+        await SetFeatureAsync(handle, input).ConfigureAwait(false);
 
         await Task.Delay(TimeSpan.FromMilliseconds(100)).ConfigureAwait(false);
 
@@ -243,33 +218,25 @@ public class SpectrumKeyboardBacklightController
 
     public async Task SetProfileDefaultAsync(int profile)
     {
-        await ThrowIfVantageEnabled().ConfigureAwait(false);
-
-        var handle = await GetDeviceHandleAsync().ConfigureAwait(false);
-        if (handle is null)
-            throw new InvalidOperationException(nameof(handle));
+        var handle = await GetHandleOrThrow().ConfigureAwait(false);
 
         Log.Instance.Trace($"Setting keyboard profile {profile} to default...");
 
         Log.Instance.Trace($"Keyboard profile {profile} set to default.");
 
         var input = new LENOVO_SPECTRUM_SET_PROFILE_DEFAULT_REQUEST((byte)profile);
-        SetFeature(handle, input);
+        await SetFeatureAsync(handle, input).ConfigureAwait(false);
     }
 
     public async Task SetProfileDescriptionAsync(int profile, SpectrumKeyboardBacklightEffect[] effects)
     {
-        await ThrowIfVantageEnabled().ConfigureAwait(false);
-
-        var handle = await GetDeviceHandleAsync().ConfigureAwait(false);
-        if (handle is null)
-            throw new InvalidOperationException(nameof(handle));
+        var handle = await GetHandleOrThrow().ConfigureAwait(false);
 
         Log.Instance.Trace($"Setting {effects.Length} effect to keyboard profile {profile}...");
 
         effects = Compress(effects);
         var bytes = Convert(profile, effects).ToBytes();
-        SetFeature(handle, bytes);
+        await SetFeatureAsync(handle, bytes).ConfigureAwait(false);
 
         Log.Instance.Trace($"Set {effects.Length} effect to keyboard profile {profile}.");
 
@@ -278,16 +245,12 @@ public class SpectrumKeyboardBacklightController
 
     public async Task<(int Profile, SpectrumKeyboardBacklightEffect[] Effects)> GetProfileDescriptionAsync(int profile)
     {
-        await ThrowIfVantageEnabled().ConfigureAwait(false);
-
-        var handle = await GetDeviceHandleAsync().ConfigureAwait(false);
-        if (handle is null)
-            throw new InvalidOperationException(nameof(handle));
+        var handle = await GetHandleOrThrow().ConfigureAwait(false);
 
         Log.Instance.Trace($"Getting effects for keyboard profile {profile}...");
 
         var input = new LENOVO_SPECTRUM_GET_EFFECT_REQUEST((byte)profile);
-        SetAndGetFeature(handle, input, out var buffer, 960);
+        var buffer = await SetAndGetFeatureBytesAsync(handle, input, 960).ConfigureAwait(false);
 
         var description = LENOVO_SPECTRUM_EFFECT_DESCRIPTION.FromBytes(buffer);
         var result = Convert(description);
@@ -362,11 +325,11 @@ public class SpectrumKeyboardBacklightController
         if (!skipVantageCheck)
             await ThrowIfVantageEnabled().ConfigureAwait(false);
 
-        var handle = await GetDeviceHandleAsync().ConfigureAwait(false);
+        var handle = await _deviceFactory.GetHandleAsync().ConfigureAwait(false);
         if (handle is null)
             throw new InvalidOperationException(nameof(handle));
 
-        GetFeature(handle, out LENOVO_SPECTRUM_STATE_RESPONSE state);
+        var state = await GetFeatureAsync<LENOVO_SPECTRUM_STATE_RESPONSE>(handle).ConfigureAwait(false);
 
         var dict = new Dictionary<ushort, RGBColor>();
 
@@ -406,13 +369,11 @@ public class SpectrumKeyboardBacklightController
     {
         try
         {
-            var handle = await GetDeviceHandleAsync().ConfigureAwait(false);
+            var handle = await _deviceFactory.GetHandleAsync().ConfigureAwait(false);
             if (handle is null)
                 return KeyMap.Empty;
 
-            SetAndGetFeature(handle,
-                new LENOVO_SPECTRUM_GET_KEY_COUNT_REQUEST(),
-                out LENOVO_SPECTRUM_GET_KEY_COUNT_RESPONSE keyCountResponse);
+            var keyCountResponse = await SetAndGetFeatureAsync<LENOVO_SPECTRUM_GET_KEY_COUNT_REQUEST, LENOVO_SPECTRUM_GET_KEY_COUNT_RESPONSE>(handle, new LENOVO_SPECTRUM_GET_KEY_COUNT_REQUEST()).ConfigureAwait(false);
 
             var width = keyCountResponse.KeysPerIndex;
             var height = keyCountResponse.Indexes;
@@ -422,17 +383,13 @@ public class SpectrumKeyboardBacklightController
 
             for (var y = 0; y < height; y++)
             {
-                SetAndGetFeature(handle,
-                    new LENOVO_SPECTRUM_GET_KEY_PAGE_REQUEST((byte)y),
-                    out LENOVO_SPECTRUM_GET_KEY_PAGE_RESPONSE keyPageResponse);
+                var keyPageResponse = await SetAndGetFeatureAsync<LENOVO_SPECTRUM_GET_KEY_PAGE_REQUEST, LENOVO_SPECTRUM_GET_KEY_PAGE_RESPONSE>(handle, new LENOVO_SPECTRUM_GET_KEY_PAGE_REQUEST((byte)y)).ConfigureAwait(false);
 
                 for (var x = 0; x < width; x++)
                     keyCodes[x, y] = keyPageResponse.Items[x].KeyCode;
             }
 
-            SetAndGetFeature(handle,
-                new LENOVO_SPECTRUM_GET_KEY_PAGE_REQUEST(0, true),
-                out LENOVO_SPECTRUM_GET_KEY_PAGE_RESPONSE secondaryKeyPageResponse);
+            var secondaryKeyPageResponse = await SetAndGetFeatureAsync<LENOVO_SPECTRUM_GET_KEY_PAGE_REQUEST, LENOVO_SPECTRUM_GET_KEY_PAGE_RESPONSE>(handle, new LENOVO_SPECTRUM_GET_KEY_PAGE_REQUEST(0, true)).ConfigureAwait(false);
 
             for (var x = 0; x < width; x++)
                 additionalKeyCodes[x] = secondaryKeyPageResponse.Items[x].KeyCode;
@@ -451,9 +408,7 @@ public class SpectrumKeyboardBacklightController
         {
             await ThrowIfVantageEnabled().ConfigureAwait(false);
 
-            var handle = await GetDeviceHandleAsync().ConfigureAwait(false);
-            if (handle is null)
-                throw new InvalidOperationException(nameof(handle));
+            var handle = await GetHandleOrThrow().ConfigureAwait(false);
 
             Log.Instance.Trace($"Aurora refresh starting...");
 
@@ -462,7 +417,7 @@ public class SpectrumKeyboardBacklightController
             var height = keyMap.Height;
             var colorBuffer = new RGBColor[width, height];
 
-            SetFeature(handle, new LENOVO_SPECTRUM_AURORA_START_STOP_REQUEST(true, (byte)profile));
+            await SetFeatureAsync(handle, new LENOVO_SPECTRUM_AURORA_START_STOP_REQUEST(true, (byte)profile)).ConfigureAwait(false);
 
             while (!token.IsCancellationRequested)
             {
@@ -503,9 +458,12 @@ public class SpectrumKeyboardBacklightController
                     }
                 }
 
-                avgR /= items.Count;
-                avgG /= items.Count;
-                avgB /= items.Count;
+                if (items.Count > 0)
+                {
+                    avgR /= items.Count;
+                    avgG /= items.Count;
+                    avgB /= items.Count;
+                }
 
                 for (var x = 0; x < width; x++)
                 {
@@ -518,7 +476,7 @@ public class SpectrumKeyboardBacklightController
 
                 token.ThrowIfCancellationRequested();
 
-                SetFeature(handle, new LENOVO_SPECTRUM_AURORA_SEND_BITMAP_REQUEST([.. items]).ToBytes());
+                await SetFeatureAsync(handle, new LENOVO_SPECTRUM_AURORA_SEND_BITMAP_REQUEST([.. items]).ToBytes()).ConfigureAwait(false);
 
                 await delay.ConfigureAwait(false);
             }
@@ -530,262 +488,63 @@ public class SpectrumKeyboardBacklightController
         }
         finally
         {
-            var handle = await GetDeviceHandleAsync().ConfigureAwait(false);
+            var handle = await _deviceFactory.GetHandleAsync().ConfigureAwait(false);
             if (handle is not null)
             {
                 var currentProfile = await GetProfileAsync().ConfigureAwait(false);
-                SetFeature(handle, new LENOVO_SPECTRUM_AURORA_START_STOP_REQUEST(false, (byte)currentProfile));
+                await SetFeatureAsync(handle, new LENOVO_SPECTRUM_AURORA_START_STOP_REQUEST(false, (byte)currentProfile)).ConfigureAwait(false);
             }
 
             Log.Instance.Trace($"Aurora refresh stopped.");
         }
     }
 
-    private async Task<SafeFileHandle?> GetDeviceHandleAsync2()
+    private async Task<SafeFileHandle> GetHandleOrThrow()
     {
-        if (ForceDisable) return null;
-
-        using (await GetDeviceHandleLock.LockAsync().ConfigureAwait(false))
-        {
-            if (IsReady(_deviceHandle!))
-            {
-                return _deviceHandle;
-            }
-        }
-
-        var devices = Devices.GetSpectrumRGBKeyboards(forceRefresh: true);
-
-        foreach (var candidateDevice in devices)
-        {
-            var handle = await TryInitializeDeviceAsync(candidateDevice).ConfigureAwait(false);
-
-            if (handle is not null)
-            {
-                return handle;
-            }
-        }
-
-        return null;
+        await ThrowIfVantageEnabled().ConfigureAwait(false);
+        var handle = await _deviceFactory.GetHandleAsync().ConfigureAwait(false);
+        return handle ?? throw new InvalidOperationException("Spectrum Device not found");
     }
 
-    private async Task<SafeFileHandle?> TryInitializeDeviceAsync(SafeFileHandle candidateDevice)
+    private static async Task<TOut> SetAndGetFeatureAsync<TIn, TOut>(SafeHandle handle, TIn input) where TIn : notnull where TOut : struct
     {
-        try
+        return await Task.Run(() =>
         {
-            using (await GetDeviceHandleLock.LockAsync().ConfigureAwait(false))
-            {
-                if (IsReady(_deviceHandle!))
-                {
-                    return _deviceHandle;
-                }
-
-                SetAndGetFeature(candidateDevice,
-                    new LENOVO_SPECTRUM_GET_COMPATIBILITY_REQUEST(),
-                    out LENOVO_SPECTRUM_GET_COMPATIBILITY_RESPONSE res);
-
-                if (!res.IsCompatible)
-                {
-                    Log.Instance.Trace($"Handle not compatible.");
-                    return null;
-                }
-
-                Log.Instance.Trace($"SpectrumKeyboard found and compatible.");
-                _deviceHandle = candidateDevice;
-
-                return _deviceHandle;
-            }
-        }
-        catch (Exception ex)
-        {
-            Log.Instance.Trace($"Error initializing device: {ex.Message}");
-            return null;
-        }
+            if (!HidUtils.SetFeature(handle, input))
+                throw new InvalidOperationException($"Failed to set feature {typeof(TIn).Name}");
+            if (!HidUtils.GetFeature(handle, out TOut output))
+                throw new InvalidOperationException($"Failed to get feature {typeof(TOut).Name}");
+            return output;
+        }).ConfigureAwait(false);
     }
 
-    private SafeFileHandle? GetSpectrumKeyboard(bool forceRefresh)
+    private static async Task<byte[]> SetAndGetFeatureBytesAsync<TIn>(SafeHandle handle, TIn input, int size) where TIn : notnull
     {
-        SafeFileHandle? TryGetDevice(SafeFileHandle? handle) =>
-            handle is not null && IsReady(handle) ? handle : null;
-
-        return TryGetDevice(Devices.GetSpectrumRGBKeyboard(forceRefresh))
-               ?? TryGetDevice(Devices.GetSpectrumRGBKeyboard2(forceRefresh))
-               ?? null;
+        return await Task.Run(() =>
+        {
+            if (!HidUtils.SetFeature(handle, input))
+                throw new InvalidOperationException($"Failed to set feature {typeof(TIn).Name}");
+            if (!HidUtils.GetFeature(handle, out byte[] output, size))
+                throw new InvalidOperationException($"Failed to get feature bytes");
+            return output;
+        }).ConfigureAwait(false);
     }
 
-    private async Task<SafeFileHandle?> GetDeviceHandleAsync()
+    private static async Task SetFeatureAsync<T>(SafeHandle handle, T data) where T : notnull
     {
-        if (ForceDisable)
-            return null;
-
-        try
-        {
-            using (await GetDeviceHandleLock.LockAsync().ConfigureAwait(false))
-            {
-                if (_deviceHandle is not null && IsReady(_deviceHandle))
-                    return _deviceHandle;
-
-                SafeFileHandle? newDeviceHandle = null;
-
-                const int retries = 3;
-                const int delay = 50;
-
-                for (var i = 0; i < retries; i++)
-                {
-                    Log.Instance.Trace($"Refreshing handle... [retry={i + 1}]");
-
-                    var tempDeviceHandle = GetSpectrumKeyboard(true);
-                    if (tempDeviceHandle != null)
-                    {
-                        newDeviceHandle = tempDeviceHandle;
-                        break;
-                    }
-
-                    await Task.Delay(delay).ConfigureAwait(false);
-                }
-
-                if (newDeviceHandle is null)
-                {
-                    Log.Instance.Trace($"Handle couldn't be refreshed.");
-
-                    return null;
-                }
-
-                SetAndGetFeature(newDeviceHandle,
-                    new LENOVO_SPECTRUM_GET_COMPATIBILITY_REQUEST(),
-                    out LENOVO_SPECTRUM_GET_COMPATIBILITY_RESPONSE res);
-
-                if (!res.IsCompatible)
-                {
-                    Log.Instance.Trace($"Handle not compatible.");
-
-                    return null;
-                }
-
-                Log.Instance.Trace($"Handle refreshed.");
-
-                _deviceHandle = newDeviceHandle;
-                return newDeviceHandle;
-            }
-        }
-        catch
-        {
-            return null;
-        }
+        var success = await Task.Run(() => HidUtils.SetFeature(handle, data)).ConfigureAwait(false);
+        if (!success)
+            throw new InvalidOperationException($"Failed to set feature {typeof(T).Name}");
     }
 
-    private static bool IsReady(SafeHandle handle)
+    private static async Task<T> GetFeatureAsync<T>(SafeHandle handle) where T : struct
     {
-        try
+        return await Task.Run(() =>
         {
-            var b = new byte[960];
-            b[0] = 7;
-            SetFeature(handle, b);
-            return true;
-        }
-        catch
-        {
-            Log.Instance.Trace($"Keyboard not ready.");
-
-            return false;
-        }
-    }
-
-    private static void SetAndGetFeature<TIn, TOut>(SafeHandle handle, TIn input, out TOut output) where TIn : notnull where TOut : struct
-    {
-        lock (IoLock)
-        {
-            SetFeature(handle, input);
-            GetFeature(handle, out output);
-        }
-    }
-
-    private static void SetAndGetFeature<TIn>(SafeHandle handle, TIn input, out byte[] output, int size) where TIn : notnull
-    {
-        lock (IoLock)
-        {
-            SetFeature(handle, input);
-            GetFeature(handle, out output, size);
-        }
-    }
-
-    private static unsafe void SetFeature<T>(SafeHandle handle, T str) where T : notnull
-    {
-        lock (IoLock)
-        {
-            var ptr = IntPtr.Zero;
-            try
-            {
-                int size;
-                if (str is byte[] bytes)
-                {
-                    size = bytes.Length;
-                    ptr = Marshal.AllocHGlobal(size);
-                    Marshal.Copy(bytes, 0, ptr, size);
-                }
-                else
-                {
-                    size = Marshal.SizeOf<T>();
-                    ptr = Marshal.AllocHGlobal(size);
-                    Marshal.StructureToPtr(str, ptr, false);
-                }
-
-                var result = PInvoke.HidD_SetFeature(handle, ptr.ToPointer(), (uint)size);
-                if (!result)
-                    PInvokeExtensions.ThrowIfWin32Error(typeof(T).Name);
-            }
-            finally
-            {
-                Marshal.FreeHGlobal(ptr);
-            }
-        }
-    }
-
-    private static unsafe void GetFeature<T>(SafeHandle handle, out T str) where T : struct
-    {
-        lock (IoLock)
-        {
-            var ptr = IntPtr.Zero;
-            try
-            {
-                var size = Marshal.SizeOf<T>();
-                ptr = Marshal.AllocHGlobal(size);
-                Marshal.Copy(new byte[] { 7 }, 0, ptr, 1);
-
-                var result = PInvoke.HidD_GetFeature(handle, ptr.ToPointer(), (uint)size);
-                if (!result)
-                    PInvokeExtensions.ThrowIfWin32Error(typeof(T).Name);
-
-                str = Marshal.PtrToStructure<T>(ptr);
-            }
-            finally
-            {
-                Marshal.FreeHGlobal(ptr);
-            }
-        }
-    }
-
-    private static unsafe void GetFeature(SafeHandle handle, out byte[] bytes, int size)
-    {
-        lock (IoLock)
-        {
-            var ptr = IntPtr.Zero;
-            try
-            {
-                ptr = Marshal.AllocHGlobal(size);
-                Marshal.Copy(new byte[] { 7 }, 0, ptr, 1);
-
-                var result = PInvoke.HidD_GetFeature(handle, ptr.ToPointer(), (uint)size);
-                if (!result)
-                    PInvokeExtensions.ThrowIfWin32Error("bytes");
-
-                bytes = new byte[size];
-                Marshal.Copy(ptr, bytes, 0, size);
-            }
-            finally
-            {
-                Marshal.FreeHGlobal(ptr);
-            }
-        }
+            if (!HidUtils.GetFeature(handle, out T result))
+                throw new InvalidOperationException($"Failed to get feature {typeof(T).Name}");
+            return result;
+        }).ConfigureAwait(false);
     }
 
     private static SpectrumKeyboardBacklightEffect[] Compress(SpectrumKeyboardBacklightEffect[] effects)
@@ -828,7 +587,6 @@ public class SpectrumKeyboardBacklightController
         var profile = description.Profile;
         var successfulEffects = new List<SpectrumKeyboardBacklightEffect>();
 
-        // Add try-catch to avoid failing the whole conversion if one effect is unsupported.
         foreach (var effect in description.Effects)
         {
             try
@@ -899,7 +657,7 @@ public class SpectrumKeyboardBacklightController
 
     private static LENOVO_SPECTRUM_EFFECT_DESCRIPTION Convert(int profile, SpectrumKeyboardBacklightEffect[] effects)
     {
-        var header = new LENOVO_SPECTRUM_HEADER(LENOVO_SPECTRUM_OPERATION_TYPE.EffectChange, 0); // Size will be set on serialization
+        var header = new LENOVO_SPECTRUM_HEADER(LENOVO_SPECTRUM_OPERATION_TYPE.EffectChange, 0);
         var convertedEffects = new List<LENOVO_SPECTRUM_EFFECT>();
 
         if (effects != null)

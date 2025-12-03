@@ -18,7 +18,7 @@ public class ExternalDisplayDisconnectedAutomationPipelineTrigger : INativeWindo
 
     public Task<bool> IsMatchingState()
     {
-        var result = ExternalDisplays.Get().Length < 1;
+        var result = ExternalDisplays.GetAsync().Result.Length < 1;
         return Task.FromResult(result);
     }
 

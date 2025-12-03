@@ -19,7 +19,7 @@ public class ExternalDisplayConnectedAutomationPipelineTrigger : INativeWindowsM
 
     public Task<bool> IsMatchingState()
     {
-        var result = ExternalDisplays.Get().Length > 0;
+        var result = ExternalDisplays.GetAsync().Result.Length > 0;
         return Task.FromResult(result);
     }
 

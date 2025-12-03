@@ -13,16 +13,16 @@ public class RefreshRateFeature : IFeature<RefreshRate>
 {
     public Task<bool> IsSupportedAsync() => Task.FromResult(true);
 
-    public Task<RefreshRate[]> GetAllStatesAsync()
+    public async Task<RefreshRate[]> GetAllStatesAsync()
     {
         Log.Instance.Trace($"Getting all refresh rates...");
 
-        var display = InternalDisplay.Get();
+        var display = await InternalDisplay.GetAsync().ConfigureAwait(true);
         if (display is null)
         {
             Log.Instance.Trace($"Built in display not found");
 
-            return Task.FromResult(Array.Empty<RefreshRate>());
+            return [];
         }
 
         Log.Instance.Trace($"Built in display found: {display}");
@@ -41,19 +41,19 @@ public class RefreshRateFeature : IFeature<RefreshRate>
 
         Log.Instance.Trace($"Possible refresh rates are {string.Join(", ", result)}");
 
-        return Task.FromResult(result);
+        return result;
     }
 
-    public Task<RefreshRate> GetStateAsync()
+    public async Task<RefreshRate> GetStateAsync()
     {
         Log.Instance.Trace($"Getting current refresh rate...");
 
-        var display = InternalDisplay.Get();
+        var display = await InternalDisplay.GetAsync().ConfigureAwait(true);
         if (display is null)
         {
             Log.Instance.Trace($"Built in display not found");
 
-            return Task.FromResult(default(RefreshRate));
+            return default(RefreshRate);
         }
 
         var currentSettings = display.CurrentSetting;
@@ -61,12 +61,12 @@ public class RefreshRateFeature : IFeature<RefreshRate>
 
         Log.Instance.Trace($"Current refresh rate is {result} [currentSettings={currentSettings.ToExtendedString()}]");
 
-        return Task.FromResult(result);
+        return result;
     }
 
-    public Task SetStateAsync(RefreshRate state)
+    public async Task SetStateAsync(RefreshRate state)
     {
-        var display = InternalDisplay.Get();
+        var display = await InternalDisplay.GetAsync().ConfigureAwait(true);
         if (display is null)
         {
             Log.Instance.Trace($"Built in display not found");
@@ -80,8 +80,7 @@ public class RefreshRateFeature : IFeature<RefreshRate>
         if (currentSettings.Frequency == state.Frequency)
         {
             Log.Instance.Trace($"Frequency already set to {state.Frequency}");
-
-            return Task.CompletedTask;
+            return;
         }
 
         var possibleSettings = display.GetPossibleSettings();
@@ -103,8 +102,6 @@ public class RefreshRateFeature : IFeature<RefreshRate>
         {
             Log.Instance.Trace($"Could not find matching settings for frequency {state}");
         }
-
-        return Task.CompletedTask;
     }
 
     private static bool Match(DisplayPossibleSetting dps, DisplayPossibleSetting ds)
