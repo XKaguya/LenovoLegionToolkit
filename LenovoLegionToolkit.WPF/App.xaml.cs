@@ -175,13 +175,16 @@ public partial class App
 
         await deferredInitTask;
 
-        if (Log.Instance.IsTraceEnabled)
+        await Application.Current.Dispatcher.InvokeAsync(() =>
         {
-            Log.Instance.Trace($"Lenovo Legion Toolkit Version {Assembly.GetEntryAssembly()?.GetName().Version}");
-        }
+            if (Log.Instance.IsTraceEnabled)
+            {
+                Log.Instance.Trace($"Lenovo Legion Toolkit Version {Assembly.GetEntryAssembly()?.GetName().Version}");
+            }
 
-        await Compatibility.PrintControllerVersionAsync().ConfigureAwait(false);
-        CheckFloatingGadget();
+            Compatibility.PrintControllerVersionAsync().ConfigureAwait(false);
+            CheckFloatingGadget();
+        });
 
         Log.Instance.Trace($"Start up complete");
     }
@@ -463,8 +466,14 @@ public partial class App
 
     private void CheckFloatingGadget()
     {
-        ApplicationSettings _settings = IoCContainer.Resolve<ApplicationSettings>();
-        if (_settings.Store.ShowFloatingGadgets)
+        if (!Application.Current.Dispatcher.CheckAccess())
+        {
+            Application.Current.Dispatcher.Invoke(CheckFloatingGadget);
+            return;
+        }
+
+        ApplicationSettings settings = IoCContainer.Resolve<ApplicationSettings>();
+        if (settings.Store.ShowFloatingGadgets)
         {
             if (FloatingGadget != null)
             {
@@ -472,11 +481,11 @@ public partial class App
             }
             else
             {
-                if (_settings.Store.SelectedStyleIndex == 0)
+                if (settings.Store.SelectedStyleIndex == 0)
                 {
                     FloatingGadget = new FloatingGadget();
                 }
-                else if (_settings.Store.SelectedStyleIndex == 1)
+                else if (settings.Store.SelectedStyleIndex == 1)
                 {
                     FloatingGadget = new FloatingGadgetUpper();
                 }
