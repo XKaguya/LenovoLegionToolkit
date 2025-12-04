@@ -20,7 +20,7 @@ public class VantagePackageDownloader(HttpClientFactory httpClientFactory)
         public string Category { get; } = category;
     }
 
-    private const string CATALOG_BASE_URL = "https://download.lenovo.com/catalog/";
+    private const string CATALOG_BASE_URL = "https://download.lenovo.com/catalog";
 
     public override async Task<List<Package>> GetPackagesAsync(string machineType, OS os, IProgress<float>? progress = null, CancellationToken token = default)
     {
@@ -49,7 +49,15 @@ public class VantagePackageDownloader(HttpClientFactory httpClientFactory)
         foreach (var packageDefinition in packageDefinitions)
         {
             var package = await GetPackage(httpClient, updateDetector, packageDefinition, token).ConfigureAwait(false);
-            packages.Add(package);
+
+            if (!package.HasValue)
+            {
+                count++;
+                progress?.Report(count * 100 / totalCount);
+                continue;
+            }
+
+            packages.Add(package.Value);
 
             count++;
 
@@ -97,12 +105,21 @@ public class VantagePackageDownloader(HttpClientFactory httpClientFactory)
         return packageDefinitions;
     }
 
-    private static async Task<Package> GetPackage(HttpClient httpClient, VantagePackageUpdateDetector updateDetector, PackageDefinition packageDefinition, CancellationToken token)
+    private static async Task<Package?> GetPackage(HttpClient httpClient, VantagePackageUpdateDetector updateDetector, PackageDefinition packageDefinition, CancellationToken token)
     {
         var location = packageDefinition.Location;
         var baseLocation = location.Remove(location.LastIndexOf("/", StringComparison.InvariantCultureIgnoreCase));
 
-        var packageString = await httpClient.GetStringAsync(location, token).ConfigureAwait(false);
+        string packageString;
+        try
+        {
+            packageString = await httpClient.GetStringAsync(location, token).ConfigureAwait(false);
+        }
+        catch (HttpRequestException ex)
+        {
+            Log.Instance.Trace($"Exception occurred when GetPackage().", ex);
+            return null;
+        }
 
         var document = new XmlDocument();
         document.LoadXml(packageString);
