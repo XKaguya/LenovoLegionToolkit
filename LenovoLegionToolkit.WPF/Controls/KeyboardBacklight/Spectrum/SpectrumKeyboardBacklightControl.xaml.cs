@@ -77,43 +77,36 @@ public partial class SpectrumKeyboardBacklightControl
 
     private async void SpectrumKeyboardBacklightControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
-        if (!IsLoaded || Application.Current == null)
-            return;
-
-        // Temporary set to collapsed to avoid profile switching issue.
-        var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
-        if (mi.Properties.HasSpectrumProfileSwitchingBug)
+        await this.InvokeIfRequired(async () =>
         {
-            _profileButton2.Visibility = Visibility.Collapsed;
-            _profileButton3.Visibility = Visibility.Collapsed;
-            _profileButton4.Visibility = Visibility.Collapsed;
-            _profileButton5.Visibility = Visibility.Collapsed;
-            _profileButton6.Visibility = Visibility.Collapsed;
-            _layoutSwitchButton.Visibility = Visibility.Collapsed;
+            if (!IsLoaded || Application.Current == null)
+                return;
 
-            var (_, _, keys) = await _controller.GetKeyboardLayoutAsync().ConfigureAwait(false);
-
-
-            await Application.Current.Dispatcher.InvokeAsync(() =>
+            var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
+            if (mi.Properties.HasSpectrumProfileSwitchingBug)
             {
-                _device.SetLayout(SpectrumLayout.KeyboardOnly, KeyboardLayout.Keyboard24Zone, keys);
-            });
+                _profileButton2.Visibility = Visibility.Collapsed;
+                _profileButton3.Visibility = Visibility.Collapsed;
+                _profileButton4.Visibility = Visibility.Collapsed;
+                _profileButton5.Visibility = Visibility.Collapsed;
+                _profileButton6.Visibility = Visibility.Collapsed;
+                _layoutSwitchButton.Visibility = Visibility.Collapsed;
 
-            _settings.Store.KeyboardLayout = KeyboardLayout.Keyboard24Zone;
-            _settings.SynchronizeStore();
-        }
+                var (_, _, keys) = await _controller.GetKeyboardLayoutAsync().ConfigureAwait(false);
 
-        // Future codes for independent Ambient Aft RGB Zone control.
-        //if ((mi.LegionSeries == LegionSeries.Legion_Pro_7 || mi.LegionSeries == LegionSeries.Legion_9) && mi.Generation == 10)
-        //{
-        //    _ambientZoneControl.Visibility = Visibility.Visible;
-        //}
+                await _device.InvokeIfRequired(() =>
+                    _device.SetLayout(SpectrumLayout.KeyboardOnly, KeyboardLayout.Keyboard24Zone, keys));
 
-        if (IsVisible)
-            return;
+                _settings.Store.KeyboardLayout = KeyboardLayout.Keyboard24Zone;
+                _settings.SynchronizeStore();
+            }
 
-        await StopAnimationAsync();
-        _effects.Children.Clear();
+            if (IsVisible)
+                return;
+
+            await StopAnimationAsync();
+            await _effects.InvokeIfRequired(() => _effects.Children.Clear());
+        });
     }
 
     private void SpectrumKeyboardBacklightControl_SizeChanged(object sender, SizeChangedEventArgs e)
