@@ -410,7 +410,8 @@ public partial class SettingsPage
         }
     }
 
-    private void EnableLoggingToggle_Click(object sender, RoutedEventArgs e)
+    // 注意：事件处理程序需要改为 async void
+    private async void EnableLoggingToggle_Click(object sender, RoutedEventArgs e)
     {
         if (_isRefreshing)
             return;
@@ -421,6 +422,23 @@ public partial class SettingsPage
         var state = _enableLoggingToggle.IsChecked;
         if (state is null)
             return;
+
+        const string logSuffix = " [LOGGING ENABLED]";
+
+        await mainWindow.InvokeIfRequired(() =>
+        {
+            if (state.Value)
+            {
+                if (!mainWindow._title.Text.EndsWith(logSuffix))
+                {
+                    mainWindow._title.Text += logSuffix;
+                }
+            }
+            else
+            {
+                mainWindow._title.Text = mainWindow._title.Text.Replace(logSuffix, string.Empty);
+            }
+        });
 
         Log.Instance.IsTraceEnabled = state.Value;
         _settings.Store.EnableLogging = state.Value;
