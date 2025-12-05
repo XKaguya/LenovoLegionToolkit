@@ -25,6 +25,7 @@ public partial class FloatingGadgetUpper
     private const int GWL_EXSTYLE = -20;
     private const int WS_EX_TRANSPARENT = 0x00000020;
     private const int WS_EX_TOOLWINDOW = 0x00000080;
+    private const int WS_EX_NOACTIVATE = 0x08000000;
 
     private const int UI_UPDATE_THROTTLE_MS = 100;
 
@@ -66,6 +67,8 @@ public partial class FloatingGadgetUpper
     public FloatingGadgetUpper()
     {
         InitializeComponent();
+
+        RenderOptions.ProcessRenderMode = RenderMode.SoftwareOnly;
 
         IsVisibleChanged += FloatingGadget_IsVisibleChanged;
         SourceInitialized += OnSourceInitialized!;
@@ -177,7 +180,7 @@ public partial class FloatingGadgetUpper
     {
         var hwnd = new WindowInteropHelper(this).Handle;
         var extendedStyle = GetWindowLong(hwnd, GWL_EXSTYLE);
-        SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle | WS_EX_TRANSPARENT | WS_EX_TOOLWINDOW);
+        SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle | WS_EX_TRANSPARENT | WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE);
     }
 
     private void OnLoaded(object? sender, RoutedEventArgs e)

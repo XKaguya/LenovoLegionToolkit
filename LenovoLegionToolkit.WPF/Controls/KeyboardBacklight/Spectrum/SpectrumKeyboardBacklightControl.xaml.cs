@@ -85,11 +85,6 @@ public partial class SpectrumKeyboardBacklightControl
             var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
             if (mi.Properties.HasSpectrumProfileSwitchingBug)
             {
-                _profileButton2.Visibility = Visibility.Collapsed;
-                _profileButton3.Visibility = Visibility.Collapsed;
-                _profileButton4.Visibility = Visibility.Collapsed;
-                _profileButton5.Visibility = Visibility.Collapsed;
-                _profileButton6.Visibility = Visibility.Collapsed;
                 _layoutSwitchButton.Visibility = Visibility.Collapsed;
 
                 var (_, _, keys) = await _controller.GetKeyboardLayoutAsync().ConfigureAwait(false);

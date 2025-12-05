@@ -57,8 +57,6 @@ public class SpectrumDeviceControl : UserControl
 
         UpdateLayout();
 
-        Log.Instance.Trace($"Keys: {string.Join(", ", keys.OrderBy(k => k))}");
-
         foreach (var button in GetButtons())
             button.Visibility = keys.Contains(button.KeyCode) ? Visibility.Visible : Visibility.Hidden;
     }
