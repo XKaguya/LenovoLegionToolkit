@@ -26,7 +26,7 @@ public partial class FloatingGadget
     private const int WS_EX_TOOLWINDOW = 0x00000080;
     private const int WS_EX_NOACTIVATE = 0x08000000;
 
-    private const int UI_UPDATE_THROTTLE_MS = 100;
+    private const int UI_UPDATE_THROTTLE_MS = 1000;
 
     private const int FpsRedLine = 30;
     private const double MaxFrameTimeMs = 10.0;

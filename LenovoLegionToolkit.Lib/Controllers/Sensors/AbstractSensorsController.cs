@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Threading.Tasks;
-using System.Diagnostics;
 using LenovoLegionToolkit.Lib.System;
 using LenovoLegionToolkit.Lib.System.Management;
 using LenovoLegionToolkit.Lib.Utils;
@@ -35,10 +35,33 @@ public abstract class AbstractSensorsController(GPUController gpuController) : I
         public int MaxTemperature { get; } = maxTemperature;
     }
 
+    #region P / Invoke for GetSystemTimes
+    [DllImport("kernel32.dll", SetLastError = true)]
+    private static extern bool GetSystemTimes(out FILETIME lpIdleTime, out FILETIME lpKernelTime, out FILETIME lpUserTime);
+
+    [StructLayout(LayoutKind.Sequential)]
+    private struct FILETIME
+    {
+        public uint dwLowDateTime;
+        public uint dwHighDateTime;
+    }
+
+    private static ulong ToUInt64(FILETIME ft)
+    {
+        return ((ulong)ft.dwHighDateTime << 32) | ft.dwLowDateTime;
+    }
+    #endregion
+
     private readonly SafePerformanceCounter _percentProcessorPerformanceCounter = new("Processor Information", "% Processor Performance", "_Total");
-    private readonly SafePerformanceCounter _percentProcessorUtilityCounter = new("Processor", "% Processor Time", "_Total");
-    private readonly SafePerformanceCounter _percentProcessorIdleCounter = new("Processor", "% Idle Time", "_Total");
-    private PerformanceCounter[]? _perCoreCounters;
+    private readonly Lock _cpuCalcLock = new();
+
+    private ulong _prevIdleTime;
+    private ulong _prevKernelTime;
+    private ulong _prevUserTime;
+
+    private int _cachedCpuUtilization;
+    private long _lastCpuCalculationTick;
+    private const long MinUpdateIntervalTicks = 500 * 10000; // 500ms (1ms = 10,000 ticks)
 
     protected int? _cpuBaseClockCache;
     protected int? _cpuMaxCoreClockCache;
@@ -51,47 +74,24 @@ public abstract class AbstractSensorsController(GPUController gpuController) : I
     public async Task PrepareAsync()
     {
         _percentProcessorPerformanceCounter.Reset();
-        _percentProcessorUtilityCounter.Reset();
-        _percentProcessorIdleCounter.Reset();
-
-        try
-        {
-            var category = new PerformanceCounterCategory("Processor");
-            var instances = category.GetInstanceNames().Where(n => n != "_Total").ToArray();
-            if (instances.Length >0)
-            {
-                _perCoreCounters = instances.Select(inst => new PerformanceCounter("Processor", "% Processor Time", inst, readOnly: true)).ToArray();
-                foreach (var pc in _perCoreCounters)
-                    pc.NextValue();
-            }
-        }
-        catch
-        {
-            _perCoreCounters = null;
-        }
-
-        _percentProcessorUtilityCounter.NextValue();
         _percentProcessorPerformanceCounter.NextValue();
-        _percentProcessorIdleCounter.NextValue();
 
-        if (_perCoreCounters != null)
+        if (GetSystemTimes(out var idle, out var kernel, out var user))
         {
-            foreach (var pc in _perCoreCounters)
-                pc.NextValue();
+            _prevIdleTime = ToUInt64(idle);
+            _prevKernelTime = ToUInt64(kernel);
+            _prevUserTime = ToUInt64(user);
         }
+
+        _lastCpuCalculationTick = DateTime.UtcNow.Ticks;
 
         await Task.Delay(500).ConfigureAwait(false);
 
-        _percentProcessorUtilityCounter.NextValue();
         _percentProcessorPerformanceCounter.NextValue();
-        _percentProcessorIdleCounter.NextValue();
 
-        if (_perCoreCounters != null)
-        {
-            foreach (var pc in _perCoreCounters)
-                pc.NextValue();
-        }
+        GetCpuUtilization(100);
     }
+
 
     public virtual async Task<SensorsData> GetDataAsync()
     {
@@ -99,6 +99,7 @@ public abstract class AbstractSensorsController(GPUController gpuController) : I
         const int genericMaxTemperature = 100;
 
         var cpuUtilization = GetCpuUtilization(genericMaxUtilization);
+
         var cpuMaxCoreClock = _cpuMaxCoreClockCache ??= await GetCpuMaxCoreClockAsync().ConfigureAwait(false);
         var cpuCoreClock = GetCpuCoreClock();
         var cpuCurrentTemperature = await GetCpuCurrentTemperatureAsync().ConfigureAwait(false);
@@ -126,6 +127,7 @@ public abstract class AbstractSensorsController(GPUController gpuController) : I
             genericMaxTemperature,
             cpuCurrentFanSpeed,
             cpuMaxFanSpeed);
+
         var gpu = new SensorData(gpuInfo.Utilization,
             genericMaxUtilization,
             gpuInfo.CoreClock,
@@ -136,6 +138,7 @@ public abstract class AbstractSensorsController(GPUController gpuController) : I
             gpuMaxTemperature,
             gpuCurrentFanSpeed,
             gpuMaxFanSpeed);
+
         var pch = new SensorData(
             -1,
             -1,
@@ -147,6 +150,7 @@ public abstract class AbstractSensorsController(GPUController gpuController) : I
             pchMaxTemperature,
             pchCurrentFanSpeed,
             pchMaxFanSpeed);
+
         var result = new SensorsData(cpu, gpu, pch);
 
         return result;
@@ -282,52 +286,56 @@ public abstract class AbstractSensorsController(GPUController gpuController) : I
 
     protected int GetCpuUtilization(int maxUtilization)
     {
-        if (_perCoreCounters != null && _perCoreCounters.Length >0)
+        lock (_cpuCalcLock)
         {
-            try
+            long currentTick = DateTime.UtcNow.Ticks;
+
+            if (currentTick - _lastCpuCalculationTick < MinUpdateIntervalTicks)
             {
-                var values = _perCoreCounters.Select(pc => pc.NextValue()).ToArray();
-                if (values.Length >0)
-                {
-                    var avg = values.Average();
-                    if (!double.IsNaN(avg))
-                    {
-                        var rounded = (int)Math.Round(avg);
-                        return Math.Min(Math.Max(rounded,0), maxUtilization);
-                    }
-                }
+                return _cachedCpuUtilization;
             }
-            catch { }
-        }
 
-        var idleRaw = _percentProcessorIdleCounter.NextValue();
-        if (!float.IsNaN(idleRaw) && idleRaw >=0)
-        {
-            var usage =100.0f - idleRaw;
-            if (!float.IsNaN(usage) && usage >=0)
+            if (!GetSystemTimes(out var idleHandle, out var kernelHandle, out var userHandle))
             {
-                var rounded = (int)Math.Round(usage);
-                return Math.Min(Math.Max(rounded,0), maxUtilization);
+                return _cachedCpuUtilization;
             }
+
+            ulong currentIdle = ToUInt64(idleHandle);
+            ulong currentKernel = ToUInt64(kernelHandle);
+            ulong currentUser = ToUInt64(userHandle);
+
+            ulong idleDelta = currentIdle - _prevIdleTime;
+            ulong kernelDelta = currentKernel - _prevKernelTime;
+            ulong userDelta = currentUser - _prevUserTime;
+
+            ulong totalSys = kernelDelta + userDelta;
+
+            if (totalSys > 0)
+            {
+                _prevIdleTime = currentIdle;
+                _prevKernelTime = currentKernel;
+                _prevUserTime = currentUser;
+                _lastCpuCalculationTick = currentTick;
+
+                var usagePercent = (double)(totalSys - idleDelta) / totalSys * 100.0;
+                var rounded = (int)Math.Round(usagePercent);
+
+                _cachedCpuUtilization = Math.Min(Math.Max(rounded, 0), maxUtilization);
+            }
+
+            return _cachedCpuUtilization;
         }
-
-        var raw = _percentProcessorUtilityCounter.NextValue();
-        if (float.IsNaN(raw) || raw <0)
-            return -1;
-
-        var roundedFallback = (int)Math.Round(raw);
-        return Math.Min(Math.Max(roundedFallback,0), maxUtilization);
     }
 
     protected int GetCpuCoreClock()
     {
         var baseClock = _cpuBaseClockCache ??= GetCpuBaseClock();
         var perfValue = _percentProcessorPerformanceCounter.NextValue();
-        if (float.IsNaN(perfValue) || perfValue <=0)
+        if (float.IsNaN(perfValue) || perfValue <= 0)
             return -1;
 
-        var clock = (int)(baseClock * (perfValue /100f));
-        if (clock <1)
+        var clock = (int)(baseClock * (perfValue / 100f));
+        if (clock < 1)
             return -1;
         return clock;
     }
