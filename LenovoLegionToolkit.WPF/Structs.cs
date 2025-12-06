@@ -56,7 +56,6 @@ public readonly struct DashboardGroup(DashboardGroupType type, string? customNam
         return groups.ToArray();
     }
 
-
     public DashboardGroupType Type { get; } = type;
 
     public string? CustomName { get; } = type == DashboardGroupType.Custom ? customName : null;
