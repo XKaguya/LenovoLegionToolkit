@@ -238,7 +238,7 @@ public static partial class Compatibility
     {
         if (string.IsNullOrEmpty(model)) return false;
 
-        var regex = new Regex(@"(?<platform>[AI])[A-Z]{2}\d{2}", RegexOptions.RightToLeft);
+        var regex = new Regex(@"(?<platform>[AI])[A-Z]{2}\d+", RegexOptions.RightToLeft);
 
         var match = regex.Match(model.ToUpperInvariant());
 
@@ -249,7 +249,6 @@ public static partial class Compatibility
 
         string platform = match.Groups["platform"].Value;
         return platform == "A";
-
     }
 
     private static async Task<MachineInformation.FeatureData> GetFeaturesAsync()

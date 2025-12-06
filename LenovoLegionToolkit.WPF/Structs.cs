@@ -49,7 +49,7 @@ public readonly struct DashboardGroup(DashboardGroupType type, string? customNam
         {
             var powerGroup = groups.First(g => g.Type == DashboardGroupType.Power);
             var items = powerGroup.Items.ToList();
-            items.Add(DashboardItem.ItsMode);
+            items.Insert(0, DashboardItem.ItsMode);
             groups[0] = new(DashboardGroupType.Power, null, items.ToArray());
         }
 

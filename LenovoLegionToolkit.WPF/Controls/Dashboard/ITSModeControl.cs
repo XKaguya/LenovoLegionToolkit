@@ -40,6 +40,11 @@ public class ITSModeControl : AbstractComboBoxFeatureCardControl<ITSMode>
 
     private async void ITSModeControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
+        if (!await _itsModeFeature.IsSupportedAsync().ConfigureAwait(false))
+        {
+            return;
+        }
+
         ITSMode mode = ITSMode.None;
         if (_itsModeFeature.LastItsMode == ITSMode.None)
         {
