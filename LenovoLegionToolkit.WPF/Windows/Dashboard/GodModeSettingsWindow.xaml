@@ -186,6 +186,49 @@
                         Description="{x:Static resources:Resource.GodModeSettingsWindow_CPU_TempLimit_Description}"
                         Unit="°C" />
 
+                    <custom:CardControl x:Name="_toggleOcCard" Margin="0,0,0,8">
+                        <custom:CardControl.Header>
+                            <controls:CardHeaderControl Title="{x:Static resources:Resource.GodModeSettingsWindow_Toggle_OC_Title}" Subtitle="{x:Static resources:Resource.GodModeSettingsWindow_Toggle_OC_Message}" />
+                        </custom:CardControl.Header>
+                        <wpfui:ToggleSwitch
+                            x:Name="_overclockingToggle"
+                            Margin="0,0,0,8"
+                            AutomationProperties.Name="{x:Static resources:Resource.GodModeSettingsWindow_Toggle_OC_Title}"
+                            Click="OverclockingToggle_Click" />
+                    </custom:CardControl>
+
+                    <godMode:GodModeValueControl
+                        x:Name="_cpuPrecisionBoostOverdriveScaler"
+                        Title="{x:Static resources:Resource.GodModeSettingsWindow_PrecisionBoostOverdriveScaler_Title}"
+                        Margin="0,0,0,8"
+                        Description="{x:Static resources:Resource.GodModeSettingsWindow_PrecisionBoostOverdriveScaler_Description}"
+                        Unit="x" />
+
+                    <godMode:GodModeValueControl
+                        x:Name="_cpuPrecisionBoostOverdriveBoostFrequency"
+                        Title="{x:Static resources:Resource.GodModeSettingsWindow_PrecisionBoostOverdriveBoostFrequency_Title}"
+                        Margin="0,0,0,8"
+                        Description="{x:Static resources:Resource.GodModeSettingsWindow_PrecisionBoostOverdriveBoostFrequency_Description}"
+                        Unit="MHz" />
+
+                    <custom:CardControl x:Name="_toggleCoreCurveCard" Margin="0,0,0,8">
+                        <custom:CardControl.Header>
+                            <controls:CardHeaderControl Title="{x:Static resources:Resource.GodModeSettingsWindow_Toggle_CoreCurve_Title}" Subtitle="{x:Static resources:Resource.GodModeSettingsWindow_Toggle_CoreCurve_Message}" />
+                        </custom:CardControl.Header>
+                        <wpfui:ToggleSwitch
+                            x:Name="_coreCurveToggle"
+                            Margin="0,0,0,8"
+                            AutomationProperties.Name="{x:Static resources:Resource.GodModeSettingsWindow_Toggle_CoreCurve_Title}"
+                            Click="CoreCurveToggle_Click" />
+                    </custom:CardControl>
+
+                    <godMode:GodModeValueControl
+                        x:Name="_cpuAllCoreCurveOptimizer"
+                        Title="{x:Static resources:Resource.GodModeSettingsWindow_AllCoreCurveOptimizer_Title}"
+                        Margin="0,0,0,8"
+                        Description="{x:Static resources:Resource.GodModeSettingsWindow_AllCoreCurveOptimizer_Description}"
+                        Unit="x" />
+
                     <TextBlock
                         x:Name="_gpuSectionTitle"
                         Margin="0,16,0,24"

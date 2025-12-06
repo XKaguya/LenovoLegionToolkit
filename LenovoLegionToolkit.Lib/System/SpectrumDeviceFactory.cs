@@ -1,0 +1,118 @@
+﻿using LenovoLegionToolkit.Lib.Utils;
+using Microsoft.Win32.SafeHandles;
+using NeoSmart.AsyncLock;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace LenovoLegionToolkit.Lib.System;
+
+public class SpectrumDeviceFactory : IDisposable
+{
+    private readonly AsyncLock _lock = new();
+    private SafeFileHandle? _cachedHandle;
+
+    public bool ForceDisable { get; set; }
+
+    public void Dispose()
+    {
+        _cachedHandle?.Dispose();
+        _cachedHandle = null;
+    }
+
+    public async Task<SafeFileHandle?> GetHandleAsync()
+    {
+        if (ForceDisable) return null;
+
+        if (_cachedHandle is not null && !_cachedHandle.IsInvalid && !_cachedHandle.IsClosed)
+        {
+            if (await IsDeviceResponsiveAsync(_cachedHandle).ConfigureAwait(false))
+            {
+                return _cachedHandle;
+            }
+        }
+
+        using (await _lock.LockAsync().ConfigureAwait(false))
+        {
+            if (_cachedHandle is not null && !_cachedHandle.IsInvalid && !_cachedHandle.IsClosed)
+            {
+                if (await IsDeviceResponsiveAsync(_cachedHandle).ConfigureAwait(false))
+                {
+                    return _cachedHandle;
+                }
+            }
+
+            _cachedHandle?.Dispose();
+            _cachedHandle = null;
+
+            _cachedHandle = await Task.Run(async () =>
+            {
+                var candidates = new List<SafeFileHandle>();
+
+                var primary = Devices.GetSpectrumRGBKeyboard(true);
+                if (primary != null) candidates.Add(primary);
+
+                var secondary = Devices.GetSpectrumRGBKeyboard2(true);
+                if (secondary != null) candidates.Add(secondary);
+
+                if (candidates.Count == 0)
+                {
+                    candidates.AddRange(Devices.GetSpectrumRGBKeyboards(true));
+                }
+
+                foreach (var candidate in candidates.Where(candidate => !candidate.IsInvalid && !candidate.IsClosed))
+                {
+                    if (await TryInitializeDeviceAsync(candidate).ConfigureAwait(false))
+                    {
+                        foreach (var other in candidates.Where(other => other != candidate))
+                        {
+                            other.Dispose();
+                        }
+
+                        return candidate;
+                    }
+                    candidate.Dispose();
+                }
+
+                return null;
+            }).ConfigureAwait(false);
+
+            return _cachedHandle;
+        }
+    }
+
+    private static async Task<bool> IsDeviceResponsiveAsync(SafeFileHandle handle)
+    {
+        return await Task.Run(() =>
+        {
+            try
+            {
+                var buffer = new byte[960];
+                buffer[0] = 7;
+                return HidUtils.SetFeature(handle, buffer);
+            }
+            catch
+            {
+                return false;
+            }
+        }).ConfigureAwait(false);
+    }
+
+    private static async Task<bool> TryInitializeDeviceAsync(SafeFileHandle handle)
+    {
+        return await Task.Run(() =>
+        {
+            try
+            {
+                var input = new LENOVO_SPECTRUM_GET_COMPATIBILITY_REQUEST();
+                if (!HidUtils.SetFeature(handle, input)) return false;
+                return HidUtils.GetFeature(handle, out LENOVO_SPECTRUM_GET_COMPATIBILITY_RESPONSE output) && output.IsCompatible;
+            }
+            catch
+            {
+                return false;
+            }
+        }).ConfigureAwait(false);
+    }
+}

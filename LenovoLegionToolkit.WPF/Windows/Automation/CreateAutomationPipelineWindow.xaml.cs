@@ -75,14 +75,6 @@ public partial class CreateAutomationPipelineWindow
         }
 
         IsVisibleChanged += CreateAutomationPipelineWindow_IsVisibleChanged;
-
-        PreviewKeyDown += (s, e) => {
-            if (e.Key == Key.System && e.SystemKey == Key.LeftAlt)
-            {
-                e.Handled = true;
-                Keyboard.ClearFocus();
-            }
-        };
     }
 
     private async void CreateAutomationPipelineWindow_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)

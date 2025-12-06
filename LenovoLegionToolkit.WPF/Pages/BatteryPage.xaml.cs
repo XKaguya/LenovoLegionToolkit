@@ -56,8 +56,7 @@ public partial class BatteryPage
 
         _refreshTask = Task.Run(async () =>
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Battery information refresh started...");
+            Log.Instance.Trace($"Battery information refresh started...");
 
             while (!token.IsCancellationRequested)
             {
@@ -73,13 +72,11 @@ public partial class BatteryPage
                 catch (OperationCanceledException) { }
                 catch (Exception ex)
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Battery information refresh failed.", ex);
+                    Log.Instance.Trace($"Battery information refresh failed.", ex);
                 }
             }
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Battery information refresh stopped.");
+            Log.Instance.Trace($"Battery information refresh stopped.");
         }, token);
     }
 

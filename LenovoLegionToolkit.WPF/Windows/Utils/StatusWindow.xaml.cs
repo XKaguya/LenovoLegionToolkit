@@ -14,7 +14,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
-using System.Windows.Input;
 using System.Windows.Media;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Common;
@@ -23,6 +22,15 @@ namespace LenovoLegionToolkit.WPF.Windows.Utils;
 
 public partial class StatusWindow
 {
+    private readonly ApplicationSettings _settings = IoCContainer.Resolve<ApplicationSettings>();
+    private readonly SemaphoreSlim _refreshLock = new(1, 1);
+    private DateTime _lastUpdate = DateTime.MinValue;
+    private const int UI_UPDATE_THROTTLE_MS = 100;
+
+    private const int MAX_RETRY_COUNT = 3;
+    private const int RETRY_DELAY_MS = 1000;
+    private int _currentRetryCount;
+
     private readonly CancellationTokenSource _cancellationTokenSource;
 
     private readonly PowerModeFeature _powerModeFeature;
@@ -74,68 +82,149 @@ public partial class StatusWindow
         BatteryState? batteryState = null;
         var hasUpdate = false;
         SensorsData? sensorsData = null;
-        double cpuPower = 0;
-        double gpuPower = 0;
+        double cpuPower = -1;
+        double gpuPower = -1;
 
         try
         {
             if (await _powerModeFeature.IsSupportedAsync().WaitAsync(token))
             {
                 state = await _powerModeFeature.GetStateAsync().WaitAsync(token);
-
                 if (state == PowerModeState.GodMode)
+                {
                     godModePresetName = await _godModeController.GetActivePresetNameAsync().WaitAsync(token);
+                }
             }
 
             if (await _itsModeFeature.IsSupportedAsync().WaitAsync(token))
+            {
                 mode = await _itsModeFeature.GetStateAsync().WaitAsync(token);
+            }
         }
-        catch { /* Ignored */ }
+        catch (Exception ex)
+        {
+            Log.Instance.Trace($"Error in Power/ITS mode retrieval: {ex.Message}", ex);
+        }
 
         try
         {
             if (_gpuController.IsSupported())
+            {
                 gpuStatus = await _gpuController.RefreshNowAsync().WaitAsync(token);
+            }
         }
-        catch { /* Ignored */ }
+        catch (Exception ex)
+        {
+            Log.Instance.Trace($"Error in GPU status retrieval: {ex.Message}", ex);
+        }
 
         try
         {
             batteryInformation = Battery.GetBatteryInformation();
         }
-        catch { /* Ignored */ }
+        catch (Exception ex)
+        {
+            Log.Instance.Trace($"Error in battery information retrieval: {ex.Message}", ex);
+        }
 
         try
         {
             if (await _batteryFeature.IsSupportedAsync().WaitAsync(token))
+            {
                 batteryState = await _batteryFeature.GetStateAsync().WaitAsync(token);
+            }
         }
-        catch { /* Ignored */ }
+        catch (Exception ex)
+        {
+            Log.Instance.Trace($"Error in battery state retrieval: {ex.Message}", ex);
+        }
 
         try
         {
             if (_updateCheckerSettings.Store.UpdateCheckFrequency != UpdateCheckFrequency.Never)
+            {
                 hasUpdate = await _updateChecker.CheckAsync(false).WaitAsync(token) is not null;
+            }
         }
-        catch { /* Ignored */ }
+        catch (Exception ex)
+        {
+            Log.Instance.Trace($"Error in update check: {ex.Message}", ex);
+        }
 
         try
         {
             if (await _sensorsController.IsSupportedAsync().WaitAsync(token))
+            {
                 sensorsData = await _sensorsController.GetDataAsync().WaitAsync(token);
+            }
         }
-        catch { /* Ignored */ }
+        catch (Exception ex)
+        {
+            Log.Instance.Trace($"Error in sensors data retrieval: {ex.Message}", ex);
+        }
 
         try
         {
             var states = await _sensorsGroupController.IsSupportedAsync().WaitAsync(token);
             if (states is LibreHardwareMonitorInitialState.Success or LibreHardwareMonitorInitialState.Initialized)
             {
-                cpuPower = await _sensorsGroupController.GetCpuPowerAsync().WaitAsync(token);
-                gpuPower = await _sensorsGroupController.GetGpuPowerAsync().WaitAsync(token);
+                await _sensorsGroupController.UpdateAsync().WaitAsync(token);
+
+                var retryCount = 0;
+                while (retryCount < MAX_RETRY_COUNT)
+                {
+                    try
+                    {
+                        cpuPower = await _sensorsGroupController.GetCpuPowerAsync().WaitAsync(token);
+                        gpuPower = await _sensorsGroupController.GetGpuPowerAsync().WaitAsync(token);
+
+                        if (cpuPower > 0)
+                        {
+                            if (gpuStatus is { State: GPUState.Active })
+                            {
+                                if (gpuPower > 0)
+                                {
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+
+                        retryCount++;
+                        if (retryCount >= MAX_RETRY_COUNT)
+                        {
+                            continue;
+                        }
+                        await Task.Delay(RETRY_DELAY_MS, token);
+                        await _sensorsGroupController.UpdateAsync().WaitAsync(token);
+                    }
+                    catch
+                    {
+                        retryCount++;
+                        if (retryCount < MAX_RETRY_COUNT)
+                        {
+                            await Task.Delay(RETRY_DELAY_MS, token);
+                        }
+                    }
+                }
+
+                if (retryCount >= MAX_RETRY_COUNT)
+                {
+                    Log.Instance.Trace($"Failed to get valid power after {MAX_RETRY_COUNT} attempts. CPU: {cpuPower}W, GPU: {gpuPower}W");
+                }
+            }
+            else
+            {
+                Log.Instance.Trace($"SensorsGroupController not initialized: {states}");
             }
         }
-        catch { /* Ignored */ }
+        catch (Exception ex)
+        {
+            Log.Instance.Trace($"Error in power monitoring: {ex.Message}", ex);
+        }
 
         return new(state, mode, godModePresetName, gpuStatus, batteryInformation, batteryState, hasUpdate, sensorsData, cpuPower, gpuPower);
     }
@@ -171,15 +260,6 @@ public partial class StatusWindow
         ShowInTaskbar = false;
         ShowActivated = false;
 
-        PreviewKeyDown += (s, e) =>
-        {
-            if (e.Key == Key.System && e.SystemKey == Key.LeftAlt)
-            {
-                e.Handled = true;
-                Keyboard.ClearFocus();
-            }
-        };
-
 #if DEBUG
         _title.Text += " [DEBUG]";
 #else
@@ -208,31 +288,7 @@ public partial class StatusWindow
         var token = _cancellationTokenSource.Token;
         await Task.Run(async () =>
         {
-            while (!token.IsCancellationRequested)
-            {
-                try
-                {
-                    var data = await GetStatusWindowDataAsync(token);
-                    if (token.IsCancellationRequested)
-                        break;
-
-                    await Dispatcher.InvokeAsync(() => TheRing(data), System.Windows.Threading.DispatcherPriority.Normal, token);
-                }
-                catch (OperationCanceledException)
-                {
-                    break;
-                }
-                catch { /* Ignored */ }
-
-                try
-                {
-                    await Task.Delay(1000, token);
-                }
-                catch (OperationCanceledException)
-                {
-                    break;
-                }
-            }
+            await TheRing(token);
         }, token);
     }
 
@@ -407,5 +463,56 @@ public partial class StatusWindow
         label.Content = fan < 0
             ? "-"
             : $"{fan:0}RPM";
+    }
+
+    private async Task TheRing(CancellationToken token)
+    {
+        if (!await _refreshLock.WaitAsync(0, token))
+            return;
+
+        try
+        {
+            while (!token.IsCancellationRequested)
+            {
+                try
+                {
+                    var data = await GetStatusWindowDataAsync(token);
+
+                    token.ThrowIfCancellationRequested();
+
+                    if ((DateTime.Now - _lastUpdate).TotalMilliseconds >= UI_UPDATE_THROTTLE_MS)
+                    {
+                        _lastUpdate = DateTime.Now;
+                        await Dispatcher.InvokeAsync(() => TheRing(data), System.Windows.Threading.DispatcherPriority.Normal, token);
+                    }
+
+                    _currentRetryCount = 0;
+                    await Task.Delay(TimeSpan.FromSeconds(_settings.Store.FloatingGadgetsRefreshInterval), token);
+                }
+                catch (OperationCanceledException) { }
+                catch (Exception ex)
+                {
+                    Log.Instance.Trace($"Exception in loop: {ex.Message}", ex);
+
+                    if (_currentRetryCount < MAX_RETRY_COUNT)
+                    {
+                        _currentRetryCount++;
+                        await Task.Delay(RETRY_DELAY_MS, token);
+                        continue;
+                    }
+
+                    _currentRetryCount = 0;
+                    await Task.Delay(TimeSpan.FromSeconds(_settings.Store.FloatingGadgetsRefreshInterval), token);
+                }
+            }
+        }
+        finally
+        {
+            try
+            {
+                _refreshLock.Release();
+            }
+            catch (ObjectDisposedException) { }
+        }
     }
 }

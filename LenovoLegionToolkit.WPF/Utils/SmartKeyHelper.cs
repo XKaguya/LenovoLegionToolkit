@@ -44,8 +44,7 @@ internal class SmartKeyHelper
 
         if (await _fnKeysDisabler.GetStatusAsync() == SoftwareStatus.Enabled)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Ignoring Fn+F9 FnKeys are enabled.");
+            Log.Instance.Trace($"Ignoring Fn+F9 FnKeys are enabled.");
 
             return;
         }
@@ -84,8 +83,7 @@ internal class SmartKeyHelper
 
         if (!currentGuid.HasValue)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Bringing to foreground after {(isDoublePress ? "double" : "single")} Fn+F9 press.");
+            Log.Instance.Trace($"Bringing to foreground after {(isDoublePress ? "double" : "single")} Fn+F9 press.");
             BringToForeground?.Invoke();
             return;
         }
@@ -101,8 +99,7 @@ internal class SmartKeyHelper
 
         currentGuid = actionList[currentIndex];
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Running action {currentGuid} after {(isDoublePress ? "double" : "single")} Fn+F9 press.");
+        Log.Instance.Trace($"Running action {currentGuid} after {(isDoublePress ? "double" : "single")} Fn+F9 press.");
 
         try
         {
@@ -110,8 +107,7 @@ internal class SmartKeyHelper
             var pipeline = pipelines.FirstOrDefault(p => p.Id == currentGuid);
             if (pipeline is not null)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Running action {currentGuid} after {(isDoublePress ? "double" : "single")} Fn+F9 press.");
+                Log.Instance.Trace($"Running action {currentGuid} after {(isDoublePress ? "double" : "single")} Fn+F9 press.");
 
                 await _automationProcessor.RunNowAsync(pipeline.Id);
 
@@ -120,8 +116,7 @@ internal class SmartKeyHelper
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Running action {currentGuid} after {(isDoublePress ? "double" : "single")} Fn+F9 press failed.", ex);
+            Log.Instance.Trace($"Running action {currentGuid} after {(isDoublePress ? "double" : "single")} Fn+F9 press failed.", ex);
         }
 
         if (isDoublePress)

@@ -25,28 +25,24 @@ public abstract class AbstractCapabilityFeature<T>(CapabilityID capabilityID)
 
     public async Task<T> GetStateAsync()
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Getting state... [feature={GetType().Name}]");
+        Log.Instance.Trace($"Getting state... [feature={GetType().Name}]");
 
         var value = await WMI.LenovoOtherMethod.GetFeatureValueAsync(capabilityID).ConfigureAwait(false);
         var result = (T)Enum.ToObject(typeof(T), value);
         if (!Enum.IsDefined(result))
             throw new InvalidOperationException($"Undefined value received: {result} [type={typeof(T)}, feature={GetType().Name}]");
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"State is {result} [feature={GetType().Name}]");
+        Log.Instance.Trace($"State is {result} [feature={GetType().Name}]");
 
         return result;
     }
 
     public async Task SetStateAsync(T state)
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Setting state to {state}... [feature={GetType().Name}]");
+        Log.Instance.Trace($"Setting state to {state}... [feature={GetType().Name}]");
 
         await WMI.LenovoOtherMethod.SetFeatureValueAsync(capabilityID, Convert.ToInt32(state)).ConfigureAwait(false);
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Set state to {state} [feature={GetType().Name}]");
+        Log.Instance.Trace($"Set state to {state} [feature={GetType().Name}]");
     }
 }

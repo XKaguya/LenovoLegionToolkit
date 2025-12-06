@@ -120,16 +120,14 @@ public class NativeWindowsMessageListener : NativeWindow, IListener<NativeWindow
                 {
                     case PInvoke.DBT_DEVICEARRIVAL:
                         {
-                            if (Log.Instance.IsTraceEnabled)
-                                Log.Instance.Trace($"Event received: Device Arrival [name={name}]");
+                            Log.Instance.Trace($"Event received: Device Arrival [name={name}]");
 
                             OnDeviceConnected(name);
                             break;
                         }
                     case PInvoke.DBT_DEVICEREMOVECOMPLETE:
                         {
-                            if (Log.Instance.IsTraceEnabled)
-                                Log.Instance.Trace($"Event received: Device Removal Complete [name={name}]");
+                            Log.Instance.Trace($"Event received: Device Removal Complete [name={name}]");
 
                             OnDeviceDisconnected(name);
                             break;
@@ -138,36 +136,14 @@ public class NativeWindowsMessageListener : NativeWindow, IListener<NativeWindow
 
                 if (devBroadcastDeviceInterface.dbcc_classguid == PInvoke.GUID_DISPLAY_DEVICE_ARRIVAL)
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Event received: Display Device Arrival");
+                    Log.Instance.Trace($"Event received: Display Device Arrival");
 
                     OnDisplayDeviceArrival();
                 }
 
                 if (devBroadcastDeviceInterface.dbcc_classguid == PInvoke.GUID_DEVINTERFACE_MONITOR)
                 {
-                    var id = InternalDisplay.Get();
-                    var isExternal = !name.Equals(id?.DevicePath, StringComparison.Ordinal);
-
-                    switch (state)
-                    {
-                        case PInvoke.DBT_DEVICEARRIVAL:
-                            {
-                                if (Log.Instance.IsTraceEnabled)
-                                    Log.Instance.Trace($"Event received: Monitor Connected");
-
-                                OnMonitorConnected(isExternal);
-                                break;
-                            }
-                        case PInvoke.DBT_DEVICEREMOVECOMPLETE:
-                            {
-                                if (Log.Instance.IsTraceEnabled)
-                                    Log.Instance.Trace($"Event received: Monitor Disconnected");
-
-                                OnMonitorDisconnected(isExternal);
-                                break;
-                            }
-                    }
+                    HandleMonitorEvent(name, state);
                 }
             }
         }
@@ -183,16 +159,14 @@ public class NativeWindowsMessageListener : NativeWindow, IListener<NativeWindow
                 {
                     case PInvokeExtensions.CONSOLE_DISPLAY_STATE.On:
                         {
-                            if (Log.Instance.IsTraceEnabled)
-                                Log.Instance.Trace($"Event received: Monitor On");
+                            Log.Instance.Trace($"Event received: Monitor On");
 
                             OnMonitorOn();
                             break;
                         }
                     case PInvokeExtensions.CONSOLE_DISPLAY_STATE.Off:
                         {
-                            if (Log.Instance.IsTraceEnabled)
-                                Log.Instance.Trace($"Event received: Monitor Off");
+                            Log.Instance.Trace($"Event received: Monitor Off");
 
                             OnMonitorOff();
                             break;
@@ -205,15 +179,13 @@ public class NativeWindowsMessageListener : NativeWindow, IListener<NativeWindow
                 var isOpened = str.Data[0] != 0;
                 if (isOpened)
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Event received: Lid Opened");
+                    Log.Instance.Trace($"Event received: Lid Opened");
 
                     OnLidOpened();
                 }
                 else
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Event received: Lid Closed");
+                    Log.Instance.Trace($"Event received: Lid Closed");
 
                     OnLidClosed();
                 }
@@ -221,8 +193,7 @@ public class NativeWindowsMessageListener : NativeWindow, IListener<NativeWindow
 
             if (str.PowerSetting == PInvoke.GUID_POWER_SAVING_STATUS && str.Data[0] == 0)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Event received: Battery Saver enabled");
+                Log.Instance.Trace($"Event received: Battery Saver enabled");
 
                 OnBatterySaverEnabled();
             }
@@ -243,9 +214,40 @@ public class NativeWindowsMessageListener : NativeWindow, IListener<NativeWindow
 
         if (completed == delayTask)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Delay expired, state might be inconsistent! [IsMonitorOn={IsMonitorOn}, IsLidOpen={IsLidOpen}]");
+            Log.Instance.Trace($"Delay expired, state might be inconsistent! [IsMonitorOn={IsMonitorOn}, IsLidOpen={IsLidOpen}]");
         }
+    }
+
+    private void HandleMonitorEvent(string name, uint state)
+    {
+        Task.Run(async () =>
+        {
+            try
+            {
+                var id = await InternalDisplay.GetAsync().ConfigureAwait(false);
+                var isExternal = !name.Equals(id?.DevicePath, StringComparison.Ordinal);
+
+                switch (state)
+                {
+                    case PInvoke.DBT_DEVICEARRIVAL:
+                    {
+                        Log.Instance.Trace($"Event received: Monitor Connected");
+                        OnMonitorConnected(isExternal);
+                        break;
+                    }
+                    case PInvoke.DBT_DEVICEREMOVECOMPLETE:
+                    {
+                        Log.Instance.Trace($"Event received: Monitor Disconnected");
+                        OnMonitorDisconnected(isExternal);
+                        break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.Trace($"Error handling monitor event", ex);
+            }
+        });
     }
 
     private void OnMonitorOn()
@@ -282,7 +284,7 @@ public class NativeWindowsMessageListener : NativeWindow, IListener<NativeWindow
 
     private void OnBatterySaverEnabled()
     {
-        Task.Run(_powerModeFeature.EnsureCorrectWindowsPowerSettingsAreSetAsync);
+        Task.Run(async () => await _powerModeFeature.EnsureCorrectWindowsPowerSettingsAreSetAsync().ConfigureAwait(false));
 
         RaiseChanged(NativeWindowsMessage.BatterySaverEnabled);
     }

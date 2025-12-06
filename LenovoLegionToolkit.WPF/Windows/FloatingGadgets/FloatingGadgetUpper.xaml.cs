@@ -18,15 +18,16 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
-namespace LenovoLegionToolkit.WPF.Windows.Utils;
+namespace LenovoLegionToolkit.WPF.Windows.FloatingGadgets;
 
 public partial class FloatingGadgetUpper
 {
     private const int GWL_EXSTYLE = -20;
     private const int WS_EX_TRANSPARENT = 0x00000020;
     private const int WS_EX_TOOLWINDOW = 0x00000080;
+    private const int WS_EX_NOACTIVATE = 0x08000000;
 
-    private const int UI_UPDATE_THROTTLE_MS = 100;
+    private const int UI_UPDATE_THROTTLE_MS = 1000;
 
     private const int FpsRedLine = 30;
     private const double MaxFrameTimeMs = 10.0;
@@ -59,16 +60,15 @@ public partial class FloatingGadgetUpper
     private bool _fpsMonitoringStarted = false;
 
     private HashSet<FloatingGadgetItem> _activeItems = new();
-    private List<FloatingGadgetItem> _visibleItems = new();
-    private static Dictionary<FrameworkElement, (List<FloatingGadgetItem> Items, Rectangle? Separator)> GadgetGroups { get; } =
-        new Dictionary<FrameworkElement, (List<FloatingGadgetItem> Items, Rectangle? Separator)>();
+    private static Dictionary<FrameworkElement, (List<FloatingGadgetItem> Items, Rectangle? Separator)> GadgetGroups { get; } = new();
 
-    private static Dictionary<FloatingGadgetItem, FrameworkElement> _itemsMap { get; } =
-        new Dictionary<FloatingGadgetItem, FrameworkElement>();
+    private static Dictionary<FloatingGadgetItem, FrameworkElement> _itemsMap { get; } = new();
 
     public FloatingGadgetUpper()
     {
         InitializeComponent();
+
+        RenderOptions.ProcessRenderMode = RenderMode.SoftwareOnly;
 
         IsVisibleChanged += FloatingGadget_IsVisibleChanged;
         SourceInitialized += OnSourceInitialized!;
@@ -79,10 +79,9 @@ public partial class FloatingGadgetUpper
         InitializeComponentSpecifics();
         InitializeMappings();
         SubscribeEvents();
-        InitializeFpsSensor();
+        _fpsController.FpsDataUpdated += OnFpsDataUpdated;
 
         _activeItems = new HashSet<FloatingGadgetItem>(_settings.Store.FloatingGadgetItems);
-        _visibleItems.AddRange(_activeItems);
 
         UpdateGadgetControlsVisibility();
     }
@@ -170,9 +169,6 @@ public partial class FloatingGadgetUpper
                 var newItemsSet = new HashSet<FloatingGadgetItem>(message.Items);
                 if (!_activeItems.SetEquals(newItemsSet))
                 {
-                    _visibleItems.Clear();
-                    _visibleItems.AddRange(message.Items);
-
                     _activeItems = newItemsSet;
                     UpdateGadgetControlsVisibility();
                 }
@@ -184,7 +180,7 @@ public partial class FloatingGadgetUpper
     {
         var hwnd = new WindowInteropHelper(this).Handle;
         var extendedStyle = GetWindowLong(hwnd, GWL_EXSTYLE);
-        SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle | WS_EX_TRANSPARENT | WS_EX_TOOLWINDOW);
+        SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle | WS_EX_TRANSPARENT | WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE);
     }
 
     private void OnLoaded(object? sender, RoutedEventArgs e)
@@ -204,11 +200,11 @@ public partial class FloatingGadgetUpper
     {
         if (IsVisible)
         {
-            _cts?.Cancel();
+            _cts?.CancelAsync();
             _cts?.Dispose();
             _cts = new CancellationTokenSource();
 
-            if (!_fpsMonitoringStarted)
+            if (!_fpsMonitoringStarted && ShouldMonitorFps())
             {
                 await StartFpsMonitoringAsync();
                 _fpsMonitoringStarted = true;
@@ -220,7 +216,13 @@ public partial class FloatingGadgetUpper
         }
         else
         {
-            _cts?.Cancel();
+            _cts?.CancelAsync();
+
+            if (_fpsMonitoringStarted)
+            {
+                StopFpsMonitoring();
+                _fpsMonitoringStarted = false;
+            }
         }
     }
 
@@ -270,17 +272,19 @@ public partial class FloatingGadgetUpper
             }
         }
 
-        for (int i = 0; i < allGroups.Count; i++)
+        CheckAndUpdateFpsMonitoring();
+
+        foreach (var group in allGroups)
         {
-            var (_, separator) = allGroups[i].Value;
+            var (_, separator) = group.Value;
 
             if (separator != null)
             {
-                bool isCurrentGroupVisible = visibleGroups.Contains(allGroups[i].Key);
+                bool isCurrentGroupVisible = visibleGroups.Contains(group.Key);
 
                 if (isCurrentGroupVisible)
                 {
-                    int indexInVisible = visibleGroups.IndexOf(allGroups[i].Key);
+                    int indexInVisible = visibleGroups.IndexOf(group.Key);
                     bool nextGroupIsVisible = indexInVisible < visibleGroups.Count - 1;
 
                     separator.Visibility = nextGroupIsVisible ? Visibility.Visible : Visibility.Collapsed;
@@ -304,6 +308,28 @@ public partial class FloatingGadgetUpper
         UpdateGadgetGroupVisibility();
     }
 
+    private async void CheckAndUpdateFpsMonitoring()
+    {
+        bool shouldMonitor = ShouldMonitorFps();
+
+        if (shouldMonitor && !_fpsMonitoringStarted && IsVisible)
+        {
+            await StartFpsMonitoringAsync();
+            _fpsMonitoringStarted = true;
+        }
+        else if (!shouldMonitor && _fpsMonitoringStarted)
+        {
+            StopFpsMonitoring();
+            _fpsMonitoringStarted = false;
+        }
+    }
+
+    private bool ShouldMonitorFps()
+    {
+        var fpsItems = new[] { FloatingGadgetItem.Fps, FloatingGadgetItem.LowFps, FloatingGadgetItem.FrameTime };
+        return fpsItems.Any(item => _activeItems.Contains(item));
+    }
+
     private void UpdateTextBlock(System.Windows.Controls.TextBlock tb, double value, string format, double yellowThreshold, double redThreshold)
     {
         if (tb.Visibility != Visibility.Visible) return;
@@ -321,6 +347,7 @@ public partial class FloatingGadgetUpper
             SetForegroundIfChanged(tb, SeverityBrush(value, yellowThreshold, redThreshold));
         }
     }
+
     private void UpdateTextBlock(System.Windows.Controls.TextBlock tb, double value, string format)
     {
         if (tb.Visibility != Visibility.Visible) return;
@@ -336,6 +363,7 @@ public partial class FloatingGadgetUpper
             SetTextIfChanged(tb, _stringBuilder.ToString());
         }
     }
+
     private void UpdateTextBlock(System.Windows.Controls.TextBlock tb, int value)
     {
         if (tb.Visibility != Visibility.Visible) return;
@@ -351,6 +379,7 @@ public partial class FloatingGadgetUpper
             SetTextIfChanged(tb, _stringBuilder.ToString());
         }
     }
+
     public void UpdateSensorData(
         double cpuUsage, double cpuFrequency, double cpuTemp, double cpuPower,
         double gpuUsage, double gpuFrequency, double gpuTemp, double gpuVramTemp, double gpuPower,
@@ -399,45 +428,39 @@ public partial class FloatingGadgetUpper
             tb.Foreground = brush;
     }
 
-    private void InitializeFpsSensor()
-    {
-        _fpsController.Blacklist.Add("explorer");
-        _fpsController.Blacklist.Add("taskmgr");
-        _fpsController.Blacklist.Add("ApplicationFrameHost");
-        _fpsController.Blacklist.Add("System");
-        _fpsController.Blacklist.Add("svchost");
-        _fpsController.Blacklist.Add("csrss");
-        _fpsController.Blacklist.Add("wininit");
-        _fpsController.Blacklist.Add("services");
-        _fpsController.Blacklist.Add("lsass");
-        _fpsController.Blacklist.Add("winlogon");
-        _fpsController.Blacklist.Add("smss");
-        _fpsController.Blacklist.Add("spoolsv");
-        _fpsController.Blacklist.Add("SearchIndexer");
-        _fpsController.Blacklist.Add("SearchUI");
-        _fpsController.Blacklist.Add("RuntimeBroker");
-        _fpsController.Blacklist.Add("dwm");
-        _fpsController.Blacklist.Add("ctfmon");
-        _fpsController.Blacklist.Add("audiodg");
-        _fpsController.Blacklist.Add("fontdrvhost");
-        _fpsController.Blacklist.Add("taskhost");
-        _fpsController.Blacklist.Add("conhost");
-        _fpsController.Blacklist.Add("sihost");
-
-        _fpsController.FpsDataUpdated += OnFpsDataUpdated;
-    }
-
     private async Task StartFpsMonitoringAsync()
     {
-        await _fpsController.StartMonitoringAsync();
+        try
+        {
+            await _fpsController.StartMonitoringAsync();
+        }
+        catch (Exception ex)
+        {
+            Log.Instance.Trace($"Failed to start FPS monitoring", ex);
+        }
+    }
+
+    private void StopFpsMonitoring()
+    {
+        try
+        {
+            _fpsController.StopMonitoring();
+        }
+        catch (Exception ex)
+        {
+            Log.Instance.Trace($"Failed to stop FPS monitoring", ex);
+        }
     }
 
     private void OnFpsDataUpdated(object? sender, FpsSensorController.FpsData fpsData)
     {
-        Dispatcher.BeginInvoke(() =>
+        if (_fpsMonitoringStarted)
         {
-            UpdateFpsDisplay(fpsData.Fps, fpsData.LowFps, fpsData.FrameTime);
-        }, DispatcherPriority.Normal);
+            Dispatcher.BeginInvoke(() =>
+            {
+                UpdateFpsDisplay(fpsData.Fps, fpsData.LowFps, fpsData.FrameTime);
+            }, DispatcherPriority.Normal);
+        }
     }
 
     private void UpdateFpsDisplay(string fps, string lowFps, string frameTime)
@@ -485,10 +508,7 @@ public partial class FloatingGadgetUpper
                 catch (OperationCanceledException) { }
                 catch (Exception ex)
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                    {
-                        Log.Instance.Trace($"Exception occurred when executing TheRing()", ex);
-                    }
+                    Log.Instance.Trace($"Exception occurred when executing TheRing()", ex);
                     await Task.Delay(1000, token);
                 }
             }
@@ -499,7 +519,7 @@ public partial class FloatingGadgetUpper
             {
                 _refreshLock.Release();
             }
-            catch (ObjectDisposedException) {}
+            catch (ObjectDisposedException) { }
         }
     }
 

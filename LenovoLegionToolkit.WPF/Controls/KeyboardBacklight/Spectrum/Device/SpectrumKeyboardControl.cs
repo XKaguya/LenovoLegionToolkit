@@ -8,6 +8,7 @@ public class SpectrumKeyboardControl : UserControl
     private readonly SpectrumKeyboardANSIControl _ansi = new();
     private readonly SpectrumKeyboardISOControl _iso = new();
     private readonly SpectrumKeyboardJisControl _jis = new();
+    private readonly SpectrumKeyboard24ZoneControl _keyboard24Zone = new();
 
     private readonly StackPanel _stackPanel = new();
 
@@ -21,6 +22,7 @@ public class SpectrumKeyboardControl : UserControl
         _stackPanel.Children.Remove(_ansi);
         _stackPanel.Children.Remove(_iso);
         _stackPanel.Children.Remove(_jis);
+        _stackPanel.Children.Remove(_keyboard24Zone);
 
         switch (keyboardLayout)
         {
@@ -32,6 +34,9 @@ public class SpectrumKeyboardControl : UserControl
                 break;
             case KeyboardLayout.Jis:
                 _stackPanel.Children.Add(_jis);
+                break;
+            case KeyboardLayout.Keyboard24Zone:
+                _stackPanel.Children.Add(_keyboard24Zone);
                 break;
         }
 

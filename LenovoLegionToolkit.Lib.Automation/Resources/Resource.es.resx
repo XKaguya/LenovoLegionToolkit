@@ -234,9 +234,9 @@
     <value>Sesión desbloqueada</value>
   </data>
   <data name="ITSModeAutomationPipelineTrigger_DisplayName" xml:space="preserve">
-    <value>When IdeaPad Power Mode is changed</value>
+    <value>Cuando se cambia el modo de energía del IdeaPad</value>
   </data>
   <data name="HybridModeAutomationPipelineTrigger_DisplayName" xml:space="preserve">
-    <value>Hybrid Mode</value>
+    <value>Modo híbrido</value>
   </data>
 </root>

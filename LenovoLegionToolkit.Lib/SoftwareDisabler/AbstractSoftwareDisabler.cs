@@ -36,26 +36,21 @@ public abstract class AbstractSoftwareDisabler
             var services = RunningServices().ToArray();
             var processes = RunningProcesses().ToArray();
 
-            if (Log.Instance.IsTraceEnabled)
-            {
-                Log.Instance.Trace($"Running services count: {services.Length}. [type={GetType().Name}, services={string.Join(",", services)}]");
-                Log.Instance.Trace($"Running processes count: {processes.Length}. [type={GetType().Name}, processes={string.Join(",", processes)}]");
-            }
+            Log.Instance.Trace($"Running services count: {services.Length}. [type={GetType().Name}, services={string.Join(",", services)}]");
+            Log.Instance.Trace($"Running processes count: {processes.Length}. [type={GetType().Name}, processes={string.Join(",", processes)}]");
 
             isEnabled = services.Length != 0 || processes.Length != 0;
             isInstalled = IsInstalled();
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Exception while getting status. [type={GetType().Name}]", ex);
+            Log.Instance.Trace($"Exception while getting status. [type={GetType().Name}]", ex);
 
             isEnabled = false;
             isInstalled = false;
         }
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Status: {isEnabled},{isInstalled} [type={GetType().Name}]");
+        Log.Instance.Trace($"Status: {isEnabled},{isInstalled} [type={GetType().Name}]");
 
         SoftwareStatus status;
 
@@ -73,22 +68,19 @@ public abstract class AbstractSoftwareDisabler
 
     public virtual Task EnableAsync() => Task.Run(async () =>
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Enabling... [type={GetType().Name}]");
+        Log.Instance.Trace($"Enabling... [type={GetType().Name}]");
 
         SetScheduledTasksEnabled(true);
         SetServicesEnabled(true);
 
         _ = await GetStatusAsync().ConfigureAwait(false);
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Enabled [type={GetType().Name}]");
+        Log.Instance.Trace($"Enabled [type={GetType().Name}]");
     });
 
     public virtual Task DisableAsync() => Task.Run(async () =>
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Disabling... [type={GetType().Name}]");
+        Log.Instance.Trace($"Disabling... [type={GetType().Name}]");
 
         SetScheduledTasksEnabled(false);
         SetServicesEnabled(false);
@@ -96,8 +88,7 @@ public abstract class AbstractSoftwareDisabler
 
         _ = await GetStatusAsync().ConfigureAwait(false);
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Disabled [type={GetType().Name}]");
+        Log.Instance.Trace($"Disabled [type={GetType().Name}]");
     });
 
     private bool IsInstalled() => ServiceController.GetServices().Any(s => ServiceNames.Contains(s.ServiceName));
@@ -155,14 +146,12 @@ public abstract class AbstractSoftwareDisabler
 
     private void SetTasksInFolderEnabled(TaskService taskService, string path, bool enabled)
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Setting tasks in folder {path} to {enabled}. [type={GetType().Name}]");
+        Log.Instance.Trace($"Setting tasks in folder {path} to {enabled}. [type={GetType().Name}]");
 
         var folder = taskService.GetFolder(path);
         if (folder is null)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Folder not found [path={path}, type={GetType().Name}]]");
+            Log.Instance.Trace($"Folder not found [path={path}, type={GetType().Name}]]");
 
             return;
         }
@@ -176,8 +165,7 @@ public abstract class AbstractSoftwareDisabler
             }
             catch (Exception ex)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Failed to register changes on task {task.Name} in {task.Path}.", ex);
+                Log.Instance.Trace($"Failed to register changes on task {task.Name} in {task.Path}.", ex);
 
                 throw new SoftwareDisablerException($"Failed to register changes on task {task.Name} in {task.Path} [type={GetType().Name}]", ex);
             }
@@ -194,13 +182,11 @@ public abstract class AbstractSoftwareDisabler
     {
         try
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Setting service {serviceName} to {enabled}. [type={GetType().Name}]");
+            Log.Instance.Trace($"Setting service {serviceName} to {enabled}. [type={GetType().Name}]");
 
             if (!ServiceController.GetServices().Any(s => s.ServiceName == serviceName))
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Service {serviceName} not found. [type={GetType().Name}]");
+                Log.Instance.Trace($"Service {serviceName} not found. [type={GetType().Name}]");
 
                 return;
             }
@@ -209,8 +195,7 @@ public abstract class AbstractSoftwareDisabler
 
             try
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Changing service {serviceName} start mode to {enabled}.  [type={GetType().Name}]");
+                Log.Instance.Trace($"Changing service {serviceName} start mode to {enabled}.  [type={GetType().Name}]");
 
                 service.ChangeStartMode(enabled);
 
@@ -218,30 +203,26 @@ public abstract class AbstractSoftwareDisabler
                 {
                     if (service.Status != ServiceControllerStatus.Running)
                     {
-                        if (Log.Instance.IsTraceEnabled)
-                            Log.Instance.Trace($"Starting service {serviceName}... [type={GetType().Name}]");
+                        Log.Instance.Trace($"Starting service {serviceName}... [type={GetType().Name}]");
                         service.Start();
                         service.WaitForStatus(ServiceControllerStatus.Running);
                     }
                     else
                     {
-                        if (Log.Instance.IsTraceEnabled)
-                            Log.Instance.Trace($"Will not start service {serviceName}. [status={service.Status}, type={GetType().Name}]]");
+                        Log.Instance.Trace($"Will not start service {serviceName}. [status={service.Status}, type={GetType().Name}]]");
                     }
                 }
                 else
                 {
                     if (service.CanStop)
                     {
-                        if (Log.Instance.IsTraceEnabled)
-                            Log.Instance.Trace($"Stopping service {serviceName}... [type={GetType().Name}]");
+                        Log.Instance.Trace($"Stopping service {serviceName}... [type={GetType().Name}]");
                         service.Stop();
                         service.WaitForStatus(ServiceControllerStatus.Stopped);
                     }
                     else
                     {
-                        if (Log.Instance.IsTraceEnabled)
-                            Log.Instance.Trace($"Will not stop service {serviceName}. [status={service.Status}, canStop={service.CanStop}, type={GetType().Name}]]");
+                        Log.Instance.Trace($"Will not stop service {serviceName}. [status={service.Status}, canStop={service.CanStop}, type={GetType().Name}]]");
                     }
                 }
             }
@@ -252,8 +233,7 @@ public abstract class AbstractSoftwareDisabler
         }
         catch (InvalidOperationException ex) when (ex.InnerException is Win32Exception { NativeErrorCode: 1060 })
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Service {serviceName} could not be set to {enabled}");
+            Log.Instance.Trace($"Service {serviceName} could not be set to {enabled}");
 
             throw new SoftwareDisablerException(serviceName, ex);
         }
@@ -274,8 +254,7 @@ public abstract class AbstractSoftwareDisabler
                 }
                 catch (Exception ex)
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Couldn't kill process.", ex);
+                    Log.Instance.Trace($"Couldn't kill process.", ex);
                 }
             }
     }

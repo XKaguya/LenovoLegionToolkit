@@ -32,11 +32,32 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
         private FpsData _currentFpsData = new FpsData();
         private CancellationTokenSource? _cancellationTokenSource;
         private Process? _currentMonitoredProcess;
-        private readonly object _lockObject = new object();
+        private readonly Lock _lockObject = new Lock();
         private bool _isRunning = false;
         private CancellationTokenSource? _currentProcessTokenSource;
 
         public event EventHandler<FpsData>? FpsDataUpdated;
+
+        public void InitializeBlacklist()
+        {
+            var systemProcesses = new[]
+            {
+                "explorer", "taskmgr", "ApplicationFrameHost", "System",
+                "svchost", "csrss", "wininit", "services", "lsass",
+                "winlogon", "smss", "spoolsv", "SearchIndexer", "SearchUI",
+                "RuntimeBroker", "dwm", "ctfmon", "audiodg", "fontdrvhost",
+                "taskhost", "conhost", "sihost", "StartMenuExperienceHost",
+                "ShellExperienceHost", "Lenovo Legion Toolkit"
+            };
+
+            foreach (var process in systemProcesses)
+            {
+                if (!Blacklist.Contains(process))
+                {
+                    Blacklist.Add(process);
+                }
+            }
+        }
 
         public Task StartMonitoringAsync()
         {
@@ -59,24 +80,19 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                         {
                             StopProcessMonitoring();
 
-                            if (currentProcess != null && !currentProcess.HasExited)
+                            if (!currentProcess.HasExited)
                             {
-                                await StartProcessMonitoringAsync(currentProcess);
+                                await StartProcessMonitoringAsync(currentProcess).ConfigureAwait(false);
                                 lastProcess = currentProcess;
                             }
                         }
-                        else if (currentProcess == null && _currentMonitoredProcess != null)
-                        {
-                            StopProcessMonitoring();
-                            lastProcess = null;
-                        }
-                        else if (currentProcess != null && _currentMonitoredProcess != null && currentProcess.Id == _currentMonitoredProcess.Id && _currentMonitoredProcess.HasExited)
+                        else if (currentProcess == null && _currentMonitoredProcess != null || currentProcess != null && _currentMonitoredProcess != null && currentProcess.Id == _currentMonitoredProcess.Id && _currentMonitoredProcess.HasExited)
                         {
                             StopProcessMonitoring();
                             lastProcess = null;
                         }
 
-                        await Task.Delay(1000, _cancellationTokenSource.Token);
+                        await Task.Delay(1000, _cancellationTokenSource.Token).ConfigureAwait(false);
                     }
                     catch (TaskCanceledException)
                     {
@@ -84,11 +100,8 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                     }
                     catch (Exception ex)
                     {
-                        if (Log.Instance.IsTraceEnabled)
-                        {
-                            Log.Instance.Trace($"Monitoring loop error: {ex.Message}");
-                        }
-                        await Task.Delay(1000, _cancellationTokenSource.Token);
+                        Log.Instance.Trace($"Monitoring loop error: {ex.Message}");
+                        await Task.Delay(1000, _cancellationTokenSource.Token).ConfigureAwait(false);
                     }
                 }
             }, _cancellationTokenSource.Token);
@@ -120,26 +133,24 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
         {
             try
             {
-                IntPtr hwnd = GetForegroundWindow();
+                var hwnd = GetForegroundWindow();
                 if (hwnd == IntPtr.Zero)
                     return null;
 
-                GetWindowThreadProcessId(hwnd, out uint processId);
-                if (processId == 0)
-                    return null;
-
-                if (processId == 0 || processId == 4)
-                    return null;
+                GetWindowThreadProcessId(hwnd, out var processId);
+                switch (processId)
+                {
+                    case 0:
+                    case 4:
+                        return null;
+                }
 
                 using var process = Process.GetProcessById((int)processId);
 
-                if (process == null || string.IsNullOrEmpty(process.ProcessName) || process.HasExited)
+                if (string.IsNullOrEmpty(process.ProcessName) || process.HasExited)
                     return null;
 
-                if (IsProcessBlacklisted(process.ProcessName))
-                    return null;
-
-                return Process.GetProcessById((int)processId);
+                return IsProcessBlacklisted(process.ProcessName) ? null : Process.GetProcessById((int)processId);
             }
             catch (ArgumentException) { return null; }
             catch (InvalidOperationException) { return null; }
@@ -158,40 +169,39 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                     _currentProcessTokenSource.Token,
                     _cancellationTokenSource?.Token ?? CancellationToken.None);
 
-                _ = Task.Run(async () =>
+                var monitoringTask = Task.Run(async () =>
                 {
-                    try
-                    {
-                        await FpsInspector.StartForeverAsync(request, OnFpsDataReceived, linkedTokenSource.Token);
-                    }
-                    catch (OperationCanceledException) { }
-                    catch (Exception ex)
-                    {
-                        if (Log.Instance.IsTraceEnabled)
-                        {
-                            Log.Instance.Trace($"Monitoring failed for {process.ProcessName}", ex);
-                        }
-                        lock (_lockObject)
-                        {
-                            if (_currentMonitoredProcess?.Id == process.Id)
-                            {   
-                                _currentMonitoredProcess = null;
-                            }
-                        }
-                    }
+                    await FpsInspector.StartForeverAsync(request, OnFpsDataReceived, linkedTokenSource.Token).ConfigureAwait(true);
                 }, linkedTokenSource.Token);
 
-                if (Log.Instance.IsTraceEnabled)
+                monitoringTask.ContinueWith(t =>
                 {
-                    Log.Instance.Trace($"Started monitoring {process.ProcessName} (PID: {process.Id})");
-                }
+                    if (t.IsCanceled)
+                    {
+                        return;
+                    }
+
+                    if (!t.IsFaulted)
+                    {
+                        return;
+                    }
+
+                    var ex = t.Exception?.Flatten().InnerException ?? t.Exception;
+
+                    Log.Instance.Trace($"Monitoring failed for {process.ProcessName}", ex!);
+
+                    lock (_lockObject)
+                    {
+                        if (_currentMonitoredProcess?.Id == process.Id)
+                        {
+                            _currentMonitoredProcess = null;
+                        }
+                    }
+                }, TaskContinuationOptions.ExecuteSynchronously);
             }
             catch (Exception ex)
             {
-                if (Log.Instance.IsTraceEnabled)
-                {
-                    Log.Instance.Trace($"Failed to start monitoring for {process.ProcessName}", ex);
-                }
+                Log.Instance.Trace($"Failed to start monitoring for {process.ProcessName}", ex);
 
                 lock (_lockObject)
                 {
@@ -214,10 +224,6 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
                 {
                     if (_currentMonitoredProcess != null)
                     {
-                        if (Log.Instance.IsTraceEnabled)
-                        {
-                            Log.Instance.Trace($"Stopped monitoring: {_currentMonitoredProcess.ProcessName}");
-                        }
                         _currentMonitoredProcess = null;
                         _currentFpsData = new FpsData();
                     }
@@ -227,10 +233,7 @@ namespace LenovoLegionToolkit.Lib.Controllers.Sensors
             }
             catch (Exception ex)
             {
-                if (Log.Instance.IsTraceEnabled)
-                {
-                    Log.Instance.Trace($"Error stopping process monitoring", ex);
-                }
+                Log.Instance.Trace($"Error stopping process monitoring", ex);
             }
         }
 

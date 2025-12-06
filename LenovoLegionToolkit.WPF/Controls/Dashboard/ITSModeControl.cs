@@ -40,29 +40,25 @@ public class ITSModeControl : AbstractComboBoxFeatureCardControl<ITSMode>
 
     private async void ITSModeControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
+        if (!await _itsModeFeature.IsSupportedAsync().ConfigureAwait(false))
+        {
+            return;
+        }
+
         ITSMode mode = ITSMode.None;
         if (_itsModeFeature.LastItsMode == ITSMode.None)
         {
             mode = await _itsModeFeature.GetStateAsync();
             _itsModeFeature.LastItsMode = mode;
-            if (Log.Instance.IsTraceEnabled)
-            {
-                Log.Instance.Trace($"Read ITSMode from GetStateAsync(): {mode}");
-            }
+            Log.Instance.Trace($"Read ITSMode from GetStateAsync(): {mode}");
         }
         else
         {
             mode = _itsModeFeature.LastItsMode;
-            if (Log.Instance.IsTraceEnabled)
-            {
-                Log.Instance.Trace($"Read ITSMode from LastItsMode: {mode}");
-            }
+            Log.Instance.Trace($"Read ITSMode from LastItsMode: {mode}");
         }
 
-        if (Log.Instance.IsTraceEnabled)
-        {
-            Log.Instance.Trace($"Visible changed. Set ITSMode to {mode}");
-        }
+        Log.Instance.Trace($"Visible changed. Set ITSMode to {mode}");
         _comboBox.SelectedItem = mode;
     }
 

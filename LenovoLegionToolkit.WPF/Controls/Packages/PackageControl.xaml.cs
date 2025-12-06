@@ -84,8 +84,7 @@ public partial class PackageControl : IProgress<float>
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Couldn't copy to clipboard", ex);
+            Log.Instance.Trace($"Couldn't copy to clipboard", ex);
         }
     }
 
@@ -122,22 +121,19 @@ public partial class PackageControl : IProgress<float>
         catch (OperationCanceledException) { }
         catch (HttpRequestException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Not found 404.", ex);
+            Log.Instance.Trace($"Not found 404.", ex);
 
             await SnackbarHelper.ShowAsync(Resource.PackageControl_Http404Error_Title, Resource.PackageControl_Http404Error_Message, SnackbarType.Error);
         }
         catch (HttpRequestException ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Error occurred when downloading package file.", ex);
+            Log.Instance.Trace($"Error occurred when downloading package file.", ex);
 
             await SnackbarHelper.ShowAsync(Resource.PackageControl_HttpGeneralError_Title, Resource.PackageControl_HttpGeneralError_Message, SnackbarType.Error);
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Error occurred when downloading package file.", ex);
+            Log.Instance.Trace($"Error occurred when downloading package file.", ex);
 
             await SnackbarHelper.ShowAsync(Resource.PackageControl_GeneralError_Title, ex.Message, SnackbarType.Error);
         }

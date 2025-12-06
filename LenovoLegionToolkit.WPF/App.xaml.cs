@@ -27,12 +27,14 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Management;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
+using LenovoLegionToolkit.WPF.Windows.FloatingGadgets;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
 using WinFormsApp = System.Windows.Forms.Application;
@@ -90,8 +92,7 @@ public partial class App
 
         await Task.WhenAll(localizationTask, compatibilityTask);
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Starting... [version={Assembly.GetEntryAssembly()?.GetName().Version}, build={Assembly.GetEntryAssembly()?.GetBuildDateTimeString()}, os={Environment.OSVersion}, dotnet={Environment.Version}]");
+        Log.Instance.Trace($"Starting... [version={Assembly.GetEntryAssembly()?.GetName().Version}, build={Assembly.GetEntryAssembly()?.GetBuildDateTimeString()}, os={Environment.OSVersion}, dotnet={Environment.Version}]");
 
         WinFormsApp.SetHighDpiMode(WinFormsHighDpiMode.PerMonitorV2);
         RenderOptions.ProcessRenderMode = RenderMode.SoftwareOnly;
@@ -155,8 +156,7 @@ public partial class App
 
         if (flags.Minimized)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Sending MainWindow to tray...");
+            Log.Instance.Trace($"Sending MainWindow to tray...");
 
             mainWindow.WindowState = WindowState.Minimized;
             mainWindow.Show();
@@ -164,8 +164,7 @@ public partial class App
         }
         else
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Showing MainWindow...");
+            Log.Instance.Trace($"Showing MainWindow...");
 
             mainWindow.Show();
             if (_showPawnIONotify)
@@ -176,18 +175,18 @@ public partial class App
 
         await deferredInitTask;
 
-        if (Log.Instance.IsTraceEnabled)
+        await Application.Current.Dispatcher.InvokeAsync(() =>
         {
-            Log.Instance.Trace($"Lenovo Legion Toolit Version {Assembly.GetEntryAssembly()?.GetName().Version}");
-        }
+            if (Log.Instance.IsTraceEnabled)
+            {
+                Log.Instance.Trace($"Lenovo Legion Toolkit Version {Assembly.GetEntryAssembly()?.GetName().Version}");
+            }
 
-        Compatibility.PrintControllerVersion();
-        CheckFloatingGadget();
+            Compatibility.PrintControllerVersionAsync().ConfigureAwait(false);
+            CheckFloatingGadget();
+        });
 
-        if (Log.Instance.IsTraceEnabled)
-        {
-            Log.Instance.Trace($"Start up complete");
-        }
+        Log.Instance.Trace($"Start up complete");
     }
 
     private void Application_Exit(object sender, ExitEventArgs e)
@@ -209,8 +208,7 @@ public partial class App
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Failed to check device compatibility", ex);
+            Log.Instance.Trace($"Failed to check device compatibility", ex);
 
             MessageBox.Show(Resource.CompatibilityCheckError_Message, Resource.AppName, MessageBoxButton.OK, MessageBoxImage.Error);
             Shutdown(200);
@@ -233,24 +231,28 @@ public partial class App
         MainWindowInstance = mainWindow;
         mainWindow.Show();
 
-        if (FloatingGadget != null)
+        if (FloatingGadget == null)
         {
-            FloatingGadget.Hide();
-
-            var type = FloatingGadget.GetType();
-            var windowConstructors = new Dictionary<Type, Func<Window>>
-            {
-                { typeof(FloatingGadget), () => new FloatingGadget() },
-                { typeof(FloatingGadgetUpper), () => new FloatingGadgetUpper() }
-            };
-
-            if (windowConstructors.TryGetValue(type, out var constructor))
-            {
-                FloatingGadget.Close();
-                FloatingGadget = constructor();
-                FloatingGadget.Show();
-            }
+            return;
         }
+
+        FloatingGadget.Hide();
+
+        var type = FloatingGadget.GetType();
+        var windowConstructors = new Dictionary<Type, Func<Window>>
+        {
+            { typeof(FloatingGadget), () => new FloatingGadget() },
+            { typeof(FloatingGadgetUpper), () => new FloatingGadgetUpper() }
+        };
+
+        if (!windowConstructors.TryGetValue(type, out var constructor))
+        {
+            return;
+        }
+
+        FloatingGadget.Close();
+        FloatingGadget = constructor();
+        FloatingGadget.Show();
     }
 
     protected override void OnExit(ExitEventArgs e)
@@ -337,40 +339,113 @@ public partial class App
 
     private void LogUnhandledException(Exception exception)
     {
-        if (Log.Instance.IsTraceEnabled)
+        if (exception == null)
         {
-            Log.Instance.Trace($"Exception in LogUnhandledException {exception.Message}", exception);
+            return;
         }
 
-        if (Application.Current != null)
+        Log.Instance.Trace($"Exception in LogUnhandledException {exception.Message}", exception);
+
+        string userMessage = GetFriendlyErrorMessage(exception);
+
+        if (Application.Current == null)
         {
-            if (Application.Current.Dispatcher.CheckAccess())
-            {
-                SnackbarHelper.Show(Resource.UnexpectedException, exception?.Message + exception?.StackTrace ?? "Unknown exception.", SnackbarType.Error);
-            }
-            else
-            {
-                Application.Current.Dispatcher.BeginInvoke(new Action(() =>
-                {
-                    SnackbarHelper.Show(Resource.UnexpectedException, exception?.Message + exception?.StackTrace ?? "Unknown exception.", SnackbarType.Error);
-                }));
-            }
+            return;
         }
+
+        Action showSnackbarAction = () =>
+        {
+            SnackbarHelper.Show(
+                Resource.UnexpectedException,
+                userMessage,
+                SnackbarType.Error);
+        };
+
+        if (Application.Current.Dispatcher.CheckAccess())
+        {
+            showSnackbarAction();
+        }
+        else
+        {
+            Application.Current.Dispatcher.BeginInvoke(showSnackbarAction);
+        }
+    }
+
+    private Exception GetInnermostException(Exception ex)
+    {
+        if (ex is AggregateException aggEx && aggEx.InnerExceptions.Count > 0)
+        {
+            return GetInnermostException(aggEx.InnerExceptions[0]);
+        }
+
+        return ex.InnerException != null ? GetInnermostException(ex.InnerException) : ex;
+    }
+
+    private string GetFriendlyErrorMessage(Exception ex)
+    {
+        if (ex == null) return "An unknown error occurred.";
+
+        Exception inner = GetInnermostException(ex);
+
+        return string.IsNullOrWhiteSpace(inner.Message)
+            ? "An unexpected error occurred, please try again."
+            : inner.Message;
+    }
+
+    private bool ShouldIgnoreException(Exception ex)
+    {
+        List<Type> ignoreExceptionTypes =
+        [
+            typeof(ManagementException),
+            typeof(OperationCanceledException)
+        ];
+
+        if (ignoreExceptionTypes.Contains(ex.GetType()))
+        {
+            return true;
+        }
+
+        if (ex is AggregateException aggregateException)
+        {
+            return aggregateException.InnerExceptions.Any(ShouldIgnoreException);
+        }
+        else if (ex.InnerException != null)
+        {
+            return ShouldIgnoreException(ex.InnerException);
+        }
+
+        return false;
     }
 
     private void SetupExceptionHandling()
     {
-        AppDomain.CurrentDomain.UnhandledException += (s, e) => LogUnhandledException((Exception)e.ExceptionObject);
+        AppDomain.CurrentDomain.UnhandledException += (s, e) =>
+        {
+            var exception = (Exception)e.ExceptionObject;
+
+            if (!ShouldIgnoreException(exception))
+            {
+                LogUnhandledException(exception);
+            }
+        };
 
         DispatcherUnhandledException += (s, e) =>
         {
-            LogUnhandledException(e.Exception);
+            if (!ShouldIgnoreException(e.Exception))
+            {
+                LogUnhandledException(e.Exception);
+            }
+
             e.Handled = true;
         };
 
         TaskScheduler.UnobservedTaskException += (s, e) =>
         {
-            LogUnhandledException(e.Exception);
+            if (!ShouldIgnoreException(e.Exception))
+            {
+                LogUnhandledException(e.Exception);
+            }
+
             e.SetObserved();
         };
     }
@@ -389,30 +464,33 @@ public partial class App
 
     private void CheckFloatingGadget()
     {
-        ApplicationSettings _settings = IoCContainer.Resolve<ApplicationSettings>();
-        if (_settings.Store.ShowFloatingGadgets)
+        if (!Application.Current.Dispatcher.CheckAccess())
         {
-            if (FloatingGadget != null)
-            {
-                FloatingGadget.Show();
-            }
-            else
-            {
-                if (_settings.Store.SelectedStyleIndex == 0)
-                {
-                    FloatingGadget = new FloatingGadget();
-                }
-                else if (_settings.Store.SelectedStyleIndex == 1)
-                {
-                    FloatingGadget = new FloatingGadgetUpper();
-                }
-                else
-                {
-                    FloatingGadget = new FloatingGadget();
-                }
+            Application.Current.Dispatcher.Invoke(CheckFloatingGadget);
+            return;
+        }
 
-                FloatingGadget!.Show();
-            }
+        ApplicationSettings settings = IoCContainer.Resolve<ApplicationSettings>();
+
+        if (!settings.Store.ShowFloatingGadgets)
+        {
+            return;
+        }
+
+        if (FloatingGadget != null)
+        {
+            FloatingGadget.Show();
+        }
+        else
+        {
+            FloatingGadget = settings.Store.SelectedStyleIndex switch
+            {
+                0 => new FloatingGadget(),
+                1 => new FloatingGadgetUpper(),
+                _ => new FloatingGadget()
+            };
+
+            FloatingGadget!.Show();
         }
     }
 
@@ -421,13 +499,11 @@ public partial class App
         var (isCompatible, mi) = await Compatibility.IsCompatibleAsync();
         if (isCompatible)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Compatibility check passed. [Vendor={mi.Vendor}, Model={mi.Model}, MachineType={mi.MachineType}, BIOS={mi.BiosVersion}]");
+            Log.Instance.Trace($"Compatibility check passed. [Vendor={mi.Vendor}, Model={mi.Model}, MachineType={mi.MachineType}, BIOS={mi.BiosVersion}]");
             return true;
         }
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Incompatible system detected. [Vendor={mi.Vendor}, Model={mi.Model}, MachineType={mi.MachineType}, BIOS={mi.BiosVersion}]");
+        Log.Instance.Trace($"Incompatible system detected. [Vendor={mi.Vendor}, Model={mi.Model}, MachineType={mi.MachineType}, BIOS={mi.BiosVersion}]");
 
         var unsupportedWindow = new UnsupportedWindow(mi);
         unsupportedWindow.Show();
@@ -437,13 +513,11 @@ public partial class App
         {
             Log.Instance.IsTraceEnabled = true;
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Compatibility check OVERRIDE. [Vendor={mi.Vendor}, Model={mi.Model}, MachineType={mi.MachineType}, version={Assembly.GetEntryAssembly()?.GetName().Version}, build={Assembly.GetEntryAssembly()?.GetBuildDateTimeString() ?? string.Empty}]");
+            Log.Instance.Trace($"Compatibility check OVERRIDE. [Vendor={mi.Vendor}, Model={mi.Model}, MachineType={mi.MachineType}, version={Assembly.GetEntryAssembly()?.GetName().Version}, build={Assembly.GetEntryAssembly()?.GetBuildDateTimeString() ?? string.Empty}]");
             return true;
         }
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Shutting down... [Vendor={mi.Vendor}, Model={mi.Model}, MachineType={mi.MachineType}]");
+        Log.Instance.Trace($"Shutting down... [Vendor={mi.Vendor}, Model={mi.Model}, MachineType={mi.MachineType}]");
 
         Shutdown(202);
         return false;
@@ -451,16 +525,14 @@ public partial class App
 
     private void EnsureSingleInstance()
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Checking for other instances...");
+        Log.Instance.Trace($"Checking for other instances...");
 
         _singleInstanceMutex = new Mutex(true, MUTEX_NAME, out var isOwned);
         _singleInstanceWaitHandle = new EventWaitHandle(false, EventResetMode.AutoReset, EVENT_NAME);
 
         if (!isOwned)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Another instance running, closing...");
+            Log.Instance.Trace($"Another instance running, closing...");
 
             _singleInstanceWaitHandle.Set();
             Shutdown();
@@ -475,15 +547,13 @@ public partial class App
                 {
                     if (Current.MainWindow is { } window)
                     {
-                        if (Log.Instance.IsTraceEnabled)
-                            Log.Instance.Trace($"Another instance started, bringing this one to front instead...");
+                        Log.Instance.Trace($"Another instance started, bringing this one to front instead...");
 
                         window.BringToForeground();
                     }
                     else
                     {
-                        if (Log.Instance.IsTraceEnabled)
-                            Log.Instance.Trace($"!!! PANIC !!! This instance is missing main window. Shutting down.");
+                        Log.Instance.Trace($"!!! PANIC !!! This instance is missing main window. Shutting down.");
 
                         await ShutdownAsync();
                     }
@@ -517,16 +587,14 @@ public partial class App
     {
         try
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Initializing hybrid mode...");
+            Log.Instance.Trace($"Initializing hybrid mode...");
 
             var feature = IoCContainer.Resolve<HybridModeFeature>();
             await feature.EnsureDGPUEjectedIfNeededAsync(); 
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Couldn't initialize hybrid mode.", ex);
+            Log.Instance.Trace($"Couldn't initialize hybrid mode.", ex);
         }
     }
 
@@ -534,8 +602,7 @@ public partial class App
     {
         try
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Initializing automation processor...");
+            Log.Instance.Trace($"Initializing automation processor...");
 
             var automationProcessor = IoCContainer.Resolve<AutomationProcessor>();
             await automationProcessor.InitializeAsync();
@@ -543,8 +610,7 @@ public partial class App
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Couldn't initialize automation processor.", ex);
+            Log.Instance.Trace($"Couldn't initialize automation processor.", ex);
         }
     }
 
@@ -560,10 +626,7 @@ public partial class App
                 && state == PowerModeState.GodMode 
                 && mi.Properties.HasReapplyParameterIssue)
             {
-                if (Log.Instance.IsTraceEnabled)
-                {
-                    Log.Instance.Trace($"Reapplying GodMode...");
-                }
+                Log.Instance.Trace($"Reapplying GodMode...");
 
                 await feature.SetStateAsync(PowerModeState.Balance).ConfigureAwait(false);
                 await Task.Delay(TimeSpan.FromMilliseconds(500)).ConfigureAwait(false);
@@ -572,10 +635,7 @@ public partial class App
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-            {
-                Log.Instance.Trace($"Couldn't reapply parameters.", ex);
-            }
+            Log.Instance.Trace($"Couldn't reapply parameters.", ex);
         }
     }
 
@@ -584,23 +644,24 @@ public partial class App
         try
         {
             ApplicationSettings settings = IoCContainer.Resolve<ApplicationSettings>();
-            if (settings.Store.EnableLogging)
+            if (!settings.Store.EnableLogging)
             {
-                if (App.Current.MainWindow is not MainWindow mainWindow)
-                    return;
-
-                Log.Instance.IsTraceEnabled = settings.Store.EnableLogging;
-                mainWindow._openLogIndicator.Visibility = BooleanToVisibilityConverter.Convert(settings.Store.EnableLogging);
-
-                Compatibility.PrintMachineInfo();
+                return;
             }
+
+            if (Current.MainWindow is not MainWindow mainWindow)
+            {
+                return;
+            }
+
+            Log.Instance.IsTraceEnabled = settings.Store.EnableLogging;
+            mainWindow._openLogIndicator.Visibility = BooleanToVisibilityConverter.Convert(settings.Store.EnableLogging);
+
+            Compatibility.PrintMachineInfo();
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-            {
-                Log.Instance.Trace($"Couldn't reapply parameters.", ex);
-            }
+            Log.Instance.Trace($"Couldn't reapply parameters.", ex);
         }
     }
 
@@ -613,14 +674,12 @@ public partial class App
             {
                 ITSMode state = await feature.GetStateAsync();
                 await feature.SetStateAsync(state);
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Ensure ITS Mode is set.");
+                Log.Instance.Trace($"Ensure ITS Mode is set.");
             }
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Couldn't ensure its mode state.", ex);
+            Log.Instance.Trace($"Couldn't ensure its mode state.", ex);
         }
     }
 
@@ -631,16 +690,14 @@ public partial class App
             var feature = IoCContainer.Resolve<PowerModeFeature>();
             if (await feature.IsSupportedAsync())
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Ensuring god mode state is applied...");
+                Log.Instance.Trace($"Ensuring god mode state is applied...");
 
                 await feature.EnsureGodModeStateIsAppliedAsync();
             }
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Couldn't ensure god mode state.", ex);
+            Log.Instance.Trace($"Couldn't ensure god mode state.", ex);
         }
 
         try
@@ -648,16 +705,14 @@ public partial class App
             var feature = IoCContainer.Resolve<PowerModeFeature>();
             if (await feature.IsSupportedAsync())
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Ensuring correct power plan is set...");
+                Log.Instance.Trace($"Ensuring correct power plan is set...");
 
                 await feature.EnsureCorrectWindowsPowerSettingsAreSetAsync();
             }
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Couldn't ensure correct power plan.", ex);
+            Log.Instance.Trace($"Couldn't ensure correct power plan.", ex);
         }
     }
 
@@ -668,16 +723,14 @@ public partial class App
             var feature = IoCContainer.Resolve<BatteryFeature>();
             if (await feature.IsSupportedAsync())
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Ensuring correct battery mode is set...");
+                Log.Instance.Trace($"Ensuring correct battery mode is set...");
 
                 await feature.EnsureCorrectBatteryModeIsSetAsync();
             }
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Couldn't ensure correct battery mode.", ex);
+            Log.Instance.Trace($"Couldn't ensure correct battery mode.", ex);
         }
     }
 
@@ -693,10 +746,9 @@ public partial class App
                 try
                 {
                     LibreHardwareMonitorInitialState state = await feature.IsSupportedAsync();
-                    if (state == LibreHardwareMonitorInitialState.Initialized || state == LibreHardwareMonitorInitialState.Success)
+                    if (state is LibreHardwareMonitorInitialState.Initialized or LibreHardwareMonitorInitialState.Success)
                     {
-                        if (Log.Instance.IsTraceEnabled)
-                            Log.Instance.Trace($"Init sensor group controller feature.");
+                        Log.Instance.Trace($"Init sensor group controller feature.");
                     }
                     else
                     {
@@ -704,13 +756,10 @@ public partial class App
                     }
                 }
                 // Why this branch can execute ?
-                // Now i see.
+                // Now I see.
                 catch (Exception ex)
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                    {
-                        Log.Instance.Trace($"InitSensorsGroupControllerFeatureAsync() raised exception:", ex);
-                    }
+                    Log.Instance.Trace($"InitSensorsGroupControllerFeatureAsync() raised exception:", ex);
 
                     if (!ex.Message.Contains("LibreHardwareMonitor initialization failed. Disabling new sensor dashboard."))
                     {
@@ -721,8 +770,7 @@ public partial class App
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Init sensor group controller failed.", ex);
+            Log.Instance.Trace($"Init sensor group controller failed.", ex);
         }
     }
 
@@ -733,21 +781,18 @@ public partial class App
             var controller = IoCContainer.Resolve<RGBKeyboardBacklightController>();
             if (await controller.IsSupportedAsync())
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Setting light control owner and restoring preset...");
+                Log.Instance.Trace($"Setting light control owner and restoring preset...");
 
                 await controller.SetLightControlOwnerAsync(true, true);
             }
             else
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"RGB keyboard is not supported.");
+                Log.Instance.Trace($"RGB keyboard is not supported.");
             }
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Couldn't set light control owner or current preset.", ex);
+            Log.Instance.Trace($"Couldn't set light control owner or current preset.", ex);
         }
     }
 
@@ -758,31 +803,19 @@ public partial class App
             var controller = IoCContainer.Resolve<SpectrumKeyboardBacklightController>();
             if (await controller.IsSupportedAsync())
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Starting Aurora if needed...");
+                Log.Instance.Trace($"Starting Aurora if needed...");
 
                 var result = await controller.StartAuroraIfNeededAsync();
-                if (result)
-                {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Aurora started.");
-                }
-                else
-                {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Aurora not needed.");
-                }
+                Log.Instance.Trace(result ? (FormattableString)$"Aurora started." : (FormattableString)$"Aurora not needed.");
             }
             else
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Spectrum keyboard is not supported.");
+                Log.Instance.Trace($"Spectrum keyboard is not supported.");
             }
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Couldn't start Aurora if needed.", ex);
+            Log.Instance.Trace($"Couldn't start Aurora if needed.", ex);
         }
     }
 
@@ -793,31 +826,19 @@ public partial class App
             var controller = IoCContainer.Resolve<GPUOverclockController>();
             if (await controller.IsSupportedAsync())
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Ensuring GPU overclock is applied...");
+                Log.Instance.Trace($"Ensuring GPU overclock is applied...");
 
                 var result = await controller.EnsureOverclockIsAppliedAsync();
-                if (result)
-                {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"GPU overclock applied.");
-                }
-                else
-                {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"GPU overclock not needed.");
-                }
+                Log.Instance.Trace(result ? (FormattableString)$"GPU overclock applied." : (FormattableString)$"GPU overclock not needed.");
             }
             else
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"GPU overclock is not supported.");
+                Log.Instance.Trace($"GPU overclock is not supported.");
             }
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Couldn't overclock GPU.", ex);
+            Log.Instance.Trace($"Couldn't overclock GPU.", ex);
         }
     }
 

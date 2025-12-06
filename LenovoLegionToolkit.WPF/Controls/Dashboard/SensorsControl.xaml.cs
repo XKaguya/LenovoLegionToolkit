@@ -85,13 +85,11 @@ public partial class SensorsControl
 
         _refreshTask = Task.Run(async () =>
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Sensors refresh started...");
+            Log.Instance.Trace($"Sensors refresh started...");
 
             if (!await _controller.IsSupportedAsync())
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Sensors not supported.");
+                Log.Instance.Trace($"Sensors not supported.");
 
                 Dispatcher.Invoke(() => Visibility = Visibility.Collapsed);
                 return;
@@ -110,15 +108,13 @@ public partial class SensorsControl
                 catch (OperationCanceledException) { }
                 catch (Exception ex)
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Sensors refresh failed.", ex);
+                    Log.Instance.Trace($"Sensors refresh failed.", ex);
 
                     Dispatcher.Invoke(() => UpdateValues(SensorsData.Empty));
                 }
             }
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Sensors refresh stopped.");
+            Log.Instance.Trace($"Sensors refresh stopped.");
         }, token);
     }
 

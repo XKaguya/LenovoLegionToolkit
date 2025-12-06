@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using LenovoLegionToolkit.Lib.Extensions;
+﻿using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.Settings;
 using LenovoLegionToolkit.Lib.SoftwareDisabler;
 using LenovoLegionToolkit.Lib.System.Management;
 using LenovoLegionToolkit.Lib.Utils;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace LenovoLegionToolkit.Lib.Controllers.GodMode;
 
@@ -17,6 +18,11 @@ public class GodModeControllerV4(
     LegionSpaceDisabler legionSpaceDisabler)
     : AbstractGodModeController(settings)
 {
+    private const uint CAPABILITY_ID_MASK = 0xFFFF00FF;
+    private const int BIOS_OC_MODE_ENABLED = 3;
+    private const string FAN_TABLE_DATA_ERROR = "Bad fan table";
+    private const string APPLYING_STATE = "Applying state";
+
     public override Task<bool> NeedsVantageDisabledAsync() => Task.FromResult(true);
     public override Task<bool> NeedsLegionSpaceDisabledAsync() => Task.FromResult(true);
     public override Task<bool> NeedsLegionZoneDisabledAsync() => Task.FromResult(true);
@@ -25,64 +31,36 @@ public class GodModeControllerV4(
     {
         if (await vantageDisabler.GetStatusAsync().ConfigureAwait(false) == SoftwareStatus.Enabled)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Can't correctly apply state when Vantage is running.");
+            Log.Instance.Trace($"Can't correctly apply state when Vantage is running.");
             return;
         }
 
         if (await legionSpaceDisabler.GetStatusAsync().ConfigureAwait(false) == SoftwareStatus.Enabled)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Can't correctly apply state when Legion Space is running.");
+            Log.Instance.Trace($"Can't correctly apply state when Legion Space is running.");
             return;
         }
 
         if (await legionZoneDisabler.GetStatusAsync().ConfigureAwait(false) == SoftwareStatus.Enabled)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Can't correctly apply state when Legion Zone is running.");
+            Log.Instance.Trace($"Can't correctly apply state when Legion Zone is running.");
             return;
         }
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Applying state...");
+        Log.Instance.Trace($"{APPLYING_STATE}");
 
         var (presetId, preset) = await GetActivePresetAsync().ConfigureAwait(false);
-
-        var settings = new Dictionary<CapabilityID, StepperValue?>
+        var isOcEnabled = await IsBiosOcEnabledAsync().ConfigureAwait(false);
+        var overclockingData = new Dictionary<CPUOverclockingID, StepperValue?>
         {
-            { CapabilityID.CPULongTermPowerLimit, preset.CPULongTermPowerLimit },
-            { CapabilityID.CPUShortTermPowerLimit, preset.CPUShortTermPowerLimit },
-            { CapabilityID.CPUPeakPowerLimit, preset.CPUPeakPowerLimit },
-            { CapabilityID.CPUCrossLoadingPowerLimit, preset.CPUCrossLoadingPowerLimit },
-            { CapabilityID.CPUPL1Tau, preset.CPUPL1Tau },
-            { CapabilityID.APUsPPTPowerLimit, preset.APUsPPTPowerLimit },
-            { CapabilityID.CPUTemperatureLimit, preset.CPUTemperatureLimit },
-            { CapabilityID.GPUPowerBoost, preset.GPUPowerBoost },
-            { CapabilityID.GPUConfigurableTGP, preset.GPUConfigurableTGP },
-            { CapabilityID.GPUTemperatureLimit, preset.GPUTemperatureLimit },
-            { CapabilityID.GPUTotalProcessingPowerTargetOnAcOffsetFromBaseline, preset.GPUTotalProcessingPowerTargetOnAcOffsetFromBaseline },
-            { CapabilityID.GPUToCPUDynamicBoost, preset.GPUToCPUDynamicBoost },
+            { CPUOverclockingID.PrecisionBoostOverdriveScaler, preset.PrecisionBoostOverdriveScaler },
+            { CPUOverclockingID.PrecisionBoostOverdriveBoostFrequency, preset.PrecisionBoostOverdriveBoostFrequency },
+            { CPUOverclockingID.AllCoreCurveOptimizer, preset.AllCoreCurveOptimizer },
         };
 
         var defaultPresets = await GetDefaultsInOtherPowerModesAsync().ConfigureAwait(false);
         var defaultPerformancePreset = defaultPresets.GetValueOrNull(PowerModeState.Extreme);
-
-        var defaultPerformanceSettings = new Dictionary<CapabilityID, int?>
-        {
-            { CapabilityID.CPULongTermPowerLimit, defaultPerformancePreset?.CPULongTermPowerLimit },
-            { CapabilityID.CPUShortTermPowerLimit, defaultPerformancePreset?.CPUShortTermPowerLimit },
-            { CapabilityID.CPUPeakPowerLimit, defaultPerformancePreset?.CPUPeakPowerLimit },
-            { CapabilityID.CPUCrossLoadingPowerLimit, defaultPerformancePreset?.CPUCrossLoadingPowerLimit },
-            { CapabilityID.CPUPL1Tau, defaultPerformancePreset?.CPUPL1Tau },
-            { CapabilityID.APUsPPTPowerLimit, defaultPerformancePreset?.APUsPPTPowerLimit },
-            { CapabilityID.CPUTemperatureLimit, defaultPerformancePreset?.CPUTemperatureLimit },
-            { CapabilityID.GPUPowerBoost, defaultPerformancePreset?.GPUPowerBoost },
-            { CapabilityID.GPUConfigurableTGP, defaultPerformancePreset?.GPUConfigurableTGP  },
-            { CapabilityID.GPUTemperatureLimit, defaultPerformancePreset?.GPUTemperatureLimit },
-            { CapabilityID.GPUTotalProcessingPowerTargetOnAcOffsetFromBaseline, defaultPerformancePreset?.GPUTotalProcessingPowerTargetOnAcOffsetFromBaseline },
-            { CapabilityID.GPUToCPUDynamicBoost, defaultPerformancePreset?.GPUToCPUDynamicBoost },
-        };
+        var settings = CreateSettingsDictionary(preset, defaultPerformancePreset);
 
         var failAllowedSettings = new[]
         {
@@ -98,62 +76,67 @@ public class GodModeControllerV4(
 
         foreach (var (id, value) in settings)
         {
-            if (value.HasValue)
-            {
-                try
-                {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Applying {id}: {value}...");
-
-                    await SetValueAsync(id, value.Value).ConfigureAwait(false);
-                }
-                catch (Exception ex)
-                {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Failed to apply {id}. [value={value}]", ex);
-
-                    if (!failAllowedSettings.Contains(id))
-                        throw;
-                }
-            }
-            else if (defaultPerformanceSettings.GetValueOrDefault(id) is { } defaultPerformanceValue)
-            {
-                try
-                {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Applying default {id}: {defaultPerformanceValue}...");
-
-                    await SetValueAsync(id, defaultPerformanceValue).ConfigureAwait(false);
-                }
-                catch (Exception ex)
-                {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Failed to apply default {id}. [value={defaultPerformanceValue}]", ex);
-
-                    if (!failAllowedSettings.Contains(id))
-                        throw;
-                }
-            }
-            else
-            {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Failed to apply {id}, because neither value nor default value was available.");
-            }
+            await ApplySettingWithErrorHandling(id, value, failAllowedSettings.Contains(id)).ConfigureAwait(false);
         }
 
+        await HandleFanSettings(fanTable, fanFullSpeed).ConfigureAwait(false);
+
+        if (isOcEnabled && preset.EnableOverclocking == true)
+        {
+            await SetCPUOverclockingMode(true).ConfigureAwait(false);
+
+            foreach (var (id, value) in overclockingData)
+            {
+                if (!value.HasValue) continue;
+
+                if (id == CPUOverclockingID.AllCoreCurveOptimizer && preset.EnableAllCoreCurveOptimizer != true)
+                {
+                    continue;
+                }
+
+                Log.Instance.Trace($"Applying {id}: {value}...");
+                await SetOCValueAsync(id, 17, value.Value).ConfigureAwait(false);
+            }
+        }
+        else
+        {
+            await SetCPUOverclockingMode(false).ConfigureAwait(false);
+            Log.Instance.Trace($"Overclocking is disabled.");
+        }
+
+        RaisePresetChanged(presetId);
+        Log.Instance.Trace($"State applied. [name={preset.Name}, id={presetId}]");
+    }
+
+    private async Task ApplySettingWithErrorHandling(CapabilityID id, int? value, bool isFailAllowed)
+    {
+        if (!value.HasValue) return;
+
+        try
+        {
+            Log.Instance.Trace($"Applying {id}: {value}...");
+            await SetValueAsync(id, value.Value).ConfigureAwait(false);
+        }
+        catch (Exception ex)
+        {
+            Log.Instance.Trace($"Failed to apply {id}. [value={value}]", ex);
+            if (!isFailAllowed)
+                throw;
+        }
+    }
+
+    private async Task HandleFanSettings(FanTable fanTable, bool fanFullSpeed)
+    {
         if (fanFullSpeed)
         {
             try
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Applying Fan Full Speed {fanFullSpeed}...");
-
+                Log.Instance.Trace($"Applying Fan Full Speed {fanFullSpeed}...");
                 await SetFanFullSpeedAsync(fanFullSpeed).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Apply failed. [setting=fanFullSpeed]", ex);
+                Log.Instance.Trace($"Apply failed. [setting=fanFullSpeed]", ex);
                 throw;
             }
         }
@@ -161,45 +144,57 @@ public class GodModeControllerV4(
         {
             try
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Making sure Fan Full Speed is false...");
-
+                Log.Instance.Trace($"Making sure Fan Full Speed is false...");
                 await SetFanFullSpeedAsync(false).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Apply failed. [setting=fanFullSpeed]", ex);
+                Log.Instance.Trace($"Apply failed. [setting=fanFullSpeed]", ex);
                 throw;
             }
 
             try
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Applying Fan Table {fanTable}...");
-
+                Log.Instance.Trace($"Applying Fan Table {fanTable}...");
                 if (!await IsValidFanTableAsync(fanTable).ConfigureAwait(false))
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Fan table invalid, replacing with default...");
-
+                    Log.Instance.Trace($"Fan table invalid, replacing with default...");
                     fanTable = await GetDefaultFanTableAsync().ConfigureAwait(false);
                 }
-
                 await SetFanTable(fanTable).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Apply failed. [setting=fanTable]", ex);
+                Log.Instance.Trace($"Apply failed. [setting=fanTable]", ex);
                 throw;
             }
         }
+    }
 
-        RaisePresetChanged(presetId);
+    private static Dictionary<CapabilityID, int?> CreateSettingsDictionary(
+        GodModeSettings.GodModeSettingsStore.Preset preset,
+        GodModeDefaults? defaultPerformancePreset)
+    {
+        return new Dictionary<CapabilityID, int?>
+        {
+            { CapabilityID.CPULongTermPowerLimit, preset.CPULongTermPowerLimit?.Value ?? defaultPerformancePreset?.CPULongTermPowerLimit },
+            { CapabilityID.CPUShortTermPowerLimit, preset.CPUShortTermPowerLimit?.Value ?? defaultPerformancePreset?.CPUShortTermPowerLimit },
+            { CapabilityID.CPUPeakPowerLimit, preset.CPUPeakPowerLimit?.Value ?? defaultPerformancePreset?.CPUPeakPowerLimit },
+            { CapabilityID.CPUCrossLoadingPowerLimit, preset.CPUCrossLoadingPowerLimit?.Value ?? defaultPerformancePreset?.CPUCrossLoadingPowerLimit },
+            { CapabilityID.CPUPL1Tau, preset.CPUPL1Tau?.Value ?? defaultPerformancePreset?.CPUPL1Tau },
+            { CapabilityID.APUsPPTPowerLimit, preset.APUsPPTPowerLimit?.Value ?? defaultPerformancePreset?.APUsPPTPowerLimit },
+            { CapabilityID.CPUTemperatureLimit, preset.CPUTemperatureLimit?.Value ?? defaultPerformancePreset?.CPUTemperatureLimit },
+            { CapabilityID.GPUPowerBoost, preset.GPUPowerBoost?.Value ?? defaultPerformancePreset?.GPUPowerBoost },
+            { CapabilityID.GPUConfigurableTGP, preset.GPUConfigurableTGP?.Value ?? defaultPerformancePreset?.GPUConfigurableTGP },
+            { CapabilityID.GPUTemperatureLimit, preset.GPUTemperatureLimit?.Value ?? defaultPerformancePreset?.GPUTemperatureLimit },
+            { CapabilityID.GPUTotalProcessingPowerTargetOnAcOffsetFromBaseline, preset.GPUTotalProcessingPowerTargetOnAcOffsetFromBaseline?.Value ?? defaultPerformancePreset?.GPUTotalProcessingPowerTargetOnAcOffsetFromBaseline },
+            { CapabilityID.GPUToCPUDynamicBoost, preset.GPUToCPUDynamicBoost?.Value ?? defaultPerformancePreset?.GPUToCPUDynamicBoost },
+        };
+    }
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"State applied. [name={preset.Name}, id={presetId}]");
+    public override async Task<Dictionary<Guid, GodModeSettings.GodModeSettingsStore.Preset>> GetGodModePresetsAsync()
+    {
+        return await base.GetGodModePresetsAsync().ConfigureAwait(false);
     }
 
     public override Task<FanTable> GetMinimumFanTableAsync()
@@ -212,11 +207,8 @@ public class GodModeControllerV4(
     {
         try
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Getting defaults in other power modes...");
-
+            Log.Instance.Trace($"Getting defaults in other power modes...");
             var result = new Dictionary<PowerModeState, GodModeDefaults>();
-
             var allCapabilityData = await WMI.LenovoCapabilityData01.ReadAsync().ConfigureAwait(false);
             allCapabilityData = allCapabilityData.ToArray();
 
@@ -237,26 +229,25 @@ public class GodModeControllerV4(
                     GPUTotalProcessingPowerTargetOnAcOffsetFromBaseline = GetDefaultCapabilityIdValueInPowerMode(allCapabilityData, CapabilityID.GPUTotalProcessingPowerTargetOnAcOffsetFromBaseline, powerMode),
                     GPUToCPUDynamicBoost = GetDefaultCapabilityIdValueInPowerMode(allCapabilityData, CapabilityID.GPUToCPUDynamicBoost, powerMode),
                     FanTable = await GetDefaultFanTableAsync().ConfigureAwait(false),
-                    FanFullSpeed = false
+                    FanFullSpeed = false,
+                    PrecisionBoostOverdriveScaler = 0,
+                    PrecisionBoostOverdriveBoostFrequency = 0,
+                    AllCoreCurveOptimizer = 0,
+                    EnableAllCoreCurveOptimizer = false,
+                    EnableOverclocking = false,
                 };
-
                 result[powerMode] = defaults;
             }
 
-            if (Log.Instance.IsTraceEnabled)
-            {
-                Log.Instance.Trace($"Defaults in other power modes retrieved:");
-                foreach (var (powerMode, defaults) in result)
-                    Log.Instance.Trace($" - {powerMode}: {defaults}");
-            }
+            Log.Instance.Trace($"Defaults in other power modes retrieved:");
+            foreach (var (powerMode, defaults) in result)
+                Log.Instance.Trace($" - {powerMode}: {defaults}");
 
             return result;
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Failed to get defaults in other power modes.", ex);
-
+            Log.Instance.Trace($"Failed to get defaults in other power modes.", ex);
             return [];
         }
     }
@@ -265,6 +256,9 @@ public class GodModeControllerV4(
 
     protected override async Task<GodModePreset> GetDefaultStateAsync()
     {
+        var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
+        var isAmdDevice = mi.Properties.IsAmdDevice;
+
         var allCapabilityData = await WMI.LenovoCapabilityData01.ReadAsync().ConfigureAwait(false);
         allCapabilityData = allCapabilityData.ToArray();
 
@@ -289,20 +283,17 @@ public class GodModeControllerV4(
 
             if (c.Step == 0 && steps.Length < 1)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Skipping {c.Id}... [idRaw={(int)c.Id:X}, defaultValue={c.DefaultValue}, min={c.Min}, max={c.Max}, step={c.Step}, steps={string.Join(", ", steps)}]");
-
+                Log.Instance.Trace($"Skipping {c.Id}... [idRaw={(int)c.Id:X}, defaultValue={c.DefaultValue}, min={c.Min}, max={c.Max}, step={c.Step}, steps={string.Join(", ", steps)}]");
                 continue;
             }
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Creating StepperValue {c.Id}... [idRaw={(int)c.Id:X}, defaultValue={c.DefaultValue}, min={c.Min}, max={c.Max}, step={c.Step}, steps={string.Join(", ", steps)}]");
-
+            Log.Instance.Trace($"Creating StepperValue {c.Id}... [idRaw={(int)c.Id:X}, defaultValue={c.DefaultValue}, min={c.Min}, max={c.Max}, step={c.Step}, steps={string.Join(", ", steps)}]");
             var stepperValue = new StepperValue(value, c.Min, c.Max, c.Step, steps, c.DefaultValue);
             stepperValues[c.Id] = stepperValue;
         }
 
         var fanTableData = await GetFanTableDataAsync().ConfigureAwait(false);
+        var (precisionBoostScaler, precisionBoostFrequency, coreCurveOptimizer) = CreateAmdOverclockingValues(isAmdDevice);
 
         var preset = new GodModePreset
         {
@@ -322,18 +313,33 @@ public class GodModeControllerV4(
             FanTableInfo = fanTableData is null ? null : new FanTableInfo(fanTableData, await GetDefaultFanTableAsync().ConfigureAwait(false)),
             FanFullSpeed = await GetFanFullSpeedAsync().ConfigureAwait(false),
             MinValueOffset = 0,
-            MaxValueOffset = 0
+            MaxValueOffset = 0,
+            PrecisionBoostOverdriveScaler = precisionBoostScaler,
+            PrecisionBoostOverdriveBoostFrequency = precisionBoostFrequency,
+            AllCoreCurveOptimizer = coreCurveOptimizer,
+            EnableAllCoreCurveOptimizer = false,
+            EnableOverclocking = false,
         };
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Default state retrieved: {preset}");
-
+        Log.Instance.Trace($"Default state retrieved: {preset}");
         return preset;
     }
 
+    private static (StepperValue?, StepperValue?, StepperValue?) CreateAmdOverclockingValues(bool isAmdDevice)
+    {
+        if (!isAmdDevice)
+            return (null, null, null);
+
+        return (new StepperValue(0, 0, 7, 1, [], 0),
+            new StepperValue(0, 0, 200, 1, [], 0),
+            new StepperValue(0, 0, 20, 1, [], 0));
+    }
+
+
+
     private static CapabilityID AdjustCapabilityIdForPowerMode(CapabilityID id, PowerModeState powerMode)
     {
-        var idRaw = (uint)id & 0xFFFF00FF;
+        var idRaw = (uint)id & CAPABILITY_ID_MASK;
         var powerModeRaw = ((uint)powerMode + 1) << 8;
         return (CapabilityID)(idRaw + powerModeRaw);
     }
@@ -353,7 +359,7 @@ public class GodModeControllerV4(
 
     private static Task<int> GetValueAsync(CapabilityID id)
     {
-        var idRaw = (uint)id & 0xFFFF00FF;
+        var idRaw = (uint)id & CAPABILITY_ID_MASK;
         return WMI.LenovoOtherMethod.GetFeatureValueAsync(idRaw);
     }
 
@@ -361,8 +367,24 @@ public class GodModeControllerV4(
 
     private static Task SetValueAsync(CapabilityID id, int value)
     {
-        var idRaw = (uint)id & 0xFFFF00FF;
+        var idRaw = (uint)id & CAPABILITY_ID_MASK;
         return WMI.LenovoOtherMethod.SetFeatureValueAsync(idRaw, value);
+    }
+
+    private static Task SetOCValueAsync(CPUOverclockingID id, byte mode, StepperValue value)
+    {
+        return WMI.LenovoCpuMethod.CPUSetOCDataAsync(mode, (uint)id, value.Value);
+    }
+
+    private static Task SetCPUOverclockingMode(bool enable)
+    {
+        return WMI.LenovoOtherMethod.SetFeatureValueAsync((uint)CapabilityID.CPUOverclockingEnable, enable ? 1 : 0);
+    }
+
+    private static async Task<bool> IsBiosOcEnabledAsync()
+    {
+        var result = await WMI.LenovoGameZoneData.GetBIOSOCMode().ConfigureAwait(false);
+        return result == BIOS_OC_MODE_ENABLED;
     }
 
     #endregion
@@ -371,9 +393,7 @@ public class GodModeControllerV4(
 
     private static async Task<FanTableData[]?> GetFanTableDataAsync(PowerModeState powerModeState = PowerModeState.GodMode)
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Reading fan table data...");
-
+        Log.Instance.Trace($"Reading fan table data...");
         var data = await WMI.LenovoFanTableData.ReadAsync().ConfigureAwait(false);
         var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
 
@@ -392,36 +412,22 @@ public class GodModeControllerV4(
             })
             .ToArray();
 
-        var length = fanTableData.Where(ftd => ftd.Type != FanTableType.Unknown).Count();
-
-        if (fanTableData.Length != length)
+        if (!IsValidFanTableData(fanTableData))
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Bad fan table length: {string.Join(", ", fanTableData)}");
-
+            Log.Instance.Trace($"{FAN_TABLE_DATA_ERROR}: {string.Join(", ", fanTableData)}");
             return null;
         }
 
-        if (fanTableData.Count(ftd => ftd.FanSpeeds.Length == 10) != length)
-        {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Bad fan table fan speeds length: {string.Join(", ", fanTableData)}");
-
-            return null;
-        }
-
-        if (fanTableData.Count(ftd => ftd.Temps.Length == 10) != length)
-        {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Bad fan table temps length: {string.Join(", ", fanTableData)}");
-
-            return null;
-        }
-
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Fan table data: {string.Join(", ", fanTableData)}");
-
+        Log.Instance.Trace($"Fan table data: {string.Join(", ", fanTableData)}");
         return fanTableData;
+    }
+
+    private static bool IsValidFanTableData(FanTableData[]? fanTableData)
+    {
+        return fanTableData?.All(ftd =>
+            ftd.Type != FanTableType.Unknown &&
+            ftd.FanSpeeds?.Length == 10 &&
+            ftd.Temps?.Length == 10) ?? false;
     }
 
     private static Task SetFanTable(FanTable fanTable) => WMI.LenovoFanMethod.FanSetTableAsync(fanTable.GetBytes());
@@ -439,5 +445,4 @@ public class GodModeControllerV4(
     private static Task SetFanFullSpeedAsync(bool enabled) => WMI.LenovoOtherMethod.SetFeatureValueAsync(CapabilityID.FanFullSpeed, enabled ? 1 : 0);
 
     #endregion
-
 }

@@ -22,21 +22,18 @@ public class ProcessesStopRunningAutomationPipelineTrigger(ProcessInfo[]? proces
         if (automationEvent is not ProcessAutomationEvent { Type: ProcessEventInfoType.Stopped } e)
             return Task.FromResult(false);
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Checking for {e.ProcessInfo.Name}... [processes={string.Join(", ", Processes.Select(p => p.Name))}]");
+        Log.Instance.Trace($"Checking for {e.ProcessInfo.Name}... [processes={string.Join(", ", Processes.Select(p => p.Name))}]");
 
         if (!Processes.Contains(e.ProcessInfo) && !Processes.Select(p => p.Name).Contains(e.ProcessInfo.Name))
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Process name {e.ProcessInfo.Name} not in the list.");
+            Log.Instance.Trace($"Process name {e.ProcessInfo.Name} not in the list.");
 
             return Task.FromResult(false);
         }
 
         var result = Processes.SelectMany(p => Process.GetProcessesByName(p.Name)).IsEmpty();
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Process name {e.ProcessInfo.Name} found in process list: {!result}.");
+        Log.Instance.Trace($"Process name {e.ProcessInfo.Name} found in process list: {!result}.");
 
         return Task.FromResult(result);
     }

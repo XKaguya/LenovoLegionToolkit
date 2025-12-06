@@ -128,16 +128,14 @@ public partial class MainWindow
 
         if (_applicationSettings.Store.MinimizeOnClose)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Minimizing...");
+            Log.Instance.Trace($"Minimizing...");
 
             WindowState = WindowState.Minimized;
             e.Cancel = true;
         }
         else
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Closing...");
+            Log.Instance.Trace($"Closing...");
 
             await App.Current.ShutdownAsync();
         }
@@ -151,8 +149,7 @@ public partial class MainWindow
 
     private void MainWindow_StateChanged(object? sender, EventArgs e)
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Window state changed to {WindowState}");
+        Log.Instance.Trace($"Window state changed to {WindowState}");
 
         switch (WindowState)
         {
@@ -341,8 +338,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Failed to open log.", ex);
+            Log.Instance.Trace($"Failed to open log.", ex);
         }
     }
 
@@ -471,10 +467,7 @@ public partial class MainWindow
         catch (Exception ex)
         {
             SnackbarHelper.Show(Resource.Warning, ex.Message, SnackbarType.Error);
-            if (Log.Instance.IsTraceEnabled)
-            {
-                Log.Instance.Trace($"Exception occured when executing SetBackgroundImage().", ex);
-            }
+            Log.Instance.Trace($"Exception occured when executing SetBackgroundImage().", ex);
         }
     }
     private void SetBorderOpacity(Border border, double opacity)

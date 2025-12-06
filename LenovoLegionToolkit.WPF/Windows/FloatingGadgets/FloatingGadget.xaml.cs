@@ -15,18 +15,18 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 
-namespace LenovoLegionToolkit.WPF.Windows.Utils;
+namespace LenovoLegionToolkit.WPF.Windows.FloatingGadgets;
 
 public partial class FloatingGadget
 {
     private const int GWL_EXSTYLE = -20;
     private const int WS_EX_TRANSPARENT = 0x00000020;
     private const int WS_EX_TOOLWINDOW = 0x00000080;
+    private const int WS_EX_NOACTIVATE = 0x08000000;
 
-    private const int UI_UPDATE_THROTTLE_MS = 100;
+    private const int UI_UPDATE_THROTTLE_MS = 1000;
 
     private const int FpsRedLine = 30;
     private const double MaxFrameTimeMs = 10.0;
@@ -59,15 +59,15 @@ public partial class FloatingGadget
 
     private HashSet<FloatingGadgetItem> _activeItems = new();
     private List<FloatingGadgetItem> _visibleItems = new();
-    private static Dictionary<FrameworkElement, (List<FloatingGadgetItem> Items, FrameworkElement? Separator)> GadgetGroups { get; } =
-        new Dictionary<FrameworkElement, (List<FloatingGadgetItem> Items, FrameworkElement? Separator)>();
+    private static Dictionary<FrameworkElement, (List<FloatingGadgetItem> Items, FrameworkElement? Separator)> GadgetGroups { get; } = new();
 
-    private static Dictionary<FloatingGadgetItem, FrameworkElement> _itemsMap { get; } =
-        new Dictionary<FloatingGadgetItem, FrameworkElement>();
+    private static Dictionary<FloatingGadgetItem, FrameworkElement> _itemsMap { get; } = new();
 
     public FloatingGadget()
     {
         InitializeComponent();
+
+        RenderOptions.ProcessRenderMode = RenderMode.SoftwareOnly;
 
         IsVisibleChanged += FloatingGadget_IsVisibleChanged;
         SourceInitialized += OnSourceInitialized!;
@@ -88,7 +88,7 @@ public partial class FloatingGadget
             _pchName.Text = Resource.SensorsControl_Motherboard_Temperature;
         }
 
-        InitializeFpsSensor();
+        _fpsController.FpsDataUpdated += OnFpsDataUpdated;
     }
 
     private void InitializeComponentSpecifics()
@@ -200,6 +200,8 @@ public partial class FloatingGadget
             }
         }
 
+        CheckAndUpdateFpsMonitoring();
+
         for (int i = 0; i < allGroups.Count; i++)
         {
             var (_, separator) = allGroups[i].Value;
@@ -236,6 +238,29 @@ public partial class FloatingGadget
 
         UpdateGadgetGroupVisibility();
     }
+
+    private async void CheckAndUpdateFpsMonitoring()
+    {
+        bool shouldMonitor = ShouldMonitorFps();
+
+        if (shouldMonitor && !_fpsMonitoringStarted && IsVisible)
+        {
+            await StartFpsMonitoringAsync();
+            _fpsMonitoringStarted = true;
+        }
+        else if (!shouldMonitor && _fpsMonitoringStarted)
+        {
+            StopFpsMonitoring();
+            _fpsMonitoringStarted = false;
+        }
+    }
+
+    private bool ShouldMonitorFps()
+    {
+        var fpsItems = new[] { FloatingGadgetItem.Fps, FloatingGadgetItem.LowFps, FloatingGadgetItem.FrameTime };
+        return fpsItems.Any(item => _activeItems.Contains(item));
+    }
+
     private void SetSiblingLabelsVisibility(FrameworkElement valueControl, Visibility visibility)
     {
         if (valueControl == null) return;
@@ -281,46 +306,35 @@ public partial class FloatingGadget
     [DllImport("user32.dll")]
     private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
 
-    private void InitializeFpsSensor()
-    {
-        _fpsController.Blacklist.Add("explorer");
-        _fpsController.Blacklist.Add("taskmgr");
-        _fpsController.Blacklist.Add("ApplicationFrameHost");
-        _fpsController.Blacklist.Add("System");
-        _fpsController.Blacklist.Add("svchost");
-        _fpsController.Blacklist.Add("csrss");
-        _fpsController.Blacklist.Add("wininit");
-        _fpsController.Blacklist.Add("services");
-        _fpsController.Blacklist.Add("lsass");
-        _fpsController.Blacklist.Add("winlogon");
-        _fpsController.Blacklist.Add("smss");
-        _fpsController.Blacklist.Add("spoolsv");
-        _fpsController.Blacklist.Add("SearchIndexer");
-        _fpsController.Blacklist.Add("SearchUI");
-        _fpsController.Blacklist.Add("RuntimeBroker");
-        _fpsController.Blacklist.Add("dwm");
-        _fpsController.Blacklist.Add("ctfmon");
-        _fpsController.Blacklist.Add("audiodg");
-        _fpsController.Blacklist.Add("fontdrvhost");
-        _fpsController.Blacklist.Add("taskhost");
-        _fpsController.Blacklist.Add("conhost");
-        _fpsController.Blacklist.Add("sihost");
-        _fpsController.Blacklist.Add("StartMenuExperienceHost");
-        _fpsController.Blacklist.Add("ShellExperienceHost");
-
-        _fpsController.FpsDataUpdated += OnFpsDataUpdated;
-    }
-
     private void OnSourceInitialized(object sender, EventArgs e)
     {
         var hwnd = new WindowInteropHelper(this).Handle;
         var extendedStyle = GetWindowLong(hwnd, GWL_EXSTYLE);
-        SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle | WS_EX_TRANSPARENT | WS_EX_TOOLWINDOW);
+        SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle | WS_EX_TRANSPARENT | WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE);
     }
 
     private async Task StartFpsMonitoringAsync()
     {
-        await _fpsController.StartMonitoringAsync();
+        try
+        {
+            await _fpsController.StartMonitoringAsync();
+        }
+        catch (Exception ex)
+        {
+            Log.Instance.Trace($"Failed to start FPS monitoring", ex);
+        }
+    }
+
+    private void StopFpsMonitoring()
+    {
+        try
+        {
+            _fpsController.StopMonitoring();
+        }
+        catch (Exception ex)
+        {
+            Log.Instance.Trace($"Failed to stop FPS monitoring", ex);
+        }
     }
 
     private async void FloatingGadget_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -332,7 +346,7 @@ public partial class FloatingGadget
 
             _cts = new CancellationTokenSource();
 
-            if (!_fpsMonitoringStarted)
+            if (!_fpsMonitoringStarted && ShouldMonitorFps())
             {
                 await StartFpsMonitoringAsync();
                 _fpsMonitoringStarted = true;
@@ -343,6 +357,12 @@ public partial class FloatingGadget
         else
         {
             _cts?.Cancel();
+
+            if (_fpsMonitoringStarted)
+            {
+                StopFpsMonitoring();
+                _fpsMonitoringStarted = false;
+            }
         }
     }
 
@@ -356,7 +376,6 @@ public partial class FloatingGadget
         _fpsController.Dispose();
     }
 
-    // ------------ 辅助：颜色与文本更新 ------------
     private static Brush SeverityBrush(double value, double yellowThreshold, double redThreshold)
     {
         if (double.IsNaN(value)) return Brushes.White;
@@ -468,10 +487,13 @@ public partial class FloatingGadget
 
     private void OnFpsDataUpdated(object? sender, FpsSensorController.FpsData fpsData)
     {
-        Dispatcher.BeginInvoke(() =>
+        if (_fpsMonitoringStarted)
         {
-            UpdateFpsDisplay(fpsData.Fps, fpsData.LowFps, fpsData.FrameTime);
-        }, DispatcherPriority.Normal);
+            Dispatcher.BeginInvoke(() =>
+            {
+                UpdateFpsDisplay(fpsData.Fps, fpsData.LowFps, fpsData.FrameTime);
+            }, DispatcherPriority.Normal);
+        }
     }
 
     private void UpdateFpsDisplay(string fps, string lowFps, string frameTime)
@@ -538,7 +560,7 @@ public partial class FloatingGadget
         var cpuPowerTask = _sensorsGroupControllers.GetCpuPowerAsync();
         var gpuPowerTask = _sensorsGroupControllers.GetGpuPowerAsync();
         var gpuVramTask = _sensorsGroupControllers.GetGpuVramTemperatureAsync();
-        var diskTemperaturesTask = _sensorsGroupControllers.GetSSDTemperaturesAsync();
+        var diskTemperaturesTask = _sensorsGroupControllers.GetSsdTemperaturesAsync();
         var memoryUsageTask = _sensorsGroupControllers.GetMemoryUsageAsync();
         var memoryTemperaturesTask = _sensorsGroupControllers.GetHighestMemoryTemperatureAsync();
 

@@ -49,8 +49,7 @@ public class AutomationPipeline
     {
         if (token.IsCancellationRequested)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Pipeline interrupted.");
+            Log.Instance.Trace($"Pipeline interrupted.");
             return;
         }
 
@@ -64,13 +63,11 @@ public class AutomationPipeline
         {
             if (token.IsCancellationRequested)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Pipeline interrupted.");
+                Log.Instance.Trace($"Pipeline interrupted.");
                 break;
             }
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Running step... [type={step.GetType().Name}]");
+            Log.Instance.Trace($"Running step... [type={step.GetType().Name}]");
 
             try
             {
@@ -78,14 +75,12 @@ public class AutomationPipeline
             }
             catch (Exception ex)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Step run failed. [name={step.GetType().Name}]", ex);
+                Log.Instance.Trace($"Step run failed. [name={step.GetType().Name}]", ex);
 
                 stepExceptions.Add(ex);
             }
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Step completed successfully. [type={step.GetType().Name}]");
+            Log.Instance.Trace($"Step completed successfully. [type={step.GetType().Name}]");
         }
 
         if (stepExceptions.Count != 0)

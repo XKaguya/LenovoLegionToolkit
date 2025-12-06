@@ -10,11 +10,11 @@ using LenovoLegionToolkit.Lib.System;
 using LenovoLegionToolkit.Lib.System.Management;
 using LenovoLegionToolkit.Lib.Utils;
 using LenovoLegionToolkit.WPF.CLI;
-using LenovoLegionToolkit.WPF.Controls.Custom;
 using LenovoLegionToolkit.WPF.Extensions;
 using LenovoLegionToolkit.WPF.Resources;
 using LenovoLegionToolkit.WPF.Utils;
 using LenovoLegionToolkit.WPF.Windows;
+using LenovoLegionToolkit.WPF.Windows.Dashboard;
 using LenovoLegionToolkit.WPF.Windows.FloatingGadgets;
 using LenovoLegionToolkit.WPF.Windows.Settings;
 using LenovoLegionToolkit.WPF.Windows.Utils;
@@ -27,7 +27,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace LenovoLegionToolkit.WPF.Pages;
 
@@ -49,6 +48,9 @@ public partial class SettingsPage
     private readonly UpdateCheckSettings _updateCheckSettings = IoCContainer.Resolve<UpdateCheckSettings>();
 
     private bool _isRefreshing;
+
+    private Custom? CustomWindow;
+    private EditSensorGroupWindow? EditSensorGroupWindow;
 
     public SettingsPage()
     {
@@ -172,8 +174,7 @@ public partial class SettingsPage
         {
             _godModeFnQSwitchableCard.Visibility = Visibility.Collapsed;
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Failed to get GodModeFnQSwitchable status.", ex);
+            Log.Instance.Trace($"Failed to get GodModeFnQSwitchable status.", ex);
         }
 
         _powerModeMappingComboBox.SetItems(Enum.GetValues<PowerModeMappingMode>(), _settings.Store.PowerModeMappingMode, t => t.GetDisplayName());
@@ -409,7 +410,8 @@ public partial class SettingsPage
         }
     }
 
-    private void EnableLoggingToggle_Click(object sender, RoutedEventArgs e)
+    // 注意：事件处理程序需要改为 async void
+    private async void EnableLoggingToggle_Click(object sender, RoutedEventArgs e)
     {
         if (_isRefreshing)
             return;
@@ -420,6 +422,23 @@ public partial class SettingsPage
         var state = _enableLoggingToggle.IsChecked;
         if (state is null)
             return;
+
+        const string logSuffix = " [LOGGING ENABLED]";
+
+        await mainWindow.InvokeIfRequired(() =>
+        {
+            if (state.Value)
+            {
+                if (!mainWindow._title.Text.EndsWith(logSuffix))
+                {
+                    mainWindow._title.Text += logSuffix;
+                }
+            }
+            else
+            {
+                mainWindow._title.Text = mainWindow._title.Text.Replace(logSuffix, string.Empty);
+            }
+        });
 
         Log.Instance.IsTraceEnabled = state.Value;
         _settings.Store.EnableLogging = state.Value;
@@ -481,16 +500,14 @@ public partial class SettingsPage
             {
                 if (await _rgbKeyboardBacklightController.IsSupportedAsync())
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Setting light control owner and restoring preset...");
+                    Log.Instance.Trace($"Setting light control owner and restoring preset...");
 
                     await _rgbKeyboardBacklightController.SetLightControlOwnerAsync(true, true);
                 }
             }
             catch (Exception ex)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Couldn't set light control owner or current preset.", ex);
+                Log.Instance.Trace($"Couldn't set light control owner or current preset.", ex);
             }
 
             try
@@ -498,26 +515,22 @@ public partial class SettingsPage
                 var controller = IoCContainer.Resolve<SpectrumKeyboardBacklightController>();
                 if (await controller.IsSupportedAsync())
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Starting Aurora if needed...");
+                    Log.Instance.Trace($"Starting Aurora if needed...");
 
                     var result = await controller.StartAuroraIfNeededAsync();
                     if (result)
                     {
-                        if (Log.Instance.IsTraceEnabled)
-                            Log.Instance.Trace($"Aurora started.");
+                        Log.Instance.Trace($"Aurora started.");
                     }
                     else
                     {
-                        if (Log.Instance.IsTraceEnabled)
-                            Log.Instance.Trace($"Aurora not needed.");
+                        Log.Instance.Trace($"Aurora not needed.");
                     }
                 }
             }
             catch (Exception ex)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Couldn't start Aurora if needed.", ex);
+                Log.Instance.Trace($"Couldn't start Aurora if needed.", ex);
             }
         }
         else
@@ -526,24 +539,21 @@ public partial class SettingsPage
             {
                 if (await _rgbKeyboardBacklightController.IsSupportedAsync())
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Setting light control owner...");
+                    Log.Instance.Trace($"Setting light control owner...");
 
                     await _rgbKeyboardBacklightController.SetLightControlOwnerAsync(false);
                 }
             }
             catch (Exception ex)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Couldn't set light control owner.", ex);
+                Log.Instance.Trace($"Couldn't set light control owner.", ex);
             }
 
             try
             {
                 if (IoCContainer.TryResolve<SpectrumKeyboardBacklightController>() is { } spectrumKeyboardBacklightController)
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Making sure Aurora is stopped...");
+                    Log.Instance.Trace($"Making sure Aurora is stopped...");
 
                     if (await spectrumKeyboardBacklightController.IsSupportedAsync())
                         await spectrumKeyboardBacklightController.StopAuroraIfNeededAsync();
@@ -551,8 +561,7 @@ public partial class SettingsPage
             }
             catch (Exception ex)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Couldn't stop Aurora.", ex);
+                Log.Instance.Trace($"Couldn't stop Aurora.", ex);
             }
 
             try
@@ -982,10 +991,8 @@ public partial class SettingsPage
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-            {
-                Log.Instance.Trace($"FloatingGadgets_Click error: {ex.Message}");
-            }
+            Log.Instance.Trace($"FloatingGadgets_Click error: {ex.Message}");
+
             _floatingGadgetsToggle.IsChecked = false;
             _settings.Store.ShowFloatingGadgets = false;
             _settings.SynchronizeStore();
@@ -1031,10 +1038,7 @@ public partial class SettingsPage
         catch (Exception ex)
         {
             SnackbarHelper.Show(Resource.Warning, ex.Message, SnackbarType.Error);
-            if (Log.Instance.IsTraceEnabled)
-            {
-                Log.Instance.Trace($"Exception occured when executing SetBackgroundImage().", ex);
-            }
+            Log.Instance.Trace($"Exception occured when executing SetBackgroundImage().", ex);
         }
     }
 
@@ -1053,6 +1057,8 @@ public partial class SettingsPage
         if (_isRefreshing)
             return;
 
+        SnackbarHelper.Show(Resource.SettingsPage_ClearBackgroundImage_Title, Resource.SettingsPage_UseNewDashboard_Restart_Message, SnackbarType.Success);
+
         _settings.Store.BackGroundImageFilePath = string.Empty;
         _settings.SynchronizeStore();
     }
@@ -1069,33 +1075,27 @@ public partial class SettingsPage
 
             if (_settings.Store.ShowFloatingGadgets && App.Current.FloatingGadget != null)
             {
-                bool needsStyleUpdate = false;
-
-                if (_settings.Store.SelectedStyleIndex == 0 && App.Current.FloatingGadget.GetType() != typeof(FloatingGadget))
+                var styleTypeMapping = new Dictionary<int, Type>
                 {
-                    needsStyleUpdate = true;
-                }
-                else if (_settings.Store.SelectedStyleIndex == 1 && App.Current.FloatingGadget.GetType() != typeof(FloatingGadgetUpper))
-                {
-                    needsStyleUpdate = true;
-                }
+                    [0] = typeof(FloatingGadget),
+                    [1] = typeof(FloatingGadgetUpper)
+                };
 
-                if (needsStyleUpdate)
+                var constructorMapping = new Dictionary<int, Func<Window>>
+                {
+                    [0] = () => new FloatingGadget(),
+                    [1] = () => new FloatingGadgetUpper()
+                };
+
+                int selectedStyle = _settings.Store.SelectedStyleIndex;
+                if (styleTypeMapping.TryGetValue(selectedStyle, out Type? targetType) &&
+                    App.Current.FloatingGadget.GetType() != targetType)
                 {
                     App.Current.FloatingGadget.Close();
-                    Window? newGadget = null;
-                    if (_settings.Store.SelectedStyleIndex == 0)
-                    {
-                        newGadget = new FloatingGadget();
-                    }
-                    else if (_settings.Store.SelectedStyleIndex == 1)
-                    {
-                        newGadget = new FloatingGadgetUpper();
-                    }
 
-                    if (newGadget != null)
+                    if (constructorMapping.TryGetValue(selectedStyle, out Func<Window>? constructor))
                     {
-                        App.Current.FloatingGadget = newGadget;
+                        App.Current.FloatingGadget = constructor();
                         App.Current.FloatingGadget.Show();
                     }
                 }
@@ -1103,10 +1103,8 @@ public partial class SettingsPage
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-            {
-                Log.Instance.Trace($"StyleComboBox_SelectionChanged error: {ex.Message}");
-            }
+            Log.Instance.Trace($"StyleComboBox_SelectionChanged error: {ex.Message}");
+
             _isRefreshing = true;
             _floatingGadgetsStyleComboBox.SelectedIndex = _settings.Store.SelectedStyleIndex;
             _isRefreshing = false;
@@ -1118,7 +1116,68 @@ public partial class SettingsPage
         if (_isRefreshing)
             return;
 
-        var temp = new Custom();
-        temp.Show();
+        CustomWindow = ShowOrActivateWindow(CustomWindow,
+            () => new Custom { Owner = Window.GetWindow(this) },
+            w => w.BringToForeground());
     }
+
+    private void DashboardCustomButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (_isRefreshing)
+            return;
+
+        EditSensorGroupWindow = ShowOrActivateWindow(EditSensorGroupWindow,
+            () => new EditSensorGroupWindow { Owner = Window.GetWindow(this) },
+            w => w.BringToForeground());
+    }
+
+    #region Helper
+    private static bool IsWindowValid(Window? window)
+    {
+        return window is not null
+        && !window.Dispatcher.HasShutdownStarted
+        && !window.Dispatcher.HasShutdownFinished
+        && window.IsLoaded;
+    }
+
+    private T ShowOrActivateWindow<T>(T? window, Func<T> factory, Action<T>? bringToForeground = null)
+    where T : Window
+    {
+        if (window is null || !IsWindowValid(window))
+            window = factory();
+
+        if (window.IsVisible)
+        {
+            if (window.WindowState == WindowState.Minimized)
+                window.WindowState = WindowState.Normal;
+
+            try
+            {
+                if (bringToForeground is not null && window.ShowActivated)
+                {
+                    bringToForeground(window);
+                }
+                else
+                {
+                    window.Activate();
+                }
+            }
+            catch { }
+
+            return window;
+        }
+
+        try
+        {
+            window.Show();
+            return window;
+        }
+        catch (InvalidOperationException)
+        {
+            window = factory();
+            window.Show();
+            return window;
+        }
+    }
+    #endregion
 }

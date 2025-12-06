@@ -27,8 +27,7 @@ public class BatteryDischargeRateMonitorService
 
         _refreshTask = Task.Run(async () =>
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Battery monitoring service started...");
+            Log.Instance.Trace($"Battery monitoring service started...");
 
             while (!token.IsCancellationRequested)
             {
@@ -41,20 +40,17 @@ public class BatteryDischargeRateMonitorService
                 catch (OperationCanceledException) { }
                 catch (Exception ex)
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Battery monitoring service failed.", ex);
+                    Log.Instance.Trace($"Battery monitoring service failed.", ex);
                 }
             }
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Battery monitoring service stopped.");
+            Log.Instance.Trace($"Battery monitoring service stopped.");
         }, token);
     }
 
     public async Task StopAsync()
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Stopping...");
+        Log.Instance.Trace($"Stopping...");
 
         if (_cts is not null)
             await _cts.CancelAsync().ConfigureAwait(false);
@@ -66,7 +62,6 @@ public class BatteryDischargeRateMonitorService
 
         _refreshTask = null;
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Stopped.");
+        Log.Instance.Trace($"Stopped.");
     }
 }

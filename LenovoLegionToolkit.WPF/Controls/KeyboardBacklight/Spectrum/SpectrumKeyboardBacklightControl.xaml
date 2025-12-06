@@ -161,7 +161,7 @@
                     BorderThickness="2"
                     CornerRadius="8">
 
-                    <controls:SelectableControl Selected="SelectableControl_Selected" Grid.Row="0">
+                    <controls:SelectableControl Grid.Row="0" Selected="SelectableControl_Selected">
                         <controls:SelectableControl.Stroke>
                             <SolidColorBrush Color="{DynamicResource SystemAccentColorSecondary}" />
                         </controls:SelectableControl.Stroke>
@@ -170,9 +170,9 @@
                         </controls:SelectableControl.Fill>
 
                         <device:SpectrumDeviceControl
-                                x:Name="_device"
-                                Padding="32"
-                                HorizontalAlignment="Center">
+                            x:Name="_device"
+                            Padding="32"
+                            HorizontalAlignment="Center">
                             <device:SpectrumDeviceControl.LayoutTransform>
                                 <ScaleTransform ScaleX="1" ScaleY="1" />
                             </device:SpectrumDeviceControl.LayoutTransform>
@@ -198,6 +198,7 @@
                         Icon="SelectAllOff24"
                         ToolTip="{x:Static resources:Resource.SpectrumKeyboardBacklightControl_DeselectAll_ToolTip}" />
                     <wpfui:Button
+                        x:Name="_layoutSwitchButton"
                         Margin="0,0,0,8"
                         Click="SwitchKeyboardLayout_Click"
                         FontSize="20"

@@ -79,8 +79,7 @@ public class PowerStateListener : IListener<PowerStateListener.ChangedEventArgs>
 
     private async void SystemEvents_PowerModeChanged(object sender, PowerModeChangedEventArgs e)
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Event received: {e.Mode}");
+        Log.Instance.Trace($"Event received: {e.Mode}");
 
         var powerMode = e.Mode switch
         {
@@ -115,14 +114,12 @@ public class PowerStateListener : IListener<PowerStateListener.ChangedEventArgs>
 
         if (!mi.Properties.SupportsAlwaysOnAc.status)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Ignoring, AO AC not enabled...");
+            Log.Instance.Trace($"Ignoring, AO AC not enabled...");
 
             return;
         }
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Event value: {type}");
+        Log.Instance.Trace($"Event value: {type}");
 
         if (powerMode is not PowerStateEvent.Resume)
             return;
@@ -134,15 +131,11 @@ public class PowerStateListener : IListener<PowerStateListener.ChangedEventArgs>
     {
         var powerAdapterState = await Power.IsPowerAdapterConnectedAsync().ConfigureAwait(false);
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Handle {powerStateEvent}. [newState={powerAdapterState}]");
+        Log.Instance.Trace($"Handle {powerStateEvent}. [newState={powerAdapterState}]");
 
         if (powerStateEvent is PowerStateEvent.Suspend)
         {
-            if (Log.Instance.IsTraceEnabled)
-            {
-                Log.Instance.Trace($"Going to dark.");
-            }
+            Log.Instance.Trace($"Going to dark.");
             await _powerModeFeature.SuspendMode(PowerModeState.Balance).ConfigureAwait(false);
         }
         else if (powerStateEvent is PowerStateEvent.Resume)
@@ -155,10 +148,7 @@ public class PowerStateListener : IListener<PowerStateListener.ChangedEventArgs>
                 if (await _rgbController.IsSupportedAsync().ConfigureAwait(false))
                     await _rgbController.SetLightControlOwnerAsync(true, true).ConfigureAwait(false);
 
-                if (Log.Instance.IsTraceEnabled)
-                {
-                    Log.Instance.Trace($"Restore to {_powerModeFeature.LastPowerModeState}");
-                }
+                Log.Instance.Trace($"Restore to {_powerModeFeature.LastPowerModeState}");
                 await _powerModeFeature.SetStateAsync(_powerModeFeature.LastPowerModeState).ConfigureAwait(false);
 
                 if (await _powerModeFeature.IsSupportedAsync().ConfigureAwait(false))

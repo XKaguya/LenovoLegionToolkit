@@ -29,8 +29,7 @@ public class SensorsControllerV5(GPUController gpuController) : AbstractSensorsC
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Error checking support. [type={GetType().Name}]", ex);
+            Log.Instance.Trace($"Error checking support. [type={GetType().Name}]", ex);
 
             return false;
         }

@@ -88,6 +88,7 @@ public class AutomationEnvironment
                 ITSMode.ItsAuto => "1",
                 ITSMode.MmcCool => "2",
                 ITSMode.MmcPerformance => "3",
+                ITSMode.MmcGeek => "4",
                 _ => string.Empty
             };
             _dictionary[POWER_MODE_NAME] = value switch
@@ -95,6 +96,7 @@ public class AutomationEnvironment
                 ITSMode.ItsAuto => "INTELLIGENT COOLING",
                 ITSMode.MmcCool => "BATTERY SAVING",
                 ITSMode.MmcPerformance => "EXTREME PERFORMANCE",
+                ITSMode.MmcGeek => "GEEK",
                 _ => string.Empty
             };
         }

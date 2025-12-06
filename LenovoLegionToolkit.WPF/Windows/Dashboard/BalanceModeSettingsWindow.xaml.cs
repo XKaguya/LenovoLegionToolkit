@@ -16,14 +16,6 @@ public partial class BalanceModeSettingsWindow
         InitializeComponent();
 
         IsVisibleChanged += BalanceModeSettingsWindow_IsVisibleChanged;
-
-        PreviewKeyDown += (s, e) => {
-            if (e.Key == Key.System && e.SystemKey == Key.LeftAlt)
-            {
-                e.Handled = true;
-                Keyboard.ClearFocus();
-            }
-        };
     }
 
     private void BalanceModeSettingsWindow_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)

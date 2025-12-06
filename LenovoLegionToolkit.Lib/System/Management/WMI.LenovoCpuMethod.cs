@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using static LenovoLegionToolkit.Lib.System.Management.WMI.LenovoDefaultValueInDifferentModeData;
 
 // ReSharper disable InconsistentNaming
 // ReSharper disable StringLiteralTypo
@@ -138,5 +139,10 @@ public static partial class WMI
             $"SELECT * FROM LENOVO_CPU_METHOD",
             "CPU_Set_Temperature_Control",
             new() { { "CurrentTemperatureControl", value } });
+
+        public static Task CPUSetOCDataAsync(byte mode, uint tuneId, int value) => CallAsync("root\\WMI",
+            $"SELECT * FROM LENOVO_CPU_METHOD",
+            "CPU_Set_OC_Data",
+            new() { { "mode", Convert.ToByte(mode) }, {"TuneID", Convert.ToUInt32(tuneId) }, { "value", Convert.ToUInt32(value) } });
     }
 }
