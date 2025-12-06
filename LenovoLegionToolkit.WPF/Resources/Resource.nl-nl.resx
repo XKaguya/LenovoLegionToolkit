@@ -121,13 +121,13 @@
     <value>Lenovo Legion Toolkit</value>
   </data>
   <data name="AboutPage_Build" xml:space="preserve">
-    <value>Build</value>
+    <value>Versie</value>
   </data>
   <data name="AboutPage_LatestReleaseOnGitHub" xml:space="preserve">
     <value>Laatste release op GitHub</value>
   </data>
   <data name="AboutPage_Links" xml:space="preserve">
-    <value>Links</value>
+    <value>Koppelingen</value>
   </data>
   <data name="AboutPage_ProjectWebsiteOnGitHub" xml:space="preserve">
     <value>Project website op GitHub</value>
@@ -475,7 +475,7 @@ WAARSCHUWING: Deze actie wordt niet correct uitgevoerd als het interne display i
     <value>Apparaat</value>
   </data>
   <data name="DeviceInformationWindow_LenovoSupport" xml:space="preserve">
-    <value>Lenovo Support</value>
+    <value>Lenovo Ondersteuning</value>
   </data>
   <data name="DeviceInformationWindow_MachineType_Title" xml:space="preserve">
     <value>Machine Type</value>
@@ -535,7 +535,7 @@ WAARSCHUWING: Deze actie wordt niet correct uitgevoerd als het interne display i
     <value>GPU Opnieuw Opstarten</value>
   </data>
   <data name="DiscreteGPUControl_Title" xml:space="preserve">
-    <value>Discrete GPU</value>
+    <value>Discrete Videokaart</value>
   </data>
   <data name="DisplayBrightnessAutomationStepControl_Message" xml:space="preserve">
     <value>Wijzig de helderheid van het ingebouwde display.
@@ -617,7 +617,7 @@ Bij voorbaat bedankt!</value>
     <value>°F</value>
   </data>
   <data name="FanCurveControl_CPU" xml:space="preserve">
-    <value>CPU</value>
+    <value>Processor</value>
   </data>
   <data name="FanCurveControl_CPUSensor" xml:space="preserve">
     <value>CPU Sensor</value>
@@ -626,10 +626,10 @@ Bij voorbaat bedankt!</value>
     <value>Ventilatorsnelheid</value>
   </data>
   <data name="FanCurveControl_GPU" xml:space="preserve">
-    <value>GPU</value>
+    <value>Videokaart</value>
   </data>
   <data name="FanCurveControl_GPU2" xml:space="preserve">
-    <value>GPU #2</value>
+    <value>Videokaart #2</value>
   </data>
   <data name="RPM" xml:space="preserve">
     <value>RPM</value>
@@ -691,7 +691,7 @@ Sommige laptops accepteren hogere waarden dan aangegeven. Deze optie kan onvoors
     <value>CPU Temperatuur Limiet</value>
   </data>
   <data name="GodModeSettingsWindow_CPU_Title" xml:space="preserve">
-    <value>CPU</value>
+    <value>Processor</value>
   </data>
   <data name="GodModeSettingsWindow_Error_Apply_Title" xml:space="preserve">
     <value>Kon de instelling niet toepassen</value>
@@ -726,7 +726,7 @@ Serieus, wees voorzichtig met deze optie!</value>
     <value>GPU Temperatuur Limiet</value>
   </data>
   <data name="GodModeSettingsWindow_GPU_Title" xml:space="preserve">
-    <value>GPU</value>
+    <value>Videokaart</value>
   </data>
   <data name="GodModeSettingsWindow_Title" xml:space="preserve">
     <value>Instellingen aangepaste modus</value>
@@ -906,7 +906,7 @@ Zet deze optie aan als u problemen ondervindt met applicaties in de volledige sc
     <value>Touchpadvergrendeling</value>
   </data>
   <data name="OK" xml:space="preserve">
-    <value>OK</value>
+    <value>Oké</value>
   </data>
   <data name="Open" xml:space="preserve">
     <value>Open</value>
@@ -1389,7 +1389,7 @@ Vereist opnieuw opstarten.</value>
     <value>Probeer het opnieuw</value>
   </data>
   <data name="UnexpectedException" xml:space="preserve">
-    <value>Unexpected exception occurred:</value>
+    <value>Er is een onverwachte fout opgetreden:</value>
   </data>
   <data name="Unnamed" xml:space="preserve">
     <value>naamloos</value>
@@ -1679,7 +1679,7 @@ Deze instelling is alleen van kracht wanneer de Aangepaste modus ingeschakeld is
     <value>Voorinstelling</value>
   </data>
   <data name="StatusTrayPopup_DiscreteGPU" xml:space="preserve">
-    <value>Discrete GPU</value>
+    <value>Discrete Videokaart</value>
   </data>
   <data name="StatusTrayPopup_PowerState" xml:space="preserve">
     <value>Energiemodus</value>
@@ -1694,10 +1694,10 @@ Deze instelling is alleen van kracht wanneer de Aangepaste modus ingeschakeld is
     <value>Ontlading snelheid</value>
   </data>
   <data name="StatusTrayPopup_MinDischargeRate" xml:space="preserve">
-    <value>Min discharge rate</value>
+    <value>Minimale ontlading snelheid</value>
   </data>
   <data name="StatusTrayPopup_MaxDischargeRate" xml:space="preserve">
-    <value>Max discharge rate</value>
+    <value>Maximale ontlading snelheid</value>
   </data>
   <data name="StatusTrayPopup_UpdateAvailable" xml:space="preserve">
     <value>Update beschikbaar!</value>
@@ -1802,10 +1802,10 @@ WAARSCHUWING: Deze actie zal niet correct uitgevoerd worden als de externe video
     <value>Mhz</value>
   </data>
   <data name="SensorsControl_Maximum" xml:space="preserve">
-    <value>Maximum: {0}</value>
+    <value>Maximaal: {0}</value>
   </data>
   <data name="SensorsControl_CPU_Title" xml:space="preserve">
-    <value>CPU</value>
+    <value>Processor</value>
   </data>
   <data name="SensorsControl_Utilization_Title" xml:space="preserve">
     <value>Gebruik</value>
@@ -1820,7 +1820,7 @@ WAARSCHUWING: Deze actie zal niet correct uitgevoerd worden als de externe video
     <value>Ventilatie</value>
   </data>
   <data name="SensorsControl_GPU_Title" xml:space="preserve">
-    <value>GPU</value>
+    <value>Videokaart</value>
   </data>
   <data name="SensorsControl_MemoryClock_Title" xml:space="preserve">
     <value>Geheugenfrequentie</value>
@@ -2028,7 +2028,7 @@ Ondersteunde formaten zijn: {1}.</value>
     <value>Download</value>
   </data>
   <data name="PackageControl_OpenReadme" xml:space="preserve">
-    <value>Open README</value>
+    <value>Open LEESMIJ</value>
   </data>
   <data name="SpectrumKeyboardBacklightControl_Preset" xml:space="preserve">
     <value>Voorinstelling</value>
@@ -2224,7 +2224,7 @@ Ondersteunde formaten zijn: {1}.</value>
     <value>Melding op alle schermen</value>
   </data>
   <data name="SettingsPage_CheckUpdatesButton_Content" xml:space="preserve">
-    <value>Check</value>
+    <value>Controleer</value>
   </data>
   <data name="SettingsPage_CheckUpdates_Started_Title" xml:space="preserve">
     <value>Controleren op updates...</value>
@@ -2233,7 +2233,7 @@ Ondersteunde formaten zijn: {1}.</value>
     <value>Controleer op updates</value>
   </data>
   <data name="SettingsPage_Update_Title" xml:space="preserve">
-    <value>Update</value>
+    <value>Bijwerken</value>
   </data>
   <data name="MainWindow_CheckForUpdates_Error_ReachedRateLimit_Message" xml:space="preserve">
     <value>API limiet bereikt, probeer het later opnieuw.</value>
@@ -2275,223 +2275,223 @@ Ondersteunde formaten zijn: {1}.</value>
     <value>Voer een opgeslagen snelle actie uit.</value>
   </data>
   <data name="NotificationsSettingsWindow_NotificationAlwaysOnTop_Title" xml:space="preserve">
-    <value>Notification always on top</value>
+    <value>Meldingen altijd bovenop</value>
   </data>
   <data name="NotificationsSettingsWindow_NotificationAlwaysOnTop_Message" xml:space="preserve">
-    <value>Always put notification at the top.
-It won't affect other full screen windows, but you will not be able to click on the notifications.</value>
+    <value>Zet altijd een notificatie bovenaan.
+Dit heeft geen invloed op andere schermvensters, maar je kunt niet op de notificaties klikken.</value>
   </data>
   <data name="SensorsControl_VrTemperature_Title" xml:space="preserve">
-    <value>VR Temperature</value>
+    <value>VR temperatuur</value>
   </data>
   <data name="SensorsControl_GpuMemoryTemperature_Title" xml:space="preserve">
     <value>Vram</value>
   </data>
   <data name="SensorsControl_PchTemperature_Title" xml:space="preserve">
-    <value>PCH Temperature</value>
+    <value>PCH temperatuur</value>
   </data>
   <data name="SensorsControl_Motherboard_Title" xml:space="preserve">
-    <value>Motherboard</value>
+    <value>Moederbord</value>
   </data>
   <data name="SensorsControl_GpuCore_Title" xml:space="preserve">
     <value>Core</value>
   </data>
   <data name="SensorsControl_Memory_Title" xml:space="preserve">
-    <value>Memory</value>
+    <value>Geheugen</value>
   </data>
   <data name="SensorsControl_Disk_Title" xml:space="preserve">
-    <value>Disk</value>
+    <value>Schijf</value>
   </data>
   <data name="SensorsControl_Battery_Title" xml:space="preserve">
-    <value>Battery</value>
+    <value>Batterij</value>
   </data>
   <data name="SensorsControl_State_Title" xml:space="preserve">
-    <value>State</value>
+    <value>Staat</value>
   </data>
   <data name="SensorsControl_BatteryLevel_Title" xml:space="preserve">
-    <value>Battery Level</value>
+    <value>Batterijniveau</value>
   </data>
   <data name="BatteryPage_ACAdapterNotConnected" xml:space="preserve">
-    <value>No AC</value>
+    <value>Geen AC</value>
   </data>
   <data name="DashboardBattery_AcConnected" xml:space="preserve">
-    <value>AC Connected</value>
+    <value>AC Verbonden</value>
   </data>
   <data name="DashboardBattery_AcDisconnected" xml:space="preserve">
-    <value>AC Disconnected</value>
+    <value>AC Verbinding verbroken</value>
   </data>
   <data name="AboutPage_Log" xml:space="preserve">
-    <value>Log</value>
+    <value>Logbestanden</value>
   </data>
   <data name="SensorsControl_CPU_Power" xml:space="preserve">
-    <value>Power</value>
+    <value>Stroom</value>
   </data>
   <data name="SensorsControl_GPU_Power" xml:space="preserve">
-    <value>Power</value>
+    <value>Stroom</value>
   </data>
   <data name="SensorsControl_Disk_1_Temperature" xml:space="preserve">
-    <value>Disk 1 Temperature</value>
+    <value>Schijf 1 temperatuur</value>
   </data>
   <data name="SensorsControl_Disk_2_Temperature" xml:space="preserve">
-    <value>Disk 2 Temperature</value>
+    <value>Schijf 2 temperatuur</value>
   </data>
   <data name="SettingsPage_EnableLogging_Title" xml:space="preserve">
-    <value>Enable Logging</value>
+    <value>Loggen inschakelen</value>
   </data>
   <data name="SettingsPage_EnableLogging_Message" xml:space="preserve">
-    <value>Enable logging for debug.</value>
+    <value>Schakel loggen in voor debug.</value>
   </data>
   <data name="SensorItem_CpuUtilitzation" xml:space="preserve">
-    <value>CPU Utilitazion</value>
+    <value>Processor Utilisatie</value>
   </data>
   <data name="SensorItem_CpuFrequency" xml:space="preserve">
-    <value>CPU Frequency</value>
+    <value>Processor Frequentie</value>
   </data>
   <data name="SensorItem_CpuFanSpeed" xml:space="preserve">
-    <value>CPU Fan Speed</value>
+    <value>CPU ventilator snelheid</value>
   </data>
   <data name="SensorItem_CpuTemperature" xml:space="preserve">
-    <value>CPU Temperature</value>
+    <value>Processor Temperatuur</value>
   </data>
   <data name="SensorItem_CpuPower" xml:space="preserve">
-    <value>CPU Power</value>
+    <value>Processor Vermogen</value>
   </data>
   <data name="SensorItem_GpuUtilization" xml:space="preserve">
-    <value>GPU Utilization</value>
+    <value>Processor Gebruik</value>
   </data>
   <data name="SensorItem_GpuFrequency" xml:space="preserve">
-    <value>GPU Frequency</value>
+    <value>Videkaart Frequentie</value>
   </data>
   <data name="SensorItem_GpuFanSpeed" xml:space="preserve">
-    <value>GPU Fan Speed</value>
+    <value>Videokaart ventilator snelheid</value>
   </data>
   <data name="SensorItem_PchFanSpeed" xml:space="preserve">
-    <value>PCH Fan Speed</value>
+    <value>PCH ventilator snelheid</value>
   </data>
   <data name="SensorItem_PchTemperature" xml:space="preserve">
-    <value>PCH Temperature</value>
+    <value>PCH temperatuur</value>
   </data>
   <data name="SensorItem_BatteryState" xml:space="preserve">
-    <value>Battery State</value>
+    <value>Batterijstatus</value>
   </data>
   <data name="SensorItem_BatteryLevel" xml:space="preserve">
-    <value>Battery Level</value>
+    <value>Batterijniveau</value>
   </data>
   <data name="SensorItem_MemoryUtilization" xml:space="preserve">
-    <value>Memory Utilization</value>
+    <value>Geheugen gebruik</value>
   </data>
   <data name="SensorItem_MemoryTemperature" xml:space="preserve">
-    <value>Memory Temperature</value>
+    <value>Geheugen temperatuur</value>
   </data>
   <data name="SensorItem_Disk1Temperature" xml:space="preserve">
-    <value>Disk 1 Temperature</value>
+    <value>Schijf 1 temperatuur</value>
   </data>
   <data name="SensorItem_Disk2Temperature" xml:space="preserve">
-    <value>Disk 2 Temperature</value>
+    <value>Schijf 2 temperatuur</value>
   </data>
   <data name="EditSensorWindow_Title" xml:space="preserve">
-    <value>Edit Sensor</value>
+    <value>Bewerk Sensor</value>
   </data>
   <data name="SensorItem_GpuTemperatures" xml:space="preserve">
-    <value>GPU Temperature</value>
+    <value>GPU Temperatuur</value>
   </data>
   <data name="SettingsPage_UseNewSensorDashboard_Title" xml:space="preserve">
-    <value>Use New Sensor Dashboard</value>
+    <value>Gebruik nieuw Sensor Dashboard</value>
   </data>
   <data name="SettingsPage_UseNewSensorDashboard_Message" xml:space="preserve">
     <value>Gebruik het nieuwe sensordashboard in plaats van het oude. </value>
   </data>
   <data name="SettingsPage_LockWindowSize_Title" xml:space="preserve">
-    <value>Lock Window Size</value>
+    <value>Vergrendel Venster Grootte</value>
   </data>
   <data name="SettingsPage_LockWindowSize_Message" xml:space="preserve">
-    <value>Lock LLT's window size. To prevent something change it.</value>
+    <value>Vergrendel LLT's venstergrootte. Om te voorkomen dat iets verandert.</value>
   </data>
   <data name="FanCurveControl_PCH" xml:space="preserve">
     <value>PCH</value>
   </data>
   <data name="SettingsPage_EnableLegionSpace_Error_Title" xml:space="preserve">
-    <value>Couldn't enable Legion Space</value>
+    <value>Kon Legion Space niet uitschakelen</value>
   </data>
   <data name="SettingsPage_EnableLegionSpace_Error_Message" xml:space="preserve">
-    <value>Legion Space may have not been enabled correctly</value>
+    <value>Legion Space is mogelijk niet correct ingeschakeld</value>
   </data>
   <data name="SettingsPage_DisableLegionSpace_Title" xml:space="preserve">
-    <value>Disable Legion Space</value>
+    <value>Schakel Legion Space uit</value>
   </data>
   <data name="MainWindow_LegionSpaceRunning" xml:space="preserve">
-    <value>Legion Space is running in the background.</value>
+    <value>Lenovo Space wordt op de achtergrond uitgevoerd.</value>
   </data>
   <data name="GodModeSettingsWindow_LegionSpaceWarning_Title" xml:space="preserve">
-    <value>Custom Mode settings will not be applied correctly when Legion Space or its services are running.</value>
+    <value>De instellingen van de aangepaste modus wordt niet correct toegepast als Legion Space of diens services actief zijn.</value>
   </data>
   <data name="SettingsPage_DisableLegionSpace_Error_Title" xml:space="preserve">
-    <value>Couldn't disable Legion Space</value>
+    <value>Kon Legion Space niet uitschakelen</value>
   </data>
   <data name="SettingsPage_DisableLegionSpace_Error_Message" xml:space="preserve">
-    <value>Legion Space may have not been disabled correctly</value>
+    <value>Legion Space is mogelijk niet correct uitgeschakeld</value>
   </data>
   <data name="SettingsPage_UseNewDashboard_Restart_Message" xml:space="preserve">
-    <value>Restart to apply changes.</value>
+    <value>Herstart om de wijzigingen toe te passen.</value>
   </data>
   <data name="SettingsPage_UseNewDashboard_Switch_Title" xml:space="preserve">
-    <value>Dashboard changed</value>
+    <value>Dashboard gewijzigd</value>
   </data>
   <data name="MainWindow_PawnIO_Warning_Title" xml:space="preserve">
-    <value>Warning</value>
+    <value>Waarschuwing</value>
   </data>
   <data name="MainWindow_PawnIO_Warning_Message" xml:space="preserve">
-    <value>You need install PawnIO first to use the new dashboard!</value>
+    <value>Je moet eerst PawnIO installeren om het nieuwe dashboard te gebruiken!</value>
   </data>
   <data name="Warning" xml:space="preserve">
-    <value>Warning</value>
+    <value>Waarschuwing</value>
   </data>
   <data name="KeyboardBacklightPage_DynamicLightingEnabled" xml:space="preserve">
-    <value>Windows Dynamic lighting is enabled.
-This feature might prevent LLT to control the keyboard.
-Click Yes to disable and No to ignore.</value>
+    <value>Dynamische verlichting voor Windows is ingeschakeld.
+Deze functie kan LLT blokkeren om het toetsenbord te bedienen.
+Klik Ja om het uit te schakelen en nee om het te negeren.</value>
   </data>
   <data name="DialogWindow_DontShowAgain" xml:space="preserve">
-    <value>Don't show again.</value>
+    <value>Niet meer weergeven.</value>
   </data>
   <data name="ITSModeControl_Dialog_Title" xml:space="preserve">
-    <value>Missing Compoment</value>
+    <value>Ontbrekende Component</value>
   </data>
   <data name="ITSModeControl_Dialog_Message" xml:space="preserve">
-    <value>PowerBattery.dll is missing. Please place it manually to use ITSMode feature.</value>
+    <value>PowerBattery.dll ontbreekt. Plaats het handmatig om ITSMode functie te gebruiken.</value>
   </data>
   <data name="ITSModeControl_Title" xml:space="preserve">
-    <value>IdeaPad Power Mode</value>
+    <value>IdeaPad Power Modus</value>
   </data>
   <data name="ITSModeControl_Message" xml:space="preserve">
-    <value>Change IdeaPad Power Mode</value>
+    <value>Verander IdeaPad Power Modus</value>
   </data>
   <data name="ITSModeAutomationStepControl_Title" xml:space="preserve">
-    <value>IdeaPad Power Mode</value>
+    <value>IdeaPad Power Modus</value>
   </data>
   <data name="ITSModeAutomationStepControl_Message" xml:space="preserve">
-    <value>Change IdeaPad Power Mode</value>
+    <value>Verander IdeaPad Power Modus</value>
   </data>
   <data name="SettingsPage_FloatingGadgets_Title" xml:space="preserve">
-    <value>Enable Floating Gadget</value>
+    <value>Zwevende Gadget inschakelen</value>
   </data>
   <data name="SettingsPage_FloatingGadgets_Message" xml:space="preserve">
-    <value>Floating Gadgets​​ is a floating window that displays real-time sensor information in an overlay style.</value>
+    <value>Zwevende Gadgets½ is een zwevend venster dat realtime sensor informatie in een overlay weergeeft.</value>
   </data>
   <data name="SettingsPage_FloatingGadgets_Tooltip" xml:space="preserve">
-    <value>Controls sensor refresh interval.</value>
+    <value>Bepaalt de sensor vernieuwingsinterval.</value>
   </data>
   <data name="FloatingGadgets_Memory_Utilization" xml:space="preserve">
-    <value>Memory Utilization</value>
+    <value>Geheugen gebruik</value>
   </data>
   <data name="FloatingGadgets_Memory_Temperature" xml:space="preserve">
-    <value>Memory Temperature</value>
+    <value>Geheugen temperatuur</value>
   </data>
   <data name="FloatingGadgets_Disk_0_Temperature" xml:space="preserve">
-    <value>Disk 1 Temperature</value>
+    <value>Schijf 1 temperatuur</value>
   </data>
   <data name="FloatingGadgets_Disk_1_Temperature" xml:space="preserve">
-    <value>Disk 2 Temperature</value>
+    <value>Schijf 2 temperatuur</value>
   </data>
   <data name="FloatingGadgets_CPU_Fan" xml:space="preserve">
     <value>CPU Fan</value>
@@ -2509,46 +2509,46 @@ Click Yes to disable and No to ignore.</value>
     <value>Chipset</value>
   </data>
   <data name="FloatingGadgets_Gpu" xml:space="preserve">
-    <value>GPU</value>
+    <value>Videokaart</value>
   </data>
   <data name="FloatingGadgets_Cpu" xml:space="preserve">
-    <value>CPU</value>
+    <value>Processor</value>
   </data>
   <data name="SettingsPage_Select_BackgroundImage_Title" xml:space="preserve">
-    <value>Select Background Image</value>
+    <value>Selecteer een achtergrondsafbeelding</value>
   </data>
   <data name="SettingsPage_Select_BackgroundImage_ImageFile" xml:space="preserve">
-    <value>Image File</value>
+    <value>Afbeeldingsbestand</value>
   </data>
   <data name="SettingsPage_Select_BackgroundImage_AllFiles" xml:space="preserve">
-    <value>All Files</value>
+    <value>Alle Bestanden</value>
   </data>
   <data name="SettingsPage_Custom_BackgroundImage_Title" xml:space="preserve">
-    <value>Custom Background Image</value>
+    <value>Selecteer een achtergrondsafbeelding</value>
   </data>
   <data name="SettingsPage_Custom_BackgroundImage_Message" xml:space="preserve">
-    <value>Custom Background Image</value>
+    <value>Selecteer een achtergrondsafbeelding</value>
   </data>
   <data name="SettingsPage_Select_BackgroundImage_Content" xml:space="preserve">
-    <value>Select Image</value>
+    <value>Selecteer afbeelding</value>
   </data>
   <data name="SettingsPage_Clear_BackgroundImage_Title" xml:space="preserve">
-    <value>Clear Image</value>
+    <value>Verwijder afbeelding</value>
   </data>
   <data name="SettingsPage_Clear_BackgroundImage_Message" xml:space="preserve">
-    <value>Clear current selected image file.</value>
+    <value>Wis het huidige geselecteerde afbeeldingsbestand.</value>
   </data>
   <data name="SensorsControl_Motherboard_Temperature" xml:space="preserve">
-    <value>Board Temperature</value>
+    <value>Boord temperatuur</value>
   </data>
   <data name="StatusWindow_Frequency_And_Temperature" xml:space="preserve">
-    <value>Frequency / Temperature</value>
+    <value>Frequentie / Temperatuur</value>
   </data>
   <data name="StatusWindow_Fan_And_Power" xml:space="preserve">
-    <value>Fan / Power</value>
+    <value>Fan / Vermogen</value>
   </data>
   <data name="StatusWindow_System_Fan" xml:space="preserve">
-    <value>System Fan</value>
+    <value>Systeemfan</value>
   </data>
   <data name="FloatingGadgets_Fps" xml:space="preserve">
     <value>FPS</value>
@@ -2557,37 +2557,37 @@ Click Yes to disable and No to ignore.</value>
     <value>1% Low</value>
   </data>
   <data name="FloatingGadgets_Frame_Time" xml:space="preserve">
-    <value>Frame Time</value>
+    <value>Frame Tijd</value>
   </data>
   <data name="FloatingGadgetAutomationStepControl_Title" xml:space="preserve">
-    <value>Floating Gadget</value>
+    <value>Zwevende Gadget</value>
   </data>
   <data name="FloatingGadgetAutomationStepControl_Message" xml:space="preserve">
-    <value>Show or Hide the Floating Gadget</value>
+    <value>Toon of verberg de zwevende Gadget</value>
   </data>
   <data name="CloseAutomationStepControl_Title" xml:space="preserve">
-    <value>Close</value>
+    <value>Sluiten</value>
   </data>
   <data name="CloseAutomationStepControl_Message" xml:space="preserve">
-    <value>Close the Lenovo Legion Toolkit</value>
+    <value>Sluit Lenovo Legion Toolkit</value>
   </data>
   <data name="FloatingGadget_Custom_Game" xml:space="preserve">
-    <value>Game</value>
+    <value>Spel</value>
   </data>
   <data name="FloatingGadget_Custom_CPU" xml:space="preserve">
-    <value>CPU</value>
+    <value>Processor</value>
   </data>
   <data name="FloatingGadget_Custom_GPU" xml:space="preserve">
-    <value>GPU</value>
+    <value>Videokaart</value>
   </data>
   <data name="FloatingGadget_Custom_Chipset" xml:space="preserve">
     <value>Chipset</value>
   </data>
   <data name="FloatingGadget_Style_Simple" xml:space="preserve">
-    <value>Simple</value>
+    <value>Eenvoudig</value>
   </data>
   <data name="SettingsPage_ClearBackgroundImage_Title" xml:space="preserve">
-    <value>Image Cleared</value>
+    <value>Afbeelding gewist</value>
   </data>
   <data name="GodModeSettingsWindow_PrecisionBoostOverdriveScaler_Title" xml:space="preserve">
     <value>Precision Boost Overdrive Scaler</value>
@@ -2596,10 +2596,10 @@ Click Yes to disable and No to ignore.</value>
     <value>Precision Boost Overdrive Scaler.</value>
   </data>
   <data name="GodModeSettingsWindow_PrecisionBoostOverdriveBoostFrequency_Title" xml:space="preserve">
-    <value>Precision Boost Overdrive Boost Frequency</value>
+    <value>Precisie Boost Overdrive Boost Frequentie</value>
   </data>
   <data name="GodModeSettingsWindow_PrecisionBoostOverdriveBoostFrequency_Description" xml:space="preserve">
-    <value>Precision Boost Overdrive Boost Frequency.</value>
+    <value>Precisie Boost Overdrive Boost Frequentie.</value>
   </data>
   <data name="GodModeSettingsWindow_AllCoreCurveOptimizer_Title" xml:space="preserve">
     <value>All Core Curve Optimizer</value>
@@ -2608,15 +2608,15 @@ Click Yes to disable and No to ignore.</value>
     <value>All Core Curve Optimizer.</value>
   </data>
   <data name="GodModeSettingsWindow_Toggle_OC_Title" xml:space="preserve">
-    <value>Advanced Overclocking Options</value>
+    <value>Geavanceerde Overclocking Opties</value>
   </data>
   <data name="GodModeSettingsWindow_Toggle_OC_Message" xml:space="preserve">
-    <value>Enable / Disable Advanced Overclocking options.</value>
+    <value>In- of uitschakelen van geavanceerde overclock opties.</value>
   </data>
   <data name="GodModeSettingsWindow_Toggle_CoreCurve_Title" xml:space="preserve">
-    <value>Core Curve Adjustment</value>
+    <value>Core Curve aanpassing</value>
   </data>
   <data name="GodModeSettingsWindow_Toggle_CoreCurve_Message" xml:space="preserve">
-    <value>Enable / Disable Core Curve Adjustment.</value>
+    <value>Inschakelen / uitschakelen Core Curve Aanpassing.</value>
   </data>
 </root>

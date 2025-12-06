@@ -228,15 +228,15 @@
     <value>Wanneer apparaat verbonden is</value>
   </data>
   <data name="SessionLockAutomationPipelineTrigger_DisplayName" xml:space="preserve">
-    <value>Session locked</value>
+    <value>Sessie vergrendeld</value>
   </data>
   <data name="SessionUnlockAutomationPipelineTrigger_DisplayName" xml:space="preserve">
-    <value>Session unlocked</value>
+    <value>Sessie ontgrendeld</value>
   </data>
   <data name="ITSModeAutomationPipelineTrigger_DisplayName" xml:space="preserve">
-    <value>When IdeaPad Power Mode is changed</value>
+    <value>Wanneer de energiemodus wordt gewijzigd</value>
   </data>
   <data name="HybridModeAutomationPipelineTrigger_DisplayName" xml:space="preserve">
-    <value>Hybrid Mode</value>
+    <value>Hybride modus</value>
   </data>
 </root>
