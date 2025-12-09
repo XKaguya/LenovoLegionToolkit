@@ -153,6 +153,38 @@
                         <TextBlock
                             Grid.Column="0"
                             Style="{StaticResource SensorLabelStyle}"
+                            Text="P-Core Clock" />
+                        <TextBlock
+                            x:Name="_cpuPFrequency"
+                            Grid.Column="1"
+                            Style="{StaticResource SensorValueStyle}"
+                            Text="-" />
+                    </Grid>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Column="0"
+                            Style="{StaticResource SensorLabelStyle}"
+                            Text="E-Core Clock" />
+                        <TextBlock
+                            x:Name="_cpuEFrequency"
+                            Grid.Column="1"
+                            Style="{StaticResource SensorValueStyle}"
+                            Text="-" />
+                    </Grid>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Column="0"
+                            Style="{StaticResource SensorLabelStyle}"
                             Text="{x:Static resources:Resource.SensorsControl_Temperature_Title}" />
                         <TextBlock
                             x:Name="_cpuTemperature"

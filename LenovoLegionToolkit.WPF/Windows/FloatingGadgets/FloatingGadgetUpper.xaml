@@ -102,6 +102,20 @@
                         Style="{StaticResource TextBlockStyle}"
                         Text="-" />
                     <TextBlock
+                        x:Name="_cpuPFrequency"
+                        MinWidth="40"
+                        Foreground="White"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="-"
+                        Visibility="Collapsed" />
+                    <TextBlock
+                        x:Name="_cpuEFrequency"
+                        MinWidth="40"
+                        Foreground="White"
+                        Style="{StaticResource TextBlockStyle}"
+                        Text="-"
+                        Visibility="Collapsed" />
+                    <TextBlock
                         x:Name="_cpuUsage"
                         Foreground="White"
                         Style="{StaticResource TextBlockStyle}"

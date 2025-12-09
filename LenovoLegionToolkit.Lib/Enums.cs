@@ -126,6 +126,10 @@ public enum FloatingGadgetItem
     FrameTime,
     [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Frequency")]
     CpuFrequency,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_P_Core_Frequency")]
+    CpuPCoreFrequency,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_E_Core_Frequency")]
+    CpuECoreFrequency,
     [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Utilization")]
     CpuUtilization,
     [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Temperature")]

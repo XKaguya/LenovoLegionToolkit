@@ -397,7 +397,8 @@ public partial class App
         List<Type> ignoreExceptionTypes =
         [
             typeof(ManagementException),
-            typeof(OperationCanceledException)
+            typeof(OperationCanceledException),
+            typeof(TaskCanceledException),
         ];
 
         if (ignoreExceptionTypes.Contains(ex.GetType()))

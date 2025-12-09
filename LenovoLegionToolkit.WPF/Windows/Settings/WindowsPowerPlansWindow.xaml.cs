@@ -265,10 +265,7 @@ public partial class WindowsPowerPlansWindow
 
     private async void GodModeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        var controller = await _godModeController.GetControllerAsync().ConfigureAwait(false);
-        var (_, preset) = await controller.GetActivePresetAsync().ConfigureAwait(false);
-
         if (_godModeComboBox.TryGetSelectedItem(out WindowsPowerPlan windowsPowerPlan))
-            await WindowsPowerPlanChangedAsync(windowsPowerPlan, PowerModeState.GodMode, preset);
+            await WindowsPowerPlanChangedAsync(windowsPowerPlan, PowerModeState.GodMode);
     }
 }

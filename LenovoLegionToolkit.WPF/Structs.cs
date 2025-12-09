@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Media;
 using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Utils;
 using LenovoLegionToolkit.WPF.Resources;
@@ -127,6 +128,40 @@ public readonly struct SensorGroup(SensorGroupType type, params SensorItem[] ite
 
     public override string ToString() =>
         $"{nameof(Type)}: {Type}, {nameof(Items)}: [{string.Join(", ", Items)}]";
+}
+
+public readonly struct FpsDisplayData
+{
+    public string? FpsText { get; init; }
+    public Brush? FpsBrush { get; init; }
+    public string? LowFpsText { get; init; }
+    public Brush? LowFpsBrush { get; init; }
+
+    public string? FrameTimeText { get; init; }
+    public Brush? FrameTimeBrush { get; init; }
+}
+
+public readonly struct SensorSnapshot
+{
+    public double CpuUsage { get; init; }
+    public double CpuFrequency { get; init; }
+    public double CpuPClock { get; init; }
+    public double CpuEClock { get; init; }
+    public double CpuTemp { get; init; }
+    public double CpuPower { get; init; }
+    public int CpuFanSpeed { get; init; }
+    public double GpuUsage { get; init; }
+    public double GpuFrequency { get; init; }
+    public double GpuTemp { get; init; }
+    public double GpuVramTemp { get; init; }
+    public double GpuPower { get; init; }
+    public int GpuFanSpeed { get; init; }
+    public double MemUsage { get; init; }
+    public double MemTemp { get; init; }
+    public double PchTemp { get; init; }
+    public int PchFanSpeed { get; init; }
+    public double Disk1Temp { get; init; }
+    public double Disk2Temp { get; init; }
 }
 
 public readonly struct ScreenInfo(Rect workArea, uint dpiX, uint dpiY, bool isPrimary)
