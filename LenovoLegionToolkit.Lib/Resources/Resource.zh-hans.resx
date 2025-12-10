@@ -562,4 +562,10 @@
   <data name="FloatingGadgetState_Show" xml:space="preserve">
     <value>显示</value>
   </data>
+  <data name="FloatingGadgetItem_P_Core_Frequency" xml:space="preserve">
+    <value>P Core Frequency</value>
+  </data>
+  <data name="FloatingGadgetItem_E_Core_Frequency" xml:space="preserve">
+    <value>E Core Frequency</value>
+  </data>
 </root>
