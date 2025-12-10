@@ -67,17 +67,17 @@ public class SensorsGroupController : IDisposable
     private IHardware? _gpuHardware;
     private IHardware? _memoryHardware;
 
-    private readonly List<ISensor> _pCoreClockSensors = new();
-    private readonly List<ISensor> _eCoreClockSensors = new();
+    private readonly List<ISensor> _pCoreClockSensors = [];
+    private readonly List<ISensor> _eCoreClockSensors = [];
     private ISensor? _cpuPackagePowerSensor;
-    private readonly List<ISensor> _cpuCoreClockSensors = new();
+    private readonly List<ISensor> _cpuCoreClockSensors = [];
 
     private ISensor? _gpuPowerSensor;
     private ISensor? _gpuHotspotSensor;
 
     private ISensor? _memoryLoadSensor;
-    private readonly List<ISensor> _memoryTempSensors = new();
-    private readonly List<ISensor> _storageTempSensors = new();
+    private readonly List<ISensor> _memoryTempSensors = [];
+    private readonly List<ISensor> _storageTempSensors = [];
 
     private volatile bool _isResetting;
     private bool _needRefreshGpuHardware;

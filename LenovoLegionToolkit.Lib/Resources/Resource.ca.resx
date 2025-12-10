@@ -175,4 +175,10 @@
   <data name="FloatingGadgetState_Show" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
+  <data name="FloatingGadgetItem_P_Core_Frequency" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="FloatingGadgetItem_E_Core_Frequency" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
 </root>

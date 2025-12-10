@@ -2245,6 +2245,15 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Customize Gadget Elements 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadget_Custom_Title {
+            get {
+                return ResourceManager.GetString("FloatingGadget_Custom_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Simple 的本地化字符串。
         /// </summary>
         public static string FloatingGadget_Style_Simple {

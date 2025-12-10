@@ -457,4 +457,7 @@
   <data name="GodModeSettingsWindow_Toggle_CoreCurve_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
+  <data name="FloatingGadget_Custom_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
 </root>

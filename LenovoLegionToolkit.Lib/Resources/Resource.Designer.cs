@@ -196,6 +196,15 @@ namespace LenovoLegionToolkit.Lib.Resources {
         }
         
         /// <summary>
+        ///   查找类似 E Core Frequency 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgetItem_E_Core_Frequency {
+            get {
+                return ResourceManager.GetString("FloatingGadgetItem_E_Core_Frequency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Fan 的本地化字符串。
         /// </summary>
         public static string FloatingGadgetItem_Fan {
@@ -255,6 +264,15 @@ namespace LenovoLegionToolkit.Lib.Resources {
         public static string FloatingGadgetItem_MotherboardTemperature {
             get {
                 return ResourceManager.GetString("FloatingGadgetItem_MotherboardTemperature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 P Core Frequency 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgetItem_P_Core_Frequency {
+            get {
+                return ResourceManager.GetString("FloatingGadgetItem_P_Core_Frequency", resourceCulture);
             }
         }
         

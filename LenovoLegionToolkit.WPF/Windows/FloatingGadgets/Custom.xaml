@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:LenovoLegionToolkit.WPF.Windows.FloatingGadgets"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:resources="clr-namespace:LenovoLegionToolkit.WPF.Resources"
-    Title="Customize Gadget Metrics"
+    Title="{Binding Source={x:Static resources:Resource.FloatingGadget_Custom_Title}}"
     Width="350"
     Height="550"
     ResizeMode="NoResize"
