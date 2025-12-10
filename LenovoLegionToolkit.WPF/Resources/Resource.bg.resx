@@ -2616,4 +2616,7 @@ Click Yes to disable and No to ignore.</value>
   <data name="GodModeSettingsWindow_Toggle_CoreCurve_Message" xml:space="preserve">
     <value>Enable / Disable Core Curve Adjustment.</value>
   </data>
+  <data name="FloatingGadget_Custom_Title" xml:space="preserve">
+    <value>Customize Gadget Elements</value>
+  </data>
 </root>
