@@ -401,6 +401,11 @@ public class SensorsGroupController : IDisposable
             }
         }
 
+        if (maxClock > 0)
+        {
+            maxClock = (float)Math.Round(maxClock, MidpointRounding.AwayFromZero);
+        }
+
         return Task.FromResult(maxClock > 0 ? maxClock : INVALID_VALUE_FLOAT);
     }
 
@@ -419,6 +424,11 @@ public class SensorsGroupController : IDisposable
             {
                 maxClock = val;
             }
+        }
+
+        if (maxClock > 0)
+        {
+            maxClock = (float)Math.Round(maxClock, MidpointRounding.AwayFromZero);
         }
 
         return Task.FromResult(maxClock > 0 ? maxClock : INVALID_VALUE_FLOAT);

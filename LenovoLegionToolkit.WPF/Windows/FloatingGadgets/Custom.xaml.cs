@@ -75,6 +75,7 @@ public partial class Custom : Window
             {
                 cpuGroup.Items.Insert(baseFrequencyIndex + 1, FloatingGadgetItem.CpuPCoreFrequency);
                 cpuGroup.Items.Insert(baseFrequencyIndex + 2, FloatingGadgetItem.CpuECoreFrequency);
+                cpuGroup.Items.Remove(FloatingGadgetItem.CpuFrequency);
             }
         }
 

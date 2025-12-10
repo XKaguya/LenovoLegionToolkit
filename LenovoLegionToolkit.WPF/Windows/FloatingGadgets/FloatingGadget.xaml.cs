@@ -576,8 +576,8 @@ public partial class FloatingGadget
     private void UpdateSensorData(SensorSnapshot data)
     {
         UpdateTextBlock(_cpuFrequency, data.CpuFrequency, "{0} MHz");
-        UpdateTextBlock(_cpuPFrequency, data.CpuPClock, "P: {0} MHz");
-        UpdateTextBlock(_cpuEFrequency, data.CpuEClock, "E: {0} MHz");
+        UpdateTextBlock(_cpuPFrequency, data.CpuPClock, "{0:F0} MHz");
+        UpdateTextBlock(_cpuEFrequency, data.CpuEClock, "{0:F0} MHz");
         UpdateTextBlock(_cpuUsage, data.CpuUsage, "{0:F0}%", USAGE_YELLOW, USAGE_RED);
         UpdateTextBlock(_cpuTemperature, data.CpuTemp, "{0:F0}°C", CPU_TEMP_YELLOW, CPU_TEMP_RED);
         UpdateTextBlock(_cpuPower, data.CpuPower, "{0:F1} W");
