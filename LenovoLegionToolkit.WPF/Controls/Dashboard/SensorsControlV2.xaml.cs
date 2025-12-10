@@ -30,11 +30,11 @@ public partial class SensorsControlV2
     private CancellationTokenSource? _cts;
     private Task? _refreshTask;
     private readonly SemaphoreSlim _refreshLock = new(1, 1);
-    private readonly object _updateLock = new();
+    private readonly Lock _updateLock = new();
     private readonly Task<string> _cpuNameTask;
     private Task<string>? _gpuNameTask;
-    private HashSet<SensorItem> _activeSensorItems = new();
-    private Dictionary<SensorItem, FrameworkElement> _sensorItemToControlMap;
+    private readonly HashSet<SensorItem> _activeSensorItems = [];
+    private readonly Dictionary<SensorItem, FrameworkElement> _sensorItemToControlMap;
 
     public SensorsControlV2()
     {
@@ -143,7 +143,7 @@ public partial class SensorsControlV2
                         var diskTemperaturesTask = _sensorsGroupControllers.GetSsdTemperaturesAsync();
                         var memoryUsageTask = _sensorsGroupControllers.GetMemoryUsageAsync();
                         var memoryTemperaturesTask = _sensorsGroupControllers.GetHighestMemoryTemperatureAsync();
-                        var batteryInfoTask = Task.Run(() => Battery.GetBatteryInformation());
+                        var batteryInfoTask = Task.Run(Battery.GetBatteryInformation, token);
                         await Task.WhenAll(
                             dataTask,
                             cpuPowerTask,
@@ -249,20 +249,26 @@ public partial class SensorsControlV2
                 if (showVramTemp)
                     UpdateTemperatureValue(_gpuMemoryTemperatureLabel, gpuVramTemp);
 
-                if (showCoreTemp && showVramTemp)
+                switch (showCoreTemp)
                 {
-                    Grid.SetColumn(_gpuCoreTempPanel, 2);
-                    Grid.SetColumn(_gpuVramTempPanel, 3);
-                    _gpuVramTempPanel.Margin = new Thickness(12, 0, 0, 0);
-                }
-                else if (showCoreTemp)
-                {
-                    Grid.SetColumn(_gpuCoreTempPanel, 3);
-                }
-                else if (showVramTemp)
-                {
-                    Grid.SetColumn(_gpuVramTempPanel, 3);
-                    _gpuVramTempPanel.Margin = new Thickness(0);
+                    case true when showVramTemp:
+                        Grid.SetColumn(_gpuCoreTempPanel, 2);
+                        Grid.SetColumn(_gpuVramTempPanel, 3);
+                        _gpuVramTempPanel.Margin = new Thickness(12, 0, 0, 0);
+                        break;
+                    case true:
+                        Grid.SetColumn(_gpuCoreTempPanel, 3);
+                        break;
+                    default:
+                    {
+                        if (showVramTemp)
+                        {
+                            Grid.SetColumn(_gpuVramTempPanel, 3);
+                            _gpuVramTempPanel.Margin = new Thickness(0);
+                        }
+
+                        break;
+                    }
                 }
             }
             if (_activeSensorItems.Contains(SensorItem.GpuFanSpeed)) UpdateValue(_gpuFanSpeedBar, _gpuFanSpeedLabel, data.GPU.MaxFanSpeed, data.GPU.FanSpeed, $"{data.GPU.FanSpeed} {Resource.RPM}", $"{data.GPU.MaxFanSpeed} {Resource.RPM}");
@@ -276,8 +282,10 @@ public partial class SensorsControlV2
             if (_activeSensorItems.Contains(SensorItem.BatteryState)) UpdateBatteryStatus(_batteryStateLabel, batteryInfo);
             if (_activeSensorItems.Contains(SensorItem.BatteryLevel)) UpdateValue(_batteryLevelBar, _batteryLevelLabel, 100, batteryInfo?.BatteryPercentage ?? 0, batteryInfo != null ? $"{batteryInfo.Value.BatteryPercentage}%" : "-", "100%");
 
-            UpdateCardVisibility(_cpuCard, new[] { SensorItem.CpuUtilization, SensorItem.CpuFrequency, SensorItem.CpuFanSpeed, SensorItem.CpuTemperature, SensorItem.CpuPower });
-            UpdateCardVisibility(_gpuCard, new[] { SensorItem.GpuUtilization, SensorItem.GpuFrequency, SensorItem.GpuFanSpeed, SensorItem.GpuCoreTemperature, SensorItem.GpuVramTemperature, SensorItem.GpuPower });
+            UpdateCardVisibility(_cpuCard, [SensorItem.CpuUtilization, SensorItem.CpuFrequency, SensorItem.CpuFanSpeed, SensorItem.CpuTemperature, SensorItem.CpuPower
+            ]);
+            UpdateCardVisibility(_gpuCard, [SensorItem.GpuUtilization, SensorItem.GpuFrequency, SensorItem.GpuFanSpeed, SensorItem.GpuCoreTemperature, SensorItem.GpuVramTemperature, SensorItem.GpuPower
+            ]);
             UpdateMotherboardCardVisibility();
             UpdateMemoryDiskCardVisibility();
         }
@@ -398,14 +406,7 @@ public partial class SensorsControlV2
         var processedStr = str.Replace("W", "");
         if (int.TryParse(processedStr, out var result))
         {
-            if (result <= 0)
-            {
-                label.Text = "-";
-            }
-            else
-            {
-                label.Text = str;
-            }
+            label.Text = result <= 0 ? "-" : str;
         }
         else
         {
