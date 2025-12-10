@@ -180,7 +180,6 @@ public partial class WindowsPowerPlansWindow
         if (preset == null)
         {
             _settings.Store.PowerPlans[powerModeState] = windowsPowerPlan.Guid;
-            _settings.SynchronizeStore();
         }
         // If Preset argument was passed, Call EnsureCorrectWindowsPowerSettingsAreSetAsync(preset) to ensure power plan.
         else
@@ -192,8 +191,9 @@ public partial class WindowsPowerPlansWindow
             }
 
             _settings.Store.PowerPlans[powerModeState] = powerPlan.Value;
-            _settings.SynchronizeStore();
         }
+
+        _settings.SynchronizeStore();
 
         await _powerModeFeature.EnsureCorrectWindowsPowerSettingsAreSetAsync(preset);
     }
@@ -229,7 +229,12 @@ public partial class WindowsPowerPlansWindow
                 FanTable = preset.FanTable,
                 FanFullSpeed = preset.FanFullSpeed,
                 MinValueOffset = preset.MinValueOffset,
-                MaxValueOffset = preset.MaxValueOffset
+                MaxValueOffset = preset.MaxValueOffset,
+                PrecisionBoostOverdriveScaler = preset.PrecisionBoostOverdriveScaler,
+                PrecisionBoostOverdriveBoostFrequency = preset.PrecisionBoostOverdriveBoostFrequency,
+                AllCoreCurveOptimizer = preset.AllCoreCurveOptimizer,
+                EnableAllCoreCurveOptimizer = preset.EnableAllCoreCurveOptimizer,
+                EnableOverclocking = preset.EnableOverclocking,
             };
 
             _godModeSettings.Store.Presets[presetGuid] = updatedPreset;
