@@ -563,9 +563,9 @@
     <value>显示</value>
   </data>
   <data name="FloatingGadgetItem_P_Core_Frequency" xml:space="preserve">
-    <value>P Core Frequency</value>
+    <value>性能核心频率</value>
   </data>
   <data name="FloatingGadgetItem_E_Core_Frequency" xml:space="preserve">
-    <value>E Core Frequency</value>
+    <value>能效核心频率</value>
   </data>
 </root>
