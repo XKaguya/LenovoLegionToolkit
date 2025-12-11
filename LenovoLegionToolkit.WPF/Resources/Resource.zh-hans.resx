@@ -2626,6 +2626,6 @@
     <value>启用 / 关闭 全核电压调节，关闭后全核电压数据将不会被应用。</value>
   </data>
   <data name="FloatingGadget_Custom_Title" xml:space="preserve">
-    <value>Customize Gadget Elements</value>
+    <value>自定义悬浮层元素</value>
   </data>
 </root>
