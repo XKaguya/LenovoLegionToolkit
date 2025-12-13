@@ -13,7 +13,9 @@ When ready, press any key to continue...
 ");
 Console.ReadKey();
 
-var device = Devices.GetSpectrumRGBKeyboard2();
+var deviceList = Devices.GetSpectrumRGBKeyboards();
+// Default use 0 because lazy.
+var device = deviceList[0];
 
 Console.WriteLine("Finding Spectrum keyboard...");
 
