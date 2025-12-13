@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.Utils;
 using Microsoft.Win32.SafeHandles;
@@ -16,11 +17,10 @@ namespace LenovoLegionToolkit.Lib.System;
 
 public static class Devices
 {
-    private static readonly object Lock = new();
+    private static readonly Lock Lock = new();
 
     private static SafeFileHandle? _battery;
     private static SafeFileHandle? _rgbKeyboard;
-    private static SafeFileHandle? _spectrumRgbKeyboard;
     private static List<SafeFileHandle>? _spectrumRgbKeyboards;
 
     #region All devices
@@ -79,7 +79,7 @@ public static class Devices
     private static unsafe string GetClassName(Guid guid)
     {
         var requiredSize = 0u;
-        PInvoke.SetupDiClassNameFromGuid(guid, Array.Empty<char>(), &requiredSize);
+        PInvoke.SetupDiClassNameFromGuid(guid, [], &requiredSize);
 
         var chars = new char[requiredSize];
         PInvoke.SetupDiClassNameFromGuid(guid, chars, null);
@@ -239,48 +239,6 @@ public static class Devices
         }
 
         return _rgbKeyboard;
-    }
-
-    public static SafeFileHandle? GetSpectrumRGBKeyboard(bool forceRefresh = false)
-    {
-        if (_spectrumRgbKeyboard is not null && !forceRefresh)
-            return _spectrumRgbKeyboard;
-
-        lock (Lock)
-        {
-            if (_spectrumRgbKeyboard is not null && !forceRefresh)
-                return _spectrumRgbKeyboard;
-
-            const ushort vendorId = 0x048D;
-            const ushort productIdMasked = 0xC900;
-            const ushort productIdMask = 0xFF00;
-            const ushort descriptorLength = 0x03C0;
-
-            _spectrumRgbKeyboard = FindHidDevice(vendorId, productIdMask, productIdMasked, descriptorLength);
-        }
-
-        return _spectrumRgbKeyboard;
-    }
-
-    public static SafeFileHandle? GetSpectrumRGBKeyboard2(bool forceRefresh = false)
-    {
-        if (_spectrumRgbKeyboard is not null && !forceRefresh)
-            return _spectrumRgbKeyboard;
-
-        lock (Lock)
-        {
-            if (_spectrumRgbKeyboard is not null && !forceRefresh)
-                return _spectrumRgbKeyboard;
-
-            const ushort vendorId = 0x048D;
-            const ushort productIdMasked = 0xC100;
-            const ushort productIdMask = 0xFF00;
-            const ushort descriptorLength = 0x03C0;
-
-            _spectrumRgbKeyboard = FindHidDevice(vendorId, productIdMask, productIdMasked, descriptorLength);
-        }
-
-        return _spectrumRgbKeyboard;
     }
 
     public static List<SafeFileHandle> GetSpectrumRGBKeyboards(bool forceRefresh = false)
