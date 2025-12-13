@@ -3245,6 +3245,19 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Custom Mode grants access to critical system parameters such as power limits and fan curves. 
+        ///
+        ///Misconfiguration can lead to severe system instability, thermal throttling, or permanent hardware damage. Modifications made here may void your manufacturer warranty. 
+        ///
+        ///Do not proceed unless you possess the necessary technical expertise. 的本地化字符串。
+        /// </summary>
+        public static string KeyboardBacklightPage_CustomMode_Warning {
+            get {
+                return ResourceManager.GetString("KeyboardBacklightPage_CustomMode_Warning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Windows Dynamic lighting is enabled.
         ///This feature might prevent LLT to control the keyboard.
         ///Click Yes to disable and No to ignore. 的本地化字符串。
