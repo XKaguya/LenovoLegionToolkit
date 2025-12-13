@@ -316,22 +316,27 @@ public static class Devices
         const ushort vendor = 0x048D;
         const ushort mask = 0xFF00;
         const ushort len = 0x03C0;
+        const ushort type1 = 0xC100;
+        const ushort type2 = 0xC900;
 
         return mi switch
         {
             { LegionSeries: LegionSeries.Legion_5, Generation: >= 10 }
-                => new(vendor, 0xC100, mask, len),
+                => new(vendor, type1, mask, len),
 
             { LegionSeries: LegionSeries.Legion_Pro_5, Generation: >= 10 }
-                => new(vendor, 0xC100, mask, len),
+                => new(vendor, type1, mask, len),
 
             { LegionSeries: LegionSeries.Legion_Pro_7, Generation: >= 10 }
-                => new(vendor, 0xC100, mask, len),
+                => new(vendor, type1, mask, len),
+
+            { LegionSeries: LegionSeries.Legion_7, Generation: >= 10 }
+                => new(vendor, type1, mask, len),
 
             { LegionSeries: LegionSeries.Legion_9 }
-                => new(vendor, 0xC900, mask, len),
+                => new(vendor, type2, mask, len),
 
-            _ => new(vendor, 0xC900, mask, len)
+            _ => new(vendor, type2, mask, len)
         };
     }
 
