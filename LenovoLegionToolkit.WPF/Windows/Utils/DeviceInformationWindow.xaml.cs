@@ -8,7 +8,6 @@ using System;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using Wpf.Ui.Controls;
 
 namespace LenovoLegionToolkit.WPF.Windows.Utils;
@@ -28,32 +27,52 @@ public partial class DeviceInformationWindow
     {
         var mi = await Compatibility.GetMachineInformationAsync();
 
-        _manufacturerLabel.Text = mi.Vendor;
-        _modelLabel.Text = mi.Model;
-        _mtmLabel.Text = mi.MachineType;
-        _serialNumberLabel.Text = mi.SerialNumber;
-        _biosLabel.Text = mi.BiosVersionRaw;
+        var vendor = mi.Vendor;
+        var model = mi.Model;
+        var machineType = mi.MachineType;
+        var serialNumber = mi.SerialNumber;
+        var biosVersion = mi.BiosVersionRaw;
+
+        if (Compatibility.FakeMachineInformationMode)
+        {
+            var fakeMi = await Compatibility.GetFakeMachineInformationAsync();
+            if (fakeMi.HasValue)
+            {
+                var fake = fakeMi.Value;
+                vendor = fake.Manufacturer ?? vendor;
+                model = fake.Model ?? model;
+                machineType = fake.MachineType ?? machineType;
+                serialNumber = fake.SerialNumber ?? serialNumber;
+                biosVersion = fake.BiosVersion ?? biosVersion;
+            }
+        }
+
+        _manufacturerLabel.Text = vendor;
+        _modelLabel.Text = model;
+        _mtmLabel.Text = machineType;
+        _serialNumberLabel.Text = serialNumber;
+        _biosLabel.Text = biosVersion;
 
         try
         {
             _refreshWarrantyButton.IsEnabled = false;
+            ResetWarrantyUi();
 
-            _warrantyStartLabel.Text = "-";
-            _warrantyEndLabel.Text = "-";
-            _warrantyLinkCardAction.Tag = null;
-            _warrantyLinkCardAction.IsEnabled = false;
+            var language = await LocalizationHelper.GetLanguageAsync();
 
-            var language = await LocalizationHelper.GetLanguageAsync(); 
             var warrantyInfo = await _warrantyChecker.GetWarrantyInfo(mi, language, forceRefresh);
 
-            if (!warrantyInfo.HasValue)
-                return;
+            if (warrantyInfo.HasValue)
+            {
+                var info = warrantyInfo.Value;
 
-            _warrantyStartLabel.Text = warrantyInfo.Value.Start is not null ? warrantyInfo.Value.Start?.ToString(LocalizationHelper.ShortDateFormat) : "-";
-            _warrantyEndLabel.Text = warrantyInfo.Value.End is not null ? warrantyInfo.Value.End?.ToString(LocalizationHelper.ShortDateFormat) : "-";
-            _warrantyLinkCardAction.Tag = warrantyInfo.Value.Link;
-            _warrantyLinkCardAction.IsEnabled = true;
-            _warrantyInfo.Visibility = Visibility.Visible;
+                _warrantyStartLabel.Text = info.Start?.ToString(LocalizationHelper.ShortDateFormat) ?? "-";
+                _warrantyEndLabel.Text = info.End?.ToString(LocalizationHelper.ShortDateFormat) ?? "-";
+
+                _warrantyLinkCardAction.Tag = info.Link;
+                _warrantyLinkCardAction.IsEnabled = true;
+                _warrantyInfo.Visibility = Visibility.Visible;
+            }
         }
         catch (Exception ex)
         {
@@ -63,6 +82,14 @@ public partial class DeviceInformationWindow
         {
             _refreshWarrantyButton.IsEnabled = true;
         }
+    }
+
+    private void ResetWarrantyUi()
+    {
+        _warrantyStartLabel.Text = "-";
+        _warrantyEndLabel.Text = "-";
+        _warrantyLinkCardAction.Tag = null;
+        _warrantyLinkCardAction.IsEnabled = false;
     }
 
     private async void RefreshWarrantyButton_OnClick(object sender, RoutedEventArgs e) => await RefreshAsync(true);

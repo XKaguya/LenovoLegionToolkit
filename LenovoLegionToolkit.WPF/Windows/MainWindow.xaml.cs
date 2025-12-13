@@ -1,4 +1,4 @@
-﻿    using LenovoLegionToolkit.Lib;
+﻿using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Listeners;
 using LenovoLegionToolkit.Lib.Messaging;
 using LenovoLegionToolkit.Lib.Messaging.Messages;
@@ -210,14 +210,37 @@ public partial class MainWindow
         ShowUpdateWindow();
     }
 
-    private void LoadDeviceInfo()
+    private async void LoadDeviceInfo()
     {
-        Task.Run(Compatibility.GetMachineInformationAsync)
-            .ContinueWith(mi =>
+        string? modelName;
+
+        if (Compatibility.FakeMachineInformationMode)
+        {
+            var fakeMi = await Compatibility.GetFakeMachineInformationAsync();
+
+            if (fakeMi.HasValue)
             {
-                _deviceInfoIndicator.Content = mi.Result.Model;
-                _deviceInfoIndicator.Visibility = Visibility.Visible;
-            }, TaskScheduler.FromCurrentSynchronizationContext());
+                modelName = fakeMi.Value.Model;
+            }
+            else
+            {
+                var realMi = await Compatibility.GetMachineInformationAsync();
+                modelName = realMi.Model;
+            }
+        }
+        else
+        {
+            var mi = await Compatibility.GetMachineInformationAsync();
+            modelName = mi.Model;
+        }
+
+        if (string.IsNullOrEmpty(modelName))
+        {
+            return;
+        }
+
+        _deviceInfoIndicator.Content = modelName;
+        _deviceInfoIndicator.Visibility = Visibility.Visible;
     }
 
     private void UpdateIndicators()

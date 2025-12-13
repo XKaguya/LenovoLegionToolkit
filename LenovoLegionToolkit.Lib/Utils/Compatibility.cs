@@ -3,9 +3,11 @@ using LenovoLegionToolkit.Lib.Controllers.Sensors;
 using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.System;
 using LenovoLegionToolkit.Lib.System.Management;
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -29,6 +31,8 @@ public static partial class Compatibility
     private static partial Regex BiosVersionRegex();
 
     private const string ALLOWED_VENDOR = "LENOVO";
+    private static readonly string FakeMachineInformationPath = Path.Combine(Folders.AppData, "fake_mi.json");
+    public static bool FakeMachineInformationMode { get; private set; } = false;
 
     private static readonly string[] AllowedModelsPrefix = [
         // Legion Go
@@ -130,6 +134,7 @@ public static partial class Compatibility
     ];
 
     private static MachineInformation? _machineInformation;
+    private static FakeMachineInformation? _fakeMachineInformation;
 
     public static Task<bool> CheckBasicCompatibilityAsync() => WMI.LenovoGameZoneData.ExistsAsync();
 
@@ -140,12 +145,22 @@ public static partial class Compatibility
         if (!await CheckBasicCompatibilityAsync().ConfigureAwait(false) || !mi.Vendor.Equals(ALLOWED_VENDOR, StringComparison.InvariantCultureIgnoreCase))
             return (false, mi);
 
-        if (AllowedModelsPrefix.Any(allowedModel => mi.Model.Contains(allowedModel, StringComparison.InvariantCultureIgnoreCase)))
-        {
-            return (true, mi);
-        }
+        if (!File.Exists(FakeMachineInformationPath))
+            return AllowedModelsPrefix.Any(allowedModel =>
+                mi.Model.Contains(allowedModel, StringComparison.InvariantCultureIgnoreCase))
+                ? (true, mi)
+                : (false, mi);
 
-        return (false, mi);
+        var jsonString = await File.ReadAllTextAsync(FakeMachineInformationPath).ConfigureAwait(false);
+        _fakeMachineInformation = JsonConvert.DeserializeObject<FakeMachineInformation>(jsonString);
+        FakeMachineInformationMode = true;
+
+        return AllowedModelsPrefix.Any(allowedModel => mi.Model.Contains(allowedModel, StringComparison.InvariantCultureIgnoreCase)) ? (true, mi) : (false, mi);
+    }
+
+    public static Task<FakeMachineInformation?> GetFakeMachineInformationAsync()
+    {
+        return Task.FromResult(_fakeMachineInformation);
     }
 
     public static async Task<MachineInformation> GetMachineInformationAsync()

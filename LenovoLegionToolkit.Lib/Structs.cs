@@ -293,6 +293,15 @@ public readonly struct GPUOverclockInfo(int coreDeltaMhz, int memoryDeltaMhz)
 
 }
 
+public readonly struct FakeMachineInformation
+{
+    public string? Manufacturer { get; init; }
+    public string? Model { get; init; }
+    public string? MachineType { get; init; }
+    public string? SerialNumber { get; init; }
+    public string? BiosVersion { get; init; }
+}
+
 public readonly struct GodModeDefaults
 {
     public int? CPULongTermPowerLimit { get; init; }
