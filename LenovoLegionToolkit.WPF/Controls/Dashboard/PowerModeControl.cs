@@ -157,7 +157,7 @@ public class PowerModeControl : AbstractComboBoxFeatureCardControl<PowerModeStat
                 break;
             }
             default:
-                throw new ArgumentOutOfRangeException();
+                throw new Exception($"Access to Custom Mode in {state} is denied.");
         }
     }
 
