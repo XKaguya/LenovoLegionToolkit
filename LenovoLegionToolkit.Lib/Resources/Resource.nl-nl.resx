@@ -331,10 +331,10 @@
     <value>Altijd</value>
   </data>
   <data name="SpectrumKeyboardBacklightEffectType_AudioBounce" xml:space="preserve">
-    <value>Audio Bounce</value>
+    <value>Audio Stuiteren</value>
   </data>
   <data name="SpectrumKeyboardBacklightEffectType_AudioRipple" xml:space="preserve">
-    <value>Audio Ripple</value>
+    <value>Audio golfbeweging</value>
   </data>
   <data name="SpectrumKeyboardBacklightEffectType_AuroraSync" xml:space="preserve">
     <value>Aurora Sync</value>
@@ -366,7 +366,7 @@
     <value>Vloeiend</value>
   </data>
   <data name="SpectrumKeyboardBacklightEffectType_Type" xml:space="preserve">
-    <value>Type</value>
+    <value>Soort</value>
   </data>
   <data name="SpectrumKeyboardBacklightSpeed_Speed1" xml:space="preserve">
     <value>Traag</value>
@@ -511,13 +511,13 @@
     <value>UMA</value>
   </data>
   <data name="ITSMode_Intelligent_Extreme_Performance" xml:space="preserve">
-    <value>Extreme Performance</value>
+    <value>Extreme Prestaties</value>
   </data>
   <data name="ITSMode_Intelligent_Battery_Saving" xml:space="preserve">
-    <value>Battery Saving</value>
+    <value>Batterijbesparing</value>
   </data>
   <data name="ITSMode_Intelligent_Cooling" xml:space="preserve">
-    <value>Intelligent Cooling</value>
+    <value>Intelligente Koeling</value>
   </data>
   <data name="ITSMode_Intelligent_Geek" xml:space="preserve">
     <value>Geek</value>
@@ -529,45 +529,45 @@
     <value>1% Low</value>
   </data>
   <data name="FloatingGadgetItem_FrameTime" xml:space="preserve">
-    <value>Frame Time</value>
+    <value>Frame Tijd</value>
   </data>
   <data name="FloatingGadgetItem_Frequency" xml:space="preserve">
-    <value>Frequency</value>
+    <value>Frequentie</value>
   </data>
   <data name="FloatingGadgetItem_Utilization" xml:space="preserve">
-    <value>Utilization</value>
+    <value>Gebruik</value>
   </data>
   <data name="FloatingGadgetItem_Temperature" xml:space="preserve">
-    <value>Temperature</value>
+    <value>Temperatuur</value>
   </data>
   <data name="FloatingGadgetItem_Power" xml:space="preserve">
-    <value>Power</value>
+    <value>Stroom</value>
   </data>
   <data name="FloatingGadgetItem_Fan" xml:space="preserve">
     <value>Fan</value>
   </data>
   <data name="FloatingGadgetItem_VramTemperature" xml:space="preserve">
-    <value>Vram Temperature</value>
+    <value>Vram Temperatuur</value>
   </data>
   <data name="FloatingGadgetItem_MemoryTemperature" xml:space="preserve">
-    <value>Memory Temperature</value>
+    <value>Geheugen Temperatuur</value>
   </data>
   <data name="FloatingGadgetItem_MotherboardTemperature" xml:space="preserve">
-    <value>Motherboard Temperature</value>
+    <value>Moederbord Temperatuur</value>
   </data>
   <data name="AccentColorSource_Custom" xml:space="preserve">
     <value>Aangepast</value>
   </data>
   <data name="FloatingGadgetState_Hidden" xml:space="preserve">
-    <value>Hidden</value>
+    <value>Verborgen</value>
   </data>
   <data name="FloatingGadgetState_Show" xml:space="preserve">
-    <value>Show</value>
+    <value>Weergeven</value>
   </data>
   <data name="FloatingGadgetItem_P_Core_Frequency" xml:space="preserve">
-    <value>P Core Frequency</value>
+    <value>P Core Frequentie</value>
   </data>
   <data name="FloatingGadgetItem_E_Core_Frequency" xml:space="preserve">
-    <value>E Core Frequency</value>
+    <value>E Core Frequentie</value>
   </data>
 </root>
