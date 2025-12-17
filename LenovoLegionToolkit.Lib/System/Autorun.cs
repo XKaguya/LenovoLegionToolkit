@@ -26,42 +26,36 @@ public static class Autorun
 
     public static void Validate()
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Validating autorun...");
+        Log.Instance.Trace($"Validating autorun...");
 
         var currentTask = TaskService.Instance.GetTask(TASK_NAME);
         if (currentTask is null)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Autorun is not enabled.");
+            Log.Instance.Trace($"Autorun is not enabled.");
             return;
         }
 
         var mainModule = Process.GetCurrentProcess().MainModule;
         if (mainModule is null)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Main module is null.");
+            Log.Instance.Trace($"Main module is null.");
             return;
         }
 
         var fileVersion = mainModule.FileVersionInfo.FileVersion;
         if (fileVersion is null)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"File version is null.");
+            Log.Instance.Trace($"File version is null.");
             return;
         }
 
         if (currentTask.Definition.Data == fileVersion)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Autorun settings seems to be fine.");
+            Log.Instance.Trace($"Autorun settings seems to be fine.");
             return;
         }
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Enabling autorun again...");
+        Log.Instance.Trace($"Enabling autorun again...");
 
         var delayed = currentTask.Definition.Triggers.OfType<LogonTrigger>().FirstOrDefault()?.Delay > TimeSpan.Zero;
 
@@ -97,8 +91,7 @@ public static class Autorun
         td.Settings.ExecutionTimeLimit = TimeSpan.Zero;
         ts.RootFolder.RegisterTaskDefinition(TASK_NAME, td);
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Autorun enabled");
+        Log.Instance.Trace($"Autorun enabled");
     }
 
     private static void Disable()
@@ -107,13 +100,11 @@ public static class Autorun
         {
             TaskService.Instance.RootFolder.DeleteTask(TASK_NAME);
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Autorun disabled");
+            Log.Instance.Trace($"Autorun disabled");
         }
         catch
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Autorun was not enabled");
+            Log.Instance.Trace($"Autorun was not enabled");
         }
     }
 }

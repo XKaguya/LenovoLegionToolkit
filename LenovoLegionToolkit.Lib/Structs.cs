@@ -293,6 +293,15 @@ public readonly struct GPUOverclockInfo(int coreDeltaMhz, int memoryDeltaMhz)
 
 }
 
+public readonly struct FakeMachineInformation
+{
+    public string? Manufacturer { get; init; }
+    public string? Model { get; init; }
+    public string? MachineType { get; init; }
+    public string? SerialNumber { get; init; }
+    public string? BiosVersion { get; init; }
+}
+
 public readonly struct GodModeDefaults
 {
     public int? CPULongTermPowerLimit { get; init; }
@@ -302,6 +311,11 @@ public readonly struct GodModeDefaults
     public int? CPUPL1Tau { get; init; }
     public int? APUsPPTPowerLimit { get; init; }
     public int? CPUTemperatureLimit { get; init; }
+    public int? PrecisionBoostOverdriveScaler { get; init; }
+    public int? PrecisionBoostOverdriveBoostFrequency { get; init; }
+    public int? AllCoreCurveOptimizer { get; init; }
+    public bool? EnableAllCoreCurveOptimizer { get; init; }
+    public bool? EnableOverclocking { get; init; }
     public int? GPUPowerBoost { get; init; }
     public int? GPUConfigurableTGP { get; init; }
     public int? GPUTemperatureLimit { get; init; }
@@ -336,6 +350,8 @@ public readonly struct GodModeState
 public readonly struct GodModePreset
 {
     public string Name { get; init; }
+    public Guid? PowerPlanGuid { get; init; }
+    public WindowsPowerMode? PowerMode { get; init; }
     public StepperValue? CPULongTermPowerLimit { get; init; }
     public StepperValue? CPUShortTermPowerLimit { get; init; }
     public StepperValue? CPUPeakPowerLimit { get; init; }
@@ -343,6 +359,11 @@ public readonly struct GodModePreset
     public StepperValue? CPUPL1Tau { get; init; }
     public StepperValue? APUsPPTPowerLimit { get; init; }
     public StepperValue? CPUTemperatureLimit { get; init; }
+    public StepperValue? PrecisionBoostOverdriveScaler { get; init; }
+    public StepperValue? PrecisionBoostOverdriveBoostFrequency { get; init; }
+    public StepperValue? AllCoreCurveOptimizer { get; init; }
+    public bool? EnableAllCoreCurveOptimizer { get; init; }
+    public bool? EnableOverclocking { get; init; }
     public StepperValue? GPUPowerBoost { get; init; }
     public StepperValue? GPUConfigurableTGP { get; init; }
     public StepperValue? GPUTemperatureLimit { get; init; }
@@ -413,6 +434,18 @@ public readonly struct HardwareId(string vendor, string device)
     #endregion
 }
 
+public readonly struct HidDeviceConfig(
+    ushort vendorId,
+    ushort productIdMasked,
+    ushort productIdMask,
+    ushort descriptorLength)
+{
+    public ushort VendorId { get; } = vendorId;
+    public ushort ProductIdMasked { get; } = productIdMasked;
+    public ushort ProductIdMask { get; } = productIdMask;
+    public ushort DescriptorLength { get; } = descriptorLength;
+}
+
 public readonly struct MachineInformation
 {
     public readonly struct FeatureData(FeatureData.SourceType sourceType, IEnumerable<CapabilityID> capabilities)
@@ -453,7 +486,6 @@ public readonly struct MachineInformation
         public bool SupportsGodMode => SupportsGodModeV1 || SupportsGodModeV2 || SupportsGodModeV3 || SupportsGodModeV4;
 
         public (bool status, bool connectivity) SupportsAlwaysOnAc { get; init; }
-        public bool SupportsDIGPUMode { get; init; }
         public bool SupportsExtremeMode { get; init; }
         public bool SupportsGodModeV1 { get; init; }
         public bool SupportsGodModeV2 { get; init; }

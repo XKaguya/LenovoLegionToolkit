@@ -95,8 +95,7 @@ public partial class PackagesPage : IProgress<float>
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Failed to open download location.", ex);
+            Log.Instance.Trace($"Failed to open download location.", ex);
         }
     }
 
@@ -177,8 +176,7 @@ public partial class PackagesPage : IProgress<float>
         }
         catch (UpdateCatalogNotFoundException ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Update catalog not found.", ex);
+            Log.Instance.Trace($"Update catalog not found.", ex);
 
             await SnackbarHelper.ShowAsync(Resource.PackagesPage_UpdateCatalogNotFound_Title, Resource.PackagesPage_UpdateCatalogNotFound_Message, SnackbarType.Info);
 
@@ -190,8 +188,7 @@ public partial class PackagesPage : IProgress<float>
         }
         catch (HttpRequestException ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Error occurred when downloading packages.", ex);
+            Log.Instance.Trace($"Error occurred when downloading packages.", ex);
 
             await SnackbarHelper.ShowAsync(Resource.PackagesPage_Error_Title, Resource.PackagesPage_Error_CheckInternet_Message, SnackbarType.Error);
 
@@ -199,8 +196,7 @@ public partial class PackagesPage : IProgress<float>
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Error occurred when downloading packages.", ex);
+            Log.Instance.Trace($"Error occurred when downloading packages.", ex);
 
             await SnackbarHelper.ShowAsync(Resource.PackagesPage_Error_Title, ex.Message, SnackbarType.Error);
 

@@ -19,6 +19,12 @@ public static partial class WMI
 
         public static Task<bool> ExistsAsync() => WMI.ExistsAsync("root\\WMI", $"SELECT * FROM LENOVO_GAMEZONE_DATA");
 
+        public static Task<int> GetBIOSOCMode() => CallAsync("root\\WMI",
+            $"SELECT * FROM LENOVO_GAMEZONE_DATA",
+            "GetBIOSOCMode",
+            [],
+            pdc => Convert.ToInt32(pdc["Data"].Value));
+
         public static Task<int> IsSupportSmartFanAsync() => CallAsync("root\\WMI",
             $"SELECT * FROM LENOVO_GAMEZONE_DATA",
             "IsSupportSmartFan",

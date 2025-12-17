@@ -1,17 +1,21 @@
-﻿using System;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Automation;
-using System.Windows.Controls;
-using LenovoLegionToolkit.Lib;
+﻿using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.Features;
 using LenovoLegionToolkit.Lib.Listeners;
+using LenovoLegionToolkit.Lib.Settings;
 using LenovoLegionToolkit.Lib.System;
 using LenovoLegionToolkit.Lib.Utils;
 using LenovoLegionToolkit.WPF.Resources;
 using LenovoLegionToolkit.WPF.Utils;
 using LenovoLegionToolkit.WPF.Windows.Dashboard;
+using LenovoLegionToolkit.WPF.Windows.Utils;
+using Microsoft.Win32;
+using System;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Automation;
+using System.Windows.Controls;
+using LenovoLegionToolkit.WPF.Extensions;
 using Wpf.Ui.Common;
 using Button = Wpf.Ui.Controls.Button;
 
@@ -19,6 +23,7 @@ namespace LenovoLegionToolkit.WPF.Controls.Dashboard;
 
 public class PowerModeControl : AbstractComboBoxFeatureCardControl<PowerModeState>
 {
+    private readonly ApplicationSettings _settings = IoCContainer.Resolve<ApplicationSettings>();
     private readonly ThermalModeListener _thermalModeListener = IoCContainer.Resolve<ThermalModeListener>();
     private readonly PowerModeListener _powerModeListener = IoCContainer.Resolve<PowerModeListener>();
 
@@ -78,20 +83,25 @@ public class PowerModeControl : AbstractComboBoxFeatureCardControl<PowerModeStat
     {
         await base.OnStateChangeAsync(comboBox, feature, newValue, oldValue);
 
-        var mi = await Compatibility.GetMachineInformationAsync();
-
-        switch (newValue)
+        if (newValue is null)
         {
-            case PowerModeState.Balance when mi.Properties.SupportsAIMode:
-            case PowerModeState.GodMode when mi.Properties.SupportsGodMode:
-                _configButton.ToolTip = Resource.PowerModeControl_Settings;
-                _configButton.Visibility = Visibility.Visible;
-                break;
-            default:
-                _configButton.ToolTip = null;
-                _configButton.Visibility = Visibility.Collapsed;
-                break;
+            return;
         }
+
+        var mi = await Compatibility.GetMachineInformationAsync();
+        var adapterStatus = await Power.IsPowerAdapterConnectedAsync();
+
+        bool isAdapterConnected = adapterStatus != PowerAdapterStatus.Disconnected;
+
+        bool shouldShowButton = newValue switch
+        {
+            PowerModeState.Balance when mi.Properties.SupportsAIMode => true,
+            PowerModeState.GodMode when mi.Properties.SupportsGodMode => true,
+            _ => false
+        } && isAdapterConnected;
+
+        _configButton.ToolTip = shouldShowButton ? Resource.PowerModeControl_Settings : null;
+        _configButton.Visibility = shouldShowButton ? Visibility.Visible : Visibility.Collapsed;
     }
 
     protected override void OnStateChangeException(Exception exception)
@@ -118,25 +128,89 @@ public class PowerModeControl : AbstractComboBoxFeatureCardControl<PowerModeStat
         return stackPanel;
     }
 
-    private void ConfigButton_Click(object sender, RoutedEventArgs e)
+    private async void ConfigButton_Click(object sender, RoutedEventArgs e)
     {
         if (!TryGetSelectedItem(out var state))
+        {
             return;
+        }
+
+        var result = await CheckCustomModeWarningAsync();
+
+        if (!result)
+        {
+            return;
+        }
 
         switch (state)
         {
             case PowerModeState.Balance:
-                {
-                    var window = new BalanceModeSettingsWindow { Owner = Window.GetWindow(this) };
-                    window.ShowDialog();
-                    break;
-                }
+            {
+                var window = new BalanceModeSettingsWindow { Owner = Window.GetWindow(this) };
+                window.ShowDialog();
+                break;
+            }
             case PowerModeState.GodMode:
-                {
-                    var window = new GodModeSettingsWindow { Owner = Window.GetWindow(this) };
-                    window.ShowDialog();
-                    break;
-                }
+            {
+                var window = new GodModeSettingsWindow { Owner = Window.GetWindow(this) };
+                window.ShowDialog();
+                break;
+            }
+            default:
+                throw new Exception($"Access to Custom Mode in {state} is denied.");
         }
+    }
+
+    private async Task<bool> CheckCustomModeWarningAsync()
+    {
+        if (_settings.Store.CustomModeWarningDontShowAgain)
+        {
+            return true;
+        }
+
+        try
+        {
+            var result = await ShowDialogAsync();
+            if (result.Yes)
+            {
+                return true;
+            }
+
+            if (result.DontShowAgain)
+            {
+                _settings.Store.CustomModeWarningDontShowAgain = true;
+                _settings.SynchronizeStore();
+                return true;
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.Instance.Trace($"Failed to load power mode control", ex);
+        }
+
+        return false;
+    }
+
+    private async Task<(bool Yes, bool DontShowAgain)> ShowDialogAsync()
+    {
+        return await Application.Current.Dispatcher.InvokeAsync(() =>
+        {
+            var dialog = new DialogWindow
+            {
+                Title = Resource.Warning,
+                Content = Resource.KeyboardBacklightPage_CustomMode_Warning,
+                Owner = App.Current.MainWindow,
+                Width = 600,
+                Height = 350,
+                DontShowAgainCheckBox =
+                {
+                    Visibility = Visibility.Visible
+                }
+            };
+
+            dialog.ShowDialog();
+
+            return dialog.Result;
+        });
     }
 }

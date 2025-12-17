@@ -2406,8 +2406,7 @@
     <value>使用新的状态面板</value>
   </data>
   <data name="SettingsPage_UseNewSensorDashboard_Message" xml:space="preserve">
-    <value>使用新的状态面板，此项会导致 LLT 启动时间变长。
-使用新的传感器仪表板可能会导致一些防病毒程序显示警告弹出窗口。有关更多信息，请参阅：LibreHardwareMonitor/LibreHardwareMonitor#984</value>
+    <value>使用新的仪表盘</value>
   </data>
   <data name="SettingsPage_LockWindowSize_Title" xml:space="preserve">
     <value>锁定窗口大小</value>
@@ -2592,5 +2591,49 @@
   </data>
   <data name="FloatingGadget_Style_Simple" xml:space="preserve">
     <value>简洁</value>
+  </data>
+  <data name="SettingsPage_ClearBackgroundImage_Title" xml:space="preserve">
+    <value>背景图片已清除</value>
+  </data>
+  <data name="GodModeSettingsWindow_PrecisionBoostOverdriveScaler_Title" xml:space="preserve">
+    <value>Precision Boost Overdrive 倍数</value>
+  </data>
+  <data name="GodModeSettingsWindow_PrecisionBoostOverdriveScaler_Description" xml:space="preserve">
+    <value>调整 Precision Boost Overdrive  倍数。</value>
+  </data>
+  <data name="GodModeSettingsWindow_PrecisionBoostOverdriveBoostFrequency_Title" xml:space="preserve">
+    <value>Precision Boost Overdrive 提高频率</value>
+  </data>
+  <data name="GodModeSettingsWindow_PrecisionBoostOverdriveBoostFrequency_Description" xml:space="preserve">
+    <value>调整 Precision Boost Overdrive 提高频率。</value>
+  </data>
+  <data name="GodModeSettingsWindow_AllCoreCurveOptimizer_Title" xml:space="preserve">
+    <value>全核电压曲线调节</value>
+  </data>
+  <data name="GodModeSettingsWindow_AllCoreCurveOptimizer_Description" xml:space="preserve">
+    <value>调整全核电压曲线，在开启拯救者性能调优时默认为负压。</value>
+  </data>
+  <data name="GodModeSettingsWindow_Toggle_OC_Title" xml:space="preserve">
+    <value>高级超频选项</value>
+  </data>
+  <data name="GodModeSettingsWindow_Toggle_OC_Message" xml:space="preserve">
+    <value>启用 / 禁用 高级超频选项。</value>
+  </data>
+  <data name="GodModeSettingsWindow_Toggle_CoreCurve_Title" xml:space="preserve">
+    <value>全核电压曲线调节</value>
+  </data>
+  <data name="GodModeSettingsWindow_Toggle_CoreCurve_Message" xml:space="preserve">
+    <value>启用 / 关闭 全核电压调节，关闭后全核电压数据将不会被应用。</value>
+  </data>
+  <data name="FloatingGadget_Custom_Title" xml:space="preserve">
+    <value>自定义悬浮层元素</value>
+  </data>
+  <data name="KeyboardBacklightPage_CustomMode_Warning" xml:space="preserve">
+    <value>自定义模式允许访问关键系统参数，例如功耗限制和风扇曲线。
+
+配置错误可能会导致严重的系统不稳定、过热降频或永久硬件损坏。
+此处所做的修改可能会使您的保修无效。
+
+除非您拥有必要的技术专业知识，否则请勿继续。</value>
   </data>
 </root>

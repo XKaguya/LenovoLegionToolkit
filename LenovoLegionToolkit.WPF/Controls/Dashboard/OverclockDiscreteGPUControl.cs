@@ -118,8 +118,7 @@ public class OverclockDiscreteGPUControl : AbstractRefreshingControl
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Failed to change state.", ex);
+            Log.Instance.Trace($"Failed to change state.", ex);
         }
     }
 

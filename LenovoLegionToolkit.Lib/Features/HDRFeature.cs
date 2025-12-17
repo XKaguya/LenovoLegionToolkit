@@ -8,61 +8,61 @@ namespace LenovoLegionToolkit.Lib.Features;
 
 public class HDRFeature : IFeature<HDRState>
 {
-    public Task<bool> IsSupportedAsync()
+    public async Task<bool> IsSupportedAsync()
     {
         try
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Checking HDR support...");
+            Log.Instance.Trace($"Checking HDR support...");
 
-            var display = InternalDisplay.Get();
+            var display = await InternalDisplay.GetAsync().ConfigureAwait(false);
             if (display is null)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Built in display not found");
+                Log.Instance.Trace($"Built in display not found");
 
-                return Task.FromResult(false);
+                return false;
             }
 
             var isSupported = display.GetAdvancedColorInfo().AdvancedColorSupported;
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"HDR support: {isSupported}");
+            Log.Instance.Trace($"HDR support: {isSupported}");
 
-            return Task.FromResult(isSupported);
+            return isSupported;
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Failed to check HDR support", ex);
+            Log.Instance.Trace($"Failed to check HDR support", ex);
 
-            return Task.FromResult(false);
+            return false;
         }
     }
 
-    public Task<bool> IsHdrBlockedAsync()
+    public async Task<bool> IsHdrBlockedAsync()
     {
-        var display = InternalDisplay.Get() ?? throw new InvalidOperationException("Built in display not found");
+        var display = await InternalDisplay.GetAsync().ConfigureAwait(false);
+
+        if (display is null)
+            throw new InvalidOperationException("Built in display not found");
 
         var result = display.GetAdvancedColorInfo().AdvancedColorForceDisabled;
-        return Task.FromResult(result);
+        return result;
     }
 
     public Task<HDRState[]> GetAllStatesAsync() => Task.FromResult(Enum.GetValues<HDRState>());
 
-    public Task<HDRState> GetStateAsync()
+    public async Task<HDRState> GetStateAsync()
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Getting current HDR state...");
+        Log.Instance.Trace($"Getting current HDR state...");
 
-        var display = InternalDisplay.Get() ?? throw new InvalidOperationException("Built in display not found");
+        var display = await InternalDisplay.GetAsync().ConfigureAwait(false);
+
+        if (display is null)
+            throw new InvalidOperationException("Built in display not found");
 
         var result = display.GetAdvancedColorInfo().AdvancedColorEnabled ? HDRState.On : HDRState.Off;
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"HDR is {result}");
+        Log.Instance.Trace($"HDR is {result}");
 
-        return Task.FromResult(result);
+        return result;
     }
 
     public async Task SetStateAsync(HDRState state)
@@ -71,15 +71,16 @@ public class HDRFeature : IFeature<HDRState>
 
         if (currentState == state)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"HDR already set to {state}");
+            Log.Instance.Trace($"HDR already set to {state}");
             return;
         }
 
-        var display = InternalDisplay.Get() ?? throw new InvalidOperationException("Built in display not found");
+        var display = await InternalDisplay.GetAsync().ConfigureAwait(false);
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Setting display HDR to {state}");
+        if (display is null)
+            throw new InvalidOperationException("Built in display not found");
+
+        Log.Instance.Trace($"Setting display HDR to {state}");
 
         display.SetAdvancedColorState(state == HDRState.On);
     }

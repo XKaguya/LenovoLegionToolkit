@@ -54,13 +54,14 @@ public class ApplicationSettings : AbstractSettings<ApplicationSettings.Applicat
         public bool UseNewSensorDashboard { get; set; }
         public bool LockWindowSize { get; set; }
         public bool EnableLogging { get; set; }
-        public bool DynamicLightingWarningDontShowAgain { get; set; }
         public bool ShowFloatingGadgets { get; set; }
         public int FloatingGadgetsRefreshInterval { get; set; }
         public string BackGroundImageFilePath { get; set; } = string.Empty;
         public double Opacity { get; set; } = 1.0f;
         public int SelectedStyleIndex { get; set; } = 0;
         public List<FloatingGadgetItem> FloatingGadgetItems { get; set; } = [];
+        public bool DynamicLightingWarningDontShowAgain { get; set; }
+        public bool CustomModeWarningDontShowAgain { get; set; }
     }
 
     public ApplicationSettings() : base("settings.json")

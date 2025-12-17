@@ -1,13 +1,4 @@
-﻿using LenovoLegionToolkit.Lib;
-using LenovoLegionToolkit.Lib.Controllers.GodMode;
-using LenovoLegionToolkit.Lib.Extensions;
-using LenovoLegionToolkit.Lib.Features;
-using LenovoLegionToolkit.Lib.SoftwareDisabler;
-using LenovoLegionToolkit.Lib.Utils;
-using LenovoLegionToolkit.WPF.Extensions;
-using LenovoLegionToolkit.WPF.Resources;
-using LenovoLegionToolkit.WPF.Utils;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,6 +6,16 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using LenovoLegionToolkit.Lib;
+using LenovoLegionToolkit.Lib.Controllers.GodMode;
+using LenovoLegionToolkit.Lib.Extensions;
+using LenovoLegionToolkit.Lib.Features;
+using LenovoLegionToolkit.Lib.SoftwareDisabler;
+using LenovoLegionToolkit.Lib.System.Management;
+using LenovoLegionToolkit.Lib.Utils;
+using LenovoLegionToolkit.WPF.Extensions;
+using LenovoLegionToolkit.WPF.Resources;
+using LenovoLegionToolkit.WPF.Utils;
 
 namespace LenovoLegionToolkit.WPF.Windows.Dashboard;
 
@@ -31,7 +32,7 @@ public partial class GodModeSettingsWindow
     private Dictionary<PowerModeState, GodModeDefaults>? _defaults;
     private bool _isRefreshing;
 
-    private dynamic _fanCurveControl;
+    private readonly dynamic _fanCurveControl;
 
     public GodModeSettingsWindow()
     {
@@ -39,26 +40,15 @@ public partial class GodModeSettingsWindow
 
         IsVisibleChanged += GodModeSettingsWindow_IsVisibleChanged;
 
-        PreviewKeyDown += (s, e) => {
-            if (e.Key == Key.System && e.SystemKey == Key.LeftAlt)
-            {
-                e.Handled = true;
-                Keyboard.ClearFocus();
-            }
-        };
-
-        var mi = Compatibility.GetMachineInformationAsync().Result;
+        var mi = Compatibility.GetMachineInformationAsync().GetAwaiter().GetResult();
         int contentIndex = _fanCurveControlStackPanel.Children.IndexOf(_fanCurveButton);
+
         if (mi.Properties.SupportsGodModeV3 || mi.Properties.SupportsGodModeV4)
-        {
             _fanCurveControl = new Controls.FanCurveControlV2();
-            _fanCurveControlStackPanel.Children.Insert(contentIndex, _fanCurveControl);
-        }
         else
-        {
             _fanCurveControl = new Controls.FanCurveControl();
-            _fanCurveControlStackPanel.Children.Insert(contentIndex, _fanCurveControl);
-        }
+
+        _fanCurveControlStackPanel.Children.Insert(contentIndex, _fanCurveControl);
     }
 
     private async void GodModeSettingsWindow_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -69,6 +59,7 @@ public partial class GodModeSettingsWindow
 
     private async Task RefreshAsync()
     {
+        if (_isRefreshing) return;
         _isRefreshing = true;
 
         try
@@ -76,36 +67,36 @@ public partial class GodModeSettingsWindow
             _loader.IsLoading = true;
             _buttonsStackPanel.Visibility = Visibility.Hidden;
 
-            var loadingTask = Task.Delay(TimeSpan.FromMilliseconds(500));
+            var tasks = new List<Task>
+            {
+                Task.Delay(500),
+                _godModeController.GetStateAsync().ContinueWith(t => _state = t.Result),
+                _godModeController.GetDefaultsInOtherPowerModesAsync().ContinueWith(t => _defaults = t.Result)
+            };
 
-            _vantageRunningWarningInfoBar.IsOpen = await _godModeController.NeedsVantageDisabledAsync() && await _vantageDisabler.GetStatusAsync() == SoftwareStatus.Enabled;
-            _legionSpaceRunningWarningInfoBar.IsOpen = await _godModeController.NeedsLegionSpaceDisabledAsync() && await _legionSpaceDisabler.GetStatusAsync() == SoftwareStatus.Enabled;
-            _legionZoneRunningWarningInfoBar.IsOpen = await _godModeController.NeedsLegionZoneDisabledAsync() && await _legionZoneDisabler.GetStatusAsync() == SoftwareStatus.Enabled;
-            
-            _state = await _godModeController.GetStateAsync();
-            _defaults = await _godModeController.GetDefaultsInOtherPowerModesAsync();
+            var vantageTask = _godModeController.NeedsVantageDisabledAsync();
+            var legionSpace = _godModeController.NeedsLegionSpaceDisabledAsync();
+            var legionZoneTask = _godModeController.NeedsLegionZoneDisabledAsync();
 
-            if (_state is null)
-                throw new InvalidOperationException($"{nameof(_state)} is null");
+            await Task.WhenAll(tasks.Concat([vantageTask, legionSpace, legionZoneTask]));
 
-            if (_defaults is null)
-                throw new InvalidOperationException($"{nameof(_defaults)} are null");
+            _vantageRunningWarningInfoBar.IsOpen = vantageTask.Result && await _vantageDisabler.GetStatusAsync() == SoftwareStatus.Enabled;
+            _legionSpaceRunningWarningInfoBar.IsOpen = legionSpace.Result && await _legionSpaceDisabler.GetStatusAsync() == SoftwareStatus.Enabled;
+            _legionZoneRunningWarningInfoBar.IsOpen = legionZoneTask.Result && await _legionZoneDisabler.GetStatusAsync() == SoftwareStatus.Enabled;
+
+            if (_state is null || _defaults is null)
+                throw new InvalidOperationException("Failed to load state or defaults.");
 
             await SetStateAsync(_state.Value);
 
-            await loadingTask;
-
-            _loadButton.Visibility = _defaults.Count != 0 ? Visibility.Visible : Visibility.Collapsed;
+            _loadButton.Visibility = _defaults.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
             _buttonsStackPanel.Visibility = Visibility.Visible;
             _loader.IsLoading = false;
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Couldn't load settings.", ex);
-
+            Log.Instance.Trace($"Couldn't load settings.", ex);
             await _snackBar.ShowAsync(Resource.GodModeSettingsWindow_Error_Load_Title, ex.Message);
-
             Close();
         }
         finally
@@ -118,16 +109,16 @@ public partial class GodModeSettingsWindow
     {
         try
         {
-            if (!_state.HasValue)
-                throw new InvalidOperationException("State is null");
+            if (!_state.HasValue) throw new InvalidOperationException("State is null");
 
             var activePresetId = _state.Value.ActivePresetId;
-            var presets = _state.Value.Presets;
-            var preset = presets[activePresetId];
+            var preset = _state.Value.Presets[activePresetId];
 
             var newPreset = new GodModePreset
             {
                 Name = preset.Name,
+                PowerPlanGuid = preset.PowerPlanGuid,
+                PowerMode = preset.PowerMode,
                 CPULongTermPowerLimit = preset.CPULongTermPowerLimit?.WithValue(_cpuLongTermPowerLimitControl.Value),
                 CPUShortTermPowerLimit = preset.CPUShortTermPowerLimit?.WithValue(_cpuShortTermPowerLimitControl.Value),
                 CPUPeakPowerLimit = preset.CPUPeakPowerLimit?.WithValue(_cpuPeakPowerLimitControl.Value),
@@ -143,10 +134,15 @@ public partial class GodModeSettingsWindow
                 FanTableInfo = preset.FanTableInfo is not null ? _fanCurveControl.GetFanTableInfo() : null,
                 FanFullSpeed = preset.FanFullSpeed is not null ? _fanFullSpeedToggle.IsChecked : null,
                 MaxValueOffset = preset.MaxValueOffset is not null ? (int?)_maxValueOffsetNumberBox.Value : null,
-                MinValueOffset = preset.MinValueOffset is not null ? (int?)_minValueOffsetNumberBox.Value : null
+                MinValueOffset = preset.MinValueOffset is not null ? (int?)_minValueOffsetNumberBox.Value : null,
+                PrecisionBoostOverdriveScaler = preset.PrecisionBoostOverdriveScaler?.WithValue(_cpuPrecisionBoostOverdriveScaler.Value),
+                PrecisionBoostOverdriveBoostFrequency = preset.PrecisionBoostOverdriveBoostFrequency?.WithValue(_cpuPrecisionBoostOverdriveBoostFrequency.Value),
+                AllCoreCurveOptimizer = preset.AllCoreCurveOptimizer?.WithValue(_cpuAllCoreCurveOptimizer.Value),
+                EnableAllCoreCurveOptimizer = _toggleCoreCurveCard.Visibility == Visibility.Visible ? _coreCurveToggle.IsChecked : preset.EnableAllCoreCurveOptimizer,
+                EnableOverclocking = _toggleOcCard.Visibility == Visibility.Visible ? _overclockingToggle.IsChecked : preset.EnableOverclocking,
             };
 
-            var newPresets = new Dictionary<Guid, GodModePreset>(presets)
+            var newPresets = new Dictionary<Guid, GodModePreset>(_state.Value.Presets)
             {
                 [activePresetId] = newPreset
             };
@@ -167,11 +163,8 @@ public partial class GodModeSettingsWindow
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Couldn't apply settings", ex);
-
+            Log.Instance.Trace($"Couldn't apply settings", ex);
             await _snackBar.ShowAsync(Resource.GodModeSettingsWindow_Error_Apply_Title, ex.Message);
-
             return false;
         }
     }
@@ -181,140 +174,173 @@ public partial class GodModeSettingsWindow
         _cpuLongTermPowerLimitControl.ValueChanged -= CpuLongTermPowerLimitSlider_ValueChanged;
         _cpuShortTermPowerLimitControl.ValueChanged -= CpuShortTermPowerLimitSlider_ValueChanged;
 
-        var activePresetId = state.ActivePresetId;
-        var preset = state.Presets[activePresetId];
-
-        _presetsComboBox.SetItems(state.Presets.OrderBy(kv => kv.Value.Name), new(activePresetId, preset), kv => kv.Value.Name);
-
-        _deletePresetsButton.IsEnabled = state.Presets.Count > 1;
-
-        _cpuLongTermPowerLimitControl.Set(preset.CPULongTermPowerLimit);
-        _cpuShortTermPowerLimitControl.Set(preset.CPUShortTermPowerLimit);
-        _cpuPeakPowerLimitControl.Set(preset.CPUPeakPowerLimit);
-        _cpuCrossLoadingLimitControl.Set(preset.CPUCrossLoadingPowerLimit);
-        _cpuPL1TauControl.Set(preset.CPUPL1Tau);
-        _apuSPPTPowerLimitControl.Set(preset.APUsPPTPowerLimit);
-        _cpuTemperatureLimitControl.Set(preset.CPUTemperatureLimit);
-        _gpuPowerBoostControl.Set(preset.GPUPowerBoost);
-        _gpuConfigurableTGPControl.Set(preset.GPUConfigurableTGP);
-        _gpuTemperatureLimitControl.Set(preset.GPUTemperatureLimit);
-        _gpuTotalProcessingPowerTargetOnAcOffsetFromBaselineControl.Set(preset.GPUTotalProcessingPowerTargetOnAcOffsetFromBaseline);
-        _gpuToCpuDynamicBoostControl.Set(preset.GPUToCPUDynamicBoost);
-
-        var fanTableInfo = preset.FanTableInfo;
-        if (fanTableInfo.HasValue)
+        try
         {
-            var minimum = await _godModeController.GetMinimumFanTableAsync();
-            _fanCurveControl.SetFanTableInfo(fanTableInfo.Value, minimum);
+            var activePresetId = state.ActivePresetId;
+            var preset = state.Presets[activePresetId];
+
+            _presetsComboBox.SetItems(state.Presets.OrderBy(kv => kv.Value.Name), new(activePresetId, preset), kv => kv.Value.Name);
+            _deletePresetsButton.IsEnabled = state.Presets.Count > 1;
+
+            _cpuLongTermPowerLimitControl.Set(preset.CPULongTermPowerLimit);
+            _cpuShortTermPowerLimitControl.Set(preset.CPUShortTermPowerLimit);
+            _cpuPeakPowerLimitControl.Set(preset.CPUPeakPowerLimit);
+            _cpuCrossLoadingLimitControl.Set(preset.CPUCrossLoadingPowerLimit);
+            _cpuPL1TauControl.Set(preset.CPUPL1Tau);
+            _apuSPPTPowerLimitControl.Set(preset.APUsPPTPowerLimit);
+            _cpuTemperatureLimitControl.Set(preset.CPUTemperatureLimit);
+
+            _cpuPrecisionBoostOverdriveScaler.Set(preset.PrecisionBoostOverdriveScaler);
+            _cpuPrecisionBoostOverdriveBoostFrequency.Set(preset.PrecisionBoostOverdriveBoostFrequency);
+            _cpuAllCoreCurveOptimizer.Set(preset.AllCoreCurveOptimizer);
+
+            _gpuPowerBoostControl.Set(preset.GPUPowerBoost);
+            _gpuConfigurableTGPControl.Set(preset.GPUConfigurableTGP);
+            _gpuTemperatureLimitControl.Set(preset.GPUTemperatureLimit);
+            _gpuTotalProcessingPowerTargetOnAcOffsetFromBaselineControl.Set(preset.GPUTotalProcessingPowerTargetOnAcOffsetFromBaseline);
+            _gpuToCpuDynamicBoostControl.Set(preset.GPUToCPUDynamicBoost);
+
+            if (preset.FanTableInfo.HasValue)
+            {
+                var minimum = await _godModeController.GetMinimumFanTableAsync();
+                _fanCurveControl.SetFanTableInfo(preset.FanTableInfo.Value, minimum);
+                _fanCurveCardControl.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                _fanCurveCardControl.Visibility = Visibility.Collapsed;
+            }
+
+            if (preset.FanFullSpeed.HasValue)
+            {
+                _fanCurveCardControl.IsEnabled = !preset.FanFullSpeed.Value;
+                _fanFullSpeedToggle.IsChecked = preset.FanFullSpeed.Value;
+                _fanFullSpeedCardControl.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                _fanCurveCardControl.IsEnabled = true;
+                _fanFullSpeedCardControl.Visibility = Visibility.Collapsed;
+            }
+
+            if (preset.MaxValueOffset.HasValue)
+            {
+                _maxValueOffsetNumberBox.Value = preset.MaxValueOffset;
+                _maxValueOffsetCardControl.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                _maxValueOffsetCardControl.Visibility = Visibility.Collapsed;
+            }
+
+            if (preset.MinValueOffset.HasValue)
+            {
+                _minValueOffsetNumberBox.Value = preset.MinValueOffset;
+                _minValueOffsetCardControl.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                _minValueOffsetCardControl.Visibility = Visibility.Collapsed;
+            }
+
+            bool cpuSectionVisible = _cpuLongTermPowerLimitControl.Visibility == Visibility.Visible ||
+                                     _cpuShortTermPowerLimitControl.Visibility == Visibility.Visible ||
+                                     _cpuPeakPowerLimitControl.Visibility == Visibility.Visible ||
+                                     _cpuCrossLoadingLimitControl.Visibility == Visibility.Visible ||
+                                     _cpuPL1TauControl.Visibility == Visibility.Visible ||
+                                     _apuSPPTPowerLimitControl.Visibility == Visibility.Visible ||
+                                     _cpuTemperatureLimitControl.Visibility == Visibility.Visible;
+
+            bool gpuSectionVisible = _gpuPowerBoostControl.Visibility == Visibility.Visible ||
+                                     _gpuConfigurableTGPControl.Visibility == Visibility.Visible ||
+                                     _gpuTemperatureLimitControl.Visibility == Visibility.Visible ||
+                                     _gpuTotalProcessingPowerTargetOnAcOffsetFromBaselineControl.Visibility == Visibility.Visible ||
+                                     _gpuToCpuDynamicBoostControl.Visibility == Visibility.Visible;
+
+            bool fanSectionVisible = _fanCurveCardControl.Visibility == Visibility.Visible ||
+                                     _fanFullSpeedCardControl.Visibility == Visibility.Visible;
+
+            bool advancedSectionVisible = _maxValueOffsetCardControl.Visibility == Visibility.Visible ||
+                                          _minValueOffsetCardControl.Visibility == Visibility.Visible;
+
+            _cpuSectionTitle.Visibility = cpuSectionVisible ? Visibility.Visible : Visibility.Collapsed;
+            _gpuSectionTitle.Visibility = gpuSectionVisible ? Visibility.Visible : Visibility.Collapsed;
+            _fanSectionTitle.Visibility = fanSectionVisible ? Visibility.Visible : Visibility.Collapsed;
+            _advancedSectionTitle.Visibility = advancedSectionVisible ? Visibility.Visible : Visibility.Collapsed;
+            _advancedSectionMessage.Visibility = advancedSectionVisible ? Visibility.Visible : Visibility.Collapsed;
+
+            _overclockingToggle.IsChecked = preset.EnableOverclocking;
+            _coreCurveToggle.IsChecked = preset.EnableAllCoreCurveOptimizer;
+
+            if (preset.EnableOverclocking.HasValue)
+                await UpdateOverclockingVisibilityAsync();
+
         }
-        else
+        finally
         {
-            _fanCurveCardControl.Visibility = Visibility.Collapsed;
+            _cpuLongTermPowerLimitControl.ValueChanged += CpuLongTermPowerLimitSlider_ValueChanged;
+            _cpuShortTermPowerLimitControl.ValueChanged += CpuShortTermPowerLimitSlider_ValueChanged;
         }
+    }
 
-        var fanFullSpeed = preset.FanFullSpeed;
-        if (fanFullSpeed.HasValue)
-        {
-            _fanCurveCardControl.IsEnabled = !fanFullSpeed.Value;
-            _fanFullSpeedToggle.IsChecked = fanFullSpeed.Value;
-        }
-        else
-        {
-            _fanCurveCardControl.IsEnabled = true;
-            _fanFullSpeedCardControl.Visibility = Visibility.Collapsed;
-        }
+    private async Task UpdateOverclockingVisibilityAsync()
+    {
+        int biosOcMode = await WMI.LenovoGameZoneData.GetBIOSOCMode();
+        bool isLegionOptimizeEnabled = biosOcMode == 3;
 
-        var maxValueOffset = preset.MaxValueOffset;
-        if (maxValueOffset.HasValue)
-            _maxValueOffsetNumberBox.Value = maxValueOffset;
-        else
-            _maxValueOffsetCardControl.Visibility = Visibility.Collapsed;
+        _toggleOcCard.Visibility = isLegionOptimizeEnabled ? Visibility.Visible : Visibility.Collapsed;
 
-        var minValueOffset = preset.MinValueOffset;
-        if (minValueOffset.HasValue)
-            _minValueOffsetNumberBox.Value = minValueOffset;
-        else
-            _minValueOffsetCardControl.Visibility = Visibility.Collapsed;
+        var ocVisible = (isLegionOptimizeEnabled && _overclockingToggle.IsChecked == true)
+            ? Visibility.Visible
+            : Visibility.Collapsed;
 
-        var cpuSectionVisible = new[]
-        {
-            _cpuLongTermPowerLimitControl,
-            _cpuShortTermPowerLimitControl,
-            _cpuPeakPowerLimitControl,
-            _cpuCrossLoadingLimitControl,
-            _cpuPL1TauControl,
-            _apuSPPTPowerLimitControl,
-            _cpuTemperatureLimitControl
-        }.Any(v => v.Visibility == Visibility.Visible);
+        _cpuPrecisionBoostOverdriveScaler.Visibility = ocVisible;
+        _cpuPrecisionBoostOverdriveBoostFrequency.Visibility = ocVisible;
 
-        var gpuSectionVisible = new[]
-        {
-            _gpuPowerBoostControl,
-            _gpuConfigurableTGPControl,
-            _gpuTemperatureLimitControl,
-            _gpuTotalProcessingPowerTargetOnAcOffsetFromBaselineControl,
-            _gpuToCpuDynamicBoostControl
-        }.Any(v => v.Visibility == Visibility.Visible);
+        _toggleCoreCurveCard.Visibility = ocVisible;
 
-        var fanSectionVisible = new[]
-        {
-            _fanCurveCardControl,
-            _fanFullSpeedCardControl
-        }.Any(v => v.Visibility == Visibility.Visible);
+        await UpdateCoreCurveVisibilityAsync();
+    }
 
-        var advancedSectionVisible = new[]
-        {
-            _maxValueOffsetCardControl,
-            _minValueOffsetCardControl
-        }.Any(v => v.Visibility == Visibility.Visible);
+    private async Task UpdateCoreCurveVisibilityAsync()
+    {
+        bool isCurveEnabled = _toggleCoreCurveCard.Visibility == Visibility.Visible &&
+                              _coreCurveToggle.IsChecked == true;
 
-        _cpuSectionTitle.Visibility = cpuSectionVisible ? Visibility.Visible : Visibility.Collapsed;
-        _gpuSectionTitle.Visibility = gpuSectionVisible ? Visibility.Visible : Visibility.Collapsed;
-        _fanSectionTitle.Visibility = fanSectionVisible ? Visibility.Visible : Visibility.Collapsed;
-        _advancedSectionTitle.Visibility = advancedSectionVisible ? Visibility.Visible : Visibility.Collapsed;
-        _advancedSectionMessage.Visibility = advancedSectionVisible ? Visibility.Visible : Visibility.Collapsed;
+        _cpuAllCoreCurveOptimizer.Visibility = isCurveEnabled
+            ? Visibility.Visible
+            : Visibility.Collapsed;
 
-        _cpuLongTermPowerLimitControl.ValueChanged += CpuLongTermPowerLimitSlider_ValueChanged;
-        _cpuShortTermPowerLimitControl.ValueChanged += CpuShortTermPowerLimitSlider_ValueChanged;
+        await Task.CompletedTask;
     }
 
     private async void SetDefaults(GodModeDefaults defaults)
     {
-        if (_cpuLongTermPowerLimitControl.Visibility == Visibility.Visible && defaults.CPULongTermPowerLimit is { } cpuLongTermPowerLimit)
-            _cpuLongTermPowerLimitControl.Value = cpuLongTermPowerLimit;
+        SetVal<int>(_cpuLongTermPowerLimitControl, defaults.CPULongTermPowerLimit, v => _cpuLongTermPowerLimitControl.Value = v);
+        SetVal<int>(_cpuShortTermPowerLimitControl, defaults.CPUShortTermPowerLimit, v => _cpuShortTermPowerLimitControl.Value = v);
+        SetVal<int>(_cpuPeakPowerLimitControl, defaults.CPUPeakPowerLimit, v => _cpuPeakPowerLimitControl.Value = v);
+        SetVal<int>(_cpuCrossLoadingLimitControl, defaults.CPUCrossLoadingPowerLimit, v => _cpuCrossLoadingLimitControl.Value = v);
+        SetVal<int>(_cpuPL1TauControl, defaults.CPUPL1Tau, v => _cpuPL1TauControl.Value = v);
+        SetVal<int>(_apuSPPTPowerLimitControl, defaults.APUsPPTPowerLimit, v => _apuSPPTPowerLimitControl.Value = v);
+        SetVal<int>(_cpuTemperatureLimitControl, defaults.CPUTemperatureLimit, v => _cpuTemperatureLimitControl.Value = v);
 
-        if (_cpuShortTermPowerLimitControl.Visibility == Visibility.Visible && defaults.CPUShortTermPowerLimit is { } cpuShortTermPowerLimit)
-            _cpuShortTermPowerLimitControl.Value = cpuShortTermPowerLimit;
+        SetVal<int>(_cpuPrecisionBoostOverdriveScaler, defaults.PrecisionBoostOverdriveScaler, v => _cpuPrecisionBoostOverdriveScaler.Value = v);
+        SetVal<int>(_cpuPrecisionBoostOverdriveBoostFrequency, defaults.PrecisionBoostOverdriveBoostFrequency, v => _cpuPrecisionBoostOverdriveBoostFrequency.Value = v);
+        SetVal<int>(_cpuAllCoreCurveOptimizer, defaults.AllCoreCurveOptimizer, v => _cpuAllCoreCurveOptimizer.Value = v);
 
-        if (_cpuPeakPowerLimitControl.Visibility == Visibility.Visible && defaults.CPUPeakPowerLimit is { } cpuPeakPowerLimit)
-            _cpuPeakPowerLimitControl.Value = cpuPeakPowerLimit;
+        SetVal<bool>(_overclockingToggle, defaults.EnableOverclocking, v => _overclockingToggle.IsChecked = v);
+        SetVal<bool>(_coreCurveToggle, defaults.EnableAllCoreCurveOptimizer, v => _coreCurveToggle.IsChecked = v);
+        SetVal<int>(_cpuAllCoreCurveOptimizer, defaults.AllCoreCurveOptimizer, v => _cpuAllCoreCurveOptimizer.Value = v);
+        SetVal<bool>(_overclockingToggle, defaults.EnableOverclocking, v => {
+            _overclockingToggle.IsChecked = v;
+            _ = UpdateOverclockingVisibilityAsync();
+        });
 
-        if (_cpuCrossLoadingLimitControl.Visibility == Visibility.Visible && defaults.CPUCrossLoadingPowerLimit is { } cpuCrossLoadingPowerLimit)
-            _cpuCrossLoadingLimitControl.Value = cpuCrossLoadingPowerLimit;
-
-        if (_cpuPL1TauControl.Visibility == Visibility.Visible && defaults.CPUPL1Tau is { } cpuPL1Tau)
-            _cpuPL1TauControl.Value = cpuPL1Tau;
-
-        if (_apuSPPTPowerLimitControl.Visibility == Visibility.Visible && defaults.APUsPPTPowerLimit is { } apuSPPTPowerLimit)
-            _apuSPPTPowerLimitControl.Value = apuSPPTPowerLimit;
-
-        if (_cpuTemperatureLimitControl.Visibility == Visibility.Visible && defaults.CPUTemperatureLimit is { } cpuTemperatureLimit)
-            _cpuTemperatureLimitControl.Value = cpuTemperatureLimit;
-
-        if (_gpuPowerBoostControl.Visibility == Visibility.Visible && defaults.GPUPowerBoost is { } gpuPowerBoost)
-            _gpuPowerBoostControl.Value = gpuPowerBoost;
-
-        if (_gpuConfigurableTGPControl.Visibility == Visibility.Visible && defaults.GPUConfigurableTGP is { } gpuConfigurableTgp)
-            _gpuConfigurableTGPControl.Value = gpuConfigurableTgp;
-
-        if (_gpuTemperatureLimitControl.Visibility == Visibility.Visible && defaults.GPUTemperatureLimit is { } gpuTemperatureLimit)
-            _gpuTemperatureLimitControl.Value = gpuTemperatureLimit;
-
-        if (_gpuTotalProcessingPowerTargetOnAcOffsetFromBaselineControl.Visibility == Visibility.Visible && defaults.GPUTotalProcessingPowerTargetOnAcOffsetFromBaseline is { } gpuTotalProcessingPowerTargetOnAcOffsetFromBaseline)
-            _gpuTotalProcessingPowerTargetOnAcOffsetFromBaselineControl.Value = gpuTotalProcessingPowerTargetOnAcOffsetFromBaseline;
-
-        if (_gpuToCpuDynamicBoostControl.Visibility == Visibility.Visible && defaults.GPUToCPUDynamicBoost is { } gpuToCPUDynamicBoost)
-            _gpuToCpuDynamicBoostControl.Value = gpuToCPUDynamicBoost;
+        SetVal<int>(_gpuPowerBoostControl, defaults.GPUPowerBoost, v => _gpuPowerBoostControl.Value = v);
+        SetVal<int>(_gpuConfigurableTGPControl, defaults.GPUConfigurableTGP, v => _gpuConfigurableTGPControl.Value = v);
+        SetVal<int>(_gpuTemperatureLimitControl, defaults.GPUTemperatureLimit, v => _gpuTemperatureLimitControl.Value = v);
+        SetVal<int>(_gpuTotalProcessingPowerTargetOnAcOffsetFromBaselineControl, defaults.GPUTotalProcessingPowerTargetOnAcOffsetFromBaseline, v => _gpuTotalProcessingPowerTargetOnAcOffsetFromBaselineControl.Value = v);
+        SetVal<int>(_gpuToCpuDynamicBoostControl, defaults.GPUToCPUDynamicBoost, v => _gpuToCpuDynamicBoostControl.Value = v);
 
         if (_fanCurveCardControl.Visibility == Visibility.Visible && defaults.FanTable is { } fanTable)
         {
@@ -342,14 +368,11 @@ public partial class GodModeSettingsWindow
 
     private async void PresetsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (!_state.HasValue)
-            return;
+        if (!_state.HasValue) return;
 
-        if (!_presetsComboBox.TryGetSelectedItem<KeyValuePair<Guid, GodModePreset>>(out var item))
-            return;
+        if (!_presetsComboBox.TryGetSelectedItem<KeyValuePair<Guid, GodModePreset>>(out var item)) return;
 
-        if (_state.Value.ActivePresetId == item.Key)
-            return;
+        if (_state.Value.ActivePresetId == item.Key) return;
 
         _state = _state.Value with { ActivePresetId = item.Key };
         await SetStateAsync(_state.Value);
@@ -357,16 +380,14 @@ public partial class GodModeSettingsWindow
 
     private async void EditPresetsButton_Click(object sender, RoutedEventArgs e)
     {
-        if (!_state.HasValue)
-            return;
+        if (!_state.HasValue) return;
 
         var activePresetId = _state.Value.ActivePresetId;
         var presets = _state.Value.Presets;
         var preset = presets[activePresetId];
 
         var result = await MessageBoxHelper.ShowInputAsync(this, Resource.GodModeSettingsWindow_EditPreset_Title, Resource.GodModeSettingsWindow_EditPreset_Message, preset.Name);
-        if (string.IsNullOrEmpty(result))
-            return;
+        if (string.IsNullOrEmpty(result)) return;
 
         var newPresets = new Dictionary<Guid, GodModePreset>(presets)
         {
@@ -378,22 +399,16 @@ public partial class GodModeSettingsWindow
 
     private async void DeletePresetsButton_Click(object sender, RoutedEventArgs e)
     {
-        if (!_state.HasValue)
-            return;
-
-        if (_state.Value.Presets.Count <= 1)
-            return;
+        if (!_state.HasValue || _state.Value.Presets.Count <= 1) return;
 
         var activePresetId = _state.Value.ActivePresetId;
         var presets = _state.Value.Presets;
 
         var newPresets = new Dictionary<Guid, GodModePreset>(presets);
         newPresets.Remove(activePresetId);
-        var newActivePresetId = newPresets.OrderBy(kv => kv.Value.Name)
-            .Select(kv => kv.Key)
-            .First();
+        var newActivePresetId = newPresets.OrderBy(kv => kv.Value.Name).First().Key;
 
-        _state = new()
+        _state = new GodModeState
         {
             ActivePresetId = newActivePresetId,
             Presets = newPresets.AsReadOnlyDictionary()
@@ -403,12 +418,10 @@ public partial class GodModeSettingsWindow
 
     private async void AddPresetsButton_Click(object sender, RoutedEventArgs e)
     {
-        if (!_state.HasValue)
-            return;
+        if (!_state.HasValue) return;
 
         var result = await MessageBoxHelper.ShowInputAsync(this, Resource.GodModeSettingsWindow_EditPreset_Title, Resource.GodModeSettingsWindow_EditPreset_Message);
-        if (string.IsNullOrEmpty(result))
-            return;
+        if (string.IsNullOrEmpty(result)) return;
 
         var activePresetId = _state.Value.ActivePresetId;
         var presets = _state.Value.Presets;
@@ -421,7 +434,7 @@ public partial class GodModeSettingsWindow
             [newActivePresetId] = newPreset
         };
 
-        _state = new()
+        _state = new GodModeState
         {
             ActivePresetId = newActivePresetId,
             Presets = newPresets.AsReadOnlyDictionary()
@@ -436,8 +449,7 @@ public partial class GodModeSettingsWindow
         var preset = state.Presets[state.ActivePresetId];
         var data = preset.FanTableInfo?.Data;
 
-        if (data is null)
-            return;
+        if (data is null) return;
 
         var defaultFanTable = await _godModeController.GetDefaultFanTableAsync();
         var defaultFanTableInfo = new FanTableInfo(data, defaultFanTable);
@@ -453,23 +465,18 @@ public partial class GodModeSettingsWindow
             return;
         }
 
-        var menuItems = _defaults
-            .OrderBy(d => d.Key)
-            .Select(d =>
-            {
-                var menuItem = new MenuItem { Header = d.Key.GetDisplayName() };
-                menuItem.Click += (_, _) => SetDefaults(d.Value);
-                return menuItem;
-            });
-
         var contextMenu = new ContextMenu
         {
             PlacementTarget = _loadButton,
             Placement = PlacementMode.Bottom,
         };
 
-        foreach (var menuItem in menuItems)
+        foreach (var d in _defaults.OrderBy(x => x.Key))
+        {
+            var menuItem = new MenuItem { Header = d.Key.GetDisplayName() };
+            menuItem.Click += (_, _) => SetDefaults(d.Value);
             contextMenu.Items.Add(menuItem);
+        }
 
         _loadButton.ContextMenu = contextMenu;
         _loadButton.ContextMenu.IsOpen = true;
@@ -477,8 +484,7 @@ public partial class GodModeSettingsWindow
 
     private async void SaveAndCloseButton_Click(object sender, RoutedEventArgs e)
     {
-        if (await ApplyAsync())
-            Close();
+        if (await ApplyAsync()) Close();
     }
 
     private async void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -489,18 +495,14 @@ public partial class GodModeSettingsWindow
 
     private void CpuLongTermPowerLimitSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
     {
-        if (_isRefreshing)
-            return;
-
+        if (_isRefreshing) return;
         if (_cpuLongTermPowerLimitControl.Value > _cpuShortTermPowerLimitControl.Value)
             _cpuShortTermPowerLimitControl.Value = _cpuLongTermPowerLimitControl.Value;
     }
 
     private void CpuShortTermPowerLimitSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
     {
-        if (_isRefreshing)
-            return;
-
+        if (_isRefreshing) return;
         if (_cpuLongTermPowerLimitControl.Value > _cpuShortTermPowerLimitControl.Value)
             _cpuLongTermPowerLimitControl.Value = _cpuShortTermPowerLimitControl.Value;
     }
@@ -508,5 +510,30 @@ public partial class GodModeSettingsWindow
     private void FanFullSpeedToggle_Click(object sender, RoutedEventArgs e)
     {
         _fanCurveCardControl.IsEnabled = !(_fanFullSpeedToggle.IsChecked ?? false);
+    }
+
+    private async void OverclockingToggle_Click(object sender, RoutedEventArgs e)
+    {
+        if (_isRefreshing)
+        {
+            return;
+        }
+
+        await UpdateOverclockingVisibilityAsync();
+    }
+
+    private void SetVal<T>(Control control, T? value, Action<T> setter) where T : struct
+    {
+        if (control.Visibility == Visibility.Visible && value.HasValue) setter(value.Value);
+    }
+
+    private async void CoreCurveToggle_Click(object sender, RoutedEventArgs e)
+    {
+        if (_isRefreshing)
+        {
+            return;
+        }
+
+        await UpdateCoreCurveVisibilityAsync();
     }
 }

@@ -58,14 +58,6 @@ public partial class NotificationsSettingsWindow
         _automationToggle.IsChecked = _settings.Store.Notifications.AutomationNotification;
 
         RefreshCards();
-
-        PreviewKeyDown += (s, e) => {
-            if (e.Key == Key.System && e.SystemKey == Key.LeftAlt)
-            {
-                e.Handled = true;
-                Keyboard.ClearFocus();
-            }
-        };
     }
 
     private void RefreshCards()

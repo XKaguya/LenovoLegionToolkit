@@ -39,8 +39,7 @@ public static class FullscreenHelper
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Couldn't check if application is full screen.", ex);
+            Log.Instance.Trace($"Couldn't check if application is full screen.", ex);
 
             return false;
         }

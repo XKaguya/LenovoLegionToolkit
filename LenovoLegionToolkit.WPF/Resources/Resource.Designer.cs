@@ -2245,6 +2245,15 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Customize Gadget Elements 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadget_Custom_Title {
+            get {
+                return ResourceManager.GetString("FloatingGadget_Custom_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Simple 的本地化字符串。
         /// </summary>
         public static string FloatingGadget_Style_Simple {
@@ -2523,6 +2532,24 @@ namespace LenovoLegionToolkit.WPF.Resources {
         public static string GodModeSettingsWindow_Advanced_Title {
             get {
                 return ResourceManager.GetString("GodModeSettingsWindow_Advanced_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 All Core Curve Optimizer. 的本地化字符串。
+        /// </summary>
+        public static string GodModeSettingsWindow_AllCoreCurveOptimizer_Description {
+            get {
+                return ResourceManager.GetString("GodModeSettingsWindow_AllCoreCurveOptimizer_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 All Core Curve Optimizer 的本地化字符串。
+        /// </summary>
+        public static string GodModeSettingsWindow_AllCoreCurveOptimizer_Title {
+            get {
+                return ResourceManager.GetString("GodModeSettingsWindow_AllCoreCurveOptimizer_Title", resourceCulture);
             }
         }
         
@@ -2864,11 +2891,83 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Precision Boost Overdrive Boost Frequency. 的本地化字符串。
+        /// </summary>
+        public static string GodModeSettingsWindow_PrecisionBoostOverdriveBoostFrequency_Description {
+            get {
+                return ResourceManager.GetString("GodModeSettingsWindow_PrecisionBoostOverdriveBoostFrequency_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Precision Boost Overdrive Boost Frequency 的本地化字符串。
+        /// </summary>
+        public static string GodModeSettingsWindow_PrecisionBoostOverdriveBoostFrequency_Title {
+            get {
+                return ResourceManager.GetString("GodModeSettingsWindow_PrecisionBoostOverdriveBoostFrequency_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Precision Boost Overdrive Scaler. 的本地化字符串。
+        /// </summary>
+        public static string GodModeSettingsWindow_PrecisionBoostOverdriveScaler_Description {
+            get {
+                return ResourceManager.GetString("GodModeSettingsWindow_PrecisionBoostOverdriveScaler_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Precision Boost Overdrive Scaler 的本地化字符串。
+        /// </summary>
+        public static string GodModeSettingsWindow_PrecisionBoostOverdriveScaler_Title {
+            get {
+                return ResourceManager.GetString("GodModeSettingsWindow_PrecisionBoostOverdriveScaler_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Custom Mode Settings 的本地化字符串。
         /// </summary>
         public static string GodModeSettingsWindow_Title {
             get {
                 return ResourceManager.GetString("GodModeSettingsWindow_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Enable / Disable Core Curve Adjustment. 的本地化字符串。
+        /// </summary>
+        public static string GodModeSettingsWindow_Toggle_CoreCurve_Message {
+            get {
+                return ResourceManager.GetString("GodModeSettingsWindow_Toggle_CoreCurve_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Core Curve Adjustment 的本地化字符串。
+        /// </summary>
+        public static string GodModeSettingsWindow_Toggle_CoreCurve_Title {
+            get {
+                return ResourceManager.GetString("GodModeSettingsWindow_Toggle_CoreCurve_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Enable / Disable Advanced Overclocking options. 的本地化字符串。
+        /// </summary>
+        public static string GodModeSettingsWindow_Toggle_OC_Message {
+            get {
+                return ResourceManager.GetString("GodModeSettingsWindow_Toggle_OC_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Advanced Overclocking Options 的本地化字符串。
+        /// </summary>
+        public static string GodModeSettingsWindow_Toggle_OC_Title {
+            get {
+                return ResourceManager.GetString("GodModeSettingsWindow_Toggle_OC_Title", resourceCulture);
             }
         }
         
@@ -3142,6 +3241,19 @@ namespace LenovoLegionToolkit.WPF.Resources {
         public static string Keyboard_VantageEnabledWarning_Title {
             get {
                 return ResourceManager.GetString("Keyboard_VantageEnabledWarning_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Custom Mode grants access to critical system parameters such as power limits and fan curves. 
+        ///
+        ///Misconfiguration can lead to severe system instability, thermal throttling, or permanent hardware damage. Modifications made here may void your manufacturer warranty. 
+        ///
+        ///Do not proceed unless you possess the necessary technical expertise. 的本地化字符串。
+        /// </summary>
+        public static string KeyboardBacklightPage_CustomMode_Warning {
+            get {
+                return ResourceManager.GetString("KeyboardBacklightPage_CustomMode_Warning", resourceCulture);
             }
         }
         
@@ -5697,6 +5809,15 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Image Cleared 的本地化字符串。
+        /// </summary>
+        public static string SettingsPage_ClearBackgroundImage_Title {
+            get {
+                return ResourceManager.GetString("SettingsPage_ClearBackgroundImage_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Enable Command Line Interface that allows control from command line. 的本地化字符串。
         /// </summary>
         public static string SettingsPage_CLI_Message {
@@ -6395,8 +6516,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   查找类似 Use new sensor dashboard instead of the old one. 
-        ///Note: Using the new sensor dashboard may cause some antivirus programmes to display a warning pop-up. For more information, see: LibreHardwareMonitor/LibreHardwareMonitor#984 的本地化字符串。
+        ///   查找类似 Use new sensor dashboard instead of the old one.  的本地化字符串。
         /// </summary>
         public static string SettingsPage_UseNewSensorDashboard_Message {
             get {

@@ -41,13 +41,11 @@ public class SessionLockUnlockListener : IListener<SessionLockUnlockListener.Cha
         if (flags == PInvoke.WTS_SESSIONSTATE_UNKNOWN)
         {
             IsLocked = null;
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Unknown error occured when getting active console session flags.");
+            Log.Instance.Trace($"Unknown error occured when getting active console session flags.");
             return;
         }
         var locked = (flags == PInvoke.WTS_SESSIONSTATE_LOCK);
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Session lock unlock state switched. [locked={locked}]");
+        Log.Instance.Trace($"Session lock unlock state switched. [locked={locked}]");
         IsLocked = locked;
         Changed?.Invoke(this, new(locked));
     }

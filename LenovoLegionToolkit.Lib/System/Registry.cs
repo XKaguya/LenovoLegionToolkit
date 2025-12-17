@@ -61,8 +61,7 @@ public static class Registry
             catch (ThreadAbortException) { }
             catch (Exception ex)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Unknown error.", ex);
+                Log.Instance.Trace($"Unknown error.", ex);
             }
         }
     }
@@ -74,21 +73,18 @@ public static class Registry
 
         var pathFormatted = @$"SELECT * FROM RegistryValueChangeEvent WHERE Hive = 'HKEY_USERS' AND KeyPath = '{hive}\\{path.Replace(@"\", @"\\")}' AND ValueName = '{valueName}'";
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Starting listener... [hive={hive}, pathFormatted={pathFormatted}, key={valueName}]");
+        Log.Instance.Trace($"Starting listener... [hive={hive}, pathFormatted={pathFormatted}, key={valueName}]");
 
         var watcher = new ManagementEventWatcher(pathFormatted);
         watcher.EventArrived += (_, e) =>
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Event arrived [classPath={e.NewEvent.ClassPath}, hive={hive}, pathFormatted={pathFormatted}, key={valueName}]");
+            Log.Instance.Trace($"Event arrived [classPath={e.NewEvent.ClassPath}, hive={hive}, pathFormatted={pathFormatted}, key={valueName}]");
 
             handler();
         };
         watcher.Start();
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Started listener [hive={hive}, pathFormatted={pathFormatted}, key={valueName}]");
+        Log.Instance.Trace($"Started listener [hive={hive}, pathFormatted={pathFormatted}, key={valueName}]");
 
         return watcher;
     }
@@ -172,28 +168,24 @@ public static class Registry
             // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
             if (current is null)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Could not get current user.");
+                Log.Instance.Trace($"Could not get current user.");
 
                 return false;
             }
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Attempting to add permissions to {hive}\\{subKey} for {current.Name}...");
+            Log.Instance.Trace($"Attempting to add permissions to {hive}\\{subKey} for {current.Name}...");
 
             var user = current.User;
             if (user is null)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Could not get current security identifier of user {current.Name}.");
+                Log.Instance.Trace($"Could not get current security identifier of user {current.Name}.");
 
                 return false;
             }
 
             if (!TakeOwnership(hive, subKey, user, out originalOwner))
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Could not take ownership of {hive}\\{subKey}. [user={user}, originalOwner={originalOwner}]");
+                Log.Instance.Trace($"Could not take ownership of {hive}\\{subKey}. [user={user}, originalOwner={originalOwner}]");
 
                 return false;
             }
@@ -202,8 +194,7 @@ public static class Registry
             using var key = baseKey.OpenSubKey(subKey, RegistryKeyPermissionCheck.ReadWriteSubTree, RegistryRights.ChangePermissions | RegistryRights.ReadKey);
             if (key is null)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Failed to open key {hive}\\{subKey} for {current.Name}.");
+                Log.Instance.Trace($"Failed to open key {hive}\\{subKey} for {current.Name}.");
 
                 return false;
             }
@@ -215,15 +206,13 @@ public static class Registry
             accessControl.AddAccessRule(new(user, rights, type));
             key.SetAccessControl(accessControl);
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Permissions added on {hive}\\{subKey} for {current.Name}. [rights={rights}, type={type}]");
+            Log.Instance.Trace($"Permissions added on {hive}\\{subKey} for {current.Name}. [rights={rights}, type={type}]");
 
             return true;
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Failed to add permissions for {hive}\\{subKey}.", ex);
+            Log.Instance.Trace($"Failed to add permissions for {hive}\\{subKey}.", ex);
 
             throw;
         }
@@ -231,18 +220,15 @@ public static class Registry
         {
             if (originalOwner is not null)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Restoring ownership of {hive}\\{subKey} to {originalOwner}...");
+                Log.Instance.Trace($"Restoring ownership of {hive}\\{subKey} to {originalOwner}...");
 
                 if (TakeOwnership(hive, subKey, originalOwner, out _))
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Ownership of {hive}\\{subKey} restored to {originalOwner}.");
+                    Log.Instance.Trace($"Ownership of {hive}\\{subKey} restored to {originalOwner}.");
                 }
                 else
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Ownership of {hive}\\{subKey} NOT restored {originalOwner}.");
+                    Log.Instance.Trace($"Ownership of {hive}\\{subKey} NOT restored {originalOwner}.");
                 }
             }
         }

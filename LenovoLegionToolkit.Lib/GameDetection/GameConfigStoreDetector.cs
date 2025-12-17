@@ -30,15 +30,13 @@ internal class GameConfigStoreDetector
 
         _listener = Registry.ObserveKey(GAME_CONFIG_STORE_HIVE, GAME_CONFIG_STORE_PATH, true, () =>
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Registry changed...");
+            Log.Instance.Trace($"Registry changed...");
 
             var newPaths = GetDetectedGamePaths();
 
             if (!newPaths.SetEquals(lastPaths))
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Detected games changed.");
+                Log.Instance.Trace($"Detected games changed.");
 
                 GamesDetected?.Invoke(this, new(newPaths));
             }
@@ -58,8 +56,7 @@ internal class GameConfigStoreDetector
 
     public static HashSet<ProcessInfo> GetDetectedGamePaths()
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Detecting games...");
+        Log.Instance.Trace($"Detecting games...");
 
         var result = new HashSet<ProcessInfo>();
 
@@ -72,12 +69,9 @@ internal class GameConfigStoreDetector
             result.Add(ProcessInfo.FromPath(exePath));
         }
 
-        if (Log.Instance.IsTraceEnabled)
-        {
-            Log.Instance.Trace($"Detected games:");
-            foreach (var r in result)
-                Log.Instance.Trace($" - {r}");
-        }
+        Log.Instance.Trace($"Detected games:");
+        foreach (var r in result)
+            Log.Instance.Trace($" - {r}");
 
         return result;
     }

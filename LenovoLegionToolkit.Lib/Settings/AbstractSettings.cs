@@ -86,8 +86,7 @@ public abstract class AbstractSettings<T> where T : class, new()
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Unable to create backup for {_fileName}", ex);
+            Log.Instance.Trace($"Unable to create backup for {_fileName}", ex);
         }
     }
 }

@@ -23,13 +23,11 @@ public class GodModeControllerV1(
     {
         if (await legionZoneDisabler.GetStatusAsync().ConfigureAwait(false) == SoftwareStatus.Enabled)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Can't correctly apply state when Legion Zone is running.");
+            Log.Instance.Trace($"Can't correctly apply state when Legion Zone is running.");
             return;
         }
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Applying state...");
+        Log.Instance.Trace($"Applying state...");
 
         var (presetId, preset) = await GetActivePresetAsync().ConfigureAwait(false);
 
@@ -49,15 +47,13 @@ public class GodModeControllerV1(
         {
             try
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Applying CPU Long Term Power Limit: {cpuLongTermPowerLimit}");
+                Log.Instance.Trace($"Applying CPU Long Term Power Limit: {cpuLongTermPowerLimit}");
 
                 await SetCPULongTermPowerLimitAsync(cpuLongTermPowerLimit.Value.Value).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Apply failed. [setting=cpuLongTermPowerLimit]", ex);
+                Log.Instance.Trace($"Apply failed. [setting=cpuLongTermPowerLimit]", ex);
                 throw;
             }
         }
@@ -66,15 +62,13 @@ public class GodModeControllerV1(
         {
             try
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Applying CPU Short Term Power Limit: {cpuShortTermPowerLimit}");
+                Log.Instance.Trace($"Applying CPU Short Term Power Limit: {cpuShortTermPowerLimit}");
 
                 await SetCPUShortTermPowerLimitAsync(cpuShortTermPowerLimit.Value.Value).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Apply failed. [setting=cpuShortTermPowerLimit]", ex);
+                Log.Instance.Trace($"Apply failed. [setting=cpuShortTermPowerLimit]", ex);
                 throw;
             }
         }
@@ -83,15 +77,13 @@ public class GodModeControllerV1(
         {
             try
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Applying CPU Peak Power Limit: {cpuPeakPowerLimit}");
+                Log.Instance.Trace($"Applying CPU Peak Power Limit: {cpuPeakPowerLimit}");
 
                 await SetCPUPeakPowerLimitAsync(cpuPeakPowerLimit.Value.Value).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Apply failed. [setting=cpuPeakPowerLimit]", ex);
+                Log.Instance.Trace($"Apply failed. [setting=cpuPeakPowerLimit]", ex);
                 throw;
             }
         }
@@ -100,15 +92,13 @@ public class GodModeControllerV1(
         {
             try
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Applying CPU Cross Loading Power Limit: {cpuCrossLoadingPowerLimit}");
+                Log.Instance.Trace($"Applying CPU Cross Loading Power Limit: {cpuCrossLoadingPowerLimit}");
 
                 await SetCPUCrossLoadingPowerLimitAsync(cpuCrossLoadingPowerLimit.Value.Value).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Apply failed. [setting=cpuCrossLoadingPowerLimit]", ex);
+                Log.Instance.Trace($"Apply failed. [setting=cpuCrossLoadingPowerLimit]", ex);
                 throw;
             }
         }
@@ -117,15 +107,13 @@ public class GodModeControllerV1(
         {
             try
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Applying APU sPPT Power Limit: {apuSPPTPowerLimit}");
+                Log.Instance.Trace($"Applying APU sPPT Power Limit: {apuSPPTPowerLimit}");
 
                 await SetAPUSPPTPowerLimitAsync(apuSPPTPowerLimit.Value.Value).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Apply failed. [setting=apuSPPTPowerLimit]", ex);
+                Log.Instance.Trace($"Apply failed. [setting=apuSPPTPowerLimit]", ex);
                 throw;
             }
         }
@@ -134,15 +122,13 @@ public class GodModeControllerV1(
         {
             try
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Applying CPU Temperature Limit: {cpuTemperatureLimit}");
+                Log.Instance.Trace($"Applying CPU Temperature Limit: {cpuTemperatureLimit}");
 
                 await SetCPUTemperatureLimitAsync(cpuTemperatureLimit.Value.Value).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Apply failed. [setting=cpuTemperatureLimit]", ex);
+                Log.Instance.Trace($"Apply failed. [setting=cpuTemperatureLimit]", ex);
                 throw;
             }
         }
@@ -151,15 +137,13 @@ public class GodModeControllerV1(
         {
             try
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Applying GPU Power Boost: {gpuPowerBoost}");
+                Log.Instance.Trace($"Applying GPU Power Boost: {gpuPowerBoost}");
 
                 await SetGPUPowerBoostAsync(gpuPowerBoost.Value.Value).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Apply failed. [setting=gpuPowerBoost]", ex);
+                Log.Instance.Trace($"Apply failed. [setting=gpuPowerBoost]", ex);
             }
         }
 
@@ -167,15 +151,13 @@ public class GodModeControllerV1(
         {
             try
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Applying GPU Configurable TGP: {gpuConfigurableTgp}");
+                Log.Instance.Trace($"Applying GPU Configurable TGP: {gpuConfigurableTgp}");
 
                 await SetGPUConfigurableTGPAsync(gpuConfigurableTgp.Value.Value).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Apply failed. [setting=gpuConfigurableTgp]", ex);
+                Log.Instance.Trace($"Apply failed. [setting=gpuConfigurableTgp]", ex);
             }
         }
 
@@ -183,15 +165,13 @@ public class GodModeControllerV1(
         {
             try
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Applying GPU Temperature Limit: {gpuTemperatureLimit}");
+                Log.Instance.Trace($"Applying GPU Temperature Limit: {gpuTemperatureLimit}");
 
                 await SetGPUTemperatureLimitAsync(gpuTemperatureLimit.Value.Value).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Apply failed. [setting=gpuTemperatureLimit]", ex);
+                Log.Instance.Trace($"Apply failed. [setting=gpuTemperatureLimit]", ex);
             }
         }
 
@@ -199,15 +179,13 @@ public class GodModeControllerV1(
         {
             try
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Applying Fan Full Speed {fanFullSpeed}...");
+                Log.Instance.Trace($"Applying Fan Full Speed {fanFullSpeed}...");
 
                 await SetFanFullSpeedAsync(fanFullSpeed).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Apply failed. [setting=fanFullSpeed]", ex);
+                Log.Instance.Trace($"Apply failed. [setting=fanFullSpeed]", ex);
                 throw;
             }
         }
@@ -216,27 +194,23 @@ public class GodModeControllerV1(
 
             try
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Making sure Fan Full Speed is false...");
+                Log.Instance.Trace($"Making sure Fan Full Speed is false...");
 
                 await SetFanFullSpeedAsync(false).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Apply failed. [setting=fanFullSpeed]", ex);
+                Log.Instance.Trace($"Apply failed. [setting=fanFullSpeed]", ex);
                 throw;
             }
 
             try
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Applying Fan Table {fanTable}...");
+                Log.Instance.Trace($"Applying Fan Table {fanTable}...");
 
                 if (!await IsValidFanTableAsync(fanTable).ConfigureAwait(false))
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Fan table invalid, replacing with default...");
+                    Log.Instance.Trace($"Fan table invalid, replacing with default...");
 
                     fanTable = await GetDefaultFanTableAsync().ConfigureAwait(false);
                 }
@@ -245,16 +219,19 @@ public class GodModeControllerV1(
             }
             catch (Exception ex)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Apply failed. [setting=fanTable]", ex);
+                Log.Instance.Trace($"Apply failed. [setting=fanTable]", ex);
                 throw;
             }
         }
 
         RaisePresetChanged(presetId);
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"State applied. [name={preset.Name}, id={presetId}]");
+        Log.Instance.Trace($"State applied. [name={preset.Name}, id={presetId}]");
+    }
+
+    public override async Task<Dictionary<Guid, GodModeSettings.GodModeSettingsStore.Preset>> GetGodModePresetsAsync()
+    {
+        return await base.GetGodModePresetsAsync().ConfigureAwait(false);
     }
 
     public override Task<FanTable> GetMinimumFanTableAsync()
@@ -267,24 +244,19 @@ public class GodModeControllerV1(
     {
         try
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Getting defaults in other power modes...");
+            Log.Instance.Trace($"Getting defaults in other power modes...");
 
             var result = await GetDefaultValuesInDifferentModeAsync().ConfigureAwait(false);
 
-            if (Log.Instance.IsTraceEnabled)
-            {
-                Log.Instance.Trace($"Defaults in other power modes retrieved:");
-                foreach (var (powerMode, defaults) in result)
-                    Log.Instance.Trace($" - {powerMode}: {defaults}");
-            }
+            Log.Instance.Trace($"Defaults in other power modes retrieved:");
+            foreach (var (powerMode, defaults) in result)
+                Log.Instance.Trace($" - {powerMode}: {defaults}");
 
             return result;
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Failed to get defaults in other power modes.", ex);
+            Log.Instance.Trace($"Failed to get defaults in other power modes.", ex);
             return [];
         }
     }
@@ -293,15 +265,13 @@ public class GodModeControllerV1(
     {
         try
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Restoring defaults for {state}...");
+            Log.Instance.Trace($"Restoring defaults for {state}...");
 
             var result = await GetDefaultValuesInDifferentModeAsync().ConfigureAwait(false);
 
             if (!result.TryGetValue(state, out var defaults))
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Defaults for {state} not found. Skipping...");
+                Log.Instance.Trace($"Defaults for {state} not found. Skipping...");
 
                 return;
             }
@@ -310,15 +280,13 @@ public class GodModeControllerV1(
             {
                 try
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Applying CPU Long Term Power Limit: {defaults.CPULongTermPowerLimit}");
+                    Log.Instance.Trace($"Applying CPU Long Term Power Limit: {defaults.CPULongTermPowerLimit}");
 
                     await SetCPULongTermPowerLimitAsync(defaults.CPULongTermPowerLimit.Value).ConfigureAwait(false);
                 }
                 catch (Exception ex)
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Apply failed. [setting=cpuLongTermPowerLimit]", ex);
+                    Log.Instance.Trace($"Apply failed. [setting=cpuLongTermPowerLimit]", ex);
                     throw;
                 }
             }
@@ -327,15 +295,13 @@ public class GodModeControllerV1(
             {
                 try
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Applying CPU Short Term Power Limit: {defaults.CPUShortTermPowerLimit}");
+                    Log.Instance.Trace($"Applying CPU Short Term Power Limit: {defaults.CPUShortTermPowerLimit}");
 
                     await SetCPUShortTermPowerLimitAsync(defaults.CPUShortTermPowerLimit.Value).ConfigureAwait(false);
                 }
                 catch (Exception ex)
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Apply failed. [setting=cpuShortTermPowerLimit]", ex);
+                    Log.Instance.Trace($"Apply failed. [setting=cpuShortTermPowerLimit]", ex);
                     throw;
                 }
             }
@@ -344,15 +310,13 @@ public class GodModeControllerV1(
             {
                 try
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Applying CPU Peak Power Limit: {defaults.CPUPeakPowerLimit}");
+                    Log.Instance.Trace($"Applying CPU Peak Power Limit: {defaults.CPUPeakPowerLimit}");
 
                     await SetCPUPeakPowerLimitAsync(defaults.CPUPeakPowerLimit.Value).ConfigureAwait(false);
                 }
                 catch (Exception ex)
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Apply failed. [setting=cpuPeakPowerLimit]", ex);
+                    Log.Instance.Trace($"Apply failed. [setting=cpuPeakPowerLimit]", ex);
                     throw;
                 }
             }
@@ -361,15 +325,13 @@ public class GodModeControllerV1(
             {
                 try
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Applying CPU Cross Loading Power Limit: {defaults.CPUCrossLoadingPowerLimit}");
+                    Log.Instance.Trace($"Applying CPU Cross Loading Power Limit: {defaults.CPUCrossLoadingPowerLimit}");
 
                     await SetCPUCrossLoadingPowerLimitAsync(defaults.CPUCrossLoadingPowerLimit.Value).ConfigureAwait(false);
                 }
                 catch (Exception ex)
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Apply failed. [setting=cpuCrossLoadingPowerLimit]", ex);
+                    Log.Instance.Trace($"Apply failed. [setting=cpuCrossLoadingPowerLimit]", ex);
                     throw;
                 }
             }
@@ -378,15 +340,13 @@ public class GodModeControllerV1(
             {
                 try
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Applying APU sPPT Power Limit: {defaults.APUsPPTPowerLimit}");
+                    Log.Instance.Trace($"Applying APU sPPT Power Limit: {defaults.APUsPPTPowerLimit}");
 
                     await SetAPUSPPTPowerLimitAsync(defaults.APUsPPTPowerLimit.Value).ConfigureAwait(false);
                 }
                 catch (Exception ex)
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Apply failed. [setting=apuSPPTPowerLimit]", ex);
+                    Log.Instance.Trace($"Apply failed. [setting=apuSPPTPowerLimit]", ex);
                     throw;
                 }
             }
@@ -395,15 +355,13 @@ public class GodModeControllerV1(
             {
                 try
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Applying CPU Temperature Limit: {defaults.CPUTemperatureLimit}");
+                    Log.Instance.Trace($"Applying CPU Temperature Limit: {defaults.CPUTemperatureLimit}");
 
                     await SetCPUTemperatureLimitAsync(defaults.CPUTemperatureLimit.Value).ConfigureAwait(false);
                 }
                 catch (Exception ex)
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Apply failed. [setting=cpuTemperatureLimit]", ex);
+                    Log.Instance.Trace($"Apply failed. [setting=cpuTemperatureLimit]", ex);
                     throw;
                 }
             }
@@ -412,15 +370,13 @@ public class GodModeControllerV1(
             {
                 try
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Applying GPU Power Boost: {defaults.GPUPowerBoost}");
+                    Log.Instance.Trace($"Applying GPU Power Boost: {defaults.GPUPowerBoost}");
 
                     await SetGPUPowerBoostAsync(defaults.GPUPowerBoost.Value).ConfigureAwait(false);
                 }
                 catch (Exception ex)
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Apply failed. [setting=gpuPowerBoost]", ex);
+                    Log.Instance.Trace($"Apply failed. [setting=gpuPowerBoost]", ex);
                     throw;
                 }
             }
@@ -429,23 +385,20 @@ public class GodModeControllerV1(
             {
                 try
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Applying GPU Configurable TGP: {defaults.GPUConfigurableTGP}");
+                    Log.Instance.Trace($"Applying GPU Configurable TGP: {defaults.GPUConfigurableTGP}");
 
                     await SetGPUConfigurableTGPAsync(defaults.GPUConfigurableTGP.Value).ConfigureAwait(false);
                 }
                 catch (Exception ex)
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Apply failed. [setting=gpuConfigurableTgp]", ex);
+                    Log.Instance.Trace($"Apply failed. [setting=gpuConfigurableTgp]", ex);
                     throw;
                 }
             }
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Failed to restore defaults for {state}.", ex);
+            Log.Instance.Trace($"Failed to restore defaults for {state}.", ex);
         }
     }
 
@@ -471,8 +424,7 @@ public class GodModeControllerV1(
             MaxValueOffset = 0
         };
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Default state retrieved: {preset}");
+        Log.Instance.Trace($"Default state retrieved: {preset}");
 
         return preset;
     }
@@ -593,8 +545,7 @@ public class GodModeControllerV1(
 
     private static async Task<FanTableData[]?> GetFanTableDataAsync()
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Reading fan table data...");
+        Log.Instance.Trace($"Reading fan table data...");
 
         var data = await WMI.LenovoFanTableData.ReadAsync().ConfigureAwait(false);
 
@@ -614,30 +565,26 @@ public class GodModeControllerV1(
 
         if (fanTableData.Length != 3)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Bad fan table length: {fanTableData}");
+            Log.Instance.Trace($"Bad fan table length: {fanTableData}");
 
             return null;
         }
 
         if (fanTableData.Count(ftd => ftd.FanSpeeds.Length == 10) != 3)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Bad fan table fan speeds length: {fanTableData}");
+            Log.Instance.Trace($"Bad fan table fan speeds length: {fanTableData}");
 
             return null;
         }
 
         if (fanTableData.Count(ftd => ftd.Temps.Length == 10) != 3)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Bad fan table temps length: {fanTableData}");
+            Log.Instance.Trace($"Bad fan table temps length: {fanTableData}");
 
             return null;
         }
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Fan table data: {fanTableData}");
+        Log.Instance.Trace($"Fan table data: {string.Join(", ", fanTableData)}");
 
         return fanTableData;
     }

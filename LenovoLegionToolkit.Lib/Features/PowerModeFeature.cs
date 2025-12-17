@@ -1,12 +1,14 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using LenovoLegionToolkit.Lib.Controllers;
+﻿using LenovoLegionToolkit.Lib.Controllers;
 using LenovoLegionToolkit.Lib.Controllers.GodMode;
 using LenovoLegionToolkit.Lib.Listeners;
 using LenovoLegionToolkit.Lib.System;
 using LenovoLegionToolkit.Lib.System.Management;
 using LenovoLegionToolkit.Lib.Utils;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using static LenovoLegionToolkit.Lib.Settings.GodModeSettings;
 
 namespace LenovoLegionToolkit.Lib.Features;
 
@@ -29,9 +31,25 @@ public class PowerModeFeature(
     public override async Task<PowerModeState[]> GetAllStatesAsync()
     {
         var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
-        return mi.Properties.SupportsGodMode
-            ? [PowerModeState.Quiet, PowerModeState.Balance, PowerModeState.Performance, PowerModeState.Extreme, PowerModeState.GodMode]
-            : [PowerModeState.Quiet, PowerModeState.Balance, PowerModeState.Performance, PowerModeState.Extreme];
+
+        var states = new List<PowerModeState>
+        {
+            PowerModeState.Quiet,
+            PowerModeState.Balance,
+            PowerModeState.Performance
+        };
+
+        if (mi.Properties.SupportsExtremeMode)
+        {
+            states.Add(PowerModeState.Extreme);
+        }
+
+        if (mi.Properties.SupportsGodMode)
+        {
+            states.Add(PowerModeState.GodMode);
+        }
+
+        return states.ToArray();
     }
 
     public override async Task SetStateAsync(PowerModeState state)
@@ -88,11 +106,11 @@ public class PowerModeFeature(
         await SetStateAsync(state).ConfigureAwait(false);
     }
 
-    public async Task EnsureCorrectWindowsPowerSettingsAreSetAsync()
+    public async Task EnsureCorrectWindowsPowerSettingsAreSetAsync(GodModeSettingsStore.Preset? preset = null)
     {
         var state = await GetStateAsync().ConfigureAwait(false);
-        await windowsPowerModeController.SetPowerModeAsync(state).ConfigureAwait(false);
-        await windowsPowerPlanController.SetPowerPlanAsync(state, true).ConfigureAwait(false);
+        await windowsPowerModeController.SetPowerModeAsync(state, preset).ConfigureAwait(false);
+        await windowsPowerPlanController.SetPowerPlanAsync(state, true, preset).ConfigureAwait(false);
     }
 
     public async Task EnsureGodModeStateIsAppliedAsync()

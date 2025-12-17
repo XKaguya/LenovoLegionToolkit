@@ -29,8 +29,7 @@ public class SpecialKeyListener(
 
     protected override SpecialKey GetValue(int value)
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Event received. [value={value}]");
+        Log.Instance.Trace($"Event received. [value={value}]");
 
         var result = (SpecialKey)value;
         return result;
@@ -44,8 +43,7 @@ public class SpecialKeyListener(
         {
             if (await fnKeysDisabler.GetStatusAsync().ConfigureAwait(false) == SoftwareStatus.Enabled)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Ignoring, FnKeys are enabled.");
+                Log.Instance.Trace($"Ignoring, FnKeys are enabled.");
                 return;
             }
 
@@ -115,8 +113,7 @@ public class SpecialKeyListener(
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Failed to handle key. [key={value}, value={(int)value}]", ex);
+            Log.Instance.Trace($"Failed to handle key. [key={value}, value={(int)value}]", ex);
         }
     }
 
@@ -153,8 +150,7 @@ public class SpecialKeyListener(
             if (!await feature.IsSupportedAsync().ConfigureAwait(false))
                 return;
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Switch refresh rate after Fn+R...");
+            Log.Instance.Trace($"Switch refresh rate after Fn+R...");
 
             var all = await feature.GetAllStatesAsync().ConfigureAwait(false);
             var current = await feature.GetStateAsync().ConfigureAwait(false);
@@ -162,18 +158,14 @@ public class SpecialKeyListener(
 
             var filtered = all.Except(excluded).ToArray();
 
-            if (Log.Instance.IsTraceEnabled)
-            {
-                Log.Instance.Trace($"Refresh rates: [all={string.Join(", ", all.Select(r => r.Frequency))}]");
-                Log.Instance.Trace($" - All: {string.Join(", ", all.Select(r => r.Frequency))}");
-                Log.Instance.Trace($" - Excluded: {string.Join(", ", excluded.Select(r => r.Frequency))}");
-                Log.Instance.Trace($" - Filtered: {string.Join(", ", filtered.Select(r => r.Frequency))}");
-            }
+            Log.Instance.Trace($"Refresh rates: [all={string.Join(", ", all.Select(r => r.Frequency))}]");
+            Log.Instance.Trace($" - All: {string.Join(", ", all.Select(r => r.Frequency))}");
+            Log.Instance.Trace($" - Excluded: {string.Join(", ", excluded.Select(r => r.Frequency))}");
+            Log.Instance.Trace($" - Filtered: {string.Join(", ", filtered.Select(r => r.Frequency))}");
 
             if (filtered.Length < 2)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Can't switch refresh rate after Fn+R when there is less than 2 available.");
+                Log.Instance.Trace($"Can't switch refresh rate after Fn+R when there is less than 2 available.");
                 return;
             }
 
@@ -184,8 +176,7 @@ public class SpecialKeyListener(
 
             var next = filtered[newIndex];
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Switching refresh rate after Fn+R to {next}...");
+            Log.Instance.Trace($"Switching refresh rate after Fn+R to {next}...");
 
             await feature.SetStateAsync(next).ConfigureAwait(false);
 
@@ -194,20 +185,17 @@ public class SpecialKeyListener(
                 MessagingCenter.Publish(new NotificationMessage(NotificationType.RefreshRate, next.DisplayName));
             });
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Switched refresh rate after Fn+R to {next}.");
+            Log.Instance.Trace($"Switched refresh rate after Fn+R to {next}.");
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Failed to switch refresh rate after Fn+R.", ex);
+            Log.Instance.Trace($"Failed to switch refresh rate after Fn+R.", ex);
         }
     });
 
     private static void OpenSnippingTool()
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Starting snipping tool..");
+        Log.Instance.Trace($"Starting snipping tool..");
 
         Process.Start("explorer", "ms-screenclip:");
     }

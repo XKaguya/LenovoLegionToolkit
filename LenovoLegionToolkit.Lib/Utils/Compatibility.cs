@@ -3,13 +3,14 @@ using LenovoLegionToolkit.Lib.Controllers.Sensors;
 using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.System;
 using LenovoLegionToolkit.Lib.System.Management;
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Windows.Win32;
@@ -22,7 +23,6 @@ namespace LenovoLegionToolkit.Lib.Utils;
 
 public static partial class Compatibility
 {
-    private static readonly HashSet<object> _visited = new();
 
     [GeneratedRegex("^[A-Z0-9]{4}")]
     private static partial Regex BiosPrefixRegex();
@@ -31,6 +31,8 @@ public static partial class Compatibility
     private static partial Regex BiosVersionRegex();
 
     private const string ALLOWED_VENDOR = "LENOVO";
+    private static readonly string FakeMachineInformationPath = Path.Combine(Folders.AppData, "fake_mi.json");
+    public static bool FakeMachineInformationMode { get; private set; } = false;
 
     private static readonly string[] AllowedModelsPrefix = [
         // Legion Go
@@ -75,6 +77,7 @@ public static partial class Compatibility
 
         "14APH",
         "14IRP",
+        "14AKP",
 
         // Chinese variants
         "G5000",
@@ -93,7 +96,45 @@ public static partial class Compatibility
         "ThinkBook"
     ];
 
+    private static readonly Dictionary<string, LegionSeries> MachineTypeMap = new()
+    {
+        { "83F0", LegionSeries.Legion_5 }, { "83F1", LegionSeries.Legion_5 }, { "83M0", LegionSeries.Legion_5 },
+        { "83NX", LegionSeries.Legion_5 }, { "83N2", LegionSeries.Legion_5 }, { "83LY", LegionSeries.Legion_5 },
+        { "83DG", LegionSeries.Legion_5 }, { "83EW", LegionSeries.Legion_5 }, { "83EG", LegionSeries.Legion_5 },
+        { "83JJ", LegionSeries.Legion_5 }, { "82RC", LegionSeries.Legion_5 }, { "82RB", LegionSeries.Legion_5 },
+        { "82TB", LegionSeries.Legion_5 }, { "83EF", LegionSeries.Legion_5 }, { "82RE", LegionSeries.Legion_5 },
+        { "82RD", LegionSeries.Legion_5 },
+
+        { "83DH", LegionSeries.Legion_Slim_5 }, { "83EX", LegionSeries.Legion_Slim_5 }, { "82Y5", LegionSeries.Legion_Slim_5 },
+        { "82Y9", LegionSeries.Legion_Slim_5 }, { "82YA", LegionSeries.Legion_Slim_5 }, { "83D6", LegionSeries.Legion_Slim_5 },
+
+        { "83LT", LegionSeries.Legion_Pro_5 }, { "83F3", LegionSeries.Legion_Pro_5 }, { "83DF", LegionSeries.Legion_Pro_5 },
+        { "83F2", LegionSeries.Legion_Pro_5 }, { "83LU", LegionSeries.Legion_Pro_5 }, { "82WM", LegionSeries.Legion_Pro_5 },
+        { "83NN", LegionSeries.Legion_Pro_5 }, { "82WK", LegionSeries.Legion_Pro_5 },
+
+        { "83KY", LegionSeries.Legion_7 }, { "83FD", LegionSeries.Legion_7 }, { "82UH", LegionSeries.Legion_7 },
+        { "82TD", LegionSeries.Legion_7 },
+
+        { "83RU", LegionSeries.Legion_Pro_7 }, { "83F5", LegionSeries.Legion_Pro_7 }, { "83DE", LegionSeries.Legion_Pro_7 },
+        { "82WR", LegionSeries.Legion_Pro_7 }, { "82WQ", LegionSeries.Legion_Pro_7 }, { "82WS", LegionSeries.Legion_Pro_7 },
+
+        { "83G0", LegionSeries.Legion_9 }, { "83EY", LegionSeries.Legion_9 },
+
+        { "83E1", LegionSeries.Legion_Go }
+    };
+
+    private static readonly (string Keyword, LegionSeries Series)[] ModelKeywordMap =
+    [
+        ("LOQ", LegionSeries.LOQ),
+        ("IdeaPad Gaming", LegionSeries.IdeaPad_Gaming),
+        ("IdeaPad", LegionSeries.IdeaPad),
+        ("YOGA", LegionSeries.YOGA),
+        ("Lenovo Slim", LegionSeries.Lenovo_Slim),
+        ("ThinkBook", LegionSeries.ThinkBook)
+    ];
+
     private static MachineInformation? _machineInformation;
+    private static FakeMachineInformation? _fakeMachineInformation;
 
     public static Task<bool> CheckBasicCompatibilityAsync() => WMI.LenovoGameZoneData.ExistsAsync();
 
@@ -101,17 +142,25 @@ public static partial class Compatibility
     {
         var mi = await GetMachineInformationAsync().ConfigureAwait(false);
 
-        if (!await CheckBasicCompatibilityAsync().ConfigureAwait(false))
+        if (!await CheckBasicCompatibilityAsync().ConfigureAwait(false) || !mi.Vendor.Equals(ALLOWED_VENDOR, StringComparison.InvariantCultureIgnoreCase))
             return (false, mi);
 
-        if (!mi.Vendor.Equals(ALLOWED_VENDOR, StringComparison.InvariantCultureIgnoreCase))
-            return (false, mi);
+        if (!File.Exists(FakeMachineInformationPath))
+            return AllowedModelsPrefix.Any(allowedModel =>
+                mi.Model.Contains(allowedModel, StringComparison.InvariantCultureIgnoreCase))
+                ? (true, mi)
+                : (false, mi);
 
-        foreach (var allowedModel in AllowedModelsPrefix)
-            if (mi.Model.Contains(allowedModel, StringComparison.InvariantCultureIgnoreCase))
-                return (true, mi);
+        var jsonString = await File.ReadAllTextAsync(FakeMachineInformationPath).ConfigureAwait(false);
+        _fakeMachineInformation = JsonConvert.DeserializeObject<FakeMachineInformation>(jsonString);
+        FakeMachineInformationMode = true;
 
-        return (false, mi);
+        return AllowedModelsPrefix.Any(allowedModel => mi.Model.Contains(allowedModel, StringComparison.InvariantCultureIgnoreCase)) ? (true, mi) : (false, mi);
+    }
+
+    public static Task<FakeMachineInformation?> GetFakeMachineInformationAsync()
+    {
+        return Task.FromResult(_fakeMachineInformation);
     }
 
     public static async Task<MachineInformation> GetMachineInformationAsync()
@@ -153,7 +202,7 @@ public static partial class Compatibility
                 SupportsGSync = await GetSupportsGSyncAsync().ConfigureAwait(false),
                 SupportsIGPUMode = await GetSupportsIGPUModeAsync().ConfigureAwait(false),
                 SupportsAIMode = await GetSupportsAIModeAsync().ConfigureAwait(false),
-                SupportsBootLogoChange = GetSupportBootLogoChange(smartFanVersion),
+                SupportsBootLogoChange = GetSupportBootLogoChange(),
                 SupportsITSMode = GetSupportITSMode(model),
                 HasQuietToPerformanceModeSwitchingBug = GetHasQuietToPerformanceModeSwitchingBug(biosVersion),
                 HasGodModeToOtherModeSwitchingBug = GetHasGodModeToOtherModeSwitchingBug(biosVersion),
@@ -197,31 +246,24 @@ public static partial class Compatibility
             "Y7000",
             "Y9000"
         ];
-        return chineseModelIndicators.Any(indicator => model.Contains(indicator));
+        return chineseModelIndicators.Any(model.Contains);
     }
 
     private static bool GetIsAmdDevice(string model)
     {
-        string cleanModel = model.Replace(" ", "").ToUpperInvariant();
+        if (string.IsNullOrEmpty(model)) return false;
 
-        for (int i = 0; i < cleanModel.Length; i++)
+        var regex = new Regex(@"(?<platform>[AI])[A-Z]{2}\d+", RegexOptions.RightToLeft);
+
+        var match = regex.Match(model.ToUpperInvariant());
+
+        if (!match.Success)
         {
-            char current = cleanModel[i];
-            if (current == 'A' || current == 'I')
-            {
-                if (i + 4 < cleanModel.Length)
-                {
-                    if (char.IsLetter(cleanModel[i + 1]) &&
-                        char.IsLetter(cleanModel[i + 2]) &&
-                        char.IsDigit(cleanModel[i + 3]) &&
-                        char.IsDigit(cleanModel[i + 4]))
-                    {
-                        return current == 'A';
-                    }
-                }
-            }
+            return false;
         }
-        return false;
+
+        string platform = match.Groups["platform"].Value;
+        return platform == "A";
     }
 
     private static async Task<MachineInformation.FeatureData> GetFeaturesAsync()
@@ -288,6 +330,12 @@ public static partial class Compatibility
             var powerModes = new List<PowerModeState>();
 
             var result = await WMI.LenovoOtherMethod.GetSupportThermalModeAsync().ConfigureAwait(false);
+
+            // 0    Quiet
+            // 1    Balance
+            // 2    Performance
+            // 3    Extreme
+            // 16   Custom
 
             if (result.IsBitSet(0))
                 powerModes.Add(PowerModeState.Quiet);
@@ -411,7 +459,7 @@ public static partial class Compatibility
 
         var (_, type, _, _) = GetModelDataAsync().Result;
         var isAffectedSeries = affectedSeries.Any(m => GetLegionSeries(model, type) == m);
-        var isAffectedModel = affectedModels.Any(m => model.Contains(m));
+        var isAffectedModel = affectedModels.Any(model.Contains);
         var isSupportedVersion = smartFanVersion is 8 or 9 || legionZoneVersion is 5 or 6;
 
         return (isAffectedSeries || isAffectedModel) && isSupportedVersion && gen >= 10;
@@ -465,7 +513,7 @@ public static partial class Compatibility
         }
     }
 
-    private static bool GetSupportBootLogoChange(int smartFanVersion)
+    private static bool GetSupportBootLogoChange()
     {
         // I don't know why. Which means every model should support Boot Logo Change.
         // return smartFanVersion < 9;
@@ -479,73 +527,29 @@ public static partial class Compatibility
         {
             return false;
         }
-        return lower.Contains("IdeaPad".ToLowerInvariant()) || lower.Contains("ThinkBook".ToLowerInvariant()) || lower.Contains("Lenovo Slim".ToLowerInvariant()); // || lower.Contains("YOGA".ToLowerInvariant());
-                                                                                                                 // Comment this line due to YOGA does not support ITS Mode from user's report.
+        return lower.Contains("IdeaPad".ToLowerInvariant()) || lower.Contains("ThinkBook".ToLowerInvariant()) || lower.Contains("Lenovo Slim".ToLowerInvariant());
     }
 
     private static int GetMachineGeneration(string model)
     {
         Match match = Regex.Match(model, @"\d+(?=[A-Z]?H?$)");
 
-        if (match.Success)
-        {
-            return Int32.Parse(match.Value);
-        }
-        else
-        {
-            return 0;
-        }
+        return match.Success ? Int32.Parse(match.Value) : 0;
     }
 
     private static LegionSeries GetLegionSeries(string model, string machineType)
     {
-        LegionSeries seriesByMachineType = machineType switch
+        if (MachineTypeMap.TryGetValue(machineType, out var series))
         {
-            "83F0" or "83F1" or "83M0" or "83NX" or "83N2" or "83LY" or "83DG" or "83EW" or "83EG" or "83JJ" or "82RC" or "82RB" or "82TB" or "83EF" or "82RE" or "82RD" => LegionSeries.Legion_5,
-
-            "83DH" or "83EX" or "82Y5" or "82Y9" or "82YA" or "83D6" => LegionSeries.Legion_Slim_5,
-
-            "83LT" or "83F3" or "83DF" or "83F2" or "83LU" or "82WM" or "83NN" or "82WK" => LegionSeries.Legion_Pro_5,
-
-            "83KY" or "83FD" or "82UH" or "82TD" => LegionSeries.Legion_7,
-
-            "83RU" or "83F5" or "83DE" or "82WR" or "82WQ" or "82WS" => LegionSeries.Legion_Pro_7,
-
-            "83G0" or "83EY" => LegionSeries.Legion_9,
-
-            "83E1" => LegionSeries.Legion_Go,
-
-            _ => LegionSeries.Unknown
-        };
-
-        if (seriesByMachineType != LegionSeries.Unknown)
-        {
-            return seriesByMachineType;
+            return series;
         }
 
-        if (model.ToLowerInvariant().Contains("LOQ".ToLowerInvariant()))
+        foreach (var (keyword, legionSeries) in ModelKeywordMap)
         {
-            return LegionSeries.LOQ;
-        }
-        else if (model.ToLowerInvariant().Contains("IdeaPad Gaming".ToLowerInvariant()))
-        {
-            return LegionSeries.IdeaPad_Gaming;
-        }
-        else if (model.ToLowerInvariant().Contains("IdeaPad".ToLowerInvariant()))
-        {
-            return LegionSeries.IdeaPad;
-        }
-        else if (model.ToLowerInvariant().Contains(("YOGA").ToLowerInvariant()))
-        {
-            return LegionSeries.YOGA;
-        }
-        else if (model.ToLowerInvariant().Contains("Lenovo Slim".ToLowerInvariant()))
-        {
-            return LegionSeries.Lenovo_Slim;
-        }
-        else if (model.ToLowerInvariant().Contains("ThinkBook".ToLowerInvariant()))
-        {
-            return LegionSeries.ThinkBook;
+            if (model.Contains(keyword, StringComparison.OrdinalIgnoreCase))
+            {
+                return legionSeries;
+            }
         }
 
         return LegionSeries.Unknown;
@@ -586,10 +590,6 @@ public static partial class Compatibility
         };
 
         var (_, type, _, _) = GetModelDataAsync().Result;
-        if (type == null)
-        {
-            return false;
-        }
 
         return affectedSeries.Any(model =>GetLegionSeries(machineModel, type) == model);
     }
@@ -604,19 +604,17 @@ public static partial class Compatibility
         var affectedSeries = new LegionSeries[]
         {
             LegionSeries.Legion_5,
+            LegionSeries.Legion_Pro_5,
         };
 
         var affectedModel = new List<string>
         {
+            "16IAX10H",
             "15IRX10",
             "15AHP10"
         };
 
         var(_, type, _, _) = GetModelDataAsync().Result;
-        if (type == null)
-        {
-            return false;
-        }
 
         bool isAffectedModel = affectedModel.Any(model =>machineModel.Contains(model, StringComparison.OrdinalIgnoreCase));
         bool isAffectedSeries = affectedSeries.Any(model =>GetLegionSeries(machineModel, type) == model);
@@ -699,6 +697,11 @@ public static partial class Compatibility
 
         foreach (var prop in properties)
         {
+            if (prop.Name == "SerialNumber")
+            {
+                continue;
+            }
+
             try
             {
                 Object? value = prop.GetValue(info);
@@ -719,7 +722,7 @@ public static partial class Compatibility
         return lines;
     }
 
-    private static List<string> FormatPropertyValue(string propertyName, object value, int indentLevel)
+    private static List<string> FormatPropertyValue(string propertyName, object? value, int indentLevel)
     {
         var lines = new List<string>();
         var indent = new string(' ', indentLevel * 4);
@@ -802,18 +805,18 @@ public static partial class Compatibility
         return lines;
     }
 
-    public static void PrintControllerVersion()
+    public static async Task PrintControllerVersionAsync()
     {
-        if (Log.Instance.IsTraceEnabled)
-        {
-            SensorsController? sensorsController = IoCContainer.Resolve<SensorsController>();
-            var sensorsControllerTypeName = sensorsController?.GetControllerAsync().Result?.GetType().Name ?? "Null SensorsController or Result";
-            Log.Instance.Trace($"Using {sensorsControllerTypeName}");
+        SensorsController sensorsController = IoCContainer.Resolve<SensorsController>();
 
+        var sensorCtrl = await sensorsController.GetControllerAsync().ConfigureAwait(true);
+        var sensorsControllerTypeName = sensorCtrl?.GetType().Name ?? "Null SensorsController or Result";
+        Log.Instance.Trace($"Using {sensorsControllerTypeName}");
 
-            GodModeController? godModeController = IoCContainer.Resolve<GodModeController>();
-            var godModeControllerTypeName = godModeController?.GetControllerAsync().Result?.GetType().Name ?? "Null GodModeController or Result";
-            Log.Instance.Trace($"Using {godModeControllerTypeName}");
-        }
+        GodModeController godModeController = IoCContainer.Resolve<GodModeController>();
+
+        var godModeCtrl = await godModeController.GetControllerAsync().ConfigureAwait(true);
+        var godModeControllerTypeName = godModeCtrl?.GetType().Name ?? "Null GodModeController or Result";
+        Log.Instance.Trace($"Using {godModeControllerTypeName}");
     }
 }

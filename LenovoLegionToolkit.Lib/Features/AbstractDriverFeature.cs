@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Threading.Tasks;
 using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.Utils;
@@ -7,10 +8,24 @@ using Microsoft.Win32.SafeHandles;
 
 namespace LenovoLegionToolkit.Lib.Features;
 
-public abstract class AbstractDriverFeature<T>(Func<SafeFileHandle> driverHandleHandle, uint controlCode) : IFeature<T> where T : struct, Enum, IComparable
+internal static class GlobalDriverLock
 {
+    public static readonly SemaphoreSlim Queue = new(1, 1);
+}
+
+public abstract class AbstractDriverFeature<T>(
+    Func<SafeFileHandle> driverHandleHandle,
+    uint controlCode,
+    bool useDriverQueue = false)
+    : IFeature<T>
+    where T : struct, Enum, IComparable
+{
+    private const int DRIVER_COOLDOWN_MS = 200;
+
     protected readonly uint ControlCode = controlCode;
     protected readonly Func<SafeFileHandle> DriverHandle = driverHandleHandle;
+
+    protected readonly bool UseQueue = useDriverQueue;
 
     protected T LastState;
 
@@ -31,63 +46,63 @@ public abstract class AbstractDriverFeature<T>(Func<SafeFileHandle> driverHandle
 
     public virtual async Task<T> GetStateAsync()
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Getting state... [feature={GetType().Name}]");
-
+        Log.Instance.Trace($"Getting state... [feature={GetType().Name}]");
         var outBuffer = await SendCodeAsync(DriverHandle(), ControlCode, GetInBufferValue()).ConfigureAwait(false);
-
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Buffer value: {outBuffer} [feature={GetType().Name}]");
-
+        Log.Instance.Trace($"Buffer value: {outBuffer} [feature={GetType().Name}]");
         var state = await FromInternalAsync(outBuffer).ConfigureAwait(false);
         LastState = state;
-
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"State is {state} [feature={GetType().Name}]");
-
+        Log.Instance.Trace($"State is {state} [feature={GetType().Name}]");
         return state;
     }
 
     public virtual async Task SetStateAsync(T state)
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Setting state to {state}... [feature={GetType().Name}]");
-
+        Log.Instance.Trace($"Setting state to {state}... [feature={GetType().Name}]");
         var codes = await ToInternalAsync(state).ConfigureAwait(false);
         foreach (var code in codes)
             await SendCodeAsync(DriverHandle(), ControlCode, code).ConfigureAwait(false);
         LastState = state;
-
         await VerifyStateSetAsync(state).ConfigureAwait(false);
-
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"State set to {state} [feature={GetType().Name}]");
+        Log.Instance.Trace($"State set to {state} [feature={GetType().Name}]");
     }
 
     protected abstract Task<T> FromInternalAsync(uint state);
-
     protected abstract uint GetInBufferValue();
-
     protected abstract Task<uint[]> ToInternalAsync(T state);
 
-    protected Task<uint> SendCodeAsync(SafeFileHandle handle, uint controlCode, uint inBuffer) => Task.Run(() =>
+    protected async Task<uint> SendCodeAsync(SafeFileHandle handle, uint controlCode, uint inBuffer)
     {
-        if (PInvokeExtensions.DeviceIoControl(handle, controlCode, inBuffer, out uint outBuffer))
-            return outBuffer;
+        Task<uint> CoreAction() => Task.Run(() =>
+        {
+            if (PInvokeExtensions.DeviceIoControl(handle, controlCode, inBuffer, out uint outBuffer))
+                return outBuffer;
 
-        var error = Marshal.GetLastWin32Error();
-
-        if (Log.Instance.IsTraceEnabled)
+            var error = Marshal.GetLastWin32Error();
             Log.Instance.Trace($"DeviceIoControl returned 0, last error: {error} [feature={GetType().Name}]");
+            throw new InvalidOperationException($"DeviceIoControl returned 0, last error: {error}");
+        });
 
-        throw new InvalidOperationException($"DeviceIoControl returned 0, last error: {error}");
-    });
+        if (!UseQueue)
+        {
+            return await CoreAction().ConfigureAwait(false);
+        }
+
+        await GlobalDriverLock.Queue.WaitAsync().ConfigureAwait(false);
+        try
+        {
+            return await CoreAction().ConfigureAwait(false);
+        }
+        finally
+        {
+            await Task.Delay(DRIVER_COOLDOWN_MS).ConfigureAwait(false);
+            GlobalDriverLock.Queue.Release();
+        }
+    }
 
     private async Task VerifyStateSetAsync(T state)
     {
         var retries = 0;
         var verified = false;
-
         while (retries < 10)
         {
             if (state.Equals(await GetStateAsync().ConfigureAwait(false)))
@@ -95,13 +110,9 @@ public abstract class AbstractDriverFeature<T>(Func<SafeFileHandle> driverHandle
                 verified = true;
                 break;
             }
-
             retries++;
-
             await Task.Delay(50).ConfigureAwait(false);
         }
-
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Verify state {state} set {(verified ? "succeeded" : "failed")}. [feature={GetType().Name}]");
+        Log.Instance.Trace($"Verify state {state} set {(verified ? "succeeded" : "failed")}. [feature={GetType().Name}]");
     }
 }

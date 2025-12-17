@@ -1,5 +1,5 @@
 ﻿<Window
-    x:Class="LenovoLegionToolkit.WPF.Windows.Utils.FloatingGadget"
+    x:Class="LenovoLegionToolkit.WPF.Windows.FloatingGadgets.FloatingGadget"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:LenovoLegionToolkit.WPF.Windows"
@@ -140,6 +140,38 @@
                             Text="{x:Static resources:Resource.SensorsControl_CoreClock_Title}" />
                         <TextBlock
                             x:Name="_cpuFrequency"
+                            Grid.Column="1"
+                            Style="{StaticResource SensorValueStyle}"
+                            Text="-" />
+                    </Grid>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Column="0"
+                            Style="{StaticResource SensorLabelStyle}"
+                            Text="P-Core Clock" />
+                        <TextBlock
+                            x:Name="_cpuPFrequency"
+                            Grid.Column="1"
+                            Style="{StaticResource SensorValueStyle}"
+                            Text="-" />
+                    </Grid>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Column="0"
+                            Style="{StaticResource SensorLabelStyle}"
+                            Text="E-Core Clock" />
+                        <TextBlock
+                            x:Name="_cpuEFrequency"
                             Grid.Column="1"
                             Style="{StaticResource SensorValueStyle}"
                             Text="-" />

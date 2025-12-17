@@ -1,10 +1,11 @@
-﻿using System;
+﻿using LenovoLegionToolkit.Lib.Extensions;
+using LenovoLegionToolkit.Lib.Features;
+using LenovoLegionToolkit.Lib.Settings;
+using LenovoLegionToolkit.Lib.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using LenovoLegionToolkit.Lib.Extensions;
-using LenovoLegionToolkit.Lib.Settings;
-using LenovoLegionToolkit.Lib.Utils;
 
 namespace LenovoLegionToolkit.Lib.Controllers.GodMode;
 
@@ -31,18 +32,21 @@ public abstract class AbstractGodModeController(GodModeSettings settings)
         return Task.FromResult(name);
     }
 
+    public virtual async Task<Dictionary<Guid, GodModeSettings.GodModeSettingsStore.Preset>> GetGodModePresetsAsync()
+    {
+        return await Task.FromResult(settings.Store.Presets).ConfigureAwait(false);
+    }
+
     public async Task<GodModeState> GetStateAsync()
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Getting state...");
+        Log.Instance.Trace($"Getting state...");
 
         var store = settings.Store;
         var defaultState = await GetDefaultStateAsync().ConfigureAwait(false);
 
         if (!IsValidStore(store))
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Loading default state...");
+            Log.Instance.Trace($"Loading default state...");
 
             var id = Guid.NewGuid();
             return new GodModeState
@@ -52,25 +56,25 @@ public abstract class AbstractGodModeController(GodModeSettings settings)
             };
         }
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Loading state from store...");
+        Log.Instance.Trace($"Loading state from store...");
 
         return await LoadStateFromStoreAsync(store, defaultState).ConfigureAwait(false);
     }
 
     public Task SetStateAsync(GodModeState state)
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Setting state...");
+        Log.Instance.Trace($"Setting state...");
 
         var activePresetId = state.ActivePresetId;
         var presets = new Dictionary<Guid, GodModeSettings.GodModeSettingsStore.Preset>();
 
         foreach (var (id, preset) in state.Presets)
         {
-            presets.Add(id, new()
+            presets.Add(id, new()   
             {
                 Name = preset.Name,
+                PowerPlanGuid = preset.PowerPlanGuid,
+                PowerMode = preset.PowerMode,
                 CPULongTermPowerLimit = preset.CPULongTermPowerLimit,
                 CPUShortTermPowerLimit = preset.CPUShortTermPowerLimit,
                 CPUPeakPowerLimit = preset.CPUPeakPowerLimit,
@@ -87,6 +91,11 @@ public abstract class AbstractGodModeController(GodModeSettings settings)
                 FanFullSpeed = preset.FanFullSpeed,
                 MinValueOffset = preset.MinValueOffset,
                 MaxValueOffset = preset.MaxValueOffset,
+                PrecisionBoostOverdriveScaler = preset.PrecisionBoostOverdriveScaler,
+                PrecisionBoostOverdriveBoostFrequency = preset.PrecisionBoostOverdriveBoostFrequency,
+                AllCoreCurveOptimizer = preset.AllCoreCurveOptimizer,
+                EnableAllCoreCurveOptimizer = preset.EnableAllCoreCurveOptimizer,
+                EnableOverclocking = preset.EnableOverclocking,
             });
         }
 
@@ -94,8 +103,7 @@ public abstract class AbstractGodModeController(GodModeSettings settings)
         settings.Store.Presets = presets;
         settings.SynchronizeStore();
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"State saved.");
+        Log.Instance.Trace($"State saved.");
 
         return Task.CompletedTask;
     }
@@ -116,14 +124,19 @@ public abstract class AbstractGodModeController(GodModeSettings settings)
 
     protected abstract Task<GodModePreset> GetDefaultStateAsync();
 
-    protected void RaisePresetChanged(Guid presetId) => PresetChanged?.Invoke(this, presetId);
+    protected async void RaisePresetChanged(Guid presetId)
+    {
+        var feature = IoCContainer.Resolve<PowerModeFeature>();
+        var (_, preset) = await GetActivePresetAsync().ConfigureAwait(false);
+        await feature.EnsureCorrectWindowsPowerSettingsAreSetAsync(preset).ConfigureAwait(false);
+        PresetChanged?.Invoke(this, presetId);
+    }
 
-    protected async Task<(Guid, GodModeSettings.GodModeSettingsStore.Preset)> GetActivePresetAsync()
+    public async Task<(Guid, GodModeSettings.GodModeSettingsStore.Preset)> GetActivePresetAsync()
     {
         if (!IsValidStore(settings.Store))
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Invalid store, generating default one.");
+            Log.Instance.Trace($"Invalid store, generating default one.");
 
             var state = await GetStateAsync().ConfigureAwait(false);
             await SetStateAsync(state).ConfigureAwait(false);
@@ -150,12 +163,36 @@ public abstract class AbstractGodModeController(GodModeSettings settings)
     private async Task<GodModeState> LoadStateFromStoreAsync(GodModeSettings.GodModeSettingsStore store, GodModePreset defaultState)
     {
         var states = new Dictionary<Guid, GodModePreset>();
+        var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
+        var isAmdDevice = mi.Properties.IsAmdDevice;
+        StepperValue? scaler = null, freq = null, curve = null;
 
         foreach (var (id, preset) in store.Presets)
         {
+            var pboSettings = new StepperValue?[]
+            {
+            preset.PrecisionBoostOverdriveScaler,
+            preset.PrecisionBoostOverdriveBoostFrequency,
+            preset.AllCoreCurveOptimizer
+            };
+
+            var pboScaler = preset.PrecisionBoostOverdriveScaler;
+            var pboFreq = preset.PrecisionBoostOverdriveBoostFrequency;
+            var allCoreCurve = preset.AllCoreCurveOptimizer;
+            var enableOverclocking = preset.EnableOverclocking;
+
+            if (pboSettings.Any(s => s is null) && isAmdDevice)
+            {
+                scaler = new StepperValue(0, 0, 7, 1, [], 0);
+                freq = new StepperValue(0, 0, 200, 1, [], 0);
+                curve = new StepperValue(0, 0, 20, 1, [], 0);
+            }
+
             states.Add(id, new GodModePreset
             {
                 Name = preset.Name,
+                PowerPlanGuid = preset.PowerPlanGuid,
+                PowerMode = preset.PowerMode,
                 CPULongTermPowerLimit = CreateStepperValue(defaultState.CPULongTermPowerLimit, preset.CPULongTermPowerLimit, preset.MinValueOffset, preset.MaxValueOffset),
                 CPUShortTermPowerLimit = CreateStepperValue(defaultState.CPUShortTermPowerLimit, preset.CPUShortTermPowerLimit, preset.MinValueOffset, preset.MaxValueOffset),
                 CPUPeakPowerLimit = CreateStepperValue(defaultState.CPUPeakPowerLimit, preset.CPUPeakPowerLimit, preset.MinValueOffset, preset.MaxValueOffset),
@@ -174,7 +211,12 @@ public abstract class AbstractGodModeController(GodModeSettings settings)
                 FanTableInfo = await GetFanTableInfoAsync(preset, defaultState.FanTableInfo?.Data).ConfigureAwait(false),
                 FanFullSpeed = preset.FanFullSpeed,
                 MinValueOffset = preset.MinValueOffset ?? defaultState.MinValueOffset,
-                MaxValueOffset = preset.MaxValueOffset ?? defaultState.MaxValueOffset
+                MaxValueOffset = preset.MaxValueOffset ?? defaultState.MaxValueOffset,
+                PrecisionBoostOverdriveScaler = (isAmdDevice && pboScaler is null) ? scaler : preset.PrecisionBoostOverdriveScaler,
+                PrecisionBoostOverdriveBoostFrequency = (isAmdDevice && pboFreq is null) ? freq : preset.PrecisionBoostOverdriveBoostFrequency,
+                AllCoreCurveOptimizer = (isAmdDevice && allCoreCurve is null) ? curve : preset.AllCoreCurveOptimizer,
+                EnableAllCoreCurveOptimizer = (isAmdDevice && enableOverclocking is null) ? false : preset.EnableAllCoreCurveOptimizer,
+                EnableOverclocking = (isAmdDevice && enableOverclocking is null) ? false : preset.EnableOverclocking,
             });
         }
 
@@ -226,28 +268,23 @@ public abstract class AbstractGodModeController(GodModeSettings settings)
 
     private async Task<FanTableInfo?> GetFanTableInfoAsync(GodModeSettings.GodModeSettingsStore.Preset preset, FanTableData[]? fanTableData)
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Getting fan table info...");
+        Log.Instance.Trace($"Getting fan table info...");
 
         if (fanTableData is null)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Fan table data is null");
+            Log.Instance.Trace($"Fan table data is null");
             return null;
         }
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Fan table data retrieved: {fanTableData}");
+        Log.Instance.Trace($"Fan table data retrieved: {string.Join(", ", fanTableData)}");
 
         var fanTable = preset.FanTable ?? await GetDefaultFanTableAsync().ConfigureAwait(false);
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Fan table retrieved: {fanTable}");
+        Log.Instance.Trace($"Fan table retrieved: {fanTable}");
 
         if (!await IsValidFanTableAsync(fanTable).ConfigureAwait(false))
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Fan table invalid, replacing with default...");
+            Log.Instance.Trace($"Fan table invalid, replacing with default...");
 
             fanTable = await GetDefaultFanTableAsync().ConfigureAwait(false);
         }

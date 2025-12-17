@@ -23,14 +23,6 @@ public partial class AutomationPipelineTriggerConfigurationWindow
         _triggers = triggers;
 
         InitializeComponent();
-
-        PreviewKeyDown += (s, e) => {
-            if (e.Key == Key.System && e.SystemKey == Key.LeftAlt)
-            {
-                e.Handled = true;
-                Keyboard.ClearFocus();
-            }
-        };
     }
 
     private void AutomationPipelineTriggerConfigurationWindow_Initialized(object? sender, EventArgs e)

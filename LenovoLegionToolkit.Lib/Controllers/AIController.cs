@@ -39,8 +39,7 @@ public class AIController(
     {
         if (!await IsSupportedAsync().ConfigureAwait(false))
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Not supported.");
+            Log.Instance.Trace($"Not supported.");
 
             return;
         }
@@ -49,8 +48,7 @@ public class AIController(
 
         if (!IsAIModeEnabled)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"AI Mode is not enabled.");
+            Log.Instance.Trace($"AI Mode is not enabled.");
             return;
         }
 
@@ -63,8 +61,7 @@ public class AIController(
 
             await RefreshAsync().ConfigureAwait(false);
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Started.");
+            Log.Instance.Trace($"Started.");
         }
     }
 
@@ -72,8 +69,7 @@ public class AIController(
     {
         if (!await IsSupportedAsync().ConfigureAwait(false))
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Not supported.");
+            Log.Instance.Trace($"Not supported.");
 
             return;
         }
@@ -88,8 +84,7 @@ public class AIController(
             if (await ShouldDisableAsync().ConfigureAwait(false))
                 await DisableAsync().ConfigureAwait(false);
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Stopped.");
+            Log.Instance.Trace($"Stopped.");
         }
     }
 
@@ -101,16 +96,14 @@ public class AIController(
     {
         if (!await IsSupportedAsync().ConfigureAwait(false))
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Not supported.");
+            Log.Instance.Trace($"Not supported.");
 
             return;
         }
 
         using (await _startStopLock.LockAsync().ConfigureAwait(false))
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Refreshing...");
+            Log.Instance.Trace($"Refreshing...");
 
             if (await ShouldDisableAsync().ConfigureAwait(false))
                 await DisableAsync().ConfigureAwait(false);
@@ -118,8 +111,7 @@ public class AIController(
             if (await ShouldEnableAsync().ConfigureAwait(false))
                 await EnableAsync().ConfigureAwait(false);
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Refreshed");
+            Log.Instance.Trace($"Refreshed");
         }
     }
 
@@ -133,30 +125,26 @@ public class AIController(
     {
         if (await Power.IsPowerAdapterConnectedAsync().ConfigureAwait(false) != PowerAdapterStatus.Connected)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Power adapter not connected.");
+            Log.Instance.Trace($"Power adapter not connected.");
 
             return false;
         }
 
         if (await powerModeFeature.GetStateAsync().ConfigureAwait(false) != PowerModeState.Balance)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Not in balanced mode.");
+            Log.Instance.Trace($"Not in balanced mode.");
 
             return false;
         }
 
         if (!gameAutoListener.AreGamesRunning())
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Games aren't running.");
+            Log.Instance.Trace($"Games aren't running.");
 
             return false;
         }
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"All conditions met.");
+        Log.Instance.Trace($"All conditions met.");
 
         return true;
     }
@@ -165,22 +153,19 @@ public class AIController(
     {
         if (await powerModeFeature.GetStateAsync().ConfigureAwait(false) != PowerModeState.Balance)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Not in balanced mode.");
+            Log.Instance.Trace($"Not in balanced mode.");
 
             return false;
         }
 
         if (await WMI.LenovoGameZoneData.GetIntelligentSubModeAsync().ConfigureAwait(false) == 0)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Not needed.");
+            Log.Instance.Trace($"Not needed.");
 
             return false;
         }
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"All conditions met.");
+        Log.Instance.Trace($"All conditions met.");
 
         return true;
     }
@@ -198,8 +183,7 @@ public class AIController(
                 if (process is null)
                     continue;
 
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Found running process {processName}. [processId={process.Id}, subMode={subMode}]");
+                Log.Instance.Trace($"Found running process {processName}. [processId={process.Id}, subMode={subMode}]");
 
                 targetSubMode = subMode;
                 break;
@@ -207,13 +191,11 @@ public class AIController(
 
             await WMI.LenovoGameZoneData.SetIntelligentSubModeAsync(targetSubMode).ConfigureAwait(false);
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Initial sub mode set.");
+            Log.Instance.Trace($"Initial sub mode set.");
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Failed to start.", ex);
+            Log.Instance.Trace($"Failed to start.", ex);
         }
     }
 
@@ -221,18 +203,15 @@ public class AIController(
     {
         try
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Stopping...");
+            Log.Instance.Trace($"Stopping...");
 
             await WMI.LenovoGameZoneData.SetIntelligentSubModeAsync(0).ConfigureAwait(false);
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Stopped");
+            Log.Instance.Trace($"Stopped");
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Failed to stop.", ex);
+            Log.Instance.Trace($"Failed to stop.", ex);
         }
     }
 }

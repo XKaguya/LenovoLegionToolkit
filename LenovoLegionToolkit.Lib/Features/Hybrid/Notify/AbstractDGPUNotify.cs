@@ -35,8 +35,7 @@ public abstract partial class AbstractDGPUNotify : IDGPUNotify
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Failed to notify.", ex);
+            Log.Instance.Trace($"Failed to notify.", ex);
             return false;
         }
     }
@@ -58,13 +57,11 @@ public abstract partial class AbstractDGPUNotify : IDGPUNotify
             if (publish)
                 Notified?.Invoke(this, isAvailable);
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Notified: {isAvailable}");
+            Log.Instance.Trace($"Notified: {isAvailable}");
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Failed to notify.", ex);
+            Log.Instance.Trace($"Failed to notify.", ex);
         }
     }
 
@@ -86,8 +83,7 @@ public abstract partial class AbstractDGPUNotify : IDGPUNotify
                 if (!t.IsCompletedSuccessfully)
                     return;
 
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Event not received, notifying anyway...");
+                Log.Instance.Trace($"Event not received, notifying anyway...");
 
                 await NotifyAsync(false).ConfigureAwait(false);
             }, token);

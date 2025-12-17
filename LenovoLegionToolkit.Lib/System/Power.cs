@@ -34,8 +34,7 @@ public static class Power
 
     public static async Task RestartAsync()
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Restarting...");
+        Log.Instance.Trace($"Restarting...");
 
         await CMD.RunAsync("shutdown", "/r /t 0").ConfigureAwait(false);
     }
@@ -46,8 +45,7 @@ public static class Power
         {
             var result = await WMI.LenovoGameZoneData.IsACFitForOCAsync().ConfigureAwait(false);
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Mode = {result}");
+            Log.Instance.Trace($"Mode = {result}");
 
             return result == 1;
         }
@@ -63,8 +61,7 @@ public static class Power
         {
             var result = await WMI.LenovoGameZoneData.GetPowerChargeModeAsync().ConfigureAwait(false);
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Mode = {result}");
+            Log.Instance.Trace($"Mode = {result}");
 
             return result == 1;
         }

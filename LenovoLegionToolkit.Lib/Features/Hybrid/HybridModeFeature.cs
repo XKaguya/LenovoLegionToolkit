@@ -31,8 +31,7 @@ public class HybridModeFeature(GSyncFeature gSyncFeature, IGPUModeFeature igpuMo
 
     public async Task<HybridModeState> GetStateAsync()
     {
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Getting state...");
+        Log.Instance.Trace($"Getting state...");
 
         var gSyncSupported = await gSyncFeature.IsSupportedAsync().ConfigureAwait(false);
         var igpuModeSupported = await igpuModeFeature.IsSupportedAsync().ConfigureAwait(false);
@@ -48,8 +47,7 @@ public class HybridModeFeature(GSyncFeature gSyncFeature, IGPUModeFeature igpuMo
 
         var state = Pack(gSync, igpuMode);
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"State is {state} [gSync={gSync}, igpuMode={igpuMode}]");
+        Log.Instance.Trace($"State is {state} [gSync={gSync}, igpuMode={igpuMode}]");
 
         return state;
     }
@@ -60,8 +58,7 @@ public class HybridModeFeature(GSyncFeature gSyncFeature, IGPUModeFeature igpuMo
 
         var (gSync, igpuMode) = Unpack(state);
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"Setting state to {state}... [gSync={gSync}, igpuMode={igpuMode}]");
+        Log.Instance.Trace($"Setting state to {state}... [gSync={gSync}, igpuMode={igpuMode}]");
 
         var gSyncSupported = await gSyncFeature.IsSupportedAsync().ConfigureAwait(false);
         var igpuModeSupported = await igpuModeFeature.IsSupportedAsync().ConfigureAwait(false);
@@ -92,8 +89,7 @@ public class HybridModeFeature(GSyncFeature gSyncFeature, IGPUModeFeature igpuMo
             }
         }
 
-        if (Log.Instance.IsTraceEnabled)
-            Log.Instance.Trace($"State set to {state} [gSync={gSync}, igpuMode={igpuMode}]");
+        Log.Instance.Trace($"State set to {state} [gSync={gSync}, igpuMode={igpuMode}]");
     }
 
     public async Task EnsureDGPUEjectedIfNeededAsync()
@@ -110,8 +106,7 @@ public class HybridModeFeature(GSyncFeature gSyncFeature, IGPUModeFeature igpuMo
 
                 var retry = 1;
 
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Will make sure that dGPU is ejected. [maxRetries={maxRetries}, delay={delay}ms]");
+                Log.Instance.Trace($"Will make sure that dGPU is ejected. [maxRetries={maxRetries}, delay={delay}ms]");
 
                 while (retry <= maxRetries)
                 {
@@ -119,27 +114,23 @@ public class HybridModeFeature(GSyncFeature gSyncFeature, IGPUModeFeature igpuMo
 
                     if (_ensureDGPUEjectedIfNeededCancellationTokenSource.IsCancellationRequested)
                     {
-                        if (Log.Instance.IsTraceEnabled)
-                            Log.Instance.Trace($"Cancelled, aborting...");
+                        Log.Instance.Trace($"Cancelled, aborting...");
                         break;
                     }
 
                     if (await igpuModeFeature.GetStateAsync().ConfigureAwait(false) != IGPUModeState.IGPUOnly)
                     {
-                        if (Log.Instance.IsTraceEnabled)
-                            Log.Instance.Trace($"Not in iGPU-only mode, aborting...");
+                        Log.Instance.Trace($"Not in iGPU-only mode, aborting...");
                         break;
                     }
 
                     if (!await dgpuNotify.IsDGPUAvailableAsync().ConfigureAwait(false))
                     {
-                        if (Log.Instance.IsTraceEnabled)
-                            Log.Instance.Trace($"dGPU already unavailable, aborting...");
+                        Log.Instance.Trace($"dGPU already unavailable, aborting...");
                         break;
                     }
 
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Notifying dGPU... [retry={retry}, maxRetries={maxRetries}]");
+                    Log.Instance.Trace($"Notifying dGPU... [retry={retry}, maxRetries={maxRetries}]");
 
                     await dgpuNotify.NotifyAsync(false).ConfigureAwait(false);
 
@@ -148,8 +139,7 @@ public class HybridModeFeature(GSyncFeature gSyncFeature, IGPUModeFeature igpuMo
             }
             catch (Exception ex)
             {
-                if (Log.Instance.IsTraceEnabled)
-                    Log.Instance.Trace($"Failed to ensure dGPU is ejected", ex);
+                Log.Instance.Trace($"Failed to ensure dGPU is ejected", ex);
             }
         });
     }

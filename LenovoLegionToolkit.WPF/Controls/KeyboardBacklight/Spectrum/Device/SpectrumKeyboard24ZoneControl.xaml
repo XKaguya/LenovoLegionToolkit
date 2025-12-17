@@ -1,0 +1,126 @@
+﻿<UserControl
+    x:Class="LenovoLegionToolkit.WPF.Controls.KeyboardBacklight.Spectrum.Device.SpectrumKeyboard24ZoneControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:LenovoLegionToolkit.WPF.Controls.KeyboardBacklight.Spectrum.Device">
+
+    <Grid>
+        <StackPanel Orientation="Horizontal">
+            <controls:SpectrumZoneControl
+                Width="28"
+                Height="300"
+                Margin="2"
+                KeyCode="0x01" />
+            <controls:SpectrumZoneControl
+                Width="28"
+                Height="300"
+                Margin="2"
+                KeyCode="0x02" />
+            <controls:SpectrumZoneControl
+                Width="28"
+                Height="300"
+                Margin="2"
+                KeyCode="0x03" />
+            <controls:SpectrumZoneControl
+                Width="28"
+                Height="300"
+                Margin="2"
+                KeyCode="0x04" />
+            <controls:SpectrumZoneControl
+                Width="28"
+                Height="300"
+                Margin="2"
+                KeyCode="0x05" />
+            <controls:SpectrumZoneControl
+                Width="28"
+                Height="300"
+                Margin="2"
+                KeyCode="0x06" />
+            <controls:SpectrumZoneControl
+                Width="28"
+                Height="300"
+                Margin="2"
+                KeyCode="0x07" />
+            <controls:SpectrumZoneControl
+                Width="28"
+                Height="300"
+                Margin="2"
+                KeyCode="0x08" />
+            <controls:SpectrumZoneControl
+                Width="28"
+                Height="300"
+                Margin="2"
+                KeyCode="0x09" />
+            <controls:SpectrumZoneControl
+                Width="28"
+                Height="300"
+                Margin="2"
+                KeyCode="0x0A" />
+            <controls:SpectrumZoneControl
+                Width="28"
+                Height="300"
+                Margin="2"
+                KeyCode="0x0B" />
+            <controls:SpectrumZoneControl
+                Width="28"
+                Height="300"
+                Margin="2"
+                KeyCode="0x0C" />
+            <controls:SpectrumZoneControl
+                Width="28"
+                Height="300"
+                Margin="2"
+                KeyCode="0x0D" />
+            <controls:SpectrumZoneControl
+                Width="28"
+                Height="300"
+                Margin="2"
+                KeyCode="0x0E" />
+            <controls:SpectrumZoneControl
+                Width="28"
+                Height="300"
+                Margin="2"
+                KeyCode="0x0F" />
+            <controls:SpectrumZoneControl
+                Width="28"
+                Height="300"
+                Margin="2"
+                KeyCode="0x10" />
+            <controls:SpectrumZoneControl
+                Width="28"
+                Height="300"
+                Margin="2"
+                KeyCode="0x11" />
+            <controls:SpectrumZoneControl
+                Width="28"
+                Height="300"
+                Margin="2"
+                KeyCode="0x12" />
+            <controls:SpectrumZoneControl
+                Width="28"
+                Height="300"
+                Margin="2"
+                KeyCode="0x13" />
+            <controls:SpectrumZoneControl
+                Width="28"
+                Height="300"
+                Margin="2"
+                KeyCode="0x14" />
+            <controls:SpectrumZoneControl
+                Width="28"
+                Height="300"
+                Margin="2"
+                KeyCode="0x16" />
+            <controls:SpectrumZoneControl
+                Width="28"
+                Height="300"
+                Margin="2"
+                KeyCode="0x17" />
+            <controls:SpectrumZoneControl
+                Width="28"
+                Height="300"
+                Margin="2"
+                KeyCode="0x18" />
+        </StackPanel>
+    </Grid>
+</UserControl>

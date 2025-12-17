@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using LenovoLegionToolkit.Lib;
+using LenovoLegionToolkit.Lib.Utils;
 using LenovoLegionToolkit.WPF.Extensions;
 
 namespace LenovoLegionToolkit.WPF.Controls.KeyboardBacklight.Spectrum.Device;
@@ -23,6 +24,12 @@ public class SpectrumDeviceControl : UserControl
 
     public void SetLayout(SpectrumLayout spectrumLayout, KeyboardLayout keyboardLayout, HashSet<ushort> keys)
     {
+        if (!Dispatcher.CheckAccess())
+        {
+            Dispatcher.Invoke(() => SetLayout(spectrumLayout, keyboardLayout, keys));
+            return;
+        }
+
         _stackPanel.Children.Remove(_fullAlternative);
         _stackPanel.Children.Remove(_full);
         _stackPanel.Children.Remove(_keyboardAndFront);

@@ -509,57 +509,63 @@
     <value>UMA</value>
   </data>
   <data name="ITSMode_Intelligent_Extreme_Performance" xml:space="preserve">
-    <value>Extreme Performance</value>
+    <value>Rendimiento extremo</value>
   </data>
   <data name="ITSMode_Intelligent_Battery_Saving" xml:space="preserve">
-    <value>Battery Saving</value>
+    <value>Ahorro de batería</value>
   </data>
   <data name="ITSMode_Intelligent_Cooling" xml:space="preserve">
-    <value>Intelligent Cooling</value>
+    <value>Refrigeración inteligente</value>
   </data>
   <data name="ITSMode_Intelligent_Geek" xml:space="preserve">
-    <value>Geek</value>
+    <value>Entusiasta</value>
   </data>
   <data name="FloatingGadgetItem_Fps" xml:space="preserve">
     <value>FPS</value>
   </data>
   <data name="FloatingGadgetItem_LowFps" xml:space="preserve">
-    <value>1% Low</value>
+    <value>1% Mínimo</value>
   </data>
   <data name="FloatingGadgetItem_FrameTime" xml:space="preserve">
-    <value>Frame Time</value>
+    <value>Tiempo de fotograma</value>
   </data>
   <data name="FloatingGadgetItem_Frequency" xml:space="preserve">
-    <value>Frequency</value>
+    <value>Frecuencia</value>
   </data>
   <data name="FloatingGadgetItem_Utilization" xml:space="preserve">
-    <value>Utilization</value>
+    <value>Uso</value>
   </data>
   <data name="FloatingGadgetItem_Temperature" xml:space="preserve">
-    <value>Temperature</value>
+    <value>Temperatura</value>
   </data>
   <data name="FloatingGadgetItem_Power" xml:space="preserve">
-    <value>Power</value>
+    <value>Consumo</value>
   </data>
   <data name="FloatingGadgetItem_Fan" xml:space="preserve">
-    <value>Fan</value>
+    <value>Ventilador</value>
   </data>
   <data name="FloatingGadgetItem_VramTemperature" xml:space="preserve">
-    <value>Vram Temperature</value>
+    <value>Temperatura VRAM</value>
   </data>
   <data name="FloatingGadgetItem_MemoryTemperature" xml:space="preserve">
-    <value>Memory Temperature</value>
+    <value>Temperatura memoria</value>
   </data>
   <data name="FloatingGadgetItem_MotherboardTemperature" xml:space="preserve">
-    <value>Motherboard Temperature</value>
+    <value>Temperatura de la placa base</value>
   </data>
   <data name="AccentColorSource_Custom" xml:space="preserve">
     <value>Personalizado</value>
   </data>
   <data name="FloatingGadgetState_Hidden" xml:space="preserve">
-    <value>Hidden</value>
+    <value>Oculto</value>
   </data>
   <data name="FloatingGadgetState_Show" xml:space="preserve">
-    <value>Show</value>
+    <value>Mostrar</value>
+  </data>
+  <data name="FloatingGadgetItem_P_Core_Frequency" xml:space="preserve">
+    <value>Frecuencia de núcleo P</value>
+  </data>
+  <data name="FloatingGadgetItem_E_Core_Frequency" xml:space="preserve">
+    <value>Frecuencia de núcleo E</value>
   </data>
 </root>

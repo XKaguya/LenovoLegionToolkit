@@ -47,8 +47,7 @@ public class ThemeManager
                 }
                 catch (Exception ex)
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Couldn't check system accent color; using default.", ex);
+                    Log.Instance.Trace($"Couldn't check system accent color; using default.", ex);
 
                     return DefaultAccentColor;
                 }
@@ -74,8 +73,7 @@ public class ThemeManager
                 }
                 catch (Exception ex)
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Couldn't check system theme; assuming Dark Mode.", ex);
+                    Log.Instance.Trace($"Couldn't check system theme; assuming Dark Mode.", ex);
 
                     return true;
                 }

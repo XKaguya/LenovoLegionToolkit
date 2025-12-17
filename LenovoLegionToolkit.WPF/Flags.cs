@@ -4,8 +4,6 @@ using System.IO;
 using System.Linq;
 using LenovoLegionToolkit.Lib.Utils;
 
-// ReSharper disable StringLiteralTypo
-
 namespace LenovoLegionToolkit.WPF;
 
 public class Flags
@@ -13,6 +11,7 @@ public class Flags
     public bool IsTraceEnabled { get; }
     public bool Minimized { get; }
     public bool SkipCompatibilityCheck { get; }
+    public bool Debug { get; }
     public bool DisableTrayTooltip { get; }
     public bool AllowAllPowerModesOnBattery { get; }
     public bool ForceDisableRgbKeyboardSupport { get; }
@@ -27,13 +26,32 @@ public class Flags
     public bool DisableUpdateChecker { get; }
     public bool DisableConflictingSoftwareWarning { get; }
 
-    public Flags(IEnumerable<string> startupArgs)
+    public Flags(IEnumerable<string>? startupArgs)
     {
-        var args = startupArgs.Concat(LoadExternalArgs()).ToArray();
+        var argsList = new List<string>();
+
+        if (startupArgs != null)
+        {
+            argsList.AddRange(startupArgs);
+        }
+
+        var externalArgs = LoadExternalArgs();
+        if (externalArgs is { Length: > 0 })
+        {
+            argsList.AddRange(externalArgs);
+        }
+
+        if (argsList.Count == 0)
+        {
+            return;
+        }
+
+        var args = argsList.ToArray();
 
         IsTraceEnabled = BoolValue(args, "--trace");
         Minimized = BoolValue(args, "--minimized");
         SkipCompatibilityCheck = BoolValue(args, "--skip-compat-check");
+        Debug = BoolValue(args, "--debug");
         DisableTrayTooltip = BoolValue(args, "--disable-tray-tooltip");
         AllowAllPowerModesOnBattery = BoolValue(args, "--allow-all-power-modes-on-battery");
         ForceDisableRgbKeyboardSupport = BoolValue(args, "--force-disable-rgbkb");
@@ -74,6 +92,7 @@ public class Flags
         $"{nameof(IsTraceEnabled)}: {IsTraceEnabled}," +
         $" {nameof(Minimized)}: {Minimized}," +
         $" {nameof(SkipCompatibilityCheck)}: {SkipCompatibilityCheck}," +
+        $" {nameof(Debug)}: {Debug}," +
         $" {nameof(DisableTrayTooltip)}: {DisableTrayTooltip}," +
         $" {nameof(AllowAllPowerModesOnBattery)}: {AllowAllPowerModesOnBattery}," +
         $" {nameof(ForceDisableRgbKeyboardSupport)}: {ForceDisableRgbKeyboardSupport}," +

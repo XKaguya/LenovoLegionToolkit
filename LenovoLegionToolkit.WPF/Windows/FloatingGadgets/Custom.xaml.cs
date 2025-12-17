@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using LenovoLegionToolkit.Lib.Controllers.Sensors;
 
 namespace LenovoLegionToolkit.WPF.Windows.FloatingGadgets;
 
@@ -21,6 +22,7 @@ public class GadgetItemGroup
 public partial class Custom : Window
 {
     private readonly ApplicationSettings _settings = IoCContainer.Resolve<ApplicationSettings>();
+    private readonly SensorsGroupController _controller = IoCContainer.Resolve<SensorsGroupController>();
     private bool _isInitializing = true;
 
     public Custom()
@@ -38,12 +40,44 @@ public partial class Custom : Window
     private void InitializeCheckboxes()
     {
         var groups = new List<GadgetItemGroup>
+        {
+            new GadgetItemGroup { Header = Resource.FloatingGadget_Custom_Game, Items =
+                [FloatingGadgetItem.Fps, FloatingGadgetItem.LowFps, FloatingGadgetItem.FrameTime]
+            },
+            new GadgetItemGroup { Header = Resource.FloatingGadget_Custom_CPU, Items =
+                [
+                    FloatingGadgetItem.CpuUtilization, FloatingGadgetItem.CpuFrequency,
+                    FloatingGadgetItem.CpuTemperature,
+                    FloatingGadgetItem.CpuPower, FloatingGadgetItem.CpuFan
+                ]
+            },
+            new GadgetItemGroup { Header = Resource.FloatingGadget_Custom_GPU, Items =
+                [
+                    FloatingGadgetItem.GpuUtilization, FloatingGadgetItem.GpuFrequency,
+                    FloatingGadgetItem.GpuTemperature,
+                    FloatingGadgetItem.GpuVramTemperature, FloatingGadgetItem.GpuPower, FloatingGadgetItem.GpuFan
+                ]
+            },
+            new GadgetItemGroup { Header = Resource.FloatingGadget_Custom_Chipset, Items =
+                [
+                    FloatingGadgetItem.MemoryUtilization, FloatingGadgetItem.MemoryTemperature,
+                    FloatingGadgetItem.PchTemperature, FloatingGadgetItem.PchFan
+                ]
+            }
+        };
+
+        // Insert CPU P-Core and E-Core frequency options if the CPU is hybrid arch.
+        var cpuGroup = groups[1];
+        if (_controller.IsHybrid)
+        {
+            int baseFrequencyIndex = cpuGroup.Items.IndexOf(FloatingGadgetItem.CpuFrequency);
+            if (baseFrequencyIndex >= 0)
             {
-                new GadgetItemGroup { Header = Resource.FloatingGadget_Custom_Game, Items = new List<FloatingGadgetItem> { FloatingGadgetItem.Fps, FloatingGadgetItem.LowFps, FloatingGadgetItem.FrameTime } },
-                new GadgetItemGroup { Header = Resource.FloatingGadget_Custom_CPU, Items = new List<FloatingGadgetItem> { FloatingGadgetItem.CpuUtilization, FloatingGadgetItem.CpuFrequency, FloatingGadgetItem.CpuTemperature, FloatingGadgetItem.CpuPower, FloatingGadgetItem.CpuFan } },
-                new GadgetItemGroup { Header = Resource.FloatingGadget_Custom_GPU, Items = new List<FloatingGadgetItem> { FloatingGadgetItem.GpuUtilization, FloatingGadgetItem.GpuFrequency, FloatingGadgetItem.GpuTemperature, FloatingGadgetItem.GpuVramTemperature, FloatingGadgetItem.GpuPower, FloatingGadgetItem.GpuFan } },
-                new GadgetItemGroup { Header = Resource.FloatingGadget_Custom_Chipset, Items = new List<FloatingGadgetItem> { FloatingGadgetItem.MemoryUtilization, FloatingGadgetItem.MemoryTemperature, FloatingGadgetItem.PchTemperature, FloatingGadgetItem.PchFan } }
-            };
+                cpuGroup.Items.Insert(baseFrequencyIndex + 1, FloatingGadgetItem.CpuPCoreFrequency);
+                cpuGroup.Items.Insert(baseFrequencyIndex + 2, FloatingGadgetItem.CpuECoreFrequency);
+                cpuGroup.Items.Remove(FloatingGadgetItem.CpuFrequency);
+            }
+        }
 
         var activeItems = new HashSet<FloatingGadgetItem>(_settings.Store.FloatingGadgetItems);
 
@@ -95,7 +129,7 @@ public partial class Custom : Window
             {
                 foreach (var child in stackPanel.Children.OfType<CheckBox>())
                 {
-                    if (child.IsChecked == true && child.Tag is FloatingGadgetItem item)
+                    if (child is { IsChecked: true, Tag: FloatingGadgetItem item })
                     {
                         selectedItems.Add(item);
                     }

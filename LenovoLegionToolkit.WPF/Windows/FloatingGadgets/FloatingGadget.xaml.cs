@@ -15,35 +15,39 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 
-namespace LenovoLegionToolkit.WPF.Windows.Utils;
+namespace LenovoLegionToolkit.WPF.Windows.FloatingGadgets;
 
 public partial class FloatingGadget
 {
+    #region Win32 Constants
     private const int GWL_EXSTYLE = -20;
     private const int WS_EX_TRANSPARENT = 0x00000020;
     private const int WS_EX_TOOLWINDOW = 0x00000080;
+    private const int WS_EX_NOACTIVATE = 0x08000000;
+    #endregion
 
-    private const int UI_UPDATE_THROTTLE_MS = 100;
+    #region Threshold Constants
+    private const int UI_UPDATE_THROTTLE_MS = 500;
+    private const int FPS_RED_LINE = 30;
+    private const double MAX_FRAME_TIME_MS = 10.0;
+    private const long FRAMETIME_TIMEOUT_TICKS = 2 * 10_000_000;
 
-    private const int FpsRedLine = 30;
-    private const double MaxFrameTimeMs = 10.0;
+    private const double USAGE_YELLOW = 70;
+    private const double USAGE_RED = 90;
+    private const double MEM_USAGE_YELLOW = 75;
+    private const double MEM_USAGE_RED = 80;
 
-    private const double UsageYellow = 70;
-    private const double UsageRed = 90;
-    private const double MemUsageYellow = 75;
-    private const double MemUsageRed = 80;
-
-    private const double CpuTempYellow = 75;
-    private const double CpuTempRed = 90;
-    private const double GpuTempYellow = 70;
-    private const double GpuTempRed = 80;
-    private const double MemTempYellow = 60;
-    private const double MemTempRed = 75;
-    private const double PchTempYellow = 60;
-    private const double PchTempRed = 75;
+    private const double CPU_TEMP_YELLOW = 75;
+    private const double CPU_TEMP_RED = 90;
+    private const double GPU_TEMP_YELLOW = 70;
+    private const double GPU_TEMP_RED = 80;
+    private const double MEM_TEMP_YELLOW = 60;
+    private const double MEM_TEMP_RED = 75;
+    private const double PCH_TEMP_YELLOW = 60;
+    private const double PCH_TEMP_RED = 75;
+    #endregion
 
     private readonly ApplicationSettings _settings = IoCContainer.Resolve<ApplicationSettings>();
     private readonly SensorsController _controller = IoCContainer.Resolve<SensorsController>();
@@ -52,93 +56,92 @@ public partial class FloatingGadget
 
     private readonly SemaphoreSlim _refreshLock = new(1, 1);
     private readonly StringBuilder _stringBuilder = new(64);
+
     private DateTime _lastUpdate = DateTime.MinValue;
+    private long _lastValidFpsTick;
+    private long _lastFpsUiUpdateTick;
 
     private CancellationTokenSource? _cts;
-    private bool _fpsMonitoringStarted = false;
+    private bool _positionSet;
+    private bool _fpsMonitoringStarted;
 
-    private HashSet<FloatingGadgetItem> _activeItems = new();
-    private List<FloatingGadgetItem> _visibleItems = new();
-    private static Dictionary<FrameworkElement, (List<FloatingGadgetItem> Items, FrameworkElement? Separator)> GadgetGroups { get; } =
-        new Dictionary<FrameworkElement, (List<FloatingGadgetItem> Items, FrameworkElement? Separator)>();
-
-    private static Dictionary<FloatingGadgetItem, FrameworkElement> _itemsMap { get; } =
-        new Dictionary<FloatingGadgetItem, FrameworkElement>();
+    private HashSet<FloatingGadgetItem> _activeItems;
+    private readonly Dictionary<FloatingGadgetItem, FrameworkElement> _itemsMap;
+    private readonly Dictionary<FrameworkElement, (List<FloatingGadgetItem> Items, FrameworkElement? Separator)> _gadgetGroups;
 
     public FloatingGadget()
     {
         InitializeComponent();
 
-        IsVisibleChanged += FloatingGadget_IsVisibleChanged;
-        SourceInitialized += OnSourceInitialized!;
-        Closed += FloatingGadget_Closed!;
+        RenderOptions.ProcessRenderMode = RenderMode.SoftwareOnly;
 
-        InitializeComponentSpecifics();
-        InitializeMappings();
-        SubscribeEvents();
-
-        _activeItems = new HashSet<FloatingGadgetItem>(_settings.Store.FloatingGadgetItems);
-        _visibleItems.AddRange(_activeItems);
-
-        UpdateGadgetControlsVisibility();
-
-        var mi = Compatibility.GetMachineInformationAsync().Result;
-        if (mi.Properties.IsAmdDevice)
-        {
-            _pchName.Text = Resource.SensorsControl_Motherboard_Temperature;
-        }
-
-        InitializeFpsSensor();
-    }
-
-    private void InitializeComponentSpecifics()
-    {
-    }
-
-    private void InitializeMappings()
-    {
         if (_settings.Store.FloatingGadgetItems.Count == 0)
         {
-            _settings.Store.FloatingGadgetItems = Enum.GetValues(typeof(FloatingGadgetItem)).Cast<FloatingGadgetItem>().ToList();
+            _settings.Store.FloatingGadgetItems = Enum.GetValues<FloatingGadgetItem>().ToList();
             _settings.SynchronizeStore();
         }
+        _activeItems = new HashSet<FloatingGadgetItem>(_settings.Store.FloatingGadgetItems);
 
-        if (GadgetGroups.Count == 0)
+        _itemsMap = new()
         {
-            GadgetGroups.Add(_fpsGroup, (new List<FloatingGadgetItem> { FloatingGadgetItem.Fps, FloatingGadgetItem.LowFps, FloatingGadgetItem.FrameTime }, null));
-            GadgetGroups.Add(_cpuGroup, (new List<FloatingGadgetItem> { FloatingGadgetItem.CpuUtilization, FloatingGadgetItem.CpuFrequency, FloatingGadgetItem.CpuTemperature, FloatingGadgetItem.CpuPower, FloatingGadgetItem.CpuFan }, null));
-            GadgetGroups.Add(_gpuGroup, (new List<FloatingGadgetItem> { FloatingGadgetItem.GpuUtilization, FloatingGadgetItem.GpuFrequency, FloatingGadgetItem.GpuTemperature, FloatingGadgetItem.GpuVramTemperature, FloatingGadgetItem.GpuPower, FloatingGadgetItem.GpuFan }, null));
-            GadgetGroups.Add(_memoryGroup, (new List<FloatingGadgetItem> { FloatingGadgetItem.MemoryUtilization, FloatingGadgetItem.MemoryTemperature }, null));
-            GadgetGroups.Add(_pchGroup, (new List<FloatingGadgetItem> { FloatingGadgetItem.PchTemperature, FloatingGadgetItem.PchFan, FloatingGadgetItem.Disk1Temperature, FloatingGadgetItem.Disk2Temperature }, null));
-        }
+            { FloatingGadgetItem.Fps, _fps },
+            { FloatingGadgetItem.LowFps, _lowFps },
+            { FloatingGadgetItem.FrameTime, _frameTime },
+            { FloatingGadgetItem.CpuUtilization, _cpuUsage },
+            { FloatingGadgetItem.CpuFrequency, _cpuFrequency },
+            { FloatingGadgetItem.CpuPCoreFrequency, _cpuPFrequency },
+            { FloatingGadgetItem.CpuECoreFrequency, _cpuEFrequency },
+            { FloatingGadgetItem.CpuTemperature, _cpuTemperature },
+            { FloatingGadgetItem.CpuPower, _cpuPower },
+            { FloatingGadgetItem.CpuFan, _cpuFanSpeed },
+            { FloatingGadgetItem.GpuUtilization, _gpuUsage },
+            { FloatingGadgetItem.GpuFrequency, _gpuFrequency },
+            { FloatingGadgetItem.GpuTemperature, _gpuTemperature },
+            { FloatingGadgetItem.GpuVramTemperature, _gpuVramTemperature },
+            { FloatingGadgetItem.GpuPower, _gpuPower },
+            { FloatingGadgetItem.GpuFan, _gpuFanSpeed },
+            { FloatingGadgetItem.MemoryUtilization, _memUsage },
+            { FloatingGadgetItem.MemoryTemperature, _memTemperature },
+            { FloatingGadgetItem.PchTemperature, _pchTemperature },
+            { FloatingGadgetItem.PchFan, _pchFanSpeed },
+            { FloatingGadgetItem.Disk1Temperature, _disk0Temperature },
+            { FloatingGadgetItem.Disk2Temperature, _disk1Temperature },
+        };
 
-        if (_itemsMap.Count == 0)
+        _gadgetGroups = new()
         {
-            _itemsMap.Add(FloatingGadgetItem.Fps, _fps);
-            _itemsMap.Add(FloatingGadgetItem.LowFps, _lowFps);
-            _itemsMap.Add(FloatingGadgetItem.FrameTime, _frameTime);
+            { _fpsGroup, ([FloatingGadgetItem.Fps, FloatingGadgetItem.LowFps, FloatingGadgetItem.FrameTime], _separatorFps) },
+            { _cpuGroup, ([FloatingGadgetItem.CpuUtilization, FloatingGadgetItem.CpuFrequency, FloatingGadgetItem.CpuPCoreFrequency, FloatingGadgetItem.CpuECoreFrequency, FloatingGadgetItem.CpuTemperature, FloatingGadgetItem.CpuPower, FloatingGadgetItem.CpuFan], null) },
+            { _gpuGroup, ([FloatingGadgetItem.GpuUtilization, FloatingGadgetItem.GpuFrequency, FloatingGadgetItem.GpuTemperature, FloatingGadgetItem.GpuVramTemperature, FloatingGadgetItem.GpuPower, FloatingGadgetItem.GpuFan], null) },
+            { _memoryGroup, ([FloatingGadgetItem.MemoryUtilization, FloatingGadgetItem.MemoryTemperature], null) },
+            { _pchGroup, ([FloatingGadgetItem.PchTemperature, FloatingGadgetItem.PchFan, FloatingGadgetItem.Disk1Temperature, FloatingGadgetItem.Disk2Temperature], null) }
+        };
 
-            _itemsMap.Add(FloatingGadgetItem.CpuUtilization, _cpuUsage);
-            _itemsMap.Add(FloatingGadgetItem.CpuFrequency, _cpuFrequency);
-            _itemsMap.Add(FloatingGadgetItem.CpuTemperature, _cpuTemperature);
-            _itemsMap.Add(FloatingGadgetItem.CpuPower, _cpuPower);
-            _itemsMap.Add(FloatingGadgetItem.CpuFan, _cpuFanSpeed);
+        IsVisibleChanged += FloatingGadget_IsVisibleChanged;
+        SourceInitialized += OnSourceInitialized;
+        Closed += FloatingGadget_Closed;
+        Loaded += OnLoaded;
+        ContentRendered += OnContentRendered;
 
-            _itemsMap.Add(FloatingGadgetItem.GpuUtilization, _gpuUsage);
-            _itemsMap.Add(FloatingGadgetItem.GpuFrequency, _gpuFrequency);
-            _itemsMap.Add(FloatingGadgetItem.GpuTemperature, _gpuTemperature);
-            _itemsMap.Add(FloatingGadgetItem.GpuVramTemperature, _gpuVramTemperature);
-            _itemsMap.Add(FloatingGadgetItem.GpuPower, _gpuPower);
-            _itemsMap.Add(FloatingGadgetItem.GpuFan, _gpuFanSpeed);
+        InitializeComponentSpecifics();
+        SubscribeEvents();
+        _fpsController.FpsDataUpdated += OnFpsDataUpdated;
 
-            _itemsMap.Add(FloatingGadgetItem.MemoryUtilization, _memUsage);
-            _itemsMap.Add(FloatingGadgetItem.MemoryTemperature, _memTemperature);
+        UpdateGadgetControlsVisibility();
+    }
 
-            _itemsMap.Add(FloatingGadgetItem.PchTemperature, _pchTemperature);
-            _itemsMap.Add(FloatingGadgetItem.PchFan, _pchFanSpeed);
+    [DllImport("user32.dll")]
+    private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
 
-            _itemsMap.Add(FloatingGadgetItem.Disk1Temperature, _disk0Temperature);
-            _itemsMap.Add(FloatingGadgetItem.Disk2Temperature, _disk1Temperature);
+    [DllImport("user32.dll")]
+    private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+
+    private async void InitializeComponentSpecifics()
+    {
+        var mi = await Compatibility.GetMachineInformationAsync();
+        if (mi.Properties.IsAmdDevice)
+        {
+            _pchName.Text = Resource.SensorsControl_Motherboard_Title;
         }
     }
 
@@ -151,13 +154,9 @@ public partial class FloatingGadget
                 if (App.Current.FloatingGadget == null) return;
 
                 if (message.State == FloatingGadgetState.Show)
-                {
                     App.Current.FloatingGadget.Show();
-                }
                 else
-                {
                     App.Current.FloatingGadget.Hide();
-                }
             });
         });
 
@@ -168,185 +167,59 @@ public partial class FloatingGadget
                 if (App.Current.FloatingGadget == null) return;
 
                 var newItemsSet = new HashSet<FloatingGadgetItem>(message.Items);
-                if (!_activeItems.SetEquals(newItemsSet))
+                if (_activeItems.SetEquals(newItemsSet))
                 {
-                    _visibleItems.Clear();
-                    _visibleItems.AddRange(message.Items);
-
-                    _activeItems = newItemsSet;
-                    UpdateGadgetControlsVisibility();
+                    return;
                 }
+
+                _activeItems = newItemsSet;
+                UpdateGadgetControlsVisibility();
             });
         });
     }
 
-    private void UpdateGadgetGroupVisibility()
+    private void OnSourceInitialized(object? sender, EventArgs e)
     {
-        var visibleGroups = new List<FrameworkElement>();
-        var allGroups = GadgetGroups.ToList();
-
-        foreach (var kvp in allGroups)
+        if (PresentationSource.FromVisual(this) is not HwndSource source)
         {
-            var groupPanel = kvp.Key;
-            var (items, separator) = kvp.Value;
-
-            var isGroupActive = items.Any(item => _activeItems.Contains(item));
-
-            groupPanel.Visibility = isGroupActive ? Visibility.Visible : Visibility.Collapsed;
-
-            if (isGroupActive)
-            {
-                visibleGroups.Add(groupPanel);
-            }
+            return;
         }
 
-        for (int i = 0; i < allGroups.Count; i++)
-        {
-            var (_, separator) = allGroups[i].Value;
-
-            if (separator != null)
-            {
-                bool isCurrentGroupVisible = visibleGroups.Contains(allGroups[i].Key);
-
-                if (isCurrentGroupVisible)
-                {
-                    int indexInVisible = visibleGroups.IndexOf(allGroups[i].Key);
-                    bool nextGroupIsVisible = indexInVisible < visibleGroups.Count - 1;
-
-                    separator.Visibility = nextGroupIsVisible ? Visibility.Visible : Visibility.Collapsed;
-                }
-                else
-                {
-                    separator.Visibility = Visibility.Collapsed;
-                }
-            }
-        }
-    }
-
-    private void UpdateGadgetControlsVisibility()
-    {
-        foreach (var kv in _itemsMap)
-        {
-            var control = kv.Value;
-            var visible = _activeItems.Contains(kv.Key) ? Visibility.Visible : Visibility.Collapsed;
-
-            control.Visibility = visible;
-            SetSiblingLabelsVisibility(control, visible);
-        }
-
-        UpdateGadgetGroupVisibility();
-    }
-    private void SetSiblingLabelsVisibility(FrameworkElement valueControl, Visibility visibility)
-    {
-        if (valueControl == null) return;
-
-        if (valueControl.Parent is System.Windows.Controls.Panel panel)
-        {
-            foreach (var child in panel.Children.OfType<FrameworkElement>())
-            {
-                if (child == valueControl) continue;
-                if (child is System.Windows.Controls.TextBlock tb)
-                {
-                    tb.Visibility = visibility;
-                }
-            }
-        }
-        else if (valueControl.Parent is System.Windows.Controls.ContentControl contentControl)
-        {
-            if (contentControl.Content is FrameworkElement fe && fe is System.Windows.Controls.TextBlock tb)
-            {
-                tb.Visibility = visibility;
-            }
-        }
-        else
-        {
-            var parent = System.Windows.Media.VisualTreeHelper.GetParent(valueControl);
-            if (parent is DependencyObject dob)
-            {
-                int count = System.Windows.Media.VisualTreeHelper.GetChildrenCount(dob);
-                for (int i = 0; i < count; i++)
-                {
-                    var child = System.Windows.Media.VisualTreeHelper.GetChild(dob, i) as FrameworkElement;
-                    if (child == null || child == valueControl) continue;
-                    if (child is System.Windows.Controls.TextBlock tb)
-                        tb.Visibility = visibility;
-                }
-            }
-        }
-    }
-
-    [DllImport("user32.dll")]
-    private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
-
-    [DllImport("user32.dll")]
-    private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
-
-    private void InitializeFpsSensor()
-    {
-        _fpsController.Blacklist.Add("explorer");
-        _fpsController.Blacklist.Add("taskmgr");
-        _fpsController.Blacklist.Add("ApplicationFrameHost");
-        _fpsController.Blacklist.Add("System");
-        _fpsController.Blacklist.Add("svchost");
-        _fpsController.Blacklist.Add("csrss");
-        _fpsController.Blacklist.Add("wininit");
-        _fpsController.Blacklist.Add("services");
-        _fpsController.Blacklist.Add("lsass");
-        _fpsController.Blacklist.Add("winlogon");
-        _fpsController.Blacklist.Add("smss");
-        _fpsController.Blacklist.Add("spoolsv");
-        _fpsController.Blacklist.Add("SearchIndexer");
-        _fpsController.Blacklist.Add("SearchUI");
-        _fpsController.Blacklist.Add("RuntimeBroker");
-        _fpsController.Blacklist.Add("dwm");
-        _fpsController.Blacklist.Add("ctfmon");
-        _fpsController.Blacklist.Add("audiodg");
-        _fpsController.Blacklist.Add("fontdrvhost");
-        _fpsController.Blacklist.Add("taskhost");
-        _fpsController.Blacklist.Add("conhost");
-        _fpsController.Blacklist.Add("sihost");
-        _fpsController.Blacklist.Add("StartMenuExperienceHost");
-        _fpsController.Blacklist.Add("ShellExperienceHost");
-
-        _fpsController.FpsDataUpdated += OnFpsDataUpdated;
-    }
-
-    private void OnSourceInitialized(object sender, EventArgs e)
-    {
-        var hwnd = new WindowInteropHelper(this).Handle;
+        var hwnd = source.Handle;
         var extendedStyle = GetWindowLong(hwnd, GWL_EXSTYLE);
-        SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle | WS_EX_TRANSPARENT | WS_EX_TOOLWINDOW);
+        SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle | WS_EX_TRANSPARENT | WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE);
     }
 
-    private async Task StartFpsMonitoringAsync()
+    private void OnLoaded(object? sender, RoutedEventArgs e)
+        => Dispatcher.BeginInvoke(new Action(SetWindowPosition), DispatcherPriority.Loaded);
+
+    private void OnContentRendered(object? sender, EventArgs e)
     {
-        await _fpsController.StartMonitoringAsync();
+        if (!_positionSet)
+            Dispatcher.BeginInvoke(new Action(SetWindowPosition), DispatcherPriority.Render);
     }
 
-    private async void FloatingGadget_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+    private async void FloatingGadget_IsVisibleChanged(object? sender, DependencyPropertyChangedEventArgs e)
     {
         if (IsVisible)
         {
             _cts?.Cancel();
             _cts?.Dispose();
-
             _cts = new CancellationTokenSource();
 
-            if (!_fpsMonitoringStarted)
-            {
-                await StartFpsMonitoringAsync();
-                _fpsMonitoringStarted = true;
-            }
+            CheckAndUpdateFpsMonitoring();
+            UpdateGadgetControlsVisibility();
 
             await TheRing(_cts.Token);
         }
         else
         {
             _cts?.Cancel();
+            CheckAndUpdateFpsMonitoring();
         }
     }
 
-    private void FloatingGadget_Closed(object sender, EventArgs e)
+    private void FloatingGadget_Closed(object? sender, EventArgs e)
     {
         _cts?.Cancel();
         _cts?.Dispose();
@@ -356,13 +229,134 @@ public partial class FloatingGadget
         _fpsController.Dispose();
     }
 
-    // ------------ 辅助：颜色与文本更新 ------------
+    private void SetWindowPosition()
+    {
+        if (double.IsNaN(ActualWidth) || ActualWidth <= 0) return;
+
+        var workArea = SystemParameters.WorkArea;
+
+        Left = workArea.Left;
+        Top = workArea.Top + 10;
+
+        _positionSet = true;
+    }
+
+    private void UpdateGadgetControlsVisibility()
+    {
+        foreach (var (item, element) in _itemsMap)
+        {
+            bool shouldShow = _activeItems.Contains(item);
+
+            if (item is FloatingGadgetItem.CpuPCoreFrequency or FloatingGadgetItem.CpuECoreFrequency &&
+                !_sensorsGroupControllers.IsHybrid)
+            {
+                shouldShow = false;
+            }
+
+            element.Visibility = shouldShow ? Visibility.Visible : Visibility.Collapsed;
+            SetSiblingLabelsVisibility(element, shouldShow ? Visibility.Visible : Visibility.Collapsed);
+        }
+
+        var visibleGroups = new List<FrameworkElement>();
+
+        foreach (var (groupPanel, (items, _)) in _gadgetGroups)
+        {
+            bool isGroupActive = items.Any(item =>
+                _activeItems.Contains(item) &&
+                !(item is FloatingGadgetItem.CpuPCoreFrequency or FloatingGadgetItem.CpuECoreFrequency && !_sensorsGroupControllers.IsHybrid)
+            );
+
+            groupPanel.Visibility = isGroupActive ? Visibility.Visible : Visibility.Collapsed;
+            if (isGroupActive) visibleGroups.Add(groupPanel);
+        }
+
+        foreach (var (groupPanel, (_, separator)) in _gadgetGroups)
+        {
+            if (separator == null) continue;
+
+            int index = visibleGroups.IndexOf(groupPanel);
+            separator.Visibility = (index >= 0 && index < visibleGroups.Count - 1)
+                ? Visibility.Visible
+                : Visibility.Collapsed;
+        }
+
+        CheckAndUpdateFpsMonitoring();
+    }
+
+    private void SetSiblingLabelsVisibility(FrameworkElement control, Visibility visibility)
+    {
+        if (control.Parent is not System.Windows.Controls.Panel panel)
+        {
+            return;
+        }
+
+        foreach (var child in panel.Children.OfType<System.Windows.Controls.TextBlock>())
+        {
+            if (child != control) child.Visibility = visibility;
+        }
+    }
+
+    private async void CheckAndUpdateFpsMonitoring()
+    {
+        bool shouldMonitor = IsVisible && ShouldMonitorFps();
+
+        switch (shouldMonitor)
+        {
+            case true when !_fpsMonitoringStarted:
+                await StartFpsMonitoringAsync();
+                _fpsMonitoringStarted = true;
+                break;
+            case false when _fpsMonitoringStarted:
+                StopFpsMonitoring();
+                _fpsMonitoringStarted = false;
+                break;
+        }
+    }
+
+    private bool ShouldMonitorFps() =>
+        _activeItems.Contains(FloatingGadgetItem.Fps) ||
+        _activeItems.Contains(FloatingGadgetItem.LowFps) ||
+        _activeItems.Contains(FloatingGadgetItem.FrameTime);
+
+    #region UI Update Helpers
+    private void UpdateTextBlock(System.Windows.Controls.TextBlock tb, double value, string format, double yellowThreshold = double.MaxValue, double redThreshold = double.MaxValue)
+    {
+        if (tb.Visibility != Visibility.Visible) return;
+
+        string text;
+        Brush foreground = Brushes.White;
+
+        if (double.IsNaN(value) || value < 0)
+        {
+            text = "-";
+        }
+        else
+        {
+            _stringBuilder.Clear();
+            _stringBuilder.AppendFormat(format, value);
+            text = _stringBuilder.ToString();
+
+            if (yellowThreshold != double.MaxValue)
+            {
+                foreground = SeverityBrush(value, yellowThreshold, redThreshold);
+            }
+        }
+
+        SetTextIfChanged(tb, text);
+        SetForegroundIfChanged(tb, foreground);
+    }
+
+    private void UpdateTextBlock(System.Windows.Controls.TextBlock tb, int value)
+    {
+        if (tb.Visibility != Visibility.Visible) return;
+        string text = value < 0 ? "-" : $"{value} RPM";
+        SetTextIfChanged(tb, text);
+    }
+
     private static Brush SeverityBrush(double value, double yellowThreshold, double redThreshold)
     {
-        if (double.IsNaN(value)) return Brushes.White;
         if (value >= redThreshold) return Brushes.Red;
-        if (value >= yellowThreshold) return Brushes.Goldenrod;
-        return Brushes.White;
+        return value >= yellowThreshold ? Brushes.Goldenrod : Brushes.White;
     }
 
     private static void SetTextIfChanged(System.Windows.Controls.TextBlock tb, string text)
@@ -373,164 +367,156 @@ public partial class FloatingGadget
 
     private static void SetForegroundIfChanged(System.Windows.Controls.TextBlock tb, Brush brush)
     {
-        if (!Equals(tb.Foreground, brush))
+        if (!ReferenceEquals(tb.Foreground, brush))
             tb.Foreground = brush;
     }
+    #endregion
 
-    private void UpdateTextBlock(System.Windows.Controls.TextBlock tb, double value, string format, double yellowThreshold, double redThreshold)
+    #region FPS Monitoring
+    private async Task StartFpsMonitoringAsync()
     {
-        if (tb.Visibility != Visibility.Visible) return;
-
-        _stringBuilder.Clear();
-        if (double.IsNaN(value) || value < 0)
-        {
-            SetTextIfChanged(tb, "-");
-            SetForegroundIfChanged(tb, Brushes.White);
-        }
-        else
-        {
-            _stringBuilder.AppendFormat(format, value);
-            SetTextIfChanged(tb, _stringBuilder.ToString());
-            SetForegroundIfChanged(tb, SeverityBrush(value, yellowThreshold, redThreshold));
-        }
+        try { await _fpsController.StartMonitoringAsync(); }
+        catch (Exception ex) { Log.Instance.Trace($"Failed to start FPS monitoring", ex); }
     }
 
-    private void UpdateTextBlock(System.Windows.Controls.TextBlock tb, double value, string format)
+    private void StopFpsMonitoring()
     {
-        if (tb.Visibility != Visibility.Visible) return;
-
-        _stringBuilder.Clear();
-        if (double.IsNaN(value) || value < 0)
-        {
-            SetTextIfChanged(tb, "-");
-        }
-        else
-        {
-            _stringBuilder.AppendFormat(format, value);
-            SetTextIfChanged(tb, _stringBuilder.ToString());
-        }
-    }
-
-    private void UpdateTextBlock(System.Windows.Controls.TextBlock tb, int value)
-    {
-        if (tb.Visibility != Visibility.Visible) return;
-
-        _stringBuilder.Clear();
-        if (value < 0)
-        {
-            SetTextIfChanged(tb, "-");
-        }
-        else
-        {
-            _stringBuilder.AppendFormat("{0} RPM", value);
-            SetTextIfChanged(tb, _stringBuilder.ToString());
-        }
-    }
-
-    public void UpdateSensorData(
-        double cpuUsage, double cpuFrequency, double cpuTemp, double cpuPower,
-        double gpuUsage, double gpuFrequency, double gpuTemp, double gpuVramTemp, double gpuPower,
-        double memUsage, double pchTemp, double memTemp, double disk0Temperature, double disk1Temperature,
-        int cpuFanSpeed, int gpuFanSpeed, int pchFanSpeed)
-    {
-        if ((DateTime.Now - _lastUpdate).TotalMilliseconds < UI_UPDATE_THROTTLE_MS) return;
-        _lastUpdate = DateTime.Now;
-
-        // CPU
-        UpdateTextBlock(_cpuFrequency, cpuFrequency, "{0}Mhz");
-        UpdateTextBlock(_cpuUsage, cpuUsage, "{0:F0}%", UsageYellow, UsageRed);
-        UpdateTextBlock(_cpuTemperature, cpuTemp, "{0:F0}°C", CpuTempYellow, CpuTempRed);
-        UpdateTextBlock(_cpuPower, cpuPower, "{0:F1} W");
-        UpdateTextBlock(_cpuFanSpeed, cpuFanSpeed);
-
-        // GPU
-        UpdateTextBlock(_gpuFrequency, gpuFrequency, "{0}Mhz");
-        UpdateTextBlock(_gpuUsage, gpuUsage, "{0:F0}%", UsageYellow, UsageRed);
-        UpdateTextBlock(_gpuTemperature, gpuTemp, "{0:F0}°C", GpuTempYellow, GpuTempRed);
-        UpdateTextBlock(_gpuVramTemperature, gpuVramTemp, "{0:F0}°C", GpuTempYellow, GpuTempRed);
-        UpdateTextBlock(_gpuPower, gpuPower, "{0:F1} W");
-        UpdateTextBlock(_gpuFanSpeed, gpuFanSpeed);
-
-        // Memory & PCH
-        UpdateTextBlock(_memUsage, memUsage, "{0:F0}%", MemUsageYellow, MemUsageRed);
-        UpdateTextBlock(_pchTemperature, pchTemp, "{0:F0}°C", PchTempYellow, PchTempRed);
-        UpdateTextBlock(_memTemperature, memTemp, "{0:F0}°C", MemTempYellow, MemTempRed);
-
-        // Disks
-        UpdateTextBlock(_disk0Temperature, disk0Temperature, "{0:F0}°C");
-        UpdateTextBlock(_disk1Temperature, disk1Temperature, "{0:F0}°C");
-
-        // Fans
-        UpdateTextBlock(_cpuFanSpeed, cpuFanSpeed);
-        UpdateTextBlock(_gpuFanSpeed, gpuFanSpeed);
-        UpdateTextBlock(_pchFanSpeed, pchFanSpeed);
+        try { _fpsController.StopMonitoring(); }
+        catch (Exception ex) { Log.Instance.Trace($"Failed to stop FPS monitoring", ex); }
     }
 
     private void OnFpsDataUpdated(object? sender, FpsSensorController.FpsData fpsData)
     {
-        Dispatcher.BeginInvoke(() =>
+        if (!_fpsMonitoringStarted) return;
+        if (string.IsNullOrWhiteSpace(fpsData.Fps)) return;
+
+        long currentTick = DateTime.Now.Ticks;
+
+        int.TryParse(fpsData.Fps?.Trim(), out var fpsVal);
+        int.TryParse(fpsData.LowFps?.Trim(), out var lowVal);
+        double.TryParse(fpsData.FrameTime?.Trim(), out var ftVal);
+
+        bool isSampleValid = fpsVal > 0;
+
+        string? fpsText = null, lowText = null, ftText = null;
+        Brush? fpsBrush = null, lowBrush = null, ftBrush = null;
+
+        if (isSampleValid)
         {
-            UpdateFpsDisplay(fpsData.Fps, fpsData.LowFps, fpsData.FrameTime);
-        }, DispatcherPriority.Normal);
+            long elapsedTicks = currentTick - _lastFpsUiUpdateTick;
+            if (elapsedTicks < TimeSpan.FromMilliseconds(UI_UPDATE_THROTTLE_MS).Ticks) return;
+
+            _lastFpsUiUpdateTick = currentTick;
+            _lastValidFpsTick = currentTick;
+
+            const string dash = "-";
+
+            fpsText = fpsVal.ToString();
+            fpsBrush = (fpsVal < FPS_RED_LINE) ? Brushes.Red : Brushes.White;
+
+            lowText = (lowVal > 0) ? lowVal.ToString() : dash;
+            lowBrush = (lowVal > 0 && (fpsVal - lowVal) >= 30) ? Brushes.Red : Brushes.White;
+
+            if (ftVal > 0.1)
+            {
+                ftText = $"{ftVal,5:F1}ms";
+                ftBrush = (ftVal > MAX_FRAME_TIME_MS) ? Brushes.Red : Brushes.White;
+            }
+            else
+            {
+                ftText = dash;
+                ftBrush = Brushes.White;
+            }
+        }
+        else
+        {
+            if (currentTick - _lastValidFpsTick > FRAMETIME_TIMEOUT_TICKS)
+            {
+                const string dash = "-";
+                fpsText = dash; fpsBrush = Brushes.White;
+                lowText = dash; lowBrush = Brushes.White;
+                ftText = dash; ftBrush = Brushes.White;
+                _lastFpsUiUpdateTick = currentTick;
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        var displayData = new FpsDisplayData
+        {
+            FpsText = fpsText,
+            FpsBrush = fpsBrush,
+            LowFpsText = lowText,
+            LowFpsBrush = lowBrush,
+            FrameTimeText = ftText,
+            FrameTimeBrush = ftBrush
+        };
+
+        Dispatcher.BeginInvoke(() => UpdateFpsDisplay(displayData), DispatcherPriority.Normal);
     }
 
-    private void UpdateFpsDisplay(string fps, string lowFps, string frameTime)
+    private void UpdateFpsDisplay(FpsDisplayData data)
     {
-        const string dash = "-";
+        if (data.FpsText != null)
+        {
+            SetTextIfChanged(_fps, data.FpsText);
+            if (data.FpsBrush != null) SetForegroundIfChanged(_fps, data.FpsBrush);
+        }
 
-        int.TryParse(fps?.Trim(), out var fpsVal);
-        int.TryParse(lowFps?.Trim(), out var lowVal);
-        double.TryParse(frameTime?.Trim(), out var ftVal);
+        if (data.LowFpsText != null)
+        {
+            SetTextIfChanged(_lowFps, data.LowFpsText);
+            if (data.LowFpsBrush != null) SetForegroundIfChanged(_lowFps, data.LowFpsBrush);
+        }
 
-        var fpsText = (fpsVal >= 0) ? fpsVal.ToString() : dash;
-        var lowFpsText = (lowVal >= 0) ? lowVal.ToString() : dash;
-        var frameTimeText = (ftVal >= 0) ? $"{ftVal:F1}ms" : dash;
+        if (data.FrameTimeText == null)
+        {
+            return;
+        }
 
-        SetTextIfChanged(_fps, fpsText);
-        SetTextIfChanged(_lowFps, lowFpsText);
-        SetTextIfChanged(_frameTime, frameTimeText);
-
-        var normalBrush = Brushes.White;
-        var alertBrush = Brushes.Red;
-
-        var fpsBrush = (fpsVal >= 0 && fpsVal < FpsRedLine) ? alertBrush : normalBrush;
-        var lowFpsBrush = (lowVal >= 0 && fpsVal >= 0 && (fpsVal - lowVal) >= 30) ? alertBrush : normalBrush;
-        var frameTimeBrush = (ftVal >= 0 && ftVal > MaxFrameTimeMs) ? alertBrush : normalBrush;
-
-        SetForegroundIfChanged(_fps, fpsBrush);
-        SetForegroundIfChanged(_lowFps, lowFpsBrush);
-        SetForegroundIfChanged(_frameTime, frameTimeBrush);
+        SetTextIfChanged(_frameTime, data.FrameTimeText);
+        if (data.FrameTimeBrush != null) SetForegroundIfChanged(_frameTime, data.FrameTimeBrush);
     }
+    #endregion
 
+    #region Main Loop & Data Refresh
     public async Task TheRing(CancellationToken token)
     {
-        if (!await _refreshLock.WaitAsync(0, token))
-            return;
+        if (!await _refreshLock.WaitAsync(0, token)) return;
 
         try
         {
             while (!token.IsCancellationRequested)
             {
+                var loopStart = DateTime.Now;
                 try
                 {
-                    await RefreshDataAsync(token);
-                    await Task.Delay(TimeSpan.FromSeconds(_settings.Store.FloatingGadgetsRefreshInterval), token);
+                    await RefreshSensorsDataAsync(token);
                 }
-                catch (OperationCanceledException) { }
-                catch (Exception) { }
+                catch (OperationCanceledException) { break; }
+                catch (Exception ex)
+                {
+                    Log.Instance.Trace($"Exception occurred when executing TheRing()", ex);
+                    await Task.Delay(1000, token);
+                }
+
+                var elapsed = DateTime.Now - loopStart;
+                var delay = TimeSpan.FromSeconds(_settings.Store.FloatingGadgetsRefreshInterval) - elapsed;
+                if (delay > TimeSpan.Zero)
+                {
+                    await Task.Delay(delay, token);
+                }
             }
         }
         finally
         {
-            try
-            {
-                _refreshLock.Release();
-            }
-            catch (ObjectDisposedException) { }
+            try { _refreshLock.Release(); } catch (ObjectDisposedException) { }
         }
     }
 
-    private async Task RefreshDataAsync(CancellationToken token)
+    private async Task RefreshSensorsDataAsync(CancellationToken token)
     {
         await _sensorsGroupControllers.UpdateAsync();
 
@@ -538,37 +524,80 @@ public partial class FloatingGadget
         var cpuPowerTask = _sensorsGroupControllers.GetCpuPowerAsync();
         var gpuPowerTask = _sensorsGroupControllers.GetGpuPowerAsync();
         var gpuVramTask = _sensorsGroupControllers.GetGpuVramTemperatureAsync();
-        var diskTemperaturesTask = _sensorsGroupControllers.GetSSDTemperaturesAsync();
-        var memoryUsageTask = _sensorsGroupControllers.GetMemoryUsageAsync();
-        var memoryTemperaturesTask = _sensorsGroupControllers.GetHighestMemoryTemperatureAsync();
+        var memUsageTask = _sensorsGroupControllers.GetMemoryUsageAsync();
+        var memTempTask = _sensorsGroupControllers.GetHighestMemoryTemperatureAsync();
+        var diskTempsTask = _sensorsGroupControllers.GetSsdTemperaturesAsync();
 
-        await Task.WhenAll(dataTask, cpuPowerTask, gpuPowerTask, gpuVramTask,
-            diskTemperaturesTask, memoryUsageTask, memoryTemperaturesTask);
+        var cpuClockTask = !_sensorsGroupControllers.IsHybrid ? _sensorsGroupControllers.GetCpuCoreClockAsync() : Task.FromResult(float.NaN);
+        var cpuPClockTask = _sensorsGroupControllers.IsHybrid ? _sensorsGroupControllers.GetCpuPCoreClockAsync() : Task.FromResult(float.NaN);
+        var cpuEClockTask = _sensorsGroupControllers.IsHybrid ? _sensorsGroupControllers.GetCpuECoreClockAsync() : Task.FromResult(float.NaN);
 
-        token.ThrowIfCancellationRequested();
+        await Task.WhenAll(dataTask, cpuPowerTask, gpuPowerTask, gpuVramTask, memUsageTask, memTempTask, diskTempsTask, cpuPClockTask, cpuEClockTask);
 
-        var data = dataTask.Result;
-        var cpuPower = cpuPowerTask.Result;
-        var gpuPower = gpuPowerTask.Result;
+        if (token.IsCancellationRequested) return;
 
-        await Dispatcher.BeginInvoke(() => UpdateSensorData(
-            data.CPU.Utilization,
-            data.CPU.CoreClock,
-            data.CPU.Temperature,
-            cpuPower,
-            data.GPU.Utilization,
-            data.GPU.CoreClock,
-            data.GPU.Temperature,
-            gpuVramTask.Result,
-            gpuPower,
-            memoryUsageTask.Result,
-            data.PCH.Temperature,
-            memoryTemperaturesTask.Result,
-            diskTemperaturesTask.Result.Item1,
-            diskTemperaturesTask.Result.Item2,
-            data.CPU.FanSpeed,
-            data.GPU.FanSpeed,
-            data.PCH.FanSpeed
-        ), DispatcherPriority.Normal);
+        if ((DateTime.Now - _lastUpdate).TotalMilliseconds < UI_UPDATE_THROTTLE_MS) return;
+
+        _lastUpdate = DateTime.Now;
+
+        var mainData = await dataTask;
+        var diskData = await diskTempsTask;
+
+        var snapshot = new SensorSnapshot
+        {
+            CpuUsage = mainData.CPU.Utilization,
+            CpuFrequency = await cpuClockTask,
+            CpuPClock = await cpuPClockTask,
+            CpuEClock = await cpuEClockTask,
+            CpuTemp = mainData.CPU.Temperature,
+            CpuPower = await cpuPowerTask,
+            CpuFanSpeed = mainData.CPU.FanSpeed,
+
+            GpuUsage = mainData.GPU.Utilization,
+            GpuFrequency = mainData.GPU.CoreClock,
+            GpuTemp = mainData.GPU.Temperature,
+            GpuVramTemp = await gpuVramTask,
+            GpuPower = await gpuPowerTask,
+            GpuFanSpeed = mainData.GPU.FanSpeed,
+
+            MemUsage = await memUsageTask,
+            MemTemp = await memTempTask,
+
+            PchTemp = mainData.PCH.Temperature,
+            PchFanSpeed = mainData.PCH.FanSpeed,
+
+            Disk1Temp = diskData.Item1,
+            Disk2Temp = diskData.Item2
+        };
+
+        await Dispatcher.BeginInvoke(() => UpdateSensorData(snapshot), DispatcherPriority.Normal);
     }
+
+    private void UpdateSensorData(SensorSnapshot data)
+    {
+        UpdateTextBlock(_cpuFrequency, data.CpuFrequency, "{0} MHz");
+        UpdateTextBlock(_cpuPFrequency, data.CpuPClock, "{0:F0} MHz");
+        UpdateTextBlock(_cpuEFrequency, data.CpuEClock, "{0:F0} MHz");
+        UpdateTextBlock(_cpuUsage, data.CpuUsage, "{0:F0}%", USAGE_YELLOW, USAGE_RED);
+        UpdateTextBlock(_cpuTemperature, data.CpuTemp, "{0:F0}°C", CPU_TEMP_YELLOW, CPU_TEMP_RED);
+        UpdateTextBlock(_cpuPower, data.CpuPower, "{0:F1} W");
+        UpdateTextBlock(_cpuFanSpeed, data.CpuFanSpeed);
+
+        UpdateTextBlock(_gpuFrequency, data.GpuFrequency, "{0} MHz");
+        UpdateTextBlock(_gpuUsage, data.GpuUsage, "{0:F0}%", USAGE_YELLOW, USAGE_RED);
+        UpdateTextBlock(_gpuTemperature, data.GpuTemp, "{0:F0}°C", GPU_TEMP_YELLOW, GPU_TEMP_RED);
+        UpdateTextBlock(_gpuVramTemperature, data.GpuVramTemp, "{0:F0}°C", GPU_TEMP_YELLOW, GPU_TEMP_RED);
+        UpdateTextBlock(_gpuPower, data.GpuPower, "{0:F1} W");
+        UpdateTextBlock(_gpuFanSpeed, data.GpuFanSpeed);
+
+        UpdateTextBlock(_memUsage, data.MemUsage, "{0:F0}%", MEM_USAGE_YELLOW, MEM_USAGE_RED);
+        UpdateTextBlock(_memTemperature, data.MemTemp, "{0:F0}°C", MEM_TEMP_YELLOW, MEM_TEMP_RED);
+
+        UpdateTextBlock(_pchTemperature, data.PchTemp, "{0:F0}°C", PCH_TEMP_YELLOW, PCH_TEMP_RED);
+        UpdateTextBlock(_pchFanSpeed, data.PchFanSpeed);
+
+        UpdateTextBlock(_disk0Temperature, data.Disk1Temp, "{0:F0}°C");
+        UpdateTextBlock(_disk1Temperature, data.Disk2Temp, "{0:F0}°C");
+    }
+    #endregion
 }

@@ -51,6 +51,7 @@ public enum CapabilityID
     AMDSkinTemperatureTracking = 0x00050002,
     SupportedPowerModes = 0x00070000,
     LegionZoneSupportVersion = 0x00090000,
+    AutoSwitchRefreshRate = 0x000A0000,
     GodModeFnQSwitchable = 0x00100000,
     OverDrive = 0x001A0000,
     AIChip = 0x000E0000,
@@ -62,6 +63,7 @@ public enum CapabilityID
     APUsPPTPowerLimit = 0x0105FF00,
     CPUCrossLoadingPowerLimit = 0x0106FF00,
     CPUPL1Tau = 0x0107FF00,
+    CPUOverclockingEnable = 0x108FF00,
     GPUPowerBoost = 0x0201FF00,
     GPUConfigurableTGP = 0x0202FF00,
     GPUTemperatureLimit = 0x0203FF00,
@@ -78,6 +80,13 @@ public enum CapabilityID
     PchCurrentTemperature = 0x05010000,
     CpuCurrentTemperature = 0x05040000,
     GpuCurrentTemperature = 0x05050000
+}
+
+public enum CPUOverclockingID
+{
+    PrecisionBoostOverdriveScaler = 0x414D4401,
+    PrecisionBoostOverdriveBoostFrequency = 0x414D4402,
+    AllCoreCurveOptimizer = 0x414D4403,
 }
 
 [Flags]
@@ -117,6 +126,10 @@ public enum FloatingGadgetItem
     FrameTime,
     [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Frequency")]
     CpuFrequency,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_P_Core_Frequency")]
+    CpuPCoreFrequency,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_E_Core_Frequency")]
+    CpuECoreFrequency,
     [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Utilization")]
     CpuUtilization,
     [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Temperature")]
@@ -242,7 +255,8 @@ public enum KeyboardLayout
 {
     Ansi,
     Iso,
-    Jis
+    Jis,
+    Keyboard24Zone,
 }
 
 public enum KnownFolder

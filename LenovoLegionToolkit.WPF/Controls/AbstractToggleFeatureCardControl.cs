@@ -125,8 +125,7 @@ public abstract class AbstractToggleFeatureCardControl<T> : AbstractRefreshingCo
         {
             exceptionOccurred = true;
 
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Failed to change state. [feature={GetType().Name}]", ex);
+            Log.Instance.Trace($"Failed to change state. [feature={GetType().Name}]", ex);
 
             OnStateChangeException(ex);
         }

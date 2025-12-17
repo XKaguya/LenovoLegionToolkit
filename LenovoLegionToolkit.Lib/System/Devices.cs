@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.Utils;
 using Microsoft.Win32.SafeHandles;
@@ -16,11 +17,10 @@ namespace LenovoLegionToolkit.Lib.System;
 
 public static class Devices
 {
-    private static readonly object Lock = new();
+    private static readonly Lock Lock = new();
 
     private static SafeFileHandle? _battery;
     private static SafeFileHandle? _rgbKeyboard;
-    private static SafeFileHandle? _spectrumRgbKeyboard;
     private static List<SafeFileHandle>? _spectrumRgbKeyboards;
 
     #region All devices
@@ -79,7 +79,7 @@ public static class Devices
     private static unsafe string GetClassName(Guid guid)
     {
         var requiredSize = 0u;
-        PInvoke.SetupDiClassNameFromGuid(guid, Array.Empty<char>(), &requiredSize);
+        PInvoke.SetupDiClassNameFromGuid(guid, [], &requiredSize);
 
         var chars = new char[requiredSize];
         PInvoke.SetupDiClassNameFromGuid(guid, chars, null);
@@ -241,85 +241,61 @@ public static class Devices
         return _rgbKeyboard;
     }
 
-    public static SafeFileHandle? GetSpectrumRGBKeyboard(bool forceRefresh = false)
-    {
-        if (_spectrumRgbKeyboard is not null && !forceRefresh)
-            return _spectrumRgbKeyboard;
-
-        lock (Lock)
-        {
-            if (_spectrumRgbKeyboard is not null && !forceRefresh)
-                return _spectrumRgbKeyboard;
-
-            const ushort vendorId = 0x048D;
-            const ushort productIdMasked = 0xC900;
-            const ushort productIdMask = 0xFF00;
-            const ushort descriptorLength = 0x03C0;
-
-            _spectrumRgbKeyboard = FindHidDevice(vendorId, productIdMask, productIdMasked, descriptorLength);
-        }
-
-        return _spectrumRgbKeyboard;
-    }
-
-    public static SafeFileHandle? GetSpectrumRGBKeyboard2(bool forceRefresh = false)
-    {
-        if (_spectrumRgbKeyboard is not null && !forceRefresh)
-            return _spectrumRgbKeyboard;
-
-        lock (Lock)
-        {
-            if (_spectrumRgbKeyboard is not null && !forceRefresh)
-                return _spectrumRgbKeyboard;
-
-            const ushort vendorId = 0x048D;
-            const ushort productIdMasked = 0xC100;
-            const ushort productIdMask = 0xFF00;
-            const ushort descriptorLength = 0x03C0;
-
-            _spectrumRgbKeyboard = FindHidDevice(vendorId, productIdMask, productIdMasked, descriptorLength);
-        }
-
-        return _spectrumRgbKeyboard;
-    }
-
     public static List<SafeFileHandle> GetSpectrumRGBKeyboards(bool forceRefresh = false)
     {
-        if (_spectrumRgbKeyboard is not null && !forceRefresh)
-            return new List<SafeFileHandle> {_spectrumRgbKeyboard};
+        if (!forceRefresh && _spectrumRgbKeyboards is not null)
+        {
+            return _spectrumRgbKeyboards;
+        }
 
         lock (Lock)
         {
-            if (_spectrumRgbKeyboard is not null && !forceRefresh)
-                return new List<SafeFileHandle> { _spectrumRgbKeyboard };
-
-            // Legion Pro 7
-            const ushort vendorId = 0x048D;
-            const ushort productIdMasked = 0xC100;
-            const ushort productIdMask = 0xFF00;
-            const ushort descriptorLength = 0x03C0;
-
-            // Legion 9
-            const ushort productIdMasked_NX = 0xC900;
-            const ushort productIdMask_NX = 0xFF00;
+            if (!forceRefresh && _spectrumRgbKeyboards is not null)
+            {
+                return _spectrumRgbKeyboards;
+            }
 
             var mi = Compatibility.GetMachineInformationAsync().Result;
+            var config = GetKeyboardConfig(mi);
 
-            if (mi.LegionSeries == LegionSeries.Legion_Pro_7 && mi.Generation >= 10)
-            {
-                _spectrumRgbKeyboards = FindHidDevices(vendorId, productIdMask, productIdMasked, descriptorLength);
-            }
-            else if (mi.LegionSeries == LegionSeries.Legion_9)
-            {
-                _spectrumRgbKeyboards = FindHidDevices(vendorId, productIdMask_NX, productIdMasked_NX, descriptorLength);
-            }
-            else
-            {
-                _spectrumRgbKeyboards = FindHidDevices(vendorId, productIdMask_NX, productIdMasked_NX, descriptorLength);
-            }
+            _spectrumRgbKeyboards = FindHidDevices(
+                config.VendorId,
+                config.ProductIdMask,
+                config.ProductIdMasked,
+                config.DescriptorLength
+            );
         }
 
         return _spectrumRgbKeyboards;
+    }
+
+    private static HidDeviceConfig GetKeyboardConfig(MachineInformation mi)
+    {
+        const ushort vendor = 0x048D;
+        const ushort mask = 0xFF00;
+        const ushort len = 0x03C0;
+        const ushort type1 = 0xC100;
+        const ushort type2 = 0xC900;
+
+        return mi switch
+        {
+            { LegionSeries: LegionSeries.Legion_5, Generation: >= 10 }
+                => new(vendor, type1, mask, len),
+
+            { LegionSeries: LegionSeries.Legion_Pro_5, Generation: >= 10 }
+                => new(vendor, type1, mask, len),
+
+            { LegionSeries: LegionSeries.Legion_Pro_7, Generation: >= 10 }
+                => new(vendor, type1, mask, len),
+
+            { LegionSeries: LegionSeries.Legion_7, Generation: >= 10 }
+                => new(vendor, type1, mask, len),
+
+            { LegionSeries: LegionSeries.Legion_9 }
+                => new(vendor, type2, mask, len),
+
+            _ => new(vendor, type2, mask, len)
+        };
     }
 
     private static unsafe SafeFileHandle? FindHidDevice(ushort vendorId, ushort productIdMask, ushort productIdMasked, ushort descriptorLength)
@@ -397,8 +373,7 @@ public static class Devices
 
                 if (hidAttributes.VendorID == vendorId && (hidAttributes.ProductID & productIdMask) == productIdMasked && caps.FeatureReportByteLength == descriptorLength)
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Found device. [vendorId={hidAttributes.VendorID:X2}, productId={hidAttributes.ProductID:X2}, descriptorLength={caps.FeatureReportByteLength}]");
+                    Log.Instance.Trace($"Found device. [vendorId={hidAttributes.VendorID:X2}, productId={hidAttributes.ProductID:X2}, descriptorLength={caps.FeatureReportByteLength}]");
 
                     return fileHandle;
                 }
@@ -496,8 +471,7 @@ public static class Devices
                     (hidAttributes.ProductID & productIdMask) == productIdMasked &&
                     caps.FeatureReportByteLength == descriptorLength)
                 {
-                    if (Log.Instance.IsTraceEnabled)
-                        Log.Instance.Trace($"Found device. [vendorId={hidAttributes.VendorID:X2}, productId={hidAttributes.ProductID:X2}, descriptorLength={caps.FeatureReportByteLength}]");
+                    Log.Instance.Trace($"Found device. [vendorId={hidAttributes.VendorID:X2}, productId={hidAttributes.ProductID:X2}, descriptorLength={caps.FeatureReportByteLength}]");
 
                     devices.Add(fileHandle);
                 }

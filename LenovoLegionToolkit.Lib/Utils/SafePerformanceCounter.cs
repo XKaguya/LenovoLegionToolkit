@@ -33,15 +33,13 @@ public class SafePerformanceCounter(string categoryName, string counterName, str
 
         try
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Creating performance counter. [categoryName={categoryName}, counterName={counterName}, instanceName={instanceName}]");
+            Log.Instance.Trace($"Creating performance counter. [categoryName={categoryName}, counterName={counterName}, instanceName={instanceName}]");
 
             _performanceCounter = new(categoryName, counterName, instanceName);
         }
         catch (Exception ex)
         {
-            if (Log.Instance.IsTraceEnabled)
-                Log.Instance.Trace($"Failed to create performance counter. [categoryName={categoryName}, counterName={counterName}, instanceName={instanceName}]", ex);
+            Log.Instance.Trace($"Failed to create performance counter. [categoryName={categoryName}, counterName={counterName}, instanceName={instanceName}]", ex);
 
             _performanceCounter = null;
         }
