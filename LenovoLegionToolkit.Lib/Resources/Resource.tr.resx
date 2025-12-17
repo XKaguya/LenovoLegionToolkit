@@ -337,7 +337,7 @@
     <value>Ses Dalgalanması</value>
   </data>
   <data name="SpectrumKeyboardBacklightEffectType_AuroraSync" xml:space="preserve">
-    <value>Aurora Sync</value>
+    <value>Aurora Senkronizasyonu</value>
   </data>
   <data name="SpectrumKeyboardBacklightEffectType_ColorChange" xml:space="preserve">
     <value>Renk Değiştir</value>
@@ -393,7 +393,7 @@
     <comment>Informs the user that Touchpad Lock is or will be turned on.</comment>
   </data>
   <data name="UpdateMethod_Server" xml:space="preserve">
-    <value>Server</value>
+    <value>Sunucu</value>
   </data>
   <data name="UpdateMethod_Github" xml:space="preserve">
     <value>Github</value>
@@ -500,72 +500,72 @@
     <value>Haftalık</value>
   </data>
   <data name="PowerModeState_Extreme" xml:space="preserve">
-    <value>Extreme</value>
+    <value>Ekstrem</value>
   </data>
   <data name="UpdateCheckFrequency_Never" xml:space="preserve">
-    <value>Never</value>
+    <value>Hiçbir zaman</value>
   </data>
   <data name="HybridModeState_UMA" xml:space="preserve">
     <value>UMA</value>
   </data>
   <data name="ITSMode_Intelligent_Extreme_Performance" xml:space="preserve">
-    <value>Extreme Performance</value>
+    <value>Ekstrem Performans</value>
   </data>
   <data name="ITSMode_Intelligent_Battery_Saving" xml:space="preserve">
-    <value>Battery Saving</value>
+    <value>Pil Tasarrufu</value>
   </data>
   <data name="ITSMode_Intelligent_Cooling" xml:space="preserve">
-    <value>Intelligent Cooling</value>
+    <value>Akıllı Soğutma</value>
   </data>
   <data name="ITSMode_Intelligent_Geek" xml:space="preserve">
-    <value>Geek</value>
+    <value>Meraklı</value>
   </data>
   <data name="FloatingGadgetItem_Fps" xml:space="preserve">
     <value>FPS</value>
   </data>
   <data name="FloatingGadgetItem_LowFps" xml:space="preserve">
-    <value>1% Low</value>
+    <value>1% Düşük</value>
   </data>
   <data name="FloatingGadgetItem_FrameTime" xml:space="preserve">
-    <value>Frame Time</value>
+    <value>Kare Süresi</value>
   </data>
   <data name="FloatingGadgetItem_Frequency" xml:space="preserve">
-    <value>Frequency</value>
+    <value>Frekans</value>
   </data>
   <data name="FloatingGadgetItem_Utilization" xml:space="preserve">
-    <value>Utilization</value>
+    <value>Kullanım</value>
   </data>
   <data name="FloatingGadgetItem_Temperature" xml:space="preserve">
-    <value>Temperature</value>
+    <value>Sıcaklık</value>
   </data>
   <data name="FloatingGadgetItem_Power" xml:space="preserve">
-    <value>Power</value>
+    <value>Güç</value>
   </data>
   <data name="FloatingGadgetItem_Fan" xml:space="preserve">
     <value>Fan</value>
   </data>
   <data name="FloatingGadgetItem_VramTemperature" xml:space="preserve">
-    <value>Vram Temperature</value>
+    <value>Vram Sıcaklığı</value>
   </data>
   <data name="FloatingGadgetItem_MemoryTemperature" xml:space="preserve">
-    <value>Memory Temperature</value>
+    <value>Bellek Sıcaklığı</value>
   </data>
   <data name="FloatingGadgetItem_MotherboardTemperature" xml:space="preserve">
-    <value>Motherboard Temperature</value>
+    <value>Anakart Sıcaklığı</value>
   </data>
   <data name="AccentColorSource_Custom" xml:space="preserve">
     <value>Özel</value>
   </data>
   <data name="FloatingGadgetState_Hidden" xml:space="preserve">
-    <value>Hidden</value>
+    <value>Gizli</value>
   </data>
   <data name="FloatingGadgetState_Show" xml:space="preserve">
-    <value>Show</value>
+    <value>Göster</value>
   </data>
   <data name="FloatingGadgetItem_P_Core_Frequency" xml:space="preserve">
-    <value>P Core Frequency</value>
+    <value>P Çekirdek Frekansı</value>
   </data>
   <data name="FloatingGadgetItem_E_Core_Frequency" xml:space="preserve">
-    <value>E Core Frequency</value>
+    <value>E Çekirdek Frekansı</value>
   </data>
 </root>
