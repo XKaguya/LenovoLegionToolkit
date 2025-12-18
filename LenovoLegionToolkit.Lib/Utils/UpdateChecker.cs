@@ -6,6 +6,7 @@ using Octokit;
 using Octokit.Internal;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -441,7 +442,10 @@ public class UpdateChecker
         try
         {
             string folderName = Branch == "Dev" ? $"{projectInfo.ProjectName}Dev" : projectInfo.ProjectName;
-            string patchNoteUrl = $"{ServerUrl}/{folderName}/PatchNote-{newestVersion}.txt";
+
+            var name = await File.ReadAllTextAsync(Path.Combine(Folders.AppData, "lang")).ConfigureAwait(false);
+            var cultureInfo = new CultureInfo(name);
+            var patchNoteUrl = cultureInfo is { IetfLanguageTag: "zh-Hans" } ? $"{ServerUrl}/{folderName}/PatchNote-{newestVersion}-zh.txt" : $"{ServerUrl}/{folderName}/PatchNote-{newestVersion}.txt";
 
             Log.Instance.Trace($"Fetching patch note from: {patchNoteUrl}");
 
