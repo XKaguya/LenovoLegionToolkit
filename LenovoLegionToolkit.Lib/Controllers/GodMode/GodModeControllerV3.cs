@@ -378,7 +378,7 @@ public class GodModeControllerV3(
             var result = await WMI.LenovoGameZoneData.GetBIOSOCMode().ConfigureAwait(false);
             return result == BIOS_OC_MODE_ENABLED;
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             return false;
         }

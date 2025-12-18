@@ -45,7 +45,7 @@ public class UpdateChecker
 
     public async Task<Version?> CheckAsync(bool forceCheck)
     {
-#if !DEBUG
+#if DEBUG
         return null;
 #endif
         using (await _updateSemaphore.LockAsync().ConfigureAwait(false))
