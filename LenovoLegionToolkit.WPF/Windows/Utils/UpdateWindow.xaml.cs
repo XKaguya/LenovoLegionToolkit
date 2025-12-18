@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
+using BlackSharp.Core.Extensions;
 
 namespace LenovoLegionToolkit.WPF.Windows.Utils;
 
@@ -27,16 +28,23 @@ public partial class UpdateWindow : IProgress<float>
     {
         var updates = await _updateChecker.GetUpdatesAsync();
 
-        var stringBuilder = new StringBuilder();
-        foreach (var update in updates)
+        if (updates.Length == 0)
         {
-            stringBuilder.AppendLine("**" + update.Title + "**   _(" + update.Date.ToString("D") + ")_")
-                .AppendLine()
-                .AppendLine(update.Description)
-                .AppendLine();
+            _markdownViewer.Markdown = _updateChecker._updateFromServer.Description;
         }
+        else
+        {
+            var stringBuilder = new StringBuilder();
+            foreach (var update in updates)
+            {
+                stringBuilder.AppendLine("**" + update.Title + "**   _(" + update.Date.ToString("D") + ")_")
+                    .AppendLine()
+                    .AppendLine(update.Description)
+                    .AppendLine();
+            }
 
-        _markdownViewer.Markdown = stringBuilder.ToString();
+            _markdownViewer.Markdown = stringBuilder.ToString();
+        }
 
         _downloadButton.IsEnabled = true;
     }

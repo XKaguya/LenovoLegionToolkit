@@ -30,7 +30,7 @@ public class UpdateChecker
     private DateTime _lastUpdate;
     private TimeSpan _minimumTimeSpanForRefresh;
     private Update[] _updates = [];
-    private UpdateFromServer _updateFromServer;
+    public UpdateFromServer _updateFromServer;
 
     public bool Disable { get; set; }
     public UpdateCheckStatus Status { get; set; }
@@ -45,7 +45,7 @@ public class UpdateChecker
 
     public async Task<Version?> CheckAsync(bool forceCheck)
     {
-#if DEBUG
+#if !DEBUG
         return null;
 #endif
         using (await _updateSemaphore.LockAsync().ConfigureAwait(false))
@@ -126,7 +126,7 @@ public class UpdateChecker
             {
                 try
                 {
-                    var (currentVersion, newVersion, statusCode, projectInfo) = await TryGetUpdateFromServer();
+                    var (currentVersion, newVersion, statusCode, projectInfo, patchNote) = await TryGetUpdateFromServer();
 
                     if (statusCode == StatusCode.Null)
                     {
@@ -151,28 +151,27 @@ public class UpdateChecker
                         return null;
                     }
 
-                    if (statusCode == StatusCode.ForceUpdate && currentVersion != newVersion)
+                    switch (statusCode)
                     {
-                        Log.Instance.Trace($"Force update branch");
+                        case StatusCode.ForceUpdate when currentVersion != newVersion:
+                            Log.Instance.Trace($"Force update branch");
 
-                        Status = UpdateCheckStatus.Success;
-                        _updateFromServer = new UpdateFromServer(projectInfo);
-                        return newVersion;
-                    }
-                    if (statusCode == StatusCode.Update && currentVersion != newVersion)
-                    {
-                        Log.Instance.Trace($"Normal update branch");
+                            Status = UpdateCheckStatus.Success;
+                            _updateFromServer = new UpdateFromServer(projectInfo, patchNote);
+                            return newVersion;
+                        case StatusCode.Update when currentVersion != newVersion:
+                            Log.Instance.Trace($"Normal update branch");
 
-                        Status = UpdateCheckStatus.Success;
-
-                        _updateFromServer = new UpdateFromServer(projectInfo);
-                        return newVersion;
-                    }
-                    if (statusCode == StatusCode.NoUpdate || statusCode == StatusCode.ForceUpdate && newVersion == currentVersion)
-                    {
-                        Log.Instance.Trace($"No updates are available.");
-                        Status = UpdateCheckStatus.Success;
-                        return null;
+                            Status = UpdateCheckStatus.Success;
+                            _updateFromServer = new UpdateFromServer(projectInfo, patchNote);
+                            return newVersion;
+                        case StatusCode.NoUpdate:
+                        case StatusCode.ForceUpdate when newVersion == currentVersion:
+                            Log.Instance.Trace($"No updates are available.");
+                            Status = UpdateCheckStatus.Success;
+                            return null;
+                        default:
+                            throw new ArgumentOutOfRangeException();
                     }
                 }
                 finally
@@ -321,53 +320,51 @@ public class UpdateChecker
 
             foreach (var project in projectConfig)
             {
-                if (project.Key != "MaintenanceMode" && !ProjectEntries.ContainsKey(project.Key))
+                if (project.Key == "MaintenanceMode" || ProjectEntries.ContainsKey(project.Key))
                 {
-                    var projectDetails = project.Value?.ToString() ?? string.Empty;
-                    if (string.IsNullOrEmpty(projectDetails))
-                        continue;
-
-                    var details = JsonConvert.DeserializeObject<Dictionary<string, object>>(projectDetails);
-                    if (details == null)
-                        continue;
-
-                    if (!details.TryGetValue("Version", out var versionObj))
-                        continue;
-
-                    string version = versionObj?.ToString() ?? string.Empty;
-                    bool forceUpdate = false;
-                    if (details.TryGetValue("ForceUpdate", out var forceObj))
-                    {
-                        try
-                        {
-                            forceUpdate = Convert.ToBoolean(forceObj);
-                        }
-                        catch
-                        {
-                            forceUpdate = false;
-                        }
-                    }
-
-                    ProjectEntries.Add(project.Key, new ProjectEntry
-                    {
-                        ProjectName = project.Key,
-                        ProjectCurrentVersion = projectInfo.ProjectCurrentVersion ?? string.Empty,
-                        ProjectVersion = version,
-                        ProjectForceUpdate = forceUpdate
-                    });
+                    continue;
                 }
+
+                var projectDetails = project.Value?.ToString() ?? string.Empty;
+                if (string.IsNullOrEmpty(projectDetails))
+                    continue;
+
+                var details = JsonConvert.DeserializeObject<Dictionary<string, object>>(projectDetails);
+                if (details == null)
+                    continue;
+
+                if (!details.TryGetValue("Version", out var versionObj))
+                    continue;
+
+                string version = versionObj?.ToString() ?? string.Empty;
+                bool forceUpdate = false;
+                if (details.TryGetValue("ForceUpdate", out var forceObj))
+                {
+                    try
+                    {
+                        forceUpdate = Convert.ToBoolean(forceObj);
+                    }
+                    catch
+                    {
+                        forceUpdate = false;
+                    }
+                }
+
+                ProjectEntries.Add(project.Key, new ProjectEntry
+                {
+                    ProjectName = project.Key,
+                    ProjectCurrentVersion = projectInfo.ProjectCurrentVersion ?? string.Empty,
+                    ProjectVersion = version,
+                    ProjectForceUpdate = forceUpdate
+                });
             }
 
             foreach (var kvp in ProjectEntries)
             {
-                if (kvp.Key == "MaintenanceMode")
-                {
-                    Log.Instance.Trace($"MaintenanceMode: {kvp.Value.MaintenanceMode}");
-                }
-                else
-                {
-                    Log.Instance.Trace($"Project: {kvp.Value.ProjectName}, Version: {kvp.Value.ProjectVersion}, Force Update: {kvp.Value.ProjectForceUpdate}");
-                }
+                Log.Instance.Trace(kvp.Key == "MaintenanceMode"
+                    ? (FormattableString)$"MaintenanceMode: {kvp.Value.MaintenanceMode}"
+                    : (FormattableString)
+                    $"Project: {kvp.Value.ProjectName}, Version: {kvp.Value.ProjectVersion}, Force Update: {kvp.Value.ProjectForceUpdate}");
             }
 
             string projectName = Branch == "Dev" ? $"{projectInfo.ProjectName}Dev" : projectInfo.ProjectName;
@@ -378,26 +375,24 @@ public class UpdateChecker
                 return (StatusCode.Null, string.Empty);
             }
 
-            if (ProjectEntries[projectName].IsValid())
+            if (!ProjectEntries[projectName].IsValid())
             {
-                Version currentVersion = Version.Parse(ProjectEntries[projectName].ProjectCurrentVersion);
-                Version projectVersion = Version.Parse(ProjectEntries[projectName].ProjectVersion);
-
-                if (projectVersion != currentVersion && ProjectEntries[projectName].ProjectForceUpdate)
-                {
-                    return (StatusCode.ForceUpdate, ProjectEntries[projectName].ProjectVersion);
-                }
-                if (projectVersion != currentVersion)
-                {
-                    return (StatusCode.Update, ProjectEntries[projectName].ProjectVersion);
-                }
-                if (projectVersion == currentVersion)
-                {
-                    return (StatusCode.NoUpdate, ProjectEntries[projectName].ProjectVersion);
-                }
+                return (StatusCode.Null, string.Empty);
             }
 
-            return (StatusCode.Null, string.Empty);
+            Version currentVersion = Version.Parse(ProjectEntries[projectName].ProjectCurrentVersion);
+            Version projectVersion = Version.Parse(ProjectEntries[projectName].ProjectVersion);
+
+            if (projectVersion != currentVersion && ProjectEntries[projectName].ProjectForceUpdate)
+            {
+                return (StatusCode.ForceUpdate, ProjectEntries[projectName].ProjectVersion);
+            }
+            if (projectVersion != currentVersion)
+            {
+                return (StatusCode.Update, ProjectEntries[projectName].ProjectVersion);
+            }
+
+            return projectVersion == currentVersion ? (StatusCode.NoUpdate, ProjectEntries[projectName].ProjectVersion) : (StatusCode.Null, string.Empty);
         }
         catch (Exception ex)
         {
@@ -405,8 +400,7 @@ public class UpdateChecker
             return (StatusCode.Null, string.Empty);
         }
     }
-
-    private async Task<(Version?, Version?, StatusCode, ProjectInfo)> TryGetUpdateFromServer()
+    private async Task<(Version?, Version?, StatusCode, ProjectInfo, string)> TryGetUpdateFromServer()
     {
         if (File.Exists("DevMode"))
         {
@@ -415,13 +409,15 @@ public class UpdateChecker
 
         var thisReleaseVersion = Assembly.GetEntryAssembly()?.GetName().Version;
 
-        ProjectInfo projectInfo = new ProjectInfo();
-        projectInfo.ProjectName = "LenovoLegionToolkit";
-        projectInfo.ProjectExeName = "LenovoLegionToolkitSetup.exe";
-        projectInfo.ProjectAuthor = "XKaguya";
-        projectInfo.ProjectCurrentVersion = thisReleaseVersion?.ToString() ?? "0.0.0.0";
-        projectInfo.ProjectCurrentExePath = "NULL";
-        projectInfo.ProjectNewExePath = "NULL";
+        ProjectInfo projectInfo = new ProjectInfo
+        {
+            ProjectName = "LenovoLegionToolkit",
+            ProjectExeName = "LenovoLegionToolkitSetup.exe",
+            ProjectAuthor = "XKaguya",
+            ProjectCurrentVersion = thisReleaseVersion?.ToString() ?? "0.0.0.0",
+            ProjectCurrentExePath = "NULL",
+            ProjectNewExePath = "NULL"
+        };
 
         var (statusCode, newestVersion) = await GetLatestVersionWithRetryAsync(projectInfo).ConfigureAwait(false);
 
@@ -432,13 +428,37 @@ public class UpdateChecker
             Log.Instance.Trace($"Now exiting...");
 
             Status = UpdateCheckStatus.Success;
-            return (null, null, StatusCode.Null, new ProjectInfo());
+            return (null, null, StatusCode.Null, new ProjectInfo(), "");
         }
 
         projectInfo.ProjectNewVersion = newestVersion;
         var currentVersion = Version.Parse(projectInfo.ProjectCurrentVersion);
         var newVersion = Version.Parse(newestVersion);
+        string patchNote = string.Empty;
 
-        return (currentVersion, newVersion, statusCode, projectInfo);
+        if ((statusCode != StatusCode.Update && statusCode != StatusCode.ForceUpdate) ||
+            string.IsNullOrEmpty(newestVersion)) return (currentVersion, newVersion, statusCode, projectInfo, patchNote);
+        try
+        {
+            string folderName = Branch == "Dev" ? $"{projectInfo.ProjectName}Dev" : projectInfo.ProjectName;
+            string patchNoteUrl = $"{ServerUrl}/{folderName}/PatchNote-{newestVersion}.txt";
+
+            Log.Instance.Trace($"Fetching patch note from: {patchNoteUrl}");
+
+            using var httpClient = _httpClientFactory.Create();
+            string userAgent = $"CommonUpdater-LenovoLegionToolkit-{(string.IsNullOrEmpty(projectInfo.ProjectCurrentVersion) ? "Null" : projectInfo.ProjectCurrentVersion)}";
+            httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(userAgent);
+
+            string patchNoteContent = await httpClient.GetStringAsync(patchNoteUrl).ConfigureAwait(false);
+
+            patchNote = patchNoteContent.Replace("\r\n", "\n").Trim();
+            Log.Instance.Trace($"Patch note fetched successfully.");
+        }
+        catch (Exception ex)
+        {
+            Log.Instance.Trace($"Failed to fetch patch note or no patch note available: {ex.Message}");
+            patchNote = "No patch notes available.";
+        }
+        return (currentVersion, newVersion, statusCode, projectInfo, patchNote);
     }
 }

@@ -942,11 +942,11 @@ public readonly struct Update(Release release)
     #endregion
 }
 
-public struct UpdateFromServer(ProjectInfo projectInfo)
+public readonly struct UpdateFromServer(ProjectInfo projectInfo, string patchNote)
 {
     public Version Version { get; } = Version.Parse(projectInfo.ProjectNewVersion);
     public string Title { get; } = "LenovoLegionToolkit Updates available.";
-    public string Description { get; } = "Temporarly empty.";
+    public string Description { get; } = patchNote;
     public DateTimeOffset Date { get; } = DateTimeOffset.Now;
     public string? Url { get; } = "http://kaguya.net.cn:9999/LenovoLegionToolkit/LenovoLegionToolkitSetup.exe";
 }
