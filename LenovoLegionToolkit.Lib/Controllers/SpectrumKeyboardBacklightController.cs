@@ -99,9 +99,15 @@ public class SpectrumKeyboardBacklightController
         var (width, height, keys) = await ReadAllKeyCodesAsync().ConfigureAwait(false);
         var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
 
+        Log.Instance.Trace($"Width: {width} Height: {height} Keys: {string.Join(", ", keys)}");
+
+        if (mi.Properties.HasSpectrumProfileSwitchingBug)
+        {
+            return (SpectrumLayout.KeyboardOnly, KeyboardLayout.Keyboard24Zone, keys);
+        }
+
         var spectrumLayout = (width, height) switch
         {
-            _ when mi.Properties.HasSpectrumProfileSwitchingBug => SpectrumLayout.KeyboardOnly,
             (22, 9) when mi.Properties.HasAlternativeFullSpectrumLayout => SpectrumLayout.FullAlternative,
             (22, 9) => SpectrumLayout.Full,
             (20, 8) => SpectrumLayout.KeyboardAndFront,
@@ -109,9 +115,7 @@ public class SpectrumKeyboardBacklightController
         };
 
         KeyboardLayout keyboardLayout;
-        if (keys.Count == 0x18)
-            keyboardLayout = KeyboardLayout.Keyboard24Zone;
-        else if (keys.Contains(0xA9))
+        if (keys.Contains(0xA9))
             keyboardLayout = KeyboardLayout.Jis;
         else if (keys.Contains(0xA8))
             keyboardLayout = KeyboardLayout.Iso;
