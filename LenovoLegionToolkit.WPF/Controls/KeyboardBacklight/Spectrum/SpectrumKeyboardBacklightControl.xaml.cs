@@ -82,20 +82,6 @@ public partial class SpectrumKeyboardBacklightControl
             if (!IsLoaded || Application.Current == null)
                 return;
 
-            var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
-            if (mi.Properties.HasSpectrumProfileSwitchingBug)
-            {
-                _layoutSwitchButton.Visibility = Visibility.Collapsed;
-
-                var (_, _, keys) = await _controller.GetKeyboardLayoutAsync().ConfigureAwait(false);
-
-                await _device.InvokeIfRequired(() =>
-                    _device.SetLayout(SpectrumLayout.KeyboardOnly, KeyboardLayout.Keyboard24Zone, keys));
-
-                _settings.Store.KeyboardLayout = KeyboardLayout.Keyboard24Zone;
-                _settings.SynchronizeStore();
-            }
-
             if (IsVisible)
                 return;
 
@@ -310,6 +296,24 @@ public partial class SpectrumKeyboardBacklightControl
 
         var (spectrumLayout, keyboardLayout, keys) = await _controller.GetKeyboardLayoutAsync();
 
+        var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
+        if (mi.Properties.HasSpectrumProfileSwitchingBug)
+        {
+            Log.Instance.Trace($"Forcing 24-zone keyboard layout for HasSpectrumProfileSwitchingBug during refresh.");
+
+            _layoutSwitchButton.Visibility = Visibility.Collapsed;
+
+            spectrumLayout = SpectrumLayout.KeyboardOnly;
+            keyboardLayout = KeyboardLayout.Keyboard24Zone;
+
+            _settings.Store.KeyboardLayout = KeyboardLayout.Keyboard24Zone;
+            _settings.SynchronizeStore();
+        }
+        else
+        {
+            _layoutSwitchButton.Visibility = Visibility.Visible;
+        }
+
         var vantageStatus = await _vantageDisabler.GetStatusAsync();
         var legionSpaceStatus = await _legionSpaceDisabler.GetStatusAsync();
         var legionZoneStatus = await _legionZoneDisabler.GetStatusAsync();
@@ -317,7 +321,6 @@ public partial class SpectrumKeyboardBacklightControl
         if (vantageStatus is SoftwareStatus.Enabled || legionSpaceStatus is SoftwareStatus.Enabled || legionZoneStatus is SoftwareStatus.Enabled)
         {
             _vantageWarningInfoBar.IsOpen = true;
-
 
             _device.SetLayout(spectrumLayout, keyboardLayout, keys);
             _content.IsEnabled = false;
@@ -335,7 +338,7 @@ public partial class SpectrumKeyboardBacklightControl
         }
         else
         {
-            keyboardLayout = _settings.Store.KeyboardLayout.Value;
+            keyboardLayout = mi.Properties.HasSpectrumProfileSwitchingBug ? KeyboardLayout.Keyboard24Zone : _settings.Store.KeyboardLayout.Value;
         }
 
         _device.SetLayout(spectrumLayout, keyboardLayout, keys);
@@ -346,7 +349,9 @@ public partial class SpectrumKeyboardBacklightControl
         await RefreshProfileAsync();
 
         if (IsVisible)
+        {
             await StartAnimationAsync();
+        }
     }
 
     protected override void OnFinishedLoading() { }
