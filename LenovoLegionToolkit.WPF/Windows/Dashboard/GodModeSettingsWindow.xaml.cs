@@ -285,10 +285,11 @@ public partial class GodModeSettingsWindow
 
     private async Task UpdateOverclockingVisibilityAsync()
     {
+        var mi = await Compatibility.GetMachineInformationAsync();
         int biosOcMode = await WMI.LenovoGameZoneData.GetBIOSOCMode();
         bool isLegionOptimizeEnabled = biosOcMode == 3;
 
-        _toggleOcCard.Visibility = isLegionOptimizeEnabled ? Visibility.Visible : Visibility.Collapsed;
+        _toggleOcCard.Visibility = (isLegionOptimizeEnabled && mi.Properties.IsAmdDevice) ? Visibility.Visible : Visibility.Collapsed;
 
         var ocVisible = (isLegionOptimizeEnabled && _overclockingToggle.IsChecked == true)
             ? Visibility.Visible

@@ -171,15 +171,16 @@ public class PowerModeControl : AbstractComboBoxFeatureCardControl<PowerModeStat
         try
         {
             var result = await ShowDialogAsync();
-            if (result.Yes)
-            {
-                return true;
-            }
 
-            if (result.DontShowAgain)
+            if (result is { DontShowAgain: true, Yes: true })
             {
                 _settings.Store.CustomModeWarningDontShowAgain = true;
                 _settings.SynchronizeStore();
+                return true;
+            }
+
+            if (result.Yes)
+            {
                 return true;
             }
         }
