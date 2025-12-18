@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using Windows.Win32;
 using Windows.Win32.Foundation;
 using Windows.Win32.System.Power;
+using BlackSharp.Core.Extensions;
 
 // ReSharper disable StringLiteralTypo
 
@@ -807,16 +808,25 @@ public static partial class Compatibility
 
     public static async Task PrintControllerVersionAsync()
     {
-        SensorsController sensorsController = IoCContainer.Resolve<SensorsController>();
+        if (_machineInformation is { 
+                LegionSeries: LegionSeries.Legion_5 or
+                LegionSeries.Legion_Pro_5 or
+                LegionSeries.Legion_7 or
+                LegionSeries.Legion_Pro_7 or
+                LegionSeries.Legion_9
+            })
+        {
+            SensorsController sensorsController = IoCContainer.Resolve<SensorsController>();
 
-        var sensorCtrl = await sensorsController.GetControllerAsync().ConfigureAwait(true);
-        var sensorsControllerTypeName = sensorCtrl?.GetType().Name ?? "Null SensorsController or Result";
-        Log.Instance.Trace($"Using {sensorsControllerTypeName}");
+            var sensorCtrl = await sensorsController.GetControllerAsync().ConfigureAwait(true);
+            var sensorsControllerTypeName = sensorCtrl?.GetType().Name ?? "Null SensorsController or Result";
+            Log.Instance.Trace($"Using {sensorsControllerTypeName}");
 
-        GodModeController godModeController = IoCContainer.Resolve<GodModeController>();
+            GodModeController godModeController = IoCContainer.Resolve<GodModeController>();
 
-        var godModeCtrl = await godModeController.GetControllerAsync().ConfigureAwait(true);
-        var godModeControllerTypeName = godModeCtrl?.GetType().Name ?? "Null GodModeController or Result";
-        Log.Instance.Trace($"Using {godModeControllerTypeName}");
+            var godModeCtrl = await godModeController.GetControllerAsync().ConfigureAwait(true);
+            var godModeControllerTypeName = godModeCtrl?.GetType().Name ?? "Null GodModeController or Result";
+            Log.Instance.Trace($"Using {godModeControllerTypeName}");
+        }
     }
 }

@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using LenovoLegionToolkit.Lib.Extensions;
+﻿using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.Settings;
 using LenovoLegionToolkit.Lib.SoftwareDisabler;
 using LenovoLegionToolkit.Lib.System.Management;
 using LenovoLegionToolkit.Lib.Utils;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Management;
+using System.Threading.Tasks;
 
 namespace LenovoLegionToolkit.Lib.Controllers.GodMode;
 
@@ -378,7 +379,7 @@ public class GodModeControllerV3(
             var result = await WMI.LenovoGameZoneData.GetBIOSOCMode().ConfigureAwait(false);
             return result == BIOS_OC_MODE_ENABLED;
         }
-        catch (Exception)
+        catch (ManagementException)
         {
             return false;
         }
