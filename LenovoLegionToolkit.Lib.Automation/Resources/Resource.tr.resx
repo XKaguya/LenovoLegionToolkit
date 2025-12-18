@@ -228,15 +228,15 @@
     <value>Cihaz bağlandığında</value>
   </data>
   <data name="SessionLockAutomationPipelineTrigger_DisplayName" xml:space="preserve">
-    <value>Session locked</value>
+    <value>Oturum kilitlendi</value>
   </data>
   <data name="SessionUnlockAutomationPipelineTrigger_DisplayName" xml:space="preserve">
-    <value>Session unlocked</value>
+    <value>Oturum kilidi açıldı</value>
   </data>
   <data name="ITSModeAutomationPipelineTrigger_DisplayName" xml:space="preserve">
-    <value>When IdeaPad Power Mode is changed</value>
+    <value>IdeaPad Güç Modu değiştirildiğinde</value>
   </data>
   <data name="HybridModeAutomationPipelineTrigger_DisplayName" xml:space="preserve">
-    <value>Hybrid Mode</value>
+    <value>Hibrit Mod</value>
   </data>
 </root>

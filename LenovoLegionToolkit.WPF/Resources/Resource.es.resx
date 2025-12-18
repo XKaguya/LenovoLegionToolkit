@@ -2620,16 +2620,16 @@ Haga clic en Sí para deshabilitarla y en No para ignorarla.</value>
     <value>Core Curve Adjustment</value>
   </data>
   <data name="GodModeSettingsWindow_Toggle_CoreCurve_Message" xml:space="preserve">
-    <value>Enable / Disable Core Curve Adjustment.</value>
+    <value>Activar / Desactivar el ajuste de la curva de los núcleos.</value>
   </data>
   <data name="FloatingGadget_Custom_Title" xml:space="preserve">
     <value>Customize Gadget Elements</value>
   </data>
   <data name="KeyboardBacklightPage_CustomMode_Warning" xml:space="preserve">
-    <value>Custom Mode grants access to critical system parameters such as power limits and fan curves. 
+    <value>El modo personalizado permite el acceso a parámetros críticos del sistema tales como límites de energía y curvas de ventiladores. 
 
-Misconfiguration can lead to severe system instability, thermal throttling, or permanent hardware damage. Modifications made here may void your manufacturer warranty. 
+Una mala configuración puede llevar a una grave inestabilidad del sistema, a estrangulamiento térmico o a un daño permanente de hardware. Las modificaciones realizadas aquí pueden anular la garantía del fabricante. 
 
-Do not proceed unless you possess the necessary technical expertise.</value>
+No proceda a menos que posea la experiencia técnica necesaria.</value>
   </data>
 </root>
