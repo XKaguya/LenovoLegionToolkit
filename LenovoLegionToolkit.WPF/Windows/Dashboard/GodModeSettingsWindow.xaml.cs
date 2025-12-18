@@ -34,6 +34,8 @@ public partial class GodModeSettingsWindow
 
     private readonly dynamic _fanCurveControl;
 
+    private const int BIOS_OC_MODE_ENABLED = 3;
+
     public GodModeSettingsWindow()
     {
         InitializeComponent();
@@ -286,8 +288,7 @@ public partial class GodModeSettingsWindow
     private async Task UpdateOverclockingVisibilityAsync()
     {
         var mi = await Compatibility.GetMachineInformationAsync();
-        int biosOcMode = await WMI.LenovoGameZoneData.GetBIOSOCMode();
-        bool isLegionOptimizeEnabled = biosOcMode == 3;
+        var isLegionOptimizeEnabled = await IsBiosOcEnabledAsync();
 
         _toggleOcCard.Visibility = (isLegionOptimizeEnabled && mi.Properties.IsAmdDevice) ? Visibility.Visible : Visibility.Collapsed;
 
@@ -536,5 +537,18 @@ public partial class GodModeSettingsWindow
         }
 
         await UpdateCoreCurveVisibilityAsync();
+    }
+
+    private static async Task<bool> IsBiosOcEnabledAsync()
+    {
+        try
+        {
+            var result = await WMI.LenovoGameZoneData.GetBIOSOCMode().ConfigureAwait(false);
+            return result == BIOS_OC_MODE_ENABLED;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
     }
 }

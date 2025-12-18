@@ -334,8 +334,6 @@ public class GodModeControllerV4(
             new StepperValue(0, 0, 20, 1, [], 0));
     }
 
-
-
     private static CapabilityID AdjustCapabilityIdForPowerMode(CapabilityID id, PowerModeState powerMode)
     {
         var idRaw = (uint)id & CAPABILITY_ID_MASK;
