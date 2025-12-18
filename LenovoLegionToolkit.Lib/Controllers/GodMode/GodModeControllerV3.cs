@@ -373,8 +373,15 @@ public class GodModeControllerV3(
 
     private static async Task<bool> IsBiosOcEnabledAsync()
     {
-        var result = await WMI.LenovoGameZoneData.GetBIOSOCMode().ConfigureAwait(false);
-        return result == BIOS_OC_MODE_ENABLED;
+        try
+        {
+            var result = await WMI.LenovoGameZoneData.GetBIOSOCMode().ConfigureAwait(false);
+            return result == BIOS_OC_MODE_ENABLED;
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
     }
 
     #endregion

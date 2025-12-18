@@ -3,7 +3,6 @@ using LenovoLegionToolkit.Lib.Settings;
 using LenovoLegionToolkit.Lib.SoftwareDisabler;
 using LenovoLegionToolkit.Lib.System.Management;
 using LenovoLegionToolkit.Lib.Utils;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -383,8 +382,15 @@ public class GodModeControllerV4(
 
     private static async Task<bool> IsBiosOcEnabledAsync()
     {
-        var result = await WMI.LenovoGameZoneData.GetBIOSOCMode().ConfigureAwait(false);
-        return result == BIOS_OC_MODE_ENABLED;
+        try
+        {
+            var result = await WMI.LenovoGameZoneData.GetBIOSOCMode().ConfigureAwait(false);
+            return result == BIOS_OC_MODE_ENABLED;
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
     }
 
     #endregion
