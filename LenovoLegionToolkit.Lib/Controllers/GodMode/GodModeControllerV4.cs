@@ -400,7 +400,6 @@ public class GodModeControllerV4(
     {
         Log.Instance.Trace($"Reading fan table data...");
         var data = await WMI.LenovoFanTableData.ReadAsync().ConfigureAwait(false);
-        var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
 
         var fanTableData = data
             .Where(d => d.mode == (int)powerModeState + 1)
@@ -408,9 +407,9 @@ public class GodModeControllerV4(
             {
                 var type = (d.fanId, d.sensorId) switch
                 {
-                    (1, 1) => FanTableType.CPU,
+                    (1, 1) or (1, 4) => FanTableType.CPU,
                     (2, 5) => FanTableType.GPU,
-                    (4, 4) => FanTableType.PCH,
+                    (4, 4) or (5, 5) or (4, 1) => FanTableType.PCH,
                     _ => FanTableType.Unknown,
                 };
                 return new FanTableData(type, d.fanId, d.sensorId, d.fanTableData, d.sensorTableData);

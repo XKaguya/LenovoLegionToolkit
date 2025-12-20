@@ -16,7 +16,6 @@ using System.Threading.Tasks;
 using Windows.Win32;
 using Windows.Win32.Foundation;
 using Windows.Win32.System.Power;
-using BlackSharp.Core.Extensions;
 
 // ReSharper disable StringLiteralTypo
 
