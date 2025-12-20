@@ -35,7 +35,7 @@ try
 
     if (fanTableData.Length == 0)
     {
-        Console.WriteLine(@"No Fan Table data found for the current mode (255).");
+        Console.WriteLine(@"No Fan Table data found for the custom mode.");
     }
     else
     {
