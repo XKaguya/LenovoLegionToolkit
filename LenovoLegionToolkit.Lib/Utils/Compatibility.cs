@@ -609,6 +609,7 @@ public static partial class Compatibility
 
         var affectedModel = new List<string>
         {
+            "16IAX10",
             "16IAX10H",
             "15IRX10",
             "15AHP10"
