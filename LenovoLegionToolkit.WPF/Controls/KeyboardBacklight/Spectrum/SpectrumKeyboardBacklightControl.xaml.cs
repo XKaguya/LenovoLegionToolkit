@@ -181,6 +181,13 @@ public partial class SpectrumKeyboardBacklightControl
     {
         await StopAnimationAsync();
 
+        var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
+        if (mi.Properties.HasSpectrumProfileSwitchingBug)
+        {
+            await OnRefreshAsync();
+            return;
+        }
+
         var buttons = _device.GetVisibleButtons();
         foreach (var button in buttons)
             button.IsChecked = false;
@@ -191,8 +198,8 @@ public partial class SpectrumKeyboardBacklightControl
             KeyboardLayout.Ansi => KeyboardLayout.Iso,
             KeyboardLayout.Iso => KeyboardLayout.Jis,
             KeyboardLayout.Jis => KeyboardLayout.Ansi,
-            KeyboardLayout.Keyboard24Zone => KeyboardLayout.Keyboard24Zone,
-            _ => throw new ArgumentException(nameof(currentKeyboardLayout))
+            KeyboardLayout.Keyboard24Zone => KeyboardLayout.Ansi,
+            _ => KeyboardLayout.Ansi
         };
 
         _settings.Store.KeyboardLayout = keyboardLayout;
@@ -295,17 +302,15 @@ public partial class SpectrumKeyboardBacklightControl
             throw new InvalidOperationException("Spectrum Keyboard does not seem to be supported");
 
         var (spectrumLayout, keyboardLayout, keys) = await _controller.GetKeyboardLayoutAsync();
-
         var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
-        if (mi.Properties.HasSpectrumProfileSwitchingBug)
+        bool isBuggy = mi.Properties.HasSpectrumProfileSwitchingBug;
+
+        if (isBuggy)
         {
             Log.Instance.Trace($"Forcing 24-zone keyboard layout for HasSpectrumProfileSwitchingBug during refresh.");
-
             _layoutSwitchButton.Visibility = Visibility.Collapsed;
-
             spectrumLayout = SpectrumLayout.KeyboardOnly;
             keyboardLayout = KeyboardLayout.Keyboard24Zone;
-
             _settings.Store.KeyboardLayout = KeyboardLayout.Keyboard24Zone;
             _settings.SynchronizeStore();
         }
@@ -321,28 +326,29 @@ public partial class SpectrumKeyboardBacklightControl
         if (vantageStatus is SoftwareStatus.Enabled || legionSpaceStatus is SoftwareStatus.Enabled || legionZoneStatus is SoftwareStatus.Enabled)
         {
             _vantageWarningInfoBar.IsOpen = true;
-
             _device.SetLayout(spectrumLayout, keyboardLayout, keys);
             _content.IsEnabled = false;
-
             _noEffectsText.Visibility = Visibility.Collapsed;
             return;
         }
 
         _vantageWarningInfoBar.IsOpen = false;
 
-        if (!_settings.Store.KeyboardLayout.HasValue)
+        if (isBuggy)
+        {
+            keyboardLayout = KeyboardLayout.Keyboard24Zone;
+        }
+        else if (!_settings.Store.KeyboardLayout.HasValue)
         {
             _settings.Store.KeyboardLayout = keyboardLayout;
             _settings.SynchronizeStore();
         }
         else
         {
-            keyboardLayout = mi.Properties.HasSpectrumProfileSwitchingBug ? KeyboardLayout.Keyboard24Zone : _settings.Store.KeyboardLayout.Value;
+            keyboardLayout = _settings.Store.KeyboardLayout.Value;
         }
 
         _device.SetLayout(spectrumLayout, keyboardLayout, keys);
-
         _content.IsEnabled = true;
 
         await RefreshBrightnessAsync();
@@ -397,7 +403,7 @@ public partial class SpectrumKeyboardBacklightControl
         SpectrumAmbientZoneControl? ambientButton = _device.GetAmbientButton();
         if (ambientButton is not null)
         {
-            ambientButton.IsChecked = false;
+            ambientButton.IsChecked = true;
         }
     }
 
