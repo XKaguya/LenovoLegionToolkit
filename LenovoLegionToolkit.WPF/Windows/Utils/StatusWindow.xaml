@@ -97,7 +97,7 @@
                 Visibility="Collapsed" />
         </Grid>
 
-        <Grid Margin="16,8,16,0">
+        <Grid x:Name="_cpuGrid" Margin="16,8,16,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
@@ -127,6 +127,7 @@
                 Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
 
             <Label
+                x:Name="_cpuFreqAndTempDesc"
                 Grid.Row="1"
                 Grid.Column="1"
                 Margin="8,4,0,0"
@@ -144,6 +145,7 @@
                 FontSize="{StaticResource SecondaryFontSize}"
                 Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
             <Label
+                x:Name="_cpuFanAndPowerDesc"
                 Grid.Row="2"
                 Grid.Column="1"
                 Margin="8,4,0,0"
@@ -275,6 +277,7 @@
                 Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
 
             <Label
+                x:Name="_gpuFreqAndTempDesc"
                 Grid.Row="2"
                 Grid.Column="1"
                 Margin="8,4,0,0"
@@ -292,6 +295,7 @@
                 FontSize="{StaticResource SecondaryFontSize}"
                 Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
             <Label
+                x:Name="_gpuFanAndPowerDesc"
                 Grid.Row="3"
                 Grid.Column="1"
                 Margin="8,4,0,0"
@@ -310,7 +314,7 @@
                 Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
         </Grid>
 
-        <Grid Margin="16,8,16,0">
+        <Grid x:Name="_systemFanGrid" Margin="16,8,16,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
