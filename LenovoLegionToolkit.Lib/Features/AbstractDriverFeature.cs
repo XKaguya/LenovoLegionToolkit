@@ -88,7 +88,7 @@ public abstract class AbstractDriverFeature<T>(
     protected abstract uint GetInBufferValue();
     protected abstract Task<uint[]> ToInternalAsync(T state);
 
-    protected async Task<uint> SendCodeAsync(SafeFileHandle handle, uint controlCode, uint inBuffer, bool bypassQueue)
+    protected async Task<uint> SendCodeAsync(SafeFileHandle handle, uint controlCode, uint inBuffer, bool bypassQueue = false)
     {
         Task<uint> CoreAction() => Task.Run(() =>
         {
