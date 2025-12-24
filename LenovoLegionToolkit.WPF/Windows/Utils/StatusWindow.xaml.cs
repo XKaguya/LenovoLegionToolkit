@@ -124,8 +124,7 @@ public partial class StatusWindow
         _gpuFanAndPowerDesc.Visibility = sensorVisibility;
         _gpuFanAndPowerLabel.Visibility = sensorVisibility;
 
-        if (_sensorsController.GetType() == typeof(SensorsControllerV4) &&
-            _sensorsController.GetType() == typeof(SensorsControllerV5))
+        if (_sensorsController.GetType() == typeof(SensorsControllerV4) && _sensorsController.GetType() == typeof(SensorsControllerV5))
         {
             return;
         }

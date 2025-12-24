@@ -17,23 +17,23 @@ public abstract class AbstractDriverFeature<T>(
     Func<SafeFileHandle> driverHandleHandle,
     uint controlCode,
     bool useDriverQueue = false)
-    : IFeature<T>
+    : IFeature<T>, IDisposable
     where T : struct, Enum, IComparable
 {
     private const int DRIVER_COOLDOWN_MS = 200;
 
     protected readonly uint ControlCode = controlCode;
     protected readonly Func<SafeFileHandle> DriverHandle = driverHandleHandle;
-
     protected readonly bool UseQueue = useDriverQueue;
 
     protected T LastState;
+    private CancellationTokenSource? _lastSetCts;
 
     public virtual async Task<bool> IsSupportedAsync()
     {
         try
         {
-            _ = await GetStateAsync().ConfigureAwait(false);
+            _ = await GetStateInternalAsync(bypassQueue: true).ConfigureAwait(false);
             return true;
         }
         catch
@@ -44,33 +44,51 @@ public abstract class AbstractDriverFeature<T>(
 
     public Task<T[]> GetAllStatesAsync() => Task.FromResult(Enum.GetValues<T>());
 
-    public virtual async Task<T> GetStateAsync()
+    public virtual Task<T> GetStateAsync() => GetStateInternalAsync(bypassQueue: false);
+
+    protected virtual async Task<T> GetStateInternalAsync(bool bypassQueue)
     {
         Log.Instance.Trace($"Getting state... [feature={GetType().Name}]");
-        var outBuffer = await SendCodeAsync(DriverHandle(), ControlCode, GetInBufferValue()).ConfigureAwait(false);
-        Log.Instance.Trace($"Buffer value: {outBuffer} [feature={GetType().Name}]");
+        var outBuffer = await SendCodeAsync(DriverHandle(), ControlCode, GetInBufferValue(), bypassQueue).ConfigureAwait(false);
         var state = await FromInternalAsync(outBuffer).ConfigureAwait(false);
         LastState = state;
-        Log.Instance.Trace($"State is {state} [feature={GetType().Name}]");
         return state;
     }
 
     public virtual async Task SetStateAsync(T state)
     {
-        Log.Instance.Trace($"Setting state to {state}... [feature={GetType().Name}]");
-        var codes = await ToInternalAsync(state).ConfigureAwait(false);
-        foreach (var code in codes)
-            await SendCodeAsync(DriverHandle(), ControlCode, code).ConfigureAwait(false);
-        LastState = state;
-        await VerifyStateSetAsync(state).ConfigureAwait(false);
-        Log.Instance.Trace($"State set to {state} [feature={GetType().Name}]");
+        _lastSetCts?.Cancel();
+        _lastSetCts = new CancellationTokenSource();
+        var ct = _lastSetCts.Token;
+
+        try
+        {
+            Log.Instance.Trace($"Setting state to {state}... [feature={GetType().Name}]");
+
+            var codes = await ToInternalAsync(state).ConfigureAwait(false);
+            foreach (var code in codes)
+            {
+                ct.ThrowIfCancellationRequested();
+                await SendCodeAsync(DriverHandle(), ControlCode, code, bypassQueue: false).ConfigureAwait(false);
+            }
+
+            LastState = state;
+
+            await VerifyStateSetAsync(state, ct).ConfigureAwait(false);
+
+            Log.Instance.Trace($"State set to {state} [feature={GetType().Name}]");
+        }
+        catch (OperationCanceledException)
+        {
+            Log.Instance.Trace($"SetStateAsync cancelled for {state} [feature={GetType().Name}]");
+        }
     }
 
     protected abstract Task<T> FromInternalAsync(uint state);
     protected abstract uint GetInBufferValue();
     protected abstract Task<uint[]> ToInternalAsync(T state);
 
-    protected async Task<uint> SendCodeAsync(SafeFileHandle handle, uint controlCode, uint inBuffer)
+    protected async Task<uint> SendCodeAsync(SafeFileHandle handle, uint controlCode, uint inBuffer, bool bypassQueue)
     {
         Task<uint> CoreAction() => Task.Run(() =>
         {
@@ -78,11 +96,10 @@ public abstract class AbstractDriverFeature<T>(
                 return outBuffer;
 
             var error = Marshal.GetLastWin32Error();
-            Log.Instance.Trace($"DeviceIoControl returned 0, last error: {error} [feature={GetType().Name}]");
-            throw new InvalidOperationException($"DeviceIoControl returned 0, last error: {error}");
+            throw new InvalidOperationException($"DeviceIoControl failed, error: {error}");
         });
 
-        if (!UseQueue)
+        if (!UseQueue || bypassQueue)
         {
             return await CoreAction().ConfigureAwait(false);
         }
@@ -94,25 +111,43 @@ public abstract class AbstractDriverFeature<T>(
         }
         finally
         {
-            await Task.Delay(DRIVER_COOLDOWN_MS).ConfigureAwait(false);
-            GlobalDriverLock.Queue.Release();
+            _ = Task.Run(async () =>
+            {
+                try
+                {
+                    await Task.Delay(DRIVER_COOLDOWN_MS).ConfigureAwait(false);
+                }
+                finally
+                {
+                    GlobalDriverLock.Queue.Release();
+                }
+            });
         }
     }
 
-    private async Task VerifyStateSetAsync(T state)
+    private async Task VerifyStateSetAsync(T state, CancellationToken ct)
     {
         var retries = 0;
-        var verified = false;
         while (retries < 10)
         {
-            if (state.Equals(await GetStateAsync().ConfigureAwait(false)))
+            if (ct.IsCancellationRequested) return;
+
+            var currentState = await GetStateInternalAsync(bypassQueue: true).ConfigureAwait(false);
+            if (state.Equals(currentState))
             {
-                verified = true;
-                break;
+                Log.Instance.Trace($"Verify state {state} succeeded. [feature={GetType().Name}]");
+                return;
             }
+
             retries++;
-            await Task.Delay(50).ConfigureAwait(false);
+            await Task.Delay(50, ct).ConfigureAwait(false);
         }
-        Log.Instance.Trace($"Verify state {state} set {(verified ? "succeeded" : "failed")}. [feature={GetType().Name}]");
+        Log.Instance.Trace($"Verify state {state} failed after 10 retries. [feature={GetType().Name}]");
+    }
+
+    public void Dispose()
+    {
+        _lastSetCts?.Dispose();
+        GC.SuppressFinalize(this);
     }
 }
