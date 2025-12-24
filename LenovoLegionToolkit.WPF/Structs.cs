@@ -46,13 +46,15 @@ public readonly struct DashboardGroup(DashboardGroupType type, string? customNam
                 DashboardItem.WinKeyLock)
         };
 
-        if (mi.LegionSeries is LegionSeries.ThinkBook or LegionSeries.IdeaPad)
+        if (mi.LegionSeries is not (LegionSeries.ThinkBook or LegionSeries.IdeaPad))
         {
-            var powerGroup = groups.First(g => g.Type == DashboardGroupType.Power);
-            var items = powerGroup.Items.ToList();
-            items.Insert(0, DashboardItem.ItsMode);
-            groups[0] = new(DashboardGroupType.Power, null, items.ToArray());
+            return groups.ToArray();
         }
+
+        var powerGroup = groups.First(g => g.Type == DashboardGroupType.Power);
+        var items = powerGroup.Items.ToList();
+        items.Insert(0, DashboardItem.ItsMode);
+        groups[0] = new(DashboardGroupType.Power, null, items.ToArray());
 
         return groups.ToArray();
     }

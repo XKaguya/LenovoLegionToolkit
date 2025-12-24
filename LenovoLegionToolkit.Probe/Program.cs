@@ -1,6 +1,7 @@
-﻿using LenovoLegionToolkit.Lib.System.Management;
+﻿using LenovoLegionToolkit.Lib;
+using LenovoLegionToolkit.Lib.System.Management;
+using Newtonsoft.Json.Linq;
 using System.Management;
-using LenovoLegionToolkit.Lib;
 using System.Text;
 
 Console.OutputEncoding = Encoding.UTF8;
@@ -87,6 +88,22 @@ catch (Exception ex)
 {
     Console.WriteLine(@$"Error scanning HID devices: {ex.Message}");
 }
+
+Console.WriteLine(@">>> Section 3: Support Power Modes");
+Console.WriteLine(@"----------------------------------------------------------------------------");
+try
+{
+    var value = await WMI.LenovoOtherMethod.GetFeatureValueAsync(CapabilityID.SupportedPowerModes).ConfigureAwait(false);
+    Console.WriteLine(@$"Supported Power Modes: {value}");
+}
+catch { /* Ignore */}
+
+try
+{
+    var result = await WMI.LenovoOtherMethod.GetSupportThermalModeAsync().ConfigureAwait(false);
+    Console.WriteLine(@$"Supported Power Modes: {result}");
+}
+catch { /* Ignore */}
 
 Console.WriteLine();
 Console.WriteLine(@"============================================================================");

@@ -1,3 +1,16 @@
-﻿namespace LenovoLegionToolkit.Lib.Features.OverDrive;
+﻿using System.Threading.Tasks;
+using LenovoLegionToolkit.Lib.Utils;
 
-public class OverDriveCapabilityFeature() : AbstractCapabilityFeature<OverDriveState>(CapabilityID.OverDrive);
+namespace LenovoLegionToolkit.Lib.Features.OverDrive;
+
+public class OverDriveCapabilityFeature : AbstractCapabilityFeature<OverDriveState>
+{
+    private OverDriveCapabilityFeature() : base(CapabilityID.OverDrive)
+    {
+    }
+
+    protected override async Task<bool> ValidateExtraSupportAsync(MachineInformation mi)
+    {
+        return await Task.FromResult(Compatibility.GetIsOverdriverSupported()).ConfigureAwait(false);
+    }
+}

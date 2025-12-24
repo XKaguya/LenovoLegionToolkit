@@ -13,7 +13,14 @@ public abstract class AbstractCapabilityFeature<T>(CapabilityID capabilityID)
         try
         {
             var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
-            return mi.Features.Source == MachineInformation.FeatureData.SourceType.CapabilityData && mi.Features[capabilityID];
+            var capabilityExists = mi.Features.Source == MachineInformation.FeatureData.SourceType.CapabilityData && mi.Features[capabilityID];
+
+            if (!capabilityExists)
+            {
+                return false;
+            }
+
+            return await ValidateExtraSupportAsync(mi).ConfigureAwait(false);
         }
         catch
         {
@@ -45,4 +52,6 @@ public abstract class AbstractCapabilityFeature<T>(CapabilityID capabilityID)
 
         Log.Instance.Trace($"Set state to {state} [feature={GetType().Name}]");
     }
+
+    protected virtual Task<bool> ValidateExtraSupportAsync(MachineInformation mi) => Task.FromResult(true);
 }

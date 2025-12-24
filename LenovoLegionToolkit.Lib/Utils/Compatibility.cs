@@ -669,6 +669,14 @@ public static partial class Compatibility
         return machineTypes.Contains(machineType);
     }
 
+    public static bool GetIsOverdriverSupported()
+    {
+        var gen = _machineInformation?.Generation;
+        var series = _machineInformation?.LegionSeries;
+
+        return (series is not (LegionSeries.Legion_7 or LegionSeries.Legion_Pro_7)) || !(gen >= 10);
+    }
+
     public static void PrintMachineInfo()
     {
         if (!Log.Instance.IsTraceEnabled)
