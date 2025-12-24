@@ -1,6 +1,5 @@
 ﻿using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.System.Management;
-using Newtonsoft.Json.Linq;
 using System.Management;
 using System.Text;
 
@@ -11,7 +10,29 @@ Console.WriteLine(@"Probe - Lenovo Legion Toolkit Hardware Information Gatherer"
 Console.WriteLine(@"============================================================================");
 Console.WriteLine(@"Press any key to start scanning...");
 Console.ReadKey();
+string GetFullException(Exception ex)
+{
+    var sb = new StringBuilder();
+    sb.AppendLine($"[Exception]: {ex.GetType().Name}");
+    sb.AppendLine($"[Message]: {ex.Message}");
+    sb.AppendLine($"[StackTrace]: {ex.StackTrace}");
 
+    if (ex.InnerException != null)
+    {
+        sb.AppendLine("\n--- Inner Exception ---");
+        sb.Append(GetFullException(ex.InnerException));
+    }
+    return sb.ToString();
+}
+
+void LogError(Exception ex)
+{
+    Console.ForegroundColor = ConsoleColor.Red;
+    Console.WriteLine(GetFullException(ex));
+    Console.ResetColor();
+}
+
+// --- Section 1 ---
 Console.WriteLine();
 Console.WriteLine(@">>> Section 1: Fan Table Data");
 Console.WriteLine(@"----------------------------------------------------------------------------");
@@ -51,9 +72,10 @@ try
 }
 catch (Exception ex)
 {
-    Console.WriteLine(@$"Error reading Fan Table: {ex.Message}");
+    LogError(ex);
 }
 
+// --- Section 2 ---
 Console.WriteLine(@">>> Section 2: HID Devices");
 Console.WriteLine(@"----------------------------------------------------------------------------");
 
@@ -86,24 +108,50 @@ try
 }
 catch (Exception ex)
 {
-    Console.WriteLine(@$"Error scanning HID devices: {ex.Message}");
+    LogError(ex);
 }
 
+// --- Section 3 ---
 Console.WriteLine(@">>> Section 3: Support Power Modes");
 Console.WriteLine(@"----------------------------------------------------------------------------");
 try
 {
     var value = await WMI.LenovoOtherMethod.GetFeatureValueAsync(CapabilityID.SupportedPowerModes).ConfigureAwait(false);
-    Console.WriteLine(@$"Supported Power Modes: {value}");
+    Console.WriteLine(@$"Supported Power Modes (FeatureValue): {value}");
 }
-catch { /* Ignore */}
+catch (Exception ex) { LogError(ex); }
 
 try
 {
     var result = await WMI.LenovoOtherMethod.GetSupportThermalModeAsync().ConfigureAwait(false);
-    Console.WriteLine(@$"Supported Power Modes: {result}");
+    Console.WriteLine(@$"Supported Thermal Modes: {result}");
 }
-catch { /* Ignore */}
+catch (Exception ex) { LogError(ex); }
+
+// --- Section 4 ---
+Console.WriteLine();
+Console.WriteLine(@">>> Section 4: Support Sensors");
+Console.WriteLine(@"----------------------------------------------------------------------------");
+try
+{
+    var value = await WMI.LenovoOtherMethod.GetFeatureValueAsync(CapabilityID.CpuCurrentTemperature).ConfigureAwait(false);
+    Console.WriteLine(@$"CPU Current Temperature: {value}");
+}
+catch (Exception ex) { LogError(ex); }
+
+try
+{
+    var value = await WMI.LenovoOtherMethod.GetFeatureValueAsync(CapabilityID.GpuCurrentTemperature).ConfigureAwait(false);
+    Console.WriteLine(@$"GPU Current Temperature: {value}");
+}
+catch (Exception ex) { LogError(ex); }
+
+try
+{
+    var value = await WMI.LenovoOtherMethod.GetFeatureValueAsync(CapabilityID.PchCurrentTemperature).ConfigureAwait(false);
+    Console.WriteLine(@$"PCH Current Temperature: {value}");
+}
+catch (Exception ex) { LogError(ex); }
 
 Console.WriteLine();
 Console.WriteLine(@"============================================================================");

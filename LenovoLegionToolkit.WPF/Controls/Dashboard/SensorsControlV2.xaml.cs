@@ -121,12 +121,13 @@ public partial class SensorsControlV2
             _cts?.Cancel();
             _cts = new CancellationTokenSource();
             var token = _cts.Token;
-            if (!await _controller.IsSupportedAsync().ConfigureAwait(false))
+
+            try
             {
-                Dispatcher.Invoke(() => Visibility = Visibility.Collapsed);
-                return;
-            }
-            await _controller.PrepareAsync().ConfigureAwait(false);
+                await _controller.PrepareAsync().ConfigureAwait(false);
+            } 
+            catch { /* Ignore */ }
+
             _refreshTask = Task.Run(async () =>
             {
                 while (!token.IsCancellationRequested)
@@ -135,31 +136,53 @@ public partial class SensorsControlV2
                     {
                         await _sensorsGroupControllers.UpdateAsync();
 
-                        _gpuNameTask = GetProcessedGpuName();
-                        var dataTask = _controller.GetDataAsync();
+                        var dataTask = Task.Run(async () =>
+                        {
+                            try { return await _controller.GetDataAsync().ConfigureAwait(false); }
+                            catch { return default(SensorsData); }
+                        }, token);
+
+                        var gpuNameTask = GetProcessedGpuName();
+                        var cpuUsageTask = _sensorsGroupControllers.GetCpuUsageAsync();
+                        var cpuTempTask = _sensorsGroupControllers.GetCpuTemperatureAsync();
+                        var cpuClockTask = _sensorsGroupControllers.IsHybrid
+                            ? _sensorsGroupControllers.GetCpuPCoreClockAsync()
+                            : _sensorsGroupControllers.GetCpuCoreClockAsync();
                         var cpuPowerTask = _sensorsGroupControllers.GetCpuPowerAsync();
+
+                        var gpuUsageTask = _sensorsGroupControllers.GetGpuUsageAsync();
+                        var gpuTempTask = _sensorsGroupControllers.GetGpuTemperatureAsync();
+                        var gpuClockTask = _sensorsGroupControllers.GetGpuCoreClockAsync();
                         var gpuPowerTask = _sensorsGroupControllers.GetGpuPowerAsync();
                         var gpuVramTask = _sensorsGroupControllers.GetGpuVramTemperatureAsync();
+
                         var diskTemperaturesTask = _sensorsGroupControllers.GetSsdTemperaturesAsync();
                         var memoryUsageTask = _sensorsGroupControllers.GetMemoryUsageAsync();
                         var memoryTemperaturesTask = _sensorsGroupControllers.GetHighestMemoryTemperatureAsync();
+
                         var batteryInfoTask = Task.Run(Battery.GetBatteryInformation, token);
+
                         await Task.WhenAll(
                             dataTask,
-                            cpuPowerTask,
-                            gpuPowerTask,
-                            gpuVramTask,
-                            diskTemperaturesTask,
-                            memoryUsageTask,
-                            memoryTemperaturesTask,
+                            cpuUsageTask, gpuNameTask, cpuTempTask, cpuClockTask, cpuPowerTask,
+                            gpuUsageTask, gpuTempTask, gpuClockTask, gpuPowerTask, gpuVramTask,
+                            diskTemperaturesTask, memoryUsageTask, memoryTemperaturesTask,
                             batteryInfoTask
                         ).ConfigureAwait(false);
-                        await Dispatcher.BeginInvoke(() => UpdateAllSensorValues(dataTask.Result, cpuPowerTask.Result, gpuPowerTask.Result, gpuVramTask.Result, diskTemperaturesTask.Result, memoryUsageTask.Result, memoryTemperaturesTask.Result, batteryInfoTask.Result), DispatcherPriority.Background);
+
+                        _gpuNameTask = gpuNameTask;
+
+                        await Dispatcher.BeginInvoke(() => UpdateAllSensorValuesV2(
+                            dataTask.Result,
+                            cpuUsageTask.Result, cpuTempTask.Result, cpuClockTask.Result, cpuPowerTask.Result,
+                            gpuUsageTask.Result, gpuTempTask.Result, gpuClockTask.Result, gpuPowerTask.Result, gpuVramTask.Result,
+                            diskTemperaturesTask.Result, memoryUsageTask.Result, memoryTemperaturesTask.Result,
+                            batteryInfoTask.Result
+                        ), DispatcherPriority.Background);
+
                         await Task.Delay(TimeSpan.FromSeconds(_dashboardSettings.Store.SensorsRefreshIntervalSeconds), token);
                     }
-                    catch (OperationCanceledException)
-                    {
-                    }
+                    catch (OperationCanceledException) { }
                     catch (Exception ex)
                     {
                         Log.Instance.Trace($"Sensor refresh failed: {ex}");
@@ -215,7 +238,12 @@ public partial class SensorsControlV2
         }
     }
 
-    private void UpdateAllSensorValues(SensorsData data, float cpuPower, float gpuPower, float gpuVramTemp, (float, float) diskTemps, float memoryUsage, double memoryTemp, BatteryInformation? batteryInfo)
+    private void UpdateAllSensorValuesV2(
+        SensorsData data,
+        float cpuUsage, float cpuTemp, float cpuClock, float cpuPower,
+        float gpuUsage, float gpuTemp, float gpuClock, float gpuPower, float gpuVramTemp,
+        (float, float) diskTemps, float memoryUsage, double memoryTemp,
+        BatteryInformation? batteryInfo)
     {
         lock (_updateLock)
         {
@@ -226,28 +254,29 @@ public partial class SensorsControlV2
             }
 
             _cpuCardName.Text = _cpuNameTask.Result;
-            _gpuCardName.Text = _gpuNameTask!.Result;
+            _gpuCardName.Text = _gpuNameTask?.Result ?? "UNKNOWN";
 
-            if (_activeSensorItems.Contains(SensorItem.CpuUtilization)) UpdateValue(_cpuUtilizationBar, _cpuUtilizationLabel, data.CPU.MaxUtilization, data.CPU.Utilization, $"{data.CPU.Utilization}%");
-            if (_activeSensorItems.Contains(SensorItem.CpuFrequency)) UpdateValue(_cpuCoreClockBar, _cpuCoreClockLabel, data.CPU.MaxCoreClock, data.CPU.CoreClock, $"{data.CPU.CoreClock / 1000.0:0.0} {Resource.GHz}", $"{data.CPU.MaxCoreClock / 1000.0:0.0} {Resource.GHz}");
-            if (_activeSensorItems.Contains(SensorItem.CpuTemperature)) UpdateValue(_cpuTemperatureBar, _cpuTemperatureLabel, data.CPU.MaxTemperature, data.CPU.Temperature, GetTemperatureText(data.CPU.Temperature), GetTemperatureText(data.CPU.MaxTemperature));
-            if (_activeSensorItems.Contains(SensorItem.CpuFanSpeed)) UpdateValue(_cpuFanSpeedBar, _cpuFanSpeedLabel, data.CPU.MaxFanSpeed, data.CPU.FanSpeed, $"{data.CPU.FanSpeed} {Resource.RPM}", $"{data.CPU.MaxFanSpeed} {Resource.RPM}");
+            // --- CPU ---
+            if (_activeSensorItems.Contains(SensorItem.CpuUtilization)) UpdateValue(_cpuUtilizationBar, _cpuUtilizationLabel, 100, cpuUsage, $"{cpuUsage:0}%");
+            if (_activeSensorItems.Contains(SensorItem.CpuFrequency)) UpdateValue(_cpuCoreClockBar, _cpuCoreClockLabel, 6000, cpuClock, $"{cpuClock / 1000.0:0.0} {Resource.GHz}");
+            if (_activeSensorItems.Contains(SensorItem.CpuTemperature)) UpdateValue(_cpuTemperatureBar, _cpuTemperatureLabel, 100, cpuTemp, GetTemperatureText(cpuTemp));
             if (_activeSensorItems.Contains(SensorItem.CpuPower)) UpdateValue(_cpuPowerLabel, $"{cpuPower:0}W");
-            if (_activeSensorItems.Contains(SensorItem.GpuUtilization)) UpdateValue(_gpuUtilizationBar, _gpuUtilizationLabel, data.GPU.MaxUtilization, data.GPU.Utilization, $"{data.GPU.Utilization}%");
-            if (_activeSensorItems.Contains(SensorItem.GpuFrequency)) UpdateValue(_gpuCoreClockBar, _gpuCoreClockLabel, data.GPU.MaxCoreClock, data.GPU.CoreClock, $"{data.GPU.CoreClock} {Resource.MHz}", $"{data.GPU.MaxCoreClock} {Resource.MHz}");
+            if (_activeSensorItems.Contains(SensorItem.CpuFanSpeed)) UpdateValue(_cpuFanSpeedBar, _cpuFanSpeedLabel, data.CPU.MaxFanSpeed, data.CPU.FanSpeed, $"{data.CPU.FanSpeed} {Resource.RPM}", $"{data.CPU.MaxFanSpeed} {Resource.RPM}");
+
+            // --- GPU ---
+            if (_activeSensorItems.Contains(SensorItem.GpuUtilization)) UpdateValue(_gpuUtilizationBar, _gpuUtilizationLabel, 100, gpuUsage, $"{gpuUsage:0}%");
+            if (_activeSensorItems.Contains(SensorItem.GpuFrequency)) UpdateValue(_gpuCoreClockBar, _gpuCoreClockLabel, 3000, gpuClock, $"{gpuClock:0} {Resource.MHz}");
+            if (_activeSensorItems.Contains(SensorItem.GpuPower)) UpdateValue(_gpuPowerLabel, $"{gpuPower:0}W");
+
             if (_activeSensorItems.Contains(SensorItem.GpuTemperatures))
             {
                 bool showCoreTemp = _activeSensorItems.Contains(SensorItem.GpuCoreTemperature);
                 bool showVramTemp = _activeSensorItems.Contains(SensorItem.GpuVramTemperature);
-
                 _gpuCoreTempPanel.Visibility = showCoreTemp ? Visibility.Visible : Visibility.Collapsed;
                 _gpuVramTempPanel.Visibility = showVramTemp ? Visibility.Visible : Visibility.Collapsed;
 
-                if (showCoreTemp)
-                    UpdateTemperatureValue(_gpuCoreTemperatureLabel, data.GPU.Temperature);
-
-                if (showVramTemp)
-                    UpdateTemperatureValue(_gpuMemoryTemperatureLabel, gpuVramTemp);
+                if (showCoreTemp) UpdateTemperatureValue(_gpuCoreTemperatureLabel, gpuTemp);
+                if (showVramTemp) UpdateTemperatureValue(_gpuMemoryTemperatureLabel, gpuVramTemp);
 
                 switch (showCoreTemp)
                 {
@@ -260,32 +289,33 @@ public partial class SensorsControlV2
                         Grid.SetColumn(_gpuCoreTempPanel, 3);
                         break;
                     default:
-                    {
                         if (showVramTemp)
                         {
                             Grid.SetColumn(_gpuVramTempPanel, 3);
                             _gpuVramTempPanel.Margin = new Thickness(0);
                         }
-
                         break;
-                    }
                 }
             }
+
             if (_activeSensorItems.Contains(SensorItem.GpuFanSpeed)) UpdateValue(_gpuFanSpeedBar, _gpuFanSpeedLabel, data.GPU.MaxFanSpeed, data.GPU.FanSpeed, $"{data.GPU.FanSpeed} {Resource.RPM}", $"{data.GPU.MaxFanSpeed} {Resource.RPM}");
-            if (_activeSensorItems.Contains(SensorItem.GpuPower)) UpdateValue(_gpuPowerLabel, $"{gpuPower:0}W");
+
+            // --- PCH / Motherboard ---
             if (_activeSensorItems.Contains(SensorItem.PchTemperature)) UpdateValue(_pchTemperatureBar, _pchTemperatureLabel, data.PCH.MaxTemperature, data.PCH.Temperature, GetTemperatureText(data.PCH.Temperature), GetTemperatureText(data.PCH.MaxTemperature));
             if (_activeSensorItems.Contains(SensorItem.PchFanSpeed)) UpdateValue(_pchFanSpeedBar, _pchFanSpeedLabel, data.PCH.MaxFanSpeed, data.PCH.FanSpeed, $"{data.PCH.FanSpeed} {Resource.RPM}", $"{data.PCH.MaxFanSpeed} {Resource.RPM}");
-            if (_activeSensorItems.Contains(SensorItem.Disk1Temperature)) UpdateValue(_disk1TemperatureBar, _disk1TemperatureLabel, 100, diskTemps.Item1, GetTemperatureText(diskTemps.Item1), GetTemperatureText(100));
-            if (_activeSensorItems.Contains(SensorItem.Disk2Temperature)) UpdateValue(_disk2TemperatureBar, _disk2TemperatureLabel, 100, diskTemps.Item2, GetTemperatureText(diskTemps.Item2), GetTemperatureText(100));
-            if (_activeSensorItems.Contains(SensorItem.MemoryUtilization)) UpdateValue(_memoryUtilizationBar, _memoryUtilizationLabel, 100, memoryUsage, $"{memoryUsage:0}%", "100%");
-            if (_activeSensorItems.Contains(SensorItem.MemoryTemperature)) UpdateValue(_memoryTemperatureBar, _memoryTemperatureLabel, 100, memoryTemp, GetTemperatureText(memoryTemp), GetTemperatureText(100));
-            if (_activeSensorItems.Contains(SensorItem.BatteryState)) UpdateBatteryStatus(_batteryStateLabel, batteryInfo);
-            if (_activeSensorItems.Contains(SensorItem.BatteryLevel)) UpdateValue(_batteryLevelBar, _batteryLevelLabel, 100, batteryInfo?.BatteryPercentage ?? 0, batteryInfo != null ? $"{batteryInfo.Value.BatteryPercentage}%" : "-", "100%");
 
-            UpdateCardVisibility(_cpuCard, [SensorItem.CpuUtilization, SensorItem.CpuFrequency, SensorItem.CpuFanSpeed, SensorItem.CpuTemperature, SensorItem.CpuPower
-            ]);
-            UpdateCardVisibility(_gpuCard, [SensorItem.GpuUtilization, SensorItem.GpuFrequency, SensorItem.GpuFanSpeed, SensorItem.GpuCoreTemperature, SensorItem.GpuVramTemperature, SensorItem.GpuPower
-            ]);
+            // --- Disk & Memory ---
+            if (_activeSensorItems.Contains(SensorItem.Disk1Temperature)) UpdateValue(_disk1TemperatureBar, _disk1TemperatureLabel, 100, diskTemps.Item1, GetTemperatureText(diskTemps.Item1));
+            if (_activeSensorItems.Contains(SensorItem.Disk2Temperature)) UpdateValue(_disk2TemperatureBar, _disk2TemperatureLabel, 100, diskTemps.Item2, GetTemperatureText(diskTemps.Item2));
+            if (_activeSensorItems.Contains(SensorItem.MemoryUtilization)) UpdateValue(_memoryUtilizationBar, _memoryUtilizationLabel, 100, memoryUsage, $"{memoryUsage:0}%");
+            if (_activeSensorItems.Contains(SensorItem.MemoryTemperature)) UpdateValue(_memoryTemperatureBar, _memoryTemperatureLabel, 100, memoryTemp, GetTemperatureText(memoryTemp));
+
+            // --- Battery ---
+            if (_activeSensorItems.Contains(SensorItem.BatteryState)) UpdateBatteryStatus(_batteryStateLabel, batteryInfo);
+            if (_activeSensorItems.Contains(SensorItem.BatteryLevel)) UpdateValue(_batteryLevelBar, _batteryLevelLabel, 100, batteryInfo?.BatteryPercentage ?? 0, batteryInfo != null ? $"{batteryInfo.Value.BatteryPercentage}%" : "-");
+
+            UpdateCardVisibility(_cpuCard, [SensorItem.CpuUtilization, SensorItem.CpuFrequency, SensorItem.CpuFanSpeed, SensorItem.CpuTemperature, SensorItem.CpuPower]);
+            UpdateCardVisibility(_gpuCard, [SensorItem.GpuUtilization, SensorItem.GpuFrequency, SensorItem.GpuFanSpeed, SensorItem.GpuCoreTemperature, SensorItem.GpuVramTemperature, SensorItem.GpuPower]);
             UpdateMotherboardCardVisibility();
             UpdateMemoryDiskCardVisibility();
         }
@@ -326,22 +356,16 @@ public partial class SensorsControlV2
         _memoryDiskCard.Visibility = (memoryVisible || diskVisible) ? Visibility.Visible : Visibility.Collapsed;
     }
 
-    private Task<string> GetProcessedCpuName()
-    {
-        return _sensorsGroupControllers.GetCpuNameAsync();
-    }
+    private Task<string> GetProcessedCpuName() => _sensorsGroupControllers.GetCpuNameAsync();
 
-    private Task<string> GetProcessedGpuName()
-    {
-        return _sensorsGroupControllers.GetGpuNameAsync();
-    }
+    private Task<string> GetProcessedGpuName() => _sensorsGroupControllers.GetGpuNameAsync();
 
     private string GetTemperatureText(double temperature)
     {
         if (temperature <= 0) return "-";
         if (_applicationSettings.Store.TemperatureUnit == TemperatureUnit.F)
         {
-            temperature = temperature * 9 / 5 + 32;
+            temperature = (temperature * 9 / 5) + 32;
             return $"{temperature:0}{Resource.Fahrenheit}";
         }
         return $"{temperature:0}{Resource.Celsius}";
@@ -349,7 +373,7 @@ public partial class SensorsControlV2
 
     private static void UpdateValue(RangeBase bar, TextBlock label, double max, double value, string text, string? toolTipText = null)
     {
-        if (max < 0 || value < 0)
+        if (max <= 0 || value < 0)
         {
             bar.Minimum = 0;
             bar.Maximum = 1;
@@ -371,7 +395,7 @@ public partial class SensorsControlV2
 
     private static void UpdateValue(TextBlock label, double max, double value, string text, string? toolTipText = null)
     {
-        if (max < 0 || value < 0)
+        if (max <= 0 || value < 0)
         {
             label.Text = "-";
             label.ToolTip = null;

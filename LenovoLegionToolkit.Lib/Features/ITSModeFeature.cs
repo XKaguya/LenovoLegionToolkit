@@ -157,10 +157,7 @@ public partial class ITSModeFeature : IFeature<ITSMode>
             var machineInfo = Compatibility.GetMachineInformationAsync().Result;
             var isThinkBook = machineInfo.LegionSeries == LegionSeries.ThinkBook;
 
-            if (HasDispatcherDeviceNode(ref instance) != 0)
-                return GetDispatcherModeInternal(ref instance, isThinkBook);
-
-            return GetStandardModeInternal(ref instance);
+            return HasDispatcherDeviceNode(ref instance) != 0 ? GetDispatcherModeInternal(ref instance, isThinkBook) : GetStandardModeInternal(ref instance);
         }
         catch (DllNotFoundException)
         {

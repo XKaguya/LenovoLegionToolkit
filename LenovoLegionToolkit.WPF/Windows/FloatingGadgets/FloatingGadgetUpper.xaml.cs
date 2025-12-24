@@ -581,8 +581,12 @@ public partial class FloatingGadgetUpper
         await _sensorsGroupControllers.UpdateAsync();
 
         var dataTask = _controller.GetDataAsync();
+        var cpuUsageTask = _sensorsGroupControllers.GetCpuUsageAsync();
         var cpuPowerTask = _sensorsGroupControllers.GetCpuPowerAsync();
+        var cpuTempTask = _sensorsGroupControllers.GetCpuTemperatureAsync();
+        var gpuClockTask = _sensorsGroupControllers.GetGpuCoreClockAsync();
         var gpuPowerTask = _sensorsGroupControllers.GetGpuPowerAsync();
+        var gpuTempTask = _sensorsGroupControllers.GetGpuTemperatureAsync();
         var gpuVramTask = _sensorsGroupControllers.GetGpuVramTemperatureAsync();
         var memUsageTask = _sensorsGroupControllers.GetMemoryUsageAsync();
         var memTempTask = _sensorsGroupControllers.GetHighestMemoryTemperatureAsync();
@@ -591,7 +595,7 @@ public partial class FloatingGadgetUpper
         var cpuPClockTask = _sensorsGroupControllers.IsHybrid ? _sensorsGroupControllers.GetCpuPCoreClockAsync() : Task.FromResult(float.NaN);
         var cpuEClockTask = _sensorsGroupControllers.IsHybrid ? _sensorsGroupControllers.GetCpuECoreClockAsync() : Task.FromResult(float.NaN);
 
-        await Task.WhenAll(dataTask, cpuPowerTask, gpuPowerTask, gpuVramTask, memUsageTask, memTempTask, cpuPClockTask, cpuEClockTask);
+        await Task.WhenAll(dataTask, cpuUsageTask, cpuPowerTask, cpuTempTask, gpuClockTask, gpuPowerTask, gpuTempTask, gpuVramTask, memUsageTask, memTempTask, cpuPClockTask, cpuEClockTask);
 
         if (token.IsCancellationRequested)
         {
@@ -609,17 +613,17 @@ public partial class FloatingGadgetUpper
 
         var snapshot = new SensorSnapshot
         {
-            CpuUsage = mainData.CPU.Utilization,
+            CpuUsage = await cpuUsageTask,
             CpuFrequency = await cpuClockTask,
             CpuPClock = await cpuPClockTask,
             CpuEClock = await cpuEClockTask,
-            CpuTemp = mainData.CPU.Temperature,
+            CpuTemp = await cpuTempTask,
             CpuPower = await cpuPowerTask,
             CpuFanSpeed = mainData.CPU.FanSpeed,
 
             GpuUsage = mainData.GPU.Utilization,
-            GpuFrequency = mainData.GPU.CoreClock,
-            GpuTemp = mainData.GPU.Temperature,
+            GpuFrequency = await gpuClockTask,
+            GpuTemp = await gpuTempTask,
             GpuVramTemp = await gpuVramTask,
             GpuPower = await gpuPowerTask,
             GpuFanSpeed = mainData.GPU.FanSpeed,
