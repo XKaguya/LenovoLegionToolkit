@@ -20,7 +20,7 @@ public abstract class AbstractDriverFeature<T>(
     : IFeature<T>, IDisposable
     where T : struct, Enum, IComparable
 {
-    private const int DRIVER_COOLDOWN_MS = 200;
+    private const int DRIVER_COOLDOWN_MS = 50;
 
     protected readonly uint ControlCode = controlCode;
     protected readonly Func<SafeFileHandle> DriverHandle = driverHandleHandle;
