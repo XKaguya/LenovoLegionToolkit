@@ -1,5 +1,4 @@
-﻿using LenovoLegionToolkit.Lib.Utils;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 
 namespace LenovoLegionToolkit.Lib.Controllers.Sensors;

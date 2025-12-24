@@ -123,6 +123,15 @@ public partial class StatusWindow
         _gpuFreqAndTempLabel.Visibility = sensorVisibility;
         _gpuFanAndPowerDesc.Visibility = sensorVisibility;
         _gpuFanAndPowerLabel.Visibility = sensorVisibility;
+
+        if (_sensorsController.GetType() == typeof(SensorsControllerV4) &&
+            _sensorsController.GetType() == typeof(SensorsControllerV5))
+        {
+            return;
+        }
+
+        _systemFanGrid.Visibility = Visibility.Collapsed;
+        _systemFanLabel.Visibility = Visibility.Collapsed;
     }
 
 

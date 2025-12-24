@@ -5,7 +5,7 @@ namespace LenovoLegionToolkit.Lib.Features.OverDrive;
 
 public class OverDriveCapabilityFeature : AbstractCapabilityFeature<OverDriveState>
 {
-    private OverDriveCapabilityFeature() : base(CapabilityID.OverDrive)
+    public OverDriveCapabilityFeature() : base(CapabilityID.OverDrive)
     {
     }
 
