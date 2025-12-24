@@ -164,7 +164,10 @@
                 Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
         </Grid>
 
-        <Grid x:Name="_gpuGrid" Margin="16,8,16,0">
+        <Grid
+            x:Name="_gpuGrid"
+            Margin="16,8,16,0"
+            Visibility="Collapsed">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
@@ -284,7 +287,8 @@
                 Content="{x:Static resources:Resource.StatusWindow_Frequency_And_Temperature}"
                 FontSize="{StaticResource SecondaryFontSize}"
                 FontWeight="Medium"
-                Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                Visibility="Collapsed" />
             <Label
                 x:Name="_gpuFreqAndTempLabel"
                 Grid.Row="2"
@@ -293,7 +297,8 @@
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
                 FontSize="{StaticResource SecondaryFontSize}"
-                Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                Visibility="Collapsed" />
             <Label
                 x:Name="_gpuFanAndPowerDesc"
                 Grid.Row="3"
@@ -302,7 +307,8 @@
                 Content="{x:Static resources:Resource.StatusWindow_Fan_And_Power}"
                 FontSize="{StaticResource SecondaryFontSize}"
                 FontWeight="Medium"
-                Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                Visibility="Collapsed" />
             <Label
                 x:Name="_gpuFanAndPowerLabel"
                 Grid.Row="3"
@@ -311,7 +317,8 @@
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
                 FontSize="{StaticResource SecondaryFontSize}"
-                Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                Visibility="Collapsed" />
         </Grid>
 
         <Grid x:Name="_systemFanGrid" Margin="16,8,16,0">
