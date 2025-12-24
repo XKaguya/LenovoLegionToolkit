@@ -107,8 +107,10 @@ public partial class StatusWindow
 
     private void ConfigureDashboardVisibility()
     {
+        var mi = Compatibility.GetMachineInformationAsync().Result;
         var useNew = _settings.Store.UseNewSensorDashboard;
-        var sensorVisibility = useNew ? Visibility.Visible : Visibility.Collapsed;
+        var isSupportedSeries = (int)mi.LegionSeries <= 7;
+        var sensorVisibility = (useNew && isSupportedSeries) ? Visibility.Visible : Visibility.Collapsed;
 
         _cpuGrid.Visibility = sensorVisibility;
 
