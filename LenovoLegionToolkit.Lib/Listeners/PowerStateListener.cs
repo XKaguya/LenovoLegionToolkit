@@ -133,54 +133,59 @@ public class PowerStateListener : IListener<PowerStateListener.ChangedEventArgs>
 
         Log.Instance.Trace($"Handle {powerStateEvent}. [newState={powerAdapterState}]");
 
-        if (powerStateEvent is PowerStateEvent.Suspend)
+        switch (powerStateEvent)
         {
-            Log.Instance.Trace($"Going to dark.");
-            await _powerModeFeature.SuspendMode(PowerModeState.Balance).ConfigureAwait(false);
-        }
-        else if (powerStateEvent is PowerStateEvent.Resume)
-        {
-            _ = Task.Run(async () =>
-            {
-                if (await _batteryFeature.IsSupportedAsync().ConfigureAwait(false))
-                    await _batteryFeature.EnsureCorrectBatteryModeIsSetAsync().ConfigureAwait(false);
-
-                if (await _rgbController.IsSupportedAsync().ConfigureAwait(false))
-                    await _rgbController.SetLightControlOwnerAsync(true, true).ConfigureAwait(false);
-
-                Log.Instance.Trace($"Restore to {_powerModeFeature.LastPowerModeState}");
-                await _powerModeFeature.SetStateAsync(_powerModeFeature.LastPowerModeState).ConfigureAwait(false);
-
-                if (await _powerModeFeature.IsSupportedAsync().ConfigureAwait(false))
-                {
-                    await _powerModeFeature.EnsureCorrectWindowsPowerSettingsAreSetAsync().ConfigureAwait(false);
-                    await _powerModeFeature.EnsureGodModeStateIsAppliedAsync().ConfigureAwait(false);
-                }
-
-                if (await _dgpuNotify.IsSupportedAsync().ConfigureAwait(false))
-                {
-                    await Task.Delay(TimeSpan.FromSeconds(5)).ConfigureAwait(false);
-                    await _dgpuNotify.NotifyAsync().ConfigureAwait(false);
-                }
-            });
-        }
-        else if (powerStateEvent is PowerStateEvent.StatusChange && powerAdapterState is PowerAdapterStatus.Connected)
-        {
-            _ = Task.Run(async () =>
+            case PowerStateEvent.Suspend:
             {
                 if (await _powerModeFeature.IsSupportedAsync().ConfigureAwait(false))
-                    await _powerModeFeature.EnsureGodModeStateIsAppliedAsync().ConfigureAwait(false);
-
-                if (await _dgpuNotify.IsSupportedAsync().ConfigureAwait(false))
                 {
-                    await Task.Delay(TimeSpan.FromSeconds(5)).ConfigureAwait(false);
-                    await _dgpuNotify.NotifyAsync().ConfigureAwait(false);
+                    Log.Instance.Trace($"Going to dark.");
+                    await _powerModeFeature.SuspendMode(PowerModeState.Balance).ConfigureAwait(false);
                 }
-            });
-        }
-        else if (powerStateEvent is PowerStateEvent.Unknown)
-        {
-            return;
+
+                break;
+            }
+            case PowerStateEvent.Resume:
+                _ = Task.Run(async () =>
+                {
+                    if (await _batteryFeature.IsSupportedAsync().ConfigureAwait(false))
+                        await _batteryFeature.EnsureCorrectBatteryModeIsSetAsync().ConfigureAwait(false);
+
+                    if (await _rgbController.IsSupportedAsync().ConfigureAwait(false))
+                        await _rgbController.SetLightControlOwnerAsync(true, true).ConfigureAwait(false);
+
+                    Log.Instance.Trace($"Restore to {_powerModeFeature.LastPowerModeState}");
+                    if (await _powerModeFeature.IsSupportedAsync().ConfigureAwait(false))
+                        await _powerModeFeature.SetStateAsync(_powerModeFeature.LastPowerModeState).ConfigureAwait(false);
+
+                    if (await _powerModeFeature.IsSupportedAsync().ConfigureAwait(false))
+                    {
+                        await _powerModeFeature.EnsureCorrectWindowsPowerSettingsAreSetAsync().ConfigureAwait(false);
+                        await _powerModeFeature.EnsureGodModeStateIsAppliedAsync().ConfigureAwait(false);
+                    }
+
+                    if (await _dgpuNotify.IsSupportedAsync().ConfigureAwait(false))
+                    {
+                        await Task.Delay(TimeSpan.FromSeconds(5)).ConfigureAwait(false);
+                        await _dgpuNotify.NotifyAsync().ConfigureAwait(false);
+                    }
+                });
+                break;
+            case PowerStateEvent.StatusChange when powerAdapterState is PowerAdapterStatus.Connected:
+                _ = Task.Run(async () =>
+                {
+                    if (await _powerModeFeature.IsSupportedAsync().ConfigureAwait(false))
+                        await _powerModeFeature.EnsureGodModeStateIsAppliedAsync().ConfigureAwait(false);
+
+                    if (await _dgpuNotify.IsSupportedAsync().ConfigureAwait(false))
+                    {
+                        await Task.Delay(TimeSpan.FromSeconds(5)).ConfigureAwait(false);
+                        await _dgpuNotify.NotifyAsync().ConfigureAwait(false);
+                    }
+                });
+                break;
+            default:
+                return;
         }
 
         var powerAdapterStateChanged = powerAdapterState != _lastPowerAdapterState;
