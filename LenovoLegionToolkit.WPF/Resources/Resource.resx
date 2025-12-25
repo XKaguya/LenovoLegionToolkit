@@ -2038,8 +2038,8 @@ Supported formats are: {1}.</value>
   <data name="AbstractAutomationStepControl_Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
-  <data name="PeriodicActionPipelineTriggerTabItemContent_PeriodMinutes" xml:space="preserve">
-    <value>Period (minutes)</value>
+  <data name="PeriodicActionPipelineTriggerTabItemContent_Period" xml:space="preserve">
+    <value>Period</value>
     <comment>A prompt that is used both to ask the user to input an integer, representing the number of minutes between two periodic actions are triggered, and to inform the user what have they set once they are done configuring the action.</comment>
   </data>
   <data name="SettingsPage_OnBatterySinceReset_Message" xml:space="preserve">
@@ -2627,5 +2627,11 @@ Click Yes to disable and No to ignore.</value>
 Misconfiguration can lead to severe system instability, thermal throttling, or permanent hardware damage. Modifications made here may void your manufacturer warranty. 
 
 Do not proceed unless you possess the necessary technical expertise.</value>
+  </data>
+  <data name="PeriodicActionPipelineTriggerTabItemContent_Minutes" xml:space="preserve">
+    <value>Minutes</value>
+  </data>
+  <data name="PeriodicActionPipelineTriggerTabItemContent_Seconds" xml:space="preserve">
+    <value>Seconds</value>
   </data>
 </root>

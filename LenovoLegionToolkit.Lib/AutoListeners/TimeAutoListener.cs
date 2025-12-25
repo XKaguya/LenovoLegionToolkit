@@ -17,7 +17,7 @@ public class TimeAutoListener : AbstractAutoListener<TimeAutoListener.ChangedEve
 
     public TimeAutoListener()
     {
-        _timer = new Timer(60_000);
+        _timer = new Timer(1_000);
         _timer.Elapsed += Timer_Elapsed;
         _timer.AutoReset = true;
     }

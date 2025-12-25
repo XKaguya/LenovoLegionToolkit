@@ -4723,11 +4723,29 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   查找类似 Period (minutes) 的本地化字符串。
+        ///   查找类似 Minutes 的本地化字符串。
         /// </summary>
-        public static string PeriodicActionPipelineTriggerTabItemContent_PeriodMinutes {
+        public static string PeriodicActionPipelineTriggerTabItemContent_Minutes {
             get {
-                return ResourceManager.GetString("PeriodicActionPipelineTriggerTabItemContent_PeriodMinutes", resourceCulture);
+                return ResourceManager.GetString("PeriodicActionPipelineTriggerTabItemContent_Minutes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Period 的本地化字符串。
+        /// </summary>
+        public static string PeriodicActionPipelineTriggerTabItemContent_Period {
+            get {
+                return ResourceManager.GetString("PeriodicActionPipelineTriggerTabItemContent_Period", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Seconds 的本地化字符串。
+        /// </summary>
+        public static string PeriodicActionPipelineTriggerTabItemContent_Seconds {
+            get {
+                return ResourceManager.GetString("PeriodicActionPipelineTriggerTabItemContent_Seconds", resourceCulture);
             }
         }
         

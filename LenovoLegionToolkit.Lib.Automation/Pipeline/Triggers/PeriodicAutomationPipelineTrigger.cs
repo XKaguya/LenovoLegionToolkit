@@ -25,8 +25,15 @@ public class PeriodicAutomationPipelineTrigger(TimeSpan period) : IPeriodicAutom
 
     private Task<bool> IsMatching()
     {
-        var currentDayMinutes = (int)DateTime.Now.TimeOfDay.TotalMinutes;
-        var isPeriod = currentDayMinutes % Period.TotalMinutes == 0;
+        var currentDaySeconds = (long)Math.Round(DateTime.Now.TimeOfDay.TotalSeconds);
+        var periodSeconds = (long)Math.Round(Period.TotalSeconds);
+
+        if (periodSeconds <= 0)
+        {
+            return Task.FromResult(false);
+        }
+
+        var isPeriod = currentDaySeconds % periodSeconds == 0;
 
         return Task.FromResult(isPeriod);
     }

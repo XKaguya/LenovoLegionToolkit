@@ -291,7 +291,17 @@ public class AutomationPipelineControl : UserControl
             result += $" | {string.Join(",", wt.Ssids)}";
 
         if (AutomationPipeline.Trigger is IPeriodicAutomationPipelineTrigger pet)
-            result += $" | {Resource.PeriodicActionPipelineTriggerTabItemContent_PeriodMinutes}: {pet.Period.TotalMinutes}";
+        {
+            var totalSeconds = pet.Period.TotalSeconds;
+            if (totalSeconds % 60 == 0 && totalSeconds >= 60)
+            {
+                result += $" | {Resource.PeriodicActionPipelineTriggerTabItemContent_Period}: {pet.Period.TotalMinutes} {Resource.PeriodicActionPipelineTriggerTabItemContent_Minutes}";
+            }
+            else
+            {
+                result += $" | {Resource.PeriodicActionPipelineTriggerTabItemContent_Period}: {totalSeconds} {Resource.PeriodicActionPipelineTriggerTabItemContent_Seconds}";
+            }
+        }
 
         if (AutomationPipeline.Trigger is IDeviceAutomationPipelineTrigger dt && dt.InstanceIds.Length != 0)
             result += $" | {Resource.DevicePipelineTriggerTabItemContent_Devices}: {dt.InstanceIds.Length}";

@@ -463,4 +463,10 @@
   <data name="KeyboardBacklightPage_CustomMode_Warning" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
+  <data name="PeriodicActionPipelineTriggerTabItemContent_Minutes" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="PeriodicActionPipelineTriggerTabItemContent_Seconds" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
 </root>
