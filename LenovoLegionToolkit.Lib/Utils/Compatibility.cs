@@ -403,7 +403,7 @@ public static partial class Compatibility
         if (!supportedPowerModes.Contains(PowerModeState.Extreme))
             return false;
 
-        return smartFanVersion is 7 or 8 || legionZoneVersion is 4 or 5;
+        return smartFanVersion is 6 or 7 or 8 || legionZoneVersion is 3 or 4 or 5;
     }
 
     private static bool GetSupportsGodModeV1(IEnumerable<PowerModeState> supportedPowerModes, int smartFanVersion, int legionZoneVersion, BiosVersion? biosVersion)
