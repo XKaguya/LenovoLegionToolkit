@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -2624,41 +2624,40 @@ Misconfiguration can lead to severe system instability, thermal throttling, or p
 
 Do not proceed unless you possess the necessary technical expertise.</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="PeriodicActionPipelineTriggerTabItemContent_Minutes" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="PeriodicActionPipelineTriggerTabItemContent_Minutes" xml:space="preserve">
+    <value>Minutes</value>
   </data>
-  <data name="PeriodicActionPipelineTriggerTabItemContent_Seconds" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="PeriodicActionPipelineTriggerTabItemContent_Seconds" xml:space="preserve">
+    <value>Seconds</value>
   </data>
-  <data name="SpeakerVolumeAutomationStepControl_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="SpeakerVolumeAutomationStepControl_Title" xml:space="preserve">
+    <value>Speaker Volume</value>
   </data>
-  <data name="SpeakerVolumeAutomationStepControl_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="SpeakerVolumeAutomationStepControl_Message" xml:space="preserve">
+    <value>Change the speaker's volume.</value>
   </data>
-  <data name="AmdOverclocking_Caution_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="AmdOverclocking_Caution_Title" xml:space="preserve">
+    <value>Caution</value>
   </data>
-  <data name="AmdOverclocking_Caution_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="AmdOverclocking_Caution_Message" xml:space="preserve">
+    <value>Changing these settings may impact system stability. Proceed with caution.</value>
   </data>
-  <data name="AmdOverclocking_Status_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="AmdOverclocking_Status_Title" xml:space="preserve">
+    <value>Status</value>
   </data>
-  <data name="AmdOverclocking_FMax_Frequency_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="AmdOverclocking_FMax_Frequency_Title" xml:space="preserve">
+    <value>FMax Frequency</value>
   </data>
-  <data name="AmdOverclocking_FMax_Frequency_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="AmdOverclocking_FMax_Frequency_Message" xml:space="preserve">
+    <value>Maximum CPU boost frequency override (MHz)</value>
   </data>
-  <data name="AmdOverclocking_Core_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="AmdOverclocking_Core_Title" xml:space="preserve">
+    <value>Core</value>
   </data>
-  <data name="Reset" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Reset" xml:space="preserve">
+    <value>Reset</value>
   </data>
-  <data name="AmdOverclocking_Apply_Changes" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="AmdOverclocking_Apply_Changes" xml:space="preserve">
+    <value>Apply Changes</value>
   </data>
 </root>
