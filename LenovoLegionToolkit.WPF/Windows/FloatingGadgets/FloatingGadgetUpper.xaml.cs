@@ -202,7 +202,7 @@ public partial class FloatingGadgetUpper
                     case FloatingGadgetState.Show: gadget.Show(); break;
                     case FloatingGadgetState.Hidden: gadget.Hide(); break;
                     case FloatingGadgetState.Toggle:
-                        if (gadget.Visibility == Visibility.Visible) {gadget.Hide();}
+                        if (gadget.IsVisible) {gadget.Hide();}
                         else gadget.Show();
                         break;
                     default: throw new ArgumentOutOfRangeException();
