@@ -8,6 +8,7 @@ using System;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using LenovoLegionToolkit.WPF.Windows.Overclocking.Amd;
 using Wpf.Ui.Controls;
 
 namespace LenovoLegionToolkit.WPF.Windows.Utils;
@@ -15,6 +16,8 @@ namespace LenovoLegionToolkit.WPF.Windows.Utils;
 public partial class DeviceInformationWindow
 {
     private readonly WarrantyChecker _warrantyChecker = IoCContainer.Resolve<WarrantyChecker>();
+
+    private int _count = 0;
 
     public DeviceInformationWindow()
     {
@@ -103,6 +106,19 @@ public partial class DeviceInformationWindow
         {
             Clipboard.SetText(str);
             await _snackBar.ShowAsync(Resource.CopiedToClipboard_Title, string.Format(Resource.CopiedToClipboard_Message_WithParam, str));
+
+            if (_count == 5)
+            {
+                _count = 0;
+                var pboWindow = new AmdOverclocking();
+                pboWindow.Show();
+                return;
+            }
+
+            if (sender as CardControl is { Name: "_biosCard" })
+            {
+                _count++;
+            }
         }
         catch (Exception ex)
         {

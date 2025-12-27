@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:resources="clr-namespace:LenovoLegionToolkit.WPF.Resources"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    Title="AMD Precision Boost Overclocking"
     Width="1050"
     Height="830"
     MinWidth="900"
