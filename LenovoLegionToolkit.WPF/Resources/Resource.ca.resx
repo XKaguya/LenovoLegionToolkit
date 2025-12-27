@@ -469,4 +469,10 @@
   <data name="PeriodicActionPipelineTriggerTabItemContent_Seconds" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
+  <data name="SpeakerVolumeAutomationStepControl_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="SpeakerVolumeAutomationStepControl_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
 </root>

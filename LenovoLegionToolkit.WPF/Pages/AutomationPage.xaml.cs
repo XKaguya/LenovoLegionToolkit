@@ -175,6 +175,7 @@ public partial class AutomationPage
             new MacroAutomationStep(default),
             new MicrophoneAutomationStep(default),
             new SpeakerAutomationStep(default),
+            new SpeakerVolumeAutomationStep(default),
             new NotificationAutomationStep(default),
             new OneLevelWhiteKeyboardBacklightAutomationStep(default),
             new OverclockDiscreteGPUAutomationStep(default),
