@@ -1,0 +1,424 @@
+﻿<ui:UiWindow
+    x:Class="LenovoLegionToolkit.WPF.Windows.Overclocking.Amd.AmdOverclocking"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:resources="clr-namespace:LenovoLegionToolkit.WPF.Resources"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    Width="1050"
+    Height="830"
+    MinWidth="900"
+    MinHeight="600"
+    ExtendsContentIntoTitleBar="True"
+    WindowCornerPreference="Round"
+    WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style
+            x:Key="CoreNumberBoxStyle"
+            BasedOn="{StaticResource {x:Type ui:NumberBox}}"
+            TargetType="ui:NumberBox">
+            <Setter Property="Width" Value="120" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="ClearButtonEnabled" Value="False" />
+        </Style>
+
+        <Style x:Key="GroupHeaderStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Margin" Value="4,0,0,8" />
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+        </Style>
+
+        <Style x:Key="CoreCardStyle" TargetType="ui:Card">
+            <Setter Property="Margin" Value="4" />
+            <Setter Property="Padding" Value="12,10" />
+            <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorDefaultBrush}" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource ControlFillColorTertiaryBrush}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="CcdContainerStyle" TargetType="Border">
+            <Setter Property="Background" Value="{DynamicResource ControlFillColorDefaultBrush}" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Padding" Value="12" />
+            <Setter Property="Margin" Value="0,0,0,16" />
+            <Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="{DynamicResource ApplicationPageBackgroundBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ui:TitleBar
+            Title="AMD Precision Boost Overclocking"
+            Grid.Row="0"
+            Margin="5" />
+
+        <StackPanel Grid.Row="1" Margin="20,10,20,5">
+            <ui:InfoBar
+                Title="{x:Static resources:Resource.AmdOverclocking_Caution_Title}"
+                IsClosable="False"
+                IsOpen="True"
+                Message="{x:Static resources:Resource.AmdOverclocking_Caution_Message}"
+                Severity="Warning" />
+            <ui:InfoBar
+                x:Name="_statusInfoBar"
+                Title="{x:Static resources:Resource.AmdOverclocking_Status_Title}"
+                Margin="0,8,0,0"
+                IsOpen="False"
+                Severity="Informational" />
+        </StackPanel>
+
+        <ui:Card
+            Grid.Row="2"
+            Margin="20,5"
+            Padding="20,16"
+            Background="{DynamicResource ControlFillColorDefaultBrush}">
+            <Grid>
+                <StackPanel Orientation="Horizontal">
+                    <ui:SymbolIcon
+                        Margin="0,0,16,0"
+                        FontSize="26"
+                        Foreground="{DynamicResource SystemAccentColorPrimaryBrush}"
+                        Symbol="FlashSparkle24" />
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock
+                            FontSize="15"
+                            FontWeight="Bold"
+                            Text="{x:Static resources:Resource.AmdOverclocking_FMax_Frequency_Title}" />
+                        <TextBlock
+                            FontSize="12"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Text="{x:Static resources:Resource.AmdOverclocking_FMax_Frequency_Message}" />
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+                    <ui:NumberBox
+                        x:Name="_fMaxNumberBox"
+                        Width="100"
+                        SpinButtonPlacementMode="Compact" />
+                    <TextBlock
+                        Margin="10,0,0,0"
+                        VerticalAlignment="Center"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Text="MHz" />
+                </StackPanel>
+            </Grid>
+        </ui:Card>
+
+        <ScrollViewer
+            Grid.Row="3"
+            Margin="0,10,0,0"
+            Padding="20,0,20,0">
+            <StackPanel>
+                <!--  CCD 0  -->
+                <TextBlock Style="{StaticResource GroupHeaderStyle}" Text="CCD 0 (Core 0 - 7)" />
+                <Border Style="{StaticResource CcdContainerStyle}">
+                    <UniformGrid Columns="2">
+                        <ui:Card Style="{StaticResource CoreCardStyle}">
+                            <Grid>
+                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                    <ui:SymbolIcon
+                                        Margin="0,0,12,0"
+                                        Opacity="0.7"
+                                        Symbol="DeveloperBoard24" />
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontWeight="Medium"
+                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0}0}" />
+                                </StackPanel>
+                                <ui:NumberBox x:Name="_core0" Style="{StaticResource CoreNumberBoxStyle}" />
+                            </Grid>
+                        </ui:Card>
+                        <ui:Card Style="{StaticResource CoreCardStyle}">
+                            <Grid>
+                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                    <ui:SymbolIcon
+                                        Margin="0,0,12,0"
+                                        Opacity="0.7"
+                                        Symbol="DeveloperBoard24" />
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontWeight="Medium"
+                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0}1}" />
+                                </StackPanel>
+                                <ui:NumberBox x:Name="_core1" Style="{StaticResource CoreNumberBoxStyle}" />
+                            </Grid>
+                        </ui:Card>
+                        <ui:Card Style="{StaticResource CoreCardStyle}">
+                            <Grid>
+                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                    <ui:SymbolIcon
+                                        Margin="0,0,12,0"
+                                        Opacity="0.7"
+                                        Symbol="DeveloperBoard24" />
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontWeight="Medium"
+                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0}2}" />
+                                </StackPanel>
+                                <ui:NumberBox x:Name="_core2" Style="{StaticResource CoreNumberBoxStyle}" />
+                            </Grid>
+                        </ui:Card>
+                        <ui:Card Style="{StaticResource CoreCardStyle}">
+                            <Grid>
+                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                    <ui:SymbolIcon
+                                        Margin="0,0,12,0"
+                                        Opacity="0.7"
+                                        Symbol="DeveloperBoard24" />
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontWeight="Medium"
+                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0}3}" />
+                                </StackPanel>
+                                <ui:NumberBox x:Name="_core3" Style="{StaticResource CoreNumberBoxStyle}" />
+                            </Grid>
+                        </ui:Card>
+                        <ui:Card Style="{StaticResource CoreCardStyle}">
+                            <Grid>
+                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                    <ui:SymbolIcon
+                                        Margin="0,0,12,0"
+                                        Opacity="0.7"
+                                        Symbol="DeveloperBoard24" />
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontWeight="Medium"
+                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0}4}" />
+                                </StackPanel>
+                                <ui:NumberBox x:Name="_core4" Style="{StaticResource CoreNumberBoxStyle}" />
+                            </Grid>
+                        </ui:Card>
+                        <ui:Card Style="{StaticResource CoreCardStyle}">
+                            <Grid>
+                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                    <ui:SymbolIcon
+                                        Margin="0,0,12,0"
+                                        Opacity="0.7"
+                                        Symbol="DeveloperBoard24" />
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontWeight="Medium"
+                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0}5}" />
+                                </StackPanel>
+                                <ui:NumberBox x:Name="_core5" Style="{StaticResource CoreNumberBoxStyle}" />
+                            </Grid>
+                        </ui:Card>
+                        <ui:Card Style="{StaticResource CoreCardStyle}">
+                            <Grid>
+                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                    <ui:SymbolIcon
+                                        Margin="0,0,12,0"
+                                        Opacity="0.7"
+                                        Symbol="DeveloperBoard24" />
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontWeight="Medium"
+                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0}6}" />
+                                </StackPanel>
+                                <ui:NumberBox x:Name="_core6" Style="{StaticResource CoreNumberBoxStyle}" />
+                            </Grid>
+                        </ui:Card>
+                        <ui:Card Style="{StaticResource CoreCardStyle}">
+                            <Grid>
+                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                    <ui:SymbolIcon
+                                        Margin="0,0,12,0"
+                                        Opacity="0.7"
+                                        Symbol="DeveloperBoard24" />
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontWeight="Medium"
+                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0}7}" />
+                                </StackPanel>
+                                <ui:NumberBox x:Name="_core7" Style="{StaticResource CoreNumberBoxStyle}" />
+                            </Grid>
+                        </ui:Card>
+                    </UniformGrid>
+                </Border>
+
+                <!--  CCD 1  -->
+                <TextBlock Style="{StaticResource GroupHeaderStyle}" Text="CCD 1 (Core 8 - 15)" />
+                <Border Style="{StaticResource CcdContainerStyle}">
+                    <UniformGrid Columns="2">
+                        <ui:Card Style="{StaticResource CoreCardStyle}">
+                            <Grid>
+                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                    <ui:SymbolIcon
+                                        Margin="0,0,12,0"
+                                        Opacity="0.7"
+                                        Symbol="DeveloperBoard24" />
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontWeight="Medium"
+                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0}8}" />
+                                </StackPanel>
+                                <ui:NumberBox x:Name="_core8" Style="{StaticResource CoreNumberBoxStyle}" />
+                            </Grid>
+                        </ui:Card>
+                        <ui:Card Style="{StaticResource CoreCardStyle}">
+                            <Grid>
+                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                    <ui:SymbolIcon
+                                        Margin="0,0,12,0"
+                                        Opacity="0.7"
+                                        Symbol="DeveloperBoard24" />
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontWeight="Medium"
+                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0}9}" />
+                                </StackPanel>
+                                <ui:NumberBox x:Name="_core9" Style="{StaticResource CoreNumberBoxStyle}" />
+                            </Grid>
+                        </ui:Card>
+                        <ui:Card Style="{StaticResource CoreCardStyle}">
+                            <Grid>
+                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                    <ui:SymbolIcon
+                                        Margin="0,0,12,0"
+                                        Opacity="0.7"
+                                        Symbol="DeveloperBoard24" />
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontWeight="Medium"
+                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0}10}" />
+                                </StackPanel>
+                                <ui:NumberBox x:Name="_core10" Style="{StaticResource CoreNumberBoxStyle}" />
+                            </Grid>
+                        </ui:Card>
+                        <ui:Card Style="{StaticResource CoreCardStyle}">
+                            <Grid>
+                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                    <ui:SymbolIcon
+                                        Margin="0,0,12,0"
+                                        Opacity="0.7"
+                                        Symbol="DeveloperBoard24" />
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontWeight="Medium"
+                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0}11}" />
+                                </StackPanel>
+                                <ui:NumberBox x:Name="_core11" Style="{StaticResource CoreNumberBoxStyle}" />
+                            </Grid>
+                        </ui:Card>
+                        <ui:Card Style="{StaticResource CoreCardStyle}">
+                            <Grid>
+                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                    <ui:SymbolIcon
+                                        Margin="0,0,12,0"
+                                        Opacity="0.7"
+                                        Symbol="DeveloperBoard24" />
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontWeight="Medium"
+                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0}12}" />
+                                </StackPanel>
+                                <ui:NumberBox x:Name="_core12" Style="{StaticResource CoreNumberBoxStyle}" />
+                            </Grid>
+                        </ui:Card>
+                        <ui:Card Style="{StaticResource CoreCardStyle}">
+                            <Grid>
+                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                    <ui:SymbolIcon
+                                        Margin="0,0,12,0"
+                                        Opacity="0.7"
+                                        Symbol="DeveloperBoard24" />
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontWeight="Medium"
+                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0}13}" />
+                                </StackPanel>
+                                <ui:NumberBox x:Name="_core13" Style="{StaticResource CoreNumberBoxStyle}" />
+                            </Grid>
+                        </ui:Card>
+                        <ui:Card Style="{StaticResource CoreCardStyle}">
+                            <Grid>
+                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                    <ui:SymbolIcon
+                                        Margin="0,0,12,0"
+                                        Opacity="0.7"
+                                        Symbol="DeveloperBoard24" />
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontWeight="Medium"
+                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0}14}" />
+                                </StackPanel>
+                                <ui:NumberBox x:Name="_core14" Style="{StaticResource CoreNumberBoxStyle}" />
+                            </Grid>
+                        </ui:Card>
+                        <ui:Card Style="{StaticResource CoreCardStyle}">
+                            <Grid>
+                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                    <ui:SymbolIcon
+                                        Margin="0,0,12,0"
+                                        Opacity="0.7"
+                                        Symbol="DeveloperBoard24" />
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontWeight="Medium"
+                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0}15}" />
+                                </StackPanel>
+                                <ui:NumberBox x:Name="_core15" Style="{StaticResource CoreNumberBoxStyle}" />
+                            </Grid>
+                        </ui:Card>
+                    </UniformGrid>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Border
+            Grid.Row="4"
+            Padding="20,15"
+            Background="{DynamicResource ControlFillColorDefaultBrush}"
+            BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+            BorderThickness="0,1,0,0">
+            <Grid>
+                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                    <ui:Button
+                        x:Name="_loadButton"
+                        Appearance="Secondary"
+                        Click="OnLoadClick"
+                        Content="{x:Static resources:Resource.Import}"
+                        Icon="ArrowImport24" />
+                    <ui:Button
+                        x:Name="_saveButton"
+                        Margin="10,0,0,0"
+                        Appearance="Secondary"
+                        Click="OnSaveClick"
+                        Content="{x:Static resources:Resource.Export}"
+                        Icon="ArrowExport24" />
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                    <ui:Button
+                        x:Name="_refreshButton"
+                        Margin="0,0,10,0"
+                        Click="OnResetClick"
+                        Content="{x:Static resources:Resource.Reset}"
+                        Icon="ArrowCounterclockwise24" />
+                    <ui:Button
+                        x:Name="_applyButton"
+                        MinWidth="150"
+                        Appearance="Primary"
+                        Click="OnApplyClick"
+                        Content="{x:Static resources:Resource.AmdOverclocking_Apply_Changes}"
+                        FontWeight="Bold"
+                        Icon="Checkmark24" />
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</ui:UiWindow>

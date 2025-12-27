@@ -35,6 +35,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
+using LenovoLegionToolkit.WPF.Windows.Overclocking.Amd;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
 using WinFormsApp = System.Windows.Forms.Application;
@@ -200,6 +201,9 @@ public partial class App
                 CheckFloatingGadget();
                 if (_flags.Debug) Console.WriteLine(@"[Startup] Startup Complete.");
             });
+
+            var temp = new AmdOverclocking();
+            temp.Show();
         }
         catch (Exception ex)
         {
