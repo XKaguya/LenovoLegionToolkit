@@ -259,6 +259,69 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Apply Changes 的本地化字符串。
+        /// </summary>
+        public static string AmdOverclocking_Apply_Changes {
+            get {
+                return ResourceManager.GetString("AmdOverclocking_Apply_Changes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Changing these settings may impact system stability. Proceed with caution. 的本地化字符串。
+        /// </summary>
+        public static string AmdOverclocking_Caution_Message {
+            get {
+                return ResourceManager.GetString("AmdOverclocking_Caution_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Caution 的本地化字符串。
+        /// </summary>
+        public static string AmdOverclocking_Caution_Title {
+            get {
+                return ResourceManager.GetString("AmdOverclocking_Caution_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Core 的本地化字符串。
+        /// </summary>
+        public static string AmdOverclocking_Core_Title {
+            get {
+                return ResourceManager.GetString("AmdOverclocking_Core_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Maximum CPU boost frequency override (MHz) 的本地化字符串。
+        /// </summary>
+        public static string AmdOverclocking_FMax_Frequency_Message {
+            get {
+                return ResourceManager.GetString("AmdOverclocking_FMax_Frequency_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 FMax Frequency 的本地化字符串。
+        /// </summary>
+        public static string AmdOverclocking_FMax_Frequency_Title {
+            get {
+                return ResourceManager.GetString("AmdOverclocking_FMax_Frequency_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Status 的本地化字符串。
+        /// </summary>
+        public static string AmdOverclocking_Status_Title {
+            get {
+                return ResourceManager.GetString("AmdOverclocking_Status_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Apply 的本地化字符串。
         /// </summary>
         public static string Apply {
@@ -4983,6 +5046,15 @@ namespace LenovoLegionToolkit.WPF.Resources {
         public static string Rename {
             get {
                 return ResourceManager.GetString("Rename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Reset 的本地化字符串。
+        /// </summary>
+        public static string Reset {
+            get {
+                return ResourceManager.GetString("Reset", resourceCulture);
             }
         }
         

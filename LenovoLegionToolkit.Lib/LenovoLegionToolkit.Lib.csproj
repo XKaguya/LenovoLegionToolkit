@@ -33,6 +33,7 @@
 		<PackageReference Include="PresentMonFps-Modified" Version="2.0.7" />
 		<PackageReference Include="NvAPIWrapper.Net-Modified" Version="0.8.1.117" />
 		<PackageReference Include="LibreHardwareMonitorLib" Version="0.9.5-pre572" />
+		<PackageReference Include="ZenStates-Core" Version="1.0.0" />
 	</ItemGroup>
 	<ItemGroup>
 		<Compile Update="Resources\Resource.Designer.cs">
