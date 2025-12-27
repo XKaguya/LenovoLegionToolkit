@@ -124,4 +124,7 @@
   <data name="HybridModeAutomationPipelineTrigger_DisplayName" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
+  <data name="FloatingGadgetState_Toggle" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
 </root>

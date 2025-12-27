@@ -178,6 +178,15 @@ namespace LenovoLegionToolkit.Lib.Automation.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Toggle 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgetState_Toggle {
+            get {
+                return ResourceManager.GetString("FloatingGadgetState_Toggle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 When game is running 的本地化字符串。
         /// </summary>
         public static string GamesAreRunningAutomationPipelineTrigger_DisplayName {
