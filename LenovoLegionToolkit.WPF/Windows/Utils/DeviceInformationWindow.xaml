@@ -86,7 +86,10 @@
                     <TextBlock x:Name="_serialNumberLabel" Focusable="True" />
                 </custom:CardControl>
 
-                <custom:CardControl Margin="0,0,0,8" Click="DeviceCardControl_Click">
+                <custom:CardControl
+                    x:Name="_biosCard"
+                    Margin="0,0,0,8"
+                    Click="DeviceCardControl_Click">
                     <custom:CardControl.Header>
                         <controls:CardHeaderControl Title="{x:Static resources:Resource.DeviceInformationWindow_BiosVersion_Title}" />
                     </custom:CardControl.Header>

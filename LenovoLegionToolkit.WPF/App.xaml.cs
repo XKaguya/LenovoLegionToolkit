@@ -201,9 +201,6 @@ public partial class App
                 CheckFloatingGadget();
                 if (_flags.Debug) Console.WriteLine(@"[Startup] Startup Complete.");
             });
-
-            var temp = new AmdOverclocking();
-            temp.Show();
         }
         catch (Exception ex)
         {
