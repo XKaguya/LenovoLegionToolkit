@@ -9,7 +9,7 @@ namespace LenovoLegionToolkit.Lib.Features;
 
 public class DpiScaleFeature : IFeature<DpiScale>
 {
-    public Task<bool> IsSupportedAsync() => Task.FromResult(false);
+    public Task<bool> IsSupportedAsync() => Task.FromResult(true);
 
     public async Task<DpiScale[]> GetAllStatesAsync()
     {

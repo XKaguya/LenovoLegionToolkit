@@ -2634,4 +2634,10 @@ Do not proceed unless you possess the necessary technical expertise.</value>
   <data name="PeriodicActionPipelineTriggerTabItemContent_Seconds" xml:space="preserve">
     <value>Seconds</value>
   </data>
+  <data name="SpeakerVolumeAutomationStepControl_Title" xml:space="preserve">
+    <value>Speaker Volume</value>
+  </data>
+  <data name="SpeakerVolumeAutomationStepControl_Message" xml:space="preserve">
+    <value>Change the speaker's volume.</value>
+  </data>
 </root>

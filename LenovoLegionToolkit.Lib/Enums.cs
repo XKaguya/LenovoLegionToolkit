@@ -169,7 +169,9 @@ public enum FloatingGadgetState
     [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetState_Hidden")]
     Hidden,
     [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetState_Show")]
-    Show
+    Show,
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetState_Toggle")]
+    Toggle,
 }
 
 public enum FnLockState

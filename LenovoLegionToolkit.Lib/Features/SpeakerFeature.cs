@@ -41,4 +41,12 @@ public class SpeakerFeature : IFeature<SpeakerState>
         AudioEndpointVolumes.ForEach(v => v.Mute = mute);
         return Task.CompletedTask;
     }
+
+    public Task SetVolumeAsync(int value)
+    {
+        var scaledVolume = Math.Clamp(value / 100f, 0f, 1f);
+
+        AudioEndpointVolumes.ForEach(v => v.MasterVolumeLevelScalar = scaledVolume);
+        return Task.CompletedTask;
+    }
 }

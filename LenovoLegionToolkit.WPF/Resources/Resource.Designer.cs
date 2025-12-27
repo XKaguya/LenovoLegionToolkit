@@ -6615,6 +6615,24 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Change the speaker&apos;s volume. 的本地化字符串。
+        /// </summary>
+        public static string SpeakerVolumeAutomationStepControl_Message {
+            get {
+                return ResourceManager.GetString("SpeakerVolumeAutomationStepControl_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Speaker Volume 的本地化字符串。
+        /// </summary>
+        public static string SpeakerVolumeAutomationStepControl_Title {
+            get {
+                return ResourceManager.GetString("SpeakerVolumeAutomationStepControl_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Adjust keyboard backlight brightness. 的本地化字符串。
         /// </summary>
         public static string SpectrumKeyboardBacklightBrightnessAutomationStepControl_Message {

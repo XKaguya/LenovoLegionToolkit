@@ -239,4 +239,7 @@
   <data name="HybridModeAutomationPipelineTrigger_DisplayName" xml:space="preserve">
     <value>Hybrid Mode</value>
   </data>
+  <data name="FloatingGadgetState_Toggle" xml:space="preserve">
+    <value>Toggle</value>
+  </data>
 </root>

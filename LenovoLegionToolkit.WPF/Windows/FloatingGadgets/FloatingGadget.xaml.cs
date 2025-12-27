@@ -151,12 +151,22 @@ public partial class FloatingGadget
         {
             Dispatcher.Invoke(() =>
             {
-                if (App.Current.FloatingGadget == null) return;
+                if (App.Current.FloatingGadget == null)
+                {
+                    return;
+                }
 
-                if (message.State == FloatingGadgetState.Show)
-                    App.Current.FloatingGadget.Show();
-                else
-                    App.Current.FloatingGadget.Hide();
+                var gadget = App.Current.FloatingGadget;
+                switch (message.State)
+                {
+                    case FloatingGadgetState.Show: gadget.Show(); break;
+                    case FloatingGadgetState.Hidden: gadget.Hide(); break;
+                    case FloatingGadgetState.Toggle:
+                        if (gadget.IsVisible) { gadget.Hide(); }
+                        else gadget.Show();
+                        break;
+                    default: throw new ArgumentOutOfRangeException();
+                }
             });
         });
 
