@@ -45,7 +45,9 @@ public partial class AutomationPage
     {
         var isChecked = _enableAutomaticPipelinesToggle.IsChecked;
         if (isChecked.HasValue)
+        {
             await _automationProcessor.SetEnabledAsync(isChecked.Value);
+        }
     }
 
     private void NewAutomaticPipelineButton_Click(object sender, RoutedEventArgs e)

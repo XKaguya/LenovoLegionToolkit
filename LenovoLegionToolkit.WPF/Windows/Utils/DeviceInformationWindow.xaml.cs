@@ -18,6 +18,7 @@ public partial class DeviceInformationWindow
     private readonly WarrantyChecker _warrantyChecker = IoCContainer.Resolve<WarrantyChecker>();
 
     private int _count = 0;
+    private AmdOverclocking? _amdOverclockingWindow;
 
     public DeviceInformationWindow()
     {
@@ -97,27 +98,44 @@ public partial class DeviceInformationWindow
 
     private async void RefreshWarrantyButton_OnClick(object sender, RoutedEventArgs e) => await RefreshAsync(true);
 
-    private async void DeviceCardControl_Click(object sender, RoutedEventArgs e)
+    private void DeviceCardControl_Click(object sender, RoutedEventArgs e)
     {
-        if (((sender as CardControl)?.Content as TextBlock)?.Text is not { } str)
+        if (sender is not CardControl card || (card.Content as TextBlock)?.Text is not { } str)
             return;
 
         try
         {
             Clipboard.SetText(str);
-            await _snackBar.ShowAsync(Resource.CopiedToClipboard_Title, string.Format(Resource.CopiedToClipboard_Message_WithParam, str));
+            _ = _snackBar.ShowAsync(Resource.CopiedToClipboard_Title, string.Format(Resource.CopiedToClipboard_Message_WithParam, str));
 
-            if (_count == 5)
-            {
-                _count = 0;
-                var pboWindow = new AmdOverclocking();
-                pboWindow.Show();
-                return;
-            }
-
-            if (sender as CardControl is { Name: "_biosCard" })
+            if (card.Name == "_biosCard")
             {
                 _count++;
+
+                if (_count != 5)
+                {
+                    return;
+                }
+
+                _count = 0;
+
+                if (_amdOverclockingWindow is not { IsLoaded: true })
+                {
+                    _amdOverclockingWindow = new AmdOverclocking();
+                    _amdOverclockingWindow.Show();
+                }
+                else
+                {
+                    _amdOverclockingWindow.Activate();
+                    if (_amdOverclockingWindow.WindowState == WindowState.Minimized)
+                    {
+                        _amdOverclockingWindow.BringToForeground();
+                    }
+                }
+            }
+            else
+            {
+                _count = 0;
             }
         }
         catch (Exception ex)

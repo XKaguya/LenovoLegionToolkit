@@ -11,6 +11,7 @@ using LenovoLegionToolkit.Lib.Features.WhiteKeyboardBacklight;
 using LenovoLegionToolkit.Lib.Integrations;
 using LenovoLegionToolkit.Lib.Listeners;
 using LenovoLegionToolkit.Lib.Macro;
+using LenovoLegionToolkit.Lib.Overclocking.Amd;
 using LenovoLegionToolkit.Lib.Services;
 using LenovoLegionToolkit.Lib.Settings;
 using LenovoLegionToolkit.Lib.SoftwareDisabler;
@@ -26,6 +27,7 @@ using LenovoLegionToolkit.WPF.Windows.FloatingGadgets;
 using LenovoLegionToolkit.WPF.Windows.Utils;
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Management;
 using System.Reflection;
@@ -35,7 +37,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
-using LenovoLegionToolkit.WPF.Windows.Overclocking.Amd;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
 using WinFormsApp = System.Windows.Forms.Application;
@@ -138,7 +139,7 @@ public partial class App
                 InitSpectrumKeyboardControllerAsync(),
                 InitGpuOverclockControllerAsync(),
                 InitHybridModeAsync(),
-                InitAutomationProcessorAsync()
+                InitAutomationProcessorAsync(),
             };
 
             await Task.WhenAll(initTasks);
@@ -173,6 +174,8 @@ public partial class App
             IoCContainer.Resolve<ThemeManager>().Apply();
             InitSetLogIndicator();
 
+            await InitAMDOverclocking();
+
             if (_flags.Minimized)
             {
                 mainWindow.WindowState = WindowState.Minimized;
@@ -199,7 +202,10 @@ public partial class App
 
                 Compatibility.PrintControllerVersionAsync().ConfigureAwait(false);
                 CheckFloatingGadget();
-                if (_flags.Debug) Console.WriteLine(@"[Startup] Startup Complete.");
+                if (_flags.Debug)
+                {
+                    Console.WriteLine(@"[Startup] Startup Complete.");
+                }
             });
         }
         catch (Exception ex)
@@ -735,6 +741,31 @@ public partial class App
             }
         }
         catch (Exception ex) { Log.Instance.Trace($"Couldn't overclock GPU.", ex); }
+    }
+
+    private static async Task InitAMDOverclocking()
+    {
+        string path = Path.Combine(Folders.AppData, "amd_overclocking.json");
+
+        try
+        {
+            if (File.Exists(path))
+            {
+                Log.Instance.Trace($"Starting background initialization from: {path}");
+
+                var feature = IoCContainer.Resolve<AmdOverclockingController>();
+
+                await feature.InitializeAsync().ConfigureAwait(false);
+
+                await feature.ApplyInternalProfileAsync().ConfigureAwait(false);
+
+                Log.Instance.Trace($"Background initialization task finished.");
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.Instance.Trace($"Failed to apply profile on startup: {ex.Message}", ex);
+        }
     }
 
     #endregion

@@ -1,114 +1,171 @@
 ﻿using LenovoLegionToolkit.Lib.Utils;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.IO;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using ZenStates.Core;
 
 namespace LenovoLegionToolkit.Lib.Overclocking.Amd;
 
+public class OverclockingProfile
+{
+    public uint? FMax { get; set; }
+    public bool ProchotEnabled { get; set; }
+    public List<double?> CoreValues { get; set; } = new();
+}
+
 public class AmdOverclockingController : IDisposable
 {
-    private Cpu _cpu;
-    private MachineInformation _machineInformation;
+    private Cpu? _cpu;
+    private MachineInformation? _machineInformation;
     private bool _isInitialized;
-    private readonly SemaphoreSlim _initLock = new(1, 1);
+    private readonly SemaphoreSlim _lock = new(1, 1);
+    private readonly string _internalProfilePath = Path.Combine(Folders.AppData, "amd_overclocking.json");
 
     private const uint PROCHOT_DISABLED_BIT = 0x1000000;
 
     public async Task InitializeAsync()
     {
         if (_isInitialized) return;
-
-        await _initLock.WaitAsync().ConfigureAwait(false);
+        await _lock.WaitAsync().ConfigureAwait(false);
         try
         {
             if (_isInitialized) return;
-
             _machineInformation = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
-
             _cpu = new Cpu();
             _isInitialized = true;
         }
-        finally
+        finally { _lock.Release(); }
+    }
+
+    public bool IsSupported() => _isInitialized && (_machineInformation?.Properties.IsAmdDevice == true);
+
+    public Cpu GetCpu() => _cpu ?? throw new InvalidOperationException("Not initialized.");
+
+    public OverclockingProfile? LoadProfile(string? path = null)
+    {
+        string targetPath = path ?? _internalProfilePath;
+        if (!File.Exists(targetPath)) return null;
+
+        try
         {
-            _initLock.Release();
+            var json = File.ReadAllText(targetPath);
+            return JsonSerializer.Deserialize<OverclockingProfile>(json);
+        }
+        catch (Exception ex)
+        {
+            Log.Instance.Trace($"Load Failed: {ex.Message}");
+            return null;
         }
     }
 
-    public bool IsSupported() => _isInitialized && (_machineInformation.Properties.IsAmdDevice);
-
-    public Cpu GetCpu()
+    public void SaveProfile(OverclockingProfile profile, string? path = null)
     {
-        return _cpu;
+        try
+        {
+            var json = JsonSerializer.Serialize(profile, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(path ?? _internalProfilePath, json);
+        }
+        catch (Exception ex)
+        {
+            Log.Instance.Trace($"Save Failed: {ex.Message}");
+        }
     }
 
-    public uint GetFMaxFrequency()
+    public async Task ApplyProfileAsync(OverclockingProfile profile)
     {
         EnsureInitialized();
-        return _cpu.GetFMax();
+        await Task.Run(() =>
+        {
+            EnableOCMode(profile.ProchotEnabled);
+
+            if (profile.FMax.HasValue)
+            {
+                _cpu.SetFMax(profile.FMax.Value);
+                Log.Instance.Trace($"FMax set to {profile.FMax.Value}");
+            }
+
+            if (_cpu.smu.Rsmu.SMU_MSG_SetDldoPsmMargin != 0)
+            {
+                for (int i = 0; i < profile.CoreValues.Count && i < 16; i++)
+                {
+                    var val = profile.CoreValues[i];
+                    if (val.HasValue)
+                    {
+                        if (!IsCoreActive(i))
+                        {
+                            continue;
+                        }
+
+                        _cpu.SetPsmMarginSingleCore(EncodeCoreMarginBitmask(i), (int)val.Value);
+                        Log.Instance.Trace($"Core {i} set to {(int)val.Value}");
+                    }
+                }
+            }
+        }).ConfigureAwait(true);
+    }
+
+    public async Task ApplyInternalProfileAsync()
+    {
+        var profile = LoadProfile();
+        if (profile != null)
+        {
+            await ApplyProfileAsync(profile).ConfigureAwait(false);
+        }
     }
 
     public bool EnableOCMode(bool prochotEnabled = true)
     {
         EnsureInitialized();
-
-        var val = prochotEnabled ? 0U : PROCHOT_DISABLED_BIT;
-        var args = MakeCmdArgs(val, _cpu.smu.Rsmu.MAX_ARGS);
-
-        var status = _cpu.smu.SendSmuCommand(
-            _cpu.smu.Rsmu,
-            _cpu.smu.Rsmu.SMU_MSG_EnableOcMode,
-            ref args
-        );
-
-        return status == SMU.Status.OK;
+        var args = MakeCmdArgs(prochotEnabled ? 0U : PROCHOT_DISABLED_BIT, _cpu.smu.Rsmu.MAX_ARGS);
+        return _cpu.smu.SendSmuCommand(_cpu.smu.Rsmu, _cpu.smu.Rsmu.SMU_MSG_EnableOcMode, ref args) == SMU.Status.OK;
     }
 
-    public bool DisableOCMode()
+    public uint EncodeCoreMarginBitmask(int coreIndex, int coresPerCCD = 8)
     {
         EnsureInitialized();
-        return _cpu.DisableOcMode() == SMU.Status.OK;
+        if (_cpu.smu.SMU_TYPE is >= SMU.SmuType.TYPE_APU0 and <= SMU.SmuType.TYPE_APU2)
+            return (uint)coreIndex;
+
+        int ccdIndex = coreIndex / coresPerCCD;
+        int localCoreIndex = coreIndex % coresPerCCD;
+        return (uint)(((ccdIndex << 8) | localCoreIndex) << 20);
     }
 
-    public static uint[] MakeCmdArgs(uint arg = 0, uint maxArgs = 6) => MakeCmdArgs([arg], maxArgs);
+    public bool IsCoreActive(int coreIndex)
+    {
+        EnsureInitialized();
+        int mapIndex = coreIndex < 8 ? 0 : 1;
+        return ((~_cpu.info.topology.coreDisableMap[mapIndex] >> (coreIndex % 8)) & 1) == 1;
+    }
 
-    public static uint[] MakeCmdArgs(uint[] args, uint maxArgs = 6)
+    public static uint[] MakeCmdArgs(uint arg = 0, uint maxArgs = 6)
     {
         var cmdArgs = new uint[maxArgs];
-        if (args == null)
-        {
-            return cmdArgs;
-        }
-
-        var length = Math.Min((int)maxArgs, args.Length);
-        Array.Copy(args, cmdArgs, length);
-
+        cmdArgs[0] = arg;
         return cmdArgs;
     }
 
+    [MemberNotNull(nameof(_cpu), nameof(_machineInformation))]
     private void EnsureInitialized()
     {
-        if (!_isInitialized)
+        if (!_isInitialized || _cpu == null || _machineInformation == null)
         {
-            throw new InvalidOperationException("Controller must be initialized before use.");
+            throw new InvalidOperationException("Not initialized.");
         }
     }
 
     public void Dispose()
     {
-        if (!_isInitialized)
+        if (_cpu is IDisposable d)
         {
-            return;
+            d.Dispose();
         }
 
-        if (_cpu is IDisposable disposableCpu)
-        {
-            disposableCpu.Dispose();
-        }
-
-        _initLock.Dispose();
-        _isInitialized = false;
-
+        _lock.Dispose();
         GC.SuppressFinalize(this);
     }
 }

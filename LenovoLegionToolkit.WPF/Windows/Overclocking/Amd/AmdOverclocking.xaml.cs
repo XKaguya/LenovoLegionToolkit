@@ -4,275 +4,148 @@ using LenovoLegionToolkit.Lib.Utils;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using Wpf.Ui.Controls;
-using ZenStates.Core;
 
 namespace LenovoLegionToolkit.WPF.Windows.Overclocking.Amd;
 
 public partial class AmdOverclocking : UiWindow
 {
-    public readonly AmdOverclockingController Controller = IoCContainer.Resolve<AmdOverclockingController>();
-
-    private NumberBox[] _coreBoxes;
+    private readonly AmdOverclockingController _controller = IoCContainer.Resolve<AmdOverclockingController>();
+    private NumberBox[] _coreBoxes = null!;
     private bool _isInitialized;
-
-    public class OverclockingProfile
-    {
-        public double? FMax { get; set; }
-        public List<double?> CoreValues { get; set; } = new();
-    }
+    private CancellationTokenSource? _statusCts;
 
     public AmdOverclocking()
     {
         InitializeComponent();
         _initCoreArray();
-
-        IsVisibleChanged += async (s, e) =>
-        {
-            if ((bool)e.NewValue && _isInitialized) await RefreshAsync();
-        };
-
+        IsVisibleChanged += async (s, e) => { if ((bool)e.NewValue && _isInitialized) await RefreshAsync(); };
         Loaded += async (s, e) => await InitAndRefreshAsync();
     }
 
-    private void _initCoreArray()
-    {
-        _coreBoxes = [ _core0,  _core1,  _core2,  _core3, _core4,  _core5,  _core6,  _core7,
-            _core8,  _core9,  _core10, _core11, _core12, _core13, _core14, _core15 ];
-    }
-
-    private void ShowStatus(string title, string message, InfoBarSeverity severity)
-    {
-        _statusInfoBar.Title = title;
-        _statusInfoBar.Message = message;
-        _statusInfoBar.Severity = severity;
-        _statusInfoBar.IsOpen = true;
-
-        Task.Delay(5000).ContinueWith(_ => Dispatcher.Invoke(() => _statusInfoBar.IsOpen = false));
-    }
+    private void _initCoreArray() => _coreBoxes = [_core0, _core1, _core2, _core3, _core4, _core5, _core6, _core7, _core8, _core9, _core10, _core11, _core12, _core13, _core14, _core15];
 
     private async Task InitAndRefreshAsync()
     {
         if (!_isInitialized)
         {
-            try
-            {
-                await Controller.InitializeAsync();
-                _isInitialized = true;
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.Trace($"Initialization Failed: {ex.Message}");
-                return;
-            }
+            try { await _controller.InitializeAsync(); _isInitialized = true; }
+            catch (Exception ex) { Log.Instance.Trace($"Init Failed: {ex.Message}"); return; }
         }
-        await RefreshAsync();
+        await ApplyInternalProfileAsync();
+    }
+
+    public async Task ApplyInternalProfileAsync()
+    {
+        await _controller.ApplyInternalProfileAsync();
+        Dispatcher.Invoke(() => {
+            UpdateUiFromProfile(_controller.LoadProfile());
+            _ = RefreshAsync();
+        });
     }
 
     private async Task RefreshAsync()
     {
         try
         {
-            var cpu = Controller.GetCpu();
-            _fMaxNumberBox.Value = (double)Controller.GetFMaxFrequency();
-
-            if (cpu.smu.Rsmu.SMU_MSG_SetDldoPsmMargin == 0) return;
-
-            uint activeCoresCount = cpu.info.topology.physicalCores;
-
-            for (var i = 0; i < _coreBoxes.Length; i++)
+            var data = await Task.Run(() =>
             {
-                var control = _coreBoxes[i];
-                if (i >= activeCoresCount)
-                {
-                    control.IsEnabled = false;
-                    control.Visibility = Visibility.Collapsed;
-                    continue;
-                }
+                var cpu = _controller.GetCpu();
+                var activeCores = cpu.info.topology.physicalCores;
+                var coreStates = Enumerable.Range(0, _coreBoxes.Length).Select(i => {
+                    bool active = i < activeCores && _controller.IsCoreActive(i);
+                    uint? margin = active ? cpu.GetPsmMarginSingleCore(_controller.EncodeCoreMarginBitmask(i)) : null;
 
-                bool isCoreActive = IsCoreActive(cpu, i);
-                control.IsEnabled = isCoreActive;
+                    double? val = margin.HasValue ? (double)(int)margin.Value : null;
+                    return (active, val);
+                }).ToList();
 
-                if (isCoreActive)
+                return new
                 {
-                    uint? margin = cpu.GetPsmMarginSingleCore(EncodeCoreMarginBitmask(cpu, i));
-                    if (margin.HasValue)
-                    {
-                        control.Value = (double)(int)margin.Value;
-                    }
-                }
-                else
-                {
-                    control.Value = 0;
-                }
+                    FMax = cpu.GetFMax(),
+                    Prochot = cpu.IsProchotEnabled(),
+                    States = coreStates,
+                    MarginSupported = cpu.smu.Rsmu.SMU_MSG_SetDldoPsmMargin != 0
+                };
+            });
+
+            _fMaxNumberBox.Value = data.FMax;
+            _prochotCheckBox.IsChecked = data.Prochot;
+
+            for (int i = 0; i < _coreBoxes.Length; i++)
+            {
+                var state = data.States[i];
+                _coreBoxes[i].Visibility = state.active ? Visibility.Visible : Visibility.Collapsed;
+                _coreBoxes[i].IsEnabled = state.active && data.MarginSupported;
+                _coreBoxes[i].Value = state.active ? state.val : null;
             }
         }
-        catch (Exception ex)
+        catch (Exception ex) { Log.Instance.Trace($"Refresh Failed: {ex.Message}"); }
+    }
+
+    private void UpdateUiFromProfile(OverclockingProfile? profile)
+    {
+        if (profile == null) return;
+        _fMaxNumberBox.Value = profile.FMax;
+        _prochotCheckBox.IsChecked = profile.ProchotEnabled;
+
+        for (int i = 0; i < _coreBoxes.Length && i < profile.CoreValues.Count; i++)
         {
-            Log.Instance.Trace($"Refresh Failed: {ex.Message}");
+            _coreBoxes[i].Value = _controller.IsCoreActive(i) ? profile.CoreValues[i] : null;
         }
     }
 
-    private bool IsCoreActive(Cpu cpu, int coreIndex)
+    private OverclockingProfile GetProfileFromUi()
     {
-        int mapIndex = coreIndex < 8 ? 0 : 1;
-        return ((~cpu.info.topology.coreDisableMap[mapIndex] >> (coreIndex % 8)) & 1) == 1;
-    }
-
-    private uint EncodeCoreMarginBitmask(Cpu cpu, int coreIndex, int coresPerCCD = 8)
-    {
-        if (cpu.smu.SMU_TYPE is >= SMU.SmuType.TYPE_APU0 and <= SMU.SmuType.TYPE_APU2)
+        var coreValues = new List<double?>();
+        for (int i = 0; i < _coreBoxes.Length; i++)
         {
-            return (uint)coreIndex;
+            coreValues.Add(_controller.IsCoreActive(i) ? _coreBoxes[i].Value : null);
         }
 
-        int ccdIndex = coreIndex / coresPerCCD;
-        int localCoreIndex = coreIndex % coresPerCCD;
-        int mask = (ccdIndex << 8) | localCoreIndex;
-        return (uint)(mask << 20);
+        return new OverclockingProfile
+        {
+            FMax = (uint?)(_fMaxNumberBox.Value),
+            ProchotEnabled = _prochotCheckBox.IsChecked ?? false,
+            CoreValues = coreValues
+        };
     }
-
-    #region Event Handlers
-    private async void OnRefreshClick(object sender, RoutedEventArgs e) => await RefreshAsync();
 
     private async void OnApplyClick(object sender, RoutedEventArgs e)
     {
         try
         {
-            var cpu = Controller.GetCpu();
-
-            if (_fMaxNumberBox.Value.HasValue)
-            {
-                uint fmaxVal = (uint)_fMaxNumberBox.Value.Value;
-                bool res = cpu.SetFMax(fmaxVal);
-                Log.Instance.Trace($"FMax Set {(res ? "Success" : "Failed")}: {fmaxVal}");
-            }
-
-            if (cpu.smu.Rsmu.SMU_MSG_SetDldoPsmMargin != 0)
-            {
-                for (var i = 0; i < _coreBoxes.Length; i++)
-                {
-                    var control = _coreBoxes[i];
-                    if (!control.IsEnabled || !control.Value.HasValue) continue;
-
-                    int marginValue = Convert.ToInt32(control.Value.Value);
-                    bool res = cpu.SetPsmMarginSingleCore(EncodeCoreMarginBitmask(cpu, i), marginValue);
-
-                    if (!res) {Log.Instance.Trace($"Core {i} apply failed with value {marginValue}");}
-                }
-            }
-
-            ShowStatus("Success", "Overclocking settings applied to hardware.", InfoBarSeverity.Success);
-
+            var profile = GetProfileFromUi();
+            await _controller.ApplyProfileAsync(profile);
+            _controller.SaveProfile(profile);
+            ShowStatus("Success", "Settings applied.", InfoBarSeverity.Success);
             await RefreshAsync();
         }
-        catch (Exception ex)
-        {
-            Log.Instance.Trace($"Apply Failed: {ex.Message}");
-            ShowStatus("Apply Error", ex.Message, InfoBarSeverity.Error);
-        }
-    }
-
-    private void OnResetClick(object sender, RoutedEventArgs e)
-    {
-        foreach (var control in _coreBoxes.Where(c => c.IsEnabled))
-        {
-            control.Value = 0;
-        }
-        Log.Instance.Trace($"UI Values reset to 0 (Not yet applied).");
+        catch (Exception ex) { ShowStatus("Error", ex.Message, InfoBarSeverity.Error); }
     }
 
     private void OnSaveClick(object sender, RoutedEventArgs e)
     {
-        try
-        {
-            var profile = new OverclockingProfile
-            {
-                FMax = _fMaxNumberBox.Value,
-                CoreValues = _coreBoxes.Select(b => b.Value).ToList()
-            };
-
-            var sfd = new SaveFileDialog
-            {
-                Filter = "JSON Profile (*.json)|*.json",
-                FileName = "AmdOverclockingProfile.json"
-            };
-
-            if (sfd.ShowDialog() == true)
-            {
-                string json = JsonSerializer.Serialize(profile, new JsonSerializerOptions { WriteIndented = true });
-                File.WriteAllText(sfd.FileName, json);
-                Log.Instance.Trace($"Profile saved to {sfd.FileName}");
-                ShowStatus("Profile Exported", $"Settings saved to {Path.GetFileName(sfd.FileName)}", InfoBarSeverity.Success);
-            }
-        }
-        catch (Exception ex)
-        {
-            Log.Instance.Trace($"Save Failed: {ex.Message}");
-            ShowStatus("Export Failed", ex.Message, InfoBarSeverity.Error);
-        }
+        var sfd = new SaveFileDialog { Filter = "JSON Profile (*.json)|*.json", FileName = "AmdOverclocking.json" };
+        if (sfd.ShowDialog() == true) { _controller.SaveProfile(GetProfileFromUi(), sfd.FileName); ShowStatus("Saved", "Success", InfoBarSeverity.Success); }
     }
 
     private void OnLoadClick(object sender, RoutedEventArgs e)
     {
-        try
-        {
-            var ofd = new OpenFileDialog
-            {
-                Filter = "JSON Profile (*.json)|*.json",
-                Title = "Load Overclocking Profile"
-            };
-
-            if (ofd.ShowDialog() != true) return;
-
-            string json = File.ReadAllText(ofd.FileName);
-            var profile = JsonSerializer.Deserialize<OverclockingProfile>(json);
-
-            if (profile == null)
-            {
-                Log.Instance.Trace($"Load Failed: Profile is null.");
-                ShowStatus("Invalid File", "The selected JSON is empty or invalid.", InfoBarSeverity.Error);
-                return;
-            }
-
-            if (profile.FMax.HasValue)
-            {
-                _fMaxNumberBox.Value = profile.FMax.Value;
-            }
-
-            if (profile is { CoreValues: not null })
-            {
-                for (int i = 0; i < _coreBoxes.Length && i < profile.CoreValues.Count; i++)
-                {
-                    var control = _coreBoxes[i];
-
-                    if (control.IsEnabled)
-                    {
-                        var loadedValue = profile.CoreValues[i];
-
-                        control.Value = loadedValue ?? 0;
-                    }
-                }
-            }
-
-            Log.Instance.Trace($"Profile loaded successfully from {ofd.FileName}");
-            ShowStatus("Profile Imported", "Settings loaded into UI. Click 'Apply' to save to hardware.", InfoBarSeverity.Informational);
-        }
-        catch (JsonException ex)
-        {
-            Log.Instance.Trace($"Load Failed (Invalid JSON): {ex.Message}");
-        }
-        catch (Exception ex)
-        {
-            Log.Instance.Trace($"Load Failed: {ex.Message}");
-            ShowStatus("Import Failed", "Could not read the profile file.", InfoBarSeverity.Error);
-        }
+        var ofd = new OpenFileDialog { Filter = "JSON Profile (*.json)|*.json" };
+        if (ofd.ShowDialog() == true) { UpdateUiFromProfile(_controller.LoadProfile(ofd.FileName)); ShowStatus("Loaded", "Success", InfoBarSeverity.Informational); }
     }
 
-    #endregion
+    private void OnResetClick(object sender, RoutedEventArgs e) { foreach (var box in _coreBoxes) box.Value = 0; }
+
+    private void ShowStatus(string title, string message, InfoBarSeverity severity)
+    {
+        _statusCts?.Cancel(); _statusCts = new CancellationTokenSource();
+        _statusInfoBar.Title = title; _statusInfoBar.Message = message; _statusInfoBar.Severity = severity; _statusInfoBar.IsOpen = true;
+        Task.Delay(5000, _statusCts.Token).ContinueWith(t => { if (!t.IsCanceled) Dispatcher.Invoke(() => _statusInfoBar.IsOpen = false); }, TaskScheduler.Default);
+    }
 }
