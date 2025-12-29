@@ -2672,4 +2672,10 @@
   <data name="AmdOverclocking_Apply_Changes" xml:space="preserve">
     <value>应用</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="AmdOverclocking_Do_Not_Apply_Message" xml:space="preserve">
+    <value>Profile apply has been canceled due to abnormal restart.</value>
+  </data>
 </root>
