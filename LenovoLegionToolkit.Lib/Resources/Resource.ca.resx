@@ -181,4 +181,7 @@
   <data name="FloatingGadgetItem_E_Core_Frequency" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
+  <data name="AmdOverclocking_Not_Initialized_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
 </root>

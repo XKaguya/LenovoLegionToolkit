@@ -768,6 +768,12 @@ public readonly struct SensorsData(SensorData cpu, SensorData gpu, SensorData pc
     public override string ToString() => $"{nameof(CPU)}: {CPU}, {nameof(GPU)}: {GPU}, {nameof(PCH)}: {PCH}";
 }
 
+public readonly struct ShutdownInfo
+{
+    public string Status { get; init; }
+    public int AbnormalCount { get; init; }
+}
+
 [method: JsonConstructor]
 public readonly struct DpiScale(int scale) : IDisplayName, IEquatable<DpiScale>
 {

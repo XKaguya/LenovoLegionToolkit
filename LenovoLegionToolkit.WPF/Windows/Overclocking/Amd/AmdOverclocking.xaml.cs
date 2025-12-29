@@ -1,13 +1,14 @@
-﻿using LenovoLegionToolkit.Lib;
-using LenovoLegionToolkit.Lib.Overclocking.Amd;
-using LenovoLegionToolkit.Lib.Utils;
-using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using LenovoLegionToolkit.Lib;
+using LenovoLegionToolkit.Lib.Overclocking.Amd;
+using LenovoLegionToolkit.Lib.Utils;
+using LenovoLegionToolkit.WPF.Resources;
+using Microsoft.Win32;
 using Wpf.Ui.Controls;
 
 namespace LenovoLegionToolkit.WPF.Windows.Overclocking.Amd;
@@ -33,15 +34,36 @@ public partial class AmdOverclocking : UiWindow
     {
         if (!_isInitialized)
         {
-            try { await _controller.InitializeAsync(); _isInitialized = true; }
-            catch (Exception ex) { Log.Instance.Trace($"Init Failed: {ex.Message}"); return; }
+            try
+            {
+                await _controller.InitializeAsync();
+                _isInitialized = true;
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.Trace($"Init Failed: {ex.Message}"); return;
+            }
         }
-        await ApplyInternalProfileAsync();
+
+        UpdateUi();
+
+        if (!_controller.DoNotApply)
+        {
+            await ApplyInternalProfileAsync();
+        }
+        else
+        {
+            ShowStatus($"{Resource.Error}", $"{Resource.AmdOverclocking_Do_Not_Apply_Message}", InfoBarSeverity.Error, true);
+        }
     }
 
     public async Task ApplyInternalProfileAsync()
     {
         await _controller.ApplyInternalProfileAsync();
+    }
+
+    public void UpdateUi()
+    {
         Dispatcher.Invoke(() => {
             UpdateUiFromProfile(_controller.LoadProfile());
             _ = RefreshAsync();
@@ -56,7 +78,8 @@ public partial class AmdOverclocking : UiWindow
             {
                 var cpu = _controller.GetCpu();
                 var activeCores = cpu.info.topology.physicalCores;
-                var coreStates = Enumerable.Range(0, _coreBoxes.Length).Select(i => {
+                var coreStates = Enumerable.Range(0, _coreBoxes.Length).Select(i =>
+                {
                     bool active = i < activeCores && _controller.IsCoreActive(i);
                     uint? margin = active ? cpu.GetPsmMarginSingleCore(_controller.EncodeCoreMarginBitmask(i)) : null;
 
@@ -84,7 +107,10 @@ public partial class AmdOverclocking : UiWindow
                 _coreBoxes[i].Value = state.active ? state.val : null;
             }
         }
-        catch (Exception ex) { Log.Instance.Trace($"Refresh Failed: {ex.Message}"); }
+        catch (Exception ex)
+        {
+            Log.Instance.Trace($"Refresh Failed: {ex.Message}");
+        }
     }
 
     private void UpdateUiFromProfile(OverclockingProfile? profile)
@@ -125,7 +151,7 @@ public partial class AmdOverclocking : UiWindow
             ShowStatus("Success", "Settings applied.", InfoBarSeverity.Success);
             await RefreshAsync();
         }
-        catch (Exception ex) { ShowStatus("Error", ex.Message, InfoBarSeverity.Error); }
+        catch (Exception ex) { ShowStatus($"{Resource.Error}", ex.Message, InfoBarSeverity.Error); }
     }
 
     private void OnSaveClick(object sender, RoutedEventArgs e)
@@ -142,10 +168,23 @@ public partial class AmdOverclocking : UiWindow
 
     private void OnResetClick(object sender, RoutedEventArgs e) { foreach (var box in _coreBoxes) box.Value = 0; }
 
-    private void ShowStatus(string title, string message, InfoBarSeverity severity)
+    private void ShowStatus(string title, string message, InfoBarSeverity severity, bool showForever = false)
     {
         _statusCts?.Cancel(); _statusCts = new CancellationTokenSource();
         _statusInfoBar.Title = title; _statusInfoBar.Message = message; _statusInfoBar.Severity = severity; _statusInfoBar.IsOpen = true;
-        Task.Delay(5000, _statusCts.Token).ContinueWith(t => { if (!t.IsCanceled) Dispatcher.Invoke(() => _statusInfoBar.IsOpen = false); }, TaskScheduler.Default);
+        if (showForever)
+        {
+            _statusInfoBar.IsOpen = true;
+        }
+        else
+        {
+            Task.Delay(5000, _statusCts.Token).ContinueWith(t =>
+            {
+                if (t.Status == TaskStatus.RanToCompletion)
+                {
+                    Dispatcher.Invoke(() => _statusInfoBar.IsOpen = false);
+                }
+            }, TaskScheduler.Default);
+        }
     }
 }

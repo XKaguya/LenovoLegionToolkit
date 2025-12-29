@@ -295,6 +295,15 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Profile apply has been canceled due to abnormal restart. 的本地化字符串。
+        /// </summary>
+        public static string AmdOverclocking_Do_Not_Apply_Message {
+            get {
+                return ResourceManager.GetString("AmdOverclocking_Do_Not_Apply_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Maximum CPU boost frequency override (MHz) 的本地化字符串。
         /// </summary>
         public static string AmdOverclocking_FMax_Frequency_Message {
@@ -2007,6 +2016,15 @@ namespace LenovoLegionToolkit.WPF.Resources {
         public static string EditSensorWindow_Title {
             get {
                 return ResourceManager.GetString("EditSensorWindow_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Error 的本地化字符串。
+        /// </summary>
+        public static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
             }
         }
         

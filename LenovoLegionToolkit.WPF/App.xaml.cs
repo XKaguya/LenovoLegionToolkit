@@ -25,9 +25,9 @@ using LenovoLegionToolkit.WPF.Utils;
 using LenovoLegionToolkit.WPF.Windows;
 using LenovoLegionToolkit.WPF.Windows.FloatingGadgets;
 using LenovoLegionToolkit.WPF.Windows.Utils;
+using Microsoft.Win32;
 using System;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Management;
 using System.Reflection;
@@ -80,6 +80,8 @@ public partial class App
 
     private async void Application_Startup(object sender, StartupEventArgs e)
     {
+        SessionEnding += OnSystemSessionEnding;
+
         try
         {
 #if DEBUG
@@ -299,6 +301,19 @@ public partial class App
         await SafeExecuteAsync<IpcServer>(c => c.StopAsync());
         await SafeExecuteAsync<BatteryDischargeRateMonitorService>(c => c.StopAsync());
 
+        var feature = IoCContainer.Resolve<AmdOverclockingController>();
+
+        if (feature.IsActive())
+        {
+            var cleanInfo = new ShutdownInfo
+            {
+                Status = "Normal",
+                AbnormalCount = 0
+            };
+
+            feature.SaveShutdownInfo(cleanInfo);
+        }
+
         Shutdown();
     }
 
@@ -436,6 +451,30 @@ public partial class App
                 });
             }
         }, TaskCreationOptions.LongRunning);
+    }
+
+    #endregion
+
+    #region Event Handler
+
+    private void OnSystemSessionEnding(object sender, SessionEndingCancelEventArgs e)
+    {
+        base.OnSessionEnding(e);
+
+        if (e is not { ReasonSessionEnding: ReasonSessionEnding.Logoff or ReasonSessionEnding.Shutdown })
+        {
+            return;
+        }
+
+        var feature = IoCContainer.Resolve<AmdOverclockingController>();
+        if (feature.IsActive())
+        {
+            feature.SaveShutdownInfo(new ShutdownInfo
+            {
+                Status = "Normal",
+                AbnormalCount = 0
+            });
+        }
     }
 
     #endregion
@@ -745,21 +784,20 @@ public partial class App
 
     private static async Task InitAMDOverclocking()
     {
-        string path = Path.Combine(Folders.AppData, "amd_overclocking.json");
-
         try
         {
-            if (File.Exists(path))
+            var feature = IoCContainer.Resolve<AmdOverclockingController>();
+
+            if (feature.IsActive())
             {
-                Log.Instance.Trace($"Starting background initialization from: {path}");
-
-                var feature = IoCContainer.Resolve<AmdOverclockingController>();
-
                 await feature.InitializeAsync().ConfigureAwait(false);
 
-                await feature.ApplyInternalProfileAsync().ConfigureAwait(false);
+                if (!feature.DoNotApply)
+                {
+                    await feature.ApplyInternalProfileAsync().ConfigureAwait(false);
+                }
 
-                Log.Instance.Trace($"Background initialization task finished.");
+                Log.Instance.Trace($"AMD Overclocking Controller initialization task finished.");
             }
         }
         catch (Exception ex)

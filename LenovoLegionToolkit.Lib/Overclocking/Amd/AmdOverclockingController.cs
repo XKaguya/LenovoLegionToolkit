@@ -6,6 +6,7 @@ using System.IO;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using LenovoLegionToolkit.Lib.Resources;
 using ZenStates.Core;
 
 namespace LenovoLegionToolkit.Lib.Overclocking.Amd;
@@ -24,8 +25,12 @@ public class AmdOverclockingController : IDisposable
     private bool _isInitialized;
     private readonly SemaphoreSlim _lock = new(1, 1);
     private readonly string _internalProfilePath = Path.Combine(Folders.AppData, "amd_overclocking.json");
+    private readonly string _statusFilePath = Path.Combine(Folders.AppData, "system_status.json");
 
     private const uint PROCHOT_DISABLED_BIT = 0x1000000;
+    private const int THERSHOLD = 3;
+
+    public bool DoNotApply = false;
 
     public async Task InitializeAsync()
     {
@@ -37,13 +42,67 @@ public class AmdOverclockingController : IDisposable
             _machineInformation = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
             _cpu = new Cpu();
             _isInitialized = true;
+
+            var info = LoadShutdownInfo();
+
+            int currentCount = info.AbnormalCount;
+            string currentStatus = info.Status;
+
+            if (currentStatus == "Running")
+            {
+                currentCount++;
+                Log.Instance.Trace($"Abnormal shutdown detected, current count: {currentCount}");
+            }
+
+            if (currentCount >= THERSHOLD)
+            {
+                DoNotApply = true;
+                Log.Instance.Trace($"Abnormal shutdown reached limit: ({THERSHOLD}), Will not apply profile.");
+
+                currentCount = 0;
+            }
+
+            var nextInfo = new ShutdownInfo
+            {
+                Status = "Running",
+                AbnormalCount = currentCount
+            };
+
+            SaveShutdownInfo(nextInfo);
         }
         finally { _lock.Release(); }
     }
 
     public bool IsSupported() => _isInitialized && (_machineInformation?.Properties.IsAmdDevice == true);
 
-    public Cpu GetCpu() => _cpu ?? throw new InvalidOperationException("Not initialized.");
+    public bool IsActive() => File.Exists(Path.Combine(Folders.AppData, "amd_overclocking.json"));
+
+    public Cpu GetCpu() => _cpu ?? throw new InvalidOperationException($"{Resource.AmdOverclocking_Not_Initialized_Message}");
+
+    public ShutdownInfo LoadShutdownInfo()
+    {
+        if (!File.Exists(_statusFilePath)) return new ShutdownInfo { Status = "Normal", AbnormalCount = 0 };
+        try
+        {
+            return JsonSerializer.Deserialize<ShutdownInfo>(File.ReadAllText(_statusFilePath));
+        }
+        catch
+        {
+            return new ShutdownInfo { Status = "Normal", AbnormalCount = 0 };
+        }
+    }
+
+    public void SaveShutdownInfo(ShutdownInfo info)
+    {
+        try
+        {
+            File.WriteAllText(_statusFilePath, JsonSerializer.Serialize(info));
+        }
+        catch (Exception ex)
+        {
+            Log.Instance.Trace($"Save ShutdownInfo failed: {ex.Message}");
+        }
+    }
 
     public OverclockingProfile? LoadProfile(string? path = null)
     {
@@ -77,6 +136,11 @@ public class AmdOverclockingController : IDisposable
 
     public async Task ApplyProfileAsync(OverclockingProfile profile)
     {
+        if (DoNotApply)
+        {
+            return;
+        }
+
         EnsureInitialized();
         await Task.Run(() =>
         {
@@ -154,7 +218,7 @@ public class AmdOverclockingController : IDisposable
     {
         if (!_isInitialized || _cpu == null || _machineInformation == null)
         {
-            throw new InvalidOperationException("Not initialized.");
+            throw new InvalidOperationException($"{Resource.AmdOverclocking_Not_Initialized_Message}");
         }
     }
 
