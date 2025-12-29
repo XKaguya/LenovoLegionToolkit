@@ -2668,4 +2668,10 @@ No proceda a menos que posea la experiencia técnica necesaria.</value>
   <data name="AmdOverclocking_Apply_Changes" xml:space="preserve">
     <value>Apply Changes</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="AmdOverclocking_Do_Not_Apply_Message" xml:space="preserve">
+    <value>Profile apply has been canceled due to abnormal restart.</value>
+  </data>
 </root>
