@@ -568,4 +568,7 @@
   <data name="FloatingGadgetItem_E_Core_Frequency" xml:space="preserve">
     <value>能效核心频率</value>
   </data>
+  <data name="AmdOverclocking_Not_Initialized_Message" xml:space="preserve">
+    <value>Not initialized.</value>
+  </data>
 </root>
