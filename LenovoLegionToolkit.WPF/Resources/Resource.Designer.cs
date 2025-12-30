@@ -331,6 +331,24 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Settings applied successfully. 的本地化字符串。
+        /// </summary>
+        public static string AmdOverclocking_Success_Message {
+            get {
+                return ResourceManager.GetString("AmdOverclocking_Success_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Success 的本地化字符串。
+        /// </summary>
+        public static string AmdOverclocking_Success_Title {
+            get {
+                return ResourceManager.GetString("AmdOverclocking_Success_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Apply 的本地化字符串。
         /// </summary>
         public static string Apply {

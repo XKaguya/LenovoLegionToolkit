@@ -127,11 +127,7 @@ public partial class AmdOverclocking : UiWindow
 
     private OverclockingProfile GetProfileFromUi()
     {
-        var coreValues = new List<double?>();
-        for (int i = 0; i < _coreBoxes.Length; i++)
-        {
-            coreValues.Add(_controller.IsCoreActive(i) ? _coreBoxes[i].Value : null);
-        }
+        var coreValues = _coreBoxes.Select((t, i) => _controller.IsCoreActive(i) ? t.Value : null).ToList();
 
         return new OverclockingProfile
         {
@@ -148,7 +144,7 @@ public partial class AmdOverclocking : UiWindow
             var profile = GetProfileFromUi();
             await _controller.ApplyProfileAsync(profile);
             _controller.SaveProfile(profile);
-            ShowStatus("Success", "Settings applied.", InfoBarSeverity.Success);
+            ShowStatus($"{Resource.AmdOverclocking_Success_Title}", $"{Resource.AmdOverclocking_Success_Message}", InfoBarSeverity.Success);
             await RefreshAsync();
         }
         catch (Exception ex) { ShowStatus($"{Resource.Error}", ex.Message, InfoBarSeverity.Error); }
