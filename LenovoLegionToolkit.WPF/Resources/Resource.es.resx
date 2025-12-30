@@ -2680,4 +2680,10 @@ No proceda a menos que posea la experiencia técnica necesaria.</value>
   <data name="RunAutomationStepControl_ProcessCheckInstance_Description" xml:space="preserve">
     <value>Check if process already started.</value>
   </data>
+  <data name="AmdOverclocking_Success_Title" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="AmdOverclocking_Success_Message" xml:space="preserve">
+    <value>Settings applied successfully.</value>
+  </data>
 </root>
