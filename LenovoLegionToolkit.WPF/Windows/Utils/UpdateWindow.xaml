@@ -20,6 +20,38 @@
     ShowInTaskbar="False"
     WindowStartupLocation="CenterOwner">
 
+    <local:BaseWindow.Resources>
+        <ResourceDictionary>
+            <Style TargetType="{x:Type Paragraph}">
+                <Setter Property="Margin" Value="0,0,0,12" />
+                <Setter Property="LineHeight" Value="24" />
+                <Setter Property="FontFamily" Value="Segoe UI, Microsoft YaHei" />
+            </Style>
+
+            <Style TargetType="{x:Type List}">
+                <Setter Property="Margin" Value="24,4,0,12" />
+            </Style>
+
+            <Style TargetType="{x:Type ListItem}">
+                <Setter Property="Margin" Value="0,4,0,4" />
+            </Style>
+
+            <Style TargetType="{x:Type Bold}">
+                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+            </Style>
+
+            <Style TargetType="{x:Type Run}">
+                <Setter Property="FontFamily" Value="Segoe UI, Microsoft YaHei" />
+            </Style>
+
+            <Style TargetType="{x:Type markdig:MarkdownViewer}">
+                <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
+                <Setter Property="FontSize" Value="14" />
+            </Style>
+        </ResourceDictionary>
+    </local:BaseWindow.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -37,27 +69,20 @@
             Grid.Row="0"
             Height="24"
             Margin="12,8,12,8">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-
             <TextBlock
-                Grid.Column="0"
                 VerticalAlignment="Center"
                 Focusable="True"
                 FontSize="12"
+                Foreground="{DynamicResource TextFillColorTertiaryBrush}"
                 IsHitTestVisible="False"
                 Text="{x:Static resources:Resource.UpdateWindow_Title}" />
-
         </Grid>
 
-        <Grid Grid.Row="1" Margin="16,12,16,12">
+        <Grid Grid.Row="1" Margin="32,16,32,16">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
@@ -66,47 +91,51 @@
                     Grid.Row="0"
                     Margin="0,0,0,24"
                     Focusable="True"
-                    FontSize="24"
-                    FontWeight="Medium"
+                    FontSize="28"
+                    FontWeight="Bold"
+                    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                     Text="{x:Static resources:Resource.UpdateWindow_WhatsNew}" />
 
                 <markdig:MarkdownViewer
                     x:Name="_markdownViewer"
                     Grid.Row="1"
+                    Margin="0,0,8,0"
+                    VerticalAlignment="Top"
                     Focusable="True" />
 
                 <ProgressBar
                     x:Name="_downloadProgressBar"
                     Grid.Row="2"
-                    Margin="0,16,0,16"
+                    Height="4"
+                    Margin="0,24,0,24"
                     IsIndeterminate="True"
                     Maximum="1"
                     Minimum="0"
                     Visibility="Hidden" />
 
-                <wpfui:Button
-                    x:Name="_downloadButton"
-                    Grid.Row="3"
-                    Width="150"
-                    Height="32"
-                    Margin="0,0,0,16"
-                    HorizontalAlignment="Center"
-                    Appearance="Primary"
-                    Click="DownloadButton_Click"
-                    Content="{x:Static resources:Resource.Update}"
-                    IsEnabled="False" />
+                <StackPanel Grid.Row="3" Margin="0,0,0,16">
+                    <wpfui:Button
+                        x:Name="_downloadButton"
+                        Width="180"
+                        Height="36"
+                        HorizontalAlignment="Center"
+                        Appearance="Primary"
+                        Click="DownloadButton_Click"
+                        Content="{x:Static resources:Resource.Update}"
+                        FontSize="14"
+                        FontWeight="SemiBold"
+                        IsEnabled="False" />
 
-                <wpfui:Button
-                    x:Name="_cancelDownloadButton"
-                    Grid.Row="4"
-                    Width="150"
-                    Height="32"
-                    Margin="0,0,0,16"
-                    HorizontalAlignment="Center"
-                    Click="CancelDownloadButton_Click"
-                    Content="{x:Static resources:Resource.Cancel}"
-                    IsEnabled="False"
-                    Visibility="Collapsed" />
+                    <wpfui:Button
+                        x:Name="_cancelDownloadButton"
+                        Width="180"
+                        Height="36"
+                        HorizontalAlignment="Center"
+                        Click="CancelDownloadButton_Click"
+                        Content="{x:Static resources:Resource.Cancel}"
+                        IsEnabled="False"
+                        Visibility="Collapsed" />
+                </StackPanel>
             </Grid>
         </Grid>
     </Grid>

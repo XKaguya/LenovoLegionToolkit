@@ -2675,4 +2675,10 @@ No proceda a menos que posea la experiencia técnica necesaria.</value>
   <data name="AmdOverclocking_Do_Not_Apply_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
+  <data name="RunAutomationStepControl_ProcessCheckInstance" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="RunAutomationStepControl_ProcessCheckInstance_Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
 </root>

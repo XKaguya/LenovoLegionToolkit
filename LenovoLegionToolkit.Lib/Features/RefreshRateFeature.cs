@@ -17,7 +17,7 @@ public class RefreshRateFeature : IFeature<RefreshRate>
     {
         Log.Instance.Trace($"Getting all refresh rates...");
 
-        var display = await InternalDisplay.GetAsync().ConfigureAwait(false);
+        var display = await InternalDisplay.GetAsync().ConfigureAwait(true);
         if (display is null)
         {
             Log.Instance.Trace($"Built in display not found");
@@ -48,7 +48,7 @@ public class RefreshRateFeature : IFeature<RefreshRate>
     {
         Log.Instance.Trace($"Getting current refresh rate...");
 
-        var display = await InternalDisplay.GetAsync().ConfigureAwait(false);
+        var display = await InternalDisplay.GetAsync().ConfigureAwait(true);
         if (display is null)
         {
             Log.Instance.Trace($"Built in display not found");
@@ -66,7 +66,7 @@ public class RefreshRateFeature : IFeature<RefreshRate>
 
     public async Task SetStateAsync(RefreshRate state)
     {
-        var display = await InternalDisplay.GetAsync().ConfigureAwait(false);
+        var display = await InternalDisplay.GetAsync().ConfigureAwait(true);
         if (display is null)
         {
             Log.Instance.Trace($"Built in display not found");

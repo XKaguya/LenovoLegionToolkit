@@ -5314,6 +5314,24 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Check Instance 的本地化字符串。
+        /// </summary>
+        public static string RunAutomationStepControl_ProcessCheckInstance {
+            get {
+                return ResourceManager.GetString("RunAutomationStepControl_ProcessCheckInstance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Check if process already started. 的本地化字符串。
+        /// </summary>
+        public static string RunAutomationStepControl_ProcessCheckInstance_Description {
+            get {
+                return ResourceManager.GetString("RunAutomationStepControl_ProcessCheckInstance_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Run silently 的本地化字符串。
         /// </summary>
         public static string RunAutomationStepControl_ProcessRunSilently {

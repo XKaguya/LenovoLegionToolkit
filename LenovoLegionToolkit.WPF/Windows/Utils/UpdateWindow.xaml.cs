@@ -30,7 +30,7 @@ public partial class UpdateWindow : IProgress<float>
 
         if (updates.Length == 0)
         {
-            _markdownViewer.Markdown = _updateChecker._updateFromServer.Description;
+            _markdownViewer.Markdown = _updateChecker.UpdateFromServer.Description;
         }
         else
         {
