@@ -115,6 +115,15 @@ namespace LenovoLegionToolkit.Lib.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Not supported. 的本地化字符串。
+        /// </summary>
+        public static string AmdOverclocking_Not_Supported {
+            get {
+                return ResourceManager.GetString("AmdOverclocking_Not_Supported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Disabled 的本地化字符串。
         /// </summary>
         public static string AutorunState_Disabled {

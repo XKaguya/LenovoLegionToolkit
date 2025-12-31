@@ -13,6 +13,15 @@ using System.Text;
 
 namespace LenovoLegionToolkit.Lib;
 
+public readonly struct AmdWmiCommand
+{
+    public string Name { get; init; }
+    public uint Id { get; init; }
+    public bool IsSet { get; init; }
+
+    public override string ToString() => $"{Name} (0x{Id:X8})";
+}
+
 public readonly struct BatteryInformation(
     bool isCharging,
     int batteryPercentage,
@@ -520,6 +529,13 @@ public readonly struct MachineInformation
     public int LegionZoneVersion { get; init; }
     public FeatureData Features { get; init; }
     public PropertyData Properties { get; init; }
+}
+
+public readonly struct OverclockingProfile
+{
+    public uint? FMax { get; init; }
+    public bool ProchotEnabled { get; init; }
+    public List<double?> CoreValues { get; init; }
 }
 
 public struct Package

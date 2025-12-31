@@ -1,15 +1,19 @@
-﻿using System;
+﻿using LenovoLegionToolkit.Lib;
+using LenovoLegionToolkit.Lib.Messaging;
+using LenovoLegionToolkit.Lib.Messaging.Messages;
+using LenovoLegionToolkit.Lib.Overclocking.Amd;
+using LenovoLegionToolkit.Lib.Utils;
+using LenovoLegionToolkit.WPF.Resources;
+using LenovoLegionToolkit.WPF.Utils;
+using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using LenovoLegionToolkit.Lib;
-using LenovoLegionToolkit.Lib.Overclocking.Amd;
-using LenovoLegionToolkit.Lib.Utils;
-using LenovoLegionToolkit.WPF.Resources;
-using Microsoft.Win32;
 using Wpf.Ui.Controls;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace LenovoLegionToolkit.WPF.Windows.Overclocking.Amd;
 
@@ -117,12 +121,12 @@ public partial class AmdOverclocking : UiWindow
     private void UpdateUiFromProfile(OverclockingProfile? profile)
     {
         if (profile == null) return;
-        _fMaxNumberBox.Value = profile.FMax;
-        _prochotCheckBox.IsChecked = profile.ProchotEnabled;
+        _fMaxNumberBox.Value = profile.Value.FMax;
+        _prochotCheckBox.IsChecked = profile.Value.ProchotEnabled;
 
-        for (int i = 0; i < _coreBoxes.Length && i < profile.CoreValues.Count; i++)
+        for (int i = 0; i < _coreBoxes.Length && i < profile.Value.CoreValues.Count; i++)
         {
-            _coreBoxes[i].Value = _controller.IsCoreActive(i) ? profile.CoreValues[i] : null;
+            _coreBoxes[i].Value = _controller.IsCoreActive(i) ? profile.Value.CoreValues[i] : null;
         }
     }
 
@@ -183,5 +187,19 @@ public partial class AmdOverclocking : UiWindow
                 }
             }, TaskScheduler.Default);
         }
+    }
+
+    private void X3DGamingModeEnabled_OnClick(object sender, RoutedEventArgs e)
+    {
+        _controller.SwitchProfile(CpuProfileMode.X3DGaming);
+
+        MessagingCenter.Publish(new NotificationMessage(NotificationType.AutomationNotification, Resource.SettingsPage_UseNewDashboard_Restart_Message));
+    }
+
+    private void X3DGamingModeDisabled_OnClick(object sender, RoutedEventArgs e)
+    {
+        _controller.SwitchProfile(CpuProfileMode.Productivity);
+
+        MessagingCenter.Publish(new NotificationMessage(NotificationType.AutomationNotification, Resource.SettingsPage_UseNewDashboard_Restart_Message));
     }
 }

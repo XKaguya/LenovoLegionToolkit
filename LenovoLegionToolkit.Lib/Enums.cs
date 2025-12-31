@@ -89,6 +89,14 @@ public enum CPUOverclockingID
     AllCoreCurveOptimizer = 0x414D4403,
 }
 
+public enum CpuProfileMode
+{
+    [Display(ResourceType = typeof(Resource), Name = "AmdOverclocking_Productivity")]
+    Productivity,
+    [Display(ResourceType = typeof(Resource), Name = "AmdOverclocking_X3D_Gaming")]
+    X3DGaming
+}
+
 [Flags]
 public enum DriverKey
 {

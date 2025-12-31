@@ -349,6 +349,24 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Disable CCD 1 to get stability on both FPS and temperatures 的本地化字符串。
+        /// </summary>
+        public static string AmdOverclocking_X3D_Gaming_Mode_Message {
+            get {
+                return ResourceManager.GetString("AmdOverclocking_X3D_Gaming_Mode_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 X3D Gaming Mode 的本地化字符串。
+        /// </summary>
+        public static string AmdOverclocking_X3D_Gaming_Mode_Title {
+            get {
+                return ResourceManager.GetString("AmdOverclocking_X3D_Gaming_Mode_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Apply 的本地化字符串。
         /// </summary>
         public static string Apply {
