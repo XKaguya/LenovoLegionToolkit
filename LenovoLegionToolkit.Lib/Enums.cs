@@ -91,9 +91,7 @@ public enum CPUOverclockingID
 
 public enum CpuProfileMode
 {
-    [Display(ResourceType = typeof(Resource), Name = "AmdOverclocking_Productivity")]
     Productivity,
-    [Display(ResourceType = typeof(Resource), Name = "AmdOverclocking_X3D_Gaming")]
     X3DGaming
 }
 
