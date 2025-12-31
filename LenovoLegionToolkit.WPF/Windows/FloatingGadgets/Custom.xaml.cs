@@ -19,7 +19,7 @@ public class GadgetItemGroup
     public List<FloatingGadgetItem> Items { get; set; } = new List<FloatingGadgetItem>();
 }
 
-public partial class Custom : Window
+public partial class Custom
 {
     private readonly ApplicationSettings _settings = IoCContainer.Resolve<ApplicationSettings>();
     private readonly SensorsGroupController _controller = IoCContainer.Resolve<SensorsGroupController>();
@@ -113,7 +113,7 @@ public partial class Custom : Window
             }
 
             groupBox.Content = stackPanel;
-            ItemsStackPanel.Children.Add(groupBox);
+            _itemsStackPanel.Children.Add(groupBox);
         }
     }
 
@@ -123,7 +123,7 @@ public partial class Custom : Window
 
         var selectedItems = new List<FloatingGadgetItem>();
 
-        foreach (var groupBox in ItemsStackPanel.Children.OfType<GroupBox>())
+        foreach (var groupBox in _itemsStackPanel.Children.OfType<GroupBox>())
         {
             if (groupBox.Content is StackPanel stackPanel)
             {
