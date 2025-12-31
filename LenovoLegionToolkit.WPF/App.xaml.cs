@@ -11,6 +11,8 @@ using LenovoLegionToolkit.Lib.Features.WhiteKeyboardBacklight;
 using LenovoLegionToolkit.Lib.Integrations;
 using LenovoLegionToolkit.Lib.Listeners;
 using LenovoLegionToolkit.Lib.Macro;
+using LenovoLegionToolkit.Lib.Messaging;
+using LenovoLegionToolkit.Lib.Messaging.Messages;
 using LenovoLegionToolkit.Lib.Overclocking.Amd;
 using LenovoLegionToolkit.Lib.Services;
 using LenovoLegionToolkit.Lib.Settings;
@@ -25,7 +27,6 @@ using LenovoLegionToolkit.WPF.Utils;
 using LenovoLegionToolkit.WPF.Windows;
 using LenovoLegionToolkit.WPF.Windows.FloatingGadgets;
 using LenovoLegionToolkit.WPF.Windows.Utils;
-using Microsoft.Win32;
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -203,7 +204,7 @@ public partial class App
                 }
 
                 Compatibility.PrintControllerVersionAsync().ConfigureAwait(false);
-                CheckFloatingGadget();
+                InitFloatingGadget();
                 if (_flags.Debug)
                 {
                     Console.WriteLine(@"[Startup] Startup Complete.");
@@ -809,6 +810,15 @@ public partial class App
     #endregion
 
     #region UI Helpers
+    public void InitFloatingGadget()
+    {
+        MessagingCenter.Subscribe<FloatingGadgetChangedMessage>(this, message =>
+        {
+            Dispatcher.Invoke(() => HandleFloatingGadgetCommand(message.State));
+        });
+
+        CheckFloatingGadget();
+    }
 
     private void CheckFloatingGadget()
     {
@@ -819,21 +829,66 @@ public partial class App
         }
 
         var settings = IoCContainer.Resolve<ApplicationSettings>();
-        if (!settings.Store.ShowFloatingGadgets) return;
+        if (settings.Store.ShowFloatingGadgets)
+        {
+            HandleFloatingGadgetCommand(FloatingGadgetState.Show);
+        }
+    }
+
+    private void HandleFloatingGadgetCommand(FloatingGadgetState state)
+    {
+        var settings = IoCContainer.Resolve<ApplicationSettings>();
+        bool shouldBeUpper = settings.Store.SelectedStyleIndex == 1;
 
         if (FloatingGadget != null)
         {
-            FloatingGadget.Show();
-        }
-        else
-        {
-            FloatingGadget = settings.Store.SelectedStyleIndex switch
+            bool isCurrentlyUpper = FloatingGadget is FloatingGadgetUpper;
+            if (isCurrentlyUpper != shouldBeUpper)
             {
-                1 => new FloatingGadgetUpper(),
-                _ => new FloatingGadget()
-            };
-            FloatingGadget.Show();
+                FloatingGadget.Close();
+                FloatingGadget = null;
+            }
         }
+
+        switch (state)
+        {
+            case FloatingGadgetState.Show:
+                EnsureGadgetCreated(shouldBeUpper);
+                FloatingGadget?.Show();
+                FloatingGadget?.BringToForeground();
+                break;
+
+            case FloatingGadgetState.Hidden:
+                FloatingGadget?.Hide();
+                break;
+
+            case FloatingGadgetState.Toggle:
+                if (FloatingGadget is { IsVisible: true })
+                {
+                    FloatingGadget.Hide();
+                }
+                else
+                {
+                    EnsureGadgetCreated(shouldBeUpper);
+                    FloatingGadget?.Show();
+                }
+                break;
+        }
+    }
+
+    private void EnsureGadgetCreated(bool isUpper)
+    {
+        if (FloatingGadget != null)
+        {
+            return;
+        }
+
+        FloatingGadget = isUpper ? new FloatingGadgetUpper() : new FloatingGadget();
+
+        FloatingGadget.Closed += (s, e) =>
+        {
+            FloatingGadget = null;
+        };
     }
 
     private void ShowPawnIONotify()

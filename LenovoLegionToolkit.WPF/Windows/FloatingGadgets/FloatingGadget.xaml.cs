@@ -147,29 +147,6 @@ public partial class FloatingGadget
 
     private void SubscribeEvents()
     {
-        MessagingCenter.Subscribe<FloatingGadgetChangedMessage>(this, (message) =>
-        {
-            Dispatcher.Invoke(() =>
-            {
-                if (App.Current.FloatingGadget == null)
-                {
-                    return;
-                }
-
-                var gadget = App.Current.FloatingGadget;
-                switch (message.State)
-                {
-                    case FloatingGadgetState.Show: gadget.Show(); break;
-                    case FloatingGadgetState.Hidden: gadget.Hide(); break;
-                    case FloatingGadgetState.Toggle:
-                        if (gadget.IsVisible) { gadget.Hide(); }
-                        else gadget.Show();
-                        break;
-                    default: throw new ArgumentOutOfRangeException();
-                }
-            });
-        });
-
         MessagingCenter.Subscribe<FloatingGadgetElementChangedMessage>(this, (message) =>
         {
             Dispatcher.Invoke(() =>
