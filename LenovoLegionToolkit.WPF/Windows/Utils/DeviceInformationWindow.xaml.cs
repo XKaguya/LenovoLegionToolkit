@@ -101,42 +101,44 @@ public partial class DeviceInformationWindow
     private void DeviceCardControl_Click(object sender, RoutedEventArgs e)
     {
         if (sender is not CardControl card || (card.Content as TextBlock)?.Text is not { } str)
+        {
             return;
+        }
+
+        if (card.Name == "_biosCard")
+        {
+            _count++;
+
+            if (_count != 5)
+            {
+                return;
+            }
+
+            _count = 0;
+
+            if (_amdOverclockingWindow is not { IsLoaded: true })
+            {
+                _amdOverclockingWindow = new AmdOverclocking();
+                _amdOverclockingWindow.Show();
+            }
+            else
+            {
+                _amdOverclockingWindow.Activate();
+                if (_amdOverclockingWindow.WindowState == WindowState.Minimized)
+                {
+                    _amdOverclockingWindow.BringToForeground();
+                }
+            }
+        }
+        else
+        {
+            _count = 0;
+        }
 
         try
         {
             Clipboard.SetText(str);
             _ = _snackBar.ShowAsync(Resource.CopiedToClipboard_Title, string.Format(Resource.CopiedToClipboard_Message_WithParam, str));
-
-            if (card.Name == "_biosCard")
-            {
-                _count++;
-
-                if (_count != 5)
-                {
-                    return;
-                }
-
-                _count = 0;
-
-                if (_amdOverclockingWindow is not { IsLoaded: true })
-                {
-                    _amdOverclockingWindow = new AmdOverclocking();
-                    _amdOverclockingWindow.Show();
-                }
-                else
-                {
-                    _amdOverclockingWindow.Activate();
-                    if (_amdOverclockingWindow.WindowState == WindowState.Minimized)
-                    {
-                        _amdOverclockingWindow.BringToForeground();
-                    }
-                }
-            }
-            else
-            {
-                _count = 0;
-            }
         }
         catch (Exception ex)
         {
