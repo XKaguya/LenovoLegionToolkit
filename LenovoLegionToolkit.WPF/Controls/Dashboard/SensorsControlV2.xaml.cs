@@ -100,6 +100,16 @@ public partial class SensorsControlV2
             kv.Value.Visibility = _activeSensorItems.Contains(kv.Key) ? Visibility.Visible : Visibility.Collapsed;
         }
 
+        bool hasAnyGpuTemp = _activeSensorItems.Contains(SensorItem.GpuCoreTemperature) ||
+                             _activeSensorItems.Contains(SensorItem.GpuVramTemperature);
+
+        if (hasAnyGpuTemp)
+        {
+            _gpuTemperaturesGrid.Visibility = Visibility.Visible;
+            _gpuCoreTempPanel.Visibility = _activeSensorItems.Contains(SensorItem.GpuCoreTemperature) ? Visibility.Visible : Visibility.Collapsed;
+            _gpuVramTempPanel.Visibility = _activeSensorItems.Contains(SensorItem.GpuVramTemperature) ? Visibility.Visible : Visibility.Collapsed;
+        }
+
         UpdateCardVisibility(_cpuCard, [SensorItem.CpuUtilization, SensorItem.CpuFrequency, SensorItem.CpuFanSpeed, SensorItem.CpuTemperature, SensorItem.CpuPower]);
         UpdateCardVisibility(_gpuCard, [SensorItem.GpuUtilization, SensorItem.GpuFrequency, SensorItem.GpuFanSpeed, SensorItem.GpuCoreTemperature, SensorItem.GpuVramTemperature, SensorItem.GpuPower]);
         UpdateMotherboardCardVisibility();

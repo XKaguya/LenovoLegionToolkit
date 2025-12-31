@@ -26,7 +26,6 @@ public partial class EditSensorGroupWindow
     private void InitializeCheckboxes()
     {
         _groupsStackPanel.Children.Clear();
-
         var activeItems = new HashSet<SensorItem>(_settings.Store.VisibleItems ?? []);
 
         foreach (var group in SensorGroup.DefaultGroups)
@@ -41,7 +40,10 @@ public partial class EditSensorGroupWindow
 
             foreach (var item in group.Items)
             {
-                if (item == SensorItem.GpuTemperatures) continue;
+                if (item == SensorItem.GpuTemperatures)
+                {
+                    continue;
+                }
 
                 var checkBox = new CheckBox
                 {
@@ -84,6 +86,15 @@ public partial class EditSensorGroupWindow
                         selectedItems.Add(item);
                     }
                 }
+            }
+        }
+
+        if (selectedItems.Contains(SensorItem.GpuCoreTemperature) ||
+            selectedItems.Contains(SensorItem.GpuVramTemperature))
+        {
+            if (!selectedItems.Contains(SensorItem.GpuTemperatures))
+            {
+                selectedItems.Add(SensorItem.GpuTemperatures);
             }
         }
 
