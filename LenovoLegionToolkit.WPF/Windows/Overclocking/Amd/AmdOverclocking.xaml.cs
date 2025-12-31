@@ -54,6 +54,7 @@ public partial class AmdOverclocking : UiWindow
         else
         {
             ShowStatus($"{Resource.Error}", $"{Resource.AmdOverclocking_Do_Not_Apply_Message}", InfoBarSeverity.Error, true);
+            _controller.DoNotApply = false;
         }
     }
 
