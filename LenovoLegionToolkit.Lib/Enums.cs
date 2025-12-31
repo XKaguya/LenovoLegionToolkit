@@ -577,6 +577,30 @@ public enum RGBKeyboardBacklightSpeed
     Fastest
 }
 
+public enum SensorItem
+{
+    CpuUtilization,
+    CpuFrequency,
+    CpuFanSpeed,
+    CpuTemperature,
+    CpuPower,
+    GpuUtilization,
+    GpuFrequency,
+    GpuFanSpeed,
+    GpuCoreTemperature,
+    GpuVramTemperature,
+    GpuTemperatures,
+    GpuPower,
+    PchFanSpeed,
+    PchTemperature,
+    BatteryState,
+    BatteryLevel,
+    MemoryUtilization,
+    MemoryTemperature,
+    Disk1Temperature,
+    Disk2Temperature
+}
+
 public enum SpeakerState
 {
     [Display(ResourceType = typeof(Resource), Name = "SpeakerState_Mute")]

@@ -845,7 +845,7 @@ public partial class App
 
                 EnsureGadgetCreated(shouldBeUpper);
                 FloatingGadget?.Show();
-                FloatingGadget?.BringToForeground();
+                // FloatingGadget?.BringToForeground();
                 break;
             }
             case FloatingGadgetState.Toggle when FloatingGadget is { IsVisible: true }:

@@ -1,6 +1,7 @@
 ﻿using Humanizer;
 using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Controllers.Sensors;
+using LenovoLegionToolkit.Lib.Messaging;
 using LenovoLegionToolkit.Lib.Settings;
 using LenovoLegionToolkit.Lib.System;
 using LenovoLegionToolkit.Lib.Utils;
@@ -15,6 +16,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Threading;
+using LenovoLegionToolkit.Lib.Messaging.Messages;
 using Wpf.Ui.Common;
 using MenuItem = Wpf.Ui.Controls.MenuItem;
 
@@ -71,6 +73,37 @@ public partial class SensorsControlV2
         {
             _pchGridName.Text = Resource.SensorsControl_Motherboard_Temperature;
         }
+
+        MessagingCenter.Subscribe<DashboardElementChangedMessage>(this, message =>
+        {
+            Dispatcher.Invoke(() =>
+            {
+                lock (_updateLock)
+                {
+                    _activeSensorItems.Clear();
+
+                    foreach (var item in message.Items)
+                    {
+                        _activeSensorItems.Add((SensorItem)(int)item);
+                    }
+
+                    UpdateControlsVisibility();
+                }
+            });
+        });
+    }
+
+    private void UpdateControlsVisibility()
+    {
+        foreach (var kv in _sensorItemToControlMap)
+        {
+            kv.Value.Visibility = _activeSensorItems.Contains(kv.Key) ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        UpdateCardVisibility(_cpuCard, [SensorItem.CpuUtilization, SensorItem.CpuFrequency, SensorItem.CpuFanSpeed, SensorItem.CpuTemperature, SensorItem.CpuPower]);
+        UpdateCardVisibility(_gpuCard, [SensorItem.GpuUtilization, SensorItem.GpuFrequency, SensorItem.GpuFanSpeed, SensorItem.GpuCoreTemperature, SensorItem.GpuVramTemperature, SensorItem.GpuPower]);
+        UpdateMotherboardCardVisibility();
+        UpdateMemoryDiskCardVisibility();
     }
 
     private void InitializeContextMenu()
@@ -101,10 +134,15 @@ public partial class SensorsControlV2
         if (IsVisible)
         {
             _activeSensorItems.Clear();
-            foreach (SensorItem item in _sensorsControlSettings.Store.VisibleItems!)
+            if (_sensorsControlSettings.Store.VisibleItems != null)
             {
-                _activeSensorItems.Add(item);
+                foreach (SensorItem item in _sensorsControlSettings.Store.VisibleItems)
+                {
+                    _activeSensorItems.Add(item);
+                }
             }
+
+            UpdateControlsVisibility();
             await StartRefreshLoop();
         }
         else
