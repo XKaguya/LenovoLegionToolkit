@@ -109,24 +109,22 @@ public partial class DeviceInformationWindow
         {
             _count++;
 
-            if (_count != 5)
+            if (_count == 5)
             {
-                return;
-            }
+                _count = 0;
 
-            _count = 0;
-
-            if (_amdOverclockingWindow is not { IsLoaded: true })
-            {
-                _amdOverclockingWindow = new AmdOverclocking();
-                _amdOverclockingWindow.Show();
-            }
-            else
-            {
-                _amdOverclockingWindow.Activate();
-                if (_amdOverclockingWindow.WindowState == WindowState.Minimized)
+                if (_amdOverclockingWindow is not { IsLoaded: true })
                 {
-                    _amdOverclockingWindow.BringToForeground();
+                    _amdOverclockingWindow = new AmdOverclocking();
+                    _amdOverclockingWindow.Show();
+                }
+                else
+                {
+                    _amdOverclockingWindow.Activate();
+                    if (_amdOverclockingWindow.WindowState == WindowState.Minimized)
+                    {
+                        _amdOverclockingWindow.BringToForeground();
+                    }
                 }
             }
         }
