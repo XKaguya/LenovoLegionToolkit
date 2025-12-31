@@ -571,4 +571,7 @@
   <data name="AmdOverclocking_Not_Initialized_Message" xml:space="preserve">
     <value>未初始化。</value>
   </data>
+  <data name="FloatingGadgetState_Toggle" xml:space="preserve">
+    <value>Toggle</value>
+  </data>
 </root>
