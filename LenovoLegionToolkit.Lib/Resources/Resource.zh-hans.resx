@@ -572,9 +572,9 @@
     <value>未初始化。</value>
   </data>
   <data name="FloatingGadgetState_Toggle" xml:space="preserve">
-    <value>Toggle</value>
+    <value>切换</value>
   </data>
   <data name="AmdOverclocking_Not_Supported" xml:space="preserve">
-    <value>Not supported.</value>
+    <value>不支持此操作。</value>
   </data>
 </root>
