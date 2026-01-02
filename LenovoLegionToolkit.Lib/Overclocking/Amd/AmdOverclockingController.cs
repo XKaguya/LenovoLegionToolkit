@@ -1,4 +1,5 @@
 ﻿using LenovoLegionToolkit.Lib.Resources;
+using LenovoLegionToolkit.Lib.System;
 using LenovoLegionToolkit.Lib.Utils;
 using System;
 using System.Collections.Generic;
@@ -141,7 +142,19 @@ public sealed class AmdOverclockingController : IDisposable
 
     public async Task ApplyProfileAsync(OverclockingProfile profile)
     {
-        if (DoNotApply) return;
+        if (DoNotApply)
+        {
+            return;
+        }
+
+        var status = await Power.IsPowerAdapterConnectedAsync().ConfigureAwait(false);
+
+        switch (status)
+        {
+            case PowerAdapterStatus.ConnectedLowWattage:
+            case PowerAdapterStatus.Disconnected:
+                throw new InvalidOperationException(Resource.AmdOverclocking_Ac_Message);
+        }
 
         EnsureInitialized();
 

@@ -801,6 +801,10 @@ public partial class App
                 Log.Instance.Trace($"AMD Overclocking Controller initialization task finished.");
             }
         }
+        catch (InvalidOperationException)
+        {
+            Log.Instance.Trace($"Profile apply has been canceled due to AC issue.");
+        }
         catch (Exception ex)
         {
             Log.Instance.Trace($"Failed to apply profile on startup: {ex.Message}", ex);

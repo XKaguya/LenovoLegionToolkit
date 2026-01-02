@@ -106,6 +106,15 @@ namespace LenovoLegionToolkit.Lib.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Profile will not apply without AC adapter (Full wattage) connected. 的本地化字符串。
+        /// </summary>
+        public static string AmdOverclocking_Ac_Message {
+            get {
+                return ResourceManager.GetString("AmdOverclocking_Ac_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Not initialized. 的本地化字符串。
         /// </summary>
         public static string AmdOverclocking_Not_Initialized_Message {
