@@ -577,4 +577,7 @@
   <data name="AmdOverclocking_Not_Supported" xml:space="preserve">
     <value>Not supported.</value>
   </data>
+  <data name="AmdOverclocking_Ac_Message" xml:space="preserve">
+    <value>Profile will not apply without AC adapter (Full wattage) connected.</value>
+  </data>
 </root>
