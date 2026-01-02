@@ -1,5 +1,7 @@
 ﻿using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.Utils;
+using LenovoLegionToolkit.Lib.GameDetection;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -20,32 +22,80 @@ public class GameAutoListener : AbstractAutoListener<GameAutoListener.ChangedEve
         public bool Running { get; } = running;
     }
 
-    private readonly Dictionary<uint, string> _pidToIdentityMap = [];
-    private readonly Dictionary<string, int> _activeIdentityCounts = [];
-    private readonly HashSet<string> _discoveredLibraryPaths = new(StringComparer.OrdinalIgnoreCase);
-    private ManagementEventWatcher? _startWatcher;
-    private ManagementEventWatcher? _stopWatcher;
-    private bool _lastState;
-    private readonly AsyncLock _lock = new();
-
     private static readonly string WindowsPath = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
     private static readonly string[] ProVendors =
     [
-        "Adobe", "Autodesk", "Dassault", "Bentley", "Google", "JetBrains", "Microsoft Corporation"
+        "Adobe", "Autodesk", "Dassault", "Bentley", "Google", "JetBrains",
+        "Microsoft Corporation", "NVIDIA Corporation", "Intel Corporation", "AMD"
     ];
 
-    public GameAutoListener()
+    private static readonly string[] GameMarkers =
+    [
+        "steam_api64.dll", "steam_api.dll", "eossdk", "unityplayer.dll", "gameassembly.dll",
+        "xinput", "vulkan-1.dll", "bink2w64.dll", "steam_appid.txt", "discord_game_sdk",
+        "d3d11.dll", "d3d12.dll", "dxgi.dll", "PhysX", "AnselSDK64.dll", "Galaxy64.dll",
+        "EA.GameData.dll", "EAAntiCheat", "uplay_r1_loader64.dll", "CryRender",
+        "CryPhysics", "NvFlow", "FMOD", "AkSoundEngine"
+    ];
+
+    private readonly Dictionary<uint, string> _pidToPathMap = [];
+    private readonly HashSet<string> _discoveredLibraryPaths = new(StringComparer.OrdinalIgnoreCase);
+    private readonly HashSet<ProcessInfo> _detectedGamePathsCache = [];
+
+    private ManagementEventWatcher? _startWatcher;
+    private ManagementEventWatcher? _stopWatcher;
+    private bool _lastState;
+    private bool _isGameModeActive;
+    private readonly AsyncLock _lock = new();
+
+    private readonly InstanceStartedEventAutoAutoListener _instanceListener;
+    private readonly GameConfigStoreDetector _gameConfigStoreDetector;
+    private readonly EffectiveGameModeDetector _effectiveGameModeDetector;
+
+    public GameAutoListener(InstanceStartedEventAutoAutoListener instanceListener)
     {
+        _instanceListener = instanceListener;
+        _gameConfigStoreDetector = new GameConfigStoreDetector();
+        _effectiveGameModeDetector = new EffectiveGameModeDetector();
+
+        _gameConfigStoreDetector.GamesDetected += (s, e) =>
+        {
+            using (_lock.Lock())
+            {
+                _detectedGamePathsCache.Clear();
+                foreach (var g in e.Games) _detectedGamePathsCache.Add(g);
+            }
+        };
+
+        _effectiveGameModeDetector.Changed += (s, e) =>
+        {
+            using (_lock.Lock())
+            {
+                _isGameModeActive = e;
+                if (_pidToPathMap.Count == 0) RaiseChangedIfNeeded(e);
+            }
+        };
+
         InitializeLibraryPaths();
     }
 
     public bool AreGamesRunning()
     {
-        lock (_lock) return _lastState;
+        using (_lock.Lock()) return _lastState;
     }
 
     protected override async Task StartAsync()
     {
+        using (await _lock.LockAsync().ConfigureAwait(false))
+        {
+            foreach (var gamePath in GameConfigStoreDetector.GetDetectedGamePaths())
+                _detectedGamePathsCache.Add(gamePath);
+        }
+
+        await _gameConfigStoreDetector.StartAsync().ConfigureAwait(false);
+        await _effectiveGameModeDetector.StartAsync().ConfigureAwait(false);
+        await _instanceListener.SubscribeChangedAsync(OnInstanceStarted).ConfigureAwait(false);
+
         _ = Task.Run(() =>
         {
             foreach (var proc in Process.GetProcesses())
@@ -53,8 +103,8 @@ public class GameAutoListener : AbstractAutoListener<GameAutoListener.ChangedEve
                 try
                 {
                     var path = proc.GetFileName();
-                    if (!string.IsNullOrEmpty(path) && !path.Contains("System.Char[]"))
-                        EvaluateProcess((uint)proc.Id, proc.ProcessName, path, true);
+                    if (string.IsNullOrEmpty(path)) continue;
+                    EvaluateProcess((uint)proc.Id, proc.ProcessName, path, true);
                 }
                 catch { /* Ignore */ }
             }
@@ -64,7 +114,7 @@ public class GameAutoListener : AbstractAutoListener<GameAutoListener.ChangedEve
         {
             try
             {
-                var startQuery = new WqlEventQuery("SELECT * FROM __InstanceCreationEvent WITHIN 1 WHERE TargetInstance ISA 'Win32_Process'");
+                var startQuery = new WqlEventQuery("SELECT * FROM __InstanceCreationEvent WITHIN 2 WHERE TargetInstance ISA 'Win32_Process'");
                 _startWatcher = new ManagementEventWatcher(startQuery);
                 _startWatcher.EventArrived += (s, e) =>
                 {
@@ -72,6 +122,7 @@ public class GameAutoListener : AbstractAutoListener<GameAutoListener.ChangedEve
                     uint pid = (uint)target["ProcessID"];
                     string? name = target["Name"]?.ToString();
                     string? path = target["ExecutablePath"]?.ToString();
+                    if (string.IsNullOrEmpty(path)) try { path = Process.GetProcessById((int)pid).GetFileName(); } catch { /* Ignore */ }
                     Task.Run(() => EvaluateProcess(pid, name, path));
                 };
 
@@ -86,93 +137,97 @@ public class GameAutoListener : AbstractAutoListener<GameAutoListener.ChangedEve
                 _startWatcher.Start();
                 _stopWatcher.Start();
             }
-            catch (Exception ex)
-            {
-                Log.Instance.Trace($"WMI failure", ex);
-            }
+            catch (Exception ex) { Log.Instance.Trace($"WMI failure", ex); }
         }).ConfigureAwait(false);
     }
 
     protected override async Task StopAsync()
     {
-        await Task.Run(() =>
+        await _instanceListener.UnsubscribeChangedAsync(OnInstanceStarted).ConfigureAwait(false);
+        await _gameConfigStoreDetector.StopAsync().ConfigureAwait(false);
+        await _effectiveGameModeDetector.StopAsync().ConfigureAwait(false);
+
+        try { _startWatcher?.Stop(); _stopWatcher?.Stop(); } catch { /* Ignore */ }
+        _startWatcher?.Dispose(); _stopWatcher?.Dispose();
+        _startWatcher = null; _stopWatcher = null;
+
+        using (await _lock.LockAsync().ConfigureAwait(false))
         {
-            try { _startWatcher?.Stop(); _stopWatcher?.Stop(); } catch { }
-            _startWatcher?.Dispose(); _stopWatcher?.Dispose();
-            _startWatcher = null; _stopWatcher = null;
-            lock (_lock)
-            {
-                _pidToIdentityMap.Clear();
-                _activeIdentityCounts.Clear();
-                _lastState = false;
-            }
-        }).ConfigureAwait(false);
+            _pidToPathMap.Clear();
+            _lastState = false;
+        }
     }
 
     private void EvaluateProcess(uint pid, string? processName, string? path, bool isInitialScan = false)
     {
-        if (string.IsNullOrEmpty(path) || path.Contains("System.Char[]") || string.IsNullOrEmpty(processName)) return;
+        if (string.IsNullOrEmpty(path) || !Path.IsPathRooted(path) || path.Contains("System.Char[]")) return;
         if (path.StartsWith(WindowsPath, StringComparison.OrdinalIgnoreCase)) return;
 
+        bool isGame = false;
         try
         {
             if (!isInitialScan) Thread.Sleep(3000);
 
-            bool isLib = _discoveredLibraryPaths.Any(lib => path.StartsWith(lib, StringComparison.OrdinalIgnoreCase));
-            bool isShell = false;
-            bool isDisk = false;
-            bool isName = false;
-            bool isMem = false;
-
-            if (!isLib)
+            if (_discoveredLibraryPaths.Any(lib => path.StartsWith(lib, StringComparison.OrdinalIgnoreCase)))
             {
-                var versionInfo = FileVersionInfo.GetVersionInfo(path);
-                var company = versionInfo.CompanyName ?? string.Empty;
-                if (ProVendors.Any(v => company.Contains(v, StringComparison.OrdinalIgnoreCase))) return;
+                isGame = true;
+            }
 
-                isShell = IsGameViaShell(path);
-                isDisk = HasDiskFingerprint(path);
-                isName = HasGameNameHeuristic(processName);
-
-                if (!isShell && !isDisk && !isName)
+            if (!isGame)
+            {
+                using (_lock.Lock())
                 {
-                    using var process = Process.GetProcessById((int)pid);
-                    isMem = HasGameFingerprint(process);
+                    if (_detectedGamePathsCache.Any(g =>
+                        string.Equals(g.ExecutablePath, path, StringComparison.OrdinalIgnoreCase) ||
+                        string.Equals(g.Name, processName, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        isGame = true;
+                    }
                 }
             }
 
-            if (isLib || isShell || isDisk || isName || isMem)
+            if (!isGame)
             {
-                using var proc = Process.GetProcessById((int)pid);
-                var title = proc.MainWindowTitle;
-                var identity = string.IsNullOrWhiteSpace(title) ? processName : title;
-                MarkAsGame(pid, identity);
+                var versionInfo = FileVersionInfo.GetVersionInfo(path);
+                var company = versionInfo.CompanyName ?? string.Empty;
+                bool isPro = ProVendors.Any(v => company.Contains(v, StringComparison.OrdinalIgnoreCase));
+
+                if (!isPro)
+                {
+                    isGame = IsGameViaShell(path) ||
+                             HasGameNameHeuristic(processName ?? "") ||
+                             HasDiskFingerprint(path) ||
+                             HasMemoryFingerprint(pid);
+                }
             }
+
+            if (isGame) MarkAsGame(pid, path);
         }
         catch { /* Ignore */ }
     }
 
-    private void MarkAsGame(uint pid, string identity)
+    private void MarkAsGame(uint pid, string path)
     {
-        lock (_lock)
+        using (_lock.Lock())
         {
-            if (!_pidToIdentityMap.TryAdd(pid, identity)) return;
-            if (!_activeIdentityCounts.TryAdd(identity, 1)) _activeIdentityCounts[identity]++;
-            RaiseChangedIfNeeded(true);
+            if (_pidToPathMap.TryAdd(pid, path))
+            {
+                RaiseChangedIfNeeded(true);
+            }
         }
     }
 
     private void HandleProcessExit(uint pid)
     {
-        lock (_lock)
+        using (_lock.Lock())
         {
-            if (!_pidToIdentityMap.Remove(pid, out var identity)) return;
-            if (_activeIdentityCounts.TryGetValue(identity, out var count))
+            if (_pidToPathMap.Remove(pid))
             {
-                if (count <= 1) _activeIdentityCounts.Remove(identity);
-                else _activeIdentityCounts[identity] = count - 1;
+                if (_pidToPathMap.Count == 0)
+                {
+                    RaiseChangedIfNeeded(_isGameModeActive);
+                }
             }
-            if (_activeIdentityCounts.Count == 0) RaiseChangedIfNeeded(false);
         }
     }
 
@@ -183,55 +238,66 @@ public class GameAutoListener : AbstractAutoListener<GameAutoListener.ChangedEve
         RaiseChanged(new ChangedEventArgs(newState));
     }
 
-    private bool HasGameNameHeuristic(string processName)
-    {
-        return processName.Contains("-Win64-Shipping", StringComparison.OrdinalIgnoreCase) ||
-               processName.Contains("-Win32-Shipping", StringComparison.OrdinalIgnoreCase);
-    }
-
-    private bool HasGameFingerprint(Process process)
-    {
-        try
-        {
-            var modules = process.Modules.Cast<ProcessModule>().Select(m => m.ModuleName?.ToLower() ?? string.Empty);
-            string[] gameModules = ["steam_api", "eossdk", "unityplayer.dll", "gameassembly.dll", "xinput", "vulkan-1.dll"];
-            return modules.Any(m => gameModules.Any(g => g.Contains(m)));
-        }
-        catch { return false; }
-    }
-
     private bool HasDiskFingerprint(string exePath)
     {
         try
         {
-            var currentFolder = Path.GetDirectoryName(exePath);
-            if (string.IsNullOrEmpty(currentFolder) || !Directory.Exists(currentFolder)) return false;
+            var rootFolder = Path.GetDirectoryName(exePath);
+            if (string.IsNullOrEmpty(rootFolder) || !Directory.Exists(rootFolder)) return false;
 
-            string[] gameMarkers = ["steam_api64.dll", "steam_api.dll", "eossdk", "unityplayer.dll", "gameassembly.dll", "xinput", "vulkan-1.dll", "bink2w64.dll", "steam_appid.txt", "discord_game_sdk"];
-            var foldersToSearch = new List<string> { currentFolder };
-            var parent = Directory.GetParent(currentFolder);
-            if (parent != null)
+            var searchPaths = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            var current = new DirectoryInfo(rootFolder);
+            for (int i = 0; i < 6 && current != null; i++)
             {
-                foldersToSearch.Add(parent.FullName);
-                if (parent.Parent != null) foldersToSearch.Add(parent.Parent.FullName);
+                searchPaths.Add(current.FullName);
+                current = current.Parent;
             }
 
-            foreach (var folder in foldersToSearch)
+            void AddChildren(string path, int depth)
+            {
+                if (depth <= 0) return;
+                try
+                {
+                    foreach (var d in Directory.GetDirectories(path))
+                    {
+                        searchPaths.Add(d);
+                        AddChildren(d, depth - 1);
+                    }
+                }
+                catch { /* Ignore */ }
+            }
+            AddChildren(rootFolder, 3);
+
+            foreach (var folder in searchPaths)
             {
                 try
                 {
-                    var files = Directory.GetFiles(folder, "*.*").Select(Path.GetFileName).ToList();
-                    foreach (var marker in gameMarkers)
-                    {
-                        if (files.Any(f => f != null && f.Contains(marker, StringComparison.OrdinalIgnoreCase))) return true;
-                    }
+                    var files = Directory.GetFiles(folder, "*.*").Select(Path.GetFileName);
+                    if (files.Any(f => f != null && GameMarkers.Any(m => f.Contains(m, StringComparison.OrdinalIgnoreCase))))
+                        return true;
                 }
-                catch { continue; }
+                catch { /* Ignore */ }
             }
         }
         catch { /* Ignore */ }
         return false;
     }
+
+    private bool HasMemoryFingerprint(uint pid)
+    {
+        try
+        {
+            using var proc = Process.GetProcessById((int)pid);
+            return proc.Modules.Cast<ProcessModule>()
+                .Any(m => GameMarkers.Any(marker => m.ModuleName?.Contains(marker, StringComparison.OrdinalIgnoreCase) == true));
+        }
+        catch { return false; }
+    }
+
+    private bool HasGameNameHeuristic(string name) =>
+        name.Contains("-Win64-Shipping", StringComparison.OrdinalIgnoreCase) ||
+        name.Contains("-Win32-Shipping", StringComparison.OrdinalIgnoreCase) ||
+        name.EndsWith("Game", StringComparison.OrdinalIgnoreCase);
 
     private bool IsGameViaShell(string path)
     {
@@ -242,28 +308,38 @@ public class GameAutoListener : AbstractAutoListener<GameAutoListener.ChangedEve
             dynamic shell = Activator.CreateInstance(shellType)!;
             var folder = shell.NameSpace(Path.GetDirectoryName(path));
             var item = folder.ParseName(Path.GetFileName(path));
-            string kind = folder.GetDetailsOf(item, 305) ?? string.Empty;
-            return kind.Equals("Game", StringComparison.OrdinalIgnoreCase);
+            string kind = folder.GetDetailsOf(item, 305) ?? "";
+            return kind.Contains("Game", StringComparison.OrdinalIgnoreCase);
         }
         catch { return false; }
     }
 
+    private void OnInstanceStarted(object? sender, InstanceStartedEventAutoAutoListener.ChangedEventArgs e)
+    {
+        if (e.ProcessId <= 0) return;
+        string? realPath = null;
+        try { realPath = Process.GetProcessById(e.ProcessId).GetFileName(); } catch { /* Ignore */ }
+        if (!string.IsNullOrEmpty(realPath)) EvaluateProcess((uint)e.ProcessId, e.ProcessName, realPath!);
+    }
+
     private void InitializeLibraryPaths()
     {
+        void AddPath(string? path)
+        {
+            if (!string.IsNullOrEmpty(path) && Directory.Exists(path))
+                _discoveredLibraryPaths.Add(path);
+        }
+
         try
         {
-            var steamPath = Microsoft.Win32.Registry.GetValue(@"HKEY_CURRENT_USER\Software\Valve\Steam", "SteamPath", null) as string;
-            if (!string.IsNullOrEmpty(steamPath))
+            var steam = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Valve\Steam", "SteamPath", null) as string;
+            if (!string.IsNullOrEmpty(steam))
             {
-                var vdf = Path.Combine(steamPath, "steamapps", "libraryfolders.vdf");
+                var vdf = Path.Combine(steam!, "steamapps", "libraryfolders.vdf");
                 if (File.Exists(vdf))
                 {
-                    var matches = Regex.Matches(File.ReadAllText(vdf), @"""path""\s+""([^""]+)""");
-                    foreach (Match m in matches)
-                    {
-                        if (m.Groups.Count > 1)
-                            _discoveredLibraryPaths.Add(Path.Combine(m.Groups[1].Value.Replace(@"\\", @"\"), "steamapps", "common"));
-                    }
+                    foreach (Match m in Regex.Matches(File.ReadAllText(vdf), @"""path""\s+""([^""]+)"""))
+                        AddPath(Path.Combine(m.Groups[1].Value.Replace(@"\\", @"\"), "steamapps", "common"));
                 }
             }
         }
@@ -271,17 +347,19 @@ public class GameAutoListener : AbstractAutoListener<GameAutoListener.ChangedEve
 
         try
         {
-            var epicManifestPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), @"Epic\EpicGamesLauncher\Data\Manifests");
-            if (Directory.Exists(epicManifestPath))
+            var epic = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), @"Epic\EpicGamesLauncher\Data\Manifests");
+            if (Directory.Exists(epic))
             {
-                foreach (var file in Directory.GetFiles(epicManifestPath, "*.item"))
+                foreach (var f in Directory.GetFiles(epic, "*.item"))
                 {
-                    var match = Regex.Match(File.ReadAllText(file), @"""InstallLocation"":\s*""([^""]+)""");
-                    if (match is { Success: true, Groups.Count: > 1 })
-                        _discoveredLibraryPaths.Add(match.Groups[1].Value.Replace(@"\\", @"\").TrimEnd('\\'));
+                    var m = Regex.Match(File.ReadAllText(f), @"""InstallLocation"":\s*""([^""]+)""");
+                    if (m.Success) AddPath(m.Groups[1].Value.Replace(@"\\", @"\").TrimEnd('\\'));
                 }
             }
         }
         catch { /* Ignore */ }
+
+        try { AddPath(Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Electronic Arts\EA Core", "EADesktopInstallPath", null) as string); } catch { /* Ignore */ }
+        try { AddPath(Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\GOG.com\GalaxyClient\paths", "library", null) as string); } catch { /* Ignore */ }
     }
 }
