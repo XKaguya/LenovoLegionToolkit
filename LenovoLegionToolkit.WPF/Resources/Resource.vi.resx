@@ -475,7 +475,7 @@ CẢNH BÁO: Hành động sẽ không chạy đúng nếu màn hình laptop kh�
     <value>Thiết bị</value>
   </data>
   <data name="DeviceInformationWindow_LenovoSupport" xml:space="preserve">
-    <value>Lenovo Support</value>
+    <value>Hỗ trợ Lenovo</value>
   </data>
   <data name="DeviceInformationWindow_MachineType_Title" xml:space="preserve">
     <value>Mã Máy</value>
@@ -663,14 +663,14 @@ Xin chân thành cảm ơn!</value>
 Một số laptop có thể nhận giá trị thấp hơn mức cho phép, nên bạn hãy cẩn thận. Chức năng này có thể khiến laptop hoạt động không ổn định. Nếu bạn không biết bạn đang làm gì, hãy giữ nguyên giá trị này tại 0.</value>
   </data>
   <data name="GodModeSettingsWindow_Advanced_MinOffset_Title" xml:space="preserve">
-    <value>Minimum offset</value>
+    <value>Mức tăng thấp nhất</value>
   </data>
   <data name="GodModeSettingsWindow_Advanced_MaxOffset_Message" xml:space="preserve">
     <value>CẢNH BÁO!
 Một số laptop có thể nhận giá trị thấp hơn mức cho phép, nên bạn hãy cẩn thận. Chức năng này có thể khiến laptop hoạt động không ổn định. Nếu bạn không biết bạn đang làm gì, hãy giữ nguyên giá trị này tại 0.</value>
   </data>
   <data name="GodModeSettingsWindow_Advanced_MaxOffset_Title" xml:space="preserve">
-    <value>Maximum offset</value>
+    <value>Mức tăng tối đa</value>
   </data>
   <data name="GodModeSettingsWindow_Advanced_Message" xml:space="preserve">
     <value>KHÔNG THAY ĐỔI BẤT CỨ GIÁ TRỊ NÀO DƯỚI ĐÂY NẾU BẠN KHÔNG BIẾT CÔNG DỤNG CỦA CHÚNG!</value>
@@ -1234,7 +1234,7 @@ Nên khởi động lại sau khi thay đổi tùy chọn này.</value>
     <value>Thông báo</value>
   </data>
   <data name="SettingsPage_UpdateMethod_Title" xml:space="preserve">
-    <value>Update Method</value>
+    <value>Phương thức cập nhật</value>
   </data>
   <data name="SettingsPage_WindowsPowerPlans_Title" xml:space="preserve">
     <value>Power Plans</value>
@@ -1388,7 +1388,7 @@ Yêu cầu khởi động lại.</value>
     <value>Thử lại</value>
   </data>
   <data name="UnexpectedException" xml:space="preserve">
-    <value>Unexpected exception occurred:</value>
+    <value>Đã xảy ra lỗi ngoài ý muốn:</value>
   </data>
   <data name="Unnamed" xml:space="preserve">
     <value>Chưa có tên</value>
@@ -1417,7 +1417,7 @@ Logging sẽ được tự động bật, nếu bạn chọn tiếp tục.</valu
     <value>Thiết bị không được hỗ trợ</value>
   </data>
   <data name="UnsupportedWindow_Vendor" xml:space="preserve">
-    <value>Vendor</value>
+    <value>Nhà sản xuất</value>
   </data>
   <data name="Update" xml:space="preserve">
     <value>Cập nhật</value>
@@ -1751,10 +1751,10 @@ Chỉ hoạt động khi chế độ Tùy Chỉnh đang bật.</value>
     <value>Cài đặt ép xung GPU rời</value>
   </data>
   <data name="OverclockDiscreteGPUSettingsWindow_CoreFrequencyOffset_Title" xml:space="preserve">
-    <value>Core Frequency Offset</value>
+    <value>Tăng xung nhịp nhân</value>
   </data>
   <data name="OverclockDiscreteGPUSettingsWindow_MemoryFrequencyOffset_Title" xml:space="preserve">
-    <value>Memory Frequency Offset</value>
+    <value>Tăng xung nhịp VRAM</value>
   </data>
   <data name="OverclockDiscreteGPUControl_Title" xml:space="preserve">
     <value>Ép xung GPU</value>
@@ -1810,7 +1810,7 @@ CẢNH BÁO: Hành động này có thể chạy không đúng nếu GPU rời k
     <value>Mức sử dụng</value>
   </data>
   <data name="SensorsControl_CoreClock_Title" xml:space="preserve">
-    <value>Core Clock</value>
+    <value>Xung nhịp</value>
   </data>
   <data name="SensorsControl_Temperature_Title" xml:space="preserve">
     <value>Nhiệt độ</value>
@@ -1822,7 +1822,7 @@ CẢNH BÁO: Hành động này có thể chạy không đúng nếu GPU rời k
     <value>GPU</value>
   </data>
   <data name="SensorsControl_MemoryClock_Title" xml:space="preserve">
-    <value>Memory Clock</value>
+    <value>Xung nhịp</value>
   </data>
   <data name="SensorsControl_RefreshInterval" xml:space="preserve">
     <value>Thời gian làm mới</value>
@@ -2282,13 +2282,13 @@ Các định dạng hỗ trợ: {1}.</value>
 Chức năng này không ảnh hưởng các cửa sổ ở chế độ toàn màn hình, nhưng thông báo sẽ không thể bấm vào được.</value>
   </data>
   <data name="SensorsControl_VrTemperature_Title" xml:space="preserve">
-    <value>VR Temperature</value>
+    <value>Nhiệt độ VRM</value>
   </data>
   <data name="SensorsControl_GpuMemoryTemperature_Title" xml:space="preserve">
-    <value>Vram</value>
+    <value>VRAM</value>
   </data>
   <data name="SensorsControl_PchTemperature_Title" xml:space="preserve">
-    <value>PCH Temperature</value>
+    <value>Nhiệt độ PCH</value>
   </data>
   <data name="SensorsControl_Motherboard_Title" xml:space="preserve">
     <value>Motherboard</value>
@@ -2306,204 +2306,204 @@ Chức năng này không ảnh hưởng các cửa sổ ở chế độ toàn m�
     <value>Battery</value>
   </data>
   <data name="SensorsControl_State_Title" xml:space="preserve">
-    <value>State</value>
+    <value>Trạng thái</value>
   </data>
   <data name="SensorsControl_BatteryLevel_Title" xml:space="preserve">
-    <value>Battery Level</value>
+    <value>Mức pin</value>
   </data>
   <data name="BatteryPage_ACAdapterNotConnected" xml:space="preserve">
-    <value>No AC</value>
+    <value>Chưa cắm sạc</value>
   </data>
   <data name="DashboardBattery_AcConnected" xml:space="preserve">
-    <value>AC Connected</value>
+    <value>Đang cắm sạc</value>
   </data>
   <data name="DashboardBattery_AcDisconnected" xml:space="preserve">
-    <value>AC Disconnected</value>
+    <value>Đã rút sạc</value>
   </data>
   <data name="AboutPage_Log" xml:space="preserve">
-    <value>Log</value>
+    <value>Nhật ký</value>
   </data>
   <data name="SensorsControl_CPU_Power" xml:space="preserve">
-    <value>Power</value>
+    <value>Công suất</value>
   </data>
   <data name="SensorsControl_GPU_Power" xml:space="preserve">
-    <value>Power</value>
+    <value>Công suất</value>
   </data>
   <data name="SensorsControl_Disk_1_Temperature" xml:space="preserve">
-    <value>Disk 1 Temperature</value>
+    <value>Nhiệt độ ổ cứng 1</value>
   </data>
   <data name="SensorsControl_Disk_2_Temperature" xml:space="preserve">
-    <value>Disk 2 Temperature</value>
+    <value>Nhiệt độ ổ cứng 2</value>
   </data>
   <data name="SettingsPage_EnableLogging_Title" xml:space="preserve">
-    <value>Enable Logging</value>
+    <value>Bật ghi nhật ký</value>
   </data>
   <data name="SettingsPage_EnableLogging_Message" xml:space="preserve">
-    <value>Enable logging for debug.</value>
+    <value>Bật ghi nhật ký để gỡ lỗi.</value>
   </data>
   <data name="SensorItem_CpuUtilitzation" xml:space="preserve">
-    <value>CPU Utilitazion</value>
+    <value>Mức sử dụng CPU</value>
   </data>
   <data name="SensorItem_CpuFrequency" xml:space="preserve">
-    <value>CPU Frequency</value>
+    <value>Xung nhịp CPU</value>
   </data>
   <data name="SensorItem_CpuFanSpeed" xml:space="preserve">
-    <value>CPU Fan Speed</value>
+    <value>Tốc độ quạt CPU</value>
   </data>
   <data name="SensorItem_CpuTemperature" xml:space="preserve">
-    <value>CPU Temperature</value>
+    <value>Nhiệt độ CPU</value>
   </data>
   <data name="SensorItem_CpuPower" xml:space="preserve">
-    <value>CPU Power</value>
+    <value>Công suất CPU</value>
   </data>
   <data name="SensorItem_GpuUtilization" xml:space="preserve">
-    <value>GPU Utilization</value>
+    <value>Mức sử dụng GPU</value>
   </data>
   <data name="SensorItem_GpuFrequency" xml:space="preserve">
-    <value>GPU Frequency</value>
+    <value>Xung nhịp GPU</value>
   </data>
   <data name="SensorItem_GpuFanSpeed" xml:space="preserve">
-    <value>GPU Fan Speed</value>
+    <value>Tốc độ quạt GPU</value>
   </data>
   <data name="SensorItem_PchFanSpeed" xml:space="preserve">
-    <value>PCH Fan Speed</value>
+    <value>Tốc độ quạt PCH</value>
   </data>
   <data name="SensorItem_PchTemperature" xml:space="preserve">
-    <value>PCH Temperature</value>
+    <value>Nhiệt độ PCH</value>
   </data>
   <data name="SensorItem_BatteryState" xml:space="preserve">
-    <value>Battery State</value>
+    <value>Trạng thái pin</value>
   </data>
   <data name="SensorItem_BatteryLevel" xml:space="preserve">
-    <value>Battery Level</value>
+    <value>Mức pin</value>
   </data>
   <data name="SensorItem_MemoryUtilization" xml:space="preserve">
-    <value>Memory Utilization</value>
+    <value>Mức sử dụng bộ nhớ</value>
   </data>
   <data name="SensorItem_MemoryTemperature" xml:space="preserve">
-    <value>Memory Temperature</value>
+    <value>Nhiệt độ bộ nhớ</value>
   </data>
   <data name="SensorItem_Disk1Temperature" xml:space="preserve">
-    <value>Disk 1 Temperature</value>
+    <value>Nhiệt độ ổ cứng 1</value>
   </data>
   <data name="SensorItem_Disk2Temperature" xml:space="preserve">
-    <value>Disk 2 Temperature</value>
+    <value>Nhiệt độ ổ cứng 2</value>
   </data>
   <data name="EditSensorWindow_Title" xml:space="preserve">
-    <value>Edit Sensor</value>
+    <value>Chỉnh sửa cảm biến</value>
   </data>
   <data name="SensorItem_GpuTemperatures" xml:space="preserve">
-    <value>GPU Temperature</value>
+    <value>Nhiệt độ GPU</value>
   </data>
   <data name="SettingsPage_UseNewSensorDashboard_Title" xml:space="preserve">
-    <value>Use New Sensor Dashboard</value>
+    <value>Dùng bảng cảm biến mới</value>
   </data>
   <data name="SettingsPage_UseNewSensorDashboard_Message" xml:space="preserve">
-    <value>Use new sensor dashboard instead of the old one. </value>
+    <value>Sử dụng bảng cảm biến mới thay thế bảng cảm biến cũ. </value>
   </data>
   <data name="SettingsPage_LockWindowSize_Title" xml:space="preserve">
-    <value>Lock Window Size</value>
+    <value>Khóa kích thước cửa sổ</value>
   </data>
   <data name="SettingsPage_LockWindowSize_Message" xml:space="preserve">
-    <value>Lock LLT's window size. To prevent something change it.</value>
+    <value>Khóa kích thước cửa sổ LLT để tránh vô ý thay đổi.</value>
   </data>
   <data name="FanCurveControl_PCH" xml:space="preserve">
     <value>PCH</value>
   </data>
   <data name="SettingsPage_EnableLegionSpace_Error_Title" xml:space="preserve">
-    <value>Couldn't enable Legion Space</value>
+    <value>Không thể bật Legion Space</value>
   </data>
   <data name="SettingsPage_EnableLegionSpace_Error_Message" xml:space="preserve">
-    <value>Legion Space may have not been enabled correctly</value>
+    <value>Legion Space có thể chưa được bật đúng cách</value>
   </data>
   <data name="SettingsPage_DisableLegionSpace_Title" xml:space="preserve">
-    <value>Disable Legion Space</value>
+    <value>Tắt Legion Space</value>
   </data>
   <data name="MainWindow_LegionSpaceRunning" xml:space="preserve">
-    <value>Legion Space is running in the background.</value>
+    <value>Legion Space đang chạy ngầm.</value>
   </data>
   <data name="GodModeSettingsWindow_LegionSpaceWarning_Title" xml:space="preserve">
-    <value>Custom Mode settings will not be applied correctly when Legion Space or its services are running.</value>
+    <value>Các cài đặt trong Chế độ Tùy chỉnh sẽ không được áp dụng chính xác khi Legion Space hoặc các dịch vụ liên quan đang chạy.</value>
   </data>
   <data name="SettingsPage_DisableLegionSpace_Error_Title" xml:space="preserve">
-    <value>Couldn't disable Legion Space</value>
+    <value>Không thể tắt Legion Space</value>
   </data>
   <data name="SettingsPage_DisableLegionSpace_Error_Message" xml:space="preserve">
-    <value>Legion Space may have not been disabled correctly</value>
+    <value>Legion Space có thể đã không được tắt đúng cách</value>
   </data>
   <data name="SettingsPage_UseNewDashboard_Restart_Message" xml:space="preserve">
-    <value>Restart to apply changes.</value>
+    <value>Khởi động lại để áp dụng các thay đổi.</value>
   </data>
   <data name="SettingsPage_UseNewDashboard_Switch_Title" xml:space="preserve">
-    <value>Dashboard changed</value>
+    <value>Bảng cảm biến đã thay đổi</value>
   </data>
   <data name="MainWindow_PawnIO_Warning_Title" xml:space="preserve">
-    <value>Warning</value>
+    <value>Cảnh báo</value>
   </data>
   <data name="MainWindow_PawnIO_Warning_Message" xml:space="preserve">
-    <value>You need install PawnIO first to use the new dashboard!</value>
+    <value>Bạn cần cài đặt PawnIO trước để sử dụng bảng cảm biến mới!</value>
   </data>
   <data name="Warning" xml:space="preserve">
-    <value>Warning</value>
+    <value>Cảnh báo</value>
   </data>
   <data name="KeyboardBacklightPage_DynamicLightingEnabled" xml:space="preserve">
-    <value>Windows Dynamic lighting is enabled.
-This feature might prevent LLT to control the keyboard.
-Click Yes to disable and No to ignore.</value>
+    <value>Windows Dynamic Lighting đang bật.
+Tính năng này có thể ngăn LLT điều khiển bàn phím.
+Chọn Có để tắt và Không để bỏ qua.</value>
   </data>
   <data name="DialogWindow_DontShowAgain" xml:space="preserve">
-    <value>Don't show again.</value>
+    <value>Không hiển thị lại.</value>
   </data>
   <data name="ITSModeControl_Dialog_Title" xml:space="preserve">
-    <value>Missing Compoment</value>
+    <value>Thiếu thành phần</value>
   </data>
   <data name="ITSModeControl_Dialog_Message" xml:space="preserve">
-    <value>PowerBattery.dll is missing. Please place it manually to use ITSMode feature.</value>
+    <value>Thiếu tệp PowerBattery.dll. Vui lòng đặt tệp này vào thủ công để sử dụng tính năng ITSMode.</value>
   </data>
   <data name="ITSModeControl_Title" xml:space="preserve">
-    <value>IdeaPad Power Mode</value>
+    <value>Chế độ nguồn của IdeaPad</value>
   </data>
   <data name="ITSModeControl_Message" xml:space="preserve">
-    <value>Change IdeaPad Power Mode</value>
+    <value>Thay đổi chế độ nguồn của IdeaPad</value>
   </data>
   <data name="ITSModeAutomationStepControl_Title" xml:space="preserve">
-    <value>IdeaPad Power Mode</value>
+    <value>Chế độ nguồn của IdeaPad</value>
   </data>
   <data name="ITSModeAutomationStepControl_Message" xml:space="preserve">
-    <value>Change IdeaPad Power Mode</value>
+    <value>Thay đổi chế độ nguồn của IdeaPad</value>
   </data>
   <data name="SettingsPage_FloatingGadgets_Title" xml:space="preserve">
-    <value>Enable Floating Gadget</value>
+    <value>Bật Gadget nổi</value>
   </data>
   <data name="SettingsPage_FloatingGadgets_Message" xml:space="preserve">
-    <value>Floating Gadgets​​ is a floating window that displays real-time sensor information in an overlay style.</value>
+    <value>Gadget nổi là một cửa sổ hiển thị thông tin cảm biến theo thời gian thực dưới dạng lớp phủ.</value>
   </data>
   <data name="SettingsPage_FloatingGadgets_Tooltip" xml:space="preserve">
-    <value>Controls sensor refresh interval.</value>
+    <value>Điều chỉnh khoảng thời gian làm mới cảm biến.</value>
   </data>
   <data name="FloatingGadgets_Memory_Utilization" xml:space="preserve">
-    <value>Memory Utilization</value>
+    <value>Mức sử dụng</value>
   </data>
   <data name="FloatingGadgets_Memory_Temperature" xml:space="preserve">
-    <value>Memory Temperature</value>
+    <value>Nhiệt độ</value>
   </data>
   <data name="FloatingGadgets_Disk_0_Temperature" xml:space="preserve">
-    <value>Disk 1 Temperature</value>
+    <value>Nhiệt độ ổ cứng 1</value>
   </data>
   <data name="FloatingGadgets_Disk_1_Temperature" xml:space="preserve">
-    <value>Disk 2 Temperature</value>
+    <value>Nhiệt độ ổ cứng 2</value>
   </data>
   <data name="FloatingGadgets_CPU_Fan" xml:space="preserve">
-    <value>CPU Fan</value>
+    <value>Quạt CPU</value>
   </data>
   <data name="FloatingGadgets_GPU_Fan" xml:space="preserve">
-    <value>GPU Fan</value>
+    <value>Quạt GPU</value>
   </data>
   <data name="FloatingGadgets_PCH_Fan" xml:space="preserve">
-    <value>PCH Fan</value>
+    <value>Quạt PCH</value>
   </data>
   <data name="FloatingGadgets_Fans" xml:space="preserve">
-    <value>Fans</value>
+    <value>Quạt</value>
   </data>
   <data name="FloatingGadgets_Chipset" xml:space="preserve">
     <value>Chipset</value>
@@ -2515,40 +2515,40 @@ Click Yes to disable and No to ignore.</value>
     <value>CPU</value>
   </data>
   <data name="SettingsPage_Select_BackgroundImage_Title" xml:space="preserve">
-    <value>Select Background Image</value>
+    <value>Chọn hình nền</value>
   </data>
   <data name="SettingsPage_Select_BackgroundImage_ImageFile" xml:space="preserve">
-    <value>Image File</value>
+    <value>Tệp hình ảnh</value>
   </data>
   <data name="SettingsPage_Select_BackgroundImage_AllFiles" xml:space="preserve">
-    <value>All Files</value>
+    <value>Tất cả tệp</value>
   </data>
   <data name="SettingsPage_Custom_BackgroundImage_Title" xml:space="preserve">
-    <value>Custom Background Image</value>
+    <value>Hình nền tùy chỉnh</value>
   </data>
   <data name="SettingsPage_Custom_BackgroundImage_Message" xml:space="preserve">
-    <value>Custom Background Image</value>
+    <value>Hình nền tùy chỉnh</value>
   </data>
   <data name="SettingsPage_Select_BackgroundImage_Content" xml:space="preserve">
-    <value>Select Image</value>
+    <value>Chọn ảnh</value>
   </data>
   <data name="SettingsPage_Clear_BackgroundImage_Title" xml:space="preserve">
-    <value>Clear Image</value>
+    <value>Xóa ảnh</value>
   </data>
   <data name="SettingsPage_Clear_BackgroundImage_Message" xml:space="preserve">
-    <value>Clear current selected image file.</value>
+    <value>Xóa tệp hình ảnh đang chọn.</value>
   </data>
   <data name="SensorsControl_Motherboard_Temperature" xml:space="preserve">
-    <value>Board Temperature</value>
+    <value>Nhiệt độ bo mạch</value>
   </data>
   <data name="StatusWindow_Frequency_And_Temperature" xml:space="preserve">
-    <value>Frequency / Temperature</value>
+    <value>Xung nhịp / Nhiệt độ</value>
   </data>
   <data name="StatusWindow_Fan_And_Power" xml:space="preserve">
-    <value>Fan / Power</value>
+    <value>Quạt / Công suất</value>
   </data>
   <data name="StatusWindow_System_Fan" xml:space="preserve">
-    <value>System Fan</value>
+    <value>Quạt hệ thống</value>
   </data>
   <data name="FloatingGadgets_Fps" xml:space="preserve">
     <value>FPS</value>
@@ -2557,19 +2557,19 @@ Click Yes to disable and No to ignore.</value>
     <value>1% Low</value>
   </data>
   <data name="FloatingGadgets_Frame_Time" xml:space="preserve">
-    <value>Frame Time</value>
+    <value>Thời gian khung hình</value>
   </data>
   <data name="FloatingGadgetAutomationStepControl_Title" xml:space="preserve">
-    <value>Floating Gadget</value>
+    <value>Gadget nổi</value>
   </data>
   <data name="FloatingGadgetAutomationStepControl_Message" xml:space="preserve">
-    <value>Show or Hide the Floating Gadget</value>
+    <value>Hiện hoặc Ẩn Gadget nổi</value>
   </data>
   <data name="CloseAutomationStepControl_Title" xml:space="preserve">
-    <value>Close</value>
+    <value>Đóng</value>
   </data>
   <data name="CloseAutomationStepControl_Message" xml:space="preserve">
-    <value>Close the Lenovo Legion Toolkit</value>
+    <value>Đóng Lenovo Legion Toolkit</value>
   </data>
   <data name="FloatingGadget_Custom_Game" xml:space="preserve">
     <value>Game</value>
@@ -2584,109 +2584,110 @@ Click Yes to disable and No to ignore.</value>
     <value>Chipset</value>
   </data>
   <data name="FloatingGadget_Style_Simple" xml:space="preserve">
-    <value>Simple</value>
+    <value>Đơn giản</value>
   </data>
   <data name="SettingsPage_ClearBackgroundImage_Title" xml:space="preserve">
-    <value>Image Cleared</value>
+    <value>Ảnh đã được xoá</value>
   </data>
   <data name="GodModeSettingsWindow_PrecisionBoostOverdriveScaler_Title" xml:space="preserve">
-    <value>Precision Boost Overdrive Scaler</value>
+    <value>Bộ định tỷ lệ Precision Boost Overdrive</value>
   </data>
   <data name="GodModeSettingsWindow_PrecisionBoostOverdriveScaler_Description" xml:space="preserve">
-    <value>Precision Boost Overdrive Scaler.</value>
+    <value>Tăng giới hạn điện áp và dòng điện để duy trì xung nhịp cao lâu hơn.</value>
   </data>
   <data name="GodModeSettingsWindow_PrecisionBoostOverdriveBoostFrequency_Title" xml:space="preserve">
-    <value>Precision Boost Overdrive Boost Frequency</value>
+    <value>Xung nhịp tăng cường Precision Boost Overdrive</value>
   </data>
   <data name="GodModeSettingsWindow_PrecisionBoostOverdriveBoostFrequency_Description" xml:space="preserve">
-    <value>Precision Boost Overdrive Boost Frequency.</value>
+    <value>Tăng giới hạn xung nhịp tối đa khi CPU ở trạng thái Boost.</value>
   </data>
   <data name="GodModeSettingsWindow_AllCoreCurveOptimizer_Title" xml:space="preserve">
-    <value>All Core Curve Optimizer</value>
+    <value>Tối ưu Curve toàn nhân</value>
   </data>
   <data name="GodModeSettingsWindow_AllCoreCurveOptimizer_Description" xml:space="preserve">
-    <value>All Core Curve Optimizer.</value>
+    <value>Tối ưu hóa mức điện áp cho tất cả các nhân CPU cùng lúc để giảm nhiệt độ hoặc tăng hiệu năng.</value>
   </data>
   <data name="GodModeSettingsWindow_Toggle_OC_Title" xml:space="preserve">
-    <value>Advanced Overclocking Options</value>
+    <value>Tùy chọn ép xung nâng cao</value>
   </data>
   <data name="GodModeSettingsWindow_Toggle_OC_Message" xml:space="preserve">
-    <value>Enable / Disable Advanced Overclocking options.</value>
+    <value>Bật / Tắt các tùy chọn ép xung nâng cao.</value>
   </data>
   <data name="GodModeSettingsWindow_Toggle_CoreCurve_Title" xml:space="preserve">
-    <value>Core Curve Adjustment</value>
+    <value>Chỉnh Curve nhân</value>
   </data>
   <data name="GodModeSettingsWindow_Toggle_CoreCurve_Message" xml:space="preserve">
-    <value>Enable / Disable Core Curve Adjustment.</value>
+    <value>Bật / Tắt điều chỉnh Curve nhân.</value>
   </data>
   <data name="FloatingGadget_Custom_Title" xml:space="preserve">
-    <value>Customize Gadget Elements</value>
+    <value>Tùy chỉnh các thành phần Gadget</value>
   </data>
   <data name="KeyboardBacklightPage_CustomMode_Warning" xml:space="preserve">
-    <value>Custom Mode grants access to critical system parameters such as power limits and fan curves. 
+    <value>Chế độ Tùy chỉnh cho phép truy cập các thông số hệ thống quan trọng như giới hạn công suất và curves quạt.
 
-Misconfiguration can lead to severe system instability, thermal throttling, or permanent hardware damage. Modifications made here may void your manufacturer warranty. 
+Cấu hình sai có thể dẫn đến hệ thống mất ổn định nghiêm trọng, quá nhiệt hoặc hư hỏng phần cứng vĩnh viễn.
+Các thay đổi thực hiện tại đây có thể làm mất quyền lợi bảo hành từ nhà sản xuất.
 
-Do not proceed unless you possess the necessary technical expertise.</value>
+Vui lòng không tiếp tục trừ khi bạn có kiến thức và chuyên môn kỹ thuật cần thiết.</value>
   </data>
   <data name="PeriodicActionPipelineTriggerTabItemContent_Minutes" xml:space="preserve">
-    <value>Minutes</value>
+    <value>Phút</value>
   </data>
   <data name="PeriodicActionPipelineTriggerTabItemContent_Seconds" xml:space="preserve">
-    <value>Seconds</value>
+    <value>Giây</value>
   </data>
   <data name="SpeakerVolumeAutomationStepControl_Title" xml:space="preserve">
-    <value>Speaker Volume</value>
+    <value>Âm lượng loa</value>
   </data>
   <data name="SpeakerVolumeAutomationStepControl_Message" xml:space="preserve">
-    <value>Change the speaker's volume.</value>
+    <value>Thay đổi âm lượng loa.</value>
   </data>
   <data name="AmdOverclocking_Caution_Title" xml:space="preserve">
-    <value>Caution</value>
+    <value>Chú ý</value>
   </data>
   <data name="AmdOverclocking_Caution_Message" xml:space="preserve">
-    <value>Changing these settings may impact system stability. Proceed with caution.</value>
+    <value>Thay đổi các cài đặt này có thể ảnh hưởng đến sự ổn định của hệ thống. Hãy thận trọng khi thực hiện.</value>
   </data>
   <data name="AmdOverclocking_Status_Title" xml:space="preserve">
-    <value>Status</value>
+    <value>Trạng thái</value>
   </data>
   <data name="AmdOverclocking_FMax_Frequency_Title" xml:space="preserve">
-    <value>FMax Frequency</value>
+    <value>Xung nhịp FMax</value>
   </data>
   <data name="AmdOverclocking_FMax_Frequency_Message" xml:space="preserve">
-    <value>Maximum CPU boost frequency override (MHz)</value>
+    <value>Ghi đè xung nhịp tăng cường CPU tối đa (MHz)</value>
   </data>
   <data name="AmdOverclocking_Core_Title" xml:space="preserve">
-    <value>Core</value>
+    <value>Nhân</value>
   </data>
   <data name="Reset" xml:space="preserve">
-    <value>Reset</value>
+    <value>Đặt lại</value>
   </data>
   <data name="AmdOverclocking_Apply_Changes" xml:space="preserve">
-    <value>Apply Changes</value>
+    <value>Áp dụng thay đổi</value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value>Error</value>
+    <value>Lỗi</value>
   </data>
   <data name="AmdOverclocking_Do_Not_Apply_Message" xml:space="preserve">
-    <value>Profile apply has been canceled due to abnormal restart.</value>
+    <value>Việc áp dụng cấu hình đã bị hủy do quá trình khởi động lại không bình thường.</value>
   </data>
   <data name="RunAutomationStepControl_ProcessCheckInstance" xml:space="preserve">
-    <value>Check Instance</value>
+    <value>Kiểm tra tiến trình</value>
   </data>
   <data name="RunAutomationStepControl_ProcessCheckInstance_Description" xml:space="preserve">
-    <value>Check if process already started.</value>
+    <value>Kiểm tra xem tiến trình đã bắt đầu chưa.</value>
   </data>
   <data name="AmdOverclocking_Success_Title" xml:space="preserve">
-    <value>Success</value>
+    <value>Thành công</value>
   </data>
   <data name="AmdOverclocking_Success_Message" xml:space="preserve">
-    <value>Settings applied successfully.</value>
+    <value>Đã áp dụng cài đặt thành công.</value>
   </data>
   <data name="AmdOverclocking_X3D_Gaming_Mode_Title" xml:space="preserve">
-    <value>X3D Gaming Mode</value>
+    <value>Chế độ chơi game X3D</value>
   </data>
   <data name="AmdOverclocking_X3D_Gaming_Mode_Message" xml:space="preserve">
-    <value>Disable CCD 1 to get stability on both FPS and temperatures</value>
+    <value>Tắt CCD 1 để đạt được sự ổn định về cả FPS và nhiệt độ</value>
   </data>
 </root>
