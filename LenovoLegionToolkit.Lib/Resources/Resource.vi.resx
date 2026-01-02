@@ -331,13 +331,13 @@
     <value>Luôn luôn</value>
   </data>
   <data name="SpectrumKeyboardBacklightEffectType_AudioBounce" xml:space="preserve">
-    <value>Audio Bounce</value>
+    <value>Nhịp nhạc</value>
   </data>
   <data name="SpectrumKeyboardBacklightEffectType_AudioRipple" xml:space="preserve">
     <value>Audio Ripple</value>
   </data>
   <data name="SpectrumKeyboardBacklightEffectType_AuroraSync" xml:space="preserve">
-    <value>Aurora Sync</value>
+    <value>Đồng bộ Aurora</value>
   </data>
   <data name="SpectrumKeyboardBacklightEffectType_ColorChange" xml:space="preserve">
     <value>Đổi màu</value>
@@ -434,7 +434,7 @@
     <value>Bộ sạc</value>
   </data>
   <data name="InstantBootState_UsbPowerDelivery" xml:space="preserve">
-    <value>USB Power Delivery</value>
+    <value>Cấp nguồn USB</value>
   </data>
   <data name="InstantBootState_AcAdapterAndUsbPowerDelivery" xml:space="preserve">
     <value>AC và USB PD</value>
@@ -500,22 +500,22 @@
     <value>Hàng tuần</value>
   </data>
   <data name="PowerModeState_Extreme" xml:space="preserve">
-    <value>Extreme</value>
+    <value>Tối đa</value>
   </data>
   <data name="UpdateCheckFrequency_Never" xml:space="preserve">
-    <value>Never</value>
+    <value>Không bao giờ</value>
   </data>
   <data name="HybridModeState_UMA" xml:space="preserve">
     <value>UMA</value>
   </data>
   <data name="ITSMode_Intelligent_Extreme_Performance" xml:space="preserve">
-    <value>Extreme Performance</value>
+    <value>Hiệu năng tối đa</value>
   </data>
   <data name="ITSMode_Intelligent_Battery_Saving" xml:space="preserve">
-    <value>Battery Saving</value>
+    <value>Tiết kiệm pin</value>
   </data>
   <data name="ITSMode_Intelligent_Cooling" xml:space="preserve">
-    <value>Intelligent Cooling</value>
+    <value>Làm mát thông minh</value>
   </data>
   <data name="ITSMode_Intelligent_Geek" xml:space="preserve">
     <value>Geek</value>
@@ -527,54 +527,54 @@
     <value>1% Low</value>
   </data>
   <data name="FloatingGadgetItem_FrameTime" xml:space="preserve">
-    <value>Frame Time</value>
+    <value>Thời gian khung hình</value>
   </data>
   <data name="FloatingGadgetItem_Frequency" xml:space="preserve">
-    <value>Frequency</value>
+    <value>Xung nhịp</value>
   </data>
   <data name="FloatingGadgetItem_Utilization" xml:space="preserve">
-    <value>Utilization</value>
+    <value>Mức sử dụng</value>
   </data>
   <data name="FloatingGadgetItem_Temperature" xml:space="preserve">
-    <value>Temperature</value>
+    <value>Nhiệt độ</value>
   </data>
   <data name="FloatingGadgetItem_Power" xml:space="preserve">
-    <value>Power</value>
+    <value>Công suất</value>
   </data>
   <data name="FloatingGadgetItem_Fan" xml:space="preserve">
-    <value>Fan</value>
+    <value>Quạt</value>
   </data>
   <data name="FloatingGadgetItem_VramTemperature" xml:space="preserve">
-    <value>Vram Temperature</value>
+    <value>Nhiệt độ VRAM</value>
   </data>
   <data name="FloatingGadgetItem_MemoryTemperature" xml:space="preserve">
-    <value>Memory Temperature</value>
+    <value>Nhiệt độ</value>
   </data>
   <data name="FloatingGadgetItem_MotherboardTemperature" xml:space="preserve">
-    <value>Motherboard Temperature</value>
+    <value>Nhiệt độ bo mạch chủ</value>
   </data>
   <data name="AccentColorSource_Custom" xml:space="preserve">
     <value>Tùy Chỉnh</value>
   </data>
   <data name="FloatingGadgetState_Hidden" xml:space="preserve">
-    <value>Hidden</value>
+    <value>Ẩn</value>
   </data>
   <data name="FloatingGadgetState_Show" xml:space="preserve">
-    <value>Show</value>
+    <value>Hiện</value>
   </data>
   <data name="FloatingGadgetItem_P_Core_Frequency" xml:space="preserve">
-    <value>P Core Frequency</value>
+    <value>Xung nhịp nhân P</value>
   </data>
   <data name="FloatingGadgetItem_E_Core_Frequency" xml:space="preserve">
-    <value>E Core Frequency</value>
+    <value>Xung nhịp nhân E</value>
   </data>
   <data name="AmdOverclocking_Not_Initialized_Message" xml:space="preserve">
-    <value>Not initialized.</value>
+    <value>Chưa được khởi tạo.</value>
   </data>
   <data name="FloatingGadgetState_Toggle" xml:space="preserve">
-    <value>Toggle</value>
+    <value>Bật/Tắt</value>
   </data>
   <data name="AmdOverclocking_Not_Supported" xml:space="preserve">
-    <value>Not supported.</value>
+    <value>Không được hỗ trợ.</value>
   </data>
 </root>
