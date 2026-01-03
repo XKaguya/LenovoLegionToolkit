@@ -332,21 +332,37 @@ public class SensorsGroupController : IDisposable
         return Task.FromResult(max > 0 ? (float)Math.Round(max) : max);
     }
 
+    // Previously, GPU activity was inferred from cached power values.
+    // This caused incorrect hiding/showing of sensors on power-gated systems.
+    // GPU state is now determined explicitly via GPUController.
+    //
+    // GPU power readings are only meaningful when the discrete GPU is actually active.
+    // When the GPU is power-gated, some drivers still expose stale or zero values.
+    // We intentionally hide power readings in inactive states to avoid misleading data.
     public async Task<float> GetGpuPowerAsync()
     {
         if (_isResetting || !IsLibreHardwareMonitorInitialized()) return INVALID_VALUE_FLOAT;
+
         var state = await _gpuController.GetLastKnownStateAsync().ConfigureAwait(false);
-        if (_gpuPowerSensor == null || (_lastGpuPower <= MIN_ACTIVE_GPU_POWER && IsGpuInActive(state))) return INVALID_VALUE_FLOAT;
-        _lastGpuPower = _gpuPowerSensor.Value ?? 0;
-        return _lastGpuPower;
+
+        if (IsGpuInActive(state)) return INVALID_VALUE_FLOAT;
+        if (_gpuPowerSensor == null) return INVALID_VALUE_FLOAT;
+
+        _lastGpuPower = _gpuPowerSensor.Value ?? INVALID_VALUE_FLOAT;
+        return _lastGpuPower > MIN_ACTIVE_GPU_POWER ? _lastGpuPower : INVALID_VALUE_FLOAT;
     }
 
+    // VRAM (memory junction) temperature is only reported reliably when the dGPU is active.
+    // If the GPU is inactive, exposed values may be stale or undefined.
     public async Task<float> GetGpuVramTemperatureAsync()
     {
         if (_isResetting || !IsLibreHardwareMonitorInitialized()) return INVALID_VALUE_FLOAT;
-        var gpuState = await _gpuController.GetLastKnownStateAsync().ConfigureAwait(false);
-        if (_gpuHotspotSensor == null || (_lastGpuPower <= MIN_ACTIVE_GPU_POWER && IsGpuInActive(gpuState))) return INVALID_VALUE_FLOAT;
-        return _gpuHotspotSensor.Value ?? INVALID_VALUE_FLOAT;
+
+        var state = await _gpuController.GetLastKnownStateAsync().ConfigureAwait(false);
+
+        if (IsGpuInActive(state)) return INVALID_VALUE_FLOAT;
+
+        return _gpuHotspotSensor?.Value ?? INVALID_VALUE_FLOAT;
     }
 
     public Task<(float, float)> GetSsdTemperaturesAsync()
