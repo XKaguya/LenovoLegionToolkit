@@ -1,23 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Threading;
-using System.Threading.Tasks;
-using LenovoLegionToolkit.Lib.Extensions;
+﻿using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.Listeners;
+using LenovoLegionToolkit.Lib.Settings;
 using LenovoLegionToolkit.Lib.SoftwareDisabler;
 using LenovoLegionToolkit.Lib.System;
 using LenovoLegionToolkit.Lib.Utils;
 using Microsoft.Win32.SafeHandles;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace LenovoLegionToolkit.Lib.Controllers;
 
 public class SpectrumKeyboardBacklightController
 {
+    private readonly SpectrumKeyboardSettings _settings;
+
     public interface IScreenCapture
     {
         void CaptureScreen(ref RGBColor[,] buffer, int width, int height, CancellationToken token);
@@ -57,12 +60,13 @@ public class SpectrumKeyboardBacklightController
         set => _deviceFactory.ForceDisable = value;
     }
 
-    public SpectrumKeyboardBacklightController(SpecialKeyListener listener, VantageDisabler vantageDisabler, IScreenCapture screenCapture)
+    public SpectrumKeyboardBacklightController(SpecialKeyListener listener, VantageDisabler vantageDisabler, IScreenCapture screenCapture, SpectrumKeyboardSettings settings)
     {
         _listener = listener;
         _vantageDisabler = vantageDisabler;
         _screenCapture = screenCapture;
         _deviceFactory = new SpectrumDeviceFactory();
+        _settings = settings;
 
         _listener.Changed += Listener_Changed;
     }
@@ -88,6 +92,11 @@ public class SpectrumKeyboardBacklightController
                     break;
                 }
         }
+    }
+
+    private bool IsControllerEnabled()
+    {
+        return _settings.Store.IsEnabled == true;
     }
 
     public async Task<bool> IsSupportedAsync() => await _deviceFactory.GetHandleAsync().ConfigureAwait(false) is not null;
@@ -144,6 +153,11 @@ public class SpectrumKeyboardBacklightController
 
     public async Task SetBrightnessAsync(int brightness)
     {
+        if (!IsControllerEnabled())
+        {
+            return;
+        }
+
         var handle = await GetHandleOrThrow().ConfigureAwait(false);
 
         if (brightness is < 0 or > 9)
@@ -174,6 +188,11 @@ public class SpectrumKeyboardBacklightController
 
     public async Task SetLogoStatusAsync(bool isOn)
     {
+        if (!IsControllerEnabled())
+        {
+            return;
+        }
+
         var handle = await GetHandleOrThrow().ConfigureAwait(false);
 
         Log.Instance.Trace($"Setting logo status to: {isOn}.");
@@ -201,6 +220,11 @@ public class SpectrumKeyboardBacklightController
 
     public async Task SetProfileAsync(int profile)
     {
+        if (!IsControllerEnabled())
+        {
+            return;
+        }
+
         var handle = await GetHandleOrThrow().ConfigureAwait(false);
 
         await StopAuroraIfNeededAsync().ConfigureAwait(false);
@@ -222,6 +246,11 @@ public class SpectrumKeyboardBacklightController
 
     public async Task SetProfileDefaultAsync(int profile)
     {
+        if (!IsControllerEnabled())
+        {
+            return;
+        }
+
         var handle = await GetHandleOrThrow().ConfigureAwait(false);
 
         Log.Instance.Trace($"Setting keyboard profile {profile} to default...");
@@ -234,6 +263,11 @@ public class SpectrumKeyboardBacklightController
 
     public async Task SetProfileDescriptionAsync(int profile, SpectrumKeyboardBacklightEffect[] effects)
     {
+        if (!IsControllerEnabled())
+        {
+            return;
+        }
+
         var handle = await GetHandleOrThrow().ConfigureAwait(false);
 
         Log.Instance.Trace($"Setting {effects.Length} effect to keyboard profile {profile}...");
