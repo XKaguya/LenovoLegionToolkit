@@ -114,7 +114,7 @@ public static partial class Compatibility
         { "83NN", LegionSeries.Legion_Pro_5 }, { "82WK", LegionSeries.Legion_Pro_5 },
 
         { "83KY", LegionSeries.Legion_7 }, { "83FD", LegionSeries.Legion_7 }, { "82UH", LegionSeries.Legion_7 },
-        { "82TD", LegionSeries.Legion_7 },
+        { "82TD", LegionSeries.Legion_7 }, { "82N6", LegionSeries.Legion_7 },
 
         { "83RU", LegionSeries.Legion_Pro_7 }, { "83F5", LegionSeries.Legion_Pro_7 }, { "83DE", LegionSeries.Legion_Pro_7 },
         { "82WR", LegionSeries.Legion_Pro_7 }, { "82WQ", LegionSeries.Legion_Pro_7 }, { "82WS", LegionSeries.Legion_Pro_7 },
@@ -166,8 +166,7 @@ public static partial class Compatibility
 
     public static async Task<MachineInformation> GetMachineInformationAsync()
     {
-        if (_machineInformation.HasValue)
-            return _machineInformation.Value;
+        if (_machineInformation != null) return _machineInformation.Value;
 
         var (vendor, machineType, model, serialNumber) = await GetModelDataAsync().ConfigureAwait(false);
         var generation = GetMachineGeneration(model);
@@ -198,7 +197,7 @@ public static partial class Compatibility
                 SupportsExtremeMode = GetSupportsExtremeMode(supportedPowerModes, smartFanVersion, legionZoneVersion),
                 SupportsGodModeV1 = GetSupportsGodModeV1(supportedPowerModes, smartFanVersion, legionZoneVersion, biosVersion),
                 SupportsGodModeV2 = GetSupportsGodModeV2(supportedPowerModes, smartFanVersion, legionZoneVersion),
-                SupportsGodModeV3 = GetSupportsGodModeV3(supportedPowerModes, smartFanVersion, legionZoneVersion, generation, model),
+                SupportsGodModeV3 = GetSupportsGodModeV3(supportedPowerModes, smartFanVersion, legionZoneVersion, generation, model, machineType),
                 SupportsGodModeV4 = GetSupportsGodModeV4(supportedPowerModes, smartFanVersion, legionZoneVersion),
                 SupportsGSync = await GetSupportsGSyncAsync().ConfigureAwait(false),
                 SupportsIGPUMode = await GetSupportsIGPUModeAsync().ConfigureAwait(false),
@@ -207,9 +206,9 @@ public static partial class Compatibility
                 SupportsITSMode = GetSupportITSMode(model),
                 HasQuietToPerformanceModeSwitchingBug = GetHasQuietToPerformanceModeSwitchingBug(biosVersion),
                 HasGodModeToOtherModeSwitchingBug = GetHasGodModeToOtherModeSwitchingBug(biosVersion),
-                HasReapplyParameterIssue = GetHasReapplyParameterIssue(model),
-                HasSpectrumProfileSwitchingBug = GetHasSpectrumProfileSwitchingBug(model),
-                IsExcludedFromLenovoLighting = GetIsExcludedFromLenovoLighting(biosVersion),
+                HasReapplyParameterIssue = GetHasReapplyParameterIssue(model, machineType),
+                HasSpectrumProfileSwitchingBug = GetHasSpectrumProfileSwitchingBug(model, machineType),
+                IsExcludedFromLenovoLighting = GetIsExcludedFromLenovoLighting(biosVersion, generation, legionSeries),
                 IsExcludedFromPanelLogoLenovoLighting = GetIsExcludedFromPanelLenovoLighting(machineType, model),
                 HasAlternativeFullSpectrumLayout = GetHasAlternativeFullSpectrumLayout(machineType),
                 IsAmdDevice = GetIsAmdDevice(model),
@@ -217,7 +216,8 @@ public static partial class Compatibility
             }
         };
 
-        return (_machineInformation = machineInformation).Value;
+        _machineInformation = machineInformation;
+        return _machineInformation.Value;
     }
 
 
@@ -225,7 +225,8 @@ public static partial class Compatibility
 
     private static (BiosVersion?, string?) GetBIOSVersion()
     {
-        var result = Registry.GetValue("HKEY_LOCAL_MACHINE", "HARDWARE\\DESCRIPTION\\System\\BIOS", "BIOSVersion", string.Empty).Trim();
+        var registryValue = Registry.GetValue("HKEY_LOCAL_MACHINE", "HARDWARE\\DESCRIPTION\\System\\BIOS", "BIOSVersion", string.Empty);
+        var result = registryValue?.ToString()?.Trim() ?? string.Empty;
 
         var prefixRegex = BiosPrefixRegex();
         var versionRegex = BiosVersionRegex();
@@ -233,10 +234,12 @@ public static partial class Compatibility
         var prefix = prefixRegex.Match(result).Value;
         var versionString = versionRegex.Match(result).Value;
 
-        if (!int.TryParse(versionRegex.Match(versionString).Value, out var version))
+        if (!int.TryParse(versionString, out var version))
+        {
             return (null, null);
+        }
 
-        return (new(prefix, version), result);
+        return (new BiosVersion(prefix, version), result);
     }
 
     private static bool GetIsChineseModel(string model)
@@ -301,7 +304,7 @@ public static partial class Compatibility
     {
         try
         {
-            var powerModes = new List<PowerModeState>();    
+            var powerModes = new List<PowerModeState>();
 
             var value = await WMI.LenovoOtherMethod.GetFeatureValueAsync(CapabilityID.SupportedPowerModes).ConfigureAwait(false);
 
@@ -435,7 +438,7 @@ public static partial class Compatibility
         return smartFanVersion is 6 or 7 || legionZoneVersion is 3 or 4;
     }
 
-    private static bool GetSupportsGodModeV3(IEnumerable<PowerModeState> supportedPowerModes, int smartFanVersion, int legionZoneVersion, int gen, string model)
+    private static bool GetSupportsGodModeV3(IEnumerable<PowerModeState> supportedPowerModes, int smartFanVersion, int legionZoneVersion, int gen, string model, string machineType)
     {
         if (!supportedPowerModes.Contains(PowerModeState.GodMode))
         {
@@ -458,8 +461,7 @@ public static partial class Compatibility
             "R7000"
         };
 
-        var (_, type, _, _) = GetModelDataAsync().Result;
-        var isAffectedSeries = affectedSeries.Any(m => GetLegionSeries(model, type) == m);
+        var isAffectedSeries = affectedSeries.Any(m => GetLegionSeries(model, machineType) == m);
         var isAffectedModel = affectedModels.Any(model.Contains);
         var isSupportedVersion = smartFanVersion is 8 or 9 || legionZoneVersion is 5 or 6;
 
@@ -531,11 +533,16 @@ public static partial class Compatibility
         return lower.Contains("IdeaPad".ToLowerInvariant()) || lower.Contains("ThinkBook".ToLowerInvariant()) || lower.Contains("Lenovo Slim".ToLowerInvariant());
     }
 
+
+
     private static int GetMachineGeneration(string model)
     {
-        Match match = Regex.Match(model, @"\d+(?=[A-Z]?H?$)");
+        var genMatch = Regex.Match(model, @"g(?<gen>\d+)$", RegexOptions.IgnoreCase);
+        if (genMatch.Success)
+            return int.Parse(genMatch.Groups["gen"].Value);
 
-        return match.Success ? Int32.Parse(match.Value) : 0;
+        var match = Regex.Match(model, @"\d+(?=[A-Z]?H?$)");
+        return match.Success ? int.Parse(match.Value) : 0;
     }
 
     private static LegionSeries GetLegionSeries(string model, string machineType)
@@ -576,7 +583,7 @@ public static partial class Compatibility
         return affectedBiosVersions.Any(bv => biosVersion?.IsHigherOrEqualThan(bv) ?? false);
     }
 
-    private static bool GetHasReapplyParameterIssue(string? machineModel)
+    private static bool GetHasReapplyParameterIssue(string? machineModel, string machineType)
     {
         if (string.IsNullOrEmpty(machineModel))
         {
@@ -590,12 +597,10 @@ public static partial class Compatibility
             LegionSeries.Legion_9,
         };
 
-        var (_, type, _, _) = GetModelDataAsync().Result;
-
-        return affectedSeries.Any(model =>GetLegionSeries(machineModel, type) == model);
+        return affectedSeries.Any(series => GetLegionSeries(machineModel, machineType) == series);
     }
 
-    private static bool GetHasSpectrumProfileSwitchingBug(string? machineModel)
+    private static bool GetHasSpectrumProfileSwitchingBug(string? machineModel, string machineType)
     {
         if (string.IsNullOrEmpty(machineModel))
         {
@@ -617,21 +622,25 @@ public static partial class Compatibility
             "15AHP10"
         };
 
-        var(_, type, _, _) = GetModelDataAsync().Result;
-
-        bool isAffectedModel = affectedModel.Any(model =>machineModel.Contains(model, StringComparison.OrdinalIgnoreCase));
-        bool isAffectedSeries = affectedSeries.Any(model =>GetLegionSeries(machineModel, type) == model);
+        bool isAffectedModel = affectedModel.Any(m => machineModel.Contains(m, StringComparison.OrdinalIgnoreCase));
+        bool isAffectedSeries = affectedSeries.Any(s => GetLegionSeries(machineModel, machineType) == s);
 
         return isAffectedModel && isAffectedSeries;
     }
 
-    private static bool GetIsExcludedFromLenovoLighting(BiosVersion? biosVersion)
+    // Legion 7 Gen 6 uses firmware-controlled RGB. I'm trying to add support but no luck. 
+    // HID / Lenovo Lighting commands are accepted but ignored by firmware,
+    // so keyboard RGB cannot be controlled reliably here.
+    private static bool GetIsExcludedFromLenovoLighting(BiosVersion? biosVersion, int generation, LegionSeries series)
     {
-        var affectedBiosVersions = new BiosVersion[]
+        if (series == LegionSeries.Legion_7 && generation == 6)
         {
-            new("GKCN", 54)
-        };
+            if (Log.Instance.IsTraceEnabled)
+                Log.Instance.Trace($"Legion 7 Gen 6: keyboard RGB is firmware-controlled, Lenovo Lighting disabled");
+            return true;
+        }
 
+        var affectedBiosVersions = new BiosVersion[] { new("GKCN", 54) };
         return affectedBiosVersions.Any(bv => biosVersion?.IsLowerThan(bv) ?? false);
     }
 
@@ -778,7 +787,7 @@ public static partial class Compatibility
                             lines.Add($"{prefix} {prop.Name}: 'null'");
                             continue;
                         }
-                        List<string>? propLines = FormatPropertyValue(prop.Name, propValue, indentLevel +1);
+                        List<string>? propLines = FormatPropertyValue(prop.Name, propValue, indentLevel + 1);
                         lines.AddRange(propLines);
                     }
                     catch (Exception ex)
@@ -818,7 +827,8 @@ public static partial class Compatibility
 
     public static async Task PrintControllerVersionAsync()
     {
-        if (_machineInformation is { 
+        if (_machineInformation is
+            {
                 LegionSeries: LegionSeries.Legion_5 or
                 LegionSeries.Legion_Pro_5 or
                 LegionSeries.Legion_7 or

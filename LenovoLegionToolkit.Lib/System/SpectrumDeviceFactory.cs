@@ -47,7 +47,7 @@ public class SpectrumDeviceFactory : IDisposable
 
             _cachedHandle = await Task.Run(async () =>
             {
-                var candidates = Devices.GetSpectrumRGBKeyboards(true);
+                var candidates = await Devices.GetSpectrumRGBKeyboardsAsync(true).ConfigureAwait(false);
 
                 foreach (var candidate in candidates.Where(candidate => candidate is { IsInvalid: false, IsClosed: false }))
                 {
