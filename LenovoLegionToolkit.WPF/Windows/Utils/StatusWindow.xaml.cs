@@ -110,8 +110,8 @@ public partial class StatusWindow
         _cpuFanAndPowerDesc.Visibility = sensorVis;
         _cpuFanAndPowerLabel.Visibility = sensorVis;
 
-        var isV4V5 = _sensorsController.GetType() == typeof(SensorsControllerV4) ||
-                     _sensorsController.GetType() == typeof(SensorsControllerV5);
+        var isV4V5 = _sensorsController.GetControllerAsync().Result?.GetType() == typeof(SensorsControllerV4) ||
+                     _sensorsController.GetControllerAsync().Result?.GetType() == typeof(SensorsControllerV5);
         _systemFanGrid.Visibility = (useSensors && isV4V5) ? Visibility.Visible : Visibility.Collapsed;
 
         if (gpuStatus.HasValue)
@@ -256,8 +256,9 @@ public partial class StatusWindow
         {
             UpdateFreqAndTemp(_cpuFreqAndTempLabel, data.SensorsData?.CPU.CoreClock ?? -1, data.SensorsData?.CPU.Temperature ?? -1);
             UpdateFanAndPower(_cpuFanAndPowerLabel, data.SensorsData?.CPU.FanSpeed ?? -1, data.CpuPower);
-            if (_sensorsController.GetType() == typeof(SensorsControllerV4) ||
-                _sensorsController.GetType() == typeof(SensorsControllerV5))
+            var type = _sensorsController.GetControllerAsync().Result?.GetType();
+            if (type == typeof(SensorsControllerV4) ||
+                type == typeof(SensorsControllerV5))
             {
                 UpdateSystemFan(_systemFanLabel, data.SensorsData?.PCH.FanSpeed ?? -1);
             }
