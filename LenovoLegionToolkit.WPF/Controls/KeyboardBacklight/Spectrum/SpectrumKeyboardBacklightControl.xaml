@@ -25,29 +25,16 @@
                 <custom:CardControl.Header>
                     <controls:CardHeaderControl Title="{x:Static resources:Resource.SpectrumKeyboardBacklightControl_Brightness_Title}" />
                 </custom:CardControl.Header>
-
-                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-
-                    <Slider
-                        x:Name="_brightnessSlider"
-                        Width="200"
-                        VerticalAlignment="Center"
-                        AutomationProperties.Name="{x:Static resources:Resource.SpectrumKeyboardBacklightControl_Brightness_Title}"
-                        IsEnabled="{Binding ElementName=_enableSwitch, Path=IsOn}"
-                        IsSnapToTickEnabled="True"
-                        Maximum="9"
-                        Minimum="0"
-                        TickFrequency="1"
-                        TickPlacement="BottomRight"
-                        ValueChanged="BrightnessSlider_OnValueChanged" />
-
-                    <wpfui:ToggleSwitch
-                        x:Name="_enableSwitch"
-                        Margin="20,0,0,0"
-                        VerticalAlignment="Center"
-                        Click="EnableSwitch_OnClick" />
-
-                </StackPanel>
+                <Slider
+                    x:Name="_brightnessSlider"
+                    Width="200"
+                    AutomationProperties.Name="{x:Static resources:Resource.SpectrumKeyboardBacklightControl_Brightness_Title}"
+                    IsSnapToTickEnabled="True"
+                    Maximum="9"
+                    Minimum="0"
+                    TickFrequency="1"
+                    TickPlacement="BottomRight"
+                    ValueChanged="BrightnessSlider_OnValueChanged" />
             </custom:CardControl>
 
             <Grid

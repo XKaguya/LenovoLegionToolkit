@@ -6,6 +6,5 @@ public class SpectrumKeyboardSettings()
     public class SpectrumKeyboardSettingsStore
     {
         public KeyboardLayout? KeyboardLayout { get; set; }
-        public bool? IsEnabled { get; set; }
     }
 }

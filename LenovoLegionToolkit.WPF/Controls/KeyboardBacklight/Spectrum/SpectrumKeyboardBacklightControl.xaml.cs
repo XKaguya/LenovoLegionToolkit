@@ -64,8 +64,6 @@ public partial class SpectrumKeyboardBacklightControl
 
         Focusable = false;
 
-        _enableSwitch.IsChecked = _settings.Store.IsEnabled == true;
-
         MessagingCenter.Subscribe<SpectrumBacklightChangedMessage>(this, () => Dispatcher.InvokeTask(async () =>
         {
             if (!IsVisible)
@@ -649,17 +647,4 @@ public partial class SpectrumKeyboardBacklightControl
     }
 
     private void DeleteAllEffects() => _effects.Children.Clear();
-
-    private void EnableSwitch_OnClick(object sender, RoutedEventArgs e)
-    {
-        if (IsRefreshing)
-        {
-            return;
-        }
-
-        var isEnabled = _enableSwitch.IsChecked == true;
-
-        _settings.Store.IsEnabled = isEnabled;
-        _settings.SynchronizeStore();
-    }
 }
