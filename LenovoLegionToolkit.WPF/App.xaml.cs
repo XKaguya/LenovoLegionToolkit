@@ -81,7 +81,7 @@ public partial class App
 
     private async void Application_Startup(object sender, StartupEventArgs e)
     {
-        SessionEnding += OnSystemSessionEnding;
+        Microsoft.Win32.SystemEvents.SessionEnding += OnSystemSessionEnding;
 
         try
         {
@@ -274,7 +274,11 @@ public partial class App
         Environment.Exit(-1);
     }
 
-    private void Application_Exit(object sender, ExitEventArgs e) => _singleInstanceMutex?.Close();
+    private void Application_Exit(object sender, ExitEventArgs e)
+    {
+        _singleInstanceMutex?.Close();
+        Microsoft.Win32.SystemEvents.SessionEnding -= OnSystemSessionEnding;
+    }
 
     public async Task ShutdownAsync()
     {
@@ -458,23 +462,36 @@ public partial class App
 
     #region Event Handler
 
-    private void OnSystemSessionEnding(object sender, SessionEndingCancelEventArgs e)
+    private void OnSystemSessionEnding(object sender, Microsoft.Win32.SessionEndingEventArgs e)
     {
-        base.OnSessionEnding(e);
-
-        if (e is not { ReasonSessionEnding: ReasonSessionEnding.Logoff or ReasonSessionEnding.Shutdown })
+        if (e.Reason != Microsoft.Win32.SessionEndReasons.Logoff &&
+            e.Reason != Microsoft.Win32.SessionEndReasons.SystemShutdown)
         {
             return;
         }
 
-        var feature = IoCContainer.Resolve<AmdOverclockingController>();
-        if (feature.IsActive())
+        try
         {
-            feature.SaveShutdownInfo(new ShutdownInfo
+            var feature = IoCContainer.Resolve<AmdOverclockingController>();
+
+            if (!feature.IsActive())
+            {
+                return;
+            }
+
+            Log.Instance.Trace($"System session ending detected via SystemEvents. Reason: {e.Reason}");
+
+            var cleanInfo = new ShutdownInfo
             {
                 Status = "Normal",
                 AbnormalCount = 0
-            });
+            };
+
+            feature.SaveShutdownInfo(cleanInfo);
+        }
+        catch (Exception ex)
+        {
+            Log.Instance.Trace($"Error during session ending cleanup: {ex.Message}", ex);
         }
     }
 
