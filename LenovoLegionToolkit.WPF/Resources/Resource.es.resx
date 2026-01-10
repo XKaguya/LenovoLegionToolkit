@@ -2692,4 +2692,79 @@ No proceda a menos que posea la experiencia técnica necesaria.</value>
   <data name="AmdOverclocking_X3D_Gaming_Mode_Message" xml:space="preserve">
     <value>Disable CCD 1 to get stability on both FPS and temperatures</value>
   </data>
+  <data name="ArgumentWindow_Title" xml:space="preserve">
+    <value>Argument Window</value>
+  </data>
+  <data name="ArgumentWindow_Category_General" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="ArgumentWindow_Category_Hardware_Automation" xml:space="preserve">
+    <value>Hardware &amp; Automation</value>
+  </data>
+  <data name="ArgumentWindow_Category_Lighting" xml:space="preserve">
+    <value>Lighting</value>
+  </data>
+  <data name="ArgumentWindow_Category_Network_Proxy" xml:space="preserve">
+    <value>Network Proxy</value>
+  </data>
+  <data name="ArgumentWindow_Category_Debugging" xml:space="preserve">
+    <value>Debugging</value>
+  </data>
+  <data name="ArgumentWindow_Flag_StartMinimized" xml:space="preserve">
+    <value>Start Minimized</value>
+  </data>
+  <data name="ArgumentWindow_Flag_DisableTrayTooltip" xml:space="preserve">
+    <value>Disable Tray Tooltip</value>
+  </data>
+  <data name="ArgumentWindow_Flag_DisableUpdateChecker" xml:space="preserve">
+    <value>Disable Update Checker</value>
+  </data>
+  <data name="ArgumentWindow_Flag_DisableConflictWarning" xml:space="preserve">
+    <value>Disable Conflict Warning</value>
+  </data>
+  <data name="ArgumentWindow_Flag_AllowPowerModesBattery" xml:space="preserve">
+    <value>Allow All Power Modes on Battery</value>
+  </data>
+  <data name="ArgumentWindow_Flag_SkipCompatCheck" xml:space="preserve">
+    <value>Skip Compatibility Check</value>
+  </data>
+  <data name="ArgumentWindow_Flag_ExpGpuMode" xml:space="preserve">
+    <value> Experimental GPU Working Mode</value>
+  </data>
+  <data name="ArgumentWindow_Flag_DisableLenovoLighting" xml:space="preserve">
+    <value>Disable Lenovo Lighting</value>
+  </data>
+  <data name="ArgumentWindow_Flag_DisableRgbKb" xml:space="preserve">
+    <value>Disable RGB Keyboard</value>
+  </data>
+  <data name="ArgumentWindow_Flag_DisableSpectrumKb" xml:space="preserve">
+    <value>Disable Spectrum Keyboard</value>
+  </data>
+  <data name="ArgumentWindow_Flag_TraceEnabled" xml:space="preserve">
+    <value>Enable Trace Logging</value>
+  </data>
+  <data name="ArgumentWindow_Flag_DebugMode" xml:space="preserve">
+    <value>Debug Mode</value>
+  </data>
+  <data name="ArgumentWindow_Flag_ProxyUrl" xml:space="preserve">
+    <value> Proxy URL</value>
+  </data>
+  <data name="ArgumentWindow_Flag_ProxyUsername" xml:space="preserve">
+    <value>Proxy Username</value>
+  </data>
+  <data name="ArgumentWindow_Flag_ProxyPassword" xml:space="preserve">
+    <value>Proxy Password</value>
+  </data>
+  <data name="ArgumentWindow_Flag_AllowAllCerts" xml:space="preserve">
+    <value>Allow All Certificates</value>
+  </data>
+  <data name="ArgumentWindow_NotSet" xml:space="preserve">
+    <value>Not Set</value>
+  </data>
+  <data name="ArgumentWindow_Edit_Title" xml:space="preserve">
+    <value>Edit Arguments</value>
+  </data>
+  <data name="ArgumentWindow_Edit_Message" xml:space="preserve">
+    <value>Open an argument window for convenient modification of arguments.</value>
+  </data>
 </root>
