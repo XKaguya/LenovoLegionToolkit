@@ -580,4 +580,10 @@
   <data name="AmdOverclocking_Ac_Message" xml:space="preserve">
     <value>Profile will not apply without AC adapter (Full wattage) connected.</value>
   </data>
+  <data name="FloatingGadgetItem_Disk1Temperature" xml:space="preserve">
+    <value>Disk 1 Temperature</value>
+  </data>
+  <data name="FloatingGadgetItem_Disk2Temperature" xml:space="preserve">
+    <value>Disk 2 Temperature</value>
+  </data>
 </root>
