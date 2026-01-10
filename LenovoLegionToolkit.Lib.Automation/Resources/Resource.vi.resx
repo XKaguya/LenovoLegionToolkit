@@ -228,18 +228,18 @@
     <value>Khi kết nối thiết bị</value>
   </data>
   <data name="SessionLockAutomationPipelineTrigger_DisplayName" xml:space="preserve">
-    <value>Session locked</value>
+    <value>Đã khóa phiên làm việc</value>
   </data>
   <data name="SessionUnlockAutomationPipelineTrigger_DisplayName" xml:space="preserve">
-    <value>Session unlocked</value>
+    <value>Đã mở khóa phiên làm việc</value>
   </data>
   <data name="ITSModeAutomationPipelineTrigger_DisplayName" xml:space="preserve">
-    <value>When IdeaPad Power Mode is changed</value>
+    <value>Khi chế độ nguồn IdeaPad thay đổi</value>
   </data>
   <data name="HybridModeAutomationPipelineTrigger_DisplayName" xml:space="preserve">
-    <value>Hybrid Mode</value>
+    <value>Chế độ Hybrid</value>
   </data>
   <data name="FloatingGadgetState_Toggle" xml:space="preserve">
-    <value>Toggle</value>
+    <value>Bật/Tắt</value>
   </data>
 </root>

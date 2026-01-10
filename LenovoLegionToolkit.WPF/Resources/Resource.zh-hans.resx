@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -2672,104 +2672,103 @@
   <data name="AmdOverclocking_Apply_Changes" xml:space="preserve">
     <value>应用</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Error" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="Error" xml:space="preserve">
+    <value>错误</value>
   </data>
-  <data name="AmdOverclocking_Do_Not_Apply_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="AmdOverclocking_Do_Not_Apply_Message" xml:space="preserve">
+    <value>配置文件未被应用由于多次异常重启。</value>
   </data>
-  <data name="RunAutomationStepControl_ProcessCheckInstance" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="RunAutomationStepControl_ProcessCheckInstance" xml:space="preserve">
+    <value>单例模式</value>
   </data>
-  <data name="RunAutomationStepControl_ProcessCheckInstance_Description" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="RunAutomationStepControl_ProcessCheckInstance_Description" xml:space="preserve">
+    <value>检查如果程序已在运行，勾选即当程序正在运行时不会打开多个相同程序。</value>
   </data>
-  <data name="AmdOverclocking_Success_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="AmdOverclocking_Success_Title" xml:space="preserve">
+    <value>成功</value>
   </data>
-  <data name="AmdOverclocking_Success_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="AmdOverclocking_Success_Message" xml:space="preserve">
+    <value>成功应用配置。</value>
   </data>
-  <data name="AmdOverclocking_X3D_Gaming_Mode_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="AmdOverclocking_X3D_Gaming_Mode_Title" xml:space="preserve">
+    <value>X3D 游戏模式</value>
   </data>
-  <data name="AmdOverclocking_X3D_Gaming_Mode_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="AmdOverclocking_X3D_Gaming_Mode_Message" xml:space="preserve">
+    <value>关闭 CCD 1 以获取更平滑的帧数与更低的温度</value>
   </data>
-  <data name="ArgumentWindow_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="ArgumentWindow_Title" xml:space="preserve">
+    <value>启动参数编辑</value>
   </data>
-  <data name="ArgumentWindow_Category_General" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="ArgumentWindow_Category_General" xml:space="preserve">
+    <value>常规</value>
   </data>
-  <data name="ArgumentWindow_Category_Hardware_Automation" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="ArgumentWindow_Category_Hardware_Automation" xml:space="preserve">
+    <value>硬件和自动化</value>
   </data>
-  <data name="ArgumentWindow_Category_Lighting" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="ArgumentWindow_Category_Lighting" xml:space="preserve">
+    <value>光照</value>
   </data>
-  <data name="ArgumentWindow_Category_Network_Proxy" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="ArgumentWindow_Category_Network_Proxy" xml:space="preserve">
+    <value>网络代理</value>
   </data>
-  <data name="ArgumentWindow_Category_Debugging" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="ArgumentWindow_Category_Debugging" xml:space="preserve">
+    <value>调试</value>
   </data>
-  <data name="ArgumentWindow_Flag_StartMinimized" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="ArgumentWindow_Flag_StartMinimized" xml:space="preserve">
+    <value>启动时最小化</value>
   </data>
-  <data name="ArgumentWindow_Flag_DisableTrayTooltip" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="ArgumentWindow_Flag_DisableTrayTooltip" xml:space="preserve">
+    <value>禁用托盘提示</value>
   </data>
-  <data name="ArgumentWindow_Flag_DisableUpdateChecker" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="ArgumentWindow_Flag_DisableUpdateChecker" xml:space="preserve">
+    <value>禁用更新检查</value>
   </data>
-  <data name="ArgumentWindow_Flag_DisableConflictWarning" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="ArgumentWindow_Flag_DisableConflictWarning" xml:space="preserve">
+    <value>禁用冲突警告</value>
   </data>
-  <data name="ArgumentWindow_Flag_AllowPowerModesBattery" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="ArgumentWindow_Flag_AllowPowerModesBattery" xml:space="preserve">
+    <value>允许未插电时使用所有电源模式</value>
   </data>
-  <data name="ArgumentWindow_Flag_SkipCompatCheck" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="ArgumentWindow_Flag_SkipCompatCheck" xml:space="preserve">
+    <value>跳过兼容性检查</value>
   </data>
-  <data name="ArgumentWindow_Flag_ExpGpuMode" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="ArgumentWindow_Flag_ExpGpuMode" xml:space="preserve">
+    <value> 实验性 GPU 工作模式</value>
   </data>
-  <data name="ArgumentWindow_Flag_DisableLenovoLighting" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="ArgumentWindow_Flag_DisableLenovoLighting" xml:space="preserve">
+    <value>禁用 Lenovo 灯光</value>
   </data>
-  <data name="ArgumentWindow_Flag_DisableRgbKb" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="ArgumentWindow_Flag_DisableRgbKb" xml:space="preserve">
+    <value>禁用 RGB 键盘</value>
   </data>
-  <data name="ArgumentWindow_Flag_DisableSpectrumKb" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="ArgumentWindow_Flag_DisableSpectrumKb" xml:space="preserve">
+    <value>禁用 Spectrum 键盘</value>
   </data>
-  <data name="ArgumentWindow_Flag_TraceEnabled" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="ArgumentWindow_Flag_TraceEnabled" xml:space="preserve">
+    <value>启用日志跟踪</value>
   </data>
-  <data name="ArgumentWindow_Flag_DebugMode" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="ArgumentWindow_Flag_DebugMode" xml:space="preserve">
+    <value>调试模式</value>
   </data>
-  <data name="ArgumentWindow_Flag_ProxyUrl" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="ArgumentWindow_Flag_ProxyUrl" xml:space="preserve">
+    <value>代理地址</value>
   </data>
-  <data name="ArgumentWindow_Flag_ProxyUsername" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="ArgumentWindow_Flag_ProxyUsername" xml:space="preserve">
+    <value>代理用户名</value>
   </data>
-  <data name="ArgumentWindow_Flag_ProxyPassword" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="ArgumentWindow_Flag_ProxyPassword" xml:space="preserve">
+    <value>代理密码</value>
   </data>
-  <data name="ArgumentWindow_Flag_AllowAllCerts" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="ArgumentWindow_Flag_AllowAllCerts" xml:space="preserve">
+    <value>允许所有证书</value>
   </data>
-  <data name="ArgumentWindow_NotSet" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="ArgumentWindow_NotSet" xml:space="preserve">
+    <value>未设置</value>
   </data>
-  <data name="ArgumentWindow_Edit_Title" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="ArgumentWindow_Edit_Title" xml:space="preserve">
+    <value>编辑参数</value>
   </data>
-  <data name="ArgumentWindow_Edit_Message" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="ArgumentWindow_Edit_Message" xml:space="preserve">
+    <value>打开参数窗口以方便用户修改启动参数。</value>
   </data>
 </root>
