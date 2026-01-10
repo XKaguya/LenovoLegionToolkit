@@ -156,9 +156,9 @@ public enum FloatingGadgetItem
     GpuPower,
     [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Fan")]
     GpuFan,
-    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Temperature")]
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Disk1Temperature")]
     Disk1Temperature,
-    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Temperature")]
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Disk2Temperature")]
     Disk2Temperature,
     [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Utilization")]
     MemoryUtilization,

@@ -223,6 +223,24 @@ namespace LenovoLegionToolkit.Lib.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Disk 1 Temperature 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgetItem_Disk1Temperature {
+            get {
+                return ResourceManager.GetString("FloatingGadgetItem_Disk1Temperature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Disk 2 Temperature 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgetItem_Disk2Temperature {
+            get {
+                return ResourceManager.GetString("FloatingGadgetItem_Disk2Temperature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 E Core Frequency 的本地化字符串。
         /// </summary>
         public static string FloatingGadgetItem_E_Core_Frequency {

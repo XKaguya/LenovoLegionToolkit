@@ -61,6 +61,8 @@ public partial class Custom
             new GadgetItemGroup { Header = Resource.FloatingGadget_Custom_Chipset, Items =
                 [
                     FloatingGadgetItem.MemoryUtilization, FloatingGadgetItem.MemoryTemperature,
+                    FloatingGadgetItem.MemoryUtilization, FloatingGadgetItem.Disk1Temperature,
+                    FloatingGadgetItem.MemoryUtilization, FloatingGadgetItem.Disk2Temperature,
                     FloatingGadgetItem.PchTemperature, FloatingGadgetItem.PchFan
                 ]
             }

@@ -243,7 +243,6 @@ public partial class App
         IoCContainer.Resolve<IGPUModeFeature>().ExperimentalGPUWorkingMode = _flags.ExperimentalGPUWorkingMode;
         IoCContainer.Resolve<DGPUNotify>().ExperimentalGPUWorkingMode = _flags.ExperimentalGPUWorkingMode;
         IoCContainer.Resolve<UpdateChecker>().Disable = _flags.DisableUpdateChecker;
-        AutomationPage.EnableHybridModeAutomation = _flags.EnableHybridModeAutomation;
     }
 
     private void HandleCriticalStartupError(Exception ex)

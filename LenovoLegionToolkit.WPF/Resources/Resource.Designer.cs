@@ -394,6 +394,231 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Debugging 的本地化字符串。
+        /// </summary>
+        public static string ArgumentWindow_Category_Debugging {
+            get {
+                return ResourceManager.GetString("ArgumentWindow_Category_Debugging", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 General 的本地化字符串。
+        /// </summary>
+        public static string ArgumentWindow_Category_General {
+            get {
+                return ResourceManager.GetString("ArgumentWindow_Category_General", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Hardware &amp; Automation 的本地化字符串。
+        /// </summary>
+        public static string ArgumentWindow_Category_Hardware_Automation {
+            get {
+                return ResourceManager.GetString("ArgumentWindow_Category_Hardware_Automation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Lighting 的本地化字符串。
+        /// </summary>
+        public static string ArgumentWindow_Category_Lighting {
+            get {
+                return ResourceManager.GetString("ArgumentWindow_Category_Lighting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Network Proxy 的本地化字符串。
+        /// </summary>
+        public static string ArgumentWindow_Category_Network_Proxy {
+            get {
+                return ResourceManager.GetString("ArgumentWindow_Category_Network_Proxy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Open an argument window for convenient modification of arguments. 的本地化字符串。
+        /// </summary>
+        public static string ArgumentWindow_Edit_Message {
+            get {
+                return ResourceManager.GetString("ArgumentWindow_Edit_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Edit Arguments 的本地化字符串。
+        /// </summary>
+        public static string ArgumentWindow_Edit_Title {
+            get {
+                return ResourceManager.GetString("ArgumentWindow_Edit_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Allow All Certificates 的本地化字符串。
+        /// </summary>
+        public static string ArgumentWindow_Flag_AllowAllCerts {
+            get {
+                return ResourceManager.GetString("ArgumentWindow_Flag_AllowAllCerts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Allow All Power Modes on Battery 的本地化字符串。
+        /// </summary>
+        public static string ArgumentWindow_Flag_AllowPowerModesBattery {
+            get {
+                return ResourceManager.GetString("ArgumentWindow_Flag_AllowPowerModesBattery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Debug Mode 的本地化字符串。
+        /// </summary>
+        public static string ArgumentWindow_Flag_DebugMode {
+            get {
+                return ResourceManager.GetString("ArgumentWindow_Flag_DebugMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Disable Conflict Warning 的本地化字符串。
+        /// </summary>
+        public static string ArgumentWindow_Flag_DisableConflictWarning {
+            get {
+                return ResourceManager.GetString("ArgumentWindow_Flag_DisableConflictWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Disable Lenovo Lighting 的本地化字符串。
+        /// </summary>
+        public static string ArgumentWindow_Flag_DisableLenovoLighting {
+            get {
+                return ResourceManager.GetString("ArgumentWindow_Flag_DisableLenovoLighting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Disable RGB Keyboard 的本地化字符串。
+        /// </summary>
+        public static string ArgumentWindow_Flag_DisableRgbKb {
+            get {
+                return ResourceManager.GetString("ArgumentWindow_Flag_DisableRgbKb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Disable Spectrum Keyboard 的本地化字符串。
+        /// </summary>
+        public static string ArgumentWindow_Flag_DisableSpectrumKb {
+            get {
+                return ResourceManager.GetString("ArgumentWindow_Flag_DisableSpectrumKb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Disable Tray Tooltip 的本地化字符串。
+        /// </summary>
+        public static string ArgumentWindow_Flag_DisableTrayTooltip {
+            get {
+                return ResourceManager.GetString("ArgumentWindow_Flag_DisableTrayTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Disable Update Checker 的本地化字符串。
+        /// </summary>
+        public static string ArgumentWindow_Flag_DisableUpdateChecker {
+            get {
+                return ResourceManager.GetString("ArgumentWindow_Flag_DisableUpdateChecker", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  Experimental GPU Working Mode 的本地化字符串。
+        /// </summary>
+        public static string ArgumentWindow_Flag_ExpGpuMode {
+            get {
+                return ResourceManager.GetString("ArgumentWindow_Flag_ExpGpuMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Proxy Password 的本地化字符串。
+        /// </summary>
+        public static string ArgumentWindow_Flag_ProxyPassword {
+            get {
+                return ResourceManager.GetString("ArgumentWindow_Flag_ProxyPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似  Proxy URL 的本地化字符串。
+        /// </summary>
+        public static string ArgumentWindow_Flag_ProxyUrl {
+            get {
+                return ResourceManager.GetString("ArgumentWindow_Flag_ProxyUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Proxy Username 的本地化字符串。
+        /// </summary>
+        public static string ArgumentWindow_Flag_ProxyUsername {
+            get {
+                return ResourceManager.GetString("ArgumentWindow_Flag_ProxyUsername", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Skip Compatibility Check 的本地化字符串。
+        /// </summary>
+        public static string ArgumentWindow_Flag_SkipCompatCheck {
+            get {
+                return ResourceManager.GetString("ArgumentWindow_Flag_SkipCompatCheck", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Start Minimized 的本地化字符串。
+        /// </summary>
+        public static string ArgumentWindow_Flag_StartMinimized {
+            get {
+                return ResourceManager.GetString("ArgumentWindow_Flag_StartMinimized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Enable Trace Logging 的本地化字符串。
+        /// </summary>
+        public static string ArgumentWindow_Flag_TraceEnabled {
+            get {
+                return ResourceManager.GetString("ArgumentWindow_Flag_TraceEnabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Not Set 的本地化字符串。
+        /// </summary>
+        public static string ArgumentWindow_NotSet {
+            get {
+                return ResourceManager.GetString("ArgumentWindow_NotSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Argument Window 的本地化字符串。
+        /// </summary>
+        public static string ArgumentWindow_Title {
+            get {
+                return ResourceManager.GetString("ArgumentWindow_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 No Actions defined. Click &quot;Add new&quot; to create new Action. 的本地化字符串。
         /// </summary>
         public static string AutomationPage_Actions_Empty {

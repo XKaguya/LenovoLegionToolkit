@@ -1131,6 +1131,14 @@ public partial class SettingsPage
             w => w.BringToForeground());
     }
 
+    private void ArgumentWindowButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (_isRefreshing)
+            return;
+
+        ArgumentWindow.ShowInstance();
+    }
+
     #region Helper
     private static bool IsWindowValid(Window? window)
     {

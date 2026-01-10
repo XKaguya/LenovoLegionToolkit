@@ -1,8 +1,7 @@
 {
   "profiles": {
     "LenovoLegionToolkit.WPF": {
-      "commandName": "Project",
-      "commandLineArgs": ""
+      "commandName": "Project"
     },
     "LenovoLegionToolkit.WPF (Trace)": {
       "commandName": "Project",
