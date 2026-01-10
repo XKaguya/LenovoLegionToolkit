@@ -130,6 +130,7 @@ public class PowerStateListener : IListener<PowerStateListener.ChangedEventArgs>
     private async Task HandleAsync(PowerStateEvent powerStateEvent)
     {
         var powerAdapterState = await Power.IsPowerAdapterConnectedAsync().ConfigureAwait(false);
+        var isSupport = await _powerModeFeature.IsSupportedAsync().ConfigureAwait(false);
 
         Log.Instance.Trace($"Handle {powerStateEvent}. [newState={powerAdapterState}]");
 
@@ -137,7 +138,7 @@ public class PowerStateListener : IListener<PowerStateListener.ChangedEventArgs>
         {
             case PowerStateEvent.Suspend:
             {
-                if (await _powerModeFeature.IsSupportedAsync().ConfigureAwait(false))
+                if (isSupport && await _powerModeFeature.GetStateAsync().ConfigureAwait(false) == PowerModeState.GodMode)
                 {
                     Log.Instance.Trace($"Going to dark.");
                     await _powerModeFeature.SuspendMode(PowerModeState.Balance).ConfigureAwait(false);
@@ -149,16 +150,20 @@ public class PowerStateListener : IListener<PowerStateListener.ChangedEventArgs>
                 _ = Task.Run(async () =>
                 {
                     if (await _batteryFeature.IsSupportedAsync().ConfigureAwait(false))
+                    {
                         await _batteryFeature.EnsureCorrectBatteryModeIsSetAsync().ConfigureAwait(false);
+                    }
 
                     if (await _rgbController.IsSupportedAsync().ConfigureAwait(false))
+                    {
                         await _rgbController.SetLightControlOwnerAsync(true, true).ConfigureAwait(false);
+                    }
 
                     Log.Instance.Trace($"Restore to {_powerModeFeature.LastPowerModeState}");
-                    if (await _powerModeFeature.IsSupportedAsync().ConfigureAwait(false))
+                    if (isSupport)
                         await _powerModeFeature.SetStateAsync(_powerModeFeature.LastPowerModeState).ConfigureAwait(false);
 
-                    if (await _powerModeFeature.IsSupportedAsync().ConfigureAwait(false))
+                    if (isSupport)
                     {
                         await _powerModeFeature.EnsureCorrectWindowsPowerSettingsAreSetAsync().ConfigureAwait(false);
                         await _powerModeFeature.EnsureGodModeStateIsAppliedAsync().ConfigureAwait(false);
@@ -174,8 +179,10 @@ public class PowerStateListener : IListener<PowerStateListener.ChangedEventArgs>
             case PowerStateEvent.StatusChange when powerAdapterState is PowerAdapterStatus.Connected:
                 _ = Task.Run(async () =>
                 {
-                    if (await _powerModeFeature.IsSupportedAsync().ConfigureAwait(false))
+                    if (isSupport)
+                    {
                         await _powerModeFeature.EnsureGodModeStateIsAppliedAsync().ConfigureAwait(false);
+                    }
 
                     if (await _dgpuNotify.IsSupportedAsync().ConfigureAwait(false))
                     {
