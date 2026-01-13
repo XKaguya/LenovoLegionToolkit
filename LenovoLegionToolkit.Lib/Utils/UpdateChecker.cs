@@ -47,9 +47,6 @@ public class UpdateChecker
 
     public async Task<Version?> CheckAsync(bool forceCheck)
     {
-#if RELEASE
-        return null;
-#endif
         using (await _updateSemaphore.LockAsync().ConfigureAwait(false))
         {
             ApplicationSettings settings = IoCContainer.Resolve<ApplicationSettings>();
