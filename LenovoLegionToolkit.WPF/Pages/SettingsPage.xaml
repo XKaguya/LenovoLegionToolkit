@@ -60,7 +60,7 @@
                 SelectionChanged="ThemeComboBox_SelectionChanged"
                 Visibility="Hidden" />
         </custom:CardControl>
-        <custom:CardControl Margin="0,0,0,8" Icon="DarkTheme24">
+        <custom:CardControl Margin="0,0,0,8" Icon="PictureInPicture24">
             <custom:CardControl.Header>
                 <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_Custom_BackgroundImage_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_Custom_BackgroundImage_Message}" />
             </custom:CardControl.Header>
@@ -110,7 +110,7 @@
                     SelectionChanged="AccentColorSourceComboBox_SelectionChanged" />
             </StackPanel>
         </custom:CardControl>
-        <custom:CardControl Margin="0,0,0,24">
+        <custom:CardControl Margin="0,0,0,24" Icon="Window24">
             <custom:CardControl.Header>
                 <controls:CardHeaderControl Title="{x:Static resources:Resource.ArgumentWindow_Edit_Title}" Subtitle="{x:Static resources:Resource.ArgumentWindow_Edit_Message}" />
             </custom:CardControl.Header>
