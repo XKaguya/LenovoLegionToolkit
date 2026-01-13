@@ -159,9 +159,11 @@ public class PowerStateListener : IListener<PowerStateListener.ChangedEventArgs>
                         await _rgbController.SetLightControlOwnerAsync(true, true).ConfigureAwait(false);
                     }
 
-                    Log.Instance.Trace($"Restore to {_powerModeFeature.LastPowerModeState}");
-                    if (isSupport)
+                    if (isSupport && _powerModeFeature.LastPowerModeState == PowerModeState.GodMode)
+                    {
+                        Log.Instance.Trace($"Restore to {_powerModeFeature.LastPowerModeState}");
                         await _powerModeFeature.SetStateAsync(_powerModeFeature.LastPowerModeState).ConfigureAwait(false);
+                    }
 
                     if (isSupport)
                     {
