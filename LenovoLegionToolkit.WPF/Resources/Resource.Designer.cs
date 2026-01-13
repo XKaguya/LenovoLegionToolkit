@@ -5394,6 +5394,15 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Restore Defaults 的本地化字符串。
+        /// </summary>
+        public static string RestoreDefaults {
+            get {
+                return ResourceManager.GetString("RestoreDefaults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Revert 的本地化字符串。
         /// </summary>
         public static string Revert {
@@ -7241,6 +7250,62 @@ namespace LenovoLegionToolkit.WPF.Resources {
         public static string SpectrumKeyboardBacklightEditEffectWindow_Title_Edit {
             get {
                 return ResourceManager.GetString("SpectrumKeyboardBacklightEditEffectWindow_Title_Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Vantage Color Boost 的本地化字符串。
+        /// </summary>
+        public static string SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoost_Title {
+            get {
+                return ResourceManager.GetString("SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoost_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Boost Brightness Factor 的本地化字符串。
+        /// </summary>
+        public static string SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoostSettings_BoostBrightnessFactor {
+            get {
+                return ResourceManager.GetString("SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoostSettings_BoostBrightne" +
+                        "ssFactor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Boost Floor 的本地化字符串。
+        /// </summary>
+        public static string SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoostSettings_BoostFloor {
+            get {
+                return ResourceManager.GetString("SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoostSettings_BoostFloor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Boost Target 的本地化字符串。
+        /// </summary>
+        public static string SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoostSettings_BoostTarget {
+            get {
+                return ResourceManager.GetString("SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoostSettings_BoostTarget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Color Boost Settings 的本地化字符串。
+        /// </summary>
+        public static string SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoostSettings_Title {
+            get {
+                return ResourceManager.GetString("SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoostSettings_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 White Threshold 的本地化字符串。
+        /// </summary>
+        public static string SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoostSettings_WhiteThreshold {
+            get {
+                return ResourceManager.GetString("SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoostSettings_WhiteThreshol" +
+                        "d", resourceCulture);
             }
         }
         
