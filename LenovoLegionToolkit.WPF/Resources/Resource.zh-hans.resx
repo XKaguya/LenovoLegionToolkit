@@ -1315,27 +1315,6 @@
   <data name="SpectrumKeyboardBacklightControl_SelectAll_ToolTip" xml:space="preserve">
     <value>全选所有灯区</value>
   </data>
-  <data name="RestoreDefaults" xml:space="preserve">
-    <value>Restore Defaults</value>
-  </data>
-  <data name="SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoost_Title" xml:space="preserve">
-    <value>Vantage Color Boost</value>
-  </data>
-  <data name="SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoostSettings_Title" xml:space="preserve">
-    <value>Color Boost Settings</value>
-  </data>
-  <data name="SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoostSettings_BoostFloor" xml:space="preserve">
-    <value>Boost Floor</value>
-  </data>
-  <data name="SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoostSettings_BoostTarget" xml:space="preserve">
-    <value>Boost Target</value>
-  </data>
-  <data name="SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoostSettings_BoostBrightnessFactor" xml:space="preserve">
-    <value>Boost Brightness Factor</value>
-  </data>
-  <data name="SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoostSettings_WhiteThreshold" xml:space="preserve">
-    <value>White Threshold</value>
-  </data>
   <data name="SpectrumKeyboardBacklightControl_SwitchKeyboardLayout_ToolTip" xml:space="preserve">
     <value>切换键盘布局</value>
   </data>
@@ -2791,5 +2770,26 @@
   </data>
   <data name="ArgumentWindow_Edit_Message" xml:space="preserve">
     <value>打开参数窗口以方便用户修改启动参数。</value>
+  </data>
+  <data name="SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoost_Title" xml:space="preserve">
+    <value>Vantage 颜色增强</value>
+  </data>
+  <data name="SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoostSettings_Title" xml:space="preserve">
+    <value>颜色增强设置</value>
+  </data>
+  <data name="RestoreDefaults" xml:space="preserve">
+    <value>恢复初始值</value>
+  </data>
+  <data name="SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoostSettings_BoostFloor" xml:space="preserve">
+    <value>最低提升档</value>
+  </data>
+  <data name="SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoostSettings_BoostTarget" xml:space="preserve">
+    <value>目标值</value>
+  </data>
+  <data name="SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoostSettings_BoostBrightnessFactor" xml:space="preserve">
+    <value>增强亮度因数</value>
+  </data>
+  <data name="SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoostSettings_WhiteThreshold" xml:space="preserve">
+    <value>白色阀值</value>
   </data>
 </root>
