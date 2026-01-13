@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Extensions;
+using LenovoLegionToolkit.Lib.Settings;
 using LenovoLegionToolkit.WPF.Extensions;
 using LenovoLegionToolkit.WPF.Resources;
 
@@ -12,6 +13,8 @@ namespace LenovoLegionToolkit.WPF.Windows.KeyboardBacklight.Spectrum;
 
 public partial class SpectrumKeyboardBacklightEditEffectWindow
 {
+    private readonly ApplicationSettings _settings = IoCContainer.Resolve<ApplicationSettings>();
+    
     private readonly ushort[] _keyCodes;
     private readonly ushort[] _allKeyboardKeyCodes;
 
@@ -51,6 +54,16 @@ public partial class SpectrumKeyboardBacklightEditEffectWindow
 
     private void EffectsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) => RefreshVisibility();
 
+    private void VantageColorBoost_Changed(object sender, RoutedEventArgs e) => RefreshVisibility();
+    
+    private void RestoreDefaults_Click(object sender, RoutedEventArgs e)
+    {
+        _floorSlider.Value = 20;
+        _targetSlider.Value = 80;
+        _whiteSlider.Value = 224;
+        _brightnessFactorSlider.Value = 50;
+    }
+    
     private void Apply_Click(object sender, RoutedEventArgs e)
     {
         var effectType = SpectrumKeyboardBacklightEffectType.Always;
@@ -58,6 +71,7 @@ public partial class SpectrumKeyboardBacklightEditEffectWindow
         var clockwiseDirection = SpectrumKeyboardBacklightClockwiseDirection.None;
         var speed = SpectrumKeyboardBacklightSpeed.None;
         var colors = Array.Empty<RGBColor>();
+        var useVantageColorBoost = _vantageColorBoostCard.Visibility == Visibility.Visible && _vantageColorBoostToggle.IsChecked == true;
 
         if (_effectTypeCard.Visibility == Visibility.Visible &&
             _effectTypeComboBox.TryGetSelectedItem(out SpectrumKeyboardBacklightEffectType effectTypeTemp))
@@ -80,7 +94,14 @@ public partial class SpectrumKeyboardBacklightEditEffectWindow
 
         if (_multiColors.Visibility == Visibility.Visible)
             colors = _multiColorPicker.SelectedColors.Select(c => c.ToRGBColor()).ToArray();
-
+        
+        _settings.Store.AuroraVantageColorBoost = _vantageColorBoostToggle.IsChecked == true;
+        _settings.Store.AuroraVantageColorBoostFloor = (int)_floorSlider.Value;
+        _settings.Store.AuroraVantageColorBoostTarget = (int)_targetSlider.Value;
+        _settings.Store.AuroraVantageColorBoostWhite = (int)_whiteSlider.Value;
+        _settings.Store.AuroraVantageColorBoostBrightnessFactor = (int)_brightnessFactorSlider.Value;
+        _settings.SynchronizeStore();
+        
         var keys = _keyCodes;
 
         if (effectType.IsAllLightsEffect())
@@ -93,7 +114,8 @@ public partial class SpectrumKeyboardBacklightEditEffectWindow
             direction,
             clockwiseDirection,
             colors,
-            keys);
+            keys,
+            useVantageColorBoost);
 
         Apply?.Invoke(this, effect);
         Close();
@@ -164,6 +186,13 @@ public partial class SpectrumKeyboardBacklightEditEffectWindow
 
         if (_speedComboBox.GetItems<SpectrumKeyboardBacklightSpeed>().Contains(effect.Speed))
             _speedComboBox.SelectItem(effect.Speed);
+        
+        _vantageColorBoostToggle.IsChecked = _settings.Store.AuroraVantageColorBoost;
+        _floorSlider.Value = _settings.Store.AuroraVantageColorBoostFloor;
+        _targetSlider.Value = _settings.Store.AuroraVantageColorBoostTarget;
+        _whiteSlider.Value = _settings.Store.AuroraVantageColorBoostWhite;
+        _brightnessFactorSlider.Value =
+            _settings.Store.AuroraVantageColorBoostBrightnessFactor;
 
         var colors = effect.Colors.Select(c => Color.FromRgb(c.R, c.G, c.B)).ToArray();
         if (colors.Length != 0)
@@ -226,5 +255,11 @@ public partial class SpectrumKeyboardBacklightEditEffectWindow
             SpectrumKeyboardBacklightEffectType.Type => Visibility.Visible,
             _ => Visibility.Collapsed
         };
+        
+        var isAurora = effect == SpectrumKeyboardBacklightEffectType.AuroraSync;
+        _vantageColorBoostCard.Visibility = isAurora ? Visibility.Visible : Visibility.Collapsed;
+        _vantageSettingsCard.Visibility = isAurora && _vantageColorBoostToggle.IsChecked == true 
+            ? Visibility.Visible 
+            : Visibility.Collapsed;
     }
 }
