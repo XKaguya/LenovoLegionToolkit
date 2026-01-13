@@ -1,16 +1,16 @@
-﻿using LenovoLegionToolkit.Lib;
+﻿using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
+using System.Windows;
+using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Controllers;
 using LenovoLegionToolkit.Lib.Settings;
+using LenovoLegionToolkit.Lib.Utils;
 using LenovoLegionToolkit.WPF.Controls.KeyboardBacklight.RGB;
 using LenovoLegionToolkit.WPF.Controls.KeyboardBacklight.Spectrum;
 using LenovoLegionToolkit.WPF.Resources;
 using LenovoLegionToolkit.WPF.Windows.Utils;
 using Microsoft.Win32;
-using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using System.Windows;
-using LenovoLegionToolkit.Lib.Utils;
 
 namespace LenovoLegionToolkit.WPF.Pages;
 

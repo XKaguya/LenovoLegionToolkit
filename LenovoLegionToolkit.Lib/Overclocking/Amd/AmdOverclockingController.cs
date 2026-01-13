@@ -1,7 +1,4 @@
-﻿using LenovoLegionToolkit.Lib.Resources;
-using LenovoLegionToolkit.Lib.System;
-using LenovoLegionToolkit.Lib.Utils;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -10,6 +7,9 @@ using System.Management;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using LenovoLegionToolkit.Lib.Resources;
+using LenovoLegionToolkit.Lib.System;
+using LenovoLegionToolkit.Lib.Utils;
 using ZenStates.Core;
 
 namespace LenovoLegionToolkit.Lib.Overclocking.Amd;

@@ -1,7 +1,7 @@
-﻿using LenovoLegionToolkit.Lib;
-using System.Linq;
+﻿using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using LenovoLegionToolkit.Lib;
 
 namespace LenovoLegionToolkit.WPF.Windows.Dashboard;
 

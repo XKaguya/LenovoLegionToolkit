@@ -1,5 +1,5 @@
-﻿using LenovoLegionToolkit.Lib.Settings;
-using System.Linq;
+﻿using System.Linq;
+using LenovoLegionToolkit.Lib.Settings;
 
 namespace LenovoLegionToolkit.WPF.Settings;
 

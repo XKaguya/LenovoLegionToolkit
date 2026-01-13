@@ -1,13 +1,13 @@
-﻿using LenovoLegionToolkit.Lib;
+﻿using System;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Utils;
 using LenovoLegionToolkit.Lib.Utils.Warranty;
 using LenovoLegionToolkit.WPF.Extensions;
 using LenovoLegionToolkit.WPF.Resources;
 using LenovoLegionToolkit.WPF.Utils;
-using System;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
 using LenovoLegionToolkit.WPF.Windows.Overclocking.Amd;
 using Wpf.Ui.Controls;
 

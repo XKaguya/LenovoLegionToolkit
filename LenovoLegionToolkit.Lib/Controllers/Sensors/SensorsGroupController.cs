@@ -4,9 +4,6 @@
 // Partial Copyright (C) Michael Möller <mmoeller@openhardwaremonitor.org> and Contributors.
 // All Rights Reserved.
 
-using LenovoLegionToolkit.Lib.Settings;
-using LenovoLegionToolkit.Lib.Utils;
-using LibreHardwareMonitor.Hardware;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,7 +11,10 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using LenovoLegionToolkit.Lib.Settings;
 using LenovoLegionToolkit.Lib.System;
+using LenovoLegionToolkit.Lib.Utils;
+using LibreHardwareMonitor.Hardware;
 using Registry = Microsoft.Win32.Registry;
 
 namespace LenovoLegionToolkit.Lib.Controllers.Sensors;

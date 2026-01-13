@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
-using LenovoLegionToolkit.Lib.Utils;
-using Microsoft.Win32;
 using Windows.Win32;
 using Windows.Win32.Foundation;
+using LenovoLegionToolkit.Lib.Utils;
+using Microsoft.Win32;
 
 namespace LenovoLegionToolkit.Lib.System;
 

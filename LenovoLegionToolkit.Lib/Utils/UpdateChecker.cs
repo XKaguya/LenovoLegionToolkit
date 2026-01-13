@@ -1,10 +1,4 @@
-﻿using LenovoLegionToolkit.Lib.Extensions;
-using LenovoLegionToolkit.Lib.Settings;
-using NeoSmart.AsyncLock;
-using Newtonsoft.Json;
-using Octokit;
-using Octokit.Internal;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -13,6 +7,12 @@ using System.Net.Http;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using LenovoLegionToolkit.Lib.Extensions;
+using LenovoLegionToolkit.Lib.Settings;
+using NeoSmart.AsyncLock;
+using Newtonsoft.Json;
+using Octokit;
+using Octokit.Internal;
 
 namespace LenovoLegionToolkit.Lib.Utils;
 

@@ -1,6 +1,4 @@
-﻿using LenovoLegionToolkit.Lib.Settings;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -9,6 +7,8 @@ using System.Net.Http.Json;
 using System.Text.Json.Nodes;
 using System.Threading;
 using System.Threading.Tasks;
+using LenovoLegionToolkit.Lib.Settings;
+using Newtonsoft.Json;
 
 namespace LenovoLegionToolkit.Lib.Utils.Warranty;
 

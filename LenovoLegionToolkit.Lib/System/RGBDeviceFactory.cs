@@ -1,7 +1,7 @@
-﻿using Microsoft.Win32.SafeHandles;
-using NeoSmart.AsyncLock;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using Microsoft.Win32.SafeHandles;
+using NeoSmart.AsyncLock;
 
 namespace LenovoLegionToolkit.Lib.System;
 

@@ -1,11 +1,11 @@
-﻿using LenovoLegionToolkit.Lib.Utils;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using LenovoLegionToolkit.Lib.Utils;
 using Wpf.Ui.Common;
 using Button = Wpf.Ui.Controls.Button;
 

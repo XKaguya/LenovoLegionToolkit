@@ -13,6 +13,30 @@ using System.Text;
 
 namespace LenovoLegionToolkit.Lib;
 
+internal static class AuroraColorUtils
+{
+    public static readonly RGBColor[] HueToRGBLut = new RGBColor[361];
+
+    static AuroraColorUtils()
+    {
+        for (var h = 0; h <= 360; h++)
+        {
+            const byte c = 255;
+            var x = (byte)Math.Round(c * (1 - Math.Abs(h / 60.0 % 2 - 1)));
+
+            HueToRGBLut[h] = h switch
+            {
+                < 60 => new RGBColor(c, x, 0),
+                < 120 => new RGBColor(x, c, 0),
+                < 180 => new RGBColor(0, c, x),
+                < 240 => new RGBColor(0, x, c),
+                < 300 => new RGBColor(x, 0, c),
+                _ => new RGBColor(c, 0, x)
+            };
+        }
+    }
+}
+
 public readonly struct AmdWmiCommand
 {
     public string Name { get; init; }
@@ -892,7 +916,8 @@ public readonly struct SpectrumKeyboardBacklightEffect(
     SpectrumKeyboardBacklightDirection direction,
     SpectrumKeyboardBacklightClockwiseDirection clockwiseDirection,
     RGBColor[] colors,
-    ushort[] keys)
+    ushort[] keys,
+    bool useVantageColorBoost = false)
 {
     public SpectrumKeyboardBacklightEffectType Type { get; } = type;
     public SpectrumKeyboardBacklightSpeed Speed { get; } = speed;
@@ -900,6 +925,7 @@ public readonly struct SpectrumKeyboardBacklightEffect(
     public SpectrumKeyboardBacklightClockwiseDirection ClockwiseDirection { get; } = clockwiseDirection;
     public RGBColor[] Colors { get; } = colors;
     public ushort[] Keys { get; } = type.IsAllLightsEffect() ? [] : keys;
+    public bool UseVantageColorBoost { get; } = useVantageColorBoost;
 }
 
 public readonly struct StepperValue(int value, int min, int max, int step, int[] steps, int? defaultValue)

@@ -1,11 +1,11 @@
-﻿using LenovoLegionToolkit.WPF.Controls;
-using LenovoLegionToolkit.WPF.Extensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using LenovoLegionToolkit.WPF.Controls;
+using LenovoLegionToolkit.WPF.Extensions;
 using Wpf.Ui.Common;
 using Wpf.Ui.Controls;
 using CardControl = LenovoLegionToolkit.WPF.Controls.Custom.CardControl;

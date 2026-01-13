@@ -1,8 +1,4 @@
-﻿using LenovoLegionToolkit.Lib;
-using LenovoLegionToolkit.Lib.Utils;
-using LenovoLegionToolkit.WPF.Extensions;
-using LenovoLegionToolkit.WPF.Resources;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Text;
@@ -10,6 +6,10 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using BlackSharp.Core.Extensions;
+using LenovoLegionToolkit.Lib;
+using LenovoLegionToolkit.Lib.Utils;
+using LenovoLegionToolkit.WPF.Extensions;
+using LenovoLegionToolkit.WPF.Resources;
 
 namespace LenovoLegionToolkit.WPF.Windows.Utils;
 

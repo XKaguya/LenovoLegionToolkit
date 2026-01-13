@@ -1,10 +1,4 @@
-﻿using Humanizer;
-using LenovoLegionToolkit.Lib;
-using LenovoLegionToolkit.Lib.Settings;
-using LenovoLegionToolkit.Lib.Utils;
-using LenovoLegionToolkit.WPF.Resources;
-using LenovoLegionToolkit.WPF.Windows.Utils;
-using System;
+﻿using System;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -14,6 +8,12 @@ using System.Threading.Tasks;
 using System.Windows;
 using Windows.Win32;
 using Windows.Win32.Foundation;
+using Humanizer;
+using LenovoLegionToolkit.Lib;
+using LenovoLegionToolkit.Lib.Settings;
+using LenovoLegionToolkit.Lib.Utils;
+using LenovoLegionToolkit.WPF.Resources;
+using LenovoLegionToolkit.WPF.Windows.Utils;
 
 namespace LenovoLegionToolkit.WPF.Utils;
 

@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
+using Windows.Win32;
 using LenovoLegionToolkit.Lib.System.Management;
 using LenovoLegionToolkit.Lib.Utils;
-using Windows.Win32;
 
 namespace LenovoLegionToolkit.Lib.System;
 

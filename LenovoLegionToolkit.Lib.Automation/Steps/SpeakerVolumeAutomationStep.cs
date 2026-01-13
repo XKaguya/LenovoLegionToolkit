@@ -1,6 +1,6 @@
-﻿using LenovoLegionToolkit.Lib.Features;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
+using LenovoLegionToolkit.Lib.Features;
 using Newtonsoft.Json;
 
 namespace LenovoLegionToolkit.Lib.Automation.Steps;
