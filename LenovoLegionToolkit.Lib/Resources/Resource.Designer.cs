@@ -106,6 +106,33 @@ namespace LenovoLegionToolkit.Lib.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Profile will not apply without AC adapter (Full wattage) connected. 的本地化字符串。
+        /// </summary>
+        public static string AmdOverclocking_Ac_Message {
+            get {
+                return ResourceManager.GetString("AmdOverclocking_Ac_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Not initialized. 的本地化字符串。
+        /// </summary>
+        public static string AmdOverclocking_Not_Initialized_Message {
+            get {
+                return ResourceManager.GetString("AmdOverclocking_Not_Initialized_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Not supported. 的本地化字符串。
+        /// </summary>
+        public static string AmdOverclocking_Not_Supported {
+            get {
+                return ResourceManager.GetString("AmdOverclocking_Not_Supported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Disabled 的本地化字符串。
         /// </summary>
         public static string AutorunState_Disabled {
@@ -192,6 +219,24 @@ namespace LenovoLegionToolkit.Lib.Resources {
         public static string FlipToStartState_On {
             get {
                 return ResourceManager.GetString("FlipToStartState_On", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Disk 1 Temperature 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgetItem_Disk1Temperature {
+            get {
+                return ResourceManager.GetString("FloatingGadgetItem_Disk1Temperature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Disk 2 Temperature 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgetItem_Disk2Temperature {
+            get {
+                return ResourceManager.GetString("FloatingGadgetItem_Disk2Temperature", resourceCulture);
             }
         }
         
@@ -327,6 +372,15 @@ namespace LenovoLegionToolkit.Lib.Resources {
         public static string FloatingGadgetState_Show {
             get {
                 return ResourceManager.GetString("FloatingGadgetState_Show", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Toggle 的本地化字符串。
+        /// </summary>
+        public static string FloatingGadgetState_Toggle {
+            get {
+                return ResourceManager.GetString("FloatingGadgetState_Toggle", resourceCulture);
             }
         }
         

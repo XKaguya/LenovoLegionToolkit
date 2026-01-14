@@ -1,11 +1,4 @@
-﻿using LenovoLegionToolkit.Lib;
-using LenovoLegionToolkit.Lib.Controllers.Sensors;
-using LenovoLegionToolkit.Lib.Messaging;
-using LenovoLegionToolkit.Lib.Messaging.Messages;
-using LenovoLegionToolkit.Lib.Settings;
-using LenovoLegionToolkit.Lib.Utils;
-using LenovoLegionToolkit.WPF.Resources;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -16,6 +9,13 @@ using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Threading;
+using LenovoLegionToolkit.Lib;
+using LenovoLegionToolkit.Lib.Controllers.Sensors;
+using LenovoLegionToolkit.Lib.Messaging;
+using LenovoLegionToolkit.Lib.Messaging.Messages;
+using LenovoLegionToolkit.Lib.Settings;
+using LenovoLegionToolkit.Lib.Utils;
+using LenovoLegionToolkit.WPF.Resources;
 
 namespace LenovoLegionToolkit.WPF.Windows.FloatingGadgets;
 
@@ -147,29 +147,6 @@ public partial class FloatingGadget
 
     private void SubscribeEvents()
     {
-        MessagingCenter.Subscribe<FloatingGadgetChangedMessage>(this, (message) =>
-        {
-            Dispatcher.Invoke(() =>
-            {
-                if (App.Current.FloatingGadget == null)
-                {
-                    return;
-                }
-
-                var gadget = App.Current.FloatingGadget;
-                switch (message.State)
-                {
-                    case FloatingGadgetState.Show: gadget.Show(); break;
-                    case FloatingGadgetState.Hidden: gadget.Hide(); break;
-                    case FloatingGadgetState.Toggle:
-                        if (gadget.IsVisible) { gadget.Hide(); }
-                        else gadget.Show();
-                        break;
-                    default: throw new ArgumentOutOfRangeException();
-                }
-            });
-        });
-
         MessagingCenter.Subscribe<FloatingGadgetElementChangedMessage>(this, (message) =>
         {
             Dispatcher.Invoke(() =>
@@ -253,14 +230,22 @@ public partial class FloatingGadget
 
     private void UpdateGadgetControlsVisibility()
     {
+        bool isHybrid = _sensorsGroupControllers.IsHybrid;
+
         foreach (var (item, element) in _itemsMap)
         {
             bool shouldShow = _activeItems.Contains(item);
 
-            if (item is FloatingGadgetItem.CpuPCoreFrequency or FloatingGadgetItem.CpuECoreFrequency &&
-                !_sensorsGroupControllers.IsHybrid)
+            if (isHybrid)
             {
-                shouldShow = false;
+                if (item == FloatingGadgetItem.CpuFrequency) shouldShow = false;
+            }
+            else
+            {
+                if (item is FloatingGadgetItem.CpuPCoreFrequency or FloatingGadgetItem.CpuECoreFrequency)
+                {
+                    shouldShow = false;
+                }
             }
 
             element.Visibility = shouldShow ? Visibility.Visible : Visibility.Collapsed;
@@ -272,9 +257,20 @@ public partial class FloatingGadget
         foreach (var (groupPanel, (items, _)) in _gadgetGroups)
         {
             bool isGroupActive = items.Any(item =>
-                _activeItems.Contains(item) &&
-                !(item is FloatingGadgetItem.CpuPCoreFrequency or FloatingGadgetItem.CpuECoreFrequency && !_sensorsGroupControllers.IsHybrid)
-            );
+            {
+                if (!_activeItems.Contains(item)) return false;
+
+                if (isHybrid)
+                {
+                    if (item == FloatingGadgetItem.CpuFrequency) return false;
+                }
+                else
+                {
+                    if (item is FloatingGadgetItem.CpuPCoreFrequency or FloatingGadgetItem.CpuECoreFrequency) return false;
+                }
+
+                return true;
+            });
 
             groupPanel.Visibility = isGroupActive ? Visibility.Visible : Visibility.Collapsed;
             if (isGroupActive) visibleGroups.Add(groupPanel);

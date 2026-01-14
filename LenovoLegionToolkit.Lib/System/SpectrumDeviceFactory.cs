@@ -1,9 +1,9 @@
-﻿using LenovoLegionToolkit.Lib.Utils;
-using Microsoft.Win32.SafeHandles;
-using NeoSmart.AsyncLock;
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using LenovoLegionToolkit.Lib.Utils;
+using Microsoft.Win32.SafeHandles;
+using NeoSmart.AsyncLock;
 
 namespace LenovoLegionToolkit.Lib.System;
 
@@ -47,7 +47,7 @@ public class SpectrumDeviceFactory : IDisposable
 
             _cachedHandle = await Task.Run(async () =>
             {
-                var candidates = Devices.GetSpectrumRGBKeyboards(true);
+                var candidates = await Devices.GetSpectrumRGBKeyboardsAsync(true).ConfigureAwait(false);
 
                 foreach (var candidate in candidates.Where(candidate => candidate is { IsInvalid: false, IsClosed: false }))
                 {

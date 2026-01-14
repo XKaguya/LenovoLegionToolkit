@@ -1,10 +1,4 @@
-﻿using LenovoLegionToolkit.Lib.Extensions;
-using LenovoLegionToolkit.Lib.Settings;
-using NeoSmart.AsyncLock;
-using Newtonsoft.Json;
-using Octokit;
-using Octokit.Internal;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -13,6 +7,12 @@ using System.Net.Http;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using LenovoLegionToolkit.Lib.Extensions;
+using LenovoLegionToolkit.Lib.Settings;
+using NeoSmart.AsyncLock;
+using Newtonsoft.Json;
+using Octokit;
+using Octokit.Internal;
 
 namespace LenovoLegionToolkit.Lib.Utils;
 
@@ -23,15 +23,14 @@ public class UpdateChecker
     private readonly AsyncLock _updateSemaphore = new();
 
     private static readonly Dictionary<string, ProjectEntry> ProjectEntries = new();
-    private static string _branch = "Release";
-    private static readonly string Branch = _branch;
-    private const string ServerUrl = "http://kaguya.net.cn:9999";
-    private const int MaxRetryCount = 3;
+    private readonly string _branch;
+    private const string SERVER_URL = "http://kaguya.net.cn:9999";
+    private const int MAX_RETRY_COUNT = 3;
 
     private DateTime _lastUpdate;
     private TimeSpan _minimumTimeSpanForRefresh;
     private Update[] _updates = [];
-    public UpdateFromServer _updateFromServer;
+    public UpdateFromServer UpdateFromServer;
 
     public bool Disable { get; set; }
     public UpdateCheckStatus Status { get; set; }
@@ -40,15 +39,14 @@ public class UpdateChecker
     {
         _httpClientFactory = httpClientFactory;
 
+        _branch = File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DevMode")) ? "Dev" : $"Dev";
+
         UpdateMinimumTimeSpanForRefresh();
         _lastUpdate = _updateCheckSettings.Store.LastUpdateCheckDateTime ?? DateTime.MinValue;
     }
 
     public async Task<Version?> CheckAsync(bool forceCheck)
     {
-#if DEBUG
-        return null;
-#endif
         using (await _updateSemaphore.LockAsync().ConfigureAwait(false))
         {
             ApplicationSettings settings = IoCContainer.Resolve<ApplicationSettings>();
@@ -127,7 +125,7 @@ public class UpdateChecker
             {
                 try
                 {
-                    var (currentVersion, newVersion, statusCode, projectInfo, patchNote) = await TryGetUpdateFromServer();
+                    var (currentVersion, newVersion, statusCode, projectInfo, patchNote) = await TryGetUpdateFromServer().ConfigureAwait(false);
 
                     if (statusCode == StatusCode.Null)
                     {
@@ -158,13 +156,13 @@ public class UpdateChecker
                             Log.Instance.Trace($"Force update branch");
 
                             Status = UpdateCheckStatus.Success;
-                            _updateFromServer = new UpdateFromServer(projectInfo, patchNote);
+                            UpdateFromServer = new UpdateFromServer(projectInfo, patchNote);
                             return newVersion;
                         case StatusCode.Update when currentVersion != newVersion:
                             Log.Instance.Trace($"Normal update branch");
 
                             Status = UpdateCheckStatus.Success;
-                            _updateFromServer = new UpdateFromServer(projectInfo, patchNote);
+                            UpdateFromServer = new UpdateFromServer(projectInfo, patchNote);
                             return newVersion;
                         case StatusCode.NoUpdate:
                         case StatusCode.ForceUpdate when newVersion == currentVersion:
@@ -212,15 +210,15 @@ public class UpdateChecker
             }
             else
             {
-                if (_updateFromServer.Equals(default))
+                if (UpdateFromServer.Equals(default))
                     throw new InvalidOperationException("No updates available");
 
-                if (_updateFromServer.Url is null)
+                if (UpdateFromServer.Url is null)
                     throw new InvalidOperationException("Setup file URL could not be found");
 
                 await using var fileStream = File.OpenWrite(tempPath);
                 using var httpClient = _httpClientFactory.Create();
-                await httpClient.DownloadAsync(_updateFromServer.Url, fileStream, progress, cancellationToken, true).ConfigureAwait(false);
+                await httpClient.DownloadAsync(UpdateFromServer.Url, fileStream, progress, cancellationToken, true).ConfigureAwait(false);
             }
 
             return tempPath;
@@ -244,7 +242,7 @@ public class UpdateChecker
         return ProjectEntries.ContainsKey("MaintenanceMode") && ProjectEntries["MaintenanceMode"].MaintenanceMode;
     }
 
-    private static async Task<(StatusCode, string)> GetLatestVersionWithRetryAsync(ProjectInfo projectInfo)
+    private async Task<(StatusCode, string)> GetLatestVersionWithRetryAsync(ProjectInfo projectInfo)
     {
         var (status, version) = await RetryAsync(() => GetLatestVersionFromServer(projectInfo)).ConfigureAwait(false);
 
@@ -258,7 +256,7 @@ public class UpdateChecker
 
     private static async Task<(StatusCode, string)> RetryAsync(Func<Task<(StatusCode, string)>> operation)
     {
-        for (int i = 0; i < MaxRetryCount; i++)
+        for (int i = 0; i < MAX_RETRY_COUNT; i++)
         {
             try
             {
@@ -267,7 +265,7 @@ public class UpdateChecker
             catch (Exception ex)
             {
                 Log.Instance.Trace($"Attempt {i + 1} failed: {ex.Message}");
-                if (i == MaxRetryCount - 1) throw;
+                if (i == MAX_RETRY_COUNT - 1) throw;
             }
 
             await Task.Delay(1000).ConfigureAwait(false);
@@ -276,13 +274,13 @@ public class UpdateChecker
         return (StatusCode.Null, string.Empty);
     }
 
-    private static async Task<(StatusCode, string)> GetLatestVersionFromServer(ProjectInfo projectInfo)
+    private async Task<(StatusCode, string)> GetLatestVersionFromServer(ProjectInfo projectInfo)
     {
         try
         {
             using HttpClient httpClient = new HttpClient();
 
-            var url = $"{ServerUrl}/Projects.json";
+            var url = $"{SERVER_URL}/Projects.json";
 
             string userAgent = $"CommonUpdater-LenovoLegionToolkit-{(string.IsNullOrEmpty(projectInfo.ProjectCurrentVersion) ? "Null" : projectInfo.ProjectCurrentVersion)}";
             httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(userAgent);
@@ -313,10 +311,7 @@ public class UpdateChecker
                     maintenanceEntry.MaintenanceMode = false;
                 }
 
-                if (!ProjectEntries.ContainsKey("MaintenanceMode"))
-                {
-                    ProjectEntries.Add("MaintenanceMode", maintenanceEntry);
-                }
+                ProjectEntries.TryAdd("MaintenanceMode", maintenanceEntry);
             }
 
             foreach (var project in projectConfig)
@@ -368,15 +363,15 @@ public class UpdateChecker
                     $"Project: {kvp.Value.ProjectName}, Version: {kvp.Value.ProjectVersion}, Force Update: {kvp.Value.ProjectForceUpdate}");
             }
 
-            string projectName = Branch == "Dev" ? $"{projectInfo.ProjectName}Dev" : projectInfo.ProjectName;
+            string projectName = _branch == "Dev" ? $"{projectInfo.ProjectName}Dev" : projectInfo.ProjectName;
 
-            if (!ProjectEntries.ContainsKey(projectName))
+            if (!ProjectEntries.TryGetValue(projectName, out var entry))
             {
                 Log.Instance.Trace($"Project entry '{projectName}' not found in configuration.");
                 return (StatusCode.Null, string.Empty);
             }
 
-            if (!ProjectEntries[projectName].IsValid())
+            if (!entry.IsValid())
             {
                 return (StatusCode.Null, string.Empty);
             }
@@ -401,13 +396,9 @@ public class UpdateChecker
             return (StatusCode.Null, string.Empty);
         }
     }
+
     private async Task<(Version?, Version?, StatusCode, ProjectInfo, string)> TryGetUpdateFromServer()
     {
-        if (File.Exists("DevMode"))
-        {
-            _branch = "Dev";
-        }
-
         var thisReleaseVersion = Assembly.GetEntryAssembly()?.GetName().Version;
 
         ProjectInfo projectInfo = new ProjectInfo
@@ -422,10 +413,10 @@ public class UpdateChecker
 
         var (statusCode, newestVersion) = await GetLatestVersionWithRetryAsync(projectInfo).ConfigureAwait(false);
 
-        if (IsServerUnderMaintenanceMode() && Branch != "Dev")
+        if (IsServerUnderMaintenanceMode() && _branch != "Dev")
         {
             Log.Instance.Trace($"Update Server is currently under maintenance mode.");
-            Log.Instance.Trace($"Current branch is {Branch}");
+            Log.Instance.Trace($"Current branch is {_branch}");
             Log.Instance.Trace($"Now exiting...");
 
             Status = UpdateCheckStatus.Success;
@@ -434,18 +425,23 @@ public class UpdateChecker
 
         projectInfo.ProjectNewVersion = newestVersion;
         var currentVersion = Version.Parse(projectInfo.ProjectCurrentVersion);
-        var newVersion = Version.Parse(newestVersion);
+        var newVersion = Version.Parse(newestVersion ?? "0.0.0.0");
         string patchNote = string.Empty;
 
         if ((statusCode != StatusCode.Update && statusCode != StatusCode.ForceUpdate) ||
             string.IsNullOrEmpty(newestVersion)) return (currentVersion, newVersion, statusCode, projectInfo, patchNote);
         try
         {
-            string folderName = Branch == "Dev" ? $"{projectInfo.ProjectName}Dev" : projectInfo.ProjectName;
+            string folderName = _branch == "Dev" ? $"{projectInfo.ProjectName}Dev" : projectInfo.ProjectName;
 
-            var name = await File.ReadAllTextAsync(Path.Combine(Folders.AppData, "lang")).ConfigureAwait(false);
-            var cultureInfo = new CultureInfo(name);
-            var patchNoteUrl = cultureInfo is { IetfLanguageTag: "zh-Hans" } ? $"{ServerUrl}/{folderName}/PatchNote-{newestVersion}-zh.txt" : $"{ServerUrl}/{folderName}/PatchNote-{newestVersion}.txt";
+            var langData = "en-US";
+            if (File.Exists(Path.Combine(Folders.AppData, "lang")))
+            {
+                langData = await File.ReadAllTextAsync(Path.Combine(Folders.AppData, "lang")).ConfigureAwait(false);
+            }
+
+            var cultureInfo = new CultureInfo(langData);
+            var patchNoteUrl = cultureInfo.IetfLanguageTag == "zh-Hans" ? $"{SERVER_URL}/{folderName}/PatchNote-{newestVersion}-zh.txt" : $"{SERVER_URL}/{folderName}/PatchNote-{newestVersion}.txt";
 
             Log.Instance.Trace($"Fetching patch note from: {patchNoteUrl}");
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using LenovoLegionToolkit.Lib.Extensions;
 using Windows.Win32;
+using LenovoLegionToolkit.Lib.Extensions;
 
 namespace LenovoLegionToolkit.Lib.System;
 

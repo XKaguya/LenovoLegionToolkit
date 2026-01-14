@@ -411,6 +411,8 @@ public class SpectrumKeyboardBacklightController
     {
         try
         {
+            var settings = IoCContainer.Resolve<SpectrumKeyboardSettings>();
+
             await ThrowIfVantageEnabled().ConfigureAwait(false);
 
             var handle = await GetHandleOrThrow().ConfigureAwait(false);
@@ -424,8 +426,7 @@ public class SpectrumKeyboardBacklightController
 
             await SetFeatureAsync(handle, new LENOVO_SPECTRUM_AURORA_START_STOP_REQUEST(true, (byte)profile)).ConfigureAwait(false);
 
-            var settings = IoCContainer.Resolve<ApplicationSettings>().Store;
-            var useBoost = settings.AuroraVantageColorBoost;
+            var useBoost = settings.Store.AuroraVantageColorBoost;
             
             while (!token.IsCancellationRequested)
             {
@@ -770,12 +771,12 @@ public class SpectrumKeyboardBacklightController
         return result;
     }
     
-    private static RGBColor ApplyVantageColorBoost(RGBColor color, ApplicationSettings.ApplicationSettingsStore settings)
+    private static RGBColor ApplyVantageColorBoost(RGBColor color, SpectrumKeyboardSettings settings)
     {
-        var vWhite = settings.AuroraVantageColorBoostWhite;
-        var boostFloor = settings.AuroraVantageColorBoostFloor;
-        var boostTarget = settings.AuroraVantageColorBoostTarget;
-        var brightnessBoostFactor = settings.AuroraVantageColorBoostBrightnessFactor;
+        var vWhite = settings.Store.AuroraVantageColorBoostWhite;
+        var boostFloor = settings.Store.AuroraVantageColorBoostFloor;
+        var boostTarget = settings.Store.AuroraVantageColorBoostTarget;
+        var brightnessBoostFactor = settings.Store.AuroraVantageColorBoostBrightnessFactor;
 
         int r = color.R;
         int g = color.G;

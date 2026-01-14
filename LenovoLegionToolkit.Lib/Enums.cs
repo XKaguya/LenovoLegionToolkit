@@ -89,6 +89,12 @@ public enum CPUOverclockingID
     AllCoreCurveOptimizer = 0x414D4403,
 }
 
+public enum CpuProfileMode
+{
+    Productivity,
+    X3DGaming
+}
+
 [Flags]
 public enum DriverKey
 {
@@ -150,9 +156,9 @@ public enum FloatingGadgetItem
     GpuPower,
     [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Fan")]
     GpuFan,
-    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Temperature")]
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Disk1Temperature")]
     Disk1Temperature,
-    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Temperature")]
+    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Disk2Temperature")]
     Disk2Temperature,
     [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Utilization")]
     MemoryUtilization,
@@ -575,6 +581,30 @@ public enum RGBKeyboardBacklightSpeed
     Fast,
     [Display(ResourceType = typeof(Resource), Name = "RGBKeyboardBacklightSpeed_Fastest")]
     Fastest
+}
+
+public enum SensorItem
+{
+    CpuUtilization,
+    CpuFrequency,
+    CpuFanSpeed,
+    CpuTemperature,
+    CpuPower,
+    GpuUtilization,
+    GpuFrequency,
+    GpuFanSpeed,
+    GpuCoreTemperature,
+    GpuVramTemperature,
+    GpuTemperatures,
+    GpuPower,
+    PchFanSpeed,
+    PchTemperature,
+    BatteryState,
+    BatteryLevel,
+    MemoryUtilization,
+    MemoryTemperature,
+    Disk1Temperature,
+    Disk2Temperature
 }
 
 public enum SpeakerState

@@ -1,12 +1,12 @@
-﻿using Humanizer;
-using LenovoLegionToolkit.WPF.Extensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Humanizer;
+using LenovoLegionToolkit.WPF.Extensions;
 
 namespace LenovoLegionToolkit.WPF.Windows.Utils;
 
@@ -20,8 +20,15 @@ public partial class LanguageSelectorWindow
     {
         InitializeComponent();
 
-        _languageComboBox.SetItems(languages.OrderBy(ci => ci.Name, StringComparer.InvariantCultureIgnoreCase),
-            defaultLanguage,
+        var languageList = languages.ToList();
+        var systemCulture = CultureInfo.CurrentUICulture;
+
+        var selectedLanguage = languageList.FirstOrDefault(l => l.Name.Equals(systemCulture.Name, StringComparison.OrdinalIgnoreCase))
+                               ?? languageList.FirstOrDefault(l => l.TwoLetterISOLanguageName == systemCulture.TwoLetterISOLanguageName)
+                               ?? defaultLanguage;
+
+        _languageComboBox.SetItems(languageList.OrderBy(ci => ci.Name, StringComparer.InvariantCultureIgnoreCase),
+            selectedLanguage,
             cc => cc.NativeName.Transform(cc, To.TitleCase));
     }
 

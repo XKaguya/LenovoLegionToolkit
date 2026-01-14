@@ -1,8 +1,8 @@
-﻿using LenovoLegionToolkit.Lib;
+﻿using System.Windows;
+using System.Windows.Input;
+using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Controllers;
 using LenovoLegionToolkit.Lib.Features;
-using System.Windows;
-using System.Windows.Input;
 
 namespace LenovoLegionToolkit.WPF.Windows.Dashboard;
 

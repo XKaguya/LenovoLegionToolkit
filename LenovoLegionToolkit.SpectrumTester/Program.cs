@@ -1,7 +1,7 @@
 ﻿using System.Runtime.InteropServices;
+using Windows.Win32;
 using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.System;
-using Windows.Win32;
 
 // ReSharper disable all
 
@@ -13,8 +13,15 @@ When ready, press any key to continue...
 ");
 Console.ReadKey();
 
-var deviceList = Devices.GetSpectrumRGBKeyboards();
+var deviceList = await Devices.GetSpectrumRGBKeyboardsAsync();
 // Default use 0 because lazy.
+if (deviceList.Count == 0)
+{
+    Console.WriteLine("No Spectrum keyboard found.");
+    Console.ReadKey();
+    return;
+}
+
 var device = deviceList[0];
 
 Console.WriteLine("Finding Spectrum keyboard...");

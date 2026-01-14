@@ -5,7 +5,7 @@ using LenovoLegionToolkit.Lib.System;
 using Newtonsoft.Json;
 
 namespace LenovoLegionToolkit.Lib.Automation.Pipeline.Triggers;
-
+// TODO: Ignore the first time when LLT startup with Windows. Give user an option.
 public class ACAdapterConnectedAutomationPipelineTrigger : IPowerStateAutomationPipelineTrigger
 {
     [JsonIgnore]

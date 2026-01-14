@@ -26,16 +26,37 @@
 
                 <StackPanel.Resources>
                     <Style x:Key="SensorLabelStyle" TargetType="TextBlock">
-                        <Setter Property="Foreground" Value="DeepSkyBlue" />
+                        <Setter Property="Foreground" Value="GreenYellow" />
                         <Setter Property="FontSize" Value="13" />
+                        <Setter Property="FontWeight" Value="Black" />
+                        <Setter Property="FontFamily" Value="Segoe UI" />
+                        <Setter Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect
+                                    BlurRadius="4"
+                                    Opacity="1"
+                                    ShadowDepth="0"
+                                    Color="Black" />
+                            </Setter.Value>
+                        </Setter>
                         <Setter Property="Margin" Value="0,3" />
                     </Style>
                     <Style x:Key="SensorValueStyle" TargetType="TextBlock">
-                        <Setter Property="Foreground" Value="#FFFFFF" />
-                        <Setter Property="FontSize" Value="14" />
-                        <Setter Property="FontWeight" Value="Bold" />
+                        <Setter Property="Foreground" Value="White" />
+                        <Setter Property="FontSize" Value="15" />
+                        <Setter Property="FontWeight" Value="Black" />
+                        <Setter Property="FontFamily" Value="Segoe UI" />
                         <Setter Property="HorizontalAlignment" Value="Right" />
-                        <Setter Property="Margin" Value="0,3" />
+                        <Setter Property="Margin" Value="0,1" />
+                        <Setter Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect
+                                    BlurRadius="4"
+                                    Opacity="1"
+                                    ShadowDepth="0"
+                                    Color="Black" />
+                            </Setter.Value>
+                        </Setter>
                     </Style>
                 </StackPanel.Resources>
 

@@ -23,8 +23,6 @@ namespace LenovoLegionToolkit.WPF.Pages;
 
 public partial class AutomationPage
 {
-    public static bool EnableHybridModeAutomation;
-
     private readonly AutomationProcessor _automationProcessor = IoCContainer.Resolve<AutomationProcessor>();
 
     private IAutomationStep[] _supportedAutomationSteps = [];
@@ -45,7 +43,9 @@ public partial class AutomationPage
     {
         var isChecked = _enableAutomaticPipelinesToggle.IsChecked;
         if (isChecked.HasValue)
+        {
             await _automationProcessor.SetEnabledAsync(isChecked.Value);
+        }
     }
 
     private void NewAutomaticPipelineButton_Click(object sender, RoutedEventArgs e)
@@ -188,7 +188,7 @@ public partial class AutomationPage
             new RefreshRateAutomationStep(default),
             new ResolutionAutomationStep(default),
             new RGBKeyboardBacklightAutomationStep(default),
-            new RunAutomationStep(default, default, default, default),
+            new RunAutomationStep(default, default, default, default, default),
             new SpectrumKeyboardBacklightBrightnessAutomationStep(0),
             new SpectrumKeyboardBacklightProfileAutomationStep(1),
             new SpectrumKeyboardBacklightImportProfileAutomationStep(default),
@@ -201,9 +201,6 @@ public partial class AutomationPage
             new CloseAutomationStep(),
             new FloatingGadgetAutomationStep(default),
         };
-
-        if (EnableHybridModeAutomation)
-            steps.Add(new HybridModeAutomationStep(default));
 
         for (var index = steps.Count - 1; index >= 0; index--)
         {

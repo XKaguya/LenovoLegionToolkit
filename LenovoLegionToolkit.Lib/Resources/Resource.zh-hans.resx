@@ -568,4 +568,22 @@
   <data name="FloatingGadgetItem_E_Core_Frequency" xml:space="preserve">
     <value>能效核心频率</value>
   </data>
+  <data name="AmdOverclocking_Not_Initialized_Message" xml:space="preserve">
+    <value>未初始化。</value>
+  </data>
+  <data name="FloatingGadgetState_Toggle" xml:space="preserve">
+    <value>切换</value>
+  </data>
+  <data name="AmdOverclocking_Not_Supported" xml:space="preserve">
+    <value>不支持此操作。</value>
+  </data>
+  <data name="AmdOverclocking_Ac_Message" xml:space="preserve">
+    <value>未接入电源时不会应用超频参数。</value>
+  </data>
+  <data name="FloatingGadgetItem_Disk1Temperature" xml:space="preserve">
+    <value>磁盘 1 温度</value>
+  </data>
+  <data name="FloatingGadgetItem_Disk2Temperature" xml:space="preserve">
+    <value>磁盘 2 温度</value>
+  </data>
 </root>

@@ -99,6 +99,7 @@
                 <wpfui:Hyperlink Content="PawnIO" NavigateUri="https://github.com/namazso/PawnIO" />
                 <wpfui:Hyperlink Content="NvAPIWrapper" NavigateUri="https://github.com/tebjan/NvAPIWrapper" />
                 <wpfui:Hyperlink Content="PresentMonFps" NavigateUri="https://github.com/lemutec/PresentMonFps" />
+                <wpfui:Hyperlink Content="ZenStates.Core" NavigateUri="https://github.com/irusanov/ZenStates-Core" />
                 <wpfui:Hyperlink Content="inpoutx64" />
             </StackPanel>
 

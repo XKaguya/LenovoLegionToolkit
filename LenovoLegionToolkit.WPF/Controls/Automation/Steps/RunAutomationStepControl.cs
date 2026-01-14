@@ -37,6 +37,12 @@ public class RunAutomationStepControl : AbstractAutomationStepControl<RunAutomat
         ToolTip = Resource.RunAutomationStepControl_ProcessWaitUntilFinished_Description
     };
 
+    private readonly CheckBox _checkBoxProcessCheckInstance = new()
+    {
+        Content = Resource.RunAutomationStepControl_ProcessCheckInstance,
+        ToolTip = Resource.RunAutomationStepControl_ProcessCheckInstance_Description
+    };
+
     private readonly StackPanel _stackPanel = new();
 
     public RunAutomationStepControl(RunAutomationStep step) : base(step)
@@ -51,6 +57,7 @@ public class RunAutomationStepControl : AbstractAutomationStepControl<RunAutomat
         AutomationProperties.SetName(_scriptArguments, Resource.RunAutomationStepControl_ExeArguments);
         AutomationProperties.SetName(_checkBoxProcessRunSilently, Resource.RunAutomationStepControl_ProcessRunSilently);
         AutomationProperties.SetName(_checkBoxProcessWaitUntilFinished, Resource.RunAutomationStepControl_ProcessWaitUntilFinished);
+        AutomationProperties.SetName(_checkBoxProcessCheckInstance, Resource.RunAutomationStepControl_ProcessCheckInstance);
 
         SizeChanged += RunAutomationStepControl_SizeChanged;
     }
@@ -70,7 +77,8 @@ public class RunAutomationStepControl : AbstractAutomationStepControl<RunAutomat
         return new RunAutomationStep(_scriptPath.Text,
             _scriptArguments.Text,
             _checkBoxProcessRunSilently.IsChecked ?? true,
-            _checkBoxProcessWaitUntilFinished.IsChecked ?? true);
+            _checkBoxProcessWaitUntilFinished.IsChecked ?? true,
+            _checkBoxProcessCheckInstance.IsChecked ?? true);
     }
 
     protected override UIElement GetCustomControl()
@@ -105,11 +113,17 @@ public class RunAutomationStepControl : AbstractAutomationStepControl<RunAutomat
             if (_checkBoxProcessWaitUntilFinished.IsChecked != AutomationStep.WaitUntilFinished)
                 RaiseChanged();
         };
+        _checkBoxProcessCheckInstance.Unchecked += (_, _) =>
+        {
+            if (_checkBoxProcessCheckInstance.IsChecked != AutomationStep.CheckInstance)
+                RaiseChanged();
+        };
 
         _stackPanel.Children.Add(_scriptPath);
         _stackPanel.Children.Add(_scriptArguments);
         _stackPanel.Children.Add(_checkBoxProcessRunSilently);
         _stackPanel.Children.Add(_checkBoxProcessWaitUntilFinished);
+        _stackPanel.Children.Add(_checkBoxProcessCheckInstance);
 
         return _stackPanel;
     }

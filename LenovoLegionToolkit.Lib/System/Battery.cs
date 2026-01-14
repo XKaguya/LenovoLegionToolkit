@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Diagnostics.Eventing.Reader;
 using System.Linq;
+using Windows.Win32;
+using Windows.Win32.System.Power;
 using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.Settings;
 using LenovoLegionToolkit.Lib.Utils;
-using Windows.Win32;
-using Windows.Win32.System.Power;
 
 namespace LenovoLegionToolkit.Lib.System;
 

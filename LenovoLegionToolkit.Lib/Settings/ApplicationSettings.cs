@@ -62,11 +62,6 @@ public class ApplicationSettings : AbstractSettings<ApplicationSettings.Applicat
         public List<FloatingGadgetItem> FloatingGadgetItems { get; set; } = [];
         public bool DynamicLightingWarningDontShowAgain { get; set; }
         public bool CustomModeWarningDontShowAgain { get; set; }
-        public bool AuroraVantageColorBoost { get; set; }
-        public int AuroraVantageColorBoostFloor { get; set; } = 20;
-        public int AuroraVantageColorBoostTarget { get; set; } = 80;
-        public int AuroraVantageColorBoostWhite { get; set; } = 224;
-        public int AuroraVantageColorBoostBrightnessFactor { get; set; } = 50;
     }
 
     public ApplicationSettings() : base("settings.json")

@@ -6,7 +6,7 @@
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="AMD Precision Boost Overclocking"
     Width="1050"
-    Height="830"
+    Height="850"
     MinWidth="900"
     MinHeight="600"
     ExtendsContentIntoTitleBar="True"
@@ -80,52 +80,162 @@
                 Severity="Informational" />
         </StackPanel>
 
-        <ui:Card
-            Grid.Row="2"
-            Margin="20,5"
-            Padding="20,16"
-            Background="{DynamicResource ControlFillColorDefaultBrush}">
-            <Grid>
-                <StackPanel Orientation="Horizontal">
+        <Grid Grid.Row="2" Margin="16,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <ui:Card
+                Grid.Column="0"
+                Margin="4"
+                Padding="12,16">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
                     <ui:SymbolIcon
-                        Margin="0,0,16,0"
-                        FontSize="26"
+                        Grid.Column="0"
+                        Margin="0,0,12,0"
+                        FontSize="22"
                         Foreground="{DynamicResource SystemAccentColorPrimaryBrush}"
-                        Symbol="FlashSparkle24" />
-                    <StackPanel VerticalAlignment="Center">
+                        Symbol="PointScan24" />
+                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
                         <TextBlock
-                            FontSize="15"
+                            FontSize="14"
                             FontWeight="Bold"
                             Text="{x:Static resources:Resource.AmdOverclocking_FMax_Frequency_Title}" />
                         <TextBlock
-                            FontSize="12"
+                            FontSize="11"
                             Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                            Text="{x:Static resources:Resource.AmdOverclocking_FMax_Frequency_Message}" />
+                            Text="{x:Static resources:Resource.AmdOverclocking_FMax_Frequency_Message}"
+                            TextWrapping="Wrap" />
                     </StackPanel>
-                </StackPanel>
-                <StackPanel
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Orientation="Horizontal">
-                    <ui:NumberBox
-                        x:Name="_fMaxNumberBox"
-                        Width="100"
-                        SpinButtonPlacementMode="Compact" />
-                    <TextBlock
-                        Margin="10,0,0,0"
+                    <StackPanel
+                        Grid.Column="2"
+                        Margin="8,0,0,0"
                         VerticalAlignment="Center"
-                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                        Text="MHz" />
-                </StackPanel>
-            </Grid>
-        </ui:Card>
+                        Orientation="Horizontal">
+                        <ui:NumberBox
+                            x:Name="_fMaxNumberBox"
+                            Width="70"
+                            SpinButtonPlacementMode="Compact" />
+                        <TextBlock
+                            Margin="4,0,0,0"
+                            VerticalAlignment="Center"
+                            FontSize="11"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Text="MHz" />
+                    </StackPanel>
+                </Grid>
+            </ui:Card>
+
+            <ui:Card
+                Grid.Column="1"
+                Margin="4"
+                Padding="12,16">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <ui:SymbolIcon
+                        Grid.Column="0"
+                        Margin="0,0,12,0"
+                        FontSize="22"
+                        Foreground="{DynamicResource SystemAccentColorPrimaryBrush}"
+                        Symbol="Temperature24" />
+                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                        <TextBlock
+                            FontSize="14"
+                            FontWeight="Bold"
+                            Text="PROCHOT" />
+                        <TextBlock
+                            FontSize="11"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Text="{x:Static resources:Resource.GodModeSettingsWindow_Toggle_OC_Message}"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                    <CheckBox
+                        x:Name="_prochotCheckBox"
+                        Grid.Column="2"
+                        Margin="8,0,0,0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center" />
+                </Grid>
+            </ui:Card>
+
+            <ui:Card
+                Grid.Column="2"
+                Margin="4"
+                Padding="12,12">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <ui:SymbolIcon
+                        Grid.Column="0"
+                        Margin="0,0,12,0"
+                        FontSize="22"
+                        Foreground="{DynamicResource SystemAccentColorPrimaryBrush}"
+                        Symbol="Games24" />
+
+                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                        <TextBlock
+                            FontSize="14"
+                            FontWeight="Bold"
+                            Text="{x:Static resources:Resource.AmdOverclocking_X3D_Gaming_Mode_Title}" />
+                        <TextBlock
+                            FontSize="11"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Text="{x:Static resources:Resource.AmdOverclocking_X3D_Gaming_Mode_Message}"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+
+                    <Grid
+                        Grid.Column="2"
+                        Margin="8,0,0,0"
+                        VerticalAlignment="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <ui:Button
+                            x:Name="_x3dGamingModeEnabled"
+                            Grid.Row="0"
+                            Width="85"
+                            Margin="0,0,0,4"
+                            Padding="8,4"
+                            Appearance="Primary"
+                            Click="X3DGamingModeEnabled_OnClick"
+                            Content="Enable"
+                            FontSize="11" />
+                        <ui:Button
+                            x:Name="_x3dGamingModeDisabled"
+                            Grid.Row="1"
+                            Width="85"
+                            Padding="8,4"
+                            Appearance="Secondary"
+                            Click="X3DGamingModeDisabled_OnClick"
+                            Content="Disable"
+                            FontSize="11" />
+                    </Grid>
+                </Grid>
+            </ui:Card>
+        </Grid>
 
         <ScrollViewer
             Grid.Row="3"
             Margin="0,10,0,0"
             Padding="20,0,20,0">
             <StackPanel>
-                <!--  CCD 0  -->
                 <TextBlock Style="{StaticResource GroupHeaderStyle}" Text="CCD 0 (Core 0 - 7)" />
                 <Border Style="{StaticResource CcdContainerStyle}">
                     <UniformGrid Columns="2">
@@ -139,7 +249,7 @@
                                     <TextBlock
                                         VerticalAlignment="Center"
                                         FontWeight="Medium"
-                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0}0}" />
+                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0} 0}" />
                                 </StackPanel>
                                 <ui:NumberBox x:Name="_core0" Style="{StaticResource CoreNumberBoxStyle}" />
                             </Grid>
@@ -154,7 +264,7 @@
                                     <TextBlock
                                         VerticalAlignment="Center"
                                         FontWeight="Medium"
-                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0}1}" />
+                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0} 1}" />
                                 </StackPanel>
                                 <ui:NumberBox x:Name="_core1" Style="{StaticResource CoreNumberBoxStyle}" />
                             </Grid>
@@ -169,7 +279,7 @@
                                     <TextBlock
                                         VerticalAlignment="Center"
                                         FontWeight="Medium"
-                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0}2}" />
+                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0} 2}" />
                                 </StackPanel>
                                 <ui:NumberBox x:Name="_core2" Style="{StaticResource CoreNumberBoxStyle}" />
                             </Grid>
@@ -184,7 +294,7 @@
                                     <TextBlock
                                         VerticalAlignment="Center"
                                         FontWeight="Medium"
-                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0}3}" />
+                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0} 3}" />
                                 </StackPanel>
                                 <ui:NumberBox x:Name="_core3" Style="{StaticResource CoreNumberBoxStyle}" />
                             </Grid>
@@ -199,7 +309,7 @@
                                     <TextBlock
                                         VerticalAlignment="Center"
                                         FontWeight="Medium"
-                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0}4}" />
+                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0} 4}" />
                                 </StackPanel>
                                 <ui:NumberBox x:Name="_core4" Style="{StaticResource CoreNumberBoxStyle}" />
                             </Grid>
@@ -214,7 +324,7 @@
                                     <TextBlock
                                         VerticalAlignment="Center"
                                         FontWeight="Medium"
-                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0}5}" />
+                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0} 5}" />
                                 </StackPanel>
                                 <ui:NumberBox x:Name="_core5" Style="{StaticResource CoreNumberBoxStyle}" />
                             </Grid>
@@ -229,7 +339,7 @@
                                     <TextBlock
                                         VerticalAlignment="Center"
                                         FontWeight="Medium"
-                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0}6}" />
+                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0} 6}" />
                                 </StackPanel>
                                 <ui:NumberBox x:Name="_core6" Style="{StaticResource CoreNumberBoxStyle}" />
                             </Grid>
@@ -244,7 +354,7 @@
                                     <TextBlock
                                         VerticalAlignment="Center"
                                         FontWeight="Medium"
-                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0}7}" />
+                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0} 7}" />
                                 </StackPanel>
                                 <ui:NumberBox x:Name="_core7" Style="{StaticResource CoreNumberBoxStyle}" />
                             </Grid>
@@ -252,7 +362,6 @@
                     </UniformGrid>
                 </Border>
 
-                <!--  CCD 1  -->
                 <TextBlock Style="{StaticResource GroupHeaderStyle}" Text="CCD 1 (Core 8 - 15)" />
                 <Border Style="{StaticResource CcdContainerStyle}">
                     <UniformGrid Columns="2">
@@ -266,7 +375,7 @@
                                     <TextBlock
                                         VerticalAlignment="Center"
                                         FontWeight="Medium"
-                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0}8}" />
+                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0} 8}" />
                                 </StackPanel>
                                 <ui:NumberBox x:Name="_core8" Style="{StaticResource CoreNumberBoxStyle}" />
                             </Grid>
@@ -281,7 +390,7 @@
                                     <TextBlock
                                         VerticalAlignment="Center"
                                         FontWeight="Medium"
-                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0}9}" />
+                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0} 9}" />
                                 </StackPanel>
                                 <ui:NumberBox x:Name="_core9" Style="{StaticResource CoreNumberBoxStyle}" />
                             </Grid>
@@ -296,7 +405,7 @@
                                     <TextBlock
                                         VerticalAlignment="Center"
                                         FontWeight="Medium"
-                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0}10}" />
+                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0} 10}" />
                                 </StackPanel>
                                 <ui:NumberBox x:Name="_core10" Style="{StaticResource CoreNumberBoxStyle}" />
                             </Grid>
@@ -311,7 +420,7 @@
                                     <TextBlock
                                         VerticalAlignment="Center"
                                         FontWeight="Medium"
-                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0}11}" />
+                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0} 11}" />
                                 </StackPanel>
                                 <ui:NumberBox x:Name="_core11" Style="{StaticResource CoreNumberBoxStyle}" />
                             </Grid>
@@ -326,7 +435,7 @@
                                     <TextBlock
                                         VerticalAlignment="Center"
                                         FontWeight="Medium"
-                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0}12}" />
+                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0} 12}" />
                                 </StackPanel>
                                 <ui:NumberBox x:Name="_core12" Style="{StaticResource CoreNumberBoxStyle}" />
                             </Grid>
@@ -341,7 +450,7 @@
                                     <TextBlock
                                         VerticalAlignment="Center"
                                         FontWeight="Medium"
-                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0}13}" />
+                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0} 13}" />
                                 </StackPanel>
                                 <ui:NumberBox x:Name="_core13" Style="{StaticResource CoreNumberBoxStyle}" />
                             </Grid>
@@ -356,7 +465,7 @@
                                     <TextBlock
                                         VerticalAlignment="Center"
                                         FontWeight="Medium"
-                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0}14}" />
+                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0} 14}" />
                                 </StackPanel>
                                 <ui:NumberBox x:Name="_core14" Style="{StaticResource CoreNumberBoxStyle}" />
                             </Grid>
@@ -371,7 +480,7 @@
                                     <TextBlock
                                         VerticalAlignment="Center"
                                         FontWeight="Medium"
-                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0}15}" />
+                                        Text="{Binding Source={x:Static resources:Resource.AmdOverclocking_Core_Title}, StringFormat={}{0} 15}" />
                                 </StackPanel>
                                 <ui:NumberBox x:Name="_core15" Style="{StaticResource CoreNumberBoxStyle}" />
                             </Grid>

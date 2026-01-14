@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
-using LenovoLegionToolkit.Lib.Extensions;
-using LenovoLegionToolkit.Lib.Utils;
-using Microsoft.Win32.SafeHandles;
+using System.Threading.Tasks;
 using Windows.Win32;
 using Windows.Win32.Devices.DeviceAndDriverInstallation;
 using Windows.Win32.Devices.HumanInterfaceDevice;
 using Windows.Win32.Devices.Properties;
 using Windows.Win32.Foundation;
 using Windows.Win32.Storage.FileSystem;
+using LenovoLegionToolkit.Lib.Extensions;
+using LenovoLegionToolkit.Lib.Utils;
+using Microsoft.Win32.SafeHandles;
+
 
 namespace LenovoLegionToolkit.Lib.System;
 
@@ -241,12 +243,14 @@ public static class Devices
         return _rgbKeyboard;
     }
 
-    public static List<SafeFileHandle> GetSpectrumRGBKeyboards(bool forceRefresh = false)
+    public static async Task<List<SafeFileHandle>> GetSpectrumRGBKeyboardsAsync(bool forceRefresh = false)
     {
         if (!forceRefresh && _spectrumRgbKeyboards is not null)
         {
             return _spectrumRgbKeyboards;
         }
+
+        var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
 
         lock (Lock)
         {
@@ -255,7 +259,6 @@ public static class Devices
                 return _spectrumRgbKeyboards;
             }
 
-            var mi = Compatibility.GetMachineInformationAsync().Result;
             var config = GetKeyboardConfig(mi);
 
             _spectrumRgbKeyboards = FindHidDevices(
@@ -279,21 +282,11 @@ public static class Devices
 
         return mi switch
         {
-            { LegionSeries: LegionSeries.Legion_5, Generation: >= 10 }
-                => new(vendor, type1, mask, len),
-
-            { LegionSeries: LegionSeries.Legion_Pro_5, Generation: >= 10 }
-                => new(vendor, type1, mask, len),
-
-            { LegionSeries: LegionSeries.Legion_Pro_7, Generation: >= 10 }
-                => new(vendor, type1, mask, len),
-
-            { LegionSeries: LegionSeries.Legion_7, Generation: >= 10 }
-                => new(vendor, type1, mask, len),
-
-            { LegionSeries: LegionSeries.Legion_9 }
-                => new(vendor, type2, mask, len),
-
+            { LegionSeries: LegionSeries.Legion_5, Generation: >= 10 } => new(vendor, type1, mask, len),
+            { LegionSeries: LegionSeries.Legion_Pro_5, Generation: >= 10 } => new(vendor, type1, mask, len),
+            { LegionSeries: LegionSeries.Legion_Pro_7, Generation: >= 10 } => new(vendor, type1, mask, len),
+            { LegionSeries: LegionSeries.Legion_7, Generation: >= 10 } => new(vendor, type1, mask, len),
+            { LegionSeries: LegionSeries.Legion_9 } => new(vendor, type2, mask, len),
             _ => new(vendor, type2, mask, len)
         };
     }

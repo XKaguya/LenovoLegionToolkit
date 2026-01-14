@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-using LenovoLegionToolkit.Lib.Utils;
-using Microsoft.Win32;
 using Windows.Win32;
 using Windows.Win32.Foundation;
 using Windows.Win32.System.RemoteDesktop;
+using LenovoLegionToolkit.Lib.Utils;
+using Microsoft.Win32;
 
 namespace LenovoLegionToolkit.Lib.Listeners;
 

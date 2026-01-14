@@ -24,7 +24,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LenovoLegionToolkit.CLI.Lib
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CLI", "CLI", "{F8070067-370A-4E50-898A-8E31A3D77569}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LenovoLegionToolkit.Probe", "LenovoLegionToolkit.Probe\LenovoLegionToolkit.Probe.csproj", "{F638EB51-6BCB-4862-9604-CF83B35EFEE6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LenovoLegionToolkit.Probe", "LenovoLegionToolkit.Probe\LenovoLegionToolkit.Probe.csproj", "{F638EB51-6BCB-4862-9604-CF83B35EFEE6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

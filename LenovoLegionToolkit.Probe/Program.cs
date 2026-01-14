@@ -1,7 +1,7 @@
-﻿using LenovoLegionToolkit.Lib;
-using LenovoLegionToolkit.Lib.System.Management;
-using System.Management;
+﻿using System.Management;
 using System.Text;
+using LenovoLegionToolkit.Lib;
+using LenovoLegionToolkit.Lib.System.Management;
 
 Console.OutputEncoding = Encoding.UTF8;
 

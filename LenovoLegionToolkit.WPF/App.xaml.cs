@@ -1,4 +1,15 @@
-﻿using LenovoLegionToolkit.Lib;
+﻿using System;
+using System.Diagnostics;
+using System.Linq;
+using System.Management;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Interop;
+using System.Windows.Media;
+using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Automation;
 using LenovoLegionToolkit.Lib.Controllers;
 using LenovoLegionToolkit.Lib.Controllers.Sensors;
@@ -11,6 +22,9 @@ using LenovoLegionToolkit.Lib.Features.WhiteKeyboardBacklight;
 using LenovoLegionToolkit.Lib.Integrations;
 using LenovoLegionToolkit.Lib.Listeners;
 using LenovoLegionToolkit.Lib.Macro;
+using LenovoLegionToolkit.Lib.Messaging;
+using LenovoLegionToolkit.Lib.Messaging.Messages;
+using LenovoLegionToolkit.Lib.Overclocking.Amd;
 using LenovoLegionToolkit.Lib.Services;
 using LenovoLegionToolkit.Lib.Settings;
 using LenovoLegionToolkit.Lib.SoftwareDisabler;
@@ -24,18 +38,6 @@ using LenovoLegionToolkit.WPF.Utils;
 using LenovoLegionToolkit.WPF.Windows;
 using LenovoLegionToolkit.WPF.Windows.FloatingGadgets;
 using LenovoLegionToolkit.WPF.Windows.Utils;
-using System;
-using System.Diagnostics;
-using System.Linq;
-using System.Management;
-using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Interop;
-using System.Windows.Media;
-using LenovoLegionToolkit.WPF.Windows.Overclocking.Amd;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
 using WinFormsApp = System.Windows.Forms.Application;
@@ -138,7 +140,7 @@ public partial class App
                 InitSpectrumKeyboardControllerAsync(),
                 InitGpuOverclockControllerAsync(),
                 InitHybridModeAsync(),
-                InitAutomationProcessorAsync()
+                InitAutomationProcessorAsync(),
             };
 
             await Task.WhenAll(initTasks);
@@ -173,6 +175,8 @@ public partial class App
             IoCContainer.Resolve<ThemeManager>().Apply();
             InitSetLogIndicator();
 
+            await InitAMDOverclocking();
+
             if (_flags.Minimized)
             {
                 mainWindow.WindowState = WindowState.Minimized;
@@ -198,8 +202,11 @@ public partial class App
                 }
 
                 Compatibility.PrintControllerVersionAsync().ConfigureAwait(false);
-                CheckFloatingGadget();
-                if (_flags.Debug) Console.WriteLine(@"[Startup] Startup Complete.");
+                InitFloatingGadget();
+                if (_flags.Debug)
+                {
+                    Console.WriteLine(@"[Startup] Startup Complete.");
+                }
             });
         }
         catch (Exception ex)
@@ -234,7 +241,6 @@ public partial class App
         IoCContainer.Resolve<IGPUModeFeature>().ExperimentalGPUWorkingMode = _flags.ExperimentalGPUWorkingMode;
         IoCContainer.Resolve<DGPUNotify>().ExperimentalGPUWorkingMode = _flags.ExperimentalGPUWorkingMode;
         IoCContainer.Resolve<UpdateChecker>().Disable = _flags.DisableUpdateChecker;
-        AutomationPage.EnableHybridModeAutomation = _flags.EnableHybridModeAutomation;
     }
 
     private void HandleCriticalStartupError(Exception ex)
@@ -265,7 +271,10 @@ public partial class App
         Environment.Exit(-1);
     }
 
-    private void Application_Exit(object sender, ExitEventArgs e) => _singleInstanceMutex?.Close();
+    private void Application_Exit(object sender, ExitEventArgs e)
+    {
+        _singleInstanceMutex?.Close();
+    }
 
     public async Task ShutdownAsync()
     {
@@ -293,6 +302,19 @@ public partial class App
         await SafeExecuteAsync<IpcServer>(c => c.StopAsync());
         await SafeExecuteAsync<BatteryDischargeRateMonitorService>(c => c.StopAsync());
 
+        var feature = IoCContainer.Resolve<AmdOverclockingController>();
+
+        if (feature.IsActive())
+        {
+            var cleanInfo = new ShutdownInfo
+            {
+                Status = "Normal",
+                AbnormalCount = 0
+            };
+
+            feature.SaveShutdownInfo(cleanInfo);
+        }
+
         Shutdown();
     }
 
@@ -306,6 +328,43 @@ public partial class App
             }
         }
         catch { /* Ignore */ }
+    }
+
+    protected override void OnSessionEnding(SessionEndingCancelEventArgs e)
+    {
+        try
+        {
+            string reason = e.ReasonSessionEnding == ReasonSessionEnding.Logoff ? "Logoff" : "Shutdown";
+            Log.Instance.Trace($"System SessionEnding triggered. Reason: {reason}");
+
+            ExecuteShutdownLogic();
+        }
+        catch (Exception ex)
+        {
+            Log.Instance.Trace($"CRITICAL ERROR during SessionEnding: {ex}");
+        }
+
+        base.OnSessionEnding(e);
+    }
+
+    private void ExecuteShutdownLogic()
+    {
+        var overclockController = IoCContainer.Resolve<AmdOverclockingController>();
+
+        if (!overclockController.IsActive())
+        {
+            return;
+        }
+
+        var cleanInfo = new ShutdownInfo
+        {
+            Status = "Normal",
+            AbnormalCount = 0
+        };
+
+        overclockController.SaveShutdownInfo(cleanInfo);
+
+        Log.Instance.Trace($"Shutdown info saved successfully.");
     }
 
     #endregion
@@ -737,34 +796,90 @@ public partial class App
         catch (Exception ex) { Log.Instance.Trace($"Couldn't overclock GPU.", ex); }
     }
 
+    private static async Task InitAMDOverclocking()
+    {
+        try
+        {
+            var feature = IoCContainer.Resolve<AmdOverclockingController>();
+
+            if (feature.IsActive())
+            {
+                await feature.InitializeAsync().ConfigureAwait(false);
+
+                if (!feature.DoNotApply)
+                {
+                    await feature.ApplyInternalProfileAsync().ConfigureAwait(false);
+                }
+
+                Log.Instance.Trace($"AMD Overclocking Controller initialization task finished.");
+            }
+        }
+        catch (InvalidOperationException)
+        {
+            Log.Instance.Trace($"Profile apply has been canceled due to AC issue.");
+        }
+        catch (Exception ex)
+        {
+            Log.Instance.Trace($"Failed to apply profile on startup: {ex.Message}", ex);
+        }
+    }
+
     #endregion
 
     #region UI Helpers
-
-    private void CheckFloatingGadget()
+    public void InitFloatingGadget()
     {
-        if (!Dispatcher.CheckAccess())
+        MessagingCenter.Subscribe<FloatingGadgetChangedMessage>(this, message =>
         {
-            Dispatcher.Invoke(CheckFloatingGadget);
+            Dispatcher.Invoke(() => HandleFloatingGadgetCommand(message.State));
+        });
+
+        var settings = IoCContainer.Resolve<ApplicationSettings>();
+        if (settings.Store.ShowFloatingGadgets)
+        {
+            HandleFloatingGadgetCommand(FloatingGadgetState.Show);
+        }
+    }
+
+    private void HandleFloatingGadgetCommand(FloatingGadgetState state)
+    {
+        switch (state)
+        {
+            case FloatingGadgetState.Hidden:
+                FloatingGadget?.Hide();
+                return;
+            case FloatingGadgetState.Show:
+            case FloatingGadgetState.Toggle when FloatingGadget is not { IsVisible: true }:
+            {
+                var settings = IoCContainer.Resolve<ApplicationSettings>();
+                bool shouldBeUpper = settings.Store.SelectedStyleIndex == 1;
+
+                if (FloatingGadget != null && (FloatingGadget is FloatingGadgetUpper) != shouldBeUpper)
+                {
+                    FloatingGadget.Close();
+                    FloatingGadget = null;
+                }
+
+                EnsureGadgetCreated(shouldBeUpper);
+                FloatingGadget?.Show();
+                // FloatingGadget?.BringToForeground();
+                break;
+            }
+            case FloatingGadgetState.Toggle when FloatingGadget is { IsVisible: true }:
+                FloatingGadget.Hide();
+                break;
+        }
+    }
+
+    private void EnsureGadgetCreated(bool isUpper)
+    {
+        if (FloatingGadget != null)
+        {
             return;
         }
 
-        var settings = IoCContainer.Resolve<ApplicationSettings>();
-        if (!settings.Store.ShowFloatingGadgets) return;
-
-        if (FloatingGadget != null)
-        {
-            FloatingGadget.Show();
-        }
-        else
-        {
-            FloatingGadget = settings.Store.SelectedStyleIndex switch
-            {
-                1 => new FloatingGadgetUpper(),
-                _ => new FloatingGadget()
-            };
-            FloatingGadget.Show();
-        }
+        FloatingGadget = isUpper ? new FloatingGadgetUpper() : new FloatingGadget();
+        FloatingGadget.Closed += (s, e) => FloatingGadget = null;
     }
 
     private void ShowPawnIONotify()

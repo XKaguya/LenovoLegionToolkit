@@ -1,8 +1,8 @@
-﻿using LenovoLegionToolkit.Lib;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using LenovoLegionToolkit.Lib;
 
 namespace LenovoLegionToolkit.WPF.Windows.Utils;
 

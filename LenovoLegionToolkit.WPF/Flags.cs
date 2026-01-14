@@ -58,7 +58,6 @@ public class Flags
         ForceDisableSpectrumKeyboardSupport = BoolValue(args, "--force-disable-spectrumkb");
         ForceDisableLenovoLighting = BoolValue(args, "--force-disable-lenovolighting");
         ExperimentalGPUWorkingMode = BoolValue(args, "--experimental-gpu-working-mode");
-        EnableHybridModeAutomation = BoolValue(args, "--enable-hybrid-mode-automation");
         ProxyUrl = Uri.TryCreate(StringValue(args, "--proxy-url"), UriKind.Absolute, out var uri) ? uri : null;
         ProxyUsername = StringValue(args, "--proxy-username");
         ProxyPassword = StringValue(args, "--proxy-password");

@@ -1,15 +1,15 @@
-﻿using LenovoLegionToolkit.Lib;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
+using LenovoLegionToolkit.Lib;
+using LenovoLegionToolkit.Lib.Controllers.Sensors;
 using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.Messaging;
 using LenovoLegionToolkit.Lib.Messaging.Messages;
 using LenovoLegionToolkit.Lib.Settings;
 using LenovoLegionToolkit.WPF.Resources;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
-using LenovoLegionToolkit.Lib.Controllers.Sensors;
 
 namespace LenovoLegionToolkit.WPF.Windows.FloatingGadgets;
 
@@ -19,7 +19,7 @@ public class GadgetItemGroup
     public List<FloatingGadgetItem> Items { get; set; } = new List<FloatingGadgetItem>();
 }
 
-public partial class Custom : Window
+public partial class Custom
 {
     private readonly ApplicationSettings _settings = IoCContainer.Resolve<ApplicationSettings>();
     private readonly SensorsGroupController _controller = IoCContainer.Resolve<SensorsGroupController>();
@@ -61,6 +61,8 @@ public partial class Custom : Window
             new GadgetItemGroup { Header = Resource.FloatingGadget_Custom_Chipset, Items =
                 [
                     FloatingGadgetItem.MemoryUtilization, FloatingGadgetItem.MemoryTemperature,
+                    FloatingGadgetItem.MemoryUtilization, FloatingGadgetItem.Disk1Temperature,
+                    FloatingGadgetItem.MemoryUtilization, FloatingGadgetItem.Disk2Temperature,
                     FloatingGadgetItem.PchTemperature, FloatingGadgetItem.PchFan
                 ]
             }
@@ -113,7 +115,7 @@ public partial class Custom : Window
             }
 
             groupBox.Content = stackPanel;
-            ItemsStackPanel.Children.Add(groupBox);
+            _itemsStackPanel.Children.Add(groupBox);
         }
     }
 
@@ -123,7 +125,7 @@ public partial class Custom : Window
 
         var selectedItems = new List<FloatingGadgetItem>();
 
-        foreach (var groupBox in ItemsStackPanel.Children.OfType<GroupBox>())
+        foreach (var groupBox in _itemsStackPanel.Children.OfType<GroupBox>())
         {
             if (groupBox.Content is StackPanel stackPanel)
             {

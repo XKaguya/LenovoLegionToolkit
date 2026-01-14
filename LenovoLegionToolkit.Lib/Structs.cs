@@ -37,6 +37,15 @@ internal static class AuroraColorUtils
     }
 }
 
+public readonly struct AmdWmiCommand
+{
+    public string Name { get; init; }
+    public uint Id { get; init; }
+    public bool IsSet { get; init; }
+
+    public override string ToString() => $"{Name} (0x{Id:X8})";
+}
+
 public readonly struct BatteryInformation(
     bool isCharging,
     int batteryPercentage,
@@ -546,6 +555,13 @@ public readonly struct MachineInformation
     public PropertyData Properties { get; init; }
 }
 
+public readonly struct OverclockingProfile
+{
+    public uint? FMax { get; init; }
+    public bool ProchotEnabled { get; init; }
+    public List<double?> CoreValues { get; init; }
+}
+
 public struct Package
 {
     public string Id { get; init; }
@@ -790,6 +806,12 @@ public readonly struct SensorsData(SensorData cpu, SensorData gpu, SensorData pc
     public SensorData PCH { get; } = pch;
 
     public override string ToString() => $"{nameof(CPU)}: {CPU}, {nameof(GPU)}: {GPU}, {nameof(PCH)}: {PCH}";
+}
+
+public readonly struct ShutdownInfo
+{
+    public string Status { get; init; }
+    public int AbnormalCount { get; init; }
 }
 
 [method: JsonConstructor]
