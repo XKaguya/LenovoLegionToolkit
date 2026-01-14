@@ -569,21 +569,21 @@
     <value>Frecuencia de núcleo E</value>
   </data>
   <data name="AmdOverclocking_Not_Initialized_Message" xml:space="preserve">
-    <value>Not initialized.</value>
+    <value>No inicializado.</value>
   </data>
   <data name="FloatingGadgetState_Toggle" xml:space="preserve">
-    <value>Toggle</value>
+    <value>Cambiar</value>
   </data>
   <data name="AmdOverclocking_Not_Supported" xml:space="preserve">
-    <value>Not supported.</value>
+    <value>No soportado.</value>
   </data>
   <data name="AmdOverclocking_Ac_Message" xml:space="preserve">
-    <value>Profile will not apply without AC adapter (Full wattage) connected.</value>
+    <value>El perfil no se aplicará sin el adaptador de CA (potencia total) conectado.</value>
   </data>
   <data name="FloatingGadgetItem_Disk1Temperature" xml:space="preserve">
-    <value>Disk 1 Temperature</value>
+    <value>Temperatura Disco 1</value>
   </data>
   <data name="FloatingGadgetItem_Disk2Temperature" xml:space="preserve">
-    <value>Disk 2 Temperature</value>
+    <value>Temperatura Disco 2</value>
   </data>
 </root>
