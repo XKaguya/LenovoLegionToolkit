@@ -1240,8 +1240,8 @@
   <data name="SettingsPage_Notifications_Title" xml:space="preserve">
     <value>提示弹窗</value>
   </data>
-  <data name="SettingsPage_UpdateMethod_Title" xml:space="preserve">
-    <value>更新途径</value>
+  <data name="SettingsPage_UpdateChannel_Title" xml:space="preserve">
+    <value>Update Channel</value>
   </data>
   <data name="SettingsPage_WindowsPowerPlans_Title" xml:space="preserve">
     <value>Windows 电源计划</value>
@@ -2457,8 +2457,8 @@
     <value>Windows 动态光效功能已启用，此功能可能会阻止 LLT 控制键盘灯效。
 点击 Yes 禁用功能， No 忽略。</value>
   </data>
-  <data name="DialogWindow_DontShowAgain" xml:space="preserve">
-    <value>不再显示</value>
+  <data name="MessageBoxHelper_DontShowAgain" xml:space="preserve">
+    <value>Don't show again.</value>
   </data>
   <data name="ITSModeControl_Dialog_Title" xml:space="preserve">
     <value>缺少组件</value>
@@ -2627,14 +2627,6 @@
   </data>
   <data name="FloatingGadget_Custom_Title" xml:space="preserve">
     <value>自定义悬浮层元素</value>
-  </data>
-  <data name="KeyboardBacklightPage_CustomMode_Warning" xml:space="preserve">
-    <value>自定义模式允许访问关键系统参数，例如功耗限制和风扇曲线。
-
-配置错误可能会导致严重的系统不稳定、过热降频或永久硬件损坏。
-此处所做的修改可能会使您的保修无效。
-
-除非您拥有必要的技术专业知识，否则请勿继续。</value>
   </data>
   <data name="PeriodicActionPipelineTriggerTabItemContent_Minutes" xml:space="preserve">
     <value>分钟</value>
@@ -2850,10 +2842,10 @@
     <value>排除应用</value>
   </data>
   <data name="ExcludeProcessesWindow_ProcessNamePlaceholder" xml:space="preserve">
-    <value>应用程序名称 （如：chrome）</value>
+    <value>Process Name (e.g. discord)</value>
   </data>
   <data name="ExcludeProcessesWindow_Description" xml:space="preserve">
-    <value>此列表中的应用程序会被游戏检测动作忽略，此处不需要填写完整路径。</value>
+    <value>Processes in this list will be ignored by game start/stop triggers and Lenovo's AI/Intelligent Mode. Enter the process name without the path (e.g., "discord" or "blender").</value>
   </data>
   <data name="SettingsPage_ExcludeProcesses_Message" xml:space="preserve">
     <value>管理游戏检测动作黑名单</value>
@@ -2896,5 +2888,42 @@
   </data>
   <data name="AmdOverclocking_Global_Dim" xml:space="preserve">
     <value>-1 All</value>
+  </data>
+  <data name="SettingsPage_Category_Appearance" xml:space="preserve">
+    <value>Appearance</value>
+  </data>
+  <data name="SettingsPage_Category_AppBehavior" xml:space="preserve">
+    <value>App Behavior</value>
+  </data>
+  <data name="SettingsPage_Category_SoftwareControl" xml:space="preserve">
+    <value>Software Control</value>
+  </data>
+  <data name="SettingsPage_Category_SmartKeys" xml:space="preserve">
+    <value>Smart Keys</value>
+  </data>
+  <data name="SettingsPage_Category_Display" xml:space="preserve">
+    <value>Display</value>
+  </data>
+  <data name="SettingsPage_Category_Updates" xml:space="preserve">
+    <value>Updates</value>
+  </data>
+  <data name="SettingsPage_Category_Power" xml:space="preserve">
+    <value>Power</value>
+  </data>
+  <data name="SettingsPage_Category_Integrations" xml:space="preserve">
+    <value>Integrations</value>
+  </data>
+  <data name="RestartRequired_Title" xml:space="preserve">
+    <value>Restart required</value>
+  </data>
+  <data name="GodModeSettingsWindow_CustomMode_Warning" xml:space="preserve">
+    <value>Custom Mode grants access to critical system parameters such as power limits and fan curves. 
+
+Misconfiguration can lead to severe system instability, thermal throttling, or permanent hardware damage. Modifications made here may void your manufacturer warranty. 
+
+Do not proceed unless you possess the necessary technical expertise.</value>
+  </data>
+  <data name="RestartRequired_Message" xml:space="preserve">
+    <value>Changing this requires restart. Do you want to restart now?</value>
   </data>
 </root>
