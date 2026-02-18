@@ -1236,8 +1236,8 @@ Se recomienda reiniciar después de cambiar esta opción.</value>
   <data name="SettingsPage_Notifications_Title" xml:space="preserve">
     <value>Notificaciones</value>
   </data>
-  <data name="SettingsPage_UpdateMethod_Title" xml:space="preserve">
-    <value>Modo de actualización</value>
+  <data name="SettingsPage_UpdateChannel_Title" xml:space="preserve">
+    <value>Update Channel</value>
   </data>
   <data name="SettingsPage_WindowsPowerPlans_Title" xml:space="preserve">
     <value>Planes de energía de Windows</value>
@@ -2454,8 +2454,8 @@ No afectará a otras ventanas a pantalla completa, pero no podrá hacer clic en 
 Esta función puede impedir que LLT controle el teclado.
 Haga clic en Sí para deshabilitarla y en No para ignorarla.</value>
   </data>
-  <data name="DialogWindow_DontShowAgain" xml:space="preserve">
-    <value>No mostrar de nuevo.</value>
+  <data name="MessageBoxHelper_DontShowAgain" xml:space="preserve">
+    <value>Don't show again.</value>
   </data>
   <data name="ITSModeControl_Dialog_Title" xml:space="preserve">
     <value>Componente faltante</value>
@@ -2624,13 +2624,6 @@ Haga clic en Sí para deshabilitarla y en No para ignorarla.</value>
   </data>
   <data name="FloatingGadget_Custom_Title" xml:space="preserve">
     <value>Personalizar elementos del gadget</value>
-  </data>
-  <data name="KeyboardBacklightPage_CustomMode_Warning" xml:space="preserve">
-    <value>El modo personalizado permite el acceso a parámetros críticos del sistema tales como límites de energía y curvas de ventiladores. 
-
-Una mala configuración puede llevar a una grave inestabilidad del sistema, a estrangulamiento térmico o a un daño permanente de hardware. Las modificaciones realizadas aquí pueden anular la garantía del fabricante. 
-
-No proceda a menos que posea la experiencia técnica necesaria.</value>
   </data>
   <data name="PeriodicActionPipelineTriggerTabItemContent_Minutes" xml:space="preserve">
     <value>Minutos</value>
@@ -2846,10 +2839,10 @@ No proceda a menos que posea la experiencia técnica necesaria.</value>
     <value>Excluded Processes</value>
   </data>
   <data name="ExcludeProcessesWindow_ProcessNamePlaceholder" xml:space="preserve">
-    <value>Process Name (e.g. chrome)</value>
+    <value>Process Name (e.g. discord)</value>
   </data>
   <data name="ExcludeProcessesWindow_Description" xml:space="preserve">
-    <value>Processes in this list will be ignored by Game Detection. Enter the process name without path (e.g., 'chrome' or 'spotify').</value>
+    <value>Processes in this list will be ignored by game start/stop triggers and Lenovo's AI/Intelligent Mode. Enter the process name without the path (e.g., "discord" or "blender").</value>
   </data>
   <data name="SettingsPage_ExcludeProcesses_Message" xml:space="preserve">
     <value>Manage processes that are ignored by Game Detection.</value>
@@ -2892,5 +2885,42 @@ No proceda a menos que posea la experiencia técnica necesaria.</value>
   </data>
   <data name="AmdOverclocking_Global_Dim" xml:space="preserve">
     <value>-1 All</value>
+  </data>
+  <data name="SettingsPage_Category_Appearance" xml:space="preserve">
+    <value>Appearance</value>
+  </data>
+  <data name="SettingsPage_Category_AppBehavior" xml:space="preserve">
+    <value>App Behavior</value>
+  </data>
+  <data name="SettingsPage_Category_SoftwareControl" xml:space="preserve">
+    <value>Software Control</value>
+  </data>
+  <data name="SettingsPage_Category_SmartKeys" xml:space="preserve">
+    <value>Smart Keys</value>
+  </data>
+  <data name="SettingsPage_Category_Display" xml:space="preserve">
+    <value>Display</value>
+  </data>
+  <data name="SettingsPage_Category_Updates" xml:space="preserve">
+    <value>Updates</value>
+  </data>
+  <data name="SettingsPage_Category_Power" xml:space="preserve">
+    <value>Power</value>
+  </data>
+  <data name="SettingsPage_Category_Integrations" xml:space="preserve">
+    <value>Integrations</value>
+  </data>
+  <data name="RestartRequired_Title" xml:space="preserve">
+    <value>Restart required</value>
+  </data>
+  <data name="GodModeSettingsWindow_CustomMode_Warning" xml:space="preserve">
+    <value>Custom Mode grants access to critical system parameters such as power limits and fan curves. 
+
+Misconfiguration can lead to severe system instability, thermal throttling, or permanent hardware damage. Modifications made here may void your manufacturer warranty. 
+
+Do not proceed unless you possess the necessary technical expertise.</value>
+  </data>
+  <data name="RestartRequired_Message" xml:space="preserve">
+    <value>Changing this requires restart. Do you want to restart now?</value>
   </data>
 </root>
