@@ -392,11 +392,14 @@
     <value>开</value>
     <comment>Informs the user that Touchpad Lock is or will be turned on.</comment>
   </data>
-  <data name="UpdateMethod_Server" xml:space="preserve">
-    <value>服务器</value>
+  <data name="UpdateChannel_Stable" xml:space="preserve">
+    <value>Stable</value>
   </data>
-  <data name="UpdateMethod_Github" xml:space="preserve">
-    <value>Github</value>
+  <data name="UpdateChannel_Beta" xml:space="preserve">
+    <value>Beta</value>
+  </data>
+  <data name="UpdateChannel_Dev" xml:space="preserve">
+    <value>Dev</value>
   </data>
   <data name="WhiteKeyboardBacklightState_High" xml:space="preserve">
     <value>高亮度</value>
@@ -606,5 +609,11 @@
   </data>
   <data name="Automation_Warning_Startup" xml:space="preserve">
     <value>Warning: For safety, these steps will be skipped on startup: {0}. All other steps will execute normally.</value>
+  </data>
+  <data name="UpdateMethod_Server" xml:space="preserve">
+    <value>服务器</value>
+  </data>
+  <data name="UpdateMethod_Github" xml:space="preserve">
+    <value>Github</value>
   </data>
 </root>
