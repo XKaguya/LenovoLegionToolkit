@@ -117,11 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AboutPage_ApplicationFolders" xml:space="preserve">
+    <value>Carpetas de aplicaciones</value>
+  </data>
   <data name="AboutPage_AppName" xml:space="preserve">
-    <value>Lenovo Legion Toolkit (Fork No Oficial)</value>
+    <value>Lenovo Legion Toolkit</value>
   </data>
   <data name="AboutPage_Build" xml:space="preserve">
     <value>Revisión</value>
+  </data>
+  <data name="AboutPage_Data" xml:space="preserve">
+    <value>Datos</value>
   </data>
   <data name="AboutPage_LatestReleaseOnGitHub" xml:space="preserve">
     <value>Última versión en GitHub</value>
@@ -129,8 +135,14 @@
   <data name="AboutPage_Links" xml:space="preserve">
     <value>Enlaces</value>
   </data>
+  <data name="AboutPage_Log" xml:space="preserve">
+    <value>Registro</value>
+  </data>
   <data name="AboutPage_ProjectWebsiteOnGitHub" xml:space="preserve">
     <value>Sitio web del proyecto en GitHub</value>
+  </data>
+  <data name="AboutPage_Temp" xml:space="preserve">
+    <value>Temperatura</value>
   </data>
   <data name="AboutPage_ThirdPartyLibraries" xml:space="preserve">
     <value>Bibliotecas de terceros</value>
@@ -145,17 +157,20 @@
   <data name="AboutPage_Version" xml:space="preserve">
     <value>Versión</value>
   </data>
+  <data name="AbstractAutomationStepControl_Delete" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>Activo</value>
+  </data>
   <data name="Add" xml:space="preserve">
     <value>Añadir</value>
   </data>
+  <data name="AddAutomationStepWindow_Title" xml:space="preserve">
+    <value>Añadir paso</value>
+  </data>
   <data name="AddNew" xml:space="preserve">
     <value>Añadir nueva</value>
-  </data>
-  <data name="AlwaysOnUSBControl_Message" xml:space="preserve">
-    <value>Cargar dispositivos USB, cuando el equipo esté apagado o en modo de suspensión/hibernación.</value>
-  </data>
-  <data name="AlwaysOnUSBControl_Title" xml:space="preserve">
-    <value>USB siempre encendido</value>
   </data>
   <data name="AlwaysOnUsbAutomationStepControl_Message" xml:space="preserve">
     <value>Cargar dispositivos USB, cuando el equipo esté apagado o en modo de suspensión/ hibernación.</value>
@@ -163,8 +178,59 @@
   <data name="AlwaysOnUsbAutomationStepControl_Title" xml:space="preserve">
     <value>USB siempre encendido</value>
   </data>
-  <data name="AppName" xml:space="preserve">
-    <value>Lenovo Legion Toolkit</value>
+  <data name="AlwaysOnUSBControl_Message" xml:space="preserve">
+    <value>Cargar dispositivos USB, cuando el equipo esté apagado o en modo de suspensión/hibernación.</value>
+  </data>
+  <data name="AlwaysOnUSBControl_Title" xml:space="preserve">
+    <value>USB siempre encendido</value>
+  </data>
+  <data name="AmdOverclocking_Apply_Changes" xml:space="preserve">
+    <value>Aplicar cambios</value>
+  </data>
+  <data name="AmdOverclocking_Caution_Message" xml:space="preserve">
+    <value>Cambiar estos ajustes puede afectar a la estabilidad del sistema. Proceda con precaución.</value>
+  </data>
+  <data name="AmdOverclocking_Caution_Title" xml:space="preserve">
+    <value>Precaución</value>
+  </data>
+  <data name="AmdOverclocking_Core_Title" xml:space="preserve">
+    <value>Núcleo</value>
+  </data>
+  <data name="AmdOverclocking_Do_Not_Apply_Message" xml:space="preserve">
+    <value>La aplicación del perfil se ha cancelado debido a un reinicio anormal.</value>
+  </data>
+  <data name="AmdOverclocking_FMax_Frequency_Message" xml:space="preserve">
+    <value>Frecuencia máxima de overclocking de la CPU (MHz)</value>
+  </data>
+  <data name="AmdOverclocking_FMax_Frequency_Title" xml:space="preserve">
+    <value>Frecuencia FMax</value>
+  </data>
+  <data name="AmdOverclocking_Global_Dim" xml:space="preserve">
+    <value>-1 Todos</value>
+  </data>
+  <data name="AmdOverclocking_Global_Offset" xml:space="preserve">
+    <value>Desplazamiento global:</value>
+  </data>
+  <data name="AmdOverclocking_Global_Plus" xml:space="preserve">
+    <value>+1 Todos</value>
+  </data>
+  <data name="AmdOverclocking_Per_Core_Title" xml:space="preserve">
+    <value>Optimización por núcleo</value>
+  </data>
+  <data name="AmdOverclocking_Status_Title" xml:space="preserve">
+    <value>Estado</value>
+  </data>
+  <data name="AmdOverclocking_Success_Message" xml:space="preserve">
+    <value>Configuración aplicada con éxito.</value>
+  </data>
+  <data name="AmdOverclocking_Success_Title" xml:space="preserve">
+    <value>Éxito</value>
+  </data>
+  <data name="AmdOverclocking_X3D_Gaming_Mode_Message" xml:space="preserve">
+    <value>Desactiva el CCD 1 para obtener estabilidad tanto en FPS como en temperaturas</value>
+  </data>
+  <data name="AmdOverclocking_X3D_Gaming_Mode_Title" xml:space="preserve">
+    <value>Modo de juego X3D</value>
   </data>
   <data name="Apply" xml:space="preserve">
     <value>Aplicar</value>
@@ -172,11 +238,89 @@
   <data name="ApplyAndClose" xml:space="preserve">
     <value>Aplicar y cerrar</value>
   </data>
-  <data name="AutomationPage_ActionsEnable_Message" xml:space="preserve">
-    <value>Lenovo Legion Toolkit deberá estar ejecutándose para que funcionen las acciones automáticas.</value>
+  <data name="AppName" xml:space="preserve">
+    <value>Lenovo Legion Toolkit</value>
+  </data>
+  <data name="ArgumentWindow_Category_Debugging" xml:space="preserve">
+    <value>Depuración de errores</value>
+  </data>
+  <data name="ArgumentWindow_Category_General" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="ArgumentWindow_Category_Hardware_Automation" xml:space="preserve">
+    <value>Hardware y automatización</value>
+  </data>
+  <data name="ArgumentWindow_Category_Lighting" xml:space="preserve">
+    <value>Iluminación</value>
+  </data>
+  <data name="ArgumentWindow_Category_Network_Proxy" xml:space="preserve">
+    <value>Proxy de red</value>
+  </data>
+  <data name="ArgumentWindow_Edit_Message" xml:space="preserve">
+    <value>Abre una ventana de argumentos para modificar cómodamente los argumentos.</value>
+  </data>
+  <data name="ArgumentWindow_Edit_Title" xml:space="preserve">
+    <value>Editar argumentos</value>
+  </data>
+  <data name="ArgumentWindow_Flag_AllowAllCerts" xml:space="preserve">
+    <value>Permitir todos los certificados</value>
+  </data>
+  <data name="ArgumentWindow_Flag_AllowPowerModesBattery" xml:space="preserve">
+    <value>Permitir todos los modos de energía con batería</value>
+  </data>
+  <data name="ArgumentWindow_Flag_DebugMode" xml:space="preserve">
+    <value>Modo depuración</value>
+  </data>
+  <data name="ArgumentWindow_Flag_DisableConflictWarning" xml:space="preserve">
+    <value>Desactivar advertencia de conflicto</value>
+  </data>
+  <data name="ArgumentWindow_Flag_DisableLenovoLighting" xml:space="preserve">
+    <value>Desactivar la iluminación de Lenovo</value>
+  </data>
+  <data name="ArgumentWindow_Flag_DisableRgbKb" xml:space="preserve">
+    <value>Deshabilitar el RGB del teclado</value>
+  </data>
+  <data name="ArgumentWindow_Flag_DisableSpectrumKb" xml:space="preserve">
+    <value>Deshabilitar el Spectrum del teclado</value>
+  </data>
+  <data name="ArgumentWindow_Flag_DisableTrayTooltip" xml:space="preserve">
+    <value>Desactivar el tooltip de la bandeja del sistema</value>
+  </data>
+  <data name="ArgumentWindow_Flag_DisableUpdateChecker" xml:space="preserve">
+    <value>Desactivar la comprobación de actualización</value>
+  </data>
+  <data name="ArgumentWindow_Flag_ExpGpuMode" xml:space="preserve">
+    <value>Experimental GPU Working Mode</value>
+  </data>
+  <data name="ArgumentWindow_Flag_ProxyPassword" xml:space="preserve">
+    <value>Contraseña del proxy</value>
+  </data>
+  <data name="ArgumentWindow_Flag_ProxyUrl" xml:space="preserve">
+    <value>Proxy URL</value>
+  </data>
+  <data name="ArgumentWindow_Flag_ProxyUsername" xml:space="preserve">
+    <value>Nombre de usuario del proxy</value>
+  </data>
+  <data name="ArgumentWindow_Flag_SkipCompatCheck" xml:space="preserve">
+    <value>Omitir verificación de compatibilidad</value>
+  </data>
+  <data name="ArgumentWindow_Flag_StartMinimized" xml:space="preserve">
+    <value>Iniciar minimizado</value>
+  </data>
+  <data name="ArgumentWindow_Flag_TraceEnabled" xml:space="preserve">
+    <value>Habilitar el registro de depuración</value>
+  </data>
+  <data name="ArgumentWindow_NotSet" xml:space="preserve">
+    <value>Sin establecer</value>
+  </data>
+  <data name="ArgumentWindow_Title" xml:space="preserve">
+    <value>Ventana de argumentos</value>
   </data>
   <data name="AutomationPage_ActionsEnabled_Title" xml:space="preserve">
     <value>Activar</value>
+  </data>
+  <data name="AutomationPage_ActionsEnable_Message" xml:space="preserve">
+    <value>Lenovo Legion Toolkit deberá estar ejecutándose para que funcionen las acciones automáticas.</value>
   </data>
   <data name="AutomationPage_Actions_Empty" xml:space="preserve">
     <value>Ninguna acción definida. Haga clic en "Añadir nueva" para crear una nueva acción.</value>
@@ -193,6 +337,27 @@ Sólo se ejecutarán las acciones que coincidan con el estado actual.</value>
   </data>
   <data name="AutomationPage_AddManualPipeline_Title" xml:space="preserve">
     <value>Añadir nuevo</value>
+  </data>
+  <data name="AutomationPage_ChangeIcon" xml:space="preserve">
+    <value>Cambiar icono</value>
+  </data>
+  <data name="AutomationPage_Game_Detection_Method_Auto" xml:space="preserve">
+    <value>Automático (Todos los métodos)</value>
+  </data>
+  <data name="AutomationPage_Game_Detection_Method_Discrete_GPU" xml:space="preserve">
+    <value>Actividad de la GPU dedicada</value>
+  </data>
+  <data name="AutomationPage_Game_Detection_Method_Game_Mode" xml:space="preserve">
+    <value>Modo de juego de Windows</value>
+  </data>
+  <data name="AutomationPage_Game_Detection_Method_List" xml:space="preserve">
+    <value>Lista de juegos conocida</value>
+  </data>
+  <data name="AutomationPage_Game_Detection_Sub_Title" xml:space="preserve">
+    <value>Configure detection methods and exclusions.</value>
+  </data>
+  <data name="AutomationPage_Game_Detection_Title" xml:space="preserve">
+    <value>Detección de juegos</value>
   </data>
   <data name="AutomationPage_QuickActions_Empty" xml:space="preserve">
     <value>Ninguna acción definida. Haga clic en "Añadir nueva" para crear una nueva acción rápida.</value>
@@ -236,6 +401,9 @@ Sólo se ejecutarán las acciones que coincidan con el estado actual.</value>
   <data name="AutomationPipelineControl_Exclusive_ToolTip" xml:space="preserve">
     <value>No ejecutar más acciones al iniciar esta acción.</value>
   </data>
+  <data name="AutomationPipelineControl_Running" xml:space="preserve">
+    <value>Ejecutando...</value>
+  </data>
   <data name="AutomationPipelineControl_RunNow" xml:space="preserve">
     <value>Ejecutar ahora</value>
   </data>
@@ -251,14 +419,20 @@ Sólo se ejecutarán las acciones que coincidan con el estado actual.</value>
   <data name="AutomationPipelineControl_RunNow_Success_Title" xml:space="preserve">
     <value>Ejecutar ahora</value>
   </data>
-  <data name="AutomationPipelineControl_Running" xml:space="preserve">
-    <value>Ejecutando...</value>
+  <data name="AutomationPipelineControl_RunOnStartup" xml:space="preserve">
+    <value>Ejecutar al iniciar</value>
+  </data>
+  <data name="AutomationPipelineControl_RunOnStartup_Tooltip" xml:space="preserve">
+    <value>Cuando está habilitado, esta automatización se comprobará y aplicará cuando la aplicación se inicie</value>
   </data>
   <data name="AutomationPipelineControl_Step" xml:space="preserve">
     <value>{0} paso</value>
   </data>
   <data name="AutomationPipelineControl_Step_Many" xml:space="preserve">
     <value>{0} pasos</value>
+  </data>
+  <data name="AutomationPipelineControl_SubtitlePart_After" xml:space="preserve">
+    <value>Después de {0}</value>
   </data>
   <data name="AutomationPipelineControl_SubtitlePart_Apps" xml:space="preserve">
     <value>Aplicaciones</value>
@@ -275,8 +449,14 @@ Sólo se ejecutarán las acciones que coincidan con el estado actual.</value>
   <data name="AutomationPipelineControl_SubtitlePart_PowerMode" xml:space="preserve">
     <value>Modo de alimentación</value>
   </data>
+  <data name="AutomationPipelineControl_SubtitlePart_Preset" xml:space="preserve">
+    <value>Predefinido</value>
+  </data>
   <data name="AutomationPipelineControl_Unnamed" xml:space="preserve">
     <value>Sin nombre</value>
+  </data>
+  <data name="AutomationPipelineTriggerConfigurationWindow_Title" xml:space="preserve">
+    <value>Configurar</value>
   </data>
   <data name="BalanceModeSettingsWindow_AIEngine_Message" xml:space="preserve">
     <value>Detecta automáticamente cuando se ejecutan determinados juegos y ajusta el rendimiento de la CPU y la GPU. Las temperaturas y el ruido del ventilador pueden aumentar.</value>
@@ -299,11 +479,32 @@ Sólo se ejecutarán las acciones que coincidan con el estado actual.</value>
   <data name="BatteryModeControl_Title" xml:space="preserve">
     <value>Modo de batería</value>
   </data>
+  <data name="BatteryNightChargeAutomationStepControl_Message" xml:space="preserve">
+    <value>Si está activado y enchufa este dispositivo durante la noche, cargará al 80% y terminará de cargarse al 100% cuando lo utilice por la mañana.</value>
+  </data>
+  <data name="BatteryNightChargeAutomationStepControl_Title" xml:space="preserve">
+    <value>Carga nocturna de la batería</value>
+  </data>
+  <data name="BatteryNightChargeModeControl_Message" xml:space="preserve">
+    <value>Si está activado y enchufa este dispositivo durante la noche, cargará al 80% y terminará de cargarse al 100% cuando lo utilice por la mañana.</value>
+  </data>
+  <data name="BatteryNightChargeModeControl_Title" xml:space="preserve">
+    <value>Carga nocturna de la batería</value>
+  </data>
   <data name="BatteryPage_ACAdapterConnectedAndCharging" xml:space="preserve">
     <value>Conectada, cargando...</value>
   </data>
   <data name="BatteryPage_ACAdapterConnectedNotCharging" xml:space="preserve">
     <value>Conectada, no cargando</value>
+  </data>
+  <data name="BatteryPage_ACAdapterNotConnected" xml:space="preserve">
+    <value>Sin corriente alterna</value>
+  </data>
+  <data name="BatteryPage_BatteryHealth_Message" xml:space="preserve">
+    <value>Capacidad máxima de carga de la batería.</value>
+  </data>
+  <data name="BatteryPage_BatteryHealth_Title" xml:space="preserve">
+    <value>Salud de la batería</value>
   </data>
   <data name="BatteryPage_BatteryTemperature_Message" xml:space="preserve">
     <value>Temperatura actual de la batería.</value>
@@ -335,18 +536,6 @@ Sólo se ejecutarán las acciones que coincidan con el estado actual.</value>
   <data name="BatteryPage_DischargeRate_Title" xml:space="preserve">
     <value>Ratio de carga/descarga</value>
   </data>
-  <data name="BatteryPage_MinDischargeRate_Message" xml:space="preserve">
-    <value>Ratio mínimo a la que la batería se carga (+) o descarga (-).</value>
-  </data>
-  <data name="BatteryPage_MinDischargeRate_Title" xml:space="preserve">
-    <value>Ratio mínimo de carga/descarga</value>
-  </data>
-  <data name="BatteryPage_MaxDischargeRate_Message" xml:space="preserve">
-    <value>Ratio máximo a la que la batería se carga (+) o descarga (-).</value>
-  </data>
-  <data name="BatteryPage_MaxDischargeRate_Title" xml:space="preserve">
-    <value>Ratio máximo de carga/descarga</value>
-  </data>
   <data name="BatteryPage_EstimatedBatteryLifeRemaining" xml:space="preserve">
     <value>Tiempo restante estimado: {0}</value>
   </data>
@@ -365,11 +554,8 @@ Sólo se ejecutarán las acciones que coincidan con el estado actual.</value>
   <data name="BatteryPage_FullChargeCapacity_Title" xml:space="preserve">
     <value>Capacidad de carga total</value>
   </data>
-  <data name="BatteryPage_BatteryHealth_Message" xml:space="preserve">
-    <value>Capacidad máxima de carga de la batería.</value>
-  </data>
-  <data name="BatteryPage_BatteryHealth_Title" xml:space="preserve">
-    <value>Salud de la batería</value>
+  <data name="BatteryPage_LowLevel" xml:space="preserve">
+    <value>Nivel bajo de batería</value>
   </data>
   <data name="BatteryPage_LowWattageChargerConnected" xml:space="preserve">
     <value>Cargador de bajo consumo conectado</value>
@@ -379,6 +565,18 @@ Sólo se ejecutarán las acciones que coincidan con el estado actual.</value>
   </data>
   <data name="BatteryPage_ManufactureDate_Title" xml:space="preserve">
     <value>Fecha de fabricación</value>
+  </data>
+  <data name="BatteryPage_MaxDischargeRate_Message" xml:space="preserve">
+    <value>Ratio máximo a la que la batería se carga (+) o descarga (-).</value>
+  </data>
+  <data name="BatteryPage_MaxDischargeRate_Title" xml:space="preserve">
+    <value>Ratio máximo de carga/descarga</value>
+  </data>
+  <data name="BatteryPage_MinDischargeRate_Message" xml:space="preserve">
+    <value>Ratio mínimo a la que la batería se carga (+) o descarga (-).</value>
+  </data>
+  <data name="BatteryPage_MinDischargeRate_Title" xml:space="preserve">
+    <value>Ratio mínimo de carga/descarga</value>
   </data>
   <data name="BatteryPage_OnBatterySince_Message" xml:space="preserve">
     <value>Tiempo transcurrido desde la última conexión del portátil a la corriente eléctrica.
@@ -390,13 +588,67 @@ Esta hora puede no ser correcta si el portátil se ha cargado mientras estaba su
   <data name="BatteryPage_Title" xml:space="preserve">
     <value>Batería</value>
   </data>
+  <data name="BootLogoWindow_Customize" xml:space="preserve">
+    <value>Personalizar</value>
+  </data>
+  <data name="BootLogoWindow_CustomLogoSet" xml:space="preserve">
+    <value>Logo de arranque personalizado está configurado</value>
+  </data>
+  <data name="BootLogoWindow_DefaultLogoSet" xml:space="preserve">
+    <value>Logo de arranque predefinido está configurado</value>
+  </data>
+  <data name="BootLogoWindow_Description" xml:space="preserve">
+    <value>El logo de arranque personalizado debe tener un tamaño exacto de {0} píxeles. Los formatos soportados son: {1}.</value>
+  </data>
+  <data name="BootLogoWindow_SetCustomFailed" xml:space="preserve">
+    <value>No se ha podido establecer el logo personalizado: {0}</value>
+  </data>
+  <data name="BootLogoWindow_SetCustomSuccess" xml:space="preserve">
+    <value>Logo de arranque personalizado.</value>
+  </data>
+  <data name="BootLogoWindow_SetDefaultFailed" xml:space="preserve">
+    <value>No se ha podido establecer el logo predefinido: {0}</value>
+  </data>
+  <data name="BootLogoWindow_SetDefaultSuccess" xml:space="preserve">
+    <value>Logo de arranque predefinido.</value>
+  </data>
+  <data name="BootLogoWindow_SetError_Cannot_Mount_EFI_Partition" xml:space="preserve">
+    <value>No se puede montar la partición EFI.</value>
+  </data>
+  <data name="BootLogoWindow_SetError_Cannot_Set_UEFI_Privilege" xml:space="preserve">
+    <value>No se puede establecer el privilegio UEFI.</value>
+  </data>
+  <data name="BootLogoWindow_SetError_Invalid_Image_Format" xml:space="preserve">
+    <value>Formato de imagen no válido.</value>
+  </data>
+  <data name="BootLogoWindow_SetError_Invalid_Image_Size" xml:space="preserve">
+    <value>Tamaño de imagen no válido.</value>
+  </data>
+  <data name="BootLogoWindow_SetError_Not_Enough_Free_Space_On_EFI_Partition" xml:space="preserve">
+    <value>No hay suficiente espacio libre en la partición EFI.</value>
+  </data>
+  <data name="BootLogoWindow_Status" xml:space="preserve">
+    <value>Estado</value>
+  </data>
+  <data name="BootLogoWindow_Title" xml:space="preserve">
+    <value>Logo de arranque</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancelar</value>
   </data>
   <data name="Celsius" xml:space="preserve">
     <value>ºC</value>
   </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Borrar</value>
+  </data>
   <data name="Close" xml:space="preserve">
+    <value>Cerrar</value>
+  </data>
+  <data name="CloseAutomationStepControl_Message" xml:space="preserve">
+    <value>Cerrar Lenovo Legion Toolkit</value>
+  </data>
+  <data name="CloseAutomationStepControl_Title" xml:space="preserve">
     <value>Cerrar</value>
   </data>
   <data name="Color_Blue" xml:space="preserve">
@@ -407,6 +659,13 @@ Esta hora puede no ser correcta si el portátil se ha cargado mientras estaba su
   </data>
   <data name="Color_Red" xml:space="preserve">
     <value>Rojo</value>
+  </data>
+  <data name="ComboBoxHybridModeAutomationStepControl_Message" xml:space="preserve">
+    <value>Seleccionar el modo de funcionamiento de la GPU, según el uso y las condiciones de energía de su equipo.
+El cambio de modo puede requerir un reinicio.</value>
+  </data>
+  <data name="ComboBoxHybridModeAutomationStepControl_Title" xml:space="preserve">
+    <value>Modo de trabajo de la GPU</value>
   </data>
   <data name="ComboBoxHybridModeControl_Message" xml:space="preserve">
     <value>Seleccionar el modo de funcionamiento de la GPU, según el uso y las condiciones de energía de su equipo.
@@ -421,14 +680,80 @@ El cambio de modo puede requerir un reinicio.</value>
   <data name="ComboBoxHybridModeControl_Title" xml:space="preserve">
     <value>Modo de trabajo de la GPU</value>
   </data>
+  <data name="CompatibilityCheckError_Message" xml:space="preserve">
+    <value>Se ha producido un error al leer la información del dispositivo.</value>
+  </data>
   <data name="ContextMenu_QuickActions" xml:space="preserve">
     <value>Acciones rápidas</value>
   </data>
   <data name="Continue" xml:space="preserve">
     <value>Continuar</value>
   </data>
+  <data name="CopiedToClipboard_Message" xml:space="preserve">
+    <value>Texto copiado al portapapeles.</value>
+  </data>
+  <data name="CopiedToClipboard_Message_WithParam" xml:space="preserve">
+    <value>"{0}" copiado al portapapeles.</value>
+  </data>
+  <data name="CopiedToClipboard_Title" xml:space="preserve">
+    <value>¡Copiado!</value>
+  </data>
   <data name="CopyAll" xml:space="preserve">
     <value>Copiar todo</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Crear</value>
+  </data>
+  <data name="CreateAutomationPipelineWindow_Title" xml:space="preserve">
+    <value>Crear acción</value>
+  </data>
+  <data name="CustomFanCurve_Accelerate" xml:space="preserve">
+    <value>Acelerar</value>
+  </data>
+  <data name="CustomFanCurve_Accelerate_Tooltip" xml:space="preserve">
+    <value>El control de aceleración determina cuánto PWM se añade al valor PWM actual.</value>
+  </data>
+  <data name="CustomFanCurve_Add_Point" xml:space="preserve">
+    <value>Añadir punto de curva</value>
+  </data>
+  <data name="CustomFanCurve_Critical_Temp" xml:space="preserve">
+    <value>Temperatura Crítica</value>
+  </data>
+  <data name="CustomFanCurve_Critical_Temp_Tooltip" xml:space="preserve">
+    <value>Forzar la velocidad máxima cuando la temperatura es mayor o igual a esta temperatura para evitar que se queme.</value>
+  </data>
+  <data name="CustomFanCurve_Deceleration" xml:space="preserve">
+    <value>Desaceleración</value>
+  </data>
+  <data name="CustomFanCurve_Deceleration_Tooltip" xml:space="preserve">
+    <value>El control de desaceleración es la cantidad en que se reduce el PWM hasta el valor PWM actual.</value>
+  </data>
+  <data name="CustomFanCurve_Fan_Speed" xml:space="preserve">
+    <value>Velocidad del ventilador %</value>
+  </data>
+  <data name="CustomFanCurve_PWM_Value" xml:space="preserve">
+    <value>Valor del PWM</value>
+  </data>
+  <data name="CustomFanCurve_Settings" xml:space="preserve">
+    <value>Ajustes</value>
+  </data>
+  <data name="CustomFanCurve_Temperature" xml:space="preserve">
+    <value>Temperatura °C </value>
+  </data>
+  <data name="CustomFanCurve_Title" xml:space="preserve">
+    <value>Monitorización en tiempo real</value>
+  </data>
+  <data name="DashboardBattery_AcConnected" xml:space="preserve">
+    <value>Conectado a CA</value>
+  </data>
+  <data name="DashboardBattery_AcDisconnected" xml:space="preserve">
+    <value>Desconectado de CA</value>
+  </data>
+  <data name="DashboardPage_Customize" xml:space="preserve">
+    <value>Personalizar</value>
+  </data>
+  <data name="DashboardPage_Display_Title" xml:space="preserve">
+    <value>Pantalla</value>
   </data>
   <data name="DashboardPage_Graphics_Title" xml:space="preserve">
     <value>Gráficos</value>
@@ -450,6 +775,9 @@ AVISO: Esta acción no se ejecutará correctamente, si la pantalla interna está
   <data name="DeactivateGPUAutomationStepControl_Title" xml:space="preserve">
     <value>Desactivar la GPU</value>
   </data>
+  <data name="Default" xml:space="preserve">
+    <value>Predefinido</value>
+  </data>
   <data name="DelayAutomationStepControl_Message" xml:space="preserve">
     <value>Añadir una demora antes de ejecutar el siguiente paso.</value>
   </data>
@@ -459,17 +787,20 @@ AVISO: Esta acción no se ejecutará correctamente, si la pantalla interna está
   <data name="Delete" xml:space="preserve">
     <value>Eliminar</value>
   </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>Desmarcar todo(s)</value>
+  </data>
+  <data name="DeviceAutomationPipelineTriggerTabItemContent_OnlyConnected" xml:space="preserve">
+    <value>Mostrar sólo dispositivos conectados</value>
+  </data>
+  <data name="DeviceAutomationPipelineTriggerTabItemContent_OnlyRemovable" xml:space="preserve">
+    <value>Mostrar sólo dispositivos extraíbles</value>
+  </data>
+  <data name="DeviceAutomationPipelineTriggerTabItemContent_OnlySelected" xml:space="preserve">
+    <value>Mostrar sólo dispositivos seleccionados</value>
+  </data>
   <data name="DeviceInformationWindow_BiosVersion_Title" xml:space="preserve">
     <value>Versión de la BIOS</value>
-  </data>
-  <data name="CopiedToClipboard_Message" xml:space="preserve">
-    <value>Texto copiado al portapapeles.</value>
-  </data>
-  <data name="CopiedToClipboard_Message_WithParam" xml:space="preserve">
-    <value>"{0}" copiado al portapapeles.</value>
-  </data>
-  <data name="CopiedToClipboard_Title" xml:space="preserve">
-    <value>¡Copiado!</value>
   </data>
   <data name="DeviceInformationWindow_Device_Title" xml:space="preserve">
     <value>Dispositivo</value>
@@ -486,6 +817,9 @@ AVISO: Esta acción no se ejecutará correctamente, si la pantalla interna está
   <data name="DeviceInformationWindow_Model_Title" xml:space="preserve">
     <value>Modelo</value>
   </data>
+  <data name="DeviceInformationWindow_Refresh" xml:space="preserve">
+    <value>Actualizar</value>
+  </data>
   <data name="DeviceInformationWindow_SerialNumber_Title" xml:space="preserve">
     <value>Número de serie</value>
   </data>
@@ -501,14 +835,17 @@ AVISO: Esta acción no se ejecutará correctamente, si la pantalla interna está
   <data name="DeviceInformationWindow_Warranty_Title" xml:space="preserve">
     <value>Garantía</value>
   </data>
-  <data name="Active" xml:space="preserve">
-    <value>Activo</value>
+  <data name="DevicePipelineTriggerTabItemContent_Devices" xml:space="preserve">
+    <value>Dispositivos</value>
+  </data>
+  <data name="DGPU_Connected_Title" xml:space="preserve">
+    <value>dGPU conectada</value>
+  </data>
+  <data name="DGPU_Disconnected_Title" xml:space="preserve">
+    <value>dGPU desconectada</value>
   </data>
   <data name="DiscreteGPUControl_Deactivate" xml:space="preserve">
     <value>Desactivada</value>
-  </data>
-  <data name="Inactive" xml:space="preserve">
-    <value>Inactiva</value>
   </data>
   <data name="DiscreteGPUControl_KillApps" xml:space="preserve">
     <value>Terminar aplicaciones</value>
@@ -559,8 +896,58 @@ Haga clic en el logo o escanee el código QR para donar con PayPal.
   <data name="DonatePage_Title" xml:space="preserve">
     <value>Donar</value>
   </data>
+  <data name="DpiScaleAutomationStepControl_Message" xml:space="preserve">
+    <value>Cambiar la resolución de la pantalla integrada.
+
+AVISO: Esta acción no se ejecutará correctamente, si la pantalla interna está apagada.</value>
+  </data>
+  <data name="DpiScaleAutomationStepControl_Title" xml:space="preserve">
+    <value>Puntos por pulgada (DPI)</value>
+  </data>
+  <data name="DpiScaleControl_Message" xml:space="preserve">
+    <value>Cambiar la resolución de la pantalla integrada.</value>
+  </data>
+  <data name="DpiScaleControl_Title" xml:space="preserve">
+    <value>Puntos por pulgada (DPI)</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>Editar</value>
+  </data>
+  <data name="EditDashboardGroupControl_EditGroup_Message" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="EditDashboardGroupControl_EditGroup_Title" xml:space="preserve">
+    <value>Editar el nombre del grupo</value>
+  </data>
+  <data name="EditDashboardWindow_CreateGroup_Message" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="EditDashboardWindow_CreateGroup_Title" xml:space="preserve">
+    <value>Crear un grupo</value>
+  </data>
+  <data name="EditDashboardWindow_Disclaimer_Message" xml:space="preserve">
+    <value>Es posible que algunas funciones no aparezcan en el panel de control en función del estado y la configuración del dispositivo.</value>
+  </data>
+  <data name="EditDashboardWindow_Sensors" xml:space="preserve">
+    <value>Sensores</value>
+  </data>
+  <data name="EditDashboardWindow_Title" xml:space="preserve">
+    <value>Personalizar el panel de control</value>
+  </data>
+  <data name="EditSensorWindow_Title" xml:space="preserve">
+    <value>Editar sensor</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ExcludeProcessesWindow_Description" xml:space="preserve">
+    <value>Processes in this list will be ignored by game start/stop triggers and Lenovo's AI/Intelligent Mode. Enter the process name without the path (e.g., "discord" or "blender").</value>
+  </data>
+  <data name="ExcludeProcessesWindow_ProcessNamePlaceholder" xml:space="preserve">
+    <value>Process Name (e.g. discord)</value>
+  </data>
+  <data name="ExcludeProcessesWindow_Title" xml:space="preserve">
+    <value>Procesos excluidos</value>
   </data>
   <data name="ExcludeRefreshRatesWindow_Description" xml:space="preserve">
     <value>Desmarcar las tasas de actualización que no desea utilizar al usar las teclas Fn+R.</value>
@@ -633,8 +1020,17 @@ El sistema alternará automáticamente entre ellas, en función de sus necesidad
   <data name="FanCurveControl_GPU2" xml:space="preserve">
     <value>GPU #2</value>
   </data>
-  <data name="RPM" xml:space="preserve">
-    <value>RPM</value>
+  <data name="FanCurveControl_PCH" xml:space="preserve">
+    <value>PCH</value>
+  </data>
+  <data name="FanMaxSpeedAutomationStepControl_Message" xml:space="preserve">
+    <value>Establecer el ventilador a la velocidad máxima.</value>
+  </data>
+  <data name="FanMaxSpeedAutomationStepControl_Title" xml:space="preserve">
+    <value>Velocidad máxima del ventilador</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filtro...</value>
   </data>
   <data name="FlipToStartAutomationStepControl_Message" xml:space="preserve">
     <value>Encender el portátil al abrir la tapa.</value>
@@ -648,6 +1044,72 @@ El sistema alternará automáticamente entre ellas, en función de sus necesidad
   <data name="FlipToStartControl_Title" xml:space="preserve">
     <value>Voltear para iniciar</value>
   </data>
+  <data name="FloatingGadgetAutomationStepControl_Message" xml:space="preserve">
+    <value>Mostrar u ocultar el widget flotante</value>
+  </data>
+  <data name="FloatingGadgetAutomationStepControl_Title" xml:space="preserve">
+    <value>Widget flotante</value>
+  </data>
+  <data name="FloatingGadgets_Chipset" xml:space="preserve">
+    <value>Chipset</value>
+  </data>
+  <data name="FloatingGadgets_Cpu" xml:space="preserve">
+    <value>CPU</value>
+  </data>
+  <data name="FloatingGadgets_CPU_Fan" xml:space="preserve">
+    <value>Ventilador CPU</value>
+  </data>
+  <data name="FloatingGadgets_Disk_0_Temperature" xml:space="preserve">
+    <value>Temperatura Disco 1</value>
+  </data>
+  <data name="FloatingGadgets_Disk_1_Temperature" xml:space="preserve">
+    <value>Temperatura Disco 2</value>
+  </data>
+  <data name="FloatingGadgets_Fans" xml:space="preserve">
+    <value>Ventiladores</value>
+  </data>
+  <data name="FloatingGadgets_Fps" xml:space="preserve">
+    <value>FPS</value>
+  </data>
+  <data name="FloatingGadgets_Frame_Time" xml:space="preserve">
+    <value>Tiempo de fotograma</value>
+  </data>
+  <data name="FloatingGadgets_Gpu" xml:space="preserve">
+    <value>GPU</value>
+  </data>
+  <data name="FloatingGadgets_GPU_Fan" xml:space="preserve">
+    <value>Ventilador GPU</value>
+  </data>
+  <data name="FloatingGadgets_Low_Fps" xml:space="preserve">
+    <value>1% Mínimo</value>
+  </data>
+  <data name="FloatingGadgets_Memory_Temperature" xml:space="preserve">
+    <value>Temperatura memoria</value>
+  </data>
+  <data name="FloatingGadgets_Memory_Utilization" xml:space="preserve">
+    <value>Uso de memoria</value>
+  </data>
+  <data name="FloatingGadgets_PCH_Fan" xml:space="preserve">
+    <value>Ventilador PCH</value>
+  </data>
+  <data name="FloatingGadget_Custom_Chipset" xml:space="preserve">
+    <value>Chipset</value>
+  </data>
+  <data name="FloatingGadget_Custom_CPU" xml:space="preserve">
+    <value>CPU</value>
+  </data>
+  <data name="FloatingGadget_Custom_Game" xml:space="preserve">
+    <value>Juego</value>
+  </data>
+  <data name="FloatingGadget_Custom_GPU" xml:space="preserve">
+    <value>GPU</value>
+  </data>
+  <data name="FloatingGadget_Custom_Title" xml:space="preserve">
+    <value>Personalizar elementos del gadget</value>
+  </data>
+  <data name="FloatingGadget_Style_Simple" xml:space="preserve">
+    <value>Sencillo</value>
+  </data>
   <data name="FnLockAutomationStepControl_Message" xml:space="preserve">
     <value>Utilizar las funciones secundarias de las teclas F1-F12 sin pulsar la tecla Fn.</value>
   </data>
@@ -660,12 +1122,18 @@ El sistema alternará automáticamente entre ellas, en función de sus necesidad
   <data name="FnLockControl_Title" xml:space="preserve">
     <value>Bloqueo de la tecla Fn</value>
   </data>
-  <data name="GodModeSettingsWindow_Advanced_MinOffset_Message" xml:space="preserve">
-    <value>¡ATENCIÓN!
-Algunos portátiles pueden aceptar valores más bajos de los indicados, pero tenga cuidado. Esta opción puede dar lugar a un comportamiento impredecible, así que si no está seguro de lo que está haciendo, déjelo en 0.</value>
+  <data name="GHz" xml:space="preserve">
+    <value>GHz</value>
   </data>
-  <data name="GodModeSettingsWindow_Advanced_MinOffset_Title" xml:space="preserve">
-    <value>Compensación mínima</value>
+  <data name="GodModePresetAutomationStepControl_Message" xml:space="preserve">
+    <value>Activa el preajuste del modo personalizado.
+Esta configuración sólo tiene efecto si el modo personalizado está activado.</value>
+  </data>
+  <data name="GodModePresetAutomationStepControl_Title" xml:space="preserve">
+    <value>Preajuste de modo personalizado</value>
+  </data>
+  <data name="GodModeSettingsWindow_ActivePreset_Title" xml:space="preserve">
+    <value>Preajuste activo</value>
   </data>
   <data name="GodModeSettingsWindow_Advanced_MaxOffset_Message" xml:space="preserve">
     <value>¡ATENCIÓN!
@@ -677,23 +1145,79 @@ Algunos portátiles pueden aceptar valores más altos de los indicados, pero ten
   <data name="GodModeSettingsWindow_Advanced_Message" xml:space="preserve">
     <value>No cambiar las opciones siguientes a menos que sepa realmente lo que está haciendo.</value>
   </data>
+  <data name="GodModeSettingsWindow_Advanced_MinOffset_Message" xml:space="preserve">
+    <value>¡ATENCIÓN!
+Algunos portátiles pueden aceptar valores más bajos de los indicados, pero tenga cuidado. Esta opción puede dar lugar a un comportamiento impredecible, así que si no está seguro de lo que está haciendo, déjelo en 0.</value>
+  </data>
+  <data name="GodModeSettingsWindow_Advanced_MinOffset_Title" xml:space="preserve">
+    <value>Compensación mínima</value>
+  </data>
   <data name="GodModeSettingsWindow_Advanced_Title" xml:space="preserve">
     <value>Avanzado</value>
+  </data>
+  <data name="GodModeSettingsWindow_AllCoreCurveOptimizer_Description" xml:space="preserve">
+    <value>Optimizador de curva de todos los núcleos.</value>
+  </data>
+  <data name="GodModeSettingsWindow_AllCoreCurveOptimizer_Title" xml:space="preserve">
+    <value>Optimizador de curva de todos los núcleos</value>
+  </data>
+  <data name="GodModeSettingsWindow_CPU_APUsPPT_PL" xml:space="preserve">
+    <value>Límite de potencia APU sPPT</value>
+  </data>
+  <data name="GodModeSettingsWindow_CPU_APUsPPT_PL_Description" xml:space="preserve">
+    <value>El consumo máximo de energía que puede alcanzar la CPU con un retardo menor.</value>
   </data>
   <data name="GodModeSettingsWindow_CPU_CrossLoading" xml:space="preserve">
     <value>Límite de potencia a largo plazo (carga mixta)</value>
   </data>
+  <data name="GodModeSettingsWindow_CPU_CrossLoading_Description" xml:space="preserve">
+    <value>El consumo máximo de energía que puede alcanzar la CPU, si ésta y la GPU se utilizan al máximo.</value>
+  </data>
   <data name="GodModeSettingsWindow_CPU_LongTermPL" xml:space="preserve">
     <value>Límite de potencia a largo plazo</value>
+  </data>
+  <data name="GodModeSettingsWindow_CPU_LongTermPL_Description" xml:space="preserve">
+    <value>El consumo continuo de energía que puede alcanzar la tarjeta gráfica.</value>
+  </data>
+  <data name="GodModeSettingsWindow_CPU_PeakPL" xml:space="preserve">
+    <value>Límite de potencia máxima</value>
+  </data>
+  <data name="GodModeSettingsWindow_CPU_PeakPL_Description" xml:space="preserve">
+    <value>El consumo máximo instantáneo que puede alcanzar la tarjeta gráfica.</value>
+  </data>
+  <data name="GodModeSettingsWindow_CPU_PL1Tau" xml:space="preserve">
+    <value>Duración límite de potencia a corto plazo</value>
+  </data>
+  <data name="GodModeSettingsWindow_CPU_PL1Tau_Description" xml:space="preserve">
+    <value>La cantidad de tiempo que se permite a la CPU aumentar y utilizar el límite de potencia a corto plazo. Cuando Tau expira, se utiliza el límite de potencia a largo plazo.</value>
   </data>
   <data name="GodModeSettingsWindow_CPU_ShortTermPL" xml:space="preserve">
     <value>Límite de potencia a corto plazo</value>
   </data>
+  <data name="GodModeSettingsWindow_CPU_ShortTermPL_Description" xml:space="preserve">
+    <value>El consumo máximo de energía que puede alcanzar la tarjeta gráfica en un breve espacio de tiempo.</value>
+  </data>
   <data name="GodModeSettingsWindow_CPU_TempLimit" xml:space="preserve">
     <value>Límite de temperatura de la CPU</value>
   </data>
+  <data name="GodModeSettingsWindow_CPU_TempLimit_Description" xml:space="preserve">
+    <value>La temperatura máxima que puede alcanzar la CPU antes de que se reduzca la frecuencia y la potencia.</value>
+  </data>
   <data name="GodModeSettingsWindow_CPU_Title" xml:space="preserve">
     <value>CPU</value>
+  </data>
+  <data name="GodModeSettingsWindow_CustomMode_Warning" xml:space="preserve">
+    <value>Custom Mode grants access to critical system parameters such as power limits and fan curves. 
+
+Misconfiguration can lead to severe system instability, thermal throttling, or permanent hardware damage. Modifications made here may void your manufacturer warranty. 
+
+Do not proceed unless you possess the necessary technical expertise.</value>
+  </data>
+  <data name="GodModeSettingsWindow_EditPreset_Message" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="GodModeSettingsWindow_EditPreset_Title" xml:space="preserve">
+    <value>Nombre del preajuste</value>
   </data>
   <data name="GodModeSettingsWindow_Error_Apply_Title" xml:space="preserve">
     <value>No se ha podido aplicar la configuración</value>
@@ -721,17 +1245,71 @@ En serio, ¡tenga cuidado con esta opción!</value>
   <data name="GodModeSettingsWindow_GPU_CTGP" xml:space="preserve">
     <value>Potencia gráfica total configurable</value>
   </data>
+  <data name="GodModeSettingsWindow_GPU_CTGP_Description" xml:space="preserve">
+    <value>La cantidad adicional de energía que puede asignarse a la GPU además del consumo básico.</value>
+  </data>
   <data name="GodModeSettingsWindow_GPU_DynamicBoost" xml:space="preserve">
     <value>Mejora dinámica</value>
+  </data>
+  <data name="GodModeSettingsWindow_GPU_DynamicBoost_Description" xml:space="preserve">
+    <value>La potencia máxima adicional que puede asignarse a la GPU, en función del consumo de energía de la CPU.</value>
   </data>
   <data name="GodModeSettingsWindow_GPU_TempLimit" xml:space="preserve">
     <value>Límite de temperatura de la GPU</value>
   </data>
+  <data name="GodModeSettingsWindow_GPU_TempLimit_Description" xml:space="preserve">
+    <value>La temperatura máxima que puede alcanzar la GPU antes de que se reduzca la frecuencia y la potencia.</value>
+  </data>
   <data name="GodModeSettingsWindow_GPU_Title" xml:space="preserve">
     <value>GPU</value>
   </data>
+  <data name="GodModeSettingsWindow_GPU_ToCpuDynamicBoostControl" xml:space="preserve">
+    <value>Mejora dinámica de la GPU a la CPU</value>
+  </data>
+  <data name="GodModeSettingsWindow_GPU_ToCpuDynamicBoostControl_Description" xml:space="preserve">
+    <value>Es la máxima potencia adicional que puede asignarse a la CPU desde la GPU, en base al uso de ésta. Cuanto mayor sea el valor, mejor será el rendimiento de las aplicaciones que utilizan la CPU.</value>
+  </data>
+  <data name="GodModeSettingsWindow_GPU_TotalProcessingPowerTargetOnAcOffsetFromBaselineControl" xml:space="preserve">
+    <value>Potencia total del procesador en corriente alterna</value>
+  </data>
+  <data name="GodModeSettingsWindow_GPU_TotalProcessingPowerTargetOnAcOffsetFromBaselineControl_Description" xml:space="preserve">
+    <value>El punto en el que la CPU activa el ajuste dinámico de consumo de energía de la GPU.</value>
+  </data>
+  <data name="GodModeSettingsWindow_LegionSpaceWarning_Title" xml:space="preserve">
+    <value>Los ajustes del modo personalizado no se aplicarán correctamente si Legion Space o sus servicios se están ejecutando.</value>
+  </data>
+  <data name="GodModeSettingsWindow_LegionZoneWarning_Title" xml:space="preserve">
+    <value>Los ajustes del modo personalizado no se aplicarán correctamente, si Legion Zone o sus servicios se están ejecutando.</value>
+  </data>
+  <data name="GodModeSettingsWindow_PrecisionBoostOverdriveBoostFrequency_Description" xml:space="preserve">
+    <value>Precision Boost Overdrive Boost Frequency.</value>
+  </data>
+  <data name="GodModeSettingsWindow_PrecisionBoostOverdriveBoostFrequency_Title" xml:space="preserve">
+    <value>Frecuencia de impulso de Precision Boost Overdrive</value>
+  </data>
+  <data name="GodModeSettingsWindow_PrecisionBoostOverdriveScaler_Description" xml:space="preserve">
+    <value>Multiplicador de precisión de Boost Overdrive.</value>
+  </data>
+  <data name="GodModeSettingsWindow_PrecisionBoostOverdriveScaler_Title" xml:space="preserve">
+    <value>Multiplicador de precisión de Boost Overdrive</value>
+  </data>
   <data name="GodModeSettingsWindow_Title" xml:space="preserve">
     <value>Ajustes del modo personalizado</value>
+  </data>
+  <data name="GodModeSettingsWindow_Toggle_CoreCurve_Message" xml:space="preserve">
+    <value>Activar / Desactivar el ajuste de la curva de los núcleos.</value>
+  </data>
+  <data name="GodModeSettingsWindow_Toggle_CoreCurve_Title" xml:space="preserve">
+    <value>Ajuste de curva del núcleo</value>
+  </data>
+  <data name="GodModeSettingsWindow_Toggle_OC_Message" xml:space="preserve">
+    <value>Habilitar / Deshabilitar opciones avanzadas de overclocking.</value>
+  </data>
+  <data name="GodModeSettingsWindow_Toggle_OC_Title" xml:space="preserve">
+    <value>Opciones avanzadas de overclocking</value>
+  </data>
+  <data name="GodModeSettingsWindow_VantageWarning_Title" xml:space="preserve">
+    <value>Los ajustes del modo personalizado no se aplicarán correctamente, si Lenovo Vantage o sus servicios se están ejecutando.</value>
   </data>
   <data name="HDRAutomationStepControl_Message" xml:space="preserve">
     <value>Activar el rango dinámico alto (HDR) en la pantalla interna.
@@ -750,11 +1328,77 @@ AVISO: Esta acción no se ejecutará correctamente si la pantalla interna está 
   <data name="HDRControl_Warning" xml:space="preserve">
     <value>El uso del HDR está bloqueado por la configuración de Windows.</value>
   </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Ocultar</value>
+  </data>
+  <data name="HideAll" xml:space="preserve">
+    <value>Ocultar todo(s)</value>
+  </data>
+  <data name="IGPUModeChangeException_Message" xml:space="preserve">
+    <value>En un par de segundos intentar cambiar el modo de nuevo, si no obtiene el resultado esperado.
+Si la dGPU no responde del todo, reinicie su portátil.</value>
+  </data>
+  <data name="IGPUModeChangeException_Message_Auto" xml:space="preserve">
+    <value>La dGPU se desconectará automáticamente si no está en uso y el portátil está alimentado por batería.</value>
+  </data>
+  <data name="IGPUModeChangeException_Message_IGPUOnly" xml:space="preserve">
+    <value>La dGPU se desconectará automáticamente si no está en uso.</value>
+  </data>
+  <data name="IGPUModeChangeException_Title" xml:space="preserve">
+    <value>No se puede cambiar el modo de trabajo de la GPU</value>
+  </data>
+  <data name="IGPUModeChangeException_Title_Auto" xml:space="preserve">
+    <value>La dGPU está actualmente en uso o el portátil no está alimentado por batería</value>
+  </data>
+  <data name="IGPUModeChangeException_Title_IGPUOnly" xml:space="preserve">
+    <value>La dGPU está actualmente en uso</value>
+  </data>
   <data name="Import" xml:space="preserve">
     <value>Importar</value>
   </data>
+  <data name="Inactive" xml:space="preserve">
+    <value>Inactiva</value>
+  </data>
   <data name="IncompatibleDevice_Message" xml:space="preserve">
     <value>Este dispositivo no es compatible con Lenovo Legion Toolkit.</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>Información</value>
+  </data>
+  <data name="InstantBootAutomationStepControl_Message" xml:space="preserve">
+    <value>Encender el portátil cuando haya un cargador conectado.</value>
+  </data>
+  <data name="InstantBootAutomationStepControl_Title" xml:space="preserve">
+    <value>Inicio inmediato</value>
+  </data>
+  <data name="InstantBootControl_Message" xml:space="preserve">
+    <value>Encender el portátil cuando haya un cargador conectado.</value>
+  </data>
+  <data name="InstantBootControl_Title" xml:space="preserve">
+    <value>Inicio inmediato</value>
+  </data>
+  <data name="ITSModeAutomationStepControl_Message" xml:space="preserve">
+    <value>Cambiar el modo de energía del IdeaPad</value>
+  </data>
+  <data name="ITSModeAutomationStepControl_Title" xml:space="preserve">
+    <value>Modo de energía del IdeaPad</value>
+  </data>
+  <data name="ITSModeControl_Dialog_Message" xml:space="preserve">
+    <value>Falta el archivo PowerBattery.dll. Por favor, colóquelo manualmente para utilizar la función ITSMode.</value>
+  </data>
+  <data name="ITSModeControl_Dialog_Title" xml:space="preserve">
+    <value>Componente faltante</value>
+  </data>
+  <data name="ITSModeControl_Message" xml:space="preserve">
+    <value>Cambiar el modo de energía del IdeaPad</value>
+  </data>
+  <data name="ITSModeControl_Title" xml:space="preserve">
+    <value>Modo de energía del IdeaPad</value>
+  </data>
+  <data name="KeyboardBacklightPage_DynamicLightingEnabled" xml:space="preserve">
+    <value>La iluminación dinámica de Windows está habilitada.
+Esta función puede impedir que LLT controle el teclado.
+Haga clic en Sí para deshabilitarla y en No para ignorarla.</value>
   </data>
   <data name="KeyboardBacklightPage_NoCompatibleKeyboardsFound" xml:space="preserve">
     <value>No se han encontrado teclados compatibles</value>
@@ -767,6 +1411,90 @@ AVISO: Esta acción no se ejecutará correctamente si la pantalla interna está 
   </data>
   <data name="Keyboard_VantageEnabledWarning_Title" xml:space="preserve">
     <value>Lenovo Vantage o sus servicios se están ejecutando</value>
+  </data>
+  <data name="Load" xml:space="preserve">
+    <value>Cargar</value>
+  </data>
+  <data name="MacroAutomationStepControl_Message" xml:space="preserve">
+    <value>Activar o desactivar macros.</value>
+  </data>
+  <data name="MacroAutomationStepControl_Title" xml:space="preserve">
+    <value>Macro</value>
+  </data>
+  <data name="MacroPage_Enable_Subtitle" xml:space="preserve">
+    <value>Lenovo Legion Toolkit deberá estar ejecutándose para que funcionen las macros.</value>
+  </data>
+  <data name="MacroPage_Enable_Title" xml:space="preserve">
+    <value>Activar</value>
+  </data>
+  <data name="MacroPage_Subtitle" xml:space="preserve">
+    <value>Puede grabar series de pulsaciones de teclas y utilizarlas con el teclado numérico.</value>
+  </data>
+  <data name="MacroPage_Title" xml:space="preserve">
+    <value>Macro</value>
+  </data>
+  <data name="MacroRecordingWindow_Preparing_Title" xml:space="preserve">
+    <value>La grabación comenzará en 3 segundos...</value>
+  </data>
+  <data name="MacroRecordingWindow_Recording_Message" xml:space="preserve">
+    <value>Pulse ESC para detener.</value>
+  </data>
+  <data name="MacroRecordingWindow_Recording_Title" xml:space="preserve">
+    <value>Grabando...</value>
+  </data>
+  <data name="MacroSequenceControl_DontRepeat" xml:space="preserve">
+    <value>No repetir</value>
+  </data>
+  <data name="MacroSequenceControl_IgnoreDelays_Title" xml:space="preserve">
+    <value>Ignorar demoras</value>
+  </data>
+  <data name="MacroSequenceControl_InterruptOnOtherKey_Title" xml:space="preserve">
+    <value>Interrumpir si se ha pulsado otra tecla</value>
+  </data>
+  <data name="MacroSequenceControl_Keyboard" xml:space="preserve">
+    <value>Sólo teclado</value>
+  </data>
+  <data name="MacroSequenceControl_KeyboardMouse" xml:space="preserve">
+    <value>Teclado y botones del ratón</value>
+  </data>
+  <data name="MacroSequenceControl_KeyboardMouseMovement" xml:space="preserve">
+    <value>Todas las entradas</value>
+  </data>
+  <data name="MacroSequenceControl_Record" xml:space="preserve">
+    <value>Registro</value>
+  </data>
+  <data name="MacroSequenceControl_RecordingOptions" xml:space="preserve">
+    <value>Opciones de grabación</value>
+  </data>
+  <data name="MacroSequenceControl_Repeat_Title" xml:space="preserve">
+    <value>Repetir</value>
+  </data>
+  <data name="MacroSequenceControl_StopRecording" xml:space="preserve">
+    <value>Detener grabación</value>
+  </data>
+  <data name="MainWindows_FnKeysRunning" xml:space="preserve">
+    <value> Las teclas de acceso rápido de Lenovo se están ejecutando en segundo plano.</value>
+  </data>
+  <data name="MainWindows_VantageRunning" xml:space="preserve">
+    <value>Lenovo Vantage y/o ImController se está(n) ejecutando en segundo plano.</value>
+  </data>
+  <data name="MainWindow_CheckForUpdates_Error_ReachedRateLimit_Message" xml:space="preserve">
+    <value>Se ha alcanzado el límite de velocidad API, inténtelo más tarde.</value>
+  </data>
+  <data name="MainWindow_CheckForUpdates_Error_Title" xml:space="preserve">
+    <value>Error al buscar actualizaciones</value>
+  </data>
+  <data name="MainWindow_CheckForUpdates_Error_Unknown_Message" xml:space="preserve">
+    <value>Algo ha ido mal, inténtelo más tarde.</value>
+  </data>
+  <data name="MainWindow_CheckForUpdates_Success_Title" xml:space="preserve">
+    <value>Ninguna actualización disponible</value>
+  </data>
+  <data name="MainWindow_LegionSpaceRunning" xml:space="preserve">
+    <value>Legion Space se está ejecutando en segundo plano.</value>
+  </data>
+  <data name="MainWindow_LegionZoneRunning" xml:space="preserve">
+    <value>Legion Zone se está ejecutando en segundo plano.</value>
   </data>
   <data name="MainWindow_NavigationItem_About" xml:space="preserve">
     <value>Acerca de</value>
@@ -783,8 +1511,14 @@ AVISO: Esta acción no se ejecutará correctamente si la pantalla interna está 
   <data name="MainWindow_NavigationItem_Donate" xml:space="preserve">
     <value>Donar</value>
   </data>
+  <data name="MainWindow_NavigationItem_FanCurve" xml:space="preserve">
+    <value>Curva del ventilador</value>
+  </data>
   <data name="MainWindow_NavigationItem_Keyboard" xml:space="preserve">
     <value>Teclado</value>
+  </data>
+  <data name="MainWindow_NavigationItem_Macro" xml:space="preserve">
+    <value>Macro</value>
   </data>
   <data name="MainWindow_NavigationItem_Packages" xml:space="preserve">
     <value>Descargas</value>
@@ -792,11 +1526,35 @@ AVISO: Esta acción no se ejecutará correctamente si la pantalla interna está 
   <data name="MainWindow_NavigationItem_Settings" xml:space="preserve">
     <value>Ajustes</value>
   </data>
+  <data name="MainWindow_PawnIO_Warning_Message" xml:space="preserve">
+    <value>¡Necesitas instalar primero PawnIO para poder usar el nuevo panel de control!</value>
+  </data>
+  <data name="MainWindow_PawnIO_Warning_Title" xml:space="preserve">
+    <value>Aviso</value>
+  </data>
   <data name="MainWindow_UpdateAvailable" xml:space="preserve">
     <value>¡Actualización disponible!</value>
   </data>
   <data name="MainWindow_UpdateAvailableWithVersion" xml:space="preserve">
     <value>¡Actualización {0} disponible!</value>
+  </data>
+  <data name="MessageBoxHelper_DontShowAgain" xml:space="preserve">
+    <value>Don't show again.</value>
+  </data>
+  <data name="MHz" xml:space="preserve">
+    <value>MHz</value>
+  </data>
+  <data name="MicrophoneAutomationStepControl_Message" xml:space="preserve">
+    <value>Si está desactivado, los micrófonos se silencian.</value>
+  </data>
+  <data name="MicrophoneAutomationStepControl_Title" xml:space="preserve">
+    <value>Micrófono</value>
+  </data>
+  <data name="MicrophoneControl_Message" xml:space="preserve">
+    <value>Si está desactivado, los micrófonos se silencian.</value>
+  </data>
+  <data name="MicrophoneControl_Title" xml:space="preserve">
+    <value>Micrófono</value>
   </data>
   <data name="MoveDown" xml:space="preserve">
     <value>Mover abajo</value>
@@ -804,8 +1562,92 @@ AVISO: Esta acción no se ejecutará correctamente si la pantalla interna está 
   <data name="MoveUp" xml:space="preserve">
     <value>Mover arriba</value>
   </data>
+  <data name="MultipleTriggersAutomationPipelineTrigger_DisplayName" xml:space="preserve">
+    <value>Múltiples activadores...</value>
+    <comment>Allows the user to merge multiple triggers for the execution of selected actions.</comment>
+  </data>
+  <data name="MultipleTriggersAutomationPipelineTrigger_Logic_And" xml:space="preserve">
+    <value>Coincidir Todos (Y)</value>
+  </data>
+  <data name="MultipleTriggersAutomationPipelineTrigger_Logic_Or" xml:space="preserve">
+    <value>Coincidir Cualquier (O)</value>
+  </data>
+  <data name="MultipleTriggersAutomationPipelineTrigger_Logic_Title" xml:space="preserve">
+    <value>Lógica</value>
+  </data>
   <data name="No" xml:space="preserve">
     <value>No</value>
+  </data>
+  <data name="NotificationAutomationStepControl_NotificationText" xml:space="preserve">
+    <value>Texto de notificación</value>
+  </data>
+  <data name="NotificationAutomationStepControl_Title" xml:space="preserve">
+    <value>Mostrar notificación</value>
+  </data>
+  <data name="NotificationsSettingsWindow_ACAdapter" xml:space="preserve">
+    <value>Adaptador de corriente alterna</value>
+  </data>
+  <data name="NotificationsSettingsWindow_Automation" xml:space="preserve">
+    <value>Acciones</value>
+  </data>
+  <data name="NotificationsSettingsWindow_Camera" xml:space="preserve">
+    <value>Cámara </value>
+  </data>
+  <data name="NotificationsSettingsWindow_CapsAndNumLock" xml:space="preserve">
+    <value>Bloqueo de mayúsculas y bloqueo numérico</value>
+  </data>
+  <data name="NotificationsSettingsWindow_DontShowNotifications_Message" xml:space="preserve">
+    <value>Desactivar las notificaciones de las acciones de las teclas Fn como el silenciamiento del micrófono.
+Activar esta opción si tiene conflictos con las aplicaciones en pantalla completa.</value>
+  </data>
+  <data name="NotificationsSettingsWindow_DontShowNotifications_Title" xml:space="preserve">
+    <value>No mostrar notificaciones</value>
+  </data>
+  <data name="NotificationsSettingsWindow_FnLock" xml:space="preserve">
+    <value>Bloqueo de tecla Fn</value>
+  </data>
+  <data name="NotificationsSettingsWindow_KeyboardBacklight" xml:space="preserve">
+    <value>Retroalimentación del teclado</value>
+  </data>
+  <data name="NotificationsSettingsWindow_Microphone" xml:space="preserve">
+    <value>Micrófono </value>
+  </data>
+  <data name="NotificationsSettingsWindow_NotificationAlwaysOnTop_Message" xml:space="preserve">
+    <value>Poner siempre las notificaciones visibles.
+No afectará a otras ventanas a pantalla completa, pero no podrá hacer clic en las notificaciones.</value>
+  </data>
+  <data name="NotificationsSettingsWindow_NotificationAlwaysOnTop_Title" xml:space="preserve">
+    <value>Notificaciones siempre visibles</value>
+  </data>
+  <data name="NotificationsSettingsWindow_NotificationDuration_Title" xml:space="preserve">
+    <value>Duración</value>
+  </data>
+  <data name="NotificationsSettingsWindow_NotificationOnAllScreens_Message" xml:space="preserve">
+    <value>Mostrar notificación en todas las pantallas conectadas a su dispositivo.</value>
+  </data>
+  <data name="NotificationsSettingsWindow_NotificationOnAllScreens_Title" xml:space="preserve">
+    <value>Notificación en todas las pantallas</value>
+  </data>
+  <data name="NotificationsSettingsWindow_NotificationPosition_Title" xml:space="preserve">
+    <value>Posición </value>
+  </data>
+  <data name="NotificationsSettingsWindow_PowerMode" xml:space="preserve">
+    <value>Modo de alimentación </value>
+  </data>
+  <data name="NotificationsSettingsWindow_RefreshRate" xml:space="preserve">
+    <value>Tasa de refresco</value>
+  </data>
+  <data name="NotificationsSettingsWindow_SmartKey" xml:space="preserve">
+    <value>Tecla inteligente</value>
+  </data>
+  <data name="NotificationsSettingsWindow_Title" xml:space="preserve">
+    <value>Notificaciones</value>
+  </data>
+  <data name="NotificationsSettingsWindow_TouchpadLock" xml:space="preserve">
+    <value>Bloqueo del panel táctil</value>
+  </data>
+  <data name="NotificationsSettingsWindow_Updates_Title" xml:space="preserve">
+    <value>Actualizaciones</value>
   </data>
   <data name="Notification_ACAdapterConnected" xml:space="preserve">
     <value>Adaptador de corriente alterna conectado</value>
@@ -846,6 +1688,18 @@ AVISO: Esta acción no se ejecutará correctamente si la pantalla interna está 
   <data name="Notification_NumLockOn" xml:space="preserve">
     <value>Bloqueo numérico activado</value>
   </data>
+  <data name="Notification_PanelLogoLightingOff" xml:space="preserve">
+    <value>Logo Legion apagado</value>
+  </data>
+  <data name="Notification_PanelLogoLightingOn" xml:space="preserve">
+    <value>Logo Legion encendido</value>
+  </data>
+  <data name="Notification_PortLightingOff" xml:space="preserve">
+    <value>Puertos retroiluminados apagados</value>
+  </data>
+  <data name="Notification_PortLightingOn" xml:space="preserve">
+    <value>Puertos retroiluminados encendidos</value>
+  </data>
   <data name="Notification_SpectrumKeyboardBacklight_Backlight" xml:space="preserve">
     <value>Retroiluminación {0}</value>
   </data>
@@ -861,57 +1715,55 @@ AVISO: Esta acción no se ejecutará correctamente si la pantalla interna está 
   <data name="Notification_TouchpadOn" xml:space="preserve">
     <value>Panel táctil encendido</value>
   </data>
+  <data name="Notification_UpdateAvailable" xml:space="preserve">
+    <value>¡Actualización {0} disponible!</value>
+  </data>
   <data name="Notification_WhiteKeyboardBacklight" xml:space="preserve">
     <value>Retroiluminación {0}</value>
   </data>
-  <data name="NotificationsSettingsWindow_ACAdapter" xml:space="preserve">
-    <value>Adaptador de corriente alterna</value>
-  </data>
-  <data name="NotificationsSettingsWindow_Camera" xml:space="preserve">
-    <value>Cámara </value>
-  </data>
-  <data name="NotificationsSettingsWindow_CapsAndNumLock" xml:space="preserve">
-    <value>Bloqueo de mayúsculas y bloqueo numérico</value>
-  </data>
-  <data name="NotificationsSettingsWindow_DontShowNotifications_Message" xml:space="preserve">
-    <value>Desactivar las notificaciones de las acciones de las teclas Fn como el silenciamiento del micrófono.
-Activar esta opción si tiene conflictos con las aplicaciones en pantalla completa.</value>
-  </data>
-  <data name="NotificationsSettingsWindow_DontShowNotifications_Title" xml:space="preserve">
-    <value>No mostrar notificaciones</value>
-  </data>
-  <data name="NotificationsSettingsWindow_FnLock" xml:space="preserve">
-    <value>Bloqueo de tecla Fn</value>
-  </data>
-  <data name="NotificationsSettingsWindow_KeyboardBacklight" xml:space="preserve">
-    <value>Retroalimentación del teclado</value>
-  </data>
-  <data name="NotificationsSettingsWindow_Microphone" xml:space="preserve">
-    <value>Micrófono </value>
-  </data>
-  <data name="NotificationsSettingsWindow_NotificationPosition_Title" xml:space="preserve">
-    <value>Posición </value>
-  </data>
-  <data name="NotificationsSettingsWindow_PowerMode" xml:space="preserve">
-    <value>Modo de alimentación </value>
-  </data>
-  <data name="NotificationsSettingsWindow_RefreshRate" xml:space="preserve">
-    <value>Tasa de refresco</value>
-  </data>
-  <data name="NotificationsSettingsWindow_SmartKey" xml:space="preserve">
-    <value>Tecla inteligente</value>
-  </data>
-  <data name="NotificationsSettingsWindow_Title" xml:space="preserve">
-    <value>Notificaciones</value>
-  </data>
-  <data name="NotificationsSettingsWindow_TouchpadLock" xml:space="preserve">
-    <value>Bloqueo del panel táctil</value>
+  <data name="Off" xml:space="preserve">
+    <value>Apagado</value>
   </data>
   <data name="OK" xml:space="preserve">
     <value>Aceptar</value>
   </data>
+  <data name="OneLevelWhiteKeyboardBacklightAutomationStepControl_Message" xml:space="preserve">
+    <value>Encender o apagar la retroiluminación.</value>
+  </data>
+  <data name="OneLevelWhiteKeyboardBacklightAutomationStepControl_Title" xml:space="preserve">
+    <value>Retroiluminación del teclado</value>
+  </data>
+  <data name="OneLevelWhiteKeyboardBacklightControl_Message" xml:space="preserve">
+    <value>Puede encender o apagar la retroiluminación usando Fn+Espacio.</value>
+  </data>
+  <data name="OneLevelWhiteKeyboardBacklightControl_Title" xml:space="preserve">
+    <value>Retroiluminación del teclado</value>
+  </data>
   <data name="Open" xml:space="preserve">
     <value>Abrir</value>
+  </data>
+  <data name="OverclockDiscreteGPUAutomationStepControl_Message" xml:space="preserve">
+    <value>Aumentar el rendimiento haciendo overclocking en la GPU dedicada.
+
+AVISO: Esta acción no se ejecutará correctamente si no se dispone de una GPU externa.</value>
+  </data>
+  <data name="OverclockDiscreteGPUAutomationStepControl_Title" xml:space="preserve">
+    <value>Overclock de la GPU</value>
+  </data>
+  <data name="OverclockDiscreteGPUControl_Message" xml:space="preserve">
+    <value>Aumentar el rendimiento haciendo overclocking en la GPU dedicada.</value>
+  </data>
+  <data name="OverclockDiscreteGPUControl_Title" xml:space="preserve">
+    <value>Overclock de la GPU</value>
+  </data>
+  <data name="OverclockDiscreteGPUSettingsWindow_CoreFrequencyOffset_Title" xml:space="preserve">
+    <value>Compensación de frecuencia del núcleo</value>
+  </data>
+  <data name="OverclockDiscreteGPUSettingsWindow_MemoryFrequencyOffset_Title" xml:space="preserve">
+    <value>Compensación de frecuencia de la memoria</value>
+  </data>
+  <data name="OverclockDiscreteGPUSettingsWindow_Title" xml:space="preserve">
+    <value>Ajustes de overclocking de la GPU</value>
   </data>
   <data name="OverDriveAutomationStepControl_Message" xml:space="preserve">
     <value>Mejorar el tiempo de respuesta de la pantalla integrada.</value>
@@ -924,6 +1776,9 @@ Activar esta opción si tiene conflictos con las aplicaciones en pantalla comple
   </data>
   <data name="OverDriveControl_Title" xml:space="preserve">
     <value>Aumentar velocidad tiempo de respuesta del monitor (OverDrive)</value>
+  </data>
+  <data name="PackageControl_Download" xml:space="preserve">
+    <value>Descargar</value>
   </data>
   <data name="PackageControl_DownloadComplete_Message" xml:space="preserve">
     <value>{0} descargado(s)</value>
@@ -952,6 +1807,18 @@ Activar esta opción si tiene conflictos con las aplicaciones en pantalla comple
   <data name="PackageControl_OldPackageWarning" xml:space="preserve">
     <value>Este paquete tiene más de un año.</value>
   </data>
+  <data name="PackageControl_OpenReadme" xml:space="preserve">
+    <value>Abrir README</value>
+  </data>
+  <data name="PackageControl_RebootRecommended" xml:space="preserve">
+    <value>Se recomienda un reinicio</value>
+  </data>
+  <data name="PackageControl_RebootRequired" xml:space="preserve">
+    <value>Se requiere un reinicio</value>
+  </data>
+  <data name="PackageControl_ShutdownRequired" xml:space="preserve">
+    <value>Se requiere un apagado</value>
+  </data>
   <data name="PackageControl_Version" xml:space="preserve">
     <value>Versión</value>
   </data>
@@ -971,11 +1838,26 @@ Asegúrese de instalar siempre los paquetes correctos.</value>
   <data name="PackagesPage_DownloadInProgress_Title" xml:space="preserve">
     <value>Descarga en curso</value>
   </data>
-  <data name="Filter" xml:space="preserve">
-    <value>Filtro...</value>
+  <data name="PackagesPage_DownloadTo" xml:space="preserve">
+    <value>Carpeta de descargas</value>
+  </data>
+  <data name="PackagesPage_Error_CheckInternet_Message" xml:space="preserve">
+    <value>Comprobar si funciona su conexión a internet.</value>
+  </data>
+  <data name="PackagesPage_Error_Title" xml:space="preserve">
+    <value>Algo salió mal</value>
   </data>
   <data name="PackagesPage_MachineType" xml:space="preserve">
     <value>Tipo de modelo</value>
+  </data>
+  <data name="PackagesPage_NoMatchingDownloads" xml:space="preserve">
+    <value>No se han encontrado descargas coincidentes</value>
+  </data>
+  <data name="PackagesPage_OnlyShowUpdates" xml:space="preserve">
+    <value>Mostrar sólo actualizaciones</value>
+  </data>
+  <data name="PackagesPage_OpenDownloadTo" xml:space="preserve">
+    <value>Abrir carpeta de descargas</value>
   </data>
   <data name="PackagesPage_OperatingSystem" xml:space="preserve">
     <value>Sistema operativo</value>
@@ -1007,8 +1889,57 @@ Asegúrese de instalar siempre los paquetes correctos.</value>
   <data name="PackagesPage_Title" xml:space="preserve">
     <value>Descargas</value>
   </data>
+  <data name="PackagesPage_UpdateCatalogNotFound_Message" xml:space="preserve">
+    <value>Intentar obtener actualizaciones de la otra procedencia.</value>
+  </data>
+  <data name="PackagesPage_UpdateCatalogNotFound_Title" xml:space="preserve">
+    <value>Catálogo de actualización no encontrado</value>
+  </data>
+  <data name="PanelLogoBacklightAutomationStepControl_Message" xml:space="preserve">
+    <value>Enciende o apaga la retroiluminación de la tapa del portátil.</value>
+  </data>
+  <data name="PanelLogoBacklightAutomationStepControl_Title" xml:space="preserve">
+    <value>Retroiluminación del logo del panel</value>
+  </data>
+  <data name="PanelLogoBacklightControl_Message" xml:space="preserve">
+    <value>Activa o desactiva la retroiluminación de la tapa del portátil.</value>
+  </data>
+  <data name="PanelLogoBacklightControl_Title" xml:space="preserve">
+    <value>Retroiluminación del logo del panel</value>
+  </data>
   <data name="Paste" xml:space="preserve">
     <value>Pegar</value>
+  </data>
+  <data name="PeriodicActionPipelineTriggerTabItemContent_Minutes" xml:space="preserve">
+    <value>Minutos</value>
+  </data>
+  <data name="PeriodicActionPipelineTriggerTabItemContent_Period" xml:space="preserve">
+    <value>Período (minutos)</value>
+    <comment>A prompt that is used both to ask the user to input an integer, representing the number of minutes between two periodic actions are triggered, and to inform the user what have they set once they are done configuring the action.</comment>
+  </data>
+  <data name="PeriodicActionPipelineTriggerTabItemContent_Seconds" xml:space="preserve">
+    <value>Segundos</value>
+  </data>
+  <data name="PlaySoundAutomationStepControl_Message" xml:space="preserve">
+    <value>Se admiten formatos habituales de música como WAV o MP3.</value>
+  </data>
+  <data name="PlaySoundAutomationStepControl_Title" xml:space="preserve">
+    <value>Reproducir sonido</value>
+  </data>
+  <data name="PortsBacklightAutomationStepControl_Message" xml:space="preserve">
+    <value>Activa o desactiva la retroiluminación de los puertos de la parte posterior del portátil.</value>
+  </data>
+  <data name="PortsBacklightAutomationStepControl_Title" xml:space="preserve">
+    <value>Retroiluminación de puertos</value>
+  </data>
+  <data name="PortsBacklightControl_Message" xml:space="preserve">
+    <value>Activa o desactiva la retroiluminación de los puertos de la parte posterior del portátil.</value>
+  </data>
+  <data name="PortsBacklightControl_Title" xml:space="preserve">
+    <value>Retroiluminación de puertos</value>
+  </data>
+  <data name="PoweredOff" xml:space="preserve">
+    <value>Desactivado</value>
   </data>
   <data name="PowerModeAutomationStepControl_Message" xml:space="preserve">
     <value>Seleccionar modo de rendimiento.</value>
@@ -1029,11 +1960,85 @@ Puede cambiar de modo con Fn+Q.</value>
   <data name="PowerModeControl_Warning" xml:space="preserve">
     <value>El modo de alimentación seleccionado puede no funcionar correctamente sin el adaptador de corriente alterna conectado.</value>
   </data>
-  <data name="WindowsPowerPlansWindow_DefaultPowerPlan" xml:space="preserve">
-    <value>Predefinido</value>
+  <data name="PowerModeUnavailableWithoutACException_Message" xml:space="preserve">
+    <value>El modo de energía {0} no está disponible sin alimentación de corriente eléctrica.</value>
+    <comment>For example: "{Performance} power mode is not available without AC power."</comment>
   </data>
-  <data name="WindowsPowerPlansWindow_Title" xml:space="preserve">
-    <value>Planes de energía de Windows</value>
+  <data name="PowerModeUnavailableWithoutACException_Title" xml:space="preserve">
+    <value>No se puede cambiar el modo de energía</value>
+  </data>
+  <data name="PowerPlansWindow_AoAcWarning_Message" xml:space="preserve">
+    <value>Windows informa de que este dispositivo soporta Modern Standby. El uso de planes de energía distintos a Equilibrado puede provocar un comportamiento inesperado.</value>
+  </data>
+  <data name="PowerPlansWindow_AoAcWarning_Title" xml:space="preserve">
+    <value>S0 Modelo de menor potencia detectado</value>
+  </data>
+  <data name="QuickActionAutomationStepControl_Message" xml:space="preserve">
+    <value>Ejecutar una acción rápida guardada.</value>
+  </data>
+  <data name="QuickActionAutomationStepControl_Title" xml:space="preserve">
+    <value>Acción rápida</value>
+  </data>
+  <data name="ReadmeWindow_Title" xml:space="preserve">
+    <value>Léame</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Actualizar</value>
+  </data>
+  <data name="RefreshRateAutomationStepControl_Message" xml:space="preserve">
+    <value>Cambiar la tasa de refresco de la pantalla integrada.
+
+AVISO: Esta acción no se ejecutará correctamente, si la pantalla interna está apagada.</value>
+  </data>
+  <data name="RefreshRateAutomationStepControl_Title" xml:space="preserve">
+    <value>Tasa de refresco</value>
+  </data>
+  <data name="RefreshRateControl_Message" xml:space="preserve">
+    <value>Cambiar la tasa de refresco de la pantalla integrada.</value>
+  </data>
+  <data name="RefreshRateControl_Title" xml:space="preserve">
+    <value>Tasa de refresco</value>
+  </data>
+  <data name="Rename" xml:space="preserve">
+    <value>Renombrar</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Reinciar</value>
+  </data>
+  <data name="ResolutionAutomationStepControl_Message" xml:space="preserve">
+    <value>Cambiar la resolución de la pantalla integrada.
+
+AVISO: Esta acción no se ejecutará correctamente, si la pantalla interna está apagada.</value>
+  </data>
+  <data name="ResolutionAutomationStepControl_Title" xml:space="preserve">
+    <value>Resolución</value>
+  </data>
+  <data name="ResolutionControl_Message" xml:space="preserve">
+    <value>Cambiar resolución de la pantalla integrada.</value>
+  </data>
+  <data name="ResolutionControl_Title" xml:space="preserve">
+    <value>Resolución</value>
+  </data>
+  <data name="RestartLater" xml:space="preserve">
+    <value>Reiniciar más tarde</value>
+  </data>
+  <data name="RestartNow" xml:space="preserve">
+    <value>Reiniciar ahora</value>
+  </data>
+  <data name="RestartRequired_Message" xml:space="preserve">
+    <value>Changing this requires restart. Do you want to restart now?</value>
+  </data>
+  <data name="RestartRequired_Title" xml:space="preserve">
+    <value>Restart required</value>
+  </data>
+  <data name="RestoreDefaults" xml:space="preserve">
+    <value>Restaurar valores por defecto</value>
+  </data>
+  <data name="Revert" xml:space="preserve">
+    <value>Revertir</value>
+  </data>
+  <data name="RevertToDefault" xml:space="preserve">
+    <value>Volver al valor predefinido</value>
   </data>
   <data name="RGBKeyboardBacklightAutomationStepControl_Message" xml:space="preserve">
     <value>Ajustar la retroiluminación predefinida del teclado. </value>
@@ -1077,37 +2082,8 @@ Puede cambiar de modo con Fn+Q.</value>
   <data name="RGBKeyboardBacklightSpeedCardControl_Title" xml:space="preserve">
     <value>Velocidad</value>
   </data>
-  <data name="ReadmeWindow_Title" xml:space="preserve">
-    <value>Léame</value>
-  </data>
-  <data name="Refresh" xml:space="preserve">
-    <value>Actualizar</value>
-  </data>
-  <data name="RefreshRateAutomationStepControl_Message" xml:space="preserve">
-    <value>Cambiar la tasa de refresco de la pantalla integrada.
-
-AVISO: Esta acción no se ejecutará correctamente, si la pantalla interna está apagada.</value>
-  </data>
-  <data name="RefreshRateAutomationStepControl_Title" xml:space="preserve">
-    <value>Tasa de refresco</value>
-  </data>
-  <data name="RefreshRateControl_Message" xml:space="preserve">
-    <value>Cambiar la tasa de refresco de la pantalla integrada.</value>
-  </data>
-  <data name="RefreshRateControl_Title" xml:space="preserve">
-    <value>Tasa de refresco</value>
-  </data>
-  <data name="Rename" xml:space="preserve">
-    <value>Renombrar</value>
-  </data>
-  <data name="RestartLater" xml:space="preserve">
-    <value>Reiniciar más tarde</value>
-  </data>
-  <data name="RestartNow" xml:space="preserve">
-    <value>Reiniciar ahora</value>
-  </data>
-  <data name="Revert" xml:space="preserve">
-    <value>Revertir</value>
+  <data name="RPM" xml:space="preserve">
+    <value>RPM</value>
   </data>
   <data name="RunAutomationStepControl_ExeArguments" xml:space="preserve">
     <value>Argumentos</value>
@@ -1119,14 +2095,38 @@ AVISO: Esta acción no se ejecutará correctamente, si la pantalla interna está
     <value>Ejecutar un script o un programa.
 Asegúrese primero de que su script se ejecuta correctamente.</value>
   </data>
+  <data name="RunAutomationStepControl_ProcessCheckInstance" xml:space="preserve">
+    <value>Comprobar instancia</value>
+  </data>
+  <data name="RunAutomationStepControl_ProcessCheckInstance_Description" xml:space="preserve">
+    <value>Comprueba si el proceso ya se ha iniciado.</value>
+  </data>
+  <data name="RunAutomationStepControl_ProcessRunSilently" xml:space="preserve">
+    <value>Ejecutar silenciosamente</value>
+  </data>
+  <data name="RunAutomationStepControl_ProcessRunSilently_Description" xml:space="preserve">
+    <value>Ejecutar aplicaciones de consola, sin crear una ventana de consola.</value>
+  </data>
+  <data name="RunAutomationStepControl_ProcessWaitUntilFinished" xml:space="preserve">
+    <value>Esperar a que finalice</value>
+  </data>
+  <data name="RunAutomationStepControl_ProcessWaitUntilFinished_Description" xml:space="preserve">
+    <value>Esperar a que el programa o script termine de ejecutarse</value>
+  </data>
   <data name="RunAutomationStepControl_Title" xml:space="preserve">
     <value>Ejecutar</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Guardar</value>
   </data>
+  <data name="SaveAndClose" xml:space="preserve">
+    <value>Guardar y cerrar</value>
+  </data>
   <data name="Saving" xml:space="preserve">
     <value>Guardando...</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Seleccionar todo(s)</value>
   </data>
   <data name="SelectSmartKeyPipelinesWindow_List_Description" xml:space="preserve">
     <value>Elija una o varias acciones rápidas para desplazarse por ellas.</value>
@@ -1136,6 +2136,159 @@ Asegúrese primero de que su script se ejecuta correctamente.</value>
   </data>
   <data name="SelectSmartKeyPipelinesWindow_ShowThisApp" xml:space="preserve">
     <value>Mostrar esta aplicación</value>
+  </data>
+  <data name="SensorItem_BatteryLevel" xml:space="preserve">
+    <value>Nivel de la batería</value>
+  </data>
+  <data name="SensorItem_BatteryState" xml:space="preserve">
+    <value>Estado de la batería</value>
+  </data>
+  <data name="SensorItem_CpuFanSpeed" xml:space="preserve">
+    <value>Velocidad del ventilador de la CPU</value>
+  </data>
+  <data name="SensorItem_CpuFrequency" xml:space="preserve">
+    <value>Frecuencia de la CPU</value>
+  </data>
+  <data name="SensorItem_CpuPower" xml:space="preserve">
+    <value>Consumo de la CPU</value>
+  </data>
+  <data name="SensorItem_CpuTemperature" xml:space="preserve">
+    <value>Temperatura de la CPU</value>
+  </data>
+  <data name="SensorItem_CpuUtilitzation" xml:space="preserve">
+    <value>Uso de la CPU</value>
+  </data>
+  <data name="SensorItem_Disk1Temperature" xml:space="preserve">
+    <value>Temperatura del disco 1</value>
+  </data>
+  <data name="SensorItem_Disk2Temperature" xml:space="preserve">
+    <value>Temperatura del disco 2</value>
+  </data>
+  <data name="SensorItem_GpuFanSpeed" xml:space="preserve">
+    <value>Velocidad del ventilador de la GPU</value>
+  </data>
+  <data name="SensorItem_GpuFrequency" xml:space="preserve">
+    <value>Frecuencia de la GPU</value>
+  </data>
+  <data name="SensorItem_GpuTemperatures" xml:space="preserve">
+    <value>Temperatura de la GPU</value>
+  </data>
+  <data name="SensorItem_GpuUtilization" xml:space="preserve">
+    <value>Uso de la GPU</value>
+  </data>
+  <data name="SensorItem_MemoryTemperature" xml:space="preserve">
+    <value>Temperatura de la memoria</value>
+  </data>
+  <data name="SensorItem_MemoryUtilization" xml:space="preserve">
+    <value>Uso de memoria</value>
+  </data>
+  <data name="SensorItem_PchFanSpeed" xml:space="preserve">
+    <value>Velocidad del ventilador del PCH</value>
+  </data>
+  <data name="SensorItem_PchTemperature" xml:space="preserve">
+    <value>Temperatura del PCH</value>
+  </data>
+  <data name="SensorsControl_BatteryLevel_Title" xml:space="preserve">
+    <value>Nivel de Batería</value>
+  </data>
+  <data name="SensorsControl_Battery_Title" xml:space="preserve">
+    <value>Batería</value>
+  </data>
+  <data name="SensorsControl_CoreClock_Title" xml:space="preserve">
+    <value>Reloj del núcleo</value>
+  </data>
+  <data name="SensorsControl_CPU_Power" xml:space="preserve">
+    <value>Consumo</value>
+  </data>
+  <data name="SensorsControl_CPU_Title" xml:space="preserve">
+    <value>CPU</value>
+  </data>
+  <data name="SensorsControl_Disk_1_Temperature" xml:space="preserve">
+    <value>Temperatura disco 1</value>
+  </data>
+  <data name="SensorsControl_Disk_2_Temperature" xml:space="preserve">
+    <value>Temperatura disco 2</value>
+  </data>
+  <data name="SensorsControl_Disk_Title" xml:space="preserve">
+    <value>Disco</value>
+  </data>
+  <data name="SensorsControl_Fan_Title" xml:space="preserve">
+    <value>Ventilador</value>
+  </data>
+  <data name="SensorsControl_GpuCore_Title" xml:space="preserve">
+    <value>Núcleo</value>
+  </data>
+  <data name="SensorsControl_GpuMemoryTemperature_Title" xml:space="preserve">
+    <value>VRAM</value>
+  </data>
+  <data name="SensorsControl_GPU_Power" xml:space="preserve">
+    <value>Consumo</value>
+  </data>
+  <data name="SensorsControl_GPU_Title" xml:space="preserve">
+    <value>GPU</value>
+  </data>
+  <data name="SensorsControl_Maximum" xml:space="preserve">
+    <value>Máximo: {0}</value>
+  </data>
+  <data name="SensorsControl_MemoryClock_Title" xml:space="preserve">
+    <value>Reloj de memoria</value>
+  </data>
+  <data name="SensorsControl_Memory_Title" xml:space="preserve">
+    <value>Memoria</value>
+  </data>
+  <data name="SensorsControl_Motherboard_Temperature" xml:space="preserve">
+    <value>Temperatura de la placa base</value>
+  </data>
+  <data name="SensorsControl_Motherboard_Title" xml:space="preserve">
+    <value>Placa base</value>
+  </data>
+  <data name="SensorsControl_PchTemperature_Title" xml:space="preserve">
+    <value>Temperatura PCH</value>
+  </data>
+  <data name="SensorsControl_RefreshInterval" xml:space="preserve">
+    <value>Intervalo de actualización</value>
+  </data>
+  <data name="SensorsControl_State_Title" xml:space="preserve">
+    <value>Estado</value>
+  </data>
+  <data name="SensorsControl_Temperature_Title" xml:space="preserve">
+    <value>Temperatura</value>
+  </data>
+  <data name="SensorsControl_Utilization_Title" xml:space="preserve">
+    <value>Uso</value>
+  </data>
+  <data name="SensorsControl_VrTemperature_Title" xml:space="preserve">
+    <value>Temperatura VR</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Ajustes</value>
+  </data>
+  <data name="SettingsBackupWindow_Backup" xml:space="preserve">
+    <value>Back Up</value>
+  </data>
+  <data name="SettingsBackupWindow_BackupSuccess" xml:space="preserve">
+    <value>Backup completed successfully.</value>
+  </data>
+  <data name="SettingsBackupWindow_NoFilesSelected" xml:space="preserve">
+    <value>No files selected.</value>
+  </data>
+  <data name="SettingsBackupWindow_NoMatchingFiles" xml:space="preserve">
+    <value>No matching files found in selected folder.</value>
+  </data>
+  <data name="SettingsBackupWindow_Restore" xml:space="preserve">
+    <value>Restore</value>
+  </data>
+  <data name="SettingsBackupWindow_RestoreConfirm" xml:space="preserve">
+    <value>Restoring settings will overwrite your current configuration and restart the application. Do you want to continue?</value>
+  </data>
+  <data name="SettingsBackupWindow_RestoreSuccess" xml:space="preserve">
+    <value>Restore completed successfully. The application will restart.</value>
+  </data>
+  <data name="SettingsBackupWindow_SelectAll" xml:space="preserve">
+    <value>Select All</value>
+  </data>
+  <data name="SettingsBackupWindow_Title" xml:space="preserve">
+    <value>Backup Settings</value>
   </data>
   <data name="SettingsPage_AccentColor_Description" xml:space="preserve">
     <value>Cambiar el color característico de la aplicación.</value>
@@ -1149,6 +2302,91 @@ Asegúrese primero de que su script se ejecuta correctamente.</value>
   <data name="SettingsPage_Autorun_Title" xml:space="preserve">
     <value>Ejecución automática</value>
   </data>
+  <data name="SettingsPage_BackupSettings_Message" xml:space="preserve">
+    <value>Back up or restore application settings.</value>
+  </data>
+  <data name="SettingsPage_BackupSettings_Title" xml:space="preserve">
+    <value>Back Up Settings</value>
+  </data>
+  <data name="SettingsPage_BootLogo_Message" xml:space="preserve">
+    <value>Personalizar la imagen del logo de arranque, visible durante el inicio del sistema.</value>
+  </data>
+  <data name="SettingsPage_BootLogo_Title" xml:space="preserve">
+    <value>Logo de arranque</value>
+  </data>
+  <data name="SettingsPage_Category_AppBehavior" xml:space="preserve">
+    <value>App Behavior</value>
+  </data>
+  <data name="SettingsPage_Category_Appearance" xml:space="preserve">
+    <value>Appearance</value>
+  </data>
+  <data name="SettingsPage_Category_Display" xml:space="preserve">
+    <value>Display</value>
+  </data>
+  <data name="SettingsPage_Category_Integrations" xml:space="preserve">
+    <value>Integrations</value>
+  </data>
+  <data name="SettingsPage_Category_Power" xml:space="preserve">
+    <value>Power</value>
+  </data>
+  <data name="SettingsPage_Category_SmartKeys" xml:space="preserve">
+    <value>Smart Keys</value>
+  </data>
+  <data name="SettingsPage_Category_SoftwareControl" xml:space="preserve">
+    <value>Software Control</value>
+  </data>
+  <data name="SettingsPage_Category_Updates" xml:space="preserve">
+    <value>Updates</value>
+  </data>
+  <data name="SettingsPage_CheckUpdatesButton_Content" xml:space="preserve">
+    <value>Comprobar</value>
+  </data>
+  <data name="SettingsPage_CheckUpdates_Started_Title" xml:space="preserve">
+    <value>Buscando actualizaciones....</value>
+  </data>
+  <data name="SettingsPage_CheckUpdates_Title" xml:space="preserve">
+    <value>Buscar actualizaciones</value>
+  </data>
+  <data name="SettingsPage_ClearBackgroundImage_Title" xml:space="preserve">
+    <value>Imagen borrada</value>
+  </data>
+  <data name="SettingsPage_Clear_BackgroundImage_Message" xml:space="preserve">
+    <value>Quitar el fichero de imagen seleccionado actualmente.</value>
+  </data>
+  <data name="SettingsPage_Clear_BackgroundImage_Title" xml:space="preserve">
+    <value>Quitar imagen</value>
+  </data>
+  <data name="SettingsPage_CLIAddToPath_Message" xml:space="preserve">
+    <value>Añadir la interfaz de línea de comandos a la variable de entorno ruta.</value>
+  </data>
+  <data name="SettingsPage_CLIAddToPath_Title" xml:space="preserve">
+    <value>Añadir la interfaz de línea de comandos a la ruta</value>
+  </data>
+  <data name="SettingsPage_CLI_Message" xml:space="preserve">
+    <value>Activar la interfaz que permite el control desde la línea de comandos.</value>
+  </data>
+  <data name="SettingsPage_CLI_Title" xml:space="preserve">
+    <value>Interfaz de línea de comandos (CLI)</value>
+  </data>
+  <data name="SettingsPage_Custom_BackgroundImage_Message" xml:space="preserve">
+    <value>Imagen de fondo personalizada</value>
+  </data>
+  <data name="SettingsPage_Custom_BackgroundImage_Title" xml:space="preserve">
+    <value>Imagen de fondo personalizada</value>
+  </data>
+  <data name="SettingsPage_DisableLegionSpace_Error_Message" xml:space="preserve">
+    <value>Es posible que Legion Space no se haya desactivado correctamente</value>
+  </data>
+  <data name="SettingsPage_DisableLegionSpace_Error_Title" xml:space="preserve">
+    <value>No se ha podido desactivar Legion Space</value>
+  </data>
+  <data name="SettingsPage_DisableLegionSpace_Message" xml:space="preserve">
+    <value>Desactivar Legión Zone y su servicio, sin desinstalarlo.
+Se recomienda reiniciar después de cambiar esta opción.</value>
+  </data>
+  <data name="SettingsPage_DisableLegionSpace_Title" xml:space="preserve">
+    <value>Desactivar Legion Space</value>
+  </data>
   <data name="SettingsPage_DisableLegionZone_Error_Message" xml:space="preserve">
     <value>Es posible que Legion Zone no se haya desactivado correctamente</value>
   </data>
@@ -1156,10 +2394,6 @@ Asegúrese primero de que su script se ejecuta correctamente.</value>
     <value>No se puede desactivar Legion Zone</value>
   </data>
   <data name="SettingsPage_DisableLegionZone_Message" xml:space="preserve">
-    <value>Desactivar Legión Zone y su servicio, sin desinstalarlo.
-Se recomienda reiniciar después de cambiar esta opción.</value>
-  </data>
-  <data name="SettingsPage_DisableLegionSpace_Message" xml:space="preserve">
     <value>Desactivar Legión Zone y su servicio, sin desinstalarlo.
 Se recomienda reiniciar después de cambiar esta opción.</value>
   </data>
@@ -1193,6 +2427,12 @@ Se recomienda reiniciar después de cambiar esta opción.</value>
   <data name="SettingsPage_DisableVantage_Title" xml:space="preserve">
     <value>Desactivar Lenovo Vantage e ImController</value>
   </data>
+  <data name="SettingsPage_EnableLegionSpace_Error_Message" xml:space="preserve">
+    <value>Es posible que Legion Space no se haya activado correctamente</value>
+  </data>
+  <data name="SettingsPage_EnableLegionSpace_Error_Title" xml:space="preserve">
+    <value>No se ha podido activar Legion Space</value>
+  </data>
   <data name="SettingsPage_EnableLegionZone_Error_Message" xml:space="preserve">
     <value>Es posible que Legion Zone no se haya activado correctamente</value>
   </data>
@@ -1205,11 +2445,23 @@ Se recomienda reiniciar después de cambiar esta opción.</value>
   <data name="SettingsPage_EnableLenovoHotkeys_Error_Title" xml:space="preserve">
     <value>No se pueden activar las teclas de acceso rápido de Lenovo</value>
   </data>
+  <data name="SettingsPage_EnableLogging_Message" xml:space="preserve">
+    <value>Habilita los registros de depuración para investigar problemas de la aplicación.</value>
+  </data>
+  <data name="SettingsPage_EnableLogging_Title" xml:space="preserve">
+    <value>Habilitar registros de depuración</value>
+  </data>
   <data name="SettingsPage_EnableVantage_Error_Message" xml:space="preserve">
     <value>Lenovo Vantage y/o ImController pueden no haber sido activados correctamente</value>
   </data>
   <data name="SettingsPage_EnableVantage_Error_Title" xml:space="preserve">
     <value>No se ha podido activar Lenovo Vantage y/o ImController</value>
+  </data>
+  <data name="SettingsPage_ExcludeProcesses_Message" xml:space="preserve">
+    <value>Administrar procesos que son ignorados por la Detección de Juegos.</value>
+  </data>
+  <data name="SettingsPage_ExcludeProcesses_Title" xml:space="preserve">
+    <value>Procesos excluidos</value>
   </data>
   <data name="SettingsPage_ExcludeRefreshRates_Message" xml:space="preserve">
     <value>Puede excluir las tasas de refresco, para que el acceso rápido Fn+R sea más útil.</value>
@@ -1217,11 +2469,35 @@ Se recomienda reiniciar después de cambiar esta opción.</value>
   <data name="SettingsPage_ExcludeRefreshRates_Title" xml:space="preserve">
     <value>Excluir tasas de refresco</value>
   </data>
+  <data name="SettingsPage_FloatingGadgets_Message" xml:space="preserve">
+    <value>El widget flotante es una ventana flotante que muestra información del sensor en tiempo real en forma de superposición.</value>
+  </data>
+  <data name="SettingsPage_FloatingGadgets_Title" xml:space="preserve">
+    <value>Habilitar widget flotante</value>
+  </data>
+  <data name="SettingsPage_FloatingGadgets_Tooltip" xml:space="preserve">
+    <value>Controla el intervalo de actualización del sensor.</value>
+  </data>
+  <data name="SettingsPage_HWiNFO_Message" xml:space="preserve">
+    <value>Compartir la velocidad del ventilador, la temperatura de la batería, etc... con HWiNFO64. Puede que tenga que reiniciar HWiNFO64 después de cambiar esta opción.</value>
+  </data>
+  <data name="SettingsPage_HWiNFO_Title" xml:space="preserve">
+    <value>HWiNFO64</value>
+  </data>
+  <data name="SettingsPage_Integrations_Title" xml:space="preserve">
+    <value>Integraciones</value>
+  </data>
   <data name="SettingsPage_Language_Message" xml:space="preserve">
     <value>Seleccionar idioma.</value>
   </data>
   <data name="SettingsPage_Language_Title" xml:space="preserve">
     <value>Idioma</value>
+  </data>
+  <data name="SettingsPage_LockWindowSize_Message" xml:space="preserve">
+    <value>Bloquea el tamaño de la ventana de LTT. Para así evitar que algo lo modifique.</value>
+  </data>
+  <data name="SettingsPage_LockWindowSize_Title" xml:space="preserve">
+    <value>Bloquear el tamaño de ventana</value>
   </data>
   <data name="SettingsPage_MinimizeOnClose_Message" xml:space="preserve">
     <value>Minimizar siempre en la bandeja. Haciendo clic derecho en el icono de la bandeja, podrá cerrar el programa.
@@ -1230,17 +2506,50 @@ Se recomienda reiniciar después de cambiar esta opción.</value>
   <data name="SettingsPage_MinimizeOnClose_Title" xml:space="preserve">
     <value>Minimizar al cerrar</value>
   </data>
+  <data name="SettingsPage_MinimizeToTray_Message" xml:space="preserve">
+    <value>Minimizar siempre en la bandeja en lugar de en la barra de tareas.</value>
+  </data>
+  <data name="SettingsPage_MinimizeToTray_Title" xml:space="preserve">
+    <value>Minimizar en la bandeja</value>
+  </data>
   <data name="SettingsPage_Notifications_Message" xml:space="preserve">
     <value>Configurar qué notificaciones se muestran</value>
   </data>
   <data name="SettingsPage_Notifications_Title" xml:space="preserve">
     <value>Notificaciones</value>
   </data>
-  <data name="SettingsPage_UpdateChannel_Title" xml:space="preserve">
-    <value>Update Channel</value>
+  <data name="SettingsPage_OnBatterySinceReset_Message" xml:space="preserve">
+    <value>Restablece el contador de "En batería desde" en la sección de batería al reiniciar el sistema.</value>
   </data>
-  <data name="SettingsPage_WindowsPowerPlans_Title" xml:space="preserve">
-    <value>Planes de energía de Windows</value>
+  <data name="SettingsPage_OnBatterySinceReset_Title" xml:space="preserve">
+    <value>Restablecer "En batería desde" al iniciar</value>
+  </data>
+  <data name="SettingsPage_PowerModeMapping_Message" xml:space="preserve">
+    <value>Cambiar automáticamente el plan de energía o el modo de energía de Windows al cambiar los modos de energía.</value>
+  </data>
+  <data name="SettingsPage_PowerModeMapping_Title" xml:space="preserve">
+    <value>Sincronización del modo de alimentación</value>
+  </data>
+  <data name="SettingsPage_Power_Title" xml:space="preserve">
+    <value>Alimentación</value>
+  </data>
+  <data name="SettingsPage_Select_BackgroundImage_AllFiles" xml:space="preserve">
+    <value>Todos los ficheros</value>
+  </data>
+  <data name="SettingsPage_Select_BackgroundImage_Content" xml:space="preserve">
+    <value>Seleccionar imagen</value>
+  </data>
+  <data name="SettingsPage_Select_BackgroundImage_ImageFile" xml:space="preserve">
+    <value>Fichero de imagen</value>
+  </data>
+  <data name="SettingsPage_Select_BackgroundImage_Title" xml:space="preserve">
+    <value>Seleccionar la imagen de fondo</value>
+  </data>
+  <data name="SettingsPage_SmartFnLock_Message" xml:space="preserve">
+    <value>El bloqueo Fn se desactivará temporalmente al pulsar las teclas Mayús, Ctrl o Alt.</value>
+  </data>
+  <data name="SettingsPage_SmartFnLock_Title" xml:space="preserve">
+    <value>Bloqueo Fn inteligente</value>
   </data>
   <data name="SettingsPage_SmartKeyDoublePressAction_Message" xml:space="preserve">
     <value>Asignar acción rápida al presionar Fn+F9 dos veces.</value>
@@ -1254,6 +2563,18 @@ Se recomienda reiniciar después de cambiar esta opción.</value>
   <data name="SettingsPage_SmartKeySinglePressAction_Title" xml:space="preserve">
     <value>Acción de la tecla inteligente</value>
   </data>
+  <data name="SettingsPage_SynchronizeBrightnessToAllPowerPlans_Message" xml:space="preserve">
+    <value>Si está activado, se aplicará el mismo nivel de brillo a todos los planes de energía de Windows cada vez que lo cambie.</value>
+  </data>
+  <data name="SettingsPage_SynchronizeBrightnessToAllPowerPlans_Title" xml:space="preserve">
+    <value>Un solo brillo de pantalla</value>
+  </data>
+  <data name="SettingsPage_Temperature_Message" xml:space="preserve">
+    <value>Seleccionar unidades para los sensores de temperatura.</value>
+  </data>
+  <data name="SettingsPage_Temperature_Title" xml:space="preserve">
+    <value>Temperatura</value>
+  </data>
   <data name="SettingsPage_Theme_Description" xml:space="preserve">
     <value>Establecer un tema claro, un tema oscuro o seguir con la configuración del sistema.</value>
   </data>
@@ -1262,6 +2583,63 @@ Se recomienda reiniciar después de cambiar esta opción.</value>
   </data>
   <data name="SettingsPage_Title" xml:space="preserve">
     <value>Ajustes</value>
+  </data>
+  <data name="SettingsPage_UpdateChannel_Title" xml:space="preserve">
+    <value>Update Channel</value>
+  </data>
+  <data name="SettingsPage_UpdateCheckFrequency_Title" xml:space="preserve">
+    <value>Buscar actualizaciones automáticamente</value>
+  </data>
+  <data name="SettingsPage_UpdateMethod_Title" xml:space="preserve">
+    <value>Update Method</value>
+  </data>
+  <data name="SettingsPage_Update_Title" xml:space="preserve">
+    <value>Actualización</value>
+  </data>
+  <data name="SettingsPage_UseNewDashboard_Restart_Message" xml:space="preserve">
+    <value>Reinicie para aplicar los cambios.</value>
+  </data>
+  <data name="SettingsPage_UseNewDashboard_Switch_Title" xml:space="preserve">
+    <value>Se ha cambiado el panel de control</value>
+  </data>
+  <data name="SettingsPage_UseNewSensorDashboard_Message" xml:space="preserve">
+    <value>Utiliza el nuevo panel de control en lugar del antiguo.</value>
+  </data>
+  <data name="SettingsPage_UseNewSensorDashboard_Title" xml:space="preserve">
+    <value>Utiliza el nuevo panel de control</value>
+  </data>
+  <data name="SettingsPage_WindowsPowerModes_Message" xml:space="preserve">
+    <value>Seleccionar el modo de energía de Windows para aplicarlo al cambiar el modo de energía.</value>
+  </data>
+  <data name="SettingsPage_WindowsPowerModes_Title" xml:space="preserve">
+    <value>Modos de energía de Windows</value>
+  </data>
+  <data name="SettingsPage_WindowsPowerPlansControlPanel_Title" xml:space="preserve">
+    <value>Opciones del Plan de energía en el Panel de Control de Windows</value>
+  </data>
+  <data name="SettingsPage_WindowsPowerPlans_Message" xml:space="preserve">
+    <value>Seleccione Planes de energía de Windows para aplicar al cambiar el modo de energía.</value>
+  </data>
+  <data name="SettingsPage_WindowsPowerPlans_Title" xml:space="preserve">
+    <value>Planes de energía de Windows</value>
+  </data>
+  <data name="Settings_GodModeFnQSwitchable_Message" xml:space="preserve">
+    <value>Permitir cambiar rápidamente al modo personalizado con Fn+Q.</value>
+  </data>
+  <data name="Settings_GodModeFnQSwitchable_Title" xml:space="preserve">
+    <value>Cambiar al modo personalizado con Fn+Q</value>
+  </data>
+  <data name="SpeakerAutomationStepControl_Message" xml:space="preserve">
+    <value>Al silenciar, se silenciarán todos los dispositivos de salida de audio activos.</value>
+  </data>
+  <data name="SpeakerAutomationStepControl_Title" xml:space="preserve">
+    <value>Altavoz</value>
+  </data>
+  <data name="SpeakerVolumeAutomationStepControl_Message" xml:space="preserve">
+    <value>Cambia el volumen del altavoz.</value>
+  </data>
+  <data name="SpeakerVolumeAutomationStepControl_Title" xml:space="preserve">
+    <value>Volumen del altavoz</value>
   </data>
   <data name="SpectrumKeyboardBacklightBrightnessAutomationStepControl_Message" xml:space="preserve">
     <value>Ajustar el brillo de la retroiluminación del teclado.</value>
@@ -1275,11 +2653,11 @@ Se recomienda reiniciar después de cambiar esta opción.</value>
   <data name="SpectrumKeyboardBacklightControl_AddEffect" xml:space="preserve">
     <value>Añadir efecto</value>
   </data>
-  <data name="SpectrumKeyboardBacklightControl_ApplyProfileError_Title" xml:space="preserve">
-    <value>No se ha podido aplicar el perfil</value>
-  </data>
   <data name="SpectrumKeyboardBacklightControl_ApplyProfileError_Message" xml:space="preserve">
     <value>No se ha podido aplicar el perfil de iluminación.</value>
+  </data>
+  <data name="SpectrumKeyboardBacklightControl_ApplyProfileError_Title" xml:space="preserve">
+    <value>No se ha podido aplicar el perfil</value>
   </data>
   <data name="SpectrumKeyboardBacklightControl_Brightness_Title" xml:space="preserve">
     <value>Brillo</value>
@@ -1305,6 +2683,9 @@ Se recomienda reiniciar después de cambiar esta opción.</value>
   <data name="SpectrumKeyboardBacklightControl_NoEffects_Text" xml:space="preserve">
     <value>Ningún efecto añadido.</value>
   </data>
+  <data name="SpectrumKeyboardBacklightControl_Preset" xml:space="preserve">
+    <value>Predefinido</value>
+  </data>
   <data name="SpectrumKeyboardBacklightControl_ResetToDefault_Tooltip" xml:space="preserve">
     <value>Restablecer los valores predefinidos</value>
   </data>
@@ -1317,11 +2698,11 @@ Se recomienda reiniciar después de cambiar esta opción.</value>
   <data name="SpectrumKeyboardBacklightEditEffectWindow_ClockwiseDirection_Title" xml:space="preserve">
     <value>Dirección</value>
   </data>
-  <data name="SpectrumKeyboardBacklightEditEffectWindow_Color_Title" xml:space="preserve">
-    <value>Color</value>
-  </data>
   <data name="SpectrumKeyboardBacklightEditEffectWindow_Colors_Title" xml:space="preserve">
     <value>Colores</value>
+  </data>
+  <data name="SpectrumKeyboardBacklightEditEffectWindow_Color_Title" xml:space="preserve">
+    <value>Color</value>
   </data>
   <data name="SpectrumKeyboardBacklightEditEffectWindow_Direction_Title" xml:space="preserve">
     <value>Dirección</value>
@@ -1341,6 +2722,33 @@ Se recomienda reiniciar después de cambiar esta opción.</value>
   <data name="SpectrumKeyboardBacklightEditEffectWindow_Title_Edit" xml:space="preserve">
     <value>Editar efecto</value>
   </data>
+  <data name="SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoostSettings_BoostBrightnessFactor" xml:space="preserve">
+    <value>Multiplicador de potenciado de brillo</value>
+  </data>
+  <data name="SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoostSettings_BoostFloor" xml:space="preserve">
+    <value>Potenciado base</value>
+  </data>
+  <data name="SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoostSettings_BoostTarget" xml:space="preserve">
+    <value>Potenciado objetivo</value>
+  </data>
+  <data name="SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoostSettings_Title" xml:space="preserve">
+    <value>Ajuste de potenciado de color</value>
+  </data>
+  <data name="SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoostSettings_WhiteThreshold" xml:space="preserve">
+    <value>Umbral blanco</value>
+  </data>
+  <data name="SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoost_Title" xml:space="preserve">
+    <value>Potenciado de color Vantage</value>
+  </data>
+  <data name="SpectrumKeyboardBacklightImportProfileAutomationStepControl_Message" xml:space="preserve">
+    <value>Importar y aplicar la configuración de retroiluminación al perfil actual.</value>
+  </data>
+  <data name="SpectrumKeyboardBacklightImportProfileAutomationStepControl_Path" xml:space="preserve">
+    <value>Ruta</value>
+  </data>
+  <data name="SpectrumKeyboardBacklightImportProfileAutomationStepControl_Title" xml:space="preserve">
+    <value>Importar perfil de retroiluminación del teclado</value>
+  </data>
   <data name="SpectrumKeyboardBacklightProfileAutomationStepControl_Message" xml:space="preserve">
     <value>Ajustar el perfil de retroiluminación del teclado.</value>
   </data>
@@ -1353,6 +2761,48 @@ Se recomienda reiniciar después de cambiar esta opción.</value>
   <data name="SpectrumKeyboardEffectControl_Description_Zones" xml:space="preserve">
     <value>{0} zonas</value>
   </data>
+  <data name="StatusTrayPopup_Battery" xml:space="preserve">
+    <value>Batería</value>
+  </data>
+  <data name="StatusTrayPopup_DischargeRate" xml:space="preserve">
+    <value>Ratio carga/descarga</value>
+  </data>
+  <data name="StatusTrayPopup_DiscreteGPU" xml:space="preserve">
+    <value>GPU dedicada</value>
+  </data>
+  <data name="StatusTrayPopup_MaxDischargeRate" xml:space="preserve">
+    <value>Ratio máximo carga/descarga</value>
+  </data>
+  <data name="StatusTrayPopup_MinDischargeRate" xml:space="preserve">
+    <value>Ratio mínimo carga/descarga</value>
+  </data>
+  <data name="StatusTrayPopup_Mode" xml:space="preserve">
+    <value>Modo</value>
+  </data>
+  <data name="StatusTrayPopup_PowerMode" xml:space="preserve">
+    <value>Modo de alimentación</value>
+  </data>
+  <data name="StatusTrayPopup_PowerState" xml:space="preserve">
+    <value>Estado de energía</value>
+  </data>
+  <data name="StatusTrayPopup_Preset" xml:space="preserve">
+    <value>Preestablecido</value>
+  </data>
+  <data name="StatusTrayPopup_UpdateAvailable" xml:space="preserve">
+    <value>¡Actualización disponible!</value>
+  </data>
+  <data name="StatusWindow_Fan_And_Power" xml:space="preserve">
+    <value>Ventilador / Consumo</value>
+  </data>
+  <data name="StatusWindow_Frequency_And_Temperature" xml:space="preserve">
+    <value>Frecuencia / Temperatura</value>
+  </data>
+  <data name="StatusWindow_System_Fan" xml:space="preserve">
+    <value>Ventilador del sistema</value>
+  </data>
+  <data name="SymbolRegularPicker_Title" xml:space="preserve">
+    <value>Seleccionar icono</value>
+  </data>
   <data name="TimeAutomationPipelineTriggerTabItemContent_Sunrise" xml:space="preserve">
     <value>Al amanecer</value>
   </data>
@@ -1361,6 +2811,13 @@ Se recomienda reiniciar después de cambiar esta opción.</value>
   </data>
   <data name="TimeAutomationPipelineTriggerTabItemContent_Time" xml:space="preserve">
     <value>Hora</value>
+  </data>
+  <data name="ToggleHybridModeAutomationStepControl_Message" xml:space="preserve">
+    <value>Permitir cambiar entre la GPU integrada y la GPU dedicada.
+Requiere un reinicio.</value>
+  </data>
+  <data name="ToggleHybridModeAutomationStepControl_Title" xml:space="preserve">
+    <value>Modo Híbrido</value>
   </data>
   <data name="ToggleHybridModeControl_Message" xml:space="preserve">
     <value>Permitir cambiar entre la GPU integrada y la GPU dedicada.
@@ -1389,6 +2846,28 @@ Requiere un reinicio.</value>
   </data>
   <data name="TryAgain" xml:space="preserve">
     <value>Intentar de nuevo</value>
+  </data>
+  <data name="TurnOffMonitorsAutomationStepControl_Message" xml:space="preserve">
+    <value>Apagar todas las pantallas disponibles.</value>
+  </data>
+  <data name="TurnOffMonitorsAutomationStepControl_Title" xml:space="preserve">
+    <value>Apagar las pantallas</value>
+  </data>
+  <data name="TurnOffMonitorsControl_Message" xml:space="preserve">
+    <value>Apaga todas las pantallas disponibles.
+Al mover el ratón o pulsar el teclado se activarán las pantallas.</value>
+  </data>
+  <data name="TurnOffMonitorsControl_Title" xml:space="preserve">
+    <value>Apagar las pantallas</value>
+  </data>
+  <data name="TurnOffMonitorsControl_TurnOff" xml:space="preserve">
+    <value>Apagar</value>
+  </data>
+  <data name="TurnOffWiFiAutomationStepControl_Title" xml:space="preserve">
+    <value>Apagar el Wi-Fi</value>
+  </data>
+  <data name="TurnOnWiFiAutomationStepControl_Title" xml:space="preserve">
+    <value>Encender el Wi-Fi</value>
   </data>
   <data name="UnexpectedException" xml:space="preserve">
     <value>Ha ocurrido una excepción inesperada: 
@@ -1432,6 +2911,9 @@ El registro de sucesos se activará automáticamente, si decide continuar.</valu
   <data name="UpdateWindow_WhatsNew" xml:space="preserve">
     <value>Novedades</value>
   </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Aviso</value>
+  </data>
   <data name="WhiteKeyboardBacklightAutomationStepControl_Message" xml:space="preserve">
     <value>Ajustar el brillo de la retroiluminación del teclado.</value>
   </data>
@@ -1443,6 +2925,24 @@ El registro de sucesos se activará automáticamente, si decide continuar.</valu
   </data>
   <data name="WhiteKeyboardBacklightControl_Title" xml:space="preserve">
     <value>Retroiluminación del teclado</value>
+  </data>
+  <data name="WiFiConnectedPipelineTriggerTabItemContent_CopyCurrentNetworkName" xml:space="preserve">
+    <value>Copiar el nombre de la red actual</value>
+  </data>
+  <data name="WiFiConnectedPipelineTriggerTabItemContent_LeaveEmptyForAnyNetwork" xml:space="preserve">
+    <value>Dejar vacío para cualquier red Wi-Fi.</value>
+  </data>
+  <data name="WiFiConnectedPipelineTriggerTabItemContent_NetworkName" xml:space="preserve">
+    <value>Nombre de la red (SSID)</value>
+  </data>
+  <data name="WindowsPowerModesWindow_Title" xml:space="preserve">
+    <value>Modos de energía de Windows</value>
+  </data>
+  <data name="WindowsPowerPlansWindow_DefaultPowerPlan" xml:space="preserve">
+    <value>Predefinido</value>
+  </data>
+  <data name="WindowsPowerPlansWindow_Title" xml:space="preserve">
+    <value>Planes de energía de Windows</value>
   </data>
   <data name="WinKeyAutomationStepControl_Message" xml:space="preserve">
     <value>Desactivar la tecla Windows del teclado integrado.</value>
@@ -1458,1505 +2958,5 @@ El registro de sucesos se activará automáticamente, si decide continuar.</valu
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Si</value>
-  </data>
-  <data name="MicrophoneControl_Title" xml:space="preserve">
-    <value>Micrófono</value>
-  </data>
-  <data name="MicrophoneControl_Message" xml:space="preserve">
-    <value>Si está desactivado, los micrófonos se silencian.</value>
-  </data>
-  <data name="MicrophoneAutomationStepControl_Title" xml:space="preserve">
-    <value>Micrófono</value>
-  </data>
-  <data name="MicrophoneAutomationStepControl_Message" xml:space="preserve">
-    <value>Si está desactivado, los micrófonos se silencian.</value>
-  </data>
-  <data name="ResolutionControl_Title" xml:space="preserve">
-    <value>Resolución</value>
-  </data>
-  <data name="ResolutionControl_Message" xml:space="preserve">
-    <value>Cambiar resolución de la pantalla integrada.</value>
-  </data>
-  <data name="ResolutionAutomationStepControl_Title" xml:space="preserve">
-    <value>Resolución</value>
-  </data>
-  <data name="ResolutionAutomationStepControl_Message" xml:space="preserve">
-    <value>Cambiar la resolución de la pantalla integrada.
-
-AVISO: Esta acción no se ejecutará correctamente, si la pantalla interna está apagada.</value>
-  </data>
-  <data name="DpiScaleControl_Title" xml:space="preserve">
-    <value>Puntos por pulgada (DPI)</value>
-  </data>
-  <data name="DpiScaleControl_Message" xml:space="preserve">
-    <value>Cambiar la resolución de la pantalla integrada.</value>
-  </data>
-  <data name="DpiScaleAutomationStepControl_Title" xml:space="preserve">
-    <value>Puntos por pulgada (DPI)</value>
-  </data>
-  <data name="DpiScaleAutomationStepControl_Message" xml:space="preserve">
-    <value>Cambiar la resolución de la pantalla integrada.
-
-AVISO: Esta acción no se ejecutará correctamente, si la pantalla interna está apagada.</value>
-  </data>
-  <data name="DashboardPage_Display_Title" xml:space="preserve">
-    <value>Pantalla</value>
-  </data>
-  <data name="OneLevelWhiteKeyboardBacklightControl_Title" xml:space="preserve">
-    <value>Retroiluminación del teclado</value>
-  </data>
-  <data name="OneLevelWhiteKeyboardBacklightControl_Message" xml:space="preserve">
-    <value>Puede encender o apagar la retroiluminación usando Fn+Espacio.</value>
-  </data>
-  <data name="OneLevelWhiteKeyboardBacklightAutomationStepControl_Title" xml:space="preserve">
-    <value>Retroiluminación del teclado</value>
-  </data>
-  <data name="OneLevelWhiteKeyboardBacklightAutomationStepControl_Message" xml:space="preserve">
-    <value>Encender o apagar la retroiluminación.</value>
-  </data>
-  <data name="PackagesPage_NoMatchingDownloads" xml:space="preserve">
-    <value>No se han encontrado descargas coincidentes</value>
-  </data>
-  <data name="PackagesPage_OnlyShowUpdates" xml:space="preserve">
-    <value>Mostrar sólo actualizaciones</value>
-  </data>
-  <data name="EditDashboardWindow_Title" xml:space="preserve">
-    <value>Personalizar el panel de control</value>
-  </data>
-  <data name="Load" xml:space="preserve">
-    <value>Cargar</value>
-  </data>
-  <data name="EditDashboardWindow_CreateGroup_Title" xml:space="preserve">
-    <value>Crear un grupo</value>
-  </data>
-  <data name="EditDashboardWindow_CreateGroup_Message" xml:space="preserve">
-    <value>Nombre</value>
-  </data>
-  <data name="EditDashboardWindow_Disclaimer_Message" xml:space="preserve">
-    <value>Es posible que algunas funciones no aparezcan en el panel de control en función del estado y la configuración del dispositivo.</value>
-  </data>
-  <data name="DashboardPage_Customize" xml:space="preserve">
-    <value>Personalizar</value>
-  </data>
-  <data name="TurnOffMonitorsControl_Title" xml:space="preserve">
-    <value>Apagar las pantallas</value>
-  </data>
-  <data name="TurnOffMonitorsControl_Message" xml:space="preserve">
-    <value>Apaga todas las pantallas disponibles.
-Al mover el ratón o pulsar el teclado se activarán las pantallas.</value>
-  </data>
-  <data name="TurnOffMonitorsControl_TurnOff" xml:space="preserve">
-    <value>Apagar</value>
-  </data>
-  <data name="TurnOffMonitorsAutomationStepControl_Title" xml:space="preserve">
-    <value>Apagar las pantallas</value>
-  </data>
-  <data name="TurnOffMonitorsAutomationStepControl_Message" xml:space="preserve">
-    <value>Apagar todas las pantallas disponibles.</value>
-  </data>
-  <data name="EditDashboardGroupControl_EditGroup_Title" xml:space="preserve">
-    <value>Editar el nombre del grupo</value>
-  </data>
-  <data name="EditDashboardGroupControl_EditGroup_Message" xml:space="preserve">
-    <value>Nombre</value>
-  </data>
-  <data name="Notification_PanelLogoLightingOn" xml:space="preserve">
-    <value>Logo Legion encendido</value>
-  </data>
-  <data name="Notification_PanelLogoLightingOff" xml:space="preserve">
-    <value>Logo Legion apagado</value>
-  </data>
-  <data name="Notification_PortLightingOn" xml:space="preserve">
-    <value>Puertos retroiluminados encendidos</value>
-  </data>
-  <data name="Notification_PortLightingOff" xml:space="preserve">
-    <value>Puertos retroiluminados apagados</value>
-  </data>
-  <data name="PackageControl_RebootRequired" xml:space="preserve">
-    <value>Se requiere un reinicio</value>
-  </data>
-  <data name="PackageControl_ShutdownRequired" xml:space="preserve">
-    <value>Se requiere un apagado</value>
-  </data>
-  <data name="PackageControl_RebootRecommended" xml:space="preserve">
-    <value>Se recomienda un reinicio</value>
-  </data>
-  <data name="SaveAndClose" xml:space="preserve">
-    <value>Guardar y cerrar</value>
-  </data>
-  <data name="GodModePresetAutomationStepControl_Title" xml:space="preserve">
-    <value>Preajuste de modo personalizado</value>
-  </data>
-  <data name="GodModePresetAutomationStepControl_Message" xml:space="preserve">
-    <value>Activa el preajuste del modo personalizado.
-Esta configuración sólo tiene efecto si el modo personalizado está activado.</value>
-  </data>
-  <data name="GodModeSettingsWindow_EditPreset_Title" xml:space="preserve">
-    <value>Nombre del preajuste</value>
-  </data>
-  <data name="GodModeSettingsWindow_EditPreset_Message" xml:space="preserve">
-    <value>Nombre</value>
-  </data>
-  <data name="GodModeSettingsWindow_ActivePreset_Title" xml:space="preserve">
-    <value>Preajuste activo</value>
-  </data>
-  <data name="AboutPage_ApplicationFolders" xml:space="preserve">
-    <value>Carpetas de aplicaciones</value>
-  </data>
-  <data name="AboutPage_Data" xml:space="preserve">
-    <value>Datos</value>
-  </data>
-  <data name="AboutPage_Temp" xml:space="preserve">
-    <value>Temperatura</value>
-  </data>
-  <data name="SettingsPage_SynchronizeBrightnessToAllPowerPlans_Title" xml:space="preserve">
-    <value>Un solo brillo de pantalla</value>
-  </data>
-  <data name="SettingsPage_SynchronizeBrightnessToAllPowerPlans_Message" xml:space="preserve">
-    <value>Si está activado, se aplicará el mismo nivel de brillo a todos los planes de energía de Windows cada vez que lo cambie.</value>
-  </data>
-  <data name="Notification_UpdateAvailable" xml:space="preserve">
-    <value>¡Actualización {0} disponible!</value>
-  </data>
-  <data name="GodModeSettingsWindow_CPU_PeakPL" xml:space="preserve">
-    <value>Límite de potencia máxima</value>
-  </data>
-  <data name="GodModeSettingsWindow_CPU_APUsPPT_PL" xml:space="preserve">
-    <value>Límite de potencia APU sPPT</value>
-  </data>
-  <data name="GodModeSettingsWindow_CPU_LongTermPL_Description" xml:space="preserve">
-    <value>El consumo continuo de energía que puede alcanzar la tarjeta gráfica.</value>
-  </data>
-  <data name="GodModeSettingsWindow_CPU_ShortTermPL_Description" xml:space="preserve">
-    <value>El consumo máximo de energía que puede alcanzar la tarjeta gráfica en un breve espacio de tiempo.</value>
-  </data>
-  <data name="GodModeSettingsWindow_CPU_PeakPL_Description" xml:space="preserve">
-    <value>El consumo máximo instantáneo que puede alcanzar la tarjeta gráfica.</value>
-  </data>
-  <data name="GodModeSettingsWindow_CPU_CrossLoading_Description" xml:space="preserve">
-    <value>El consumo máximo de energía que puede alcanzar la CPU, si ésta y la GPU se utilizan al máximo.</value>
-  </data>
-  <data name="GodModeSettingsWindow_CPU_APUsPPT_PL_Description" xml:space="preserve">
-    <value>El consumo máximo de energía que puede alcanzar la CPU con un retardo menor.</value>
-  </data>
-  <data name="GodModeSettingsWindow_CPU_TempLimit_Description" xml:space="preserve">
-    <value>La temperatura máxima que puede alcanzar la CPU antes de que se reduzca la frecuencia y la potencia.</value>
-  </data>
-  <data name="GodModeSettingsWindow_GPU_DynamicBoost_Description" xml:space="preserve">
-    <value>La potencia máxima adicional que puede asignarse a la GPU, en función del consumo de energía de la CPU.</value>
-  </data>
-  <data name="GodModeSettingsWindow_GPU_CTGP_Description" xml:space="preserve">
-    <value>La cantidad adicional de energía que puede asignarse a la GPU además del consumo básico.</value>
-  </data>
-  <data name="GodModeSettingsWindow_GPU_TempLimit_Description" xml:space="preserve">
-    <value>La temperatura máxima que puede alcanzar la GPU antes de que se reduzca la frecuencia y la potencia.</value>
-  </data>
-  <data name="Default" xml:space="preserve">
-    <value>Predefinido</value>
-  </data>
-  <data name="GodModeSettingsWindow_CPU_PL1Tau" xml:space="preserve">
-    <value>Duración límite de potencia a corto plazo</value>
-  </data>
-  <data name="GodModeSettingsWindow_CPU_PL1Tau_Description" xml:space="preserve">
-    <value>La cantidad de tiempo que se permite a la CPU aumentar y utilizar el límite de potencia a corto plazo. Cuando Tau expira, se utiliza el límite de potencia a largo plazo.</value>
-  </data>
-  <data name="GodModeSettingsWindow_GPU_TotalProcessingPowerTargetOnAcOffsetFromBaselineControl" xml:space="preserve">
-    <value>Potencia total del procesador en corriente alterna</value>
-  </data>
-  <data name="GodModeSettingsWindow_GPU_TotalProcessingPowerTargetOnAcOffsetFromBaselineControl_Description" xml:space="preserve">
-    <value>El punto en el que la CPU activa el ajuste dinámico de consumo de energía de la GPU.</value>
-  </data>
-  <data name="Create" xml:space="preserve">
-    <value>Crear</value>
-  </data>
-  <data name="AddAutomationStepWindow_Title" xml:space="preserve">
-    <value>Añadir paso</value>
-  </data>
-  <data name="CreateAutomationPipelineWindow_Title" xml:space="preserve">
-    <value>Crear acción</value>
-  </data>
-  <data name="StatusTrayPopup_PowerMode" xml:space="preserve">
-    <value>Modo de alimentación</value>
-  </data>
-  <data name="StatusTrayPopup_Preset" xml:space="preserve">
-    <value>Preestablecido</value>
-  </data>
-  <data name="StatusTrayPopup_DiscreteGPU" xml:space="preserve">
-    <value>GPU dedicada</value>
-  </data>
-  <data name="StatusTrayPopup_PowerState" xml:space="preserve">
-    <value>Estado de energía</value>
-  </data>
-  <data name="StatusTrayPopup_Battery" xml:space="preserve">
-    <value>Batería</value>
-  </data>
-  <data name="StatusTrayPopup_Mode" xml:space="preserve">
-    <value>Modo</value>
-  </data>
-  <data name="StatusTrayPopup_DischargeRate" xml:space="preserve">
-    <value>Ratio carga/descarga</value>
-  </data>
-  <data name="StatusTrayPopup_MinDischargeRate" xml:space="preserve">
-    <value>Ratio mínimo carga/descarga</value>
-  </data>
-  <data name="StatusTrayPopup_MaxDischargeRate" xml:space="preserve">
-    <value>Ratio máximo carga/descarga</value>
-  </data>
-  <data name="StatusTrayPopup_UpdateAvailable" xml:space="preserve">
-    <value>¡Actualización disponible!</value>
-  </data>
-  <data name="SymbolRegularPicker_Title" xml:space="preserve">
-    <value>Seleccionar icono</value>
-  </data>
-  <data name="AutomationPage_ChangeIcon" xml:space="preserve">
-    <value>Cambiar icono</value>
-  </data>
-  <data name="BatteryPage_LowLevel" xml:space="preserve">
-    <value>Nivel bajo de batería</value>
-  </data>
-  <data name="AutomationPipelineTriggerConfigurationWindow_Title" xml:space="preserve">
-    <value>Configurar</value>
-  </data>
-  <data name="PowerPlansWindow_AoAcWarning_Title" xml:space="preserve">
-    <value>S0 Modelo de menor potencia detectado</value>
-  </data>
-  <data name="PowerPlansWindow_AoAcWarning_Message" xml:space="preserve">
-    <value>Windows informa de que este dispositivo soporta Modern Standby. El uso de planes de energía distintos a Equilibrado puede provocar un comportamiento inesperado.</value>
-  </data>
-  <data name="SettingsPage_WindowsPowerPlans_Message" xml:space="preserve">
-    <value>Seleccione Planes de energía de Windows para aplicar al cambiar el modo de energía.</value>
-  </data>
-  <data name="SettingsPage_Power_Title" xml:space="preserve">
-    <value>Alimentación</value>
-  </data>
-  <data name="SettingsPage_WindowsPowerPlansControlPanel_Title" xml:space="preserve">
-    <value>Opciones del Plan de energía en el Panel de Control de Windows</value>
-  </data>
-  <data name="PoweredOff" xml:space="preserve">
-    <value>Desactivado</value>
-  </data>
-  <data name="SpectrumKeyboardBacklightImportProfileAutomationStepControl_Title" xml:space="preserve">
-    <value>Importar perfil de retroiluminación del teclado</value>
-  </data>
-  <data name="SpectrumKeyboardBacklightImportProfileAutomationStepControl_Message" xml:space="preserve">
-    <value>Importar y aplicar la configuración de retroiluminación al perfil actual.</value>
-  </data>
-  <data name="SpectrumKeyboardBacklightImportProfileAutomationStepControl_Path" xml:space="preserve">
-    <value>Ruta</value>
-  </data>
-  <data name="AutomationPipelineControl_SubtitlePart_After" xml:space="preserve">
-    <value>Después de {0}</value>
-  </data>
-  <data name="MultipleTriggersAutomationPipelineTrigger_DisplayName" xml:space="preserve">
-    <value>Múltiples activadores...</value>
-    <comment>Allows the user to merge multiple triggers for the execution of selected actions.</comment>
-  </data>
-  <data name="OverclockDiscreteGPUSettingsWindow_Title" xml:space="preserve">
-    <value>Ajustes de overclocking de la GPU</value>
-  </data>
-  <data name="OverclockDiscreteGPUSettingsWindow_CoreFrequencyOffset_Title" xml:space="preserve">
-    <value>Compensación de frecuencia del núcleo</value>
-  </data>
-  <data name="OverclockDiscreteGPUSettingsWindow_MemoryFrequencyOffset_Title" xml:space="preserve">
-    <value>Compensación de frecuencia de la memoria</value>
-  </data>
-  <data name="OverclockDiscreteGPUControl_Title" xml:space="preserve">
-    <value>Overclock de la GPU</value>
-  </data>
-  <data name="OverclockDiscreteGPUControl_Message" xml:space="preserve">
-    <value>Aumentar el rendimiento haciendo overclocking en la GPU dedicada.</value>
-  </data>
-  <data name="OverclockDiscreteGPUAutomationStepControl_Title" xml:space="preserve">
-    <value>Overclock de la GPU</value>
-  </data>
-  <data name="OverclockDiscreteGPUAutomationStepControl_Message" xml:space="preserve">
-    <value>Aumentar el rendimiento haciendo overclocking en la GPU dedicada.
-
-AVISO: Esta acción no se ejecutará correctamente si no se dispone de una GPU externa.</value>
-  </data>
-  <data name="PortsBacklightControl_Title" xml:space="preserve">
-    <value>Retroiluminación de puertos</value>
-  </data>
-  <data name="PortsBacklightControl_Message" xml:space="preserve">
-    <value>Activa o desactiva la retroiluminación de los puertos de la parte posterior del portátil.</value>
-  </data>
-  <data name="PortsBacklightAutomationStepControl_Title" xml:space="preserve">
-    <value>Retroiluminación de puertos</value>
-  </data>
-  <data name="PortsBacklightAutomationStepControl_Message" xml:space="preserve">
-    <value>Activa o desactiva la retroiluminación de los puertos de la parte posterior del portátil.</value>
-  </data>
-  <data name="PanelLogoBacklightControl_Title" xml:space="preserve">
-    <value>Retroiluminación del logo del panel</value>
-  </data>
-  <data name="PanelLogoBacklightControl_Message" xml:space="preserve">
-    <value>Activa o desactiva la retroiluminación de la tapa del portátil.</value>
-  </data>
-  <data name="PanelLogoBacklightAutomationStepControl_Title" xml:space="preserve">
-    <value>Retroiluminación del logo del panel</value>
-  </data>
-  <data name="PanelLogoBacklightAutomationStepControl_Message" xml:space="preserve">
-    <value>Enciende o apaga la retroiluminación de la tapa del portátil.</value>
-  </data>
-  <data name="GHz" xml:space="preserve">
-    <value>GHz</value>
-  </data>
-  <data name="MHz" xml:space="preserve">
-    <value>MHz</value>
-  </data>
-  <data name="SensorsControl_Maximum" xml:space="preserve">
-    <value>Máximo: {0}</value>
-  </data>
-  <data name="SensorsControl_CPU_Title" xml:space="preserve">
-    <value>CPU</value>
-  </data>
-  <data name="SensorsControl_Utilization_Title" xml:space="preserve">
-    <value>Uso</value>
-  </data>
-  <data name="SensorsControl_CoreClock_Title" xml:space="preserve">
-    <value>Reloj del núcleo</value>
-  </data>
-  <data name="SensorsControl_Temperature_Title" xml:space="preserve">
-    <value>Temperatura</value>
-  </data>
-  <data name="SensorsControl_Fan_Title" xml:space="preserve">
-    <value>Ventilador</value>
-  </data>
-  <data name="SensorsControl_GPU_Title" xml:space="preserve">
-    <value>GPU</value>
-  </data>
-  <data name="SensorsControl_MemoryClock_Title" xml:space="preserve">
-    <value>Reloj de memoria</value>
-  </data>
-  <data name="SensorsControl_RefreshInterval" xml:space="preserve">
-    <value>Intervalo de actualización</value>
-  </data>
-  <data name="InstantBootControl_Title" xml:space="preserve">
-    <value>Inicio inmediato</value>
-  </data>
-  <data name="InstantBootControl_Message" xml:space="preserve">
-    <value>Encender el portátil cuando haya un cargador conectado.</value>
-  </data>
-  <data name="InstantBootAutomationStepControl_Title" xml:space="preserve">
-    <value>Inicio inmediato</value>
-  </data>
-  <data name="InstantBootAutomationStepControl_Message" xml:space="preserve">
-    <value>Encender el portátil cuando haya un cargador conectado.</value>
-  </data>
-  <data name="PowerModeUnavailableWithoutACException_Title" xml:space="preserve">
-    <value>No se puede cambiar el modo de energía</value>
-  </data>
-  <data name="PowerModeUnavailableWithoutACException_Message" xml:space="preserve">
-    <value>El modo de energía {0} no está disponible sin alimentación de corriente eléctrica.</value>
-    <comment>For example: "{Performance} power mode is not available without AC power."</comment>
-  </data>
-  <data name="EditDashboardWindow_Sensors" xml:space="preserve">
-    <value>Sensores</value>
-  </data>
-  <data name="IGPUModeChangeException_Title" xml:space="preserve">
-    <value>No se puede cambiar el modo de trabajo de la GPU</value>
-  </data>
-  <data name="IGPUModeChangeException_Message" xml:space="preserve">
-    <value>En un par de segundos intentar cambiar el modo de nuevo, si no obtiene el resultado esperado.
-Si la dGPU no responde del todo, reinicie su portátil.</value>
-  </data>
-  <data name="IGPUModeChangeException_Title_IGPUOnly" xml:space="preserve">
-    <value>La dGPU está actualmente en uso</value>
-  </data>
-  <data name="IGPUModeChangeException_Message_IGPUOnly" xml:space="preserve">
-    <value>La dGPU se desconectará automáticamente si no está en uso.</value>
-  </data>
-  <data name="IGPUModeChangeException_Title_Auto" xml:space="preserve">
-    <value>La dGPU está actualmente en uso o el portátil no está alimentado por batería</value>
-  </data>
-  <data name="IGPUModeChangeException_Message_Auto" xml:space="preserve">
-    <value>La dGPU se desconectará automáticamente si no está en uso y el portátil está alimentado por batería.</value>
-  </data>
-  <data name="GodModeSettingsWindow_VantageWarning_Title" xml:space="preserve">
-    <value>Los ajustes del modo personalizado no se aplicarán correctamente, si Lenovo Vantage o sus servicios se están ejecutando.</value>
-  </data>
-  <data name="GodModeSettingsWindow_LegionZoneWarning_Title" xml:space="preserve">
-    <value>Los ajustes del modo personalizado no se aplicarán correctamente, si Legion Zone o sus servicios se están ejecutando.</value>
-  </data>
-  <data name="DGPU_Connected_Title" xml:space="preserve">
-    <value>dGPU conectada</value>
-  </data>
-  <data name="DGPU_Disconnected_Title" xml:space="preserve">
-    <value>dGPU desconectada</value>
-  </data>
-  <data name="ComboBoxHybridModeAutomationStepControl_Title" xml:space="preserve">
-    <value>Modo de trabajo de la GPU</value>
-  </data>
-  <data name="ComboBoxHybridModeAutomationStepControl_Message" xml:space="preserve">
-    <value>Seleccionar el modo de funcionamiento de la GPU, según el uso y las condiciones de energía de su equipo.
-El cambio de modo puede requerir un reinicio.</value>
-  </data>
-  <data name="ToggleHybridModeAutomationStepControl_Title" xml:space="preserve">
-    <value>Modo Híbrido</value>
-  </data>
-  <data name="ToggleHybridModeAutomationStepControl_Message" xml:space="preserve">
-    <value>Permitir cambiar entre la GPU integrada y la GPU dedicada.
-Requiere un reinicio.</value>
-  </data>
-  <data name="NotificationsSettingsWindow_NotificationDuration_Title" xml:space="preserve">
-    <value>Duración</value>
-  </data>
-  <data name="NotificationsSettingsWindow_Updates_Title" xml:space="preserve">
-    <value>Actualizaciones</value>
-  </data>
-  <data name="GodModeSettingsWindow_GPU_ToCpuDynamicBoostControl" xml:space="preserve">
-    <value>Mejora dinámica de la GPU a la CPU</value>
-  </data>
-  <data name="GodModeSettingsWindow_GPU_ToCpuDynamicBoostControl_Description" xml:space="preserve">
-    <value>Es la máxima potencia adicional que puede asignarse a la CPU desde la GPU, en base al uso de ésta. Cuanto mayor sea el valor, mejor será el rendimiento de las aplicaciones que utilizan la CPU.</value>
-  </data>
-  <data name="SettingsPage_BootLogo_Title" xml:space="preserve">
-    <value>Logo de arranque</value>
-  </data>
-  <data name="SettingsPage_BootLogo_Message" xml:space="preserve">
-    <value>Personalizar la imagen del logo de arranque, visible durante el inicio del sistema.</value>
-  </data>
-  <data name="BootLogoWindow_Title" xml:space="preserve">
-    <value>Logo de arranque</value>
-  </data>
-  <data name="BootLogoWindow_DefaultLogoSet" xml:space="preserve">
-    <value>Logo de arranque predefinido está configurado</value>
-  </data>
-  <data name="BootLogoWindow_CustomLogoSet" xml:space="preserve">
-    <value>Logo de arranque personalizado está configurado</value>
-  </data>
-  <data name="BootLogoWindow_Status" xml:space="preserve">
-    <value>Estado</value>
-  </data>
-  <data name="RevertToDefault" xml:space="preserve">
-    <value>Volver al valor predefinido</value>
-  </data>
-  <data name="BootLogoWindow_Customize" xml:space="preserve">
-    <value>Personalizar</value>
-  </data>
-  <data name="NotificationsSettingsWindow_Automation" xml:space="preserve">
-    <value>Acciones</value>
-  </data>
-  <data name="NotificationAutomationStepControl_NotificationText" xml:space="preserve">
-    <value>Texto de notificación</value>
-  </data>
-  <data name="NotificationAutomationStepControl_Title" xml:space="preserve">
-    <value>Mostrar notificación</value>
-  </data>
-  <data name="AutomationPipelineControl_SubtitlePart_Preset" xml:space="preserve">
-    <value>Predefinido</value>
-  </data>
-  <data name="SettingsPage_SmartFnLock_Title" xml:space="preserve">
-    <value>Bloqueo Fn inteligente</value>
-  </data>
-  <data name="SettingsPage_SmartFnLock_Message" xml:space="preserve">
-    <value>El bloqueo Fn se desactivará temporalmente al pulsar las teclas Mayús, Ctrl o Alt.</value>
-  </data>
-  <data name="Off" xml:space="preserve">
-    <value>Apagado</value>
-  </data>
-  <data name="BootLogoWindow_Description" xml:space="preserve">
-    <value>El logo de arranque personalizado debe tener un tamaño exacto de {0} píxeles. Los formatos soportados son: {1}.</value>
-  </data>
-  <data name="BatteryNightChargeModeControl_Title" xml:space="preserve">
-    <value>Carga nocturna de la batería</value>
-  </data>
-  <data name="BatteryNightChargeModeControl_Message" xml:space="preserve">
-    <value>Si está activado y enchufa este dispositivo durante la noche, cargará al 80% y terminará de cargarse al 100% cuando lo utilice por la mañana.</value>
-  </data>
-  <data name="BatteryNightChargeAutomationStepControl_Title" xml:space="preserve">
-    <value>Carga nocturna de la batería</value>
-  </data>
-  <data name="BatteryNightChargeAutomationStepControl_Message" xml:space="preserve">
-    <value>Si está activado y enchufa este dispositivo durante la noche, cargará al 80% y terminará de cargarse al 100% cuando lo utilice por la mañana.</value>
-  </data>
-  <data name="BootLogoWindow_SetError_Invalid_Image_Size" xml:space="preserve">
-    <value>Tamaño de imagen no válido.</value>
-  </data>
-  <data name="BootLogoWindow_SetError_Invalid_Image_Format" xml:space="preserve">
-    <value>Formato de imagen no válido.</value>
-  </data>
-  <data name="BootLogoWindow_SetError_Cannot_Mount_EFI_Partition" xml:space="preserve">
-    <value>No se puede montar la partición EFI.</value>
-  </data>
-  <data name="BootLogoWindow_SetError_Cannot_Set_UEFI_Privilege" xml:space="preserve">
-    <value>No se puede establecer el privilegio UEFI.</value>
-  </data>
-  <data name="BootLogoWindow_SetError_Not_Enough_Free_Space_On_EFI_Partition" xml:space="preserve">
-    <value>No hay suficiente espacio libre en la partición EFI.</value>
-  </data>
-  <data name="BootLogoWindow_SetCustomFailed" xml:space="preserve">
-    <value>No se ha podido establecer el logo personalizado: {0}</value>
-  </data>
-  <data name="BootLogoWindow_SetDefaultFailed" xml:space="preserve">
-    <value>No se ha podido establecer el logo predefinido: {0}</value>
-  </data>
-  <data name="BootLogoWindow_SetDefaultSuccess" xml:space="preserve">
-    <value>Logo de arranque predefinido.</value>
-  </data>
-  <data name="BootLogoWindow_SetCustomSuccess" xml:space="preserve">
-    <value>Logo de arranque personalizado.</value>
-  </data>
-  <data name="WiFiConnectedPipelineTriggerTabItemContent_NetworkName" xml:space="preserve">
-    <value>Nombre de la red (SSID)</value>
-  </data>
-  <data name="WiFiConnectedPipelineTriggerTabItemContent_CopyCurrentNetworkName" xml:space="preserve">
-    <value>Copiar el nombre de la red actual</value>
-  </data>
-  <data name="WiFiConnectedPipelineTriggerTabItemContent_LeaveEmptyForAnyNetwork" xml:space="preserve">
-    <value>Dejar vacío para cualquier red Wi-Fi.</value>
-  </data>
-  <data name="SettingsPage_HWiNFO_Title" xml:space="preserve">
-    <value>HWiNFO64</value>
-  </data>
-  <data name="SettingsPage_HWiNFO_Message" xml:space="preserve">
-    <value>Compartir la velocidad del ventilador, la temperatura de la batería, etc... con HWiNFO64. Puede que tenga que reiniciar HWiNFO64 después de cambiar esta opción.</value>
-  </data>
-  <data name="SettingsPage_Integrations_Title" xml:space="preserve">
-    <value>Integraciones</value>
-  </data>
-  <data name="Settings" xml:space="preserve">
-    <value>Ajustes</value>
-  </data>
-  <data name="Information" xml:space="preserve">
-    <value>Información</value>
-  </data>
-  <data name="PackagesPage_DownloadTo" xml:space="preserve">
-    <value>Carpeta de descargas</value>
-  </data>
-  <data name="PackagesPage_OpenDownloadTo" xml:space="preserve">
-    <value>Abrir carpeta de descargas</value>
-  </data>
-  <data name="PackageControl_Download" xml:space="preserve">
-    <value>Descargar</value>
-  </data>
-  <data name="PackageControl_OpenReadme" xml:space="preserve">
-    <value>Abrir README</value>
-  </data>
-  <data name="SpectrumKeyboardBacklightControl_Preset" xml:space="preserve">
-    <value>Predefinido</value>
-  </data>
-  <data name="DeviceInformationWindow_Refresh" xml:space="preserve">
-    <value>Actualizar</value>
-  </data>
-  <data name="AbstractAutomationStepControl_Delete" xml:space="preserve">
-    <value>Eliminar</value>
-  </data>
-  <data name="PeriodicActionPipelineTriggerTabItemContent_Period" xml:space="preserve">
-    <value>Período (minutos)</value>
-    <comment>A prompt that is used both to ask the user to input an integer, representing the number of minutes between two periodic actions are triggered, and to inform the user what have they set once they are done configuring the action.</comment>
-  </data>
-  <data name="SettingsPage_OnBatterySinceReset_Message" xml:space="preserve">
-    <value>Restablece el contador de "En batería desde" en la sección de batería al reiniciar el sistema.</value>
-  </data>
-  <data name="SettingsPage_OnBatterySinceReset_Title" xml:space="preserve">
-    <value>Restablecer "En batería desde" al iniciar</value>
-  </data>
-  <data name="TurnOffWiFiAutomationStepControl_Title" xml:space="preserve">
-    <value>Apagar el Wi-Fi</value>
-  </data>
-  <data name="TurnOnWiFiAutomationStepControl_Title" xml:space="preserve">
-    <value>Encender el Wi-Fi</value>
-  </data>
-  <data name="RunAutomationStepControl_ProcessRunSilently" xml:space="preserve">
-    <value>Ejecutar silenciosamente</value>
-  </data>
-  <data name="RunAutomationStepControl_ProcessWaitUntilFinished" xml:space="preserve">
-    <value>Esperar a que finalice</value>
-  </data>
-  <data name="RunAutomationStepControl_ProcessRunSilently_Description" xml:space="preserve">
-    <value>Ejecutar aplicaciones de consola, sin crear una ventana de consola.</value>
-  </data>
-  <data name="RunAutomationStepControl_ProcessWaitUntilFinished_Description" xml:space="preserve">
-    <value>Esperar a que el programa o script termine de ejecutarse</value>
-  </data>
-  <data name="SpeakerAutomationStepControl_Message" xml:space="preserve">
-    <value>Al silenciar, se silenciarán todos los dispositivos de salida de audio activos.</value>
-  </data>
-  <data name="SpeakerAutomationStepControl_Title" xml:space="preserve">
-    <value>Altavoz</value>
-  </data>
-  <data name="SettingsPage_MinimizeToTray_Title" xml:space="preserve">
-    <value>Minimizar en la bandeja</value>
-  </data>
-  <data name="SettingsPage_MinimizeToTray_Message" xml:space="preserve">
-    <value>Minimizar siempre en la bandeja en lugar de en la barra de tareas.</value>
-  </data>
-  <data name="WindowsPowerModesWindow_Title" xml:space="preserve">
-    <value>Modos de energía de Windows</value>
-  </data>
-  <data name="Settings_GodModeFnQSwitchable_Title" xml:space="preserve">
-    <value>Cambiar al modo personalizado con Fn+Q</value>
-  </data>
-  <data name="Settings_GodModeFnQSwitchable_Message" xml:space="preserve">
-    <value>Permitir cambiar rápidamente al modo personalizado con Fn+Q.</value>
-  </data>
-  <data name="SettingsPage_PowerModeMapping_Title" xml:space="preserve">
-    <value>Sincronización del modo de alimentación</value>
-  </data>
-  <data name="SettingsPage_PowerModeMapping_Message" xml:space="preserve">
-    <value>Cambiar automáticamente el plan de energía o el modo de energía de Windows al cambiar los modos de energía.</value>
-  </data>
-  <data name="SettingsPage_WindowsPowerModes_Title" xml:space="preserve">
-    <value>Modos de energía de Windows</value>
-  </data>
-  <data name="SettingsPage_WindowsPowerModes_Message" xml:space="preserve">
-    <value>Seleccionar el modo de energía de Windows para aplicarlo al cambiar el modo de energía.</value>
-  </data>
-  <data name="CompatibilityCheckError_Message" xml:space="preserve">
-    <value>Se ha producido un error al leer la información del dispositivo.</value>
-  </data>
-  <data name="MainWindow_NavigationItem_Macro" xml:space="preserve">
-    <value>Macro</value>
-  </data>
-  <data name="MacroPage_Title" xml:space="preserve">
-    <value>Macro</value>
-  </data>
-  <data name="MacroSequenceControl_Repeat_Title" xml:space="preserve">
-    <value>Repetir</value>
-  </data>
-  <data name="MacroSequenceControl_IgnoreDelays_Title" xml:space="preserve">
-    <value>Ignorar demoras</value>
-  </data>
-  <data name="Clear" xml:space="preserve">
-    <value>Borrar</value>
-  </data>
-  <data name="MacroSequenceControl_Record" xml:space="preserve">
-    <value>Registro</value>
-  </data>
-  <data name="MacroSequenceControl_StopRecording" xml:space="preserve">
-    <value>Detener grabación</value>
-  </data>
-  <data name="MacroSequenceControl_DontRepeat" xml:space="preserve">
-    <value>No repetir</value>
-  </data>
-  <data name="MacroPage_Enable_Subtitle" xml:space="preserve">
-    <value>Lenovo Legion Toolkit deberá estar ejecutándose para que funcionen las macros.</value>
-  </data>
-  <data name="MacroPage_Enable_Title" xml:space="preserve">
-    <value>Activar</value>
-  </data>
-  <data name="MacroPage_Subtitle" xml:space="preserve">
-    <value>Puede grabar series de pulsaciones de teclas y utilizarlas con el teclado numérico.</value>
-  </data>
-  <data name="MacroAutomationStepControl_Title" xml:space="preserve">
-    <value>Macro</value>
-  </data>
-  <data name="MacroAutomationStepControl_Message" xml:space="preserve">
-    <value>Activar o desactivar macros.</value>
-  </data>
-  <data name="MacroSequenceControl_InterruptOnOtherKey_Title" xml:space="preserve">
-    <value>Interrumpir si se ha pulsado otra tecla</value>
-  </data>
-  <data name="Hide" xml:space="preserve">
-    <value>Ocultar</value>
-  </data>
-  <data name="HideAll" xml:space="preserve">
-    <value>Ocultar todo(s)</value>
-  </data>
-  <data name="DevicePipelineTriggerTabItemContent_Devices" xml:space="preserve">
-    <value>Dispositivos</value>
-  </data>
-  <data name="DeselectAll" xml:space="preserve">
-    <value>Desmarcar todo(s)</value>
-  </data>
-  <data name="SelectAll" xml:space="preserve">
-    <value>Seleccionar todo(s)</value>
-  </data>
-  <data name="MacroSequenceControl_Keyboard" xml:space="preserve">
-    <value>Sólo teclado</value>
-  </data>
-  <data name="MacroSequenceControl_KeyboardMouse" xml:space="preserve">
-    <value>Teclado y botones del ratón</value>
-  </data>
-  <data name="MacroSequenceControl_KeyboardMouseMovement" xml:space="preserve">
-    <value>Todas las entradas</value>
-  </data>
-  <data name="MacroSequenceControl_RecordingOptions" xml:space="preserve">
-    <value>Opciones de grabación</value>
-  </data>
-  <data name="MacroRecordingWindow_Preparing_Title" xml:space="preserve">
-    <value>La grabación comenzará en 3 segundos...</value>
-  </data>
-  <data name="MacroRecordingWindow_Recording_Title" xml:space="preserve">
-    <value>Grabando...</value>
-  </data>
-  <data name="MacroRecordingWindow_Recording_Message" xml:space="preserve">
-    <value>Pulse ESC para detener.</value>
-  </data>
-  <data name="DeviceAutomationPipelineTriggerTabItemContent_OnlySelected" xml:space="preserve">
-    <value>Mostrar sólo dispositivos seleccionados</value>
-  </data>
-  <data name="DeviceAutomationPipelineTriggerTabItemContent_OnlyRemovable" xml:space="preserve">
-    <value>Mostrar sólo dispositivos extraíbles</value>
-  </data>
-  <data name="DeviceAutomationPipelineTriggerTabItemContent_OnlyConnected" xml:space="preserve">
-    <value>Mostrar sólo dispositivos conectados</value>
-  </data>
-  <data name="SettingsPage_CLI_Title" xml:space="preserve">
-    <value>Interfaz de línea de comandos (CLI)</value>
-  </data>
-  <data name="SettingsPage_CLI_Message" xml:space="preserve">
-    <value>Activar la interfaz que permite el control desde la línea de comandos.</value>
-  </data>
-  <data name="SettingsPage_CLIAddToPath_Title" xml:space="preserve">
-    <value>Añadir la interfaz de línea de comandos a la ruta</value>
-  </data>
-  <data name="SettingsPage_CLIAddToPath_Message" xml:space="preserve">
-    <value>Añadir la interfaz de línea de comandos a la variable de entorno ruta.</value>
-  </data>
-  <data name="SettingsPage_Temperature_Title" xml:space="preserve">
-    <value>Temperatura</value>
-  </data>
-  <data name="SettingsPage_Temperature_Message" xml:space="preserve">
-    <value>Seleccionar unidades para los sensores de temperatura.</value>
-  </data>
-  <data name="MainWindows_FnKeysRunning" xml:space="preserve">
-    <value> Las teclas de acceso rápido de Lenovo se están ejecutando en segundo plano.</value>
-  </data>
-  <data name="MainWindow_LegionZoneRunning" xml:space="preserve">
-    <value>Legion Zone se está ejecutando en segundo plano.</value>
-  </data>
-  <data name="MainWindows_VantageRunning" xml:space="preserve">
-    <value>Lenovo Vantage y/o ImController se está(n) ejecutando en segundo plano.</value>
-  </data>
-  <data name="NotificationsSettingsWindow_NotificationOnAllScreens_Message" xml:space="preserve">
-    <value>Mostrar notificación en todas las pantallas conectadas a su dispositivo.</value>
-  </data>
-  <data name="NotificationsSettingsWindow_NotificationOnAllScreens_Title" xml:space="preserve">
-    <value>Notificación en todas las pantallas</value>
-  </data>
-  <data name="SettingsPage_CheckUpdatesButton_Content" xml:space="preserve">
-    <value>Comprobar</value>
-  </data>
-  <data name="SettingsPage_CheckUpdates_Started_Title" xml:space="preserve">
-    <value>Buscando actualizaciones....</value>
-  </data>
-  <data name="SettingsPage_CheckUpdates_Title" xml:space="preserve">
-    <value>Buscar actualizaciones</value>
-  </data>
-  <data name="SettingsPage_Update_Title" xml:space="preserve">
-    <value>Actualización</value>
-  </data>
-  <data name="MainWindow_CheckForUpdates_Error_ReachedRateLimit_Message" xml:space="preserve">
-    <value>Se ha alcanzado el límite de velocidad API, inténtelo más tarde.</value>
-  </data>
-  <data name="MainWindow_CheckForUpdates_Error_Title" xml:space="preserve">
-    <value>Error al buscar actualizaciones</value>
-  </data>
-  <data name="MainWindow_CheckForUpdates_Error_Unknown_Message" xml:space="preserve">
-    <value>Algo ha ido mal, inténtelo más tarde.</value>
-  </data>
-  <data name="MainWindow_CheckForUpdates_Success_Title" xml:space="preserve">
-    <value>Ninguna actualización disponible</value>
-  </data>
-  <data name="SettingsPage_UpdateCheckFrequency_Title" xml:space="preserve">
-    <value>Buscar actualizaciones automáticamente</value>
-  </data>
-  <data name="PackagesPage_UpdateCatalogNotFound_Title" xml:space="preserve">
-    <value>Catálogo de actualización no encontrado</value>
-  </data>
-  <data name="PackagesPage_UpdateCatalogNotFound_Message" xml:space="preserve">
-    <value>Intentar obtener actualizaciones de la otra procedencia.</value>
-  </data>
-  <data name="PackagesPage_Error_Title" xml:space="preserve">
-    <value>Algo salió mal</value>
-  </data>
-  <data name="PackagesPage_Error_CheckInternet_Message" xml:space="preserve">
-    <value>Comprobar si funciona su conexión a internet.</value>
-  </data>
-  <data name="PlaySoundAutomationStepControl_Title" xml:space="preserve">
-    <value>Reproducir sonido</value>
-  </data>
-  <data name="PlaySoundAutomationStepControl_Message" xml:space="preserve">
-    <value>Se admiten formatos habituales de música como WAV o MP3.</value>
-  </data>
-  <data name="QuickActionAutomationStepControl_Title" xml:space="preserve">
-    <value>Acción rápida</value>
-  </data>
-  <data name="QuickActionAutomationStepControl_Message" xml:space="preserve">
-    <value>Ejecutar una acción rápida guardada.</value>
-  </data>
-  <data name="NotificationsSettingsWindow_NotificationAlwaysOnTop_Title" xml:space="preserve">
-    <value>Notificaciones siempre visibles</value>
-  </data>
-  <data name="NotificationsSettingsWindow_NotificationAlwaysOnTop_Message" xml:space="preserve">
-    <value>Poner siempre las notificaciones visibles.
-No afectará a otras ventanas a pantalla completa, pero no podrá hacer clic en las notificaciones.</value>
-  </data>
-  <data name="SensorsControl_VrTemperature_Title" xml:space="preserve">
-    <value>Temperatura VR</value>
-  </data>
-  <data name="SensorsControl_GpuMemoryTemperature_Title" xml:space="preserve">
-    <value>VRAM</value>
-  </data>
-  <data name="SensorsControl_PchTemperature_Title" xml:space="preserve">
-    <value>Temperatura PCH</value>
-  </data>
-  <data name="SensorsControl_Motherboard_Title" xml:space="preserve">
-    <value>Placa base</value>
-  </data>
-  <data name="SensorsControl_GpuCore_Title" xml:space="preserve">
-    <value>Núcleo</value>
-  </data>
-  <data name="SensorsControl_Memory_Title" xml:space="preserve">
-    <value>Memoria</value>
-  </data>
-  <data name="SensorsControl_Disk_Title" xml:space="preserve">
-    <value>Disco</value>
-  </data>
-  <data name="SensorsControl_Battery_Title" xml:space="preserve">
-    <value>Batería</value>
-  </data>
-  <data name="SensorsControl_State_Title" xml:space="preserve">
-    <value>Estado</value>
-  </data>
-  <data name="SensorsControl_BatteryLevel_Title" xml:space="preserve">
-    <value>Nivel de Batería</value>
-  </data>
-  <data name="BatteryPage_ACAdapterNotConnected" xml:space="preserve">
-    <value>Sin corriente alterna</value>
-  </data>
-  <data name="DashboardBattery_AcConnected" xml:space="preserve">
-    <value>Conectado a CA</value>
-  </data>
-  <data name="DashboardBattery_AcDisconnected" xml:space="preserve">
-    <value>Desconectado de CA</value>
-  </data>
-  <data name="AboutPage_Log" xml:space="preserve">
-    <value>Registro</value>
-  </data>
-  <data name="SensorsControl_CPU_Power" xml:space="preserve">
-    <value>Consumo</value>
-  </data>
-  <data name="SensorsControl_GPU_Power" xml:space="preserve">
-    <value>Consumo</value>
-  </data>
-  <data name="SensorsControl_Disk_1_Temperature" xml:space="preserve">
-    <value>Temperatura disco 1</value>
-  </data>
-  <data name="SensorsControl_Disk_2_Temperature" xml:space="preserve">
-    <value>Temperatura disco 2</value>
-  </data>
-  <data name="SettingsPage_EnableLogging_Title" xml:space="preserve">
-    <value>Habilitar registros de depuración</value>
-  </data>
-  <data name="SettingsPage_EnableLogging_Message" xml:space="preserve">
-    <value>Habilita los registros de depuración para investigar problemas de la aplicación.</value>
-  </data>
-  <data name="SensorItem_CpuUtilitzation" xml:space="preserve">
-    <value>Uso de la CPU</value>
-  </data>
-  <data name="SensorItem_CpuFrequency" xml:space="preserve">
-    <value>Frecuencia de la CPU</value>
-  </data>
-  <data name="SensorItem_CpuFanSpeed" xml:space="preserve">
-    <value>Velocidad del ventilador de la CPU</value>
-  </data>
-  <data name="SensorItem_CpuTemperature" xml:space="preserve">
-    <value>Temperatura de la CPU</value>
-  </data>
-  <data name="SensorItem_CpuPower" xml:space="preserve">
-    <value>Consumo de la CPU</value>
-  </data>
-  <data name="SensorItem_GpuUtilization" xml:space="preserve">
-    <value>Uso de la GPU</value>
-  </data>
-  <data name="SensorItem_GpuFrequency" xml:space="preserve">
-    <value>Frecuencia de la GPU</value>
-  </data>
-  <data name="SensorItem_GpuFanSpeed" xml:space="preserve">
-    <value>Velocidad del ventilador de la GPU</value>
-  </data>
-  <data name="SensorItem_PchFanSpeed" xml:space="preserve">
-    <value>Velocidad del ventilador del PCH</value>
-  </data>
-  <data name="SensorItem_PchTemperature" xml:space="preserve">
-    <value>Temperatura del PCH</value>
-  </data>
-  <data name="SensorItem_BatteryState" xml:space="preserve">
-    <value>Estado de la batería</value>
-  </data>
-  <data name="SensorItem_BatteryLevel" xml:space="preserve">
-    <value>Nivel de la batería</value>
-  </data>
-  <data name="SensorItem_MemoryUtilization" xml:space="preserve">
-    <value>Uso de memoria</value>
-  </data>
-  <data name="SensorItem_MemoryTemperature" xml:space="preserve">
-    <value>Temperatura de la memoria</value>
-  </data>
-  <data name="SensorItem_Disk1Temperature" xml:space="preserve">
-    <value>Temperatura del disco 1</value>
-  </data>
-  <data name="SensorItem_Disk2Temperature" xml:space="preserve">
-    <value>Temperatura del disco 2</value>
-  </data>
-  <data name="EditSensorWindow_Title" xml:space="preserve">
-    <value>Editar sensor</value>
-  </data>
-  <data name="SensorItem_GpuTemperatures" xml:space="preserve">
-    <value>Temperatura de la GPU</value>
-  </data>
-  <data name="SettingsPage_UseNewSensorDashboard_Title" xml:space="preserve">
-    <value>Utiliza el nuevo panel de control</value>
-  </data>
-  <data name="SettingsPage_UseNewSensorDashboard_Message" xml:space="preserve">
-    <value>Utiliza el nuevo panel de control en lugar del antiguo.</value>
-  </data>
-  <data name="SettingsPage_LockWindowSize_Title" xml:space="preserve">
-    <value>Bloquear el tamaño de ventana</value>
-  </data>
-  <data name="SettingsPage_LockWindowSize_Message" xml:space="preserve">
-    <value>Bloquea el tamaño de la ventana de LTT. Para así evitar que algo lo modifique.</value>
-  </data>
-  <data name="FanCurveControl_PCH" xml:space="preserve">
-    <value>PCH</value>
-  </data>
-  <data name="SettingsPage_EnableLegionSpace_Error_Title" xml:space="preserve">
-    <value>No se ha podido activar Legion Space</value>
-  </data>
-  <data name="SettingsPage_EnableLegionSpace_Error_Message" xml:space="preserve">
-    <value>Es posible que Legion Space no se haya activado correctamente</value>
-  </data>
-  <data name="SettingsPage_DisableLegionSpace_Title" xml:space="preserve">
-    <value>Desactivar Legion Space</value>
-  </data>
-  <data name="MainWindow_LegionSpaceRunning" xml:space="preserve">
-    <value>Legion Space se está ejecutando en segundo plano.</value>
-  </data>
-  <data name="GodModeSettingsWindow_LegionSpaceWarning_Title" xml:space="preserve">
-    <value>Los ajustes del modo personalizado no se aplicarán correctamente si Legion Space o sus servicios se están ejecutando.</value>
-  </data>
-  <data name="SettingsPage_DisableLegionSpace_Error_Title" xml:space="preserve">
-    <value>No se ha podido desactivar Legion Space</value>
-  </data>
-  <data name="SettingsPage_DisableLegionSpace_Error_Message" xml:space="preserve">
-    <value>Es posible que Legion Space no se haya desactivado correctamente</value>
-  </data>
-  <data name="SettingsPage_UseNewDashboard_Restart_Message" xml:space="preserve">
-    <value>Reinicie para aplicar los cambios.</value>
-  </data>
-  <data name="SettingsPage_UseNewDashboard_Switch_Title" xml:space="preserve">
-    <value>Se ha cambiado el panel de control</value>
-  </data>
-  <data name="MainWindow_PawnIO_Warning_Title" xml:space="preserve">
-    <value>Aviso</value>
-  </data>
-  <data name="MainWindow_PawnIO_Warning_Message" xml:space="preserve">
-    <value>¡Necesitas instalar primero PawnIO para poder usar el nuevo panel de control!</value>
-  </data>
-  <data name="Warning" xml:space="preserve">
-    <value>Aviso</value>
-  </data>
-  <data name="KeyboardBacklightPage_DynamicLightingEnabled" xml:space="preserve">
-    <value>La iluminación dinámica de Windows está habilitada.
-Esta función puede impedir que LLT controle el teclado.
-Haga clic en Sí para deshabilitarla y en No para ignorarla.</value>
-  </data>
-  <data name="MessageBoxHelper_DontShowAgain" xml:space="preserve">
-    <value>Don't show again.</value>
-  </data>
-  <data name="ITSModeControl_Dialog_Title" xml:space="preserve">
-    <value>Componente faltante</value>
-  </data>
-  <data name="ITSModeControl_Dialog_Message" xml:space="preserve">
-    <value>Falta el archivo PowerBattery.dll. Por favor, colóquelo manualmente para utilizar la función ITSMode.</value>
-  </data>
-  <data name="ITSModeControl_Title" xml:space="preserve">
-    <value>Modo de energía del IdeaPad</value>
-  </data>
-  <data name="ITSModeControl_Message" xml:space="preserve">
-    <value>Cambiar el modo de energía del IdeaPad</value>
-  </data>
-  <data name="ITSModeAutomationStepControl_Title" xml:space="preserve">
-    <value>Modo de energía del IdeaPad</value>
-  </data>
-  <data name="ITSModeAutomationStepControl_Message" xml:space="preserve">
-    <value>Cambiar el modo de energía del IdeaPad</value>
-  </data>
-  <data name="SettingsPage_FloatingGadgets_Title" xml:space="preserve">
-    <value>Habilitar widget flotante</value>
-  </data>
-  <data name="SettingsPage_FloatingGadgets_Message" xml:space="preserve">
-    <value>El widget flotante es una ventana flotante que muestra información del sensor en tiempo real en forma de superposición.</value>
-  </data>
-  <data name="SettingsPage_FloatingGadgets_Tooltip" xml:space="preserve">
-    <value>Controla el intervalo de actualización del sensor.</value>
-  </data>
-  <data name="FloatingGadgets_Memory_Utilization" xml:space="preserve">
-    <value>Uso de memoria</value>
-  </data>
-  <data name="FloatingGadgets_Memory_Temperature" xml:space="preserve">
-    <value>Temperatura memoria</value>
-  </data>
-  <data name="FloatingGadgets_Disk_0_Temperature" xml:space="preserve">
-    <value>Temperatura Disco 1</value>
-  </data>
-  <data name="FloatingGadgets_Disk_1_Temperature" xml:space="preserve">
-    <value>Temperatura Disco 2</value>
-  </data>
-  <data name="FloatingGadgets_CPU_Fan" xml:space="preserve">
-    <value>Ventilador CPU</value>
-  </data>
-  <data name="FloatingGadgets_GPU_Fan" xml:space="preserve">
-    <value>Ventilador GPU</value>
-  </data>
-  <data name="FloatingGadgets_PCH_Fan" xml:space="preserve">
-    <value>Ventilador PCH</value>
-  </data>
-  <data name="FloatingGadgets_Fans" xml:space="preserve">
-    <value>Ventiladores</value>
-  </data>
-  <data name="FloatingGadgets_Chipset" xml:space="preserve">
-    <value>Chipset</value>
-  </data>
-  <data name="FloatingGadgets_Gpu" xml:space="preserve">
-    <value>GPU</value>
-  </data>
-  <data name="FloatingGadgets_Cpu" xml:space="preserve">
-    <value>CPU</value>
-  </data>
-  <data name="SettingsPage_Select_BackgroundImage_Title" xml:space="preserve">
-    <value>Seleccionar la imagen de fondo</value>
-  </data>
-  <data name="SettingsPage_Select_BackgroundImage_ImageFile" xml:space="preserve">
-    <value>Fichero de imagen</value>
-  </data>
-  <data name="SettingsPage_Select_BackgroundImage_AllFiles" xml:space="preserve">
-    <value>Todos los ficheros</value>
-  </data>
-  <data name="SettingsPage_Custom_BackgroundImage_Title" xml:space="preserve">
-    <value>Imagen de fondo personalizada</value>
-  </data>
-  <data name="SettingsPage_Custom_BackgroundImage_Message" xml:space="preserve">
-    <value>Imagen de fondo personalizada</value>
-  </data>
-  <data name="SettingsPage_Select_BackgroundImage_Content" xml:space="preserve">
-    <value>Seleccionar imagen</value>
-  </data>
-  <data name="SettingsPage_Clear_BackgroundImage_Title" xml:space="preserve">
-    <value>Quitar imagen</value>
-  </data>
-  <data name="SettingsPage_Clear_BackgroundImage_Message" xml:space="preserve">
-    <value>Quitar el fichero de imagen seleccionado actualmente.</value>
-  </data>
-  <data name="SensorsControl_Motherboard_Temperature" xml:space="preserve">
-    <value>Temperatura de la placa base</value>
-  </data>
-  <data name="StatusWindow_Frequency_And_Temperature" xml:space="preserve">
-    <value>Frecuencia / Temperatura</value>
-  </data>
-  <data name="StatusWindow_Fan_And_Power" xml:space="preserve">
-    <value>Ventilador / Consumo</value>
-  </data>
-  <data name="StatusWindow_System_Fan" xml:space="preserve">
-    <value>Ventilador del sistema</value>
-  </data>
-  <data name="FloatingGadgets_Fps" xml:space="preserve">
-    <value>FPS</value>
-  </data>
-  <data name="FloatingGadgets_Low_Fps" xml:space="preserve">
-    <value>1% Mínimo</value>
-  </data>
-  <data name="FloatingGadgets_Frame_Time" xml:space="preserve">
-    <value>Tiempo de fotograma</value>
-  </data>
-  <data name="FloatingGadgetAutomationStepControl_Title" xml:space="preserve">
-    <value>Widget flotante</value>
-  </data>
-  <data name="FloatingGadgetAutomationStepControl_Message" xml:space="preserve">
-    <value>Mostrar u ocultar el widget flotante</value>
-  </data>
-  <data name="CloseAutomationStepControl_Title" xml:space="preserve">
-    <value>Cerrar</value>
-  </data>
-  <data name="CloseAutomationStepControl_Message" xml:space="preserve">
-    <value>Cerrar Lenovo Legion Toolkit</value>
-  </data>
-  <data name="FloatingGadget_Custom_Game" xml:space="preserve">
-    <value>Juego</value>
-  </data>
-  <data name="FloatingGadget_Custom_CPU" xml:space="preserve">
-    <value>CPU</value>
-  </data>
-  <data name="FloatingGadget_Custom_GPU" xml:space="preserve">
-    <value>GPU</value>
-  </data>
-  <data name="FloatingGadget_Custom_Chipset" xml:space="preserve">
-    <value>Chipset</value>
-  </data>
-  <data name="FloatingGadget_Style_Simple" xml:space="preserve">
-    <value>Sencillo</value>
-  </data>
-  <data name="SettingsPage_ClearBackgroundImage_Title" xml:space="preserve">
-    <value>Imagen borrada</value>
-  </data>
-  <data name="GodModeSettingsWindow_PrecisionBoostOverdriveScaler_Title" xml:space="preserve">
-    <value>Multiplicador de precisión de Boost Overdrive</value>
-  </data>
-  <data name="GodModeSettingsWindow_PrecisionBoostOverdriveScaler_Description" xml:space="preserve">
-    <value>Multiplicador de precisión de Boost Overdrive.</value>
-  </data>
-  <data name="GodModeSettingsWindow_PrecisionBoostOverdriveBoostFrequency_Title" xml:space="preserve">
-    <value>Frecuencia de impulso de Precision Boost Overdrive</value>
-  </data>
-  <data name="GodModeSettingsWindow_PrecisionBoostOverdriveBoostFrequency_Description" xml:space="preserve">
-    <value>Precision Boost Overdrive Boost Frequency.</value>
-  </data>
-  <data name="GodModeSettingsWindow_AllCoreCurveOptimizer_Title" xml:space="preserve">
-    <value>Optimizador de curva de todos los núcleos</value>
-  </data>
-  <data name="GodModeSettingsWindow_AllCoreCurveOptimizer_Description" xml:space="preserve">
-    <value>Optimizador de curva de todos los núcleos.</value>
-  </data>
-  <data name="GodModeSettingsWindow_Toggle_OC_Title" xml:space="preserve">
-    <value>Opciones avanzadas de overclocking</value>
-  </data>
-  <data name="GodModeSettingsWindow_Toggle_OC_Message" xml:space="preserve">
-    <value>Habilitar / Deshabilitar opciones avanzadas de overclocking.</value>
-  </data>
-  <data name="GodModeSettingsWindow_Toggle_CoreCurve_Title" xml:space="preserve">
-    <value>Ajuste de curva del núcleo</value>
-  </data>
-  <data name="GodModeSettingsWindow_Toggle_CoreCurve_Message" xml:space="preserve">
-    <value>Activar / Desactivar el ajuste de la curva de los núcleos.</value>
-  </data>
-  <data name="FloatingGadget_Custom_Title" xml:space="preserve">
-    <value>Personalizar elementos del gadget</value>
-  </data>
-  <data name="PeriodicActionPipelineTriggerTabItemContent_Minutes" xml:space="preserve">
-    <value>Minutos</value>
-  </data>
-  <data name="PeriodicActionPipelineTriggerTabItemContent_Seconds" xml:space="preserve">
-    <value>Segundos</value>
-  </data>
-  <data name="SpeakerVolumeAutomationStepControl_Title" xml:space="preserve">
-    <value>Volumen del altavoz</value>
-  </data>
-  <data name="SpeakerVolumeAutomationStepControl_Message" xml:space="preserve">
-    <value>Cambia el volumen del altavoz.</value>
-  </data>
-  <data name="AmdOverclocking_Caution_Title" xml:space="preserve">
-    <value>Precaución</value>
-  </data>
-  <data name="AmdOverclocking_Caution_Message" xml:space="preserve">
-    <value>Cambiar estos ajustes puede afectar a la estabilidad del sistema. Proceda con precaución.</value>
-  </data>
-  <data name="AmdOverclocking_Status_Title" xml:space="preserve">
-    <value>Estado</value>
-  </data>
-  <data name="AmdOverclocking_FMax_Frequency_Title" xml:space="preserve">
-    <value>Frecuencia FMax</value>
-  </data>
-  <data name="AmdOverclocking_FMax_Frequency_Message" xml:space="preserve">
-    <value>Frecuencia máxima de overclocking de la CPU (MHz)</value>
-  </data>
-  <data name="AmdOverclocking_Core_Title" xml:space="preserve">
-    <value>Núcleo</value>
-  </data>
-  <data name="Reset" xml:space="preserve">
-    <value>Reinciar</value>
-  </data>
-  <data name="AmdOverclocking_Apply_Changes" xml:space="preserve">
-    <value>Aplicar cambios</value>
-  </data>
-  <data name="Error" xml:space="preserve">
-    <value>Error</value>
-  </data>
-  <data name="AmdOverclocking_Do_Not_Apply_Message" xml:space="preserve">
-    <value>La aplicación del perfil se ha cancelado debido a un reinicio anormal.</value>
-  </data>
-  <data name="RunAutomationStepControl_ProcessCheckInstance" xml:space="preserve">
-    <value>Comprobar instancia</value>
-  </data>
-  <data name="RunAutomationStepControl_ProcessCheckInstance_Description" xml:space="preserve">
-    <value>Comprueba si el proceso ya se ha iniciado.</value>
-  </data>
-  <data name="AmdOverclocking_Success_Title" xml:space="preserve">
-    <value>Éxito</value>
-  </data>
-  <data name="AmdOverclocking_Success_Message" xml:space="preserve">
-    <value>Configuración aplicada con éxito.</value>
-  </data>
-  <data name="AmdOverclocking_X3D_Gaming_Mode_Title" xml:space="preserve">
-    <value>Modo de juego X3D</value>
-  </data>
-  <data name="AmdOverclocking_X3D_Gaming_Mode_Message" xml:space="preserve">
-    <value>Desactiva el CCD 1 para obtener estabilidad tanto en FPS como en temperaturas</value>
-  </data>
-  <data name="ArgumentWindow_Title" xml:space="preserve">
-    <value>Ventana de argumentos</value>
-  </data>
-  <data name="ArgumentWindow_Category_General" xml:space="preserve">
-    <value>General</value>
-  </data>
-  <data name="ArgumentWindow_Category_Hardware_Automation" xml:space="preserve">
-    <value>Hardware y automatización</value>
-  </data>
-  <data name="ArgumentWindow_Category_Lighting" xml:space="preserve">
-    <value>Iluminación</value>
-  </data>
-  <data name="ArgumentWindow_Category_Network_Proxy" xml:space="preserve">
-    <value>Proxy de red</value>
-  </data>
-  <data name="ArgumentWindow_Category_Debugging" xml:space="preserve">
-    <value>Depuración de errores</value>
-  </data>
-  <data name="ArgumentWindow_Flag_StartMinimized" xml:space="preserve">
-    <value>Iniciar minimizado</value>
-  </data>
-  <data name="ArgumentWindow_Flag_DisableTrayTooltip" xml:space="preserve">
-    <value>Desactivar el tooltip de la bandeja del sistema</value>
-  </data>
-  <data name="ArgumentWindow_Flag_DisableUpdateChecker" xml:space="preserve">
-    <value>Desactivar la comprobación de actualización</value>
-  </data>
-  <data name="ArgumentWindow_Flag_DisableConflictWarning" xml:space="preserve">
-    <value>Desactivar advertencia de conflicto</value>
-  </data>
-  <data name="ArgumentWindow_Flag_AllowPowerModesBattery" xml:space="preserve">
-    <value>Permitir todos los modos de energía con batería</value>
-  </data>
-  <data name="ArgumentWindow_Flag_SkipCompatCheck" xml:space="preserve">
-    <value>Omitir verificación de compatibilidad</value>
-  </data>
-  <data name="ArgumentWindow_Flag_ExpGpuMode" xml:space="preserve">
-    <value> Modo de trabajo de GPU experimental</value>
-  </data>
-  <data name="ArgumentWindow_Flag_DisableLenovoLighting" xml:space="preserve">
-    <value>Desactivar la iluminación de Lenovo</value>
-  </data>
-  <data name="ArgumentWindow_Flag_DisableRgbKb" xml:space="preserve">
-    <value>Deshabilitar el RGB del teclado</value>
-  </data>
-  <data name="ArgumentWindow_Flag_DisableSpectrumKb" xml:space="preserve">
-    <value>Deshabilitar el Spectrum del teclado</value>
-  </data>
-  <data name="ArgumentWindow_Flag_TraceEnabled" xml:space="preserve">
-    <value>Habilitar el registro de depuración</value>
-  </data>
-  <data name="ArgumentWindow_Flag_DebugMode" xml:space="preserve">
-    <value>Modo depuración</value>
-  </data>
-  <data name="ArgumentWindow_Flag_ProxyUrl" xml:space="preserve">
-    <value> URL del proxy</value>
-  </data>
-  <data name="ArgumentWindow_Flag_ProxyUsername" xml:space="preserve">
-    <value>Nombre de usuario del proxy</value>
-  </data>
-  <data name="ArgumentWindow_Flag_ProxyPassword" xml:space="preserve">
-    <value>Contraseña del proxy</value>
-  </data>
-  <data name="ArgumentWindow_Flag_AllowAllCerts" xml:space="preserve">
-    <value>Permitir todos los certificados</value>
-  </data>
-  <data name="ArgumentWindow_NotSet" xml:space="preserve">
-    <value>Sin establecer</value>
-  </data>
-  <data name="ArgumentWindow_Edit_Title" xml:space="preserve">
-    <value>Editar argumentos</value>
-  </data>
-  <data name="ArgumentWindow_Edit_Message" xml:space="preserve">
-    <value>Abre una ventana de argumentos para modificar cómodamente los argumentos.</value>
-  </data>
-  <data name="SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoost_Title" xml:space="preserve">
-    <value>Potenciado de color Vantage</value>
-  </data>
-  <data name="SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoostSettings_Title" xml:space="preserve">
-    <value>Ajuste de potenciado de color</value>
-  </data>
-  <data name="RestoreDefaults" xml:space="preserve">
-    <value>Restaurar valores por defecto</value>
-  </data>
-  <data name="SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoostSettings_BoostFloor" xml:space="preserve">
-    <value>Potenciado base</value>
-  </data>
-  <data name="SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoostSettings_BoostTarget" xml:space="preserve">
-    <value>Potenciado objetivo</value>
-  </data>
-  <data name="SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoostSettings_BoostBrightnessFactor" xml:space="preserve">
-    <value>Multiplicador de potenciado de brillo</value>
-  </data>
-  <data name="SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoostSettings_WhiteThreshold" xml:space="preserve">
-    <value>Umbral blanco</value>
-  </data>
-  <data name="CustomFanCurve_Add_Point" xml:space="preserve">
-    <value>Añadir punto de curva</value>
-  </data>
-  <data name="CustomFanCurve_Fan_Speed" xml:space="preserve">
-    <value>Velocidad del ventilador %</value>
-  </data>
-  <data name="CustomFanCurve_Temperature" xml:space="preserve">
-    <value>Temperatura °C </value>
-  </data>
-  <data name="CustomFanCurve_Title" xml:space="preserve">
-    <value>Monitorización en tiempo real</value>
-  </data>
-  <data name="CustomFanCurve_PWM_Value" xml:space="preserve">
-    <value>Valor del PWM</value>
-  </data>
-  <data name="CustomFanCurve_Settings" xml:space="preserve">
-    <value>Ajustes</value>
-  </data>
-  <data name="CustomFanCurve_Critical_Temp" xml:space="preserve">
-    <value>Temperatura Crítica</value>
-  </data>
-  <data name="CustomFanCurve_Accelerate" xml:space="preserve">
-    <value>Acelerar</value>
-  </data>
-  <data name="CustomFanCurve_Deceleration" xml:space="preserve">
-    <value>Desaceleración</value>
-  </data>
-  <data name="CustomFanCurve_Accelerate_Tooltip" xml:space="preserve">
-    <value>El control de aceleración determina cuánto PWM se añade al valor PWM actual.</value>
-  </data>
-  <data name="CustomFanCurve_Deceleration_Tooltip" xml:space="preserve">
-    <value>El control de desaceleración es la cantidad en que se reduce el PWM hasta el valor PWM actual.</value>
-  </data>
-  <data name="CustomFanCurve_Critical_Temp_Tooltip" xml:space="preserve">
-    <value>Forzar la velocidad máxima cuando la temperatura es mayor o igual a esta temperatura para evitar que se queme.</value>
-  </data>
-  <data name="FanMaxSpeedAutomationStepControl_Title" xml:space="preserve">
-    <value>Velocidad máxima del ventilador</value>
-  </data>
-  <data name="FanMaxSpeedAutomationStepControl_Message" xml:space="preserve">
-    <value>Establecer el ventilador a la velocidad máxima.</value>
-  </data>
-  <data name="MainWindow_NavigationItem_FanCurve" xml:space="preserve">
-    <value>Curva del ventilador</value>
-  </data>
-  <data name="MultipleTriggersAutomationPipelineTrigger_Logic_Title" xml:space="preserve">
-    <value>Lógica</value>
-  </data>
-  <data name="MultipleTriggersAutomationPipelineTrigger_Logic_And" xml:space="preserve">
-    <value>Coincidir Todos (Y)</value>
-  </data>
-  <data name="MultipleTriggersAutomationPipelineTrigger_Logic_Or" xml:space="preserve">
-    <value>Coincidir Cualquier (O)</value>
-  </data>
-  <data name="ExcludeProcessesWindow_Title" xml:space="preserve">
-    <value>Procesos excluidos</value>
-  </data>
-  <data name="ExcludeProcessesWindow_ProcessNamePlaceholder" xml:space="preserve">
-    <value>Process Name (e.g. discord)</value>
-  </data>
-  <data name="ExcludeProcessesWindow_Description" xml:space="preserve">
-    <value>Processes in this list will be ignored by game start/stop triggers and Lenovo's AI/Intelligent Mode. Enter the process name without the path (e.g., "discord" or "blender").</value>
-  </data>
-  <data name="SettingsPage_ExcludeProcesses_Message" xml:space="preserve">
-    <value>Administrar procesos que son ignorados por la Detección de Juegos.</value>
-  </data>
-  <data name="SettingsPage_ExcludeProcesses_Title" xml:space="preserve">
-    <value>Procesos excluidos</value>
-  </data>
-  <data name="AutomationPage_Game_Detection_Title" xml:space="preserve">
-    <value>Detección de juegos</value>
-  </data>
-  <data name="AutomationPage_Game_Detection_Sub_Title" xml:space="preserve">
-    <value>Configurar métodos de detección y exclusiones</value>
-  </data>
-  <data name="AutomationPage_Game_Detection_Method_Auto" xml:space="preserve">
-    <value>Automático (Todos los métodos)</value>
-  </data>
-  <data name="AutomationPage_Game_Detection_Method_Discrete_GPU" xml:space="preserve">
-    <value>Actividad de la GPU dedicada</value>
-  </data>
-  <data name="AutomationPage_Game_Detection_Method_List" xml:space="preserve">
-    <value>Lista de juegos conocida</value>
-  </data>
-  <data name="AutomationPage_Game_Detection_Method_Game_Mode" xml:space="preserve">
-    <value>Modo de juego de Windows</value>
-  </data>
-  <data name="AutomationPipelineControl_RunOnStartup" xml:space="preserve">
-    <value>Ejecutar al iniciar</value>
-  </data>
-  <data name="AutomationPipelineControl_RunOnStartup_Tooltip" xml:space="preserve">
-    <value>Cuando está habilitado, esta automatización se comprobará y aplicará cuando la aplicación se inicie</value>
-  </data>
-  <data name="AmdOverclocking_Per_Core_Title" xml:space="preserve">
-    <value>Optimización por núcleo</value>
-  </data>
-  <data name="AmdOverclocking_Global_Offset" xml:space="preserve">
-    <value>Desplazamiento global:</value>
-  </data>
-  <data name="AmdOverclocking_Global_Plus" xml:space="preserve">
-    <value>+1 Todos</value>
-  </data>
-  <data name="AmdOverclocking_Global_Dim" xml:space="preserve">
-    <value>-1 Todos</value>
-  </data>
-  <data name="SettingsPage_Category_Appearance" xml:space="preserve">
-    <value>Appearance</value>
-  </data>
-  <data name="SettingsPage_Category_AppBehavior" xml:space="preserve">
-    <value>App Behavior</value>
-  </data>
-  <data name="SettingsPage_Category_SoftwareControl" xml:space="preserve">
-    <value>Software Control</value>
-  </data>
-  <data name="SettingsPage_Category_SmartKeys" xml:space="preserve">
-    <value>Smart Keys</value>
-  </data>
-  <data name="SettingsPage_Category_Display" xml:space="preserve">
-    <value>Display</value>
-  </data>
-  <data name="SettingsPage_Category_Updates" xml:space="preserve">
-    <value>Updates</value>
-  </data>
-  <data name="SettingsPage_Category_Power" xml:space="preserve">
-    <value>Power</value>
-  </data>
-  <data name="SettingsPage_Category_Integrations" xml:space="preserve">
-    <value>Integrations</value>
-  </data>
-  <data name="RestartRequired_Title" xml:space="preserve">
-    <value>Restart required</value>
-  </data>
-  <data name="GodModeSettingsWindow_CustomMode_Warning" xml:space="preserve">
-    <value>Custom Mode grants access to critical system parameters such as power limits and fan curves. 
-
-Misconfiguration can lead to severe system instability, thermal throttling, or permanent hardware damage. Modifications made here may void your manufacturer warranty. 
-
-Do not proceed unless you possess the necessary technical expertise.</value>
-  </data>
-  <data name="RestartRequired_Message" xml:space="preserve">
-    <value>Changing this requires restart. Do you want to restart now?</value>
-  </data>
-  <data name="SettingsBackupWindow_Title" xml:space="preserve">
-    <value>Backup Settings</value>
-  </data>
-  <data name="SettingsBackupWindow_SelectAll" xml:space="preserve">
-    <value>Select All</value>
-  </data>
-  <data name="SettingsBackupWindow_Backup" xml:space="preserve">
-    <value>Back Up</value>
-  </data>
-  <data name="SettingsBackupWindow_Restore" xml:space="preserve">
-    <value>Restore</value>
-  </data>
-  <data name="SettingsBackupWindow_BackupSuccess" xml:space="preserve">
-    <value>Backup completed successfully.</value>
-  </data>
-  <data name="SettingsBackupWindow_RestoreSuccess" xml:space="preserve">
-    <value>Restore completed successfully. The application will restart.</value>
-  </data>
-  <data name="SettingsBackupWindow_NoFilesSelected" xml:space="preserve">
-    <value>No files selected.</value>
-  </data>
-  <data name="SettingsPage_BackupSettings_Title" xml:space="preserve">
-    <value>Back Up Settings</value>
-  </data>
-  <data name="SettingsPage_BackupSettings_Message" xml:space="preserve">
-    <value>Back up or restore application settings.</value>
-  </data>
-  <data name="SettingsBackupWindow_NoMatchingFiles" xml:space="preserve">
-    <value>No matching files found in selected folder.</value>
-  </data>
-  <data name="SettingsBackupWindow_RestoreConfirm" xml:space="preserve">
-    <value>Restoring settings will overwrite your current configuration and restart the application. Do you want to continue?</value>
-  </data>
-  <data name="SettingsPage_UpdateMethod_Title" xml:space="preserve">
-    <value>Update Method</value>
   </data>
 </root>
