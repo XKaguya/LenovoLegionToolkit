@@ -117,11 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AboutPage_ApplicationFolders" xml:space="preserve">
+    <value>Aplikāciju Folderi</value>
+  </data>
   <data name="AboutPage_AppName" xml:space="preserve">
     <value>Lenovo Legion Toolkit</value>
   </data>
   <data name="AboutPage_Build" xml:space="preserve">
     <value>Izlaidums</value>
+  </data>
+  <data name="AboutPage_Data" xml:space="preserve">
+    <value>Dati</value>
   </data>
   <data name="AboutPage_LatestReleaseOnGitHub" xml:space="preserve">
     <value>Jaunākais laidums iekš GitHub</value>
@@ -129,8 +135,14 @@
   <data name="AboutPage_Links" xml:space="preserve">
     <value>Saites</value>
   </data>
+  <data name="AboutPage_Log" xml:space="preserve">
+    <value>Log</value>
+  </data>
   <data name="AboutPage_ProjectWebsiteOnGitHub" xml:space="preserve">
     <value>Projekta mājaslapa iekš GitHub</value>
+  </data>
+  <data name="AboutPage_Temp" xml:space="preserve">
+    <value>Īslaicīgs</value>
   </data>
   <data name="AboutPage_ThirdPartyLibraries" xml:space="preserve">
     <value>Trešo pušu bibliotēkas</value>
@@ -145,17 +157,20 @@
   <data name="AboutPage_Version" xml:space="preserve">
     <value>Versija</value>
   </data>
+  <data name="AbstractAutomationStepControl_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>Aktīvizēt</value>
+  </data>
   <data name="Add" xml:space="preserve">
     <value>Pievienot</value>
   </data>
+  <data name="AddAutomationStepWindow_Title" xml:space="preserve">
+    <value>Pievienot soli</value>
+  </data>
   <data name="AddNew" xml:space="preserve">
     <value>Pievienot jaunu</value>
-  </data>
-  <data name="AlwaysOnUSBControl_Message" xml:space="preserve">
-    <value>Uzlādējiet USB ierīces, kad dators ir izslēgts vai atrodas miega vai hibernācijas režīmā.</value>
-  </data>
-  <data name="AlwaysOnUSBControl_Title" xml:space="preserve">
-    <value>Vienmēr ieslēgts USB</value>
   </data>
   <data name="AlwaysOnUsbAutomationStepControl_Message" xml:space="preserve">
     <value>Uzlādējiet USB ierīces, kad dators ir izslēgts vai atrodas miega vai hibernācijas režīmā.</value>
@@ -163,8 +178,59 @@
   <data name="AlwaysOnUsbAutomationStepControl_Title" xml:space="preserve">
     <value>Vienmēr ieslēgts USB</value>
   </data>
-  <data name="AppName" xml:space="preserve">
-    <value>Lenovo Legion Toolkit</value>
+  <data name="AlwaysOnUSBControl_Message" xml:space="preserve">
+    <value>Uzlādējiet USB ierīces, kad dators ir izslēgts vai atrodas miega vai hibernācijas režīmā.</value>
+  </data>
+  <data name="AlwaysOnUSBControl_Title" xml:space="preserve">
+    <value>Vienmēr ieslēgts USB</value>
+  </data>
+  <data name="AmdOverclocking_Apply_Changes" xml:space="preserve">
+    <value>Apply Changes</value>
+  </data>
+  <data name="AmdOverclocking_Caution_Message" xml:space="preserve">
+    <value>Changing these settings may impact system stability. Proceed with caution.</value>
+  </data>
+  <data name="AmdOverclocking_Caution_Title" xml:space="preserve">
+    <value>Caution</value>
+  </data>
+  <data name="AmdOverclocking_Core_Title" xml:space="preserve">
+    <value>Core</value>
+  </data>
+  <data name="AmdOverclocking_Do_Not_Apply_Message" xml:space="preserve">
+    <value>Profile apply has been canceled due to abnormal restart.</value>
+  </data>
+  <data name="AmdOverclocking_FMax_Frequency_Message" xml:space="preserve">
+    <value>Maximum CPU boost frequency override (MHz)</value>
+  </data>
+  <data name="AmdOverclocking_FMax_Frequency_Title" xml:space="preserve">
+    <value>FMax Frequency</value>
+  </data>
+  <data name="AmdOverclocking_Global_Dim" xml:space="preserve">
+    <value>-1 All</value>
+  </data>
+  <data name="AmdOverclocking_Global_Offset" xml:space="preserve">
+    <value>Global Offset:</value>
+  </data>
+  <data name="AmdOverclocking_Global_Plus" xml:space="preserve">
+    <value>+1 All</value>
+  </data>
+  <data name="AmdOverclocking_Per_Core_Title" xml:space="preserve">
+    <value>Per-Core Optimization</value>
+  </data>
+  <data name="AmdOverclocking_Status_Title" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="AmdOverclocking_Success_Message" xml:space="preserve">
+    <value>Settings applied successfully.</value>
+  </data>
+  <data name="AmdOverclocking_Success_Title" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="AmdOverclocking_X3D_Gaming_Mode_Message" xml:space="preserve">
+    <value>Disable CCD 1 to get stability on both FPS and temperatures</value>
+  </data>
+  <data name="AmdOverclocking_X3D_Gaming_Mode_Title" xml:space="preserve">
+    <value>X3D Gaming Mode</value>
   </data>
   <data name="Apply" xml:space="preserve">
     <value>Apstiprināt</value>
@@ -172,11 +238,89 @@
   <data name="ApplyAndClose" xml:space="preserve">
     <value>Apstiprināt un Aizvērt</value>
   </data>
-  <data name="AutomationPage_ActionsEnable_Message" xml:space="preserve">
-    <value>Lai automātiskās darbības darbotos, ir jābūt ieslēgtam Lenovo Legion Toolkit.</value>
+  <data name="AppName" xml:space="preserve">
+    <value>Lenovo Legion Toolkit</value>
+  </data>
+  <data name="ArgumentWindow_Category_Debugging" xml:space="preserve">
+    <value>Debugging</value>
+  </data>
+  <data name="ArgumentWindow_Category_General" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="ArgumentWindow_Category_Hardware_Automation" xml:space="preserve">
+    <value>Hardware &amp; Automation</value>
+  </data>
+  <data name="ArgumentWindow_Category_Lighting" xml:space="preserve">
+    <value>Lighting</value>
+  </data>
+  <data name="ArgumentWindow_Category_Network_Proxy" xml:space="preserve">
+    <value>Network Proxy</value>
+  </data>
+  <data name="ArgumentWindow_Edit_Message" xml:space="preserve">
+    <value>Open an argument window for convenient modification of arguments.</value>
+  </data>
+  <data name="ArgumentWindow_Edit_Title" xml:space="preserve">
+    <value>Edit Arguments</value>
+  </data>
+  <data name="ArgumentWindow_Flag_AllowAllCerts" xml:space="preserve">
+    <value>Allow All Certificates</value>
+  </data>
+  <data name="ArgumentWindow_Flag_AllowPowerModesBattery" xml:space="preserve">
+    <value>Allow All Power Modes on Battery</value>
+  </data>
+  <data name="ArgumentWindow_Flag_DebugMode" xml:space="preserve">
+    <value>Debug Mode</value>
+  </data>
+  <data name="ArgumentWindow_Flag_DisableConflictWarning" xml:space="preserve">
+    <value>Disable Conflict Warning</value>
+  </data>
+  <data name="ArgumentWindow_Flag_DisableLenovoLighting" xml:space="preserve">
+    <value>Disable Lenovo Lighting</value>
+  </data>
+  <data name="ArgumentWindow_Flag_DisableRgbKb" xml:space="preserve">
+    <value>Disable RGB Keyboard</value>
+  </data>
+  <data name="ArgumentWindow_Flag_DisableSpectrumKb" xml:space="preserve">
+    <value>Disable Spectrum Keyboard</value>
+  </data>
+  <data name="ArgumentWindow_Flag_DisableTrayTooltip" xml:space="preserve">
+    <value>Disable Tray Tooltip</value>
+  </data>
+  <data name="ArgumentWindow_Flag_DisableUpdateChecker" xml:space="preserve">
+    <value>Disable Update Checker</value>
+  </data>
+  <data name="ArgumentWindow_Flag_ExpGpuMode" xml:space="preserve">
+    <value>Experimental GPU Working Mode</value>
+  </data>
+  <data name="ArgumentWindow_Flag_ProxyPassword" xml:space="preserve">
+    <value>Proxy Password</value>
+  </data>
+  <data name="ArgumentWindow_Flag_ProxyUrl" xml:space="preserve">
+    <value>Proxy URL</value>
+  </data>
+  <data name="ArgumentWindow_Flag_ProxyUsername" xml:space="preserve">
+    <value>Proxy Username</value>
+  </data>
+  <data name="ArgumentWindow_Flag_SkipCompatCheck" xml:space="preserve">
+    <value>Skip Compatibility Check</value>
+  </data>
+  <data name="ArgumentWindow_Flag_StartMinimized" xml:space="preserve">
+    <value>Start Minimized</value>
+  </data>
+  <data name="ArgumentWindow_Flag_TraceEnabled" xml:space="preserve">
+    <value>Enable Trace Logging</value>
+  </data>
+  <data name="ArgumentWindow_NotSet" xml:space="preserve">
+    <value>Not Set</value>
+  </data>
+  <data name="ArgumentWindow_Title" xml:space="preserve">
+    <value>Argument Window</value>
   </data>
   <data name="AutomationPage_ActionsEnabled_Title" xml:space="preserve">
     <value>Iespējot</value>
+  </data>
+  <data name="AutomationPage_ActionsEnable_Message" xml:space="preserve">
+    <value>Lai automātiskās darbības darbotos, ir jābūt ieslēgtam Lenovo Legion Toolkit.</value>
   </data>
   <data name="AutomationPage_Actions_Empty" xml:space="preserve">
     <value>Nav definētas Darbības. Lai izveidotu jaunu Darbību, noklikšķiniet uz "Pievienot jaunu".</value>
@@ -193,6 +337,27 @@ Tiks izpildītas tikai tās darbības, kas atbilst pašreizējam stāvoklim.</va
   </data>
   <data name="AutomationPage_AddManualPipeline_Title" xml:space="preserve">
     <value>Pievienot jaunu</value>
+  </data>
+  <data name="AutomationPage_ChangeIcon" xml:space="preserve">
+    <value>Mainīt ikonu</value>
+  </data>
+  <data name="AutomationPage_Game_Detection_Method_Auto" xml:space="preserve">
+    <value>Automatic (All Methods)</value>
+  </data>
+  <data name="AutomationPage_Game_Detection_Method_Discrete_GPU" xml:space="preserve">
+    <value>Discrete GPU Activity</value>
+  </data>
+  <data name="AutomationPage_Game_Detection_Method_Game_Mode" xml:space="preserve">
+    <value>Windows Game Mode</value>
+  </data>
+  <data name="AutomationPage_Game_Detection_Method_List" xml:space="preserve">
+    <value>Known Game List</value>
+  </data>
+  <data name="AutomationPage_Game_Detection_Sub_Title" xml:space="preserve">
+    <value>Configure detection methods and exclusions.</value>
+  </data>
+  <data name="AutomationPage_Game_Detection_Title" xml:space="preserve">
+    <value>Game Detection</value>
   </data>
   <data name="AutomationPage_QuickActions_Empty" xml:space="preserve">
     <value>Nav definētas Veiklās Darbības. Lai izveidotu jaunu Veiklo Darbību, noklikšķiniet uz "Pievienot jaunu".</value>
@@ -236,6 +401,9 @@ Tiks izpildītas tikai tās darbības, kas atbilst pašreizējam stāvoklim.</va
   <data name="AutomationPipelineControl_Exclusive_ToolTip" xml:space="preserve">
     <value>Neveikt turpmākas darbības, kad šī darbība tiek izpildīta.</value>
   </data>
+  <data name="AutomationPipelineControl_Running" xml:space="preserve">
+    <value>Notiek palaišana...</value>
+  </data>
   <data name="AutomationPipelineControl_RunNow" xml:space="preserve">
     <value>Palaist tagad</value>
   </data>
@@ -251,14 +419,20 @@ Tiks izpildītas tikai tās darbības, kas atbilst pašreizējam stāvoklim.</va
   <data name="AutomationPipelineControl_RunNow_Success_Title" xml:space="preserve">
     <value>Palaist tagad</value>
   </data>
-  <data name="AutomationPipelineControl_Running" xml:space="preserve">
-    <value>Notiek palaišana...</value>
+  <data name="AutomationPipelineControl_RunOnStartup" xml:space="preserve">
+    <value>Run on startup</value>
+  </data>
+  <data name="AutomationPipelineControl_RunOnStartup_Tooltip" xml:space="preserve">
+    <value>When enabled, this automation will check and apply when the app starts</value>
   </data>
   <data name="AutomationPipelineControl_Step" xml:space="preserve">
     <value>{0} solis</value>
   </data>
   <data name="AutomationPipelineControl_Step_Many" xml:space="preserve">
     <value>{0} soļi</value>
+  </data>
+  <data name="AutomationPipelineControl_SubtitlePart_After" xml:space="preserve">
+    <value>Pēc {0}</value>
   </data>
   <data name="AutomationPipelineControl_SubtitlePart_Apps" xml:space="preserve">
     <value>Aplikācijas</value>
@@ -275,8 +449,14 @@ Tiks izpildītas tikai tās darbības, kas atbilst pašreizējam stāvoklim.</va
   <data name="AutomationPipelineControl_SubtitlePart_PowerMode" xml:space="preserve">
     <value>Barošanas Režīms</value>
   </data>
+  <data name="AutomationPipelineControl_SubtitlePart_Preset" xml:space="preserve">
+    <value>Priekšiestatījums</value>
+  </data>
   <data name="AutomationPipelineControl_Unnamed" xml:space="preserve">
     <value>Bez nosaukuma</value>
+  </data>
+  <data name="AutomationPipelineTriggerConfigurationWindow_Title" xml:space="preserve">
+    <value>Konfigurēt</value>
   </data>
   <data name="BalanceModeSettingsWindow_AIEngine_Message" xml:space="preserve">
     <value>Automātiski nosaka, kad darbojas noteiktas spēles, un koriģē centrālā procesora un GPU veiktspēju. Temperatūra un ventilatora troksnis var paaugstināties.</value>
@@ -299,11 +479,32 @@ Tiks izpildītas tikai tās darbības, kas atbilst pašreizējam stāvoklim.</va
   <data name="BatteryModeControl_Title" xml:space="preserve">
     <value>Akumulatora Režīms</value>
   </data>
+  <data name="BatteryNightChargeAutomationStepControl_Message" xml:space="preserve">
+    <value>When enabled, this device will charge to 80% when plugged in overnight and finish charging to 100% by the time you use this device in the morning.</value>
+  </data>
+  <data name="BatteryNightChargeAutomationStepControl_Title" xml:space="preserve">
+    <value>Overnight Battery Charging</value>
+  </data>
+  <data name="BatteryNightChargeModeControl_Message" xml:space="preserve">
+    <value>When enabled, this device will charge to 80% when plugged in overnight and finish charging to 100% by the time you use this device in the morning.</value>
+  </data>
+  <data name="BatteryNightChargeModeControl_Title" xml:space="preserve">
+    <value>Overnight Battery Charging</value>
+  </data>
   <data name="BatteryPage_ACAdapterConnectedAndCharging" xml:space="preserve">
     <value>Savienots, notiek uzlāde...</value>
   </data>
   <data name="BatteryPage_ACAdapterConnectedNotCharging" xml:space="preserve">
     <value>Savienots, nenotiek uzlāde</value>
+  </data>
+  <data name="BatteryPage_ACAdapterNotConnected" xml:space="preserve">
+    <value>No AC</value>
+  </data>
+  <data name="BatteryPage_BatteryHealth_Message" xml:space="preserve">
+    <value>Battery maximum charge capacity.</value>
+  </data>
+  <data name="BatteryPage_BatteryHealth_Title" xml:space="preserve">
+    <value>Battery health</value>
   </data>
   <data name="BatteryPage_BatteryTemperature_Message" xml:space="preserve">
     <value>Pašreizējā akumulatora temperatūra.</value>
@@ -335,18 +536,6 @@ Tiks izpildītas tikai tās darbības, kas atbilst pašreizējam stāvoklim.</va
   <data name="BatteryPage_DischargeRate_Title" xml:space="preserve">
     <value>Izlādes ātrums</value>
   </data>
-  <data name="BatteryPage_MinDischargeRate_Message" xml:space="preserve">
-    <value>Minimum rate at which battery is charged (+), or discharged (-).</value>
-  </data>
-  <data name="BatteryPage_MinDischargeRate_Title" xml:space="preserve">
-    <value>Minimum discharge rate</value>
-  </data>
-  <data name="BatteryPage_MaxDischargeRate_Message" xml:space="preserve">
-    <value>Maximum rate at which battery is charged (+), or discharged (-).</value>
-  </data>
-  <data name="BatteryPage_MaxDischargeRate_Title" xml:space="preserve">
-    <value>Maximum discharge rate</value>
-  </data>
   <data name="BatteryPage_EstimatedBatteryLifeRemaining" xml:space="preserve">
     <value>Atlikušais paredzamais laiks: {0}</value>
   </data>
@@ -365,11 +554,8 @@ Tiks izpildītas tikai tās darbības, kas atbilst pašreizējam stāvoklim.</va
   <data name="BatteryPage_FullChargeCapacity_Title" xml:space="preserve">
     <value>Pilnas uzlādes tilpība</value>
   </data>
-  <data name="BatteryPage_BatteryHealth_Message" xml:space="preserve">
-    <value>Battery maximum charge capacity.</value>
-  </data>
-  <data name="BatteryPage_BatteryHealth_Title" xml:space="preserve">
-    <value>Battery health</value>
+  <data name="BatteryPage_LowLevel" xml:space="preserve">
+    <value>Zems akumulatora uzlādes līmenis</value>
   </data>
   <data name="BatteryPage_LowWattageChargerConnected" xml:space="preserve">
     <value>Zemas jaudas lādētājs pievienots</value>
@@ -379,6 +565,18 @@ Tiks izpildītas tikai tās darbības, kas atbilst pašreizējam stāvoklim.</va
   </data>
   <data name="BatteryPage_ManufactureDate_Title" xml:space="preserve">
     <value>Ražošanas datums</value>
+  </data>
+  <data name="BatteryPage_MaxDischargeRate_Message" xml:space="preserve">
+    <value>Maximum rate at which battery is charged (+), or discharged (-).</value>
+  </data>
+  <data name="BatteryPage_MaxDischargeRate_Title" xml:space="preserve">
+    <value>Maximum discharge rate</value>
+  </data>
+  <data name="BatteryPage_MinDischargeRate_Message" xml:space="preserve">
+    <value>Minimum rate at which battery is charged (+), or discharged (-).</value>
+  </data>
+  <data name="BatteryPage_MinDischargeRate_Title" xml:space="preserve">
+    <value>Minimum discharge rate</value>
   </data>
   <data name="BatteryPage_OnBatterySince_Message" xml:space="preserve">
     <value>Laiks, kopš klēpjdators pēdējo reizi tika pievienots maiņstrāvas avotam.
@@ -390,14 +588,69 @@ Tiks izpildītas tikai tās darbības, kas atbilst pašreizējam stāvoklim.</va
   <data name="BatteryPage_Title" xml:space="preserve">
     <value>Akumulators</value>
   </data>
+  <data name="BootLogoWindow_Customize" xml:space="preserve">
+    <value>Pielāgot</value>
+  </data>
+  <data name="BootLogoWindow_CustomLogoSet" xml:space="preserve">
+    <value>Pielāgots Sāknēšanās Logo ir iestatīts</value>
+  </data>
+  <data name="BootLogoWindow_DefaultLogoSet" xml:space="preserve">
+    <value>Noklusējuma Sāknēšanās Logo ir iestatīts</value>
+  </data>
+  <data name="BootLogoWindow_Description" xml:space="preserve">
+    <value>Custom boot logo must be exactly {0} pixels large.
+Supported formats are: {1}.</value>
+  </data>
+  <data name="BootLogoWindow_SetCustomFailed" xml:space="preserve">
+    <value>Custom logo could not be set: {0}</value>
+  </data>
+  <data name="BootLogoWindow_SetCustomSuccess" xml:space="preserve">
+    <value>Custom boot logo set.</value>
+  </data>
+  <data name="BootLogoWindow_SetDefaultFailed" xml:space="preserve">
+    <value>Default logo could not be set: {0}</value>
+  </data>
+  <data name="BootLogoWindow_SetDefaultSuccess" xml:space="preserve">
+    <value>Default boot logo set.</value>
+  </data>
+  <data name="BootLogoWindow_SetError_Cannot_Mount_EFI_Partition" xml:space="preserve">
+    <value>Cannot mount EFI partition.</value>
+  </data>
+  <data name="BootLogoWindow_SetError_Cannot_Set_UEFI_Privilege" xml:space="preserve">
+    <value>Cannot set UEFI privilege.</value>
+  </data>
+  <data name="BootLogoWindow_SetError_Invalid_Image_Format" xml:space="preserve">
+    <value>Invalid image format.</value>
+  </data>
+  <data name="BootLogoWindow_SetError_Invalid_Image_Size" xml:space="preserve">
+    <value>Invalid image size.</value>
+  </data>
+  <data name="BootLogoWindow_SetError_Not_Enough_Free_Space_On_EFI_Partition" xml:space="preserve">
+    <value>Not enough free space on EFI partition.</value>
+  </data>
+  <data name="BootLogoWindow_Status" xml:space="preserve">
+    <value>Statuss</value>
+  </data>
+  <data name="BootLogoWindow_Title" xml:space="preserve">
+    <value>Sāknēšanās Logo</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Atcelt</value>
   </data>
   <data name="Celsius" xml:space="preserve">
     <value>°C</value>
   </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
   <data name="Close" xml:space="preserve">
     <value>Aizvērt</value>
+  </data>
+  <data name="CloseAutomationStepControl_Message" xml:space="preserve">
+    <value>Close the Lenovo Legion Toolkit</value>
+  </data>
+  <data name="CloseAutomationStepControl_Title" xml:space="preserve">
+    <value>Close</value>
   </data>
   <data name="Color_Blue" xml:space="preserve">
     <value>Zils</value>
@@ -407,6 +660,13 @@ Tiks izpildītas tikai tās darbības, kas atbilst pašreizējam stāvoklim.</va
   </data>
   <data name="Color_Red" xml:space="preserve">
     <value>Sarkans</value>
+  </data>
+  <data name="ComboBoxHybridModeAutomationStepControl_Message" xml:space="preserve">
+    <value>Atlasiet GPU darbības režīmu atkarībā no datora lietojuma un barošanas apstākļiem.
+Pārslēdzot režīmus dators iespējams būs jārestartē.</value>
+  </data>
+  <data name="ComboBoxHybridModeAutomationStepControl_Title" xml:space="preserve">
+    <value>GPU Darbošanās režīms</value>
   </data>
   <data name="ComboBoxHybridModeControl_Message" xml:space="preserve">
     <value>Atlasiet GPU darbības režīmu atkarībā no datora lietojuma un barošanas apstākļiem.
@@ -421,14 +681,80 @@ Pārslēdzot režīms dators varbūt būt jārestartē.</value>
   <data name="ComboBoxHybridModeControl_Title" xml:space="preserve">
     <value>GPU Darbošanās režīms</value>
   </data>
+  <data name="CompatibilityCheckError_Message" xml:space="preserve">
+    <value>Error occured when reading device information.</value>
+  </data>
   <data name="ContextMenu_QuickActions" xml:space="preserve">
     <value>Ātrās Darbības</value>
   </data>
   <data name="Continue" xml:space="preserve">
     <value>Turpināt</value>
   </data>
+  <data name="CopiedToClipboard_Message" xml:space="preserve">
+    <value>Teksts iekopēts starpliktuvē.</value>
+  </data>
+  <data name="CopiedToClipboard_Message_WithParam" xml:space="preserve">
+    <value>"{0}" iekopēts starpliktuvē.</value>
+  </data>
+  <data name="CopiedToClipboard_Title" xml:space="preserve">
+    <value>Nokopēts!</value>
+  </data>
   <data name="CopyAll" xml:space="preserve">
     <value>Kopēt visu</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Izveidot</value>
+  </data>
+  <data name="CreateAutomationPipelineWindow_Title" xml:space="preserve">
+    <value>Izveidot Darbību</value>
+  </data>
+  <data name="CustomFanCurve_Accelerate" xml:space="preserve">
+    <value>Accelerate</value>
+  </data>
+  <data name="CustomFanCurve_Accelerate_Tooltip" xml:space="preserve">
+    <value>Accelerate control's how much PWM is added to the current PWM Value.</value>
+  </data>
+  <data name="CustomFanCurve_Add_Point" xml:space="preserve">
+    <value>Add curve point</value>
+  </data>
+  <data name="CustomFanCurve_Critical_Temp" xml:space="preserve">
+    <value>Critical Temp</value>
+  </data>
+  <data name="CustomFanCurve_Critical_Temp_Tooltip" xml:space="preserve">
+    <value>Force the maximum speed when the temperature is greater than or equal to this temperature to prevent burning out.</value>
+  </data>
+  <data name="CustomFanCurve_Deceleration" xml:space="preserve">
+    <value>Deceleration</value>
+  </data>
+  <data name="CustomFanCurve_Deceleration_Tooltip" xml:space="preserve">
+    <value>Deceleration control's how much PWM is decreased to the current PWM Value.</value>
+  </data>
+  <data name="CustomFanCurve_Fan_Speed" xml:space="preserve">
+    <value>Fan Speed %</value>
+  </data>
+  <data name="CustomFanCurve_PWM_Value" xml:space="preserve">
+    <value>PWM Value</value>
+  </data>
+  <data name="CustomFanCurve_Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="CustomFanCurve_Temperature" xml:space="preserve">
+    <value>Temperature °C </value>
+  </data>
+  <data name="CustomFanCurve_Title" xml:space="preserve">
+    <value>Real-Time Monitoring</value>
+  </data>
+  <data name="DashboardBattery_AcConnected" xml:space="preserve">
+    <value>AC Connected</value>
+  </data>
+  <data name="DashboardBattery_AcDisconnected" xml:space="preserve">
+    <value>AC Disconnected</value>
+  </data>
+  <data name="DashboardPage_Customize" xml:space="preserve">
+    <value>Pielāgot</value>
+  </data>
+  <data name="DashboardPage_Display_Title" xml:space="preserve">
+    <value>Ekrāns</value>
   </data>
   <data name="DashboardPage_Graphics_Title" xml:space="preserve">
     <value>Grafika</value>
@@ -450,6 +776,9 @@ BRĪDINĀJUMS. Ja iekšējais displejs ir izslēgts vai hibrīda režīms nav ak
   <data name="DeactivateGPUAutomationStepControl_Title" xml:space="preserve">
     <value>Deaktivizēt GPU</value>
   </data>
+  <data name="Default" xml:space="preserve">
+    <value>Noklusējums</value>
+  </data>
   <data name="DelayAutomationStepControl_Message" xml:space="preserve">
     <value>Pirms nākamās darbības veikšanas pievienot aizkavi.</value>
   </data>
@@ -459,17 +788,20 @@ BRĪDINĀJUMS. Ja iekšējais displejs ir izslēgts vai hibrīda režīms nav ak
   <data name="Delete" xml:space="preserve">
     <value>Dzēst</value>
   </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>Deselect all</value>
+  </data>
+  <data name="DeviceAutomationPipelineTriggerTabItemContent_OnlyConnected" xml:space="preserve">
+    <value>Show connected devices only</value>
+  </data>
+  <data name="DeviceAutomationPipelineTriggerTabItemContent_OnlyRemovable" xml:space="preserve">
+    <value>Show removable devices only</value>
+  </data>
+  <data name="DeviceAutomationPipelineTriggerTabItemContent_OnlySelected" xml:space="preserve">
+    <value>Show selected devices only</value>
+  </data>
   <data name="DeviceInformationWindow_BiosVersion_Title" xml:space="preserve">
     <value>BIOS versija</value>
-  </data>
-  <data name="CopiedToClipboard_Message" xml:space="preserve">
-    <value>Teksts iekopēts starpliktuvē.</value>
-  </data>
-  <data name="CopiedToClipboard_Message_WithParam" xml:space="preserve">
-    <value>"{0}" iekopēts starpliktuvē.</value>
-  </data>
-  <data name="CopiedToClipboard_Title" xml:space="preserve">
-    <value>Nokopēts!</value>
   </data>
   <data name="DeviceInformationWindow_Device_Title" xml:space="preserve">
     <value>Ierīce</value>
@@ -486,6 +818,9 @@ BRĪDINĀJUMS. Ja iekšējais displejs ir izslēgts vai hibrīda režīms nav ak
   <data name="DeviceInformationWindow_Model_Title" xml:space="preserve">
     <value>Modelis</value>
   </data>
+  <data name="DeviceInformationWindow_Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
   <data name="DeviceInformationWindow_SerialNumber_Title" xml:space="preserve">
     <value>Sērijas numurs</value>
   </data>
@@ -501,14 +836,17 @@ BRĪDINĀJUMS. Ja iekšējais displejs ir izslēgts vai hibrīda režīms nav ak
   <data name="DeviceInformationWindow_Warranty_Title" xml:space="preserve">
     <value>Garantija</value>
   </data>
-  <data name="Active" xml:space="preserve">
-    <value>Aktīvizēt</value>
+  <data name="DevicePipelineTriggerTabItemContent_Devices" xml:space="preserve">
+    <value>Devices</value>
+  </data>
+  <data name="DGPU_Connected_Title" xml:space="preserve">
+    <value>DGPU pieslēdzies</value>
+  </data>
+  <data name="DGPU_Disconnected_Title" xml:space="preserve">
+    <value>DGPU atslēdzies</value>
   </data>
   <data name="DiscreteGPUControl_Deactivate" xml:space="preserve">
     <value>Deaktivizēt</value>
-  </data>
-  <data name="Inactive" xml:space="preserve">
-    <value>Neaktīvs</value>
   </data>
   <data name="DiscreteGPUControl_KillApps" xml:space="preserve">
     <value>Nokaut lietotnes</value>
@@ -559,8 +897,58 @@ Paldies jau iepriekš!</value>
   <data name="DonatePage_Title" xml:space="preserve">
     <value>Ziedot</value>
   </data>
+  <data name="DpiScaleAutomationStepControl_Message" xml:space="preserve">
+    <value>Mainiet iebūvētā ekrāna mērogošanu.
+
+BRĪDINĀJUMS. Ja iebūvētais ekrāns ir izslēgts, šī darbība nedarbosies pareizi.</value>
+  </data>
+  <data name="DpiScaleAutomationStepControl_Title" xml:space="preserve">
+    <value>DPI</value>
+  </data>
+  <data name="DpiScaleControl_Message" xml:space="preserve">
+    <value>Mainiet iebūvētā ekrāna mērogu.</value>
+  </data>
+  <data name="DpiScaleControl_Title" xml:space="preserve">
+    <value>DPI</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>Rediģēt</value>
+  </data>
+  <data name="EditDashboardGroupControl_EditGroup_Message" xml:space="preserve">
+    <value>Nosaukums</value>
+  </data>
+  <data name="EditDashboardGroupControl_EditGroup_Title" xml:space="preserve">
+    <value>Rediģēt grupas nosaukumu</value>
+  </data>
+  <data name="EditDashboardWindow_CreateGroup_Message" xml:space="preserve">
+    <value>Nosaukums</value>
+  </data>
+  <data name="EditDashboardWindow_CreateGroup_Title" xml:space="preserve">
+    <value>Izveidot grupu</value>
+  </data>
+  <data name="EditDashboardWindow_Disclaimer_Message" xml:space="preserve">
+    <value>Dažas funkcijas informācijas panelī var neparādīties atkarībā no ierīces stāvokļa un konfigurācijas.</value>
+  </data>
+  <data name="EditDashboardWindow_Sensors" xml:space="preserve">
+    <value>Sensori</value>
+  </data>
+  <data name="EditDashboardWindow_Title" xml:space="preserve">
+    <value>Rediģēt Informācijas Paneli</value>
+  </data>
+  <data name="EditSensorWindow_Title" xml:space="preserve">
+    <value>Edit Sensor</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ExcludeProcessesWindow_Description" xml:space="preserve">
+    <value>Processes in this list will be ignored by game start/stop triggers and Lenovo's AI/Intelligent Mode. Enter the process name without the path (e.g., "discord" or "blender").</value>
+  </data>
+  <data name="ExcludeProcessesWindow_ProcessNamePlaceholder" xml:space="preserve">
+    <value>Process Name (e.g. discord)</value>
+  </data>
+  <data name="ExcludeProcessesWindow_Title" xml:space="preserve">
+    <value>Excluded Processes</value>
   </data>
   <data name="ExcludeRefreshRatesWindow_Description" xml:space="preserve">
     <value>Noņemiet atzīmi no atsvaidzināšanas ātruma, ko nevēlaties izmantot, izmantojot fn + R saīsni.</value>
@@ -631,8 +1019,17 @@ Paldies jau iepriekš!</value>
   <data name="FanCurveControl_GPU2" xml:space="preserve">
     <value>GPU #2</value>
   </data>
-  <data name="RPM" xml:space="preserve">
-    <value>Apgr/min</value>
+  <data name="FanCurveControl_PCH" xml:space="preserve">
+    <value>PCH</value>
+  </data>
+  <data name="FanMaxSpeedAutomationStepControl_Message" xml:space="preserve">
+    <value>Set fan to maximum speed.</value>
+  </data>
+  <data name="FanMaxSpeedAutomationStepControl_Title" xml:space="preserve">
+    <value>Fan Max Speed</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filtrs...</value>
   </data>
   <data name="FlipToStartAutomationStepControl_Message" xml:space="preserve">
     <value>Klēpjdatora ieslēgšana, atverot vāku.</value>
@@ -646,6 +1043,72 @@ Paldies jau iepriekš!</value>
   <data name="FlipToStartControl_Title" xml:space="preserve">
     <value>Atvērt Lai Ieslēgtu</value>
   </data>
+  <data name="FloatingGadgetAutomationStepControl_Message" xml:space="preserve">
+    <value>Show or Hide the Floating Gadget</value>
+  </data>
+  <data name="FloatingGadgetAutomationStepControl_Title" xml:space="preserve">
+    <value>Floating Gadget</value>
+  </data>
+  <data name="FloatingGadgets_Chipset" xml:space="preserve">
+    <value>Chipset</value>
+  </data>
+  <data name="FloatingGadgets_Cpu" xml:space="preserve">
+    <value>CPU</value>
+  </data>
+  <data name="FloatingGadgets_CPU_Fan" xml:space="preserve">
+    <value>CPU Fan</value>
+  </data>
+  <data name="FloatingGadgets_Disk_0_Temperature" xml:space="preserve">
+    <value>Disk 1 Temperature</value>
+  </data>
+  <data name="FloatingGadgets_Disk_1_Temperature" xml:space="preserve">
+    <value>Disk 2 Temperature</value>
+  </data>
+  <data name="FloatingGadgets_Fans" xml:space="preserve">
+    <value>Fans</value>
+  </data>
+  <data name="FloatingGadgets_Fps" xml:space="preserve">
+    <value>FPS</value>
+  </data>
+  <data name="FloatingGadgets_Frame_Time" xml:space="preserve">
+    <value>Frame Time</value>
+  </data>
+  <data name="FloatingGadgets_Gpu" xml:space="preserve">
+    <value>GPU</value>
+  </data>
+  <data name="FloatingGadgets_GPU_Fan" xml:space="preserve">
+    <value>GPU Fan</value>
+  </data>
+  <data name="FloatingGadgets_Low_Fps" xml:space="preserve">
+    <value>1% Low</value>
+  </data>
+  <data name="FloatingGadgets_Memory_Temperature" xml:space="preserve">
+    <value>Memory Temperature</value>
+  </data>
+  <data name="FloatingGadgets_Memory_Utilization" xml:space="preserve">
+    <value>Memory Utilization</value>
+  </data>
+  <data name="FloatingGadgets_PCH_Fan" xml:space="preserve">
+    <value>PCH Fan</value>
+  </data>
+  <data name="FloatingGadget_Custom_Chipset" xml:space="preserve">
+    <value>Chipset</value>
+  </data>
+  <data name="FloatingGadget_Custom_CPU" xml:space="preserve">
+    <value>CPU</value>
+  </data>
+  <data name="FloatingGadget_Custom_Game" xml:space="preserve">
+    <value>Game</value>
+  </data>
+  <data name="FloatingGadget_Custom_GPU" xml:space="preserve">
+    <value>GPU</value>
+  </data>
+  <data name="FloatingGadget_Custom_Title" xml:space="preserve">
+    <value>Customize Gadget Elements</value>
+  </data>
+  <data name="FloatingGadget_Style_Simple" xml:space="preserve">
+    <value>Simple</value>
+  </data>
   <data name="FnLockAutomationStepControl_Message" xml:space="preserve">
     <value>Izmantojiet F1-F12 taustiņu sekundārās funkcijas, neturot taustiņu fn.</value>
   </data>
@@ -658,12 +1121,18 @@ Paldies jau iepriekš!</value>
   <data name="FnLockControl_Title" xml:space="preserve">
     <value>Fn Bloķēšana</value>
   </data>
-  <data name="GodModeSettingsWindow_Advanced_MinOffset_Message" xml:space="preserve">
-    <value>Brīdinājums!
-Daži klēpjdatori var pieņemt zemākas vērtības, nekā norādīts, taču esiet piesardzīgs. Šī opcija var izraisīt neprognozējamu rīcību, tāpēc, ja neesat pārliecināts, ko darāt, atstājiet 0.</value>
+  <data name="GHz" xml:space="preserve">
+    <value>GHz</value>
   </data>
-  <data name="GodModeSettingsWindow_Advanced_MinOffset_Title" xml:space="preserve">
-    <value>Minimālā nobīde</value>
+  <data name="GodModePresetAutomationStepControl_Message" xml:space="preserve">
+    <value>Aktivizējiet Pielāgotā Režīma priekšiestatījumu.
+Šie iestatījumi stājas spēkā tikai tad, ja ir iespējots pielāgotais režīms.</value>
+  </data>
+  <data name="GodModePresetAutomationStepControl_Title" xml:space="preserve">
+    <value>Pielāgotā režīma priekšiestatījums</value>
+  </data>
+  <data name="GodModeSettingsWindow_ActivePreset_Title" xml:space="preserve">
+    <value>Aktīvais priekšiestatījums</value>
   </data>
   <data name="GodModeSettingsWindow_Advanced_MaxOffset_Message" xml:space="preserve">
     <value>Brīdinājums!
@@ -675,23 +1144,79 @@ Daži klēpjdatori var pieņemt augstākas vērtības, nekā norādīts, taču e
   <data name="GodModeSettingsWindow_Advanced_Message" xml:space="preserve">
     <value>Nemainiet tālāk norādītās opcijas, ja vien zinat, ko darāt.</value>
   </data>
+  <data name="GodModeSettingsWindow_Advanced_MinOffset_Message" xml:space="preserve">
+    <value>Brīdinājums!
+Daži klēpjdatori var pieņemt zemākas vērtības, nekā norādīts, taču esiet piesardzīgs. Šī opcija var izraisīt neprognozējamu rīcību, tāpēc, ja neesat pārliecināts, ko darāt, atstājiet 0.</value>
+  </data>
+  <data name="GodModeSettingsWindow_Advanced_MinOffset_Title" xml:space="preserve">
+    <value>Minimālā nobīde</value>
+  </data>
   <data name="GodModeSettingsWindow_Advanced_Title" xml:space="preserve">
     <value>Papildus</value>
+  </data>
+  <data name="GodModeSettingsWindow_AllCoreCurveOptimizer_Description" xml:space="preserve">
+    <value>All Core Curve Optimizer.</value>
+  </data>
+  <data name="GodModeSettingsWindow_AllCoreCurveOptimizer_Title" xml:space="preserve">
+    <value>All Core Curve Optimizer</value>
+  </data>
+  <data name="GodModeSettingsWindow_CPU_APUsPPT_PL" xml:space="preserve">
+    <value>APU sPPT Jaudas Ierobežojums</value>
+  </data>
+  <data name="GodModeSettingsWindow_CPU_APUsPPT_PL_Description" xml:space="preserve">
+    <value>Maksimālais jaudas patēriņš, ko CPU var sasniegt ar nelielu aizkavi.</value>
   </data>
   <data name="GodModeSettingsWindow_CPU_CrossLoading" xml:space="preserve">
     <value>Ilgtermiņa jaudas ierobežojums (Cross Loading)</value>
   </data>
+  <data name="GodModeSettingsWindow_CPU_CrossLoading_Description" xml:space="preserve">
+    <value>Maksimālais jaudas patēriņš, ko var sasniegt centrālais procesors, pilnībā izmantojot gan CPU, gan GPU.</value>
+  </data>
   <data name="GodModeSettingsWindow_CPU_LongTermPL" xml:space="preserve">
     <value>Ilgtermiņa Jaudas Ierobežojums</value>
+  </data>
+  <data name="GodModeSettingsWindow_CPU_LongTermPL_Description" xml:space="preserve">
+    <value>Nepārtrauktais enerģijas patēriņš, ko var sasniegt CPU.</value>
+  </data>
+  <data name="GodModeSettingsWindow_CPU_PeakPL" xml:space="preserve">
+    <value>Maksimālā Jaudas Robeža</value>
+  </data>
+  <data name="GodModeSettingsWindow_CPU_PeakPL_Description" xml:space="preserve">
+    <value>Maksimālais momentānais enerģijas patēriņš, ko var sasniegt CPU.</value>
+  </data>
+  <data name="GodModeSettingsWindow_CPU_PL1Tau" xml:space="preserve">
+    <value>Īstermiņa Jaudas Ierobežojums</value>
+  </data>
+  <data name="GodModeSettingsWindow_CPU_PL1Tau_Description" xml:space="preserve">
+    <value>Laiks, cik ilgi CPU ir atļauts palielināt un izmantot Īstermiņa Jaudas Ierobežojumu. Kad beidzas Tau, tiek izmantots Ilgtermiņa Jaudas Ierobežojums.</value>
   </data>
   <data name="GodModeSettingsWindow_CPU_ShortTermPL" xml:space="preserve">
     <value>Īstermiņa Jaudas Ierobežojums</value>
   </data>
+  <data name="GodModeSettingsWindow_CPU_ShortTermPL_Description" xml:space="preserve">
+    <value>Maksimālais jaudas patēriņš, ko CPU var sasniegt īsā laikā.</value>
+  </data>
   <data name="GodModeSettingsWindow_CPU_TempLimit" xml:space="preserve">
     <value>CPU Temperatūras Ierobežojums</value>
   </data>
+  <data name="GodModeSettingsWindow_CPU_TempLimit_Description" xml:space="preserve">
+    <value>Maksimālā temperatūra, ko centrālais procesors var sasniegt pirms frekvences un jaudas samazināšanas.</value>
+  </data>
   <data name="GodModeSettingsWindow_CPU_Title" xml:space="preserve">
     <value>CPU</value>
+  </data>
+  <data name="GodModeSettingsWindow_CustomMode_Warning" xml:space="preserve">
+    <value>Custom Mode grants access to critical system parameters such as power limits and fan curves. 
+
+Misconfiguration can lead to severe system instability, thermal throttling, or permanent hardware damage. Modifications made here may void your manufacturer warranty. 
+
+Do not proceed unless you possess the necessary technical expertise.</value>
+  </data>
+  <data name="GodModeSettingsWindow_EditPreset_Message" xml:space="preserve">
+    <value>Nosaukums</value>
+  </data>
+  <data name="GodModeSettingsWindow_EditPreset_Title" xml:space="preserve">
+    <value>Pirmsiestatītais nosaukums</value>
   </data>
   <data name="GodModeSettingsWindow_Error_Apply_Title" xml:space="preserve">
     <value>Neizdevās piemērot iestatījumu</value>
@@ -719,17 +1244,71 @@ Nopietni, esi uzmanīgs ar šo variantu!</value>
   <data name="GodModeSettingsWindow_GPU_CTGP" xml:space="preserve">
     <value>Konfigurējams TGP</value>
   </data>
+  <data name="GodModeSettingsWindow_GPU_CTGP_Description" xml:space="preserve">
+    <value>Papildu jaudas apjoms, ko var piešķirt GPU papildus pamata jaudas patēriņam.</value>
+  </data>
   <data name="GodModeSettingsWindow_GPU_DynamicBoost" xml:space="preserve">
     <value>Dynamic Boost</value>
+  </data>
+  <data name="GodModeSettingsWindow_GPU_DynamicBoost_Description" xml:space="preserve">
+    <value>Papildu maksimālā jauda, ko var piešķirt GPU, pamatojoties uz CPU enerģijas patēriņu.</value>
   </data>
   <data name="GodModeSettingsWindow_GPU_TempLimit" xml:space="preserve">
     <value>CPU Temperatūras Ierobežojums</value>
   </data>
+  <data name="GodModeSettingsWindow_GPU_TempLimit_Description" xml:space="preserve">
+    <value>Maksimālā temperatūra, ko GPU var sasniegt pirms frekvences un jaudas samazināšanas.</value>
+  </data>
   <data name="GodModeSettingsWindow_GPU_Title" xml:space="preserve">
     <value>GPU</value>
   </data>
+  <data name="GodModeSettingsWindow_GPU_ToCpuDynamicBoostControl" xml:space="preserve">
+    <value>GPU to CPU Dynamic Boost</value>
+  </data>
+  <data name="GodModeSettingsWindow_GPU_ToCpuDynamicBoostControl_Description" xml:space="preserve">
+    <value>This is the maximum additional power that can be allocated to the CPU from the GPU based on CPU usage. The higher the value, the better the performance of applications that use the CPU.</value>
+  </data>
+  <data name="GodModeSettingsWindow_GPU_TotalProcessingPowerTargetOnAcOffsetFromBaselineControl" xml:space="preserve">
+    <value>Kopējais Procesora Jaudas Mērķis Maiņstrāvā</value>
+  </data>
+  <data name="GodModeSettingsWindow_GPU_TotalProcessingPowerTargetOnAcOffsetFromBaselineControl_Description" xml:space="preserve">
+    <value>Punkts, kurā CPU izraisa dinamisku jaudas patēriņa korekciju priekš GPU.</value>
+  </data>
+  <data name="GodModeSettingsWindow_LegionSpaceWarning_Title" xml:space="preserve">
+    <value>Custom Mode settings will not be applied correctly when Legion Space or its services are running.</value>
+  </data>
+  <data name="GodModeSettingsWindow_LegionZoneWarning_Title" xml:space="preserve">
+    <value>Pielāgotā Režīma iestatījumi netiks pielietoti pareizi kamēr Legion Zone un tā servisi ir ieslēgti.</value>
+  </data>
+  <data name="GodModeSettingsWindow_PrecisionBoostOverdriveBoostFrequency_Description" xml:space="preserve">
+    <value>Precision Boost Overdrive Boost Frequency.</value>
+  </data>
+  <data name="GodModeSettingsWindow_PrecisionBoostOverdriveBoostFrequency_Title" xml:space="preserve">
+    <value>Precision Boost Overdrive Boost Frequency</value>
+  </data>
+  <data name="GodModeSettingsWindow_PrecisionBoostOverdriveScaler_Description" xml:space="preserve">
+    <value>Precision Boost Overdrive Scaler.</value>
+  </data>
+  <data name="GodModeSettingsWindow_PrecisionBoostOverdriveScaler_Title" xml:space="preserve">
+    <value>Precision Boost Overdrive Scaler</value>
+  </data>
   <data name="GodModeSettingsWindow_Title" xml:space="preserve">
     <value>Pielāgotā Režīma Iestatījumi</value>
+  </data>
+  <data name="GodModeSettingsWindow_Toggle_CoreCurve_Message" xml:space="preserve">
+    <value>Enable / Disable Core Curve Adjustment.</value>
+  </data>
+  <data name="GodModeSettingsWindow_Toggle_CoreCurve_Title" xml:space="preserve">
+    <value>Core Curve Adjustment</value>
+  </data>
+  <data name="GodModeSettingsWindow_Toggle_OC_Message" xml:space="preserve">
+    <value>Enable / Disable Advanced Overclocking options.</value>
+  </data>
+  <data name="GodModeSettingsWindow_Toggle_OC_Title" xml:space="preserve">
+    <value>Advanced Overclocking Options</value>
+  </data>
+  <data name="GodModeSettingsWindow_VantageWarning_Title" xml:space="preserve">
+    <value>Pielāgotā Režīma iestatījumi netiks pielietoti pareizi kamēr Lenovo Vantage un tā servisi ir ieslēgti.</value>
   </data>
   <data name="HDRAutomationStepControl_Message" xml:space="preserve">
     <value>Iebūvētajā ekrānā iespējojiet augstu dinamisko diapazonu (HDR).
@@ -748,11 +1327,77 @@ BRĪDINĀJUMS. Ja iebūvētais ekrāns ir izslēgts, šī darbība nedarbosies p
   <data name="HDRControl_Warning" xml:space="preserve">
     <value>HDR lietošanu bloķē Windows iestatījumi.</value>
   </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Hide</value>
+  </data>
+  <data name="HideAll" xml:space="preserve">
+    <value>Hide all</value>
+  </data>
+  <data name="IGPUModeChangeException_Message" xml:space="preserve">
+    <value>Try changing the mode again in a couple of seconds, if you do not see expected result.
+If dGPU does not respond at all, please restart your laptop.</value>
+  </data>
+  <data name="IGPUModeChangeException_Message_Auto" xml:space="preserve">
+    <value>dGPU tiks atvienots automātiski kad tas netiek izmantots vai portatīvais dators izmanto akumulatoru.</value>
+  </data>
+  <data name="IGPUModeChangeException_Message_IGPUOnly" xml:space="preserve">
+    <value>dGPU automātiski pats atvienosies kad tas netiks izmantots.</value>
+  </data>
+  <data name="IGPUModeChangeException_Title" xml:space="preserve">
+    <value>Nevarēja nomainīt GPU Darbošanās režīmu</value>
+  </data>
+  <data name="IGPUModeChangeException_Title_Auto" xml:space="preserve">
+    <value>dGPU šobrīd tiek izmantots vai arī portatīvais dators neizmanto akumulatoru</value>
+  </data>
+  <data name="IGPUModeChangeException_Title_IGPUOnly" xml:space="preserve">
+    <value>dGPU šobrīd tiek izmantots</value>
+  </data>
   <data name="Import" xml:space="preserve">
     <value>Importēt</value>
   </data>
+  <data name="Inactive" xml:space="preserve">
+    <value>Neaktīvs</value>
+  </data>
   <data name="IncompatibleDevice_Message" xml:space="preserve">
     <value>Šī ierīce nesader ar Lenovo Legion Toolkit.</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="InstantBootAutomationStepControl_Message" xml:space="preserve">
+    <value>Ieslēgt portatīvo datoru kad tiek pievienots lādētājs.</value>
+  </data>
+  <data name="InstantBootAutomationStepControl_Title" xml:space="preserve">
+    <value>Tūlītēja Sāknēšana</value>
+  </data>
+  <data name="InstantBootControl_Message" xml:space="preserve">
+    <value>Ieslēgt portatīvo datoru kad tiek pievienots lādētājs.</value>
+  </data>
+  <data name="InstantBootControl_Title" xml:space="preserve">
+    <value>Tūlītēja Sāknēšana</value>
+  </data>
+  <data name="ITSModeAutomationStepControl_Message" xml:space="preserve">
+    <value>Change IdeaPad Power Mode</value>
+  </data>
+  <data name="ITSModeAutomationStepControl_Title" xml:space="preserve">
+    <value>IdeaPad Power Mode</value>
+  </data>
+  <data name="ITSModeControl_Dialog_Message" xml:space="preserve">
+    <value>PowerBattery.dll is missing. Please place it manually to use ITSMode feature.</value>
+  </data>
+  <data name="ITSModeControl_Dialog_Title" xml:space="preserve">
+    <value>Missing Compoment</value>
+  </data>
+  <data name="ITSModeControl_Message" xml:space="preserve">
+    <value>Change IdeaPad Power Mode</value>
+  </data>
+  <data name="ITSModeControl_Title" xml:space="preserve">
+    <value>IdeaPad Power Mode</value>
+  </data>
+  <data name="KeyboardBacklightPage_DynamicLightingEnabled" xml:space="preserve">
+    <value>Windows Dynamic lighting is enabled.
+This feature might prevent LLT to control the keyboard.
+Click Yes to disable and No to ignore.</value>
   </data>
   <data name="KeyboardBacklightPage_NoCompatibleKeyboardsFound" xml:space="preserve">
     <value>Netika atrastas saderīgas tastatūras</value>
@@ -765,6 +1410,90 @@ BRĪDINĀJUMS. Ja iebūvētais ekrāns ir izslēgts, šī darbība nedarbosies p
   </data>
   <data name="Keyboard_VantageEnabledWarning_Title" xml:space="preserve">
     <value>Lenovo Vantage vai tā servisi šobrīd ir ieslēgti</value>
+  </data>
+  <data name="Load" xml:space="preserve">
+    <value>Ielādēt</value>
+  </data>
+  <data name="MacroAutomationStepControl_Message" xml:space="preserve">
+    <value>Enable or disable macros.</value>
+  </data>
+  <data name="MacroAutomationStepControl_Title" xml:space="preserve">
+    <value>Macro</value>
+  </data>
+  <data name="MacroPage_Enable_Subtitle" xml:space="preserve">
+    <value>Lenovo Legion Toolkit must be running for macros to work.</value>
+  </data>
+  <data name="MacroPage_Enable_Title" xml:space="preserve">
+    <value>Enable</value>
+  </data>
+  <data name="MacroPage_Subtitle" xml:space="preserve">
+    <value>You can record series of key presses and invoke them using the number pad on your keyboard.</value>
+  </data>
+  <data name="MacroPage_Title" xml:space="preserve">
+    <value>Macro</value>
+  </data>
+  <data name="MacroRecordingWindow_Preparing_Title" xml:space="preserve">
+    <value>Recording will start in 3 seconds...</value>
+  </data>
+  <data name="MacroRecordingWindow_Recording_Message" xml:space="preserve">
+    <value>Press ESC to stop.</value>
+  </data>
+  <data name="MacroRecordingWindow_Recording_Title" xml:space="preserve">
+    <value>Recording...</value>
+  </data>
+  <data name="MacroSequenceControl_DontRepeat" xml:space="preserve">
+    <value>Don't repeat</value>
+  </data>
+  <data name="MacroSequenceControl_IgnoreDelays_Title" xml:space="preserve">
+    <value>Ignore delays</value>
+  </data>
+  <data name="MacroSequenceControl_InterruptOnOtherKey_Title" xml:space="preserve">
+    <value>Interrupt if another key was pressed</value>
+  </data>
+  <data name="MacroSequenceControl_Keyboard" xml:space="preserve">
+    <value>Keyboard only</value>
+  </data>
+  <data name="MacroSequenceControl_KeyboardMouse" xml:space="preserve">
+    <value>Keyboard keys and mouse buttons</value>
+  </data>
+  <data name="MacroSequenceControl_KeyboardMouseMovement" xml:space="preserve">
+    <value>All inputs</value>
+  </data>
+  <data name="MacroSequenceControl_Record" xml:space="preserve">
+    <value>Record</value>
+  </data>
+  <data name="MacroSequenceControl_RecordingOptions" xml:space="preserve">
+    <value>Recording options</value>
+  </data>
+  <data name="MacroSequenceControl_Repeat_Title" xml:space="preserve">
+    <value>Repeat</value>
+  </data>
+  <data name="MacroSequenceControl_StopRecording" xml:space="preserve">
+    <value>Stop recording</value>
+  </data>
+  <data name="MainWindows_FnKeysRunning" xml:space="preserve">
+    <value>Lenovo Hotkeys is running in the background.</value>
+  </data>
+  <data name="MainWindows_VantageRunning" xml:space="preserve">
+    <value>Lenovo Vantage and/or ImController is running in the background.</value>
+  </data>
+  <data name="MainWindow_CheckForUpdates_Error_ReachedRateLimit_Message" xml:space="preserve">
+    <value>API rate limit reached, please try again later.</value>
+  </data>
+  <data name="MainWindow_CheckForUpdates_Error_Title" xml:space="preserve">
+    <value>Failed to check for updates</value>
+  </data>
+  <data name="MainWindow_CheckForUpdates_Error_Unknown_Message" xml:space="preserve">
+    <value>Something went wrong, please try again later.</value>
+  </data>
+  <data name="MainWindow_CheckForUpdates_Success_Title" xml:space="preserve">
+    <value>No updates found</value>
+  </data>
+  <data name="MainWindow_LegionSpaceRunning" xml:space="preserve">
+    <value>Legion Space is running in the background.</value>
+  </data>
+  <data name="MainWindow_LegionZoneRunning" xml:space="preserve">
+    <value>Legion Zone is running in the background.</value>
   </data>
   <data name="MainWindow_NavigationItem_About" xml:space="preserve">
     <value>Par</value>
@@ -781,8 +1510,14 @@ BRĪDINĀJUMS. Ja iebūvētais ekrāns ir izslēgts, šī darbība nedarbosies p
   <data name="MainWindow_NavigationItem_Donate" xml:space="preserve">
     <value>Ziedot</value>
   </data>
+  <data name="MainWindow_NavigationItem_FanCurve" xml:space="preserve">
+    <value>Fan Curve</value>
+  </data>
   <data name="MainWindow_NavigationItem_Keyboard" xml:space="preserve">
     <value>Tastatūra</value>
+  </data>
+  <data name="MainWindow_NavigationItem_Macro" xml:space="preserve">
+    <value>Macro</value>
   </data>
   <data name="MainWindow_NavigationItem_Packages" xml:space="preserve">
     <value>Lejupielādes</value>
@@ -790,11 +1525,35 @@ BRĪDINĀJUMS. Ja iebūvētais ekrāns ir izslēgts, šī darbība nedarbosies p
   <data name="MainWindow_NavigationItem_Settings" xml:space="preserve">
     <value>Iestatījumi</value>
   </data>
+  <data name="MainWindow_PawnIO_Warning_Message" xml:space="preserve">
+    <value>You need install PawnIO first to use the new dashboard!</value>
+  </data>
+  <data name="MainWindow_PawnIO_Warning_Title" xml:space="preserve">
+    <value>Warning</value>
+  </data>
   <data name="MainWindow_UpdateAvailable" xml:space="preserve">
     <value>Pieejams atjauninājums!</value>
   </data>
   <data name="MainWindow_UpdateAvailableWithVersion" xml:space="preserve">
     <value>Pieejams atjauninājums {0}!</value>
+  </data>
+  <data name="MessageBoxHelper_DontShowAgain" xml:space="preserve">
+    <value>Don't show again.</value>
+  </data>
+  <data name="MHz" xml:space="preserve">
+    <value>MHz</value>
+  </data>
+  <data name="MicrophoneAutomationStepControl_Message" xml:space="preserve">
+    <value>Kamēr atspējots, mikrofoni tiks apklusināti.</value>
+  </data>
+  <data name="MicrophoneAutomationStepControl_Title" xml:space="preserve">
+    <value>Mikrofons</value>
+  </data>
+  <data name="MicrophoneControl_Message" xml:space="preserve">
+    <value>Kamēr atspējots, mikrofoni tiks apklusināti.</value>
+  </data>
+  <data name="MicrophoneControl_Title" xml:space="preserve">
+    <value>Mikrofons</value>
   </data>
   <data name="MoveDown" xml:space="preserve">
     <value>Pārvietoties uz leju</value>
@@ -802,8 +1561,92 @@ BRĪDINĀJUMS. Ja iebūvētais ekrāns ir izslēgts, šī darbība nedarbosies p
   <data name="MoveUp" xml:space="preserve">
     <value>Pārvietoties uz augšu</value>
   </data>
+  <data name="MultipleTriggersAutomationPipelineTrigger_DisplayName" xml:space="preserve">
+    <value>Vairāki trigeri...</value>
+    <comment>Allows the user to merge multiple triggers for the execution of selected actions.</comment>
+  </data>
+  <data name="MultipleTriggersAutomationPipelineTrigger_Logic_And" xml:space="preserve">
+    <value>Match All (And)</value>
+  </data>
+  <data name="MultipleTriggersAutomationPipelineTrigger_Logic_Or" xml:space="preserve">
+    <value>Match Any (Or)</value>
+  </data>
+  <data name="MultipleTriggersAutomationPipelineTrigger_Logic_Title" xml:space="preserve">
+    <value>Logic</value>
+  </data>
   <data name="No" xml:space="preserve">
     <value>Nē</value>
+  </data>
+  <data name="NotificationAutomationStepControl_NotificationText" xml:space="preserve">
+    <value>Paziņojuma Teksts</value>
+  </data>
+  <data name="NotificationAutomationStepControl_Title" xml:space="preserve">
+    <value>Rādīt paziņojumu</value>
+  </data>
+  <data name="NotificationsSettingsWindow_ACAdapter" xml:space="preserve">
+    <value>Maiņstrāvas Adapteris</value>
+  </data>
+  <data name="NotificationsSettingsWindow_Automation" xml:space="preserve">
+    <value>Darbības</value>
+  </data>
+  <data name="NotificationsSettingsWindow_Camera" xml:space="preserve">
+    <value>Kamera</value>
+  </data>
+  <data name="NotificationsSettingsWindow_CapsAndNumLock" xml:space="preserve">
+    <value>Burtslēgs un Num Bloķēšana</value>
+  </data>
+  <data name="NotificationsSettingsWindow_DontShowNotifications_Message" xml:space="preserve">
+    <value>Atspējo paziņojumu par Fn taustiņu darbībām, piemēram, mikrofona izslēgšanu
+Iespējojiet šo opciju, ja rodas konflikti ar pilnekrāna lietojumprogrammām.</value>
+  </data>
+  <data name="NotificationsSettingsWindow_DontShowNotifications_Title" xml:space="preserve">
+    <value>Nerādīt paziņojumus</value>
+  </data>
+  <data name="NotificationsSettingsWindow_FnLock" xml:space="preserve">
+    <value>Fn Bloķēšana</value>
+  </data>
+  <data name="NotificationsSettingsWindow_KeyboardBacklight" xml:space="preserve">
+    <value>Tastatūras Izgaismojums</value>
+  </data>
+  <data name="NotificationsSettingsWindow_Microphone" xml:space="preserve">
+    <value>Mikrofons</value>
+  </data>
+  <data name="NotificationsSettingsWindow_NotificationAlwaysOnTop_Message" xml:space="preserve">
+    <value>Always put notification at the top.
+It won't affect other full screen windows, but you will not be able to click on the notifications.</value>
+  </data>
+  <data name="NotificationsSettingsWindow_NotificationAlwaysOnTop_Title" xml:space="preserve">
+    <value>Notification always on top</value>
+  </data>
+  <data name="NotificationsSettingsWindow_NotificationDuration_Title" xml:space="preserve">
+    <value>Ilgums</value>
+  </data>
+  <data name="NotificationsSettingsWindow_NotificationOnAllScreens_Message" xml:space="preserve">
+    <value>Show notification on all screens connected to your device.</value>
+  </data>
+  <data name="NotificationsSettingsWindow_NotificationOnAllScreens_Title" xml:space="preserve">
+    <value>Notification on all screens</value>
+  </data>
+  <data name="NotificationsSettingsWindow_NotificationPosition_Title" xml:space="preserve">
+    <value>Pozīcija</value>
+  </data>
+  <data name="NotificationsSettingsWindow_PowerMode" xml:space="preserve">
+    <value>Barošanas Režīms</value>
+  </data>
+  <data name="NotificationsSettingsWindow_RefreshRate" xml:space="preserve">
+    <value>Atsvaidzināšanas Ātrums</value>
+  </data>
+  <data name="NotificationsSettingsWindow_SmartKey" xml:space="preserve">
+    <value>Smart Taustiņš</value>
+  </data>
+  <data name="NotificationsSettingsWindow_Title" xml:space="preserve">
+    <value>Paziņojumi</value>
+  </data>
+  <data name="NotificationsSettingsWindow_TouchpadLock" xml:space="preserve">
+    <value>Skārienpaneļa Bloķēšana</value>
+  </data>
+  <data name="NotificationsSettingsWindow_Updates_Title" xml:space="preserve">
+    <value>Atjauninājumi</value>
   </data>
   <data name="Notification_ACAdapterConnected" xml:space="preserve">
     <value>Maiņstrāvas adapteris pievienots</value>
@@ -844,6 +1687,18 @@ BRĪDINĀJUMS. Ja iebūvētais ekrāns ir izslēgts, šī darbība nedarbosies p
   <data name="Notification_NumLockOn" xml:space="preserve">
     <value>Num Bloķēšana ieslēgta</value>
   </data>
+  <data name="Notification_PanelLogoLightingOff" xml:space="preserve">
+    <value>Legion logotips izslēgts</value>
+  </data>
+  <data name="Notification_PanelLogoLightingOn" xml:space="preserve">
+    <value>Legion logotips ieslēgts</value>
+  </data>
+  <data name="Notification_PortLightingOff" xml:space="preserve">
+    <value>Portu izgaismojums izslēgts</value>
+  </data>
+  <data name="Notification_PortLightingOn" xml:space="preserve">
+    <value>Portu izgaismojums ieslēgts</value>
+  </data>
   <data name="Notification_SpectrumKeyboardBacklight_Backlight" xml:space="preserve">
     <value>Izgaismojums {0}</value>
   </data>
@@ -859,57 +1714,55 @@ BRĪDINĀJUMS. Ja iebūvētais ekrāns ir izslēgts, šī darbība nedarbosies p
   <data name="Notification_TouchpadOn" xml:space="preserve">
     <value>Skārienpanelis ieslēgts</value>
   </data>
+  <data name="Notification_UpdateAvailable" xml:space="preserve">
+    <value>Pieejams atjauninājums {0}!</value>
+  </data>
   <data name="Notification_WhiteKeyboardBacklight" xml:space="preserve">
     <value>Izgaismojums {0}</value>
   </data>
-  <data name="NotificationsSettingsWindow_ACAdapter" xml:space="preserve">
-    <value>Maiņstrāvas Adapteris</value>
-  </data>
-  <data name="NotificationsSettingsWindow_Camera" xml:space="preserve">
-    <value>Kamera</value>
-  </data>
-  <data name="NotificationsSettingsWindow_CapsAndNumLock" xml:space="preserve">
-    <value>Burtslēgs un Num Bloķēšana</value>
-  </data>
-  <data name="NotificationsSettingsWindow_DontShowNotifications_Message" xml:space="preserve">
-    <value>Atspējo paziņojumu par Fn taustiņu darbībām, piemēram, mikrofona izslēgšanu
-Iespējojiet šo opciju, ja rodas konflikti ar pilnekrāna lietojumprogrammām.</value>
-  </data>
-  <data name="NotificationsSettingsWindow_DontShowNotifications_Title" xml:space="preserve">
-    <value>Nerādīt paziņojumus</value>
-  </data>
-  <data name="NotificationsSettingsWindow_FnLock" xml:space="preserve">
-    <value>Fn Bloķēšana</value>
-  </data>
-  <data name="NotificationsSettingsWindow_KeyboardBacklight" xml:space="preserve">
-    <value>Tastatūras Izgaismojums</value>
-  </data>
-  <data name="NotificationsSettingsWindow_Microphone" xml:space="preserve">
-    <value>Mikrofons</value>
-  </data>
-  <data name="NotificationsSettingsWindow_NotificationPosition_Title" xml:space="preserve">
-    <value>Pozīcija</value>
-  </data>
-  <data name="NotificationsSettingsWindow_PowerMode" xml:space="preserve">
-    <value>Barošanas Režīms</value>
-  </data>
-  <data name="NotificationsSettingsWindow_RefreshRate" xml:space="preserve">
-    <value>Atsvaidzināšanas Ātrums</value>
-  </data>
-  <data name="NotificationsSettingsWindow_SmartKey" xml:space="preserve">
-    <value>Smart Taustiņš</value>
-  </data>
-  <data name="NotificationsSettingsWindow_Title" xml:space="preserve">
-    <value>Paziņojumi</value>
-  </data>
-  <data name="NotificationsSettingsWindow_TouchpadLock" xml:space="preserve">
-    <value>Skārienpaneļa Bloķēšana</value>
+  <data name="Off" xml:space="preserve">
+    <value>Off</value>
   </data>
   <data name="OK" xml:space="preserve">
     <value>OK</value>
   </data>
+  <data name="OneLevelWhiteKeyboardBacklightAutomationStepControl_Message" xml:space="preserve">
+    <value>Ieslēgt vai izslēgt izgaismojumu.</value>
+  </data>
+  <data name="OneLevelWhiteKeyboardBacklightAutomationStepControl_Title" xml:space="preserve">
+    <value>Tastatūras izgaismojums</value>
+  </data>
+  <data name="OneLevelWhiteKeyboardBacklightControl_Message" xml:space="preserve">
+    <value>Izgaismojumu var ieslēgt vai izslēgt ar Fn+Space.</value>
+  </data>
+  <data name="OneLevelWhiteKeyboardBacklightControl_Title" xml:space="preserve">
+    <value>Tastatūras izgaismojums</value>
+  </data>
   <data name="Open" xml:space="preserve">
     <value>Atvērt</value>
+  </data>
+  <data name="OverclockDiscreteGPUAutomationStepControl_Message" xml:space="preserve">
+    <value>Palieliniet veiktspēju, virstaktējot diskrēto GPU.
+
+BRĪDINĀJUMS. Ja nav pieejams atsevišķs GPU, šī darbība nedarbosies pareizi.</value>
+  </data>
+  <data name="OverclockDiscreteGPUAutomationStepControl_Title" xml:space="preserve">
+    <value>Virstaktēt GPU</value>
+  </data>
+  <data name="OverclockDiscreteGPUControl_Message" xml:space="preserve">
+    <value>Palieliniet veiktspēju, virstaktējot diskrēto GPU.</value>
+  </data>
+  <data name="OverclockDiscreteGPUControl_Title" xml:space="preserve">
+    <value>Virstaktēt GPU</value>
+  </data>
+  <data name="OverclockDiscreteGPUSettingsWindow_CoreFrequencyOffset_Title" xml:space="preserve">
+    <value>Kodola Frekvences Nobīde</value>
+  </data>
+  <data name="OverclockDiscreteGPUSettingsWindow_MemoryFrequencyOffset_Title" xml:space="preserve">
+    <value>Atmiņas Frekvences Nobīde</value>
+  </data>
+  <data name="OverclockDiscreteGPUSettingsWindow_Title" xml:space="preserve">
+    <value>Virstaktēšana GPU Iestatījumi</value>
   </data>
   <data name="OverDriveAutomationStepControl_Message" xml:space="preserve">
     <value>Uzlabojiet iebūvētā ekrāna reakcijas laiku.</value>
@@ -922,6 +1775,9 @@ Iespējojiet šo opciju, ja rodas konflikti ar pilnekrāna lietojumprogrammām.<
   </data>
   <data name="OverDriveControl_Title" xml:space="preserve">
     <value>Over Drive</value>
+  </data>
+  <data name="PackageControl_Download" xml:space="preserve">
+    <value>Download</value>
   </data>
   <data name="PackageControl_DownloadComplete_Message" xml:space="preserve">
     <value>{0} Lejupielādēts!</value>
@@ -950,6 +1806,18 @@ Iespējojiet šo opciju, ja rodas konflikti ar pilnekrāna lietojumprogrammām.<
   <data name="PackageControl_OldPackageWarning" xml:space="preserve">
     <value>Pakotne ir vairāk nekā gadu veca.</value>
   </data>
+  <data name="PackageControl_OpenReadme" xml:space="preserve">
+    <value>Open README</value>
+  </data>
+  <data name="PackageControl_RebootRecommended" xml:space="preserve">
+    <value>Ieteicama restartēšana</value>
+  </data>
+  <data name="PackageControl_RebootRequired" xml:space="preserve">
+    <value>Nepieciešama restartēšana</value>
+  </data>
+  <data name="PackageControl_ShutdownRequired" xml:space="preserve">
+    <value>Nepieciešama izslēgšana</value>
+  </data>
   <data name="PackageControl_Version" xml:space="preserve">
     <value>Versija</value>
   </data>
@@ -969,11 +1837,26 @@ Vienmēr pārliecinieties, vai instalējat pareizas pakotnes.</value>
   <data name="PackagesPage_DownloadInProgress_Title" xml:space="preserve">
     <value>Notiek Lejupielāde</value>
   </data>
-  <data name="Filter" xml:space="preserve">
-    <value>Filtrs...</value>
+  <data name="PackagesPage_DownloadTo" xml:space="preserve">
+    <value>Download folder</value>
+  </data>
+  <data name="PackagesPage_Error_CheckInternet_Message" xml:space="preserve">
+    <value>Check if your internet connection is up and running.</value>
+  </data>
+  <data name="PackagesPage_Error_Title" xml:space="preserve">
+    <value>Something went wrong</value>
   </data>
   <data name="PackagesPage_MachineType" xml:space="preserve">
     <value>Iekārtas Tips</value>
+  </data>
+  <data name="PackagesPage_NoMatchingDownloads" xml:space="preserve">
+    <value>Nav atrastas atbilstošas lejupielādes</value>
+  </data>
+  <data name="PackagesPage_OnlyShowUpdates" xml:space="preserve">
+    <value>Rādīt tikai atjauninājumus</value>
+  </data>
+  <data name="PackagesPage_OpenDownloadTo" xml:space="preserve">
+    <value>Open Download folder</value>
   </data>
   <data name="PackagesPage_OperatingSystem" xml:space="preserve">
     <value>Operētājsistēma</value>
@@ -1005,8 +1888,57 @@ Vienmēr pārliecinieties, vai instalējat pareizas pakotnes.</value>
   <data name="PackagesPage_Title" xml:space="preserve">
     <value>Lejupielādes</value>
   </data>
+  <data name="PackagesPage_UpdateCatalogNotFound_Message" xml:space="preserve">
+    <value>Try getting updates from the other source.</value>
+  </data>
+  <data name="PackagesPage_UpdateCatalogNotFound_Title" xml:space="preserve">
+    <value>Update catalog not found</value>
+  </data>
+  <data name="PanelLogoBacklightAutomationStepControl_Message" xml:space="preserve">
+    <value>Ieslēgt vai izslēgt klēpjdatora vāka izgaismojumu.</value>
+  </data>
+  <data name="PanelLogoBacklightAutomationStepControl_Title" xml:space="preserve">
+    <value>Paneļa logotipa izgaismojums</value>
+  </data>
+  <data name="PanelLogoBacklightControl_Message" xml:space="preserve">
+    <value>Ieslēgt vai izslēgt klēpjdatora vāka izgaismojumu.</value>
+  </data>
+  <data name="PanelLogoBacklightControl_Title" xml:space="preserve">
+    <value>Paneļa logotipa izgaismojums</value>
+  </data>
   <data name="Paste" xml:space="preserve">
     <value>Ielīmēt</value>
+  </data>
+  <data name="PeriodicActionPipelineTriggerTabItemContent_Minutes" xml:space="preserve">
+    <value>Minutes</value>
+  </data>
+  <data name="PeriodicActionPipelineTriggerTabItemContent_Period" xml:space="preserve">
+    <value>Period (minutes)</value>
+    <comment>A prompt that is used both to ask the user to input an integer, representing the number of minutes between two periodic actions are triggered, and to inform the user what have they set once they are done configuring the action.</comment>
+  </data>
+  <data name="PeriodicActionPipelineTriggerTabItemContent_Seconds" xml:space="preserve">
+    <value>Seconds</value>
+  </data>
+  <data name="PlaySoundAutomationStepControl_Message" xml:space="preserve">
+    <value>Common music formats like wav or mp3 are supported.</value>
+  </data>
+  <data name="PlaySoundAutomationStepControl_Title" xml:space="preserve">
+    <value>Play sound</value>
+  </data>
+  <data name="PortsBacklightAutomationStepControl_Message" xml:space="preserve">
+    <value>Ieslēdziet vai izslēdziet klēpjdatora aizmugurē esošo portu izgaismojumu.</value>
+  </data>
+  <data name="PortsBacklightAutomationStepControl_Title" xml:space="preserve">
+    <value>Portu izgaismojums</value>
+  </data>
+  <data name="PortsBacklightControl_Message" xml:space="preserve">
+    <value>Ieslēdziet vai izslēdziet klēpjdatora aizmugurē esošo portu izgaismojumu.</value>
+  </data>
+  <data name="PortsBacklightControl_Title" xml:space="preserve">
+    <value>Portu izgaismojums</value>
+  </data>
+  <data name="PoweredOff" xml:space="preserve">
+    <value>Izslēgts</value>
   </data>
   <data name="PowerModeAutomationStepControl_Message" xml:space="preserve">
     <value>Izvēlēties veiktspējas režīmu.</value>
@@ -1027,11 +1959,85 @@ Jūs varat režīmus mainīt ar Fn+Q.</value>
   <data name="PowerModeControl_Warning" xml:space="preserve">
     <value>Izvēlētais barošanas režīms var nedarboties pareizi, ja nav pievienots maiņstrāvas adapteris.</value>
   </data>
-  <data name="WindowsPowerPlansWindow_DefaultPowerPlan" xml:space="preserve">
-    <value>Default</value>
+  <data name="PowerModeUnavailableWithoutACException_Message" xml:space="preserve">
+    <value>{0} jaudas režīms nav pieejams bez maiņstrāvas pieslēguma.</value>
+    <comment>For example: "{Performance} power mode is not available without AC power."</comment>
   </data>
-  <data name="WindowsPowerPlansWindow_Title" xml:space="preserve">
-    <value>Windows Power Plans</value>
+  <data name="PowerModeUnavailableWithoutACException_Title" xml:space="preserve">
+    <value>Nevarēja nomainīt Jaudas Režīmu</value>
+  </data>
+  <data name="PowerPlansWindow_AoAcWarning_Message" xml:space="preserve">
+    <value>Windows ziņo, ka šī ierīce atbalsta Moderno Gaidstāvi. Enerģijas plānu izmantošana, kas nav Līdzsvarots, var izraisīt negaidītu rīcību.</value>
+  </data>
+  <data name="PowerPlansWindow_AoAcWarning_Title" xml:space="preserve">
+    <value>Konstatēts S0 Mazjaudas Modelis</value>
+  </data>
+  <data name="QuickActionAutomationStepControl_Message" xml:space="preserve">
+    <value>Run a saved quick action.</value>
+  </data>
+  <data name="QuickActionAutomationStepControl_Title" xml:space="preserve">
+    <value>Quick Action</value>
+  </data>
+  <data name="ReadmeWindow_Title" xml:space="preserve">
+    <value>LasiMani</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Atsvaidzināt</value>
+  </data>
+  <data name="RefreshRateAutomationStepControl_Message" xml:space="preserve">
+    <value>Mainiet iebūvētā ekrāna atsvaidzināšanas ātrumu.
+
+BRĪDINĀJUMS. Ja iebūvētais ekrāns ir izslēgts, šī darbība nedarbosies pareizi.</value>
+  </data>
+  <data name="RefreshRateAutomationStepControl_Title" xml:space="preserve">
+    <value>Atsvaidzināšanas ātrums</value>
+  </data>
+  <data name="RefreshRateControl_Message" xml:space="preserve">
+    <value>Mainiet iebūvētā ekrāna atsvaidzināšanas ātrumu.</value>
+  </data>
+  <data name="RefreshRateControl_Title" xml:space="preserve">
+    <value>Atsvaidzināšanas ātrums</value>
+  </data>
+  <data name="Rename" xml:space="preserve">
+    <value>Pārdēvēt</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="ResolutionAutomationStepControl_Message" xml:space="preserve">
+    <value>Mainiet iebūvētā ekrāna izšķirtspēju.
+
+BRĪDINĀJUMS. Ja iebūvētais ekrāns ir izslēgts, šī darbība nedarbosies pareizi.</value>
+  </data>
+  <data name="ResolutionAutomationStepControl_Title" xml:space="preserve">
+    <value>Izšķirtspēja</value>
+  </data>
+  <data name="ResolutionControl_Message" xml:space="preserve">
+    <value>Mainiet iebūvētā ekrāna izšķirtspēju.</value>
+  </data>
+  <data name="ResolutionControl_Title" xml:space="preserve">
+    <value>Izšķirtspēja</value>
+  </data>
+  <data name="RestartLater" xml:space="preserve">
+    <value>Es pats restartēšu vēlāk</value>
+  </data>
+  <data name="RestartNow" xml:space="preserve">
+    <value>Restartēt tagad</value>
+  </data>
+  <data name="RestartRequired_Message" xml:space="preserve">
+    <value>Changing this requires restart. Do you want to restart now?</value>
+  </data>
+  <data name="RestartRequired_Title" xml:space="preserve">
+    <value>Restart required</value>
+  </data>
+  <data name="RestoreDefaults" xml:space="preserve">
+    <value>Restore Defaults</value>
+  </data>
+  <data name="Revert" xml:space="preserve">
+    <value>Atgriezt</value>
+  </data>
+  <data name="RevertToDefault" xml:space="preserve">
+    <value>Atgriezt uz noklusējumu</value>
   </data>
   <data name="RGBKeyboardBacklightAutomationStepControl_Message" xml:space="preserve">
     <value>Pielāgojiet tastatūras fona apgaismojuma iestatījumu.</value>
@@ -1075,37 +2081,8 @@ Jūs varat režīmus mainīt ar Fn+Q.</value>
   <data name="RGBKeyboardBacklightSpeedCardControl_Title" xml:space="preserve">
     <value>Ātrums</value>
   </data>
-  <data name="ReadmeWindow_Title" xml:space="preserve">
-    <value>LasiMani</value>
-  </data>
-  <data name="Refresh" xml:space="preserve">
-    <value>Atsvaidzināt</value>
-  </data>
-  <data name="RefreshRateAutomationStepControl_Message" xml:space="preserve">
-    <value>Mainiet iebūvētā ekrāna atsvaidzināšanas ātrumu.
-
-BRĪDINĀJUMS. Ja iebūvētais ekrāns ir izslēgts, šī darbība nedarbosies pareizi.</value>
-  </data>
-  <data name="RefreshRateAutomationStepControl_Title" xml:space="preserve">
-    <value>Atsvaidzināšanas ātrums</value>
-  </data>
-  <data name="RefreshRateControl_Message" xml:space="preserve">
-    <value>Mainiet iebūvētā ekrāna atsvaidzināšanas ātrumu.</value>
-  </data>
-  <data name="RefreshRateControl_Title" xml:space="preserve">
-    <value>Atsvaidzināšanas ātrums</value>
-  </data>
-  <data name="Rename" xml:space="preserve">
-    <value>Pārdēvēt</value>
-  </data>
-  <data name="RestartLater" xml:space="preserve">
-    <value>Es pats restartēšu vēlāk</value>
-  </data>
-  <data name="RestartNow" xml:space="preserve">
-    <value>Restartēt tagad</value>
-  </data>
-  <data name="Revert" xml:space="preserve">
-    <value>Atgriezt</value>
+  <data name="RPM" xml:space="preserve">
+    <value>Apgr/min</value>
   </data>
   <data name="RunAutomationStepControl_ExeArguments" xml:space="preserve">
     <value>Argumenti</value>
@@ -1117,14 +2094,38 @@ BRĪDINĀJUMS. Ja iebūvētais ekrāns ir izslēgts, šī darbība nedarbosies p
     <value>Palaidiet skriptu vai programmu.
 Vispirms pārliecinieties, vai skripts darbojas pareizi.</value>
   </data>
+  <data name="RunAutomationStepControl_ProcessCheckInstance" xml:space="preserve">
+    <value>Check Instance</value>
+  </data>
+  <data name="RunAutomationStepControl_ProcessCheckInstance_Description" xml:space="preserve">
+    <value>Check if process already started.</value>
+  </data>
+  <data name="RunAutomationStepControl_ProcessRunSilently" xml:space="preserve">
+    <value>Run silently</value>
+  </data>
+  <data name="RunAutomationStepControl_ProcessRunSilently_Description" xml:space="preserve">
+    <value>Execute console applications, without creating a console window.</value>
+  </data>
+  <data name="RunAutomationStepControl_ProcessWaitUntilFinished" xml:space="preserve">
+    <value>Wait until finished</value>
+  </data>
+  <data name="RunAutomationStepControl_ProcessWaitUntilFinished_Description" xml:space="preserve">
+    <value>Wait until program or script finishes executing</value>
+  </data>
   <data name="RunAutomationStepControl_Title" xml:space="preserve">
     <value>Palaist</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Saglabāt</value>
   </data>
+  <data name="SaveAndClose" xml:space="preserve">
+    <value>Saglabāt &amp; Aizvērt</value>
+  </data>
   <data name="Saving" xml:space="preserve">
     <value>Saglabā...</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Select all</value>
   </data>
   <data name="SelectSmartKeyPipelinesWindow_List_Description" xml:space="preserve">
     <value>Izvēlieties vienu vai vairākas ātrās darbības, pa kurām pārvietoties</value>
@@ -1134,6 +2135,159 @@ Vispirms pārliecinieties, vai skripts darbojas pareizi.</value>
   </data>
   <data name="SelectSmartKeyPipelinesWindow_ShowThisApp" xml:space="preserve">
     <value>Parādīt šo aplikāciju</value>
+  </data>
+  <data name="SensorItem_BatteryLevel" xml:space="preserve">
+    <value>Battery Level</value>
+  </data>
+  <data name="SensorItem_BatteryState" xml:space="preserve">
+    <value>Battery State</value>
+  </data>
+  <data name="SensorItem_CpuFanSpeed" xml:space="preserve">
+    <value>CPU Fan Speed</value>
+  </data>
+  <data name="SensorItem_CpuFrequency" xml:space="preserve">
+    <value>CPU Frequency</value>
+  </data>
+  <data name="SensorItem_CpuPower" xml:space="preserve">
+    <value>CPU Power</value>
+  </data>
+  <data name="SensorItem_CpuTemperature" xml:space="preserve">
+    <value>CPU Temperature</value>
+  </data>
+  <data name="SensorItem_CpuUtilitzation" xml:space="preserve">
+    <value>CPU Utilitazion</value>
+  </data>
+  <data name="SensorItem_Disk1Temperature" xml:space="preserve">
+    <value>Disk 1 Temperature</value>
+  </data>
+  <data name="SensorItem_Disk2Temperature" xml:space="preserve">
+    <value>Disk 2 Temperature</value>
+  </data>
+  <data name="SensorItem_GpuFanSpeed" xml:space="preserve">
+    <value>GPU Fan Speed</value>
+  </data>
+  <data name="SensorItem_GpuFrequency" xml:space="preserve">
+    <value>GPU Frequency</value>
+  </data>
+  <data name="SensorItem_GpuTemperatures" xml:space="preserve">
+    <value>GPU Temperature</value>
+  </data>
+  <data name="SensorItem_GpuUtilization" xml:space="preserve">
+    <value>GPU Utilization</value>
+  </data>
+  <data name="SensorItem_MemoryTemperature" xml:space="preserve">
+    <value>Memory Temperature</value>
+  </data>
+  <data name="SensorItem_MemoryUtilization" xml:space="preserve">
+    <value>Memory Utilization</value>
+  </data>
+  <data name="SensorItem_PchFanSpeed" xml:space="preserve">
+    <value>PCH Fan Speed</value>
+  </data>
+  <data name="SensorItem_PchTemperature" xml:space="preserve">
+    <value>PCH Temperature</value>
+  </data>
+  <data name="SensorsControl_BatteryLevel_Title" xml:space="preserve">
+    <value>Battery Level</value>
+  </data>
+  <data name="SensorsControl_Battery_Title" xml:space="preserve">
+    <value>Battery</value>
+  </data>
+  <data name="SensorsControl_CoreClock_Title" xml:space="preserve">
+    <value>Kodola Takts Ātrums</value>
+  </data>
+  <data name="SensorsControl_CPU_Power" xml:space="preserve">
+    <value>Power</value>
+  </data>
+  <data name="SensorsControl_CPU_Title" xml:space="preserve">
+    <value>CPU</value>
+  </data>
+  <data name="SensorsControl_Disk_1_Temperature" xml:space="preserve">
+    <value>Disk 1 Temperature</value>
+  </data>
+  <data name="SensorsControl_Disk_2_Temperature" xml:space="preserve">
+    <value>Disk 2 Temperature</value>
+  </data>
+  <data name="SensorsControl_Disk_Title" xml:space="preserve">
+    <value>Disk</value>
+  </data>
+  <data name="SensorsControl_Fan_Title" xml:space="preserve">
+    <value>Ventilators</value>
+  </data>
+  <data name="SensorsControl_GpuCore_Title" xml:space="preserve">
+    <value>Core</value>
+  </data>
+  <data name="SensorsControl_GpuMemoryTemperature_Title" xml:space="preserve">
+    <value>Vram</value>
+  </data>
+  <data name="SensorsControl_GPU_Power" xml:space="preserve">
+    <value>Power</value>
+  </data>
+  <data name="SensorsControl_GPU_Title" xml:space="preserve">
+    <value>GPU</value>
+  </data>
+  <data name="SensorsControl_Maximum" xml:space="preserve">
+    <value>Maksimums: {0}</value>
+  </data>
+  <data name="SensorsControl_MemoryClock_Title" xml:space="preserve">
+    <value>Atmiņas Takts Ātrums</value>
+  </data>
+  <data name="SensorsControl_Memory_Title" xml:space="preserve">
+    <value>Memory</value>
+  </data>
+  <data name="SensorsControl_Motherboard_Temperature" xml:space="preserve">
+    <value>Board Temperature</value>
+  </data>
+  <data name="SensorsControl_Motherboard_Title" xml:space="preserve">
+    <value>Motherboard</value>
+  </data>
+  <data name="SensorsControl_PchTemperature_Title" xml:space="preserve">
+    <value>PCH Temperature</value>
+  </data>
+  <data name="SensorsControl_RefreshInterval" xml:space="preserve">
+    <value>Atjaunošanas intervāls</value>
+  </data>
+  <data name="SensorsControl_State_Title" xml:space="preserve">
+    <value>State</value>
+  </data>
+  <data name="SensorsControl_Temperature_Title" xml:space="preserve">
+    <value>Temperatūra</value>
+  </data>
+  <data name="SensorsControl_Utilization_Title" xml:space="preserve">
+    <value>Lietojums</value>
+  </data>
+  <data name="SensorsControl_VrTemperature_Title" xml:space="preserve">
+    <value>VR Temperature</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="SettingsBackupWindow_Backup" xml:space="preserve">
+    <value>Back Up</value>
+  </data>
+  <data name="SettingsBackupWindow_BackupSuccess" xml:space="preserve">
+    <value>Backup completed successfully.</value>
+  </data>
+  <data name="SettingsBackupWindow_NoFilesSelected" xml:space="preserve">
+    <value>No files selected.</value>
+  </data>
+  <data name="SettingsBackupWindow_NoMatchingFiles" xml:space="preserve">
+    <value>No matching files found in selected folder.</value>
+  </data>
+  <data name="SettingsBackupWindow_Restore" xml:space="preserve">
+    <value>Restore</value>
+  </data>
+  <data name="SettingsBackupWindow_RestoreConfirm" xml:space="preserve">
+    <value>Restoring settings will overwrite your current configuration and restart the application. Do you want to continue?</value>
+  </data>
+  <data name="SettingsBackupWindow_RestoreSuccess" xml:space="preserve">
+    <value>Restore completed successfully. The application will restart.</value>
+  </data>
+  <data name="SettingsBackupWindow_SelectAll" xml:space="preserve">
+    <value>Select All</value>
+  </data>
+  <data name="SettingsBackupWindow_Title" xml:space="preserve">
+    <value>Backup Settings</value>
   </data>
   <data name="SettingsPage_AccentColor_Description" xml:space="preserve">
     <value>Nomainīt akcentu krāsu šai aplikācijai.</value>
@@ -1147,6 +2301,91 @@ Vispirms pārliecinieties, vai skripts darbojas pareizi.</value>
   <data name="SettingsPage_Autorun_Title" xml:space="preserve">
     <value>Autopalaišana</value>
   </data>
+  <data name="SettingsPage_BackupSettings_Message" xml:space="preserve">
+    <value>Back up or restore application settings.</value>
+  </data>
+  <data name="SettingsPage_BackupSettings_Title" xml:space="preserve">
+    <value>Back Up Settings</value>
+  </data>
+  <data name="SettingsPage_BootLogo_Message" xml:space="preserve">
+    <value>Rediģēt Sāknēšanās Logo attēlu, kurš redzams ieslēdzot sistēmu.</value>
+  </data>
+  <data name="SettingsPage_BootLogo_Title" xml:space="preserve">
+    <value>Sāknēšanās Logo</value>
+  </data>
+  <data name="SettingsPage_Category_AppBehavior" xml:space="preserve">
+    <value>App Behavior</value>
+  </data>
+  <data name="SettingsPage_Category_Appearance" xml:space="preserve">
+    <value>Appearance</value>
+  </data>
+  <data name="SettingsPage_Category_Display" xml:space="preserve">
+    <value>Display</value>
+  </data>
+  <data name="SettingsPage_Category_Integrations" xml:space="preserve">
+    <value>Integrations</value>
+  </data>
+  <data name="SettingsPage_Category_Power" xml:space="preserve">
+    <value>Power</value>
+  </data>
+  <data name="SettingsPage_Category_SmartKeys" xml:space="preserve">
+    <value>Smart Keys</value>
+  </data>
+  <data name="SettingsPage_Category_SoftwareControl" xml:space="preserve">
+    <value>Software Control</value>
+  </data>
+  <data name="SettingsPage_Category_Updates" xml:space="preserve">
+    <value>Updates</value>
+  </data>
+  <data name="SettingsPage_CheckUpdatesButton_Content" xml:space="preserve">
+    <value>Check</value>
+  </data>
+  <data name="SettingsPage_CheckUpdates_Started_Title" xml:space="preserve">
+    <value>Checking for updates...</value>
+  </data>
+  <data name="SettingsPage_CheckUpdates_Title" xml:space="preserve">
+    <value>Check for updates</value>
+  </data>
+  <data name="SettingsPage_ClearBackgroundImage_Title" xml:space="preserve">
+    <value>Image Cleared</value>
+  </data>
+  <data name="SettingsPage_Clear_BackgroundImage_Message" xml:space="preserve">
+    <value>Clear current selected image file.</value>
+  </data>
+  <data name="SettingsPage_Clear_BackgroundImage_Title" xml:space="preserve">
+    <value>Clear Image</value>
+  </data>
+  <data name="SettingsPage_CLIAddToPath_Message" xml:space="preserve">
+    <value>Add CLI to user's PATH environment variable.</value>
+  </data>
+  <data name="SettingsPage_CLIAddToPath_Title" xml:space="preserve">
+    <value>Add CLI to PATH</value>
+  </data>
+  <data name="SettingsPage_CLI_Message" xml:space="preserve">
+    <value>Enable Command Line Interface that allows control from command line.</value>
+  </data>
+  <data name="SettingsPage_CLI_Title" xml:space="preserve">
+    <value>CLI</value>
+  </data>
+  <data name="SettingsPage_Custom_BackgroundImage_Message" xml:space="preserve">
+    <value>Custom Background Image</value>
+  </data>
+  <data name="SettingsPage_Custom_BackgroundImage_Title" xml:space="preserve">
+    <value>Custom Background Image</value>
+  </data>
+  <data name="SettingsPage_DisableLegionSpace_Error_Message" xml:space="preserve">
+    <value>Legion Space may have not been disabled correctly</value>
+  </data>
+  <data name="SettingsPage_DisableLegionSpace_Error_Title" xml:space="preserve">
+    <value>Couldn't disable Legion Space</value>
+  </data>
+  <data name="SettingsPage_DisableLegionSpace_Message" xml:space="preserve">
+    <value>Atspējojiet Legion Zone un tās pakalpojumu, neatinstalējot to.
+Pēc šīs opcijas maiņas ieteicams restartēt datoru.</value>
+  </data>
+  <data name="SettingsPage_DisableLegionSpace_Title" xml:space="preserve">
+    <value>Disable Legion Space</value>
+  </data>
   <data name="SettingsPage_DisableLegionZone_Error_Message" xml:space="preserve">
     <value>Iespējams, Legion Zone nav pareizi atspējots</value>
   </data>
@@ -1154,10 +2393,6 @@ Vispirms pārliecinieties, vai skripts darbojas pareizi.</value>
     <value>Nevarēja atspējot Legion Zone</value>
   </data>
   <data name="SettingsPage_DisableLegionZone_Message" xml:space="preserve">
-    <value>Atspējojiet Legion Zone un tās pakalpojumu, neatinstalējot to.
-Pēc šīs opcijas maiņas ieteicams restartēt datoru.</value>
-  </data>
-  <data name="SettingsPage_DisableLegionSpace_Message" xml:space="preserve">
     <value>Atspējojiet Legion Zone un tās pakalpojumu, neatinstalējot to.
 Pēc šīs opcijas maiņas ieteicams restartēt datoru.</value>
   </data>
@@ -1191,6 +2426,12 @@ Pēc šīs opcijas maiņas ieteicams restartēt datoru.</value>
   <data name="SettingsPage_DisableVantage_Title" xml:space="preserve">
     <value>Atspējot Lenovo Vantage un ImController</value>
   </data>
+  <data name="SettingsPage_EnableLegionSpace_Error_Message" xml:space="preserve">
+    <value>Legion Space may have not been enabled correctly</value>
+  </data>
+  <data name="SettingsPage_EnableLegionSpace_Error_Title" xml:space="preserve">
+    <value>Couldn't enable Legion Space</value>
+  </data>
   <data name="SettingsPage_EnableLegionZone_Error_Message" xml:space="preserve">
     <value>Iespējams, Legion Zone nav pareizi iespējots</value>
   </data>
@@ -1203,11 +2444,23 @@ Pēc šīs opcijas maiņas ieteicams restartēt datoru.</value>
   <data name="SettingsPage_EnableLenovoHotkeys_Error_Title" xml:space="preserve">
     <value>Nevarēja iespējot Legion Hotkeys</value>
   </data>
+  <data name="SettingsPage_EnableLogging_Message" xml:space="preserve">
+    <value>Enable logging for debug.</value>
+  </data>
+  <data name="SettingsPage_EnableLogging_Title" xml:space="preserve">
+    <value>Enable Logging</value>
+  </data>
   <data name="SettingsPage_EnableVantage_Error_Message" xml:space="preserve">
     <value>Lenovo Iespējams, Vantage un/vai ImController nav pareizi iespējots</value>
   </data>
   <data name="SettingsPage_EnableVantage_Error_Title" xml:space="preserve">
     <value>Nevarēja iespējot Lenovo Vantage un/vai ImController</value>
+  </data>
+  <data name="SettingsPage_ExcludeProcesses_Message" xml:space="preserve">
+    <value>Manage processes that are ignored by Game Detection.</value>
+  </data>
+  <data name="SettingsPage_ExcludeProcesses_Title" xml:space="preserve">
+    <value>Excluded Processes</value>
   </data>
   <data name="SettingsPage_ExcludeRefreshRates_Message" xml:space="preserve">
     <value>Varat izslēgt atsvaidzināšanas ātrumus, lai padarītu Fn+R saīsni noderīgāku.</value>
@@ -1215,11 +2468,35 @@ Pēc šīs opcijas maiņas ieteicams restartēt datoru.</value>
   <data name="SettingsPage_ExcludeRefreshRates_Title" xml:space="preserve">
     <value>Izlaist Atsvaidzināšanas Ātrumus</value>
   </data>
+  <data name="SettingsPage_FloatingGadgets_Message" xml:space="preserve">
+    <value>Floating Gadgets​​ is a floating window that displays real-time sensor information in an overlay style.</value>
+  </data>
+  <data name="SettingsPage_FloatingGadgets_Title" xml:space="preserve">
+    <value>Enable Floating Gadget</value>
+  </data>
+  <data name="SettingsPage_FloatingGadgets_Tooltip" xml:space="preserve">
+    <value>Controls sensor refresh interval.</value>
+  </data>
+  <data name="SettingsPage_HWiNFO_Message" xml:space="preserve">
+    <value>Share fan speed, battery temperature etc. with HWiNFO64. You may need to restart HWiNFO64 after changing this option.</value>
+  </data>
+  <data name="SettingsPage_HWiNFO_Title" xml:space="preserve">
+    <value>HWiNFO64</value>
+  </data>
+  <data name="SettingsPage_Integrations_Title" xml:space="preserve">
+    <value>Integrations</value>
+  </data>
   <data name="SettingsPage_Language_Message" xml:space="preserve">
     <value>Atlasīt valodu.</value>
   </data>
   <data name="SettingsPage_Language_Title" xml:space="preserve">
     <value>Valoda</value>
+  </data>
+  <data name="SettingsPage_LockWindowSize_Message" xml:space="preserve">
+    <value>Lock LLT's window size. To prevent something change it.</value>
+  </data>
+  <data name="SettingsPage_LockWindowSize_Title" xml:space="preserve">
+    <value>Lock Window Size</value>
   </data>
   <data name="SettingsPage_MinimizeOnClose_Message" xml:space="preserve">
     <value>Vienmēr minimizējiet līdz teknei. Aizveriet, ar peles labo klikšķi uz teknes ikonas.</value>
@@ -1227,17 +2504,50 @@ Pēc šīs opcijas maiņas ieteicams restartēt datoru.</value>
   <data name="SettingsPage_MinimizeOnClose_Title" xml:space="preserve">
     <value>Minimizēt pēc aizvēršanas</value>
   </data>
+  <data name="SettingsPage_MinimizeToTray_Message" xml:space="preserve">
+    <value>Always minimize to tray instead of taskbar.</value>
+  </data>
+  <data name="SettingsPage_MinimizeToTray_Title" xml:space="preserve">
+    <value>Minimize to tray</value>
+  </data>
   <data name="SettingsPage_Notifications_Message" xml:space="preserve">
     <value>Uzstādīt kuri paziņojumi tiek parādīti.</value>
   </data>
   <data name="SettingsPage_Notifications_Title" xml:space="preserve">
     <value>Paziņojumi</value>
   </data>
-  <data name="SettingsPage_UpdateChannel_Title" xml:space="preserve">
-    <value>Update Channel</value>
+  <data name="SettingsPage_OnBatterySinceReset_Message" xml:space="preserve">
+    <value>Resets the counter for "On battery since" in the battery section when the system reboots.</value>
   </data>
-  <data name="SettingsPage_WindowsPowerPlans_Title" xml:space="preserve">
-    <value>Barošanas Plāni</value>
+  <data name="SettingsPage_OnBatterySinceReset_Title" xml:space="preserve">
+    <value>Reset "On battery since" at startup</value>
+  </data>
+  <data name="SettingsPage_PowerModeMapping_Message" xml:space="preserve">
+    <value>Automatically change Windows Power Plan or Windows Power Mode when changing Power Modes.</value>
+  </data>
+  <data name="SettingsPage_PowerModeMapping_Title" xml:space="preserve">
+    <value>Power Mode Synchronization</value>
+  </data>
+  <data name="SettingsPage_Power_Title" xml:space="preserve">
+    <value>Jauda</value>
+  </data>
+  <data name="SettingsPage_Select_BackgroundImage_AllFiles" xml:space="preserve">
+    <value>All Files</value>
+  </data>
+  <data name="SettingsPage_Select_BackgroundImage_Content" xml:space="preserve">
+    <value>Select Image</value>
+  </data>
+  <data name="SettingsPage_Select_BackgroundImage_ImageFile" xml:space="preserve">
+    <value>Image File</value>
+  </data>
+  <data name="SettingsPage_Select_BackgroundImage_Title" xml:space="preserve">
+    <value>Select Background Image</value>
+  </data>
+  <data name="SettingsPage_SmartFnLock_Message" xml:space="preserve">
+    <value>Fn Lock will be temporarily disabled when Alt, Ctrl or Shift key is depressed.</value>
+  </data>
+  <data name="SettingsPage_SmartFnLock_Title" xml:space="preserve">
+    <value>Smart Fn Lock</value>
   </data>
   <data name="SettingsPage_SmartKeyDoublePressAction_Message" xml:space="preserve">
     <value>Piešķiriet Ātro Darbību fn + F9 dubultai nospiešanai.</value>
@@ -1251,6 +2561,18 @@ Pēc šīs opcijas maiņas ieteicams restartēt datoru.</value>
   <data name="SettingsPage_SmartKeySinglePressAction_Title" xml:space="preserve">
     <value>Smart Taustiņa Darbība</value>
   </data>
+  <data name="SettingsPage_SynchronizeBrightnessToAllPowerPlans_Message" xml:space="preserve">
+    <value>Kad iespējots, visiem Windows Barošanas Plāniem tiks lietots vienāds spilgtuma līmenis ikreiz, kad to mainīsit.</value>
+  </data>
+  <data name="SettingsPage_SynchronizeBrightnessToAllPowerPlans_Title" xml:space="preserve">
+    <value>Viena Ekrāna Spilgtums</value>
+  </data>
+  <data name="SettingsPage_Temperature_Message" xml:space="preserve">
+    <value>Select units for temperature sensors.</value>
+  </data>
+  <data name="SettingsPage_Temperature_Title" xml:space="preserve">
+    <value>Temperature</value>
+  </data>
   <data name="SettingsPage_Theme_Description" xml:space="preserve">
     <value>Iestatīt gaišo motīvu, tumšo motīvu vai sekot sistēmas iestatījumiem.</value>
   </data>
@@ -1259,6 +2581,64 @@ Pēc šīs opcijas maiņas ieteicams restartēt datoru.</value>
   </data>
   <data name="SettingsPage_Title" xml:space="preserve">
     <value>Iestatījumi</value>
+  </data>
+  <data name="SettingsPage_UpdateChannel_Title" xml:space="preserve">
+    <value>Update Channel</value>
+  </data>
+  <data name="SettingsPage_UpdateCheckFrequency_Title" xml:space="preserve">
+    <value>Automatically check for updates</value>
+  </data>
+  <data name="SettingsPage_UpdateMethod_Title" xml:space="preserve">
+    <value>Update Method</value>
+  </data>
+  <data name="SettingsPage_Update_Title" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="SettingsPage_UseNewDashboard_Restart_Message" xml:space="preserve">
+    <value>Restart to apply changes.</value>
+  </data>
+  <data name="SettingsPage_UseNewDashboard_Switch_Title" xml:space="preserve">
+    <value>Dashboard changed</value>
+  </data>
+  <data name="SettingsPage_UseNewSensorDashboard_Message" xml:space="preserve">
+    <value>Use new sensor dashboard instead of the old one. 
+Note: Using the new sensor dashboard may cause some antivirus programmes to display a warning pop-up. For more information, see: LibreHardwareMonitor/LibreHardwareMonitor#984</value>
+  </data>
+  <data name="SettingsPage_UseNewSensorDashboard_Title" xml:space="preserve">
+    <value>Use New Sensor Dashboard</value>
+  </data>
+  <data name="SettingsPage_WindowsPowerModes_Message" xml:space="preserve">
+    <value>Select Windows Power Mode to apply when Power Mode changes.</value>
+  </data>
+  <data name="SettingsPage_WindowsPowerModes_Title" xml:space="preserve">
+    <value>Windows Power Modes</value>
+  </data>
+  <data name="SettingsPage_WindowsPowerPlansControlPanel_Title" xml:space="preserve">
+    <value>Barošanas Plāna opcijas Windows Vadības Panelī</value>
+  </data>
+  <data name="SettingsPage_WindowsPowerPlans_Message" xml:space="preserve">
+    <value>Atlasiet Windows Barošanas Plānus, kas jālieto, mainot Barošanas Režīmu.</value>
+  </data>
+  <data name="SettingsPage_WindowsPowerPlans_Title" xml:space="preserve">
+    <value>Barošanas Plāni</value>
+  </data>
+  <data name="Settings_GodModeFnQSwitchable_Message" xml:space="preserve">
+    <value>Allow quick switching to Custom Mode with Fn+Q.</value>
+  </data>
+  <data name="Settings_GodModeFnQSwitchable_Title" xml:space="preserve">
+    <value>Switch to Custom Mode with Fn+Q</value>
+  </data>
+  <data name="SpeakerAutomationStepControl_Message" xml:space="preserve">
+    <value>When mute, all active audio output devices will be muted.</value>
+  </data>
+  <data name="SpeakerAutomationStepControl_Title" xml:space="preserve">
+    <value>Speaker</value>
+  </data>
+  <data name="SpeakerVolumeAutomationStepControl_Message" xml:space="preserve">
+    <value>Change the speaker's volume.</value>
+  </data>
+  <data name="SpeakerVolumeAutomationStepControl_Title" xml:space="preserve">
+    <value>Speaker Volume</value>
   </data>
   <data name="SpectrumKeyboardBacklightBrightnessAutomationStepControl_Message" xml:space="preserve">
     <value>Pielāgojiet tastatūras izgaismojuma spožumu.</value>
@@ -1272,11 +2652,11 @@ Pēc šīs opcijas maiņas ieteicams restartēt datoru.</value>
   <data name="SpectrumKeyboardBacklightControl_AddEffect" xml:space="preserve">
     <value>Pievienot efektu</value>
   </data>
-  <data name="SpectrumKeyboardBacklightControl_ApplyProfileError_Title" xml:space="preserve">
-    <value>Neizdevās piemērot profilu</value>
-  </data>
   <data name="SpectrumKeyboardBacklightControl_ApplyProfileError_Message" xml:space="preserve">
     <value>Neizdevās pielāgot izgaismojuma profilu.</value>
+  </data>
+  <data name="SpectrumKeyboardBacklightControl_ApplyProfileError_Title" xml:space="preserve">
+    <value>Neizdevās piemērot profilu</value>
   </data>
   <data name="SpectrumKeyboardBacklightControl_Brightness_Title" xml:space="preserve">
     <value>Spilgtums</value>
@@ -1302,6 +2682,9 @@ Pēc šīs opcijas maiņas ieteicams restartēt datoru.</value>
   <data name="SpectrumKeyboardBacklightControl_NoEffects_Text" xml:space="preserve">
     <value>Netika pievienots neviens efekts.</value>
   </data>
+  <data name="SpectrumKeyboardBacklightControl_Preset" xml:space="preserve">
+    <value>Preset</value>
+  </data>
   <data name="SpectrumKeyboardBacklightControl_ResetToDefault_Tooltip" xml:space="preserve">
     <value>Atgriezt uz noklusējumu</value>
   </data>
@@ -1314,11 +2697,11 @@ Pēc šīs opcijas maiņas ieteicams restartēt datoru.</value>
   <data name="SpectrumKeyboardBacklightEditEffectWindow_ClockwiseDirection_Title" xml:space="preserve">
     <value>Virziens</value>
   </data>
-  <data name="SpectrumKeyboardBacklightEditEffectWindow_Color_Title" xml:space="preserve">
-    <value>Krāsa</value>
-  </data>
   <data name="SpectrumKeyboardBacklightEditEffectWindow_Colors_Title" xml:space="preserve">
     <value>Krāsas</value>
+  </data>
+  <data name="SpectrumKeyboardBacklightEditEffectWindow_Color_Title" xml:space="preserve">
+    <value>Krāsa</value>
   </data>
   <data name="SpectrumKeyboardBacklightEditEffectWindow_Direction_Title" xml:space="preserve">
     <value>Virziens</value>
@@ -1338,6 +2721,33 @@ Pēc šīs opcijas maiņas ieteicams restartēt datoru.</value>
   <data name="SpectrumKeyboardBacklightEditEffectWindow_Title_Edit" xml:space="preserve">
     <value>Rediģēt efektu</value>
   </data>
+  <data name="SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoostSettings_BoostBrightnessFactor" xml:space="preserve">
+    <value>Boost Brightness Factor</value>
+  </data>
+  <data name="SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoostSettings_BoostFloor" xml:space="preserve">
+    <value>Boost Floor</value>
+  </data>
+  <data name="SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoostSettings_BoostTarget" xml:space="preserve">
+    <value>Boost Target</value>
+  </data>
+  <data name="SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoostSettings_Title" xml:space="preserve">
+    <value>Color Boost Settings</value>
+  </data>
+  <data name="SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoostSettings_WhiteThreshold" xml:space="preserve">
+    <value>White Threshold</value>
+  </data>
+  <data name="SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoost_Title" xml:space="preserve">
+    <value>Vantage Color Boost</value>
+  </data>
+  <data name="SpectrumKeyboardBacklightImportProfileAutomationStepControl_Message" xml:space="preserve">
+    <value>Importējiet un lietojiet fona izgaismojuma konfigurāciju pašreizējam profilam.</value>
+  </data>
+  <data name="SpectrumKeyboardBacklightImportProfileAutomationStepControl_Path" xml:space="preserve">
+    <value>Ceļš</value>
+  </data>
+  <data name="SpectrumKeyboardBacklightImportProfileAutomationStepControl_Title" xml:space="preserve">
+    <value>Importēt tastatūras izgaismojuma profilu</value>
+  </data>
   <data name="SpectrumKeyboardBacklightProfileAutomationStepControl_Message" xml:space="preserve">
     <value>Pielāgojiet tastatūras apgaismojuma profilu.</value>
   </data>
@@ -1350,6 +2760,48 @@ Pēc šīs opcijas maiņas ieteicams restartēt datoru.</value>
   <data name="SpectrumKeyboardEffectControl_Description_Zones" xml:space="preserve">
     <value>{0} zonas</value>
   </data>
+  <data name="StatusTrayPopup_Battery" xml:space="preserve">
+    <value>Akumulators</value>
+  </data>
+  <data name="StatusTrayPopup_DischargeRate" xml:space="preserve">
+    <value>Izlādes ātrums</value>
+  </data>
+  <data name="StatusTrayPopup_DiscreteGPU" xml:space="preserve">
+    <value>Diskrētais GPU</value>
+  </data>
+  <data name="StatusTrayPopup_MaxDischargeRate" xml:space="preserve">
+    <value>Max discharge rate</value>
+  </data>
+  <data name="StatusTrayPopup_MinDischargeRate" xml:space="preserve">
+    <value>Min discharge rate</value>
+  </data>
+  <data name="StatusTrayPopup_Mode" xml:space="preserve">
+    <value>Režīms</value>
+  </data>
+  <data name="StatusTrayPopup_PowerMode" xml:space="preserve">
+    <value>Jaudas režīms</value>
+  </data>
+  <data name="StatusTrayPopup_PowerState" xml:space="preserve">
+    <value>Jaudas Stāvoklis</value>
+  </data>
+  <data name="StatusTrayPopup_Preset" xml:space="preserve">
+    <value>Priekšiestatījums</value>
+  </data>
+  <data name="StatusTrayPopup_UpdateAvailable" xml:space="preserve">
+    <value>Pieejams atjauninājums!</value>
+  </data>
+  <data name="StatusWindow_Fan_And_Power" xml:space="preserve">
+    <value>Fan / Power</value>
+  </data>
+  <data name="StatusWindow_Frequency_And_Temperature" xml:space="preserve">
+    <value>Frequency / Temperature</value>
+  </data>
+  <data name="StatusWindow_System_Fan" xml:space="preserve">
+    <value>System Fan</value>
+  </data>
+  <data name="SymbolRegularPicker_Title" xml:space="preserve">
+    <value>Atlasīt ikonu</value>
+  </data>
   <data name="TimeAutomationPipelineTriggerTabItemContent_Sunrise" xml:space="preserve">
     <value>Saullēkts</value>
   </data>
@@ -1358,6 +2810,13 @@ Pēc šīs opcijas maiņas ieteicams restartēt datoru.</value>
   </data>
   <data name="TimeAutomationPipelineTriggerTabItemContent_Time" xml:space="preserve">
     <value>Laiks</value>
+  </data>
+  <data name="ToggleHybridModeAutomationStepControl_Message" xml:space="preserve">
+    <value>Atļaut pārslēgšanos starp integrēto un diskrēto GPU.
+Nepieciešama restartēšana.</value>
+  </data>
+  <data name="ToggleHybridModeAutomationStepControl_Title" xml:space="preserve">
+    <value>Hibrīda Režīms</value>
   </data>
   <data name="ToggleHybridModeControl_Message" xml:space="preserve">
     <value>Atļaut pārslēgties starp integrētu un atsevišķu GPU.
@@ -1386,6 +2845,28 @@ Nepieciešama restartēšana.</value>
   </data>
   <data name="TryAgain" xml:space="preserve">
     <value>Mēģiniet vēlreiz</value>
+  </data>
+  <data name="TurnOffMonitorsAutomationStepControl_Message" xml:space="preserve">
+    <value>Izslēgt visus pieejamos ekrānus.</value>
+  </data>
+  <data name="TurnOffMonitorsAutomationStepControl_Title" xml:space="preserve">
+    <value>Izslēgt ekrānus</value>
+  </data>
+  <data name="TurnOffMonitorsControl_Message" xml:space="preserve">
+    <value>Izslēdziet visus pieejamos ekrānus.
+Peles pārvietošana vai tastatūras nospiešana pamodinās ekrānus.</value>
+  </data>
+  <data name="TurnOffMonitorsControl_Title" xml:space="preserve">
+    <value>Izslēgt ekrānus</value>
+  </data>
+  <data name="TurnOffMonitorsControl_TurnOff" xml:space="preserve">
+    <value>Izslēgt</value>
+  </data>
+  <data name="TurnOffWiFiAutomationStepControl_Title" xml:space="preserve">
+    <value>Turn off Wi-Fi</value>
+  </data>
+  <data name="TurnOnWiFiAutomationStepControl_Title" xml:space="preserve">
+    <value>Turn on Wi-Fi</value>
   </data>
   <data name="UnexpectedException" xml:space="preserve">
     <value>Unexpected exception occurred:
@@ -1429,6 +2910,9 @@ Ja izvēlaties turpināt, reģistrēšana tiks iespējota automātiski.</value>
   <data name="UpdateWindow_WhatsNew" xml:space="preserve">
     <value>Kas jauns?</value>
   </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
   <data name="WhiteKeyboardBacklightAutomationStepControl_Message" xml:space="preserve">
     <value>Pielāgojiet tastatūras izgaismojuma spožumu.</value>
   </data>
@@ -1440,6 +2924,24 @@ Ja izvēlaties turpināt, reģistrēšana tiks iespējota automātiski.</value>
   </data>
   <data name="WhiteKeyboardBacklightControl_Title" xml:space="preserve">
     <value>Tastatūras izgaismojums</value>
+  </data>
+  <data name="WiFiConnectedPipelineTriggerTabItemContent_CopyCurrentNetworkName" xml:space="preserve">
+    <value>Copy current network name</value>
+  </data>
+  <data name="WiFiConnectedPipelineTriggerTabItemContent_LeaveEmptyForAnyNetwork" xml:space="preserve">
+    <value>Leave empty for any Wi-Fi network.</value>
+  </data>
+  <data name="WiFiConnectedPipelineTriggerTabItemContent_NetworkName" xml:space="preserve">
+    <value>Network name (SSID)</value>
+  </data>
+  <data name="WindowsPowerModesWindow_Title" xml:space="preserve">
+    <value>Windows Power Modes</value>
+  </data>
+  <data name="WindowsPowerPlansWindow_DefaultPowerPlan" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="WindowsPowerPlansWindow_Title" xml:space="preserve">
+    <value>Windows Power Plans</value>
   </data>
   <data name="WinKeyAutomationStepControl_Message" xml:space="preserve">
     <value>Disable Windows key on built-in keyboard.</value>
@@ -1455,1507 +2957,5 @@ Ja izvēlaties turpināt, reģistrēšana tiks iespējota automātiski.</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Jā</value>
-  </data>
-  <data name="MicrophoneControl_Title" xml:space="preserve">
-    <value>Mikrofons</value>
-  </data>
-  <data name="MicrophoneControl_Message" xml:space="preserve">
-    <value>Kamēr atspējots, mikrofoni tiks apklusināti.</value>
-  </data>
-  <data name="MicrophoneAutomationStepControl_Title" xml:space="preserve">
-    <value>Mikrofons</value>
-  </data>
-  <data name="MicrophoneAutomationStepControl_Message" xml:space="preserve">
-    <value>Kamēr atspējots, mikrofoni tiks apklusināti.</value>
-  </data>
-  <data name="ResolutionControl_Title" xml:space="preserve">
-    <value>Izšķirtspēja</value>
-  </data>
-  <data name="ResolutionControl_Message" xml:space="preserve">
-    <value>Mainiet iebūvētā ekrāna izšķirtspēju.</value>
-  </data>
-  <data name="ResolutionAutomationStepControl_Title" xml:space="preserve">
-    <value>Izšķirtspēja</value>
-  </data>
-  <data name="ResolutionAutomationStepControl_Message" xml:space="preserve">
-    <value>Mainiet iebūvētā ekrāna izšķirtspēju.
-
-BRĪDINĀJUMS. Ja iebūvētais ekrāns ir izslēgts, šī darbība nedarbosies pareizi.</value>
-  </data>
-  <data name="DpiScaleControl_Title" xml:space="preserve">
-    <value>DPI</value>
-  </data>
-  <data name="DpiScaleControl_Message" xml:space="preserve">
-    <value>Mainiet iebūvētā ekrāna mērogu.</value>
-  </data>
-  <data name="DpiScaleAutomationStepControl_Title" xml:space="preserve">
-    <value>DPI</value>
-  </data>
-  <data name="DpiScaleAutomationStepControl_Message" xml:space="preserve">
-    <value>Mainiet iebūvētā ekrāna mērogošanu.
-
-BRĪDINĀJUMS. Ja iebūvētais ekrāns ir izslēgts, šī darbība nedarbosies pareizi.</value>
-  </data>
-  <data name="DashboardPage_Display_Title" xml:space="preserve">
-    <value>Ekrāns</value>
-  </data>
-  <data name="OneLevelWhiteKeyboardBacklightControl_Title" xml:space="preserve">
-    <value>Tastatūras izgaismojums</value>
-  </data>
-  <data name="OneLevelWhiteKeyboardBacklightControl_Message" xml:space="preserve">
-    <value>Izgaismojumu var ieslēgt vai izslēgt ar Fn+Space.</value>
-  </data>
-  <data name="OneLevelWhiteKeyboardBacklightAutomationStepControl_Title" xml:space="preserve">
-    <value>Tastatūras izgaismojums</value>
-  </data>
-  <data name="OneLevelWhiteKeyboardBacklightAutomationStepControl_Message" xml:space="preserve">
-    <value>Ieslēgt vai izslēgt izgaismojumu.</value>
-  </data>
-  <data name="PackagesPage_NoMatchingDownloads" xml:space="preserve">
-    <value>Nav atrastas atbilstošas lejupielādes</value>
-  </data>
-  <data name="PackagesPage_OnlyShowUpdates" xml:space="preserve">
-    <value>Rādīt tikai atjauninājumus</value>
-  </data>
-  <data name="EditDashboardWindow_Title" xml:space="preserve">
-    <value>Rediģēt Informācijas Paneli</value>
-  </data>
-  <data name="Load" xml:space="preserve">
-    <value>Ielādēt</value>
-  </data>
-  <data name="EditDashboardWindow_CreateGroup_Title" xml:space="preserve">
-    <value>Izveidot grupu</value>
-  </data>
-  <data name="EditDashboardWindow_CreateGroup_Message" xml:space="preserve">
-    <value>Nosaukums</value>
-  </data>
-  <data name="EditDashboardWindow_Disclaimer_Message" xml:space="preserve">
-    <value>Dažas funkcijas informācijas panelī var neparādīties atkarībā no ierīces stāvokļa un konfigurācijas.</value>
-  </data>
-  <data name="DashboardPage_Customize" xml:space="preserve">
-    <value>Pielāgot</value>
-  </data>
-  <data name="TurnOffMonitorsControl_Title" xml:space="preserve">
-    <value>Izslēgt ekrānus</value>
-  </data>
-  <data name="TurnOffMonitorsControl_Message" xml:space="preserve">
-    <value>Izslēdziet visus pieejamos ekrānus.
-Peles pārvietošana vai tastatūras nospiešana pamodinās ekrānus.</value>
-  </data>
-  <data name="TurnOffMonitorsControl_TurnOff" xml:space="preserve">
-    <value>Izslēgt</value>
-  </data>
-  <data name="TurnOffMonitorsAutomationStepControl_Title" xml:space="preserve">
-    <value>Izslēgt ekrānus</value>
-  </data>
-  <data name="TurnOffMonitorsAutomationStepControl_Message" xml:space="preserve">
-    <value>Izslēgt visus pieejamos ekrānus.</value>
-  </data>
-  <data name="EditDashboardGroupControl_EditGroup_Title" xml:space="preserve">
-    <value>Rediģēt grupas nosaukumu</value>
-  </data>
-  <data name="EditDashboardGroupControl_EditGroup_Message" xml:space="preserve">
-    <value>Nosaukums</value>
-  </data>
-  <data name="Notification_PanelLogoLightingOn" xml:space="preserve">
-    <value>Legion logotips ieslēgts</value>
-  </data>
-  <data name="Notification_PanelLogoLightingOff" xml:space="preserve">
-    <value>Legion logotips izslēgts</value>
-  </data>
-  <data name="Notification_PortLightingOn" xml:space="preserve">
-    <value>Portu izgaismojums ieslēgts</value>
-  </data>
-  <data name="Notification_PortLightingOff" xml:space="preserve">
-    <value>Portu izgaismojums izslēgts</value>
-  </data>
-  <data name="PackageControl_RebootRequired" xml:space="preserve">
-    <value>Nepieciešama restartēšana</value>
-  </data>
-  <data name="PackageControl_ShutdownRequired" xml:space="preserve">
-    <value>Nepieciešama izslēgšana</value>
-  </data>
-  <data name="PackageControl_RebootRecommended" xml:space="preserve">
-    <value>Ieteicama restartēšana</value>
-  </data>
-  <data name="SaveAndClose" xml:space="preserve">
-    <value>Saglabāt &amp; Aizvērt</value>
-  </data>
-  <data name="GodModePresetAutomationStepControl_Title" xml:space="preserve">
-    <value>Pielāgotā režīma priekšiestatījums</value>
-  </data>
-  <data name="GodModePresetAutomationStepControl_Message" xml:space="preserve">
-    <value>Aktivizējiet Pielāgotā Režīma priekšiestatījumu.
-Šie iestatījumi stājas spēkā tikai tad, ja ir iespējots pielāgotais režīms.</value>
-  </data>
-  <data name="GodModeSettingsWindow_EditPreset_Title" xml:space="preserve">
-    <value>Pirmsiestatītais nosaukums</value>
-  </data>
-  <data name="GodModeSettingsWindow_EditPreset_Message" xml:space="preserve">
-    <value>Nosaukums</value>
-  </data>
-  <data name="GodModeSettingsWindow_ActivePreset_Title" xml:space="preserve">
-    <value>Aktīvais priekšiestatījums</value>
-  </data>
-  <data name="AboutPage_ApplicationFolders" xml:space="preserve">
-    <value>Aplikāciju Folderi</value>
-  </data>
-  <data name="AboutPage_Data" xml:space="preserve">
-    <value>Dati</value>
-  </data>
-  <data name="AboutPage_Temp" xml:space="preserve">
-    <value>Īslaicīgs</value>
-  </data>
-  <data name="SettingsPage_SynchronizeBrightnessToAllPowerPlans_Title" xml:space="preserve">
-    <value>Viena Ekrāna Spilgtums</value>
-  </data>
-  <data name="SettingsPage_SynchronizeBrightnessToAllPowerPlans_Message" xml:space="preserve">
-    <value>Kad iespējots, visiem Windows Barošanas Plāniem tiks lietots vienāds spilgtuma līmenis ikreiz, kad to mainīsit.</value>
-  </data>
-  <data name="Notification_UpdateAvailable" xml:space="preserve">
-    <value>Pieejams atjauninājums {0}!</value>
-  </data>
-  <data name="GodModeSettingsWindow_CPU_PeakPL" xml:space="preserve">
-    <value>Maksimālā Jaudas Robeža</value>
-  </data>
-  <data name="GodModeSettingsWindow_CPU_APUsPPT_PL" xml:space="preserve">
-    <value>APU sPPT Jaudas Ierobežojums</value>
-  </data>
-  <data name="GodModeSettingsWindow_CPU_LongTermPL_Description" xml:space="preserve">
-    <value>Nepārtrauktais enerģijas patēriņš, ko var sasniegt CPU.</value>
-  </data>
-  <data name="GodModeSettingsWindow_CPU_ShortTermPL_Description" xml:space="preserve">
-    <value>Maksimālais jaudas patēriņš, ko CPU var sasniegt īsā laikā.</value>
-  </data>
-  <data name="GodModeSettingsWindow_CPU_PeakPL_Description" xml:space="preserve">
-    <value>Maksimālais momentānais enerģijas patēriņš, ko var sasniegt CPU.</value>
-  </data>
-  <data name="GodModeSettingsWindow_CPU_CrossLoading_Description" xml:space="preserve">
-    <value>Maksimālais jaudas patēriņš, ko var sasniegt centrālais procesors, pilnībā izmantojot gan CPU, gan GPU.</value>
-  </data>
-  <data name="GodModeSettingsWindow_CPU_APUsPPT_PL_Description" xml:space="preserve">
-    <value>Maksimālais jaudas patēriņš, ko CPU var sasniegt ar nelielu aizkavi.</value>
-  </data>
-  <data name="GodModeSettingsWindow_CPU_TempLimit_Description" xml:space="preserve">
-    <value>Maksimālā temperatūra, ko centrālais procesors var sasniegt pirms frekvences un jaudas samazināšanas.</value>
-  </data>
-  <data name="GodModeSettingsWindow_GPU_DynamicBoost_Description" xml:space="preserve">
-    <value>Papildu maksimālā jauda, ko var piešķirt GPU, pamatojoties uz CPU enerģijas patēriņu.</value>
-  </data>
-  <data name="GodModeSettingsWindow_GPU_CTGP_Description" xml:space="preserve">
-    <value>Papildu jaudas apjoms, ko var piešķirt GPU papildus pamata jaudas patēriņam.</value>
-  </data>
-  <data name="GodModeSettingsWindow_GPU_TempLimit_Description" xml:space="preserve">
-    <value>Maksimālā temperatūra, ko GPU var sasniegt pirms frekvences un jaudas samazināšanas.</value>
-  </data>
-  <data name="Default" xml:space="preserve">
-    <value>Noklusējums</value>
-  </data>
-  <data name="GodModeSettingsWindow_CPU_PL1Tau" xml:space="preserve">
-    <value>Īstermiņa Jaudas Ierobežojums</value>
-  </data>
-  <data name="GodModeSettingsWindow_CPU_PL1Tau_Description" xml:space="preserve">
-    <value>Laiks, cik ilgi CPU ir atļauts palielināt un izmantot Īstermiņa Jaudas Ierobežojumu. Kad beidzas Tau, tiek izmantots Ilgtermiņa Jaudas Ierobežojums.</value>
-  </data>
-  <data name="GodModeSettingsWindow_GPU_TotalProcessingPowerTargetOnAcOffsetFromBaselineControl" xml:space="preserve">
-    <value>Kopējais Procesora Jaudas Mērķis Maiņstrāvā</value>
-  </data>
-  <data name="GodModeSettingsWindow_GPU_TotalProcessingPowerTargetOnAcOffsetFromBaselineControl_Description" xml:space="preserve">
-    <value>Punkts, kurā CPU izraisa dinamisku jaudas patēriņa korekciju priekš GPU.</value>
-  </data>
-  <data name="Create" xml:space="preserve">
-    <value>Izveidot</value>
-  </data>
-  <data name="AddAutomationStepWindow_Title" xml:space="preserve">
-    <value>Pievienot soli</value>
-  </data>
-  <data name="CreateAutomationPipelineWindow_Title" xml:space="preserve">
-    <value>Izveidot Darbību</value>
-  </data>
-  <data name="StatusTrayPopup_PowerMode" xml:space="preserve">
-    <value>Jaudas režīms</value>
-  </data>
-  <data name="StatusTrayPopup_Preset" xml:space="preserve">
-    <value>Priekšiestatījums</value>
-  </data>
-  <data name="StatusTrayPopup_DiscreteGPU" xml:space="preserve">
-    <value>Diskrētais GPU</value>
-  </data>
-  <data name="StatusTrayPopup_PowerState" xml:space="preserve">
-    <value>Jaudas Stāvoklis</value>
-  </data>
-  <data name="StatusTrayPopup_Battery" xml:space="preserve">
-    <value>Akumulators</value>
-  </data>
-  <data name="StatusTrayPopup_Mode" xml:space="preserve">
-    <value>Režīms</value>
-  </data>
-  <data name="StatusTrayPopup_DischargeRate" xml:space="preserve">
-    <value>Izlādes ātrums</value>
-  </data>
-  <data name="StatusTrayPopup_MinDischargeRate" xml:space="preserve">
-    <value>Min discharge rate</value>
-  </data>
-  <data name="StatusTrayPopup_MaxDischargeRate" xml:space="preserve">
-    <value>Max discharge rate</value>
-  </data>
-  <data name="StatusTrayPopup_UpdateAvailable" xml:space="preserve">
-    <value>Pieejams atjauninājums!</value>
-  </data>
-  <data name="SymbolRegularPicker_Title" xml:space="preserve">
-    <value>Atlasīt ikonu</value>
-  </data>
-  <data name="AutomationPage_ChangeIcon" xml:space="preserve">
-    <value>Mainīt ikonu</value>
-  </data>
-  <data name="BatteryPage_LowLevel" xml:space="preserve">
-    <value>Zems akumulatora uzlādes līmenis</value>
-  </data>
-  <data name="AutomationPipelineTriggerConfigurationWindow_Title" xml:space="preserve">
-    <value>Konfigurēt</value>
-  </data>
-  <data name="PowerPlansWindow_AoAcWarning_Title" xml:space="preserve">
-    <value>Konstatēts S0 Mazjaudas Modelis</value>
-  </data>
-  <data name="PowerPlansWindow_AoAcWarning_Message" xml:space="preserve">
-    <value>Windows ziņo, ka šī ierīce atbalsta Moderno Gaidstāvi. Enerģijas plānu izmantošana, kas nav Līdzsvarots, var izraisīt negaidītu rīcību.</value>
-  </data>
-  <data name="SettingsPage_WindowsPowerPlans_Message" xml:space="preserve">
-    <value>Atlasiet Windows Barošanas Plānus, kas jālieto, mainot Barošanas Režīmu.</value>
-  </data>
-  <data name="SettingsPage_Power_Title" xml:space="preserve">
-    <value>Jauda</value>
-  </data>
-  <data name="SettingsPage_WindowsPowerPlansControlPanel_Title" xml:space="preserve">
-    <value>Barošanas Plāna opcijas Windows Vadības Panelī</value>
-  </data>
-  <data name="PoweredOff" xml:space="preserve">
-    <value>Izslēgts</value>
-  </data>
-  <data name="SpectrumKeyboardBacklightImportProfileAutomationStepControl_Title" xml:space="preserve">
-    <value>Importēt tastatūras izgaismojuma profilu</value>
-  </data>
-  <data name="SpectrumKeyboardBacklightImportProfileAutomationStepControl_Message" xml:space="preserve">
-    <value>Importējiet un lietojiet fona izgaismojuma konfigurāciju pašreizējam profilam.</value>
-  </data>
-  <data name="SpectrumKeyboardBacklightImportProfileAutomationStepControl_Path" xml:space="preserve">
-    <value>Ceļš</value>
-  </data>
-  <data name="AutomationPipelineControl_SubtitlePart_After" xml:space="preserve">
-    <value>Pēc {0}</value>
-  </data>
-  <data name="MultipleTriggersAutomationPipelineTrigger_DisplayName" xml:space="preserve">
-    <value>Vairāki trigeri...</value>
-    <comment>Allows the user to merge multiple triggers for the execution of selected actions.</comment>
-  </data>
-  <data name="OverclockDiscreteGPUSettingsWindow_Title" xml:space="preserve">
-    <value>Virstaktēšana GPU Iestatījumi</value>
-  </data>
-  <data name="OverclockDiscreteGPUSettingsWindow_CoreFrequencyOffset_Title" xml:space="preserve">
-    <value>Kodola Frekvences Nobīde</value>
-  </data>
-  <data name="OverclockDiscreteGPUSettingsWindow_MemoryFrequencyOffset_Title" xml:space="preserve">
-    <value>Atmiņas Frekvences Nobīde</value>
-  </data>
-  <data name="OverclockDiscreteGPUControl_Title" xml:space="preserve">
-    <value>Virstaktēt GPU</value>
-  </data>
-  <data name="OverclockDiscreteGPUControl_Message" xml:space="preserve">
-    <value>Palieliniet veiktspēju, virstaktējot diskrēto GPU.</value>
-  </data>
-  <data name="OverclockDiscreteGPUAutomationStepControl_Title" xml:space="preserve">
-    <value>Virstaktēt GPU</value>
-  </data>
-  <data name="OverclockDiscreteGPUAutomationStepControl_Message" xml:space="preserve">
-    <value>Palieliniet veiktspēju, virstaktējot diskrēto GPU.
-
-BRĪDINĀJUMS. Ja nav pieejams atsevišķs GPU, šī darbība nedarbosies pareizi.</value>
-  </data>
-  <data name="PortsBacklightControl_Title" xml:space="preserve">
-    <value>Portu izgaismojums</value>
-  </data>
-  <data name="PortsBacklightControl_Message" xml:space="preserve">
-    <value>Ieslēdziet vai izslēdziet klēpjdatora aizmugurē esošo portu izgaismojumu.</value>
-  </data>
-  <data name="PortsBacklightAutomationStepControl_Title" xml:space="preserve">
-    <value>Portu izgaismojums</value>
-  </data>
-  <data name="PortsBacklightAutomationStepControl_Message" xml:space="preserve">
-    <value>Ieslēdziet vai izslēdziet klēpjdatora aizmugurē esošo portu izgaismojumu.</value>
-  </data>
-  <data name="PanelLogoBacklightControl_Title" xml:space="preserve">
-    <value>Paneļa logotipa izgaismojums</value>
-  </data>
-  <data name="PanelLogoBacklightControl_Message" xml:space="preserve">
-    <value>Ieslēgt vai izslēgt klēpjdatora vāka izgaismojumu.</value>
-  </data>
-  <data name="PanelLogoBacklightAutomationStepControl_Title" xml:space="preserve">
-    <value>Paneļa logotipa izgaismojums</value>
-  </data>
-  <data name="PanelLogoBacklightAutomationStepControl_Message" xml:space="preserve">
-    <value>Ieslēgt vai izslēgt klēpjdatora vāka izgaismojumu.</value>
-  </data>
-  <data name="GHz" xml:space="preserve">
-    <value>GHz</value>
-  </data>
-  <data name="MHz" xml:space="preserve">
-    <value>MHz</value>
-  </data>
-  <data name="SensorsControl_Maximum" xml:space="preserve">
-    <value>Maksimums: {0}</value>
-  </data>
-  <data name="SensorsControl_CPU_Title" xml:space="preserve">
-    <value>CPU</value>
-  </data>
-  <data name="SensorsControl_Utilization_Title" xml:space="preserve">
-    <value>Lietojums</value>
-  </data>
-  <data name="SensorsControl_CoreClock_Title" xml:space="preserve">
-    <value>Kodola Takts Ātrums</value>
-  </data>
-  <data name="SensorsControl_Temperature_Title" xml:space="preserve">
-    <value>Temperatūra</value>
-  </data>
-  <data name="SensorsControl_Fan_Title" xml:space="preserve">
-    <value>Ventilators</value>
-  </data>
-  <data name="SensorsControl_GPU_Title" xml:space="preserve">
-    <value>GPU</value>
-  </data>
-  <data name="SensorsControl_MemoryClock_Title" xml:space="preserve">
-    <value>Atmiņas Takts Ātrums</value>
-  </data>
-  <data name="SensorsControl_RefreshInterval" xml:space="preserve">
-    <value>Atjaunošanas intervāls</value>
-  </data>
-  <data name="InstantBootControl_Title" xml:space="preserve">
-    <value>Tūlītēja Sāknēšana</value>
-  </data>
-  <data name="InstantBootControl_Message" xml:space="preserve">
-    <value>Ieslēgt portatīvo datoru kad tiek pievienots lādētājs.</value>
-  </data>
-  <data name="InstantBootAutomationStepControl_Title" xml:space="preserve">
-    <value>Tūlītēja Sāknēšana</value>
-  </data>
-  <data name="InstantBootAutomationStepControl_Message" xml:space="preserve">
-    <value>Ieslēgt portatīvo datoru kad tiek pievienots lādētājs.</value>
-  </data>
-  <data name="PowerModeUnavailableWithoutACException_Title" xml:space="preserve">
-    <value>Nevarēja nomainīt Jaudas Režīmu</value>
-  </data>
-  <data name="PowerModeUnavailableWithoutACException_Message" xml:space="preserve">
-    <value>{0} jaudas režīms nav pieejams bez maiņstrāvas pieslēguma.</value>
-    <comment>For example: "{Performance} power mode is not available without AC power."</comment>
-  </data>
-  <data name="EditDashboardWindow_Sensors" xml:space="preserve">
-    <value>Sensori</value>
-  </data>
-  <data name="IGPUModeChangeException_Title" xml:space="preserve">
-    <value>Nevarēja nomainīt GPU Darbošanās režīmu</value>
-  </data>
-  <data name="IGPUModeChangeException_Message" xml:space="preserve">
-    <value>Try changing the mode again in a couple of seconds, if you do not see expected result.
-If dGPU does not respond at all, please restart your laptop.</value>
-  </data>
-  <data name="IGPUModeChangeException_Title_IGPUOnly" xml:space="preserve">
-    <value>dGPU šobrīd tiek izmantots</value>
-  </data>
-  <data name="IGPUModeChangeException_Message_IGPUOnly" xml:space="preserve">
-    <value>dGPU automātiski pats atvienosies kad tas netiks izmantots.</value>
-  </data>
-  <data name="IGPUModeChangeException_Title_Auto" xml:space="preserve">
-    <value>dGPU šobrīd tiek izmantots vai arī portatīvais dators neizmanto akumulatoru</value>
-  </data>
-  <data name="IGPUModeChangeException_Message_Auto" xml:space="preserve">
-    <value>dGPU tiks atvienots automātiski kad tas netiek izmantots vai portatīvais dators izmanto akumulatoru.</value>
-  </data>
-  <data name="GodModeSettingsWindow_VantageWarning_Title" xml:space="preserve">
-    <value>Pielāgotā Režīma iestatījumi netiks pielietoti pareizi kamēr Lenovo Vantage un tā servisi ir ieslēgti.</value>
-  </data>
-  <data name="GodModeSettingsWindow_LegionZoneWarning_Title" xml:space="preserve">
-    <value>Pielāgotā Režīma iestatījumi netiks pielietoti pareizi kamēr Legion Zone un tā servisi ir ieslēgti.</value>
-  </data>
-  <data name="DGPU_Connected_Title" xml:space="preserve">
-    <value>DGPU pieslēdzies</value>
-  </data>
-  <data name="DGPU_Disconnected_Title" xml:space="preserve">
-    <value>DGPU atslēdzies</value>
-  </data>
-  <data name="ComboBoxHybridModeAutomationStepControl_Title" xml:space="preserve">
-    <value>GPU Darbošanās režīms</value>
-  </data>
-  <data name="ComboBoxHybridModeAutomationStepControl_Message" xml:space="preserve">
-    <value>Atlasiet GPU darbības režīmu atkarībā no datora lietojuma un barošanas apstākļiem.
-Pārslēdzot režīmus dators iespējams būs jārestartē.</value>
-  </data>
-  <data name="ToggleHybridModeAutomationStepControl_Title" xml:space="preserve">
-    <value>Hibrīda Režīms</value>
-  </data>
-  <data name="ToggleHybridModeAutomationStepControl_Message" xml:space="preserve">
-    <value>Atļaut pārslēgšanos starp integrēto un diskrēto GPU.
-Nepieciešama restartēšana.</value>
-  </data>
-  <data name="NotificationsSettingsWindow_NotificationDuration_Title" xml:space="preserve">
-    <value>Ilgums</value>
-  </data>
-  <data name="NotificationsSettingsWindow_Updates_Title" xml:space="preserve">
-    <value>Atjauninājumi</value>
-  </data>
-  <data name="GodModeSettingsWindow_GPU_ToCpuDynamicBoostControl" xml:space="preserve">
-    <value>GPU to CPU Dynamic Boost</value>
-  </data>
-  <data name="GodModeSettingsWindow_GPU_ToCpuDynamicBoostControl_Description" xml:space="preserve">
-    <value>This is the maximum additional power that can be allocated to the CPU from the GPU based on CPU usage. The higher the value, the better the performance of applications that use the CPU.</value>
-  </data>
-  <data name="SettingsPage_BootLogo_Title" xml:space="preserve">
-    <value>Sāknēšanās Logo</value>
-  </data>
-  <data name="SettingsPage_BootLogo_Message" xml:space="preserve">
-    <value>Rediģēt Sāknēšanās Logo attēlu, kurš redzams ieslēdzot sistēmu.</value>
-  </data>
-  <data name="BootLogoWindow_Title" xml:space="preserve">
-    <value>Sāknēšanās Logo</value>
-  </data>
-  <data name="BootLogoWindow_DefaultLogoSet" xml:space="preserve">
-    <value>Noklusējuma Sāknēšanās Logo ir iestatīts</value>
-  </data>
-  <data name="BootLogoWindow_CustomLogoSet" xml:space="preserve">
-    <value>Pielāgots Sāknēšanās Logo ir iestatīts</value>
-  </data>
-  <data name="BootLogoWindow_Status" xml:space="preserve">
-    <value>Statuss</value>
-  </data>
-  <data name="RevertToDefault" xml:space="preserve">
-    <value>Atgriezt uz noklusējumu</value>
-  </data>
-  <data name="BootLogoWindow_Customize" xml:space="preserve">
-    <value>Pielāgot</value>
-  </data>
-  <data name="NotificationsSettingsWindow_Automation" xml:space="preserve">
-    <value>Darbības</value>
-  </data>
-  <data name="NotificationAutomationStepControl_NotificationText" xml:space="preserve">
-    <value>Paziņojuma Teksts</value>
-  </data>
-  <data name="NotificationAutomationStepControl_Title" xml:space="preserve">
-    <value>Rādīt paziņojumu</value>
-  </data>
-  <data name="AutomationPipelineControl_SubtitlePart_Preset" xml:space="preserve">
-    <value>Priekšiestatījums</value>
-  </data>
-  <data name="SettingsPage_SmartFnLock_Title" xml:space="preserve">
-    <value>Smart Fn Lock</value>
-  </data>
-  <data name="SettingsPage_SmartFnLock_Message" xml:space="preserve">
-    <value>Fn Lock will be temporarily disabled when Alt, Ctrl or Shift key is depressed.</value>
-  </data>
-  <data name="Off" xml:space="preserve">
-    <value>Off</value>
-  </data>
-  <data name="BootLogoWindow_Description" xml:space="preserve">
-    <value>Custom boot logo must be exactly {0} pixels large.
-Supported formats are: {1}.</value>
-  </data>
-  <data name="BatteryNightChargeModeControl_Title" xml:space="preserve">
-    <value>Overnight Battery Charging</value>
-  </data>
-  <data name="BatteryNightChargeModeControl_Message" xml:space="preserve">
-    <value>When enabled, this device will charge to 80% when plugged in overnight and finish charging to 100% by the time you use this device in the morning.</value>
-  </data>
-  <data name="BatteryNightChargeAutomationStepControl_Title" xml:space="preserve">
-    <value>Overnight Battery Charging</value>
-  </data>
-  <data name="BatteryNightChargeAutomationStepControl_Message" xml:space="preserve">
-    <value>When enabled, this device will charge to 80% when plugged in overnight and finish charging to 100% by the time you use this device in the morning.</value>
-  </data>
-  <data name="BootLogoWindow_SetError_Invalid_Image_Size" xml:space="preserve">
-    <value>Invalid image size.</value>
-  </data>
-  <data name="BootLogoWindow_SetError_Invalid_Image_Format" xml:space="preserve">
-    <value>Invalid image format.</value>
-  </data>
-  <data name="BootLogoWindow_SetError_Cannot_Mount_EFI_Partition" xml:space="preserve">
-    <value>Cannot mount EFI partition.</value>
-  </data>
-  <data name="BootLogoWindow_SetError_Cannot_Set_UEFI_Privilege" xml:space="preserve">
-    <value>Cannot set UEFI privilege.</value>
-  </data>
-  <data name="BootLogoWindow_SetError_Not_Enough_Free_Space_On_EFI_Partition" xml:space="preserve">
-    <value>Not enough free space on EFI partition.</value>
-  </data>
-  <data name="BootLogoWindow_SetCustomFailed" xml:space="preserve">
-    <value>Custom logo could not be set: {0}</value>
-  </data>
-  <data name="BootLogoWindow_SetDefaultFailed" xml:space="preserve">
-    <value>Default logo could not be set: {0}</value>
-  </data>
-  <data name="BootLogoWindow_SetDefaultSuccess" xml:space="preserve">
-    <value>Default boot logo set.</value>
-  </data>
-  <data name="BootLogoWindow_SetCustomSuccess" xml:space="preserve">
-    <value>Custom boot logo set.</value>
-  </data>
-  <data name="WiFiConnectedPipelineTriggerTabItemContent_NetworkName" xml:space="preserve">
-    <value>Network name (SSID)</value>
-  </data>
-  <data name="WiFiConnectedPipelineTriggerTabItemContent_CopyCurrentNetworkName" xml:space="preserve">
-    <value>Copy current network name</value>
-  </data>
-  <data name="WiFiConnectedPipelineTriggerTabItemContent_LeaveEmptyForAnyNetwork" xml:space="preserve">
-    <value>Leave empty for any Wi-Fi network.</value>
-  </data>
-  <data name="SettingsPage_HWiNFO_Title" xml:space="preserve">
-    <value>HWiNFO64</value>
-  </data>
-  <data name="SettingsPage_HWiNFO_Message" xml:space="preserve">
-    <value>Share fan speed, battery temperature etc. with HWiNFO64. You may need to restart HWiNFO64 after changing this option.</value>
-  </data>
-  <data name="SettingsPage_Integrations_Title" xml:space="preserve">
-    <value>Integrations</value>
-  </data>
-  <data name="Settings" xml:space="preserve">
-    <value>Settings</value>
-  </data>
-  <data name="Information" xml:space="preserve">
-    <value>Information</value>
-  </data>
-  <data name="PackagesPage_DownloadTo" xml:space="preserve">
-    <value>Download folder</value>
-  </data>
-  <data name="PackagesPage_OpenDownloadTo" xml:space="preserve">
-    <value>Open Download folder</value>
-  </data>
-  <data name="PackageControl_Download" xml:space="preserve">
-    <value>Download</value>
-  </data>
-  <data name="PackageControl_OpenReadme" xml:space="preserve">
-    <value>Open README</value>
-  </data>
-  <data name="SpectrumKeyboardBacklightControl_Preset" xml:space="preserve">
-    <value>Preset</value>
-  </data>
-  <data name="DeviceInformationWindow_Refresh" xml:space="preserve">
-    <value>Refresh</value>
-  </data>
-  <data name="AbstractAutomationStepControl_Delete" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="PeriodicActionPipelineTriggerTabItemContent_Period" xml:space="preserve">
-    <value>Period (minutes)</value>
-    <comment>A prompt that is used both to ask the user to input an integer, representing the number of minutes between two periodic actions are triggered, and to inform the user what have they set once they are done configuring the action.</comment>
-  </data>
-  <data name="SettingsPage_OnBatterySinceReset_Message" xml:space="preserve">
-    <value>Resets the counter for "On battery since" in the battery section when the system reboots.</value>
-  </data>
-  <data name="SettingsPage_OnBatterySinceReset_Title" xml:space="preserve">
-    <value>Reset "On battery since" at startup</value>
-  </data>
-  <data name="TurnOffWiFiAutomationStepControl_Title" xml:space="preserve">
-    <value>Turn off Wi-Fi</value>
-  </data>
-  <data name="TurnOnWiFiAutomationStepControl_Title" xml:space="preserve">
-    <value>Turn on Wi-Fi</value>
-  </data>
-  <data name="RunAutomationStepControl_ProcessRunSilently" xml:space="preserve">
-    <value>Run silently</value>
-  </data>
-  <data name="RunAutomationStepControl_ProcessWaitUntilFinished" xml:space="preserve">
-    <value>Wait until finished</value>
-  </data>
-  <data name="RunAutomationStepControl_ProcessRunSilently_Description" xml:space="preserve">
-    <value>Execute console applications, without creating a console window.</value>
-  </data>
-  <data name="RunAutomationStepControl_ProcessWaitUntilFinished_Description" xml:space="preserve">
-    <value>Wait until program or script finishes executing</value>
-  </data>
-  <data name="SpeakerAutomationStepControl_Message" xml:space="preserve">
-    <value>When mute, all active audio output devices will be muted.</value>
-  </data>
-  <data name="SpeakerAutomationStepControl_Title" xml:space="preserve">
-    <value>Speaker</value>
-  </data>
-  <data name="SettingsPage_MinimizeToTray_Title" xml:space="preserve">
-    <value>Minimize to tray</value>
-  </data>
-  <data name="SettingsPage_MinimizeToTray_Message" xml:space="preserve">
-    <value>Always minimize to tray instead of taskbar.</value>
-  </data>
-  <data name="WindowsPowerModesWindow_Title" xml:space="preserve">
-    <value>Windows Power Modes</value>
-  </data>
-  <data name="Settings_GodModeFnQSwitchable_Title" xml:space="preserve">
-    <value>Switch to Custom Mode with Fn+Q</value>
-  </data>
-  <data name="Settings_GodModeFnQSwitchable_Message" xml:space="preserve">
-    <value>Allow quick switching to Custom Mode with Fn+Q.</value>
-  </data>
-  <data name="SettingsPage_PowerModeMapping_Title" xml:space="preserve">
-    <value>Power Mode Synchronization</value>
-  </data>
-  <data name="SettingsPage_PowerModeMapping_Message" xml:space="preserve">
-    <value>Automatically change Windows Power Plan or Windows Power Mode when changing Power Modes.</value>
-  </data>
-  <data name="SettingsPage_WindowsPowerModes_Title" xml:space="preserve">
-    <value>Windows Power Modes</value>
-  </data>
-  <data name="SettingsPage_WindowsPowerModes_Message" xml:space="preserve">
-    <value>Select Windows Power Mode to apply when Power Mode changes.</value>
-  </data>
-  <data name="CompatibilityCheckError_Message" xml:space="preserve">
-    <value>Error occured when reading device information.</value>
-  </data>
-  <data name="MainWindow_NavigationItem_Macro" xml:space="preserve">
-    <value>Macro</value>
-  </data>
-  <data name="MacroPage_Title" xml:space="preserve">
-    <value>Macro</value>
-  </data>
-  <data name="MacroSequenceControl_Repeat_Title" xml:space="preserve">
-    <value>Repeat</value>
-  </data>
-  <data name="MacroSequenceControl_IgnoreDelays_Title" xml:space="preserve">
-    <value>Ignore delays</value>
-  </data>
-  <data name="Clear" xml:space="preserve">
-    <value>Clear</value>
-  </data>
-  <data name="MacroSequenceControl_Record" xml:space="preserve">
-    <value>Record</value>
-  </data>
-  <data name="MacroSequenceControl_StopRecording" xml:space="preserve">
-    <value>Stop recording</value>
-  </data>
-  <data name="MacroSequenceControl_DontRepeat" xml:space="preserve">
-    <value>Don't repeat</value>
-  </data>
-  <data name="MacroPage_Enable_Subtitle" xml:space="preserve">
-    <value>Lenovo Legion Toolkit must be running for macros to work.</value>
-  </data>
-  <data name="MacroPage_Enable_Title" xml:space="preserve">
-    <value>Enable</value>
-  </data>
-  <data name="MacroPage_Subtitle" xml:space="preserve">
-    <value>You can record series of key presses and invoke them using the number pad on your keyboard.</value>
-  </data>
-  <data name="MacroAutomationStepControl_Title" xml:space="preserve">
-    <value>Macro</value>
-  </data>
-  <data name="MacroAutomationStepControl_Message" xml:space="preserve">
-    <value>Enable or disable macros.</value>
-  </data>
-  <data name="MacroSequenceControl_InterruptOnOtherKey_Title" xml:space="preserve">
-    <value>Interrupt if another key was pressed</value>
-  </data>
-  <data name="Hide" xml:space="preserve">
-    <value>Hide</value>
-  </data>
-  <data name="HideAll" xml:space="preserve">
-    <value>Hide all</value>
-  </data>
-  <data name="DevicePipelineTriggerTabItemContent_Devices" xml:space="preserve">
-    <value>Devices</value>
-  </data>
-  <data name="DeselectAll" xml:space="preserve">
-    <value>Deselect all</value>
-  </data>
-  <data name="SelectAll" xml:space="preserve">
-    <value>Select all</value>
-  </data>
-  <data name="MacroSequenceControl_Keyboard" xml:space="preserve">
-    <value>Keyboard only</value>
-  </data>
-  <data name="MacroSequenceControl_KeyboardMouse" xml:space="preserve">
-    <value>Keyboard keys and mouse buttons</value>
-  </data>
-  <data name="MacroSequenceControl_KeyboardMouseMovement" xml:space="preserve">
-    <value>All inputs</value>
-  </data>
-  <data name="MacroSequenceControl_RecordingOptions" xml:space="preserve">
-    <value>Recording options</value>
-  </data>
-  <data name="MacroRecordingWindow_Preparing_Title" xml:space="preserve">
-    <value>Recording will start in 3 seconds...</value>
-  </data>
-  <data name="MacroRecordingWindow_Recording_Title" xml:space="preserve">
-    <value>Recording...</value>
-  </data>
-  <data name="MacroRecordingWindow_Recording_Message" xml:space="preserve">
-    <value>Press ESC to stop.</value>
-  </data>
-  <data name="DeviceAutomationPipelineTriggerTabItemContent_OnlySelected" xml:space="preserve">
-    <value>Show selected devices only</value>
-  </data>
-  <data name="DeviceAutomationPipelineTriggerTabItemContent_OnlyRemovable" xml:space="preserve">
-    <value>Show removable devices only</value>
-  </data>
-  <data name="DeviceAutomationPipelineTriggerTabItemContent_OnlyConnected" xml:space="preserve">
-    <value>Show connected devices only</value>
-  </data>
-  <data name="SettingsPage_CLI_Title" xml:space="preserve">
-    <value>CLI</value>
-  </data>
-  <data name="SettingsPage_CLI_Message" xml:space="preserve">
-    <value>Enable Command Line Interface that allows control from command line.</value>
-  </data>
-  <data name="SettingsPage_CLIAddToPath_Title" xml:space="preserve">
-    <value>Add CLI to PATH</value>
-  </data>
-  <data name="SettingsPage_CLIAddToPath_Message" xml:space="preserve">
-    <value>Add CLI to user's PATH environment variable.</value>
-  </data>
-  <data name="SettingsPage_Temperature_Title" xml:space="preserve">
-    <value>Temperature</value>
-  </data>
-  <data name="SettingsPage_Temperature_Message" xml:space="preserve">
-    <value>Select units for temperature sensors.</value>
-  </data>
-  <data name="MainWindows_FnKeysRunning" xml:space="preserve">
-    <value>Lenovo Hotkeys is running in the background.</value>
-  </data>
-  <data name="MainWindow_LegionZoneRunning" xml:space="preserve">
-    <value>Legion Zone is running in the background.</value>
-  </data>
-  <data name="MainWindows_VantageRunning" xml:space="preserve">
-    <value>Lenovo Vantage and/or ImController is running in the background.</value>
-  </data>
-  <data name="NotificationsSettingsWindow_NotificationOnAllScreens_Message" xml:space="preserve">
-    <value>Show notification on all screens connected to your device.</value>
-  </data>
-  <data name="NotificationsSettingsWindow_NotificationOnAllScreens_Title" xml:space="preserve">
-    <value>Notification on all screens</value>
-  </data>
-  <data name="SettingsPage_CheckUpdatesButton_Content" xml:space="preserve">
-    <value>Check</value>
-  </data>
-  <data name="SettingsPage_CheckUpdates_Started_Title" xml:space="preserve">
-    <value>Checking for updates...</value>
-  </data>
-  <data name="SettingsPage_CheckUpdates_Title" xml:space="preserve">
-    <value>Check for updates</value>
-  </data>
-  <data name="SettingsPage_Update_Title" xml:space="preserve">
-    <value>Update</value>
-  </data>
-  <data name="MainWindow_CheckForUpdates_Error_ReachedRateLimit_Message" xml:space="preserve">
-    <value>API rate limit reached, please try again later.</value>
-  </data>
-  <data name="MainWindow_CheckForUpdates_Error_Title" xml:space="preserve">
-    <value>Failed to check for updates</value>
-  </data>
-  <data name="MainWindow_CheckForUpdates_Error_Unknown_Message" xml:space="preserve">
-    <value>Something went wrong, please try again later.</value>
-  </data>
-  <data name="MainWindow_CheckForUpdates_Success_Title" xml:space="preserve">
-    <value>No updates found</value>
-  </data>
-  <data name="SettingsPage_UpdateCheckFrequency_Title" xml:space="preserve">
-    <value>Automatically check for updates</value>
-  </data>
-  <data name="PackagesPage_UpdateCatalogNotFound_Title" xml:space="preserve">
-    <value>Update catalog not found</value>
-  </data>
-  <data name="PackagesPage_UpdateCatalogNotFound_Message" xml:space="preserve">
-    <value>Try getting updates from the other source.</value>
-  </data>
-  <data name="PackagesPage_Error_Title" xml:space="preserve">
-    <value>Something went wrong</value>
-  </data>
-  <data name="PackagesPage_Error_CheckInternet_Message" xml:space="preserve">
-    <value>Check if your internet connection is up and running.</value>
-  </data>
-  <data name="PlaySoundAutomationStepControl_Title" xml:space="preserve">
-    <value>Play sound</value>
-  </data>
-  <data name="PlaySoundAutomationStepControl_Message" xml:space="preserve">
-    <value>Common music formats like wav or mp3 are supported.</value>
-  </data>
-  <data name="QuickActionAutomationStepControl_Title" xml:space="preserve">
-    <value>Quick Action</value>
-  </data>
-  <data name="QuickActionAutomationStepControl_Message" xml:space="preserve">
-    <value>Run a saved quick action.</value>
-  </data>
-  <data name="NotificationsSettingsWindow_NotificationAlwaysOnTop_Title" xml:space="preserve">
-    <value>Notification always on top</value>
-  </data>
-  <data name="NotificationsSettingsWindow_NotificationAlwaysOnTop_Message" xml:space="preserve">
-    <value>Always put notification at the top.
-It won't affect other full screen windows, but you will not be able to click on the notifications.</value>
-  </data>
-  <data name="SensorsControl_VrTemperature_Title" xml:space="preserve">
-    <value>VR Temperature</value>
-  </data>
-  <data name="SensorsControl_GpuMemoryTemperature_Title" xml:space="preserve">
-    <value>Vram</value>
-  </data>
-  <data name="SensorsControl_PchTemperature_Title" xml:space="preserve">
-    <value>PCH Temperature</value>
-  </data>
-  <data name="SensorsControl_Motherboard_Title" xml:space="preserve">
-    <value>Motherboard</value>
-  </data>
-  <data name="SensorsControl_GpuCore_Title" xml:space="preserve">
-    <value>Core</value>
-  </data>
-  <data name="SensorsControl_Memory_Title" xml:space="preserve">
-    <value>Memory</value>
-  </data>
-  <data name="SensorsControl_Disk_Title" xml:space="preserve">
-    <value>Disk</value>
-  </data>
-  <data name="SensorsControl_Battery_Title" xml:space="preserve">
-    <value>Battery</value>
-  </data>
-  <data name="SensorsControl_State_Title" xml:space="preserve">
-    <value>State</value>
-  </data>
-  <data name="SensorsControl_BatteryLevel_Title" xml:space="preserve">
-    <value>Battery Level</value>
-  </data>
-  <data name="BatteryPage_ACAdapterNotConnected" xml:space="preserve">
-    <value>No AC</value>
-  </data>
-  <data name="DashboardBattery_AcConnected" xml:space="preserve">
-    <value>AC Connected</value>
-  </data>
-  <data name="DashboardBattery_AcDisconnected" xml:space="preserve">
-    <value>AC Disconnected</value>
-  </data>
-  <data name="AboutPage_Log" xml:space="preserve">
-    <value>Log</value>
-  </data>
-  <data name="SensorsControl_CPU_Power" xml:space="preserve">
-    <value>Power</value>
-  </data>
-  <data name="SensorsControl_GPU_Power" xml:space="preserve">
-    <value>Power</value>
-  </data>
-  <data name="SensorsControl_Disk_1_Temperature" xml:space="preserve">
-    <value>Disk 1 Temperature</value>
-  </data>
-  <data name="SensorsControl_Disk_2_Temperature" xml:space="preserve">
-    <value>Disk 2 Temperature</value>
-  </data>
-  <data name="SettingsPage_EnableLogging_Title" xml:space="preserve">
-    <value>Enable Logging</value>
-  </data>
-  <data name="SettingsPage_EnableLogging_Message" xml:space="preserve">
-    <value>Enable logging for debug.</value>
-  </data>
-  <data name="SensorItem_CpuUtilitzation" xml:space="preserve">
-    <value>CPU Utilitazion</value>
-  </data>
-  <data name="SensorItem_CpuFrequency" xml:space="preserve">
-    <value>CPU Frequency</value>
-  </data>
-  <data name="SensorItem_CpuFanSpeed" xml:space="preserve">
-    <value>CPU Fan Speed</value>
-  </data>
-  <data name="SensorItem_CpuTemperature" xml:space="preserve">
-    <value>CPU Temperature</value>
-  </data>
-  <data name="SensorItem_CpuPower" xml:space="preserve">
-    <value>CPU Power</value>
-  </data>
-  <data name="SensorItem_GpuUtilization" xml:space="preserve">
-    <value>GPU Utilization</value>
-  </data>
-  <data name="SensorItem_GpuFrequency" xml:space="preserve">
-    <value>GPU Frequency</value>
-  </data>
-  <data name="SensorItem_GpuFanSpeed" xml:space="preserve">
-    <value>GPU Fan Speed</value>
-  </data>
-  <data name="SensorItem_PchFanSpeed" xml:space="preserve">
-    <value>PCH Fan Speed</value>
-  </data>
-  <data name="SensorItem_PchTemperature" xml:space="preserve">
-    <value>PCH Temperature</value>
-  </data>
-  <data name="SensorItem_BatteryState" xml:space="preserve">
-    <value>Battery State</value>
-  </data>
-  <data name="SensorItem_BatteryLevel" xml:space="preserve">
-    <value>Battery Level</value>
-  </data>
-  <data name="SensorItem_MemoryUtilization" xml:space="preserve">
-    <value>Memory Utilization</value>
-  </data>
-  <data name="SensorItem_MemoryTemperature" xml:space="preserve">
-    <value>Memory Temperature</value>
-  </data>
-  <data name="SensorItem_Disk1Temperature" xml:space="preserve">
-    <value>Disk 1 Temperature</value>
-  </data>
-  <data name="SensorItem_Disk2Temperature" xml:space="preserve">
-    <value>Disk 2 Temperature</value>
-  </data>
-  <data name="EditSensorWindow_Title" xml:space="preserve">
-    <value>Edit Sensor</value>
-  </data>
-  <data name="SensorItem_GpuTemperatures" xml:space="preserve">
-    <value>GPU Temperature</value>
-  </data>
-  <data name="SettingsPage_UseNewSensorDashboard_Title" xml:space="preserve">
-    <value>Use New Sensor Dashboard</value>
-  </data>
-  <data name="SettingsPage_UseNewSensorDashboard_Message" xml:space="preserve">
-    <value>Use new sensor dashboard instead of the old one. 
-Note: Using the new sensor dashboard may cause some antivirus programmes to display a warning pop-up. For more information, see: LibreHardwareMonitor/LibreHardwareMonitor#984</value>
-  </data>
-  <data name="SettingsPage_LockWindowSize_Title" xml:space="preserve">
-    <value>Lock Window Size</value>
-  </data>
-  <data name="SettingsPage_LockWindowSize_Message" xml:space="preserve">
-    <value>Lock LLT's window size. To prevent something change it.</value>
-  </data>
-  <data name="FanCurveControl_PCH" xml:space="preserve">
-    <value>PCH</value>
-  </data>
-  <data name="SettingsPage_EnableLegionSpace_Error_Title" xml:space="preserve">
-    <value>Couldn't enable Legion Space</value>
-  </data>
-  <data name="SettingsPage_EnableLegionSpace_Error_Message" xml:space="preserve">
-    <value>Legion Space may have not been enabled correctly</value>
-  </data>
-  <data name="SettingsPage_DisableLegionSpace_Title" xml:space="preserve">
-    <value>Disable Legion Space</value>
-  </data>
-  <data name="MainWindow_LegionSpaceRunning" xml:space="preserve">
-    <value>Legion Space is running in the background.</value>
-  </data>
-  <data name="GodModeSettingsWindow_LegionSpaceWarning_Title" xml:space="preserve">
-    <value>Custom Mode settings will not be applied correctly when Legion Space or its services are running.</value>
-  </data>
-  <data name="SettingsPage_DisableLegionSpace_Error_Title" xml:space="preserve">
-    <value>Couldn't disable Legion Space</value>
-  </data>
-  <data name="SettingsPage_DisableLegionSpace_Error_Message" xml:space="preserve">
-    <value>Legion Space may have not been disabled correctly</value>
-  </data>
-  <data name="SettingsPage_UseNewDashboard_Restart_Message" xml:space="preserve">
-    <value>Restart to apply changes.</value>
-  </data>
-  <data name="SettingsPage_UseNewDashboard_Switch_Title" xml:space="preserve">
-    <value>Dashboard changed</value>
-  </data>
-  <data name="MainWindow_PawnIO_Warning_Title" xml:space="preserve">
-    <value>Warning</value>
-  </data>
-  <data name="MainWindow_PawnIO_Warning_Message" xml:space="preserve">
-    <value>You need install PawnIO first to use the new dashboard!</value>
-  </data>
-  <data name="Warning" xml:space="preserve">
-    <value>Warning</value>
-  </data>
-  <data name="KeyboardBacklightPage_DynamicLightingEnabled" xml:space="preserve">
-    <value>Windows Dynamic lighting is enabled.
-This feature might prevent LLT to control the keyboard.
-Click Yes to disable and No to ignore.</value>
-  </data>
-  <data name="MessageBoxHelper_DontShowAgain" xml:space="preserve">
-    <value>Don't show again.</value>
-  </data>
-  <data name="ITSModeControl_Dialog_Title" xml:space="preserve">
-    <value>Missing Compoment</value>
-  </data>
-  <data name="ITSModeControl_Dialog_Message" xml:space="preserve">
-    <value>PowerBattery.dll is missing. Please place it manually to use ITSMode feature.</value>
-  </data>
-  <data name="ITSModeControl_Title" xml:space="preserve">
-    <value>IdeaPad Power Mode</value>
-  </data>
-  <data name="ITSModeControl_Message" xml:space="preserve">
-    <value>Change IdeaPad Power Mode</value>
-  </data>
-  <data name="ITSModeAutomationStepControl_Title" xml:space="preserve">
-    <value>IdeaPad Power Mode</value>
-  </data>
-  <data name="ITSModeAutomationStepControl_Message" xml:space="preserve">
-    <value>Change IdeaPad Power Mode</value>
-  </data>
-  <data name="SettingsPage_FloatingGadgets_Title" xml:space="preserve">
-    <value>Enable Floating Gadget</value>
-  </data>
-  <data name="SettingsPage_FloatingGadgets_Message" xml:space="preserve">
-    <value>Floating Gadgets​​ is a floating window that displays real-time sensor information in an overlay style.</value>
-  </data>
-  <data name="SettingsPage_FloatingGadgets_Tooltip" xml:space="preserve">
-    <value>Controls sensor refresh interval.</value>
-  </data>
-  <data name="FloatingGadgets_Memory_Utilization" xml:space="preserve">
-    <value>Memory Utilization</value>
-  </data>
-  <data name="FloatingGadgets_Memory_Temperature" xml:space="preserve">
-    <value>Memory Temperature</value>
-  </data>
-  <data name="FloatingGadgets_Disk_0_Temperature" xml:space="preserve">
-    <value>Disk 1 Temperature</value>
-  </data>
-  <data name="FloatingGadgets_Disk_1_Temperature" xml:space="preserve">
-    <value>Disk 2 Temperature</value>
-  </data>
-  <data name="FloatingGadgets_CPU_Fan" xml:space="preserve">
-    <value>CPU Fan</value>
-  </data>
-  <data name="FloatingGadgets_GPU_Fan" xml:space="preserve">
-    <value>GPU Fan</value>
-  </data>
-  <data name="FloatingGadgets_PCH_Fan" xml:space="preserve">
-    <value>PCH Fan</value>
-  </data>
-  <data name="FloatingGadgets_Fans" xml:space="preserve">
-    <value>Fans</value>
-  </data>
-  <data name="FloatingGadgets_Chipset" xml:space="preserve">
-    <value>Chipset</value>
-  </data>
-  <data name="FloatingGadgets_Gpu" xml:space="preserve">
-    <value>GPU</value>
-  </data>
-  <data name="FloatingGadgets_Cpu" xml:space="preserve">
-    <value>CPU</value>
-  </data>
-  <data name="SettingsPage_Select_BackgroundImage_Title" xml:space="preserve">
-    <value>Select Background Image</value>
-  </data>
-  <data name="SettingsPage_Select_BackgroundImage_ImageFile" xml:space="preserve">
-    <value>Image File</value>
-  </data>
-  <data name="SettingsPage_Select_BackgroundImage_AllFiles" xml:space="preserve">
-    <value>All Files</value>
-  </data>
-  <data name="SettingsPage_Custom_BackgroundImage_Title" xml:space="preserve">
-    <value>Custom Background Image</value>
-  </data>
-  <data name="SettingsPage_Custom_BackgroundImage_Message" xml:space="preserve">
-    <value>Custom Background Image</value>
-  </data>
-  <data name="SettingsPage_Select_BackgroundImage_Content" xml:space="preserve">
-    <value>Select Image</value>
-  </data>
-  <data name="SettingsPage_Clear_BackgroundImage_Title" xml:space="preserve">
-    <value>Clear Image</value>
-  </data>
-  <data name="SettingsPage_Clear_BackgroundImage_Message" xml:space="preserve">
-    <value>Clear current selected image file.</value>
-  </data>
-  <data name="SensorsControl_Motherboard_Temperature" xml:space="preserve">
-    <value>Board Temperature</value>
-  </data>
-  <data name="StatusWindow_Frequency_And_Temperature" xml:space="preserve">
-    <value>Frequency / Temperature</value>
-  </data>
-  <data name="StatusWindow_Fan_And_Power" xml:space="preserve">
-    <value>Fan / Power</value>
-  </data>
-  <data name="StatusWindow_System_Fan" xml:space="preserve">
-    <value>System Fan</value>
-  </data>
-  <data name="FloatingGadgets_Fps" xml:space="preserve">
-    <value>FPS</value>
-  </data>
-  <data name="FloatingGadgets_Low_Fps" xml:space="preserve">
-    <value>1% Low</value>
-  </data>
-  <data name="FloatingGadgets_Frame_Time" xml:space="preserve">
-    <value>Frame Time</value>
-  </data>
-  <data name="FloatingGadgetAutomationStepControl_Title" xml:space="preserve">
-    <value>Floating Gadget</value>
-  </data>
-  <data name="FloatingGadgetAutomationStepControl_Message" xml:space="preserve">
-    <value>Show or Hide the Floating Gadget</value>
-  </data>
-  <data name="CloseAutomationStepControl_Title" xml:space="preserve">
-    <value>Close</value>
-  </data>
-  <data name="CloseAutomationStepControl_Message" xml:space="preserve">
-    <value>Close the Lenovo Legion Toolkit</value>
-  </data>
-  <data name="FloatingGadget_Custom_Game" xml:space="preserve">
-    <value>Game</value>
-  </data>
-  <data name="FloatingGadget_Custom_CPU" xml:space="preserve">
-    <value>CPU</value>
-  </data>
-  <data name="FloatingGadget_Custom_GPU" xml:space="preserve">
-    <value>GPU</value>
-  </data>
-  <data name="FloatingGadget_Custom_Chipset" xml:space="preserve">
-    <value>Chipset</value>
-  </data>
-  <data name="FloatingGadget_Style_Simple" xml:space="preserve">
-    <value>Simple</value>
-  </data>
-  <data name="SettingsPage_ClearBackgroundImage_Title" xml:space="preserve">
-    <value>Image Cleared</value>
-  </data>
-  <data name="GodModeSettingsWindow_PrecisionBoostOverdriveScaler_Title" xml:space="preserve">
-    <value>Precision Boost Overdrive Scaler</value>
-  </data>
-  <data name="GodModeSettingsWindow_PrecisionBoostOverdriveScaler_Description" xml:space="preserve">
-    <value>Precision Boost Overdrive Scaler.</value>
-  </data>
-  <data name="GodModeSettingsWindow_PrecisionBoostOverdriveBoostFrequency_Title" xml:space="preserve">
-    <value>Precision Boost Overdrive Boost Frequency</value>
-  </data>
-  <data name="GodModeSettingsWindow_PrecisionBoostOverdriveBoostFrequency_Description" xml:space="preserve">
-    <value>Precision Boost Overdrive Boost Frequency.</value>
-  </data>
-  <data name="GodModeSettingsWindow_AllCoreCurveOptimizer_Title" xml:space="preserve">
-    <value>All Core Curve Optimizer</value>
-  </data>
-  <data name="GodModeSettingsWindow_AllCoreCurveOptimizer_Description" xml:space="preserve">
-    <value>All Core Curve Optimizer.</value>
-  </data>
-  <data name="GodModeSettingsWindow_Toggle_OC_Title" xml:space="preserve">
-    <value>Advanced Overclocking Options</value>
-  </data>
-  <data name="GodModeSettingsWindow_Toggle_OC_Message" xml:space="preserve">
-    <value>Enable / Disable Advanced Overclocking options.</value>
-  </data>
-  <data name="GodModeSettingsWindow_Toggle_CoreCurve_Title" xml:space="preserve">
-    <value>Core Curve Adjustment</value>
-  </data>
-  <data name="GodModeSettingsWindow_Toggle_CoreCurve_Message" xml:space="preserve">
-    <value>Enable / Disable Core Curve Adjustment.</value>
-  </data>
-  <data name="FloatingGadget_Custom_Title" xml:space="preserve">
-    <value>Customize Gadget Elements</value>
-  </data>
-  <data name="PeriodicActionPipelineTriggerTabItemContent_Minutes" xml:space="preserve">
-    <value>Minutes</value>
-  </data>
-  <data name="PeriodicActionPipelineTriggerTabItemContent_Seconds" xml:space="preserve">
-    <value>Seconds</value>
-  </data>
-  <data name="SpeakerVolumeAutomationStepControl_Title" xml:space="preserve">
-    <value>Speaker Volume</value>
-  </data>
-  <data name="SpeakerVolumeAutomationStepControl_Message" xml:space="preserve">
-    <value>Change the speaker's volume.</value>
-  </data>
-  <data name="AmdOverclocking_Caution_Title" xml:space="preserve">
-    <value>Caution</value>
-  </data>
-  <data name="AmdOverclocking_Caution_Message" xml:space="preserve">
-    <value>Changing these settings may impact system stability. Proceed with caution.</value>
-  </data>
-  <data name="AmdOverclocking_Status_Title" xml:space="preserve">
-    <value>Status</value>
-  </data>
-  <data name="AmdOverclocking_FMax_Frequency_Title" xml:space="preserve">
-    <value>FMax Frequency</value>
-  </data>
-  <data name="AmdOverclocking_FMax_Frequency_Message" xml:space="preserve">
-    <value>Maximum CPU boost frequency override (MHz)</value>
-  </data>
-  <data name="AmdOverclocking_Core_Title" xml:space="preserve">
-    <value>Core</value>
-  </data>
-  <data name="Reset" xml:space="preserve">
-    <value>Reset</value>
-  </data>
-  <data name="AmdOverclocking_Apply_Changes" xml:space="preserve">
-    <value>Apply Changes</value>
-  </data>
-  <data name="Error" xml:space="preserve">
-    <value>Error</value>
-  </data>
-  <data name="AmdOverclocking_Do_Not_Apply_Message" xml:space="preserve">
-    <value>Profile apply has been canceled due to abnormal restart.</value>
-  </data>
-  <data name="RunAutomationStepControl_ProcessCheckInstance" xml:space="preserve">
-    <value>Check Instance</value>
-  </data>
-  <data name="RunAutomationStepControl_ProcessCheckInstance_Description" xml:space="preserve">
-    <value>Check if process already started.</value>
-  </data>
-  <data name="AmdOverclocking_Success_Title" xml:space="preserve">
-    <value>Success</value>
-  </data>
-  <data name="AmdOverclocking_Success_Message" xml:space="preserve">
-    <value>Settings applied successfully.</value>
-  </data>
-  <data name="AmdOverclocking_X3D_Gaming_Mode_Title" xml:space="preserve">
-    <value>X3D Gaming Mode</value>
-  </data>
-  <data name="AmdOverclocking_X3D_Gaming_Mode_Message" xml:space="preserve">
-    <value>Disable CCD 1 to get stability on both FPS and temperatures</value>
-  </data>
-  <data name="ArgumentWindow_Title" xml:space="preserve">
-    <value>Argument Window</value>
-  </data>
-  <data name="ArgumentWindow_Category_General" xml:space="preserve">
-    <value>General</value>
-  </data>
-  <data name="ArgumentWindow_Category_Hardware_Automation" xml:space="preserve">
-    <value>Hardware &amp; Automation</value>
-  </data>
-  <data name="ArgumentWindow_Category_Lighting" xml:space="preserve">
-    <value>Lighting</value>
-  </data>
-  <data name="ArgumentWindow_Category_Network_Proxy" xml:space="preserve">
-    <value>Network Proxy</value>
-  </data>
-  <data name="ArgumentWindow_Category_Debugging" xml:space="preserve">
-    <value>Debugging</value>
-  </data>
-  <data name="ArgumentWindow_Flag_StartMinimized" xml:space="preserve">
-    <value>Start Minimized</value>
-  </data>
-  <data name="ArgumentWindow_Flag_DisableTrayTooltip" xml:space="preserve">
-    <value>Disable Tray Tooltip</value>
-  </data>
-  <data name="ArgumentWindow_Flag_DisableUpdateChecker" xml:space="preserve">
-    <value>Disable Update Checker</value>
-  </data>
-  <data name="ArgumentWindow_Flag_DisableConflictWarning" xml:space="preserve">
-    <value>Disable Conflict Warning</value>
-  </data>
-  <data name="ArgumentWindow_Flag_AllowPowerModesBattery" xml:space="preserve">
-    <value>Allow All Power Modes on Battery</value>
-  </data>
-  <data name="ArgumentWindow_Flag_SkipCompatCheck" xml:space="preserve">
-    <value>Skip Compatibility Check</value>
-  </data>
-  <data name="ArgumentWindow_Flag_ExpGpuMode" xml:space="preserve">
-    <value> Experimental GPU Working Mode</value>
-  </data>
-  <data name="ArgumentWindow_Flag_DisableLenovoLighting" xml:space="preserve">
-    <value>Disable Lenovo Lighting</value>
-  </data>
-  <data name="ArgumentWindow_Flag_DisableRgbKb" xml:space="preserve">
-    <value>Disable RGB Keyboard</value>
-  </data>
-  <data name="ArgumentWindow_Flag_DisableSpectrumKb" xml:space="preserve">
-    <value>Disable Spectrum Keyboard</value>
-  </data>
-  <data name="ArgumentWindow_Flag_TraceEnabled" xml:space="preserve">
-    <value>Enable Trace Logging</value>
-  </data>
-  <data name="ArgumentWindow_Flag_DebugMode" xml:space="preserve">
-    <value>Debug Mode</value>
-  </data>
-  <data name="ArgumentWindow_Flag_ProxyUrl" xml:space="preserve">
-    <value> Proxy URL</value>
-  </data>
-  <data name="ArgumentWindow_Flag_ProxyUsername" xml:space="preserve">
-    <value>Proxy Username</value>
-  </data>
-  <data name="ArgumentWindow_Flag_ProxyPassword" xml:space="preserve">
-    <value>Proxy Password</value>
-  </data>
-  <data name="ArgumentWindow_Flag_AllowAllCerts" xml:space="preserve">
-    <value>Allow All Certificates</value>
-  </data>
-  <data name="ArgumentWindow_NotSet" xml:space="preserve">
-    <value>Not Set</value>
-  </data>
-  <data name="ArgumentWindow_Edit_Title" xml:space="preserve">
-    <value>Edit Arguments</value>
-  </data>
-  <data name="ArgumentWindow_Edit_Message" xml:space="preserve">
-    <value>Open an argument window for convenient modification of arguments.</value>
-  </data>
-  <data name="SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoost_Title" xml:space="preserve">
-    <value>Vantage Color Boost</value>
-  </data>
-  <data name="SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoostSettings_Title" xml:space="preserve">
-    <value>Color Boost Settings</value>
-  </data>
-  <data name="RestoreDefaults" xml:space="preserve">
-    <value>Restore Defaults</value>
-  </data>
-  <data name="SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoostSettings_BoostFloor" xml:space="preserve">
-    <value>Boost Floor</value>
-  </data>
-  <data name="SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoostSettings_BoostTarget" xml:space="preserve">
-    <value>Boost Target</value>
-  </data>
-  <data name="SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoostSettings_BoostBrightnessFactor" xml:space="preserve">
-    <value>Boost Brightness Factor</value>
-  </data>
-  <data name="SpectrumKeyboardBacklightEditEffectWindow_VantageColorBoostSettings_WhiteThreshold" xml:space="preserve">
-    <value>White Threshold</value>
-  </data>
-  <data name="CustomFanCurve_Add_Point" xml:space="preserve">
-    <value>Add curve point</value>
-  </data>
-  <data name="CustomFanCurve_Fan_Speed" xml:space="preserve">
-    <value>Fan Speed %</value>
-  </data>
-  <data name="CustomFanCurve_Temperature" xml:space="preserve">
-    <value>Temperature °C </value>
-  </data>
-  <data name="CustomFanCurve_Title" xml:space="preserve">
-    <value>Real-Time Monitoring</value>
-  </data>
-  <data name="CustomFanCurve_PWM_Value" xml:space="preserve">
-    <value>PWM Value</value>
-  </data>
-  <data name="CustomFanCurve_Settings" xml:space="preserve">
-    <value>Settings</value>
-  </data>
-  <data name="CustomFanCurve_Critical_Temp" xml:space="preserve">
-    <value>Critical Temp</value>
-  </data>
-  <data name="CustomFanCurve_Accelerate" xml:space="preserve">
-    <value>Accelerate</value>
-  </data>
-  <data name="CustomFanCurve_Deceleration" xml:space="preserve">
-    <value>Deceleration</value>
-  </data>
-  <data name="CustomFanCurve_Accelerate_Tooltip" xml:space="preserve">
-    <value>Accelerate control's how much PWM is added to the current PWM Value.</value>
-  </data>
-  <data name="CustomFanCurve_Deceleration_Tooltip" xml:space="preserve">
-    <value>Deceleration control's how much PWM is decreased to the current PWM Value.</value>
-  </data>
-  <data name="CustomFanCurve_Critical_Temp_Tooltip" xml:space="preserve">
-    <value>Force the maximum speed when the temperature is greater than or equal to this temperature to prevent burning out.</value>
-  </data>
-  <data name="FanMaxSpeedAutomationStepControl_Title" xml:space="preserve">
-    <value>Fan Max Speed</value>
-  </data>
-  <data name="FanMaxSpeedAutomationStepControl_Message" xml:space="preserve">
-    <value>Set fan to maximum speed.</value>
-  </data>
-  <data name="MainWindow_NavigationItem_FanCurve" xml:space="preserve">
-    <value>Fan Curve</value>
-  </data>
-  <data name="MultipleTriggersAutomationPipelineTrigger_Logic_Title" xml:space="preserve">
-    <value>Logic</value>
-  </data>
-  <data name="MultipleTriggersAutomationPipelineTrigger_Logic_And" xml:space="preserve">
-    <value>Match All (And)</value>
-  </data>
-  <data name="MultipleTriggersAutomationPipelineTrigger_Logic_Or" xml:space="preserve">
-    <value>Match Any (Or)</value>
-  </data>
-  <data name="ExcludeProcessesWindow_Title" xml:space="preserve">
-    <value>Excluded Processes</value>
-  </data>
-  <data name="ExcludeProcessesWindow_ProcessNamePlaceholder" xml:space="preserve">
-    <value>Process Name (e.g. discord)</value>
-  </data>
-  <data name="ExcludeProcessesWindow_Description" xml:space="preserve">
-    <value>Processes in this list will be ignored by game start/stop triggers and Lenovo's AI/Intelligent Mode. Enter the process name without the path (e.g., "discord" or "blender").</value>
-  </data>
-  <data name="SettingsPage_ExcludeProcesses_Message" xml:space="preserve">
-    <value>Manage processes that are ignored by Game Detection.</value>
-  </data>
-  <data name="SettingsPage_ExcludeProcesses_Title" xml:space="preserve">
-    <value>Excluded Processes</value>
-  </data>
-  <data name="AutomationPage_Game_Detection_Title" xml:space="preserve">
-    <value>Game Detection</value>
-  </data>
-  <data name="AutomationPage_Game_Detection_Sub_Title" xml:space="preserve">
-    <value>Configure detection methods and exclusions</value>
-  </data>
-  <data name="AutomationPage_Game_Detection_Method_Auto" xml:space="preserve">
-    <value>Automatic (All Methods)</value>
-  </data>
-  <data name="AutomationPage_Game_Detection_Method_Discrete_GPU" xml:space="preserve">
-    <value>Discrete GPU Activity</value>
-  </data>
-  <data name="AutomationPage_Game_Detection_Method_List" xml:space="preserve">
-    <value>Known Game List</value>
-  </data>
-  <data name="AutomationPage_Game_Detection_Method_Game_Mode" xml:space="preserve">
-    <value>Windows Game Mode</value>
-  </data>
-  <data name="AutomationPipelineControl_RunOnStartup" xml:space="preserve">
-    <value>Run on startup</value>
-  </data>
-  <data name="AutomationPipelineControl_RunOnStartup_Tooltip" xml:space="preserve">
-    <value>When enabled, this automation will check and apply when the app starts</value>
-  </data>
-  <data name="AmdOverclocking_Per_Core_Title" xml:space="preserve">
-    <value>Per-Core Optimization</value>
-  </data>
-  <data name="AmdOverclocking_Global_Offset" xml:space="preserve">
-    <value>Global Offset:</value>
-  </data>
-  <data name="AmdOverclocking_Global_Plus" xml:space="preserve">
-    <value>+1 All</value>
-  </data>
-  <data name="AmdOverclocking_Global_Dim" xml:space="preserve">
-    <value>-1 All</value>
-  </data>
-  <data name="SettingsPage_Category_Appearance" xml:space="preserve">
-    <value>Appearance</value>
-  </data>
-  <data name="SettingsPage_Category_AppBehavior" xml:space="preserve">
-    <value>App Behavior</value>
-  </data>
-  <data name="SettingsPage_Category_SoftwareControl" xml:space="preserve">
-    <value>Software Control</value>
-  </data>
-  <data name="SettingsPage_Category_SmartKeys" xml:space="preserve">
-    <value>Smart Keys</value>
-  </data>
-  <data name="SettingsPage_Category_Display" xml:space="preserve">
-    <value>Display</value>
-  </data>
-  <data name="SettingsPage_Category_Updates" xml:space="preserve">
-    <value>Updates</value>
-  </data>
-  <data name="SettingsPage_Category_Power" xml:space="preserve">
-    <value>Power</value>
-  </data>
-  <data name="SettingsPage_Category_Integrations" xml:space="preserve">
-    <value>Integrations</value>
-  </data>
-  <data name="RestartRequired_Title" xml:space="preserve">
-    <value>Restart required</value>
-  </data>
-  <data name="GodModeSettingsWindow_CustomMode_Warning" xml:space="preserve">
-    <value>Custom Mode grants access to critical system parameters such as power limits and fan curves. 
-
-Misconfiguration can lead to severe system instability, thermal throttling, or permanent hardware damage. Modifications made here may void your manufacturer warranty. 
-
-Do not proceed unless you possess the necessary technical expertise.</value>
-  </data>
-  <data name="RestartRequired_Message" xml:space="preserve">
-    <value>Changing this requires restart. Do you want to restart now?</value>
-  </data>
-  <data name="SettingsBackupWindow_Title" xml:space="preserve">
-    <value>Backup Settings</value>
-  </data>
-  <data name="SettingsBackupWindow_SelectAll" xml:space="preserve">
-    <value>Select All</value>
-  </data>
-  <data name="SettingsBackupWindow_Backup" xml:space="preserve">
-    <value>Back Up</value>
-  </data>
-  <data name="SettingsBackupWindow_Restore" xml:space="preserve">
-    <value>Restore</value>
-  </data>
-  <data name="SettingsBackupWindow_BackupSuccess" xml:space="preserve">
-    <value>Backup completed successfully.</value>
-  </data>
-  <data name="SettingsBackupWindow_RestoreSuccess" xml:space="preserve">
-    <value>Restore completed successfully. The application will restart.</value>
-  </data>
-  <data name="SettingsBackupWindow_NoFilesSelected" xml:space="preserve">
-    <value>No files selected.</value>
-  </data>
-  <data name="SettingsPage_BackupSettings_Title" xml:space="preserve">
-    <value>Back Up Settings</value>
-  </data>
-  <data name="SettingsPage_BackupSettings_Message" xml:space="preserve">
-    <value>Back up or restore application settings.</value>
-  </data>
-  <data name="SettingsBackupWindow_NoMatchingFiles" xml:space="preserve">
-    <value>No matching files found in selected folder.</value>
-  </data>
-  <data name="SettingsBackupWindow_RestoreConfirm" xml:space="preserve">
-    <value>Restoring settings will overwrite your current configuration and restart the application. Do you want to continue?</value>
-  </data>
-  <data name="SettingsPage_UpdateMethod_Title" xml:space="preserve">
-    <value>Update Method</value>
   </data>
 </root>
