@@ -2918,6 +2918,39 @@ Do not proceed unless you possess the necessary technical expertise.</value>
   <data name="RestartRequired_Message" xml:space="preserve">
     <value>Changing this requires restart. Do you want to restart now?</value>
   </data>
+  <data name="SettingsBackupWindow_Title" xml:space="preserve">
+    <value>Backup Settings</value>
+  </data>
+  <data name="SettingsBackupWindow_SelectAll" xml:space="preserve">
+    <value>Select All</value>
+  </data>
+  <data name="SettingsBackupWindow_Backup" xml:space="preserve">
+    <value>Back Up</value>
+  </data>
+  <data name="SettingsBackupWindow_Restore" xml:space="preserve">
+    <value>Restore</value>
+  </data>
+  <data name="SettingsBackupWindow_BackupSuccess" xml:space="preserve">
+    <value>Backup completed successfully.</value>
+  </data>
+  <data name="SettingsBackupWindow_RestoreSuccess" xml:space="preserve">
+    <value>Restore completed successfully. The application will restart.</value>
+  </data>
+  <data name="SettingsBackupWindow_NoFilesSelected" xml:space="preserve">
+    <value>No files selected.</value>
+  </data>
+  <data name="SettingsPage_BackupSettings_Title" xml:space="preserve">
+    <value>Back Up Settings</value>
+  </data>
+  <data name="SettingsPage_BackupSettings_Message" xml:space="preserve">
+    <value>Back up or restore application settings.</value>
+  </data>
+  <data name="SettingsBackupWindow_NoMatchingFiles" xml:space="preserve">
+    <value>No matching files found in selected folder.</value>
+  </data>
+  <data name="SettingsBackupWindow_RestoreConfirm" xml:space="preserve">
+    <value>Restoring settings will overwrite your current configuration and restart the application. Do you want to continue?</value>
+  </data>
   <data name="SettingsPage_UpdateMethod_Title" xml:space="preserve">
     <value>Update Method</value>
   </data>
