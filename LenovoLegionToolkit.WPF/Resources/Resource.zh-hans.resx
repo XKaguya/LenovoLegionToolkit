@@ -2271,6 +2271,24 @@
   <data name="Settings" xml:space="preserve">
     <value>设置</value>
   </data>
+  <data name="SettingsAppearancePage_HardwareAcceleration_Message" xml:space="preserve">
+    <value>Use hardware acceleration for the user interface. This can improve performance and fluidity.</value>
+  </data>
+  <data name="SettingsAppearancePage_HardwareAcceleration_Title" xml:space="preserve">
+    <value>Hardware Acceleration</value>
+  </data>
+  <data name="SettingsAppearancePage_HardwareAcceleration_Warning" xml:space="preserve">
+    <value>Enabling hardware acceleration may cause flickering or black flashes on some hybrid graphics systems, and may prevent the discrete GPU from being turned off.</value>
+  </data>
+  <data name="SettingsAppearancePage_WindowBackdropType_Info" xml:space="preserve">
+    <value>If you experience visual artifacts on Snackbars in HDR or ACM mode, set this to "None".</value>
+  </data>
+  <data name="SettingsAppearancePage_WindowBackdropType_Message" xml:space="preserve">
+    <value>The effect used for the background of the application window.</value>
+  </data>
+  <data name="SettingsAppearancePage_WindowBackdropType_Title" xml:space="preserve">
+    <value>Window Backdrop</value>
+  </data>
   <data name="SettingsBackupWindow_Backup" xml:space="preserve">
     <value>备份</value>
   </data>
@@ -2316,6 +2334,9 @@
   </data>
   <data name="SettingsPage_BackupSettings_Title" xml:space="preserve">
     <value>备份设置</value>
+  </data>
+  <data name="SettingsPage_BootLogo_EFIInfo" xml:space="preserve">
+    <value>This feature modifies the EFI partition. Use with caution.</value>
   </data>
   <data name="SettingsPage_BootLogo_Message" xml:space="preserve">
     <value>自定义在启动阶段所展示的图案。</value>
@@ -2377,6 +2398,9 @@
   <data name="SettingsPage_CLI_Title" xml:space="preserve">
     <value>命令行界面</value>
   </data>
+  <data name="SettingsPage_Common_RestartRecommended" xml:space="preserve">
+    <value>Restart is recommended after changing this option.</value>
+  </data>
   <data name="SettingsPage_Custom_BackgroundImage_Message" xml:space="preserve">
     <value>自定义背景图片</value>
   </data>
@@ -2390,8 +2414,7 @@
     <value>无法禁用 Legion Space</value>
   </data>
   <data name="SettingsPage_DisableLegionSpace_Message" xml:space="preserve">
-    <value>禁用 Legion Space 服务且无需卸载。
-修改此项后推荐重启电脑。</value>
+    <value>Disable Legion Space and its service without uninstalling it.</value>
   </data>
   <data name="SettingsPage_DisableLegionSpace_Title" xml:space="preserve">
     <value>禁用 Legion Space</value>
@@ -2403,8 +2426,7 @@
     <value>无法禁用 Legion Zone</value>
   </data>
   <data name="SettingsPage_DisableLegionZone_Message" xml:space="preserve">
-    <value>禁用 Legion Zone 服务且无需卸载。
-修改此项后推荐重启电脑。</value>
+    <value>Disable Legion Zone and its service without uninstalling it.</value>
   </data>
   <data name="SettingsPage_DisableLegionZone_Title" xml:space="preserve">
     <value>禁用 Legion Zone</value>
@@ -2416,9 +2438,8 @@
     <value>无法禁用 Lenovo Hotkeys</value>
   </data>
   <data name="SettingsPage_DisableLenovoHotkeys_Message" xml:space="preserve">
-    <value>禁用 Lenovo Hotkeys 且无需卸载。
-禁用后本应用将接管 Fn 快捷功能。
-修改此项后建议重启电脑。</value>
+    <value>Disable Lenovo Hotkeys and its service without uninstalling it.
+If disabled, this app will handle Fn shortcuts.</value>
   </data>
   <data name="SettingsPage_DisableLenovoHotkeys_Title" xml:space="preserve">
     <value>禁用 Lenovo Hotkeys</value>
@@ -2430,8 +2451,7 @@
     <value>无法禁用 Lenovo Vantage 与 ImController</value>
   </data>
   <data name="SettingsPage_DisableVantage_Message" xml:space="preserve">
-    <value>禁用 Lenovo Vantage 与 ImController 且无需卸载。
-修改此项后推荐重启电脑。</value>
+    <value>Disable Lenovo Vantage and ImController without uninstalling them.</value>
   </data>
   <data name="SettingsPage_DisableVantage_Title" xml:space="preserve">
     <value>禁用 Lenovo Vantage 与 ImController</value>
@@ -2488,7 +2508,10 @@
     <value>此项控制性能悬浮窗的数据刷新时间</value>
   </data>
   <data name="SettingsPage_HWiNFO_Message" xml:space="preserve">
-    <value>将风扇速度，电池温度等数据和 HWiNFO64 共享。切换此选项后也许需要重启 HWiNFO64。</value>
+    <value>Share fan speed, battery temperature etc. with HWiNFO64.</value>
+  </data>
+  <data name="SettingsPage_HWiNFO_RestartInfo" xml:space="preserve">
+    <value>You may need to restart HWiNFO64 after changing this option.</value>
   </data>
   <data name="SettingsPage_HWiNFO_Title" xml:space="preserve">
     <value>HWiNFO64</value>
