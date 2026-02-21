@@ -2263,6 +2263,24 @@ Asegúrese primero de que su script se ejecuta correctamente.</value>
   <data name="Settings" xml:space="preserve">
     <value>Ajustes</value>
   </data>
+  <data name="SettingsAppearancePage_HardwareAcceleration_Message" xml:space="preserve">
+    <value>Use hardware acceleration for the user interface. This can improve performance and fluidity.</value>
+  </data>
+  <data name="SettingsAppearancePage_HardwareAcceleration_Title" xml:space="preserve">
+    <value>Hardware Acceleration</value>
+  </data>
+  <data name="SettingsAppearancePage_HardwareAcceleration_Warning" xml:space="preserve">
+    <value>Enabling hardware acceleration may cause flickering or black flashes on some hybrid graphics systems, and may prevent the discrete GPU from being turned off.</value>
+  </data>
+  <data name="SettingsAppearancePage_WindowBackdropType_Info" xml:space="preserve">
+    <value>If you experience visual artifacts on Snackbars in HDR or ACM mode, set this to "None".</value>
+  </data>
+  <data name="SettingsAppearancePage_WindowBackdropType_Message" xml:space="preserve">
+    <value>The effect used for the background of the application window.</value>
+  </data>
+  <data name="SettingsAppearancePage_WindowBackdropType_Title" xml:space="preserve">
+    <value>Window Backdrop</value>
+  </data>
   <data name="SettingsBackupWindow_Backup" xml:space="preserve">
     <value>Back Up</value>
   </data>
@@ -2307,6 +2325,9 @@ Asegúrese primero de que su script se ejecuta correctamente.</value>
   </data>
   <data name="SettingsPage_BackupSettings_Title" xml:space="preserve">
     <value>Back Up Settings</value>
+  </data>
+  <data name="SettingsPage_BootLogo_EFIInfo" xml:space="preserve">
+    <value>This feature modifies the EFI partition. Use with caution.</value>
   </data>
   <data name="SettingsPage_BootLogo_Message" xml:space="preserve">
     <value>Personalizar la imagen del logo de arranque, visible durante el inicio del sistema.</value>
@@ -2368,6 +2389,9 @@ Asegúrese primero de que su script se ejecuta correctamente.</value>
   <data name="SettingsPage_CLI_Title" xml:space="preserve">
     <value>Interfaz de línea de comandos (CLI)</value>
   </data>
+  <data name="SettingsPage_Common_RestartRecommended" xml:space="preserve">
+    <value>Restart is recommended after changing this option.</value>
+  </data>
   <data name="SettingsPage_Custom_BackgroundImage_Message" xml:space="preserve">
     <value>Imagen de fondo personalizada</value>
   </data>
@@ -2381,8 +2405,7 @@ Asegúrese primero de que su script se ejecuta correctamente.</value>
     <value>No se ha podido desactivar Legion Space</value>
   </data>
   <data name="SettingsPage_DisableLegionSpace_Message" xml:space="preserve">
-    <value>Desactivar Legión Zone y su servicio, sin desinstalarlo.
-Se recomienda reiniciar después de cambiar esta opción.</value>
+    <value>Disable Legion Space and its service without uninstalling it.</value>
   </data>
   <data name="SettingsPage_DisableLegionSpace_Title" xml:space="preserve">
     <value>Desactivar Legion Space</value>
@@ -2394,8 +2417,7 @@ Se recomienda reiniciar después de cambiar esta opción.</value>
     <value>No se puede desactivar Legion Zone</value>
   </data>
   <data name="SettingsPage_DisableLegionZone_Message" xml:space="preserve">
-    <value>Desactivar Legión Zone y su servicio, sin desinstalarlo.
-Se recomienda reiniciar después de cambiar esta opción.</value>
+    <value>Disable Legion Zone and its service without uninstalling it.</value>
   </data>
   <data name="SettingsPage_DisableLegionZone_Title" xml:space="preserve">
     <value>Desactivar Legion Zone</value>
@@ -2407,9 +2429,8 @@ Se recomienda reiniciar después de cambiar esta opción.</value>
     <value>No se pueden desactivar las teclas de acceso rápido de Lenovo</value>
   </data>
   <data name="SettingsPage_DisableLenovoHotkeys_Message" xml:space="preserve">
-    <value>Desactivar las teclas de acceso rápido de Lenovo y su servicio, sin desinstalarlo.
-Si se desactiva, esta aplicación controlará los accesos directos Fn.
-Se recomienda reiniciar después de cambiar esta opción.</value>
+    <value>Disable Lenovo Hotkeys and its service without uninstalling it.
+If disabled, this app will handle Fn shortcuts.</value>
   </data>
   <data name="SettingsPage_DisableLenovoHotkeys_Title" xml:space="preserve">
     <value>Desactivar las teclas de acceso rápido de Lenovo</value>
@@ -2421,8 +2442,7 @@ Se recomienda reiniciar después de cambiar esta opción.</value>
     <value>No se ha podido desactivar Lenovo Vantage y/o ImController</value>
   </data>
   <data name="SettingsPage_DisableVantage_Message" xml:space="preserve">
-    <value>Desactivar Lenovo Vantage e ImController sin desinstalarlos.
-Se recomienda reiniciar después de cambiar esta opción.</value>
+    <value>Disable Lenovo Vantage and ImController without uninstalling them.</value>
   </data>
   <data name="SettingsPage_DisableVantage_Title" xml:space="preserve">
     <value>Desactivar Lenovo Vantage e ImController</value>
@@ -2479,7 +2499,10 @@ Se recomienda reiniciar después de cambiar esta opción.</value>
     <value>Controla el intervalo de actualización del sensor.</value>
   </data>
   <data name="SettingsPage_HWiNFO_Message" xml:space="preserve">
-    <value>Compartir la velocidad del ventilador, la temperatura de la batería, etc... con HWiNFO64. Puede que tenga que reiniciar HWiNFO64 después de cambiar esta opción.</value>
+    <value>Share fan speed, battery temperature etc. with HWiNFO64.</value>
+  </data>
+  <data name="SettingsPage_HWiNFO_RestartInfo" xml:space="preserve">
+    <value>You may need to restart HWiNFO64 after changing this option.</value>
   </data>
   <data name="SettingsPage_HWiNFO_Title" xml:space="preserve">
     <value>HWiNFO64</value>
