@@ -2262,6 +2262,24 @@ Zorg ervoor dat uw script eerst correct wordt uitgevoerd.</value>
   <data name="Settings" xml:space="preserve">
     <value>Instellingen</value>
   </data>
+  <data name="SettingsAppearancePage_HardwareAcceleration_Message" xml:space="preserve">
+    <value>Use hardware acceleration for the user interface. This can improve performance and fluidity.</value>
+  </data>
+  <data name="SettingsAppearancePage_HardwareAcceleration_Title" xml:space="preserve">
+    <value>Hardware Acceleration</value>
+  </data>
+  <data name="SettingsAppearancePage_HardwareAcceleration_Warning" xml:space="preserve">
+    <value>Enabling hardware acceleration may cause flickering or black flashes on some hybrid graphics systems, and may prevent the discrete GPU from being turned off.</value>
+  </data>
+  <data name="SettingsAppearancePage_WindowBackdropType_Info" xml:space="preserve">
+    <value>If you experience visual artifacts on Snackbars in HDR or ACM mode, set this to "None".</value>
+  </data>
+  <data name="SettingsAppearancePage_WindowBackdropType_Message" xml:space="preserve">
+    <value>The effect used for the background of the application window.</value>
+  </data>
+  <data name="SettingsAppearancePage_WindowBackdropType_Title" xml:space="preserve">
+    <value>Window Backdrop</value>
+  </data>
   <data name="SettingsBackupWindow_Backup" xml:space="preserve">
     <value>Back Up</value>
   </data>
@@ -2306,6 +2324,9 @@ Zorg ervoor dat uw script eerst correct wordt uitgevoerd.</value>
   </data>
   <data name="SettingsPage_BackupSettings_Title" xml:space="preserve">
     <value>Back Up Settings</value>
+  </data>
+  <data name="SettingsPage_BootLogo_EFIInfo" xml:space="preserve">
+    <value>This feature modifies the EFI partition. Use with caution.</value>
   </data>
   <data name="SettingsPage_BootLogo_Message" xml:space="preserve">
     <value>Pas het opstartlogo aan, dat zichtbaar is als het systeem opstart.</value>
@@ -2367,6 +2388,9 @@ Zorg ervoor dat uw script eerst correct wordt uitgevoerd.</value>
   <data name="SettingsPage_CLI_Title" xml:space="preserve">
     <value>CLI</value>
   </data>
+  <data name="SettingsPage_Common_RestartRecommended" xml:space="preserve">
+    <value>Restart is recommended after changing this option.</value>
+  </data>
   <data name="SettingsPage_Custom_BackgroundImage_Message" xml:space="preserve">
     <value>Selecteer een achtergrondsafbeelding</value>
   </data>
@@ -2380,8 +2404,7 @@ Zorg ervoor dat uw script eerst correct wordt uitgevoerd.</value>
     <value>Kon Legion Space niet uitschakelen</value>
   </data>
   <data name="SettingsPage_DisableLegionSpace_Message" xml:space="preserve">
-    <value>Schakel Legion Zone en zijn service uit zonder deze te verwijderen. 
-Een herstart wordt aanbevolen na het wijzigen van deze optie.</value>
+    <value>Disable Legion Space and its service without uninstalling it.</value>
   </data>
   <data name="SettingsPage_DisableLegionSpace_Title" xml:space="preserve">
     <value>Schakel Legion Space uit</value>
@@ -2393,8 +2416,7 @@ Een herstart wordt aanbevolen na het wijzigen van deze optie.</value>
     <value>Kan Legion Zone niet uitschakelen</value>
   </data>
   <data name="SettingsPage_DisableLegionZone_Message" xml:space="preserve">
-    <value>Schakel Legion Zone en zijn service uit zonder deze te verwijderen. 
-Een herstart wordt aanbevolen na het wijzigen van deze optie.</value>
+    <value>Disable Legion Zone and its service without uninstalling it.</value>
   </data>
   <data name="SettingsPage_DisableLegionZone_Title" xml:space="preserve">
     <value>Schakel Legion Zone Uit</value>
@@ -2406,9 +2428,8 @@ Een herstart wordt aanbevolen na het wijzigen van deze optie.</value>
     <value>Kan Legion Zone niet uitschakelen</value>
   </data>
   <data name="SettingsPage_DisableLenovoHotkeys_Message" xml:space="preserve">
-    <value>Schakel Legion Hotkeys en zijn service uit zonder deze te verwijderen.
-Als het is uitgeschakeld, zal deze app de Fn-snelkoppelingen beheren.
-Een herstart wordt aanbevolen na het wijzigen van deze optie.</value>
+    <value>Disable Lenovo Hotkeys and its service without uninstalling it.
+If disabled, this app will handle Fn shortcuts.</value>
   </data>
   <data name="SettingsPage_DisableLenovoHotkeys_Title" xml:space="preserve">
     <value>Schakel Lenovo Hotkeys uit</value>
@@ -2420,8 +2441,7 @@ Een herstart wordt aanbevolen na het wijzigen van deze optie.</value>
     <value>Kon Lenovo Vantage en/of ImController niet uitschakelen</value>
   </data>
   <data name="SettingsPage_DisableVantage_Message" xml:space="preserve">
-    <value>Schakel Legion Vantage en ImController uit zonder deze te verwijderen. 
-Een herstart wordt aanbevolen na het wijzigen van deze optie.</value>
+    <value>Disable Lenovo Vantage and ImController without uninstalling them.</value>
   </data>
   <data name="SettingsPage_DisableVantage_Title" xml:space="preserve">
     <value>Lenovo Vantage en ImController uitschakelen</value>
@@ -2478,7 +2498,10 @@ Een herstart wordt aanbevolen na het wijzigen van deze optie.</value>
     <value>Bepaalt de sensor vernieuwingsinterval.</value>
   </data>
   <data name="SettingsPage_HWiNFO_Message" xml:space="preserve">
-    <value>Deel ventilatorsnelheid, batterijtemperatuur, etc. met HWiNFO64. De laptop moet mogelijk opnieuw opgestart worden na het wijzigen van deze optie.</value>
+    <value>Share fan speed, battery temperature etc. with HWiNFO64.</value>
+  </data>
+  <data name="SettingsPage_HWiNFO_RestartInfo" xml:space="preserve">
+    <value>You may need to restart HWiNFO64 after changing this option.</value>
   </data>
   <data name="SettingsPage_HWiNFO_Title" xml:space="preserve">
     <value>HWiNFO64</value>
