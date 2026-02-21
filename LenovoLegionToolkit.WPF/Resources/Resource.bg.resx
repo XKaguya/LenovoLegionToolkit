@@ -2259,6 +2259,24 @@ It won't affect other full screen windows, but you will not be able to click on 
   <data name="Settings" xml:space="preserve">
     <value>Настройки</value>
   </data>
+  <data name="SettingsAppearancePage_HardwareAcceleration_Message" xml:space="preserve">
+    <value>Use hardware acceleration for the user interface. This can improve performance and fluidity.</value>
+  </data>
+  <data name="SettingsAppearancePage_HardwareAcceleration_Title" xml:space="preserve">
+    <value>Hardware Acceleration</value>
+  </data>
+  <data name="SettingsAppearancePage_HardwareAcceleration_Warning" xml:space="preserve">
+    <value>Enabling hardware acceleration may cause flickering or black flashes on some hybrid graphics systems, and may prevent the discrete GPU from being turned off.</value>
+  </data>
+  <data name="SettingsAppearancePage_WindowBackdropType_Info" xml:space="preserve">
+    <value>If you experience visual artifacts on Snackbars in HDR or ACM mode, set this to "None".</value>
+  </data>
+  <data name="SettingsAppearancePage_WindowBackdropType_Message" xml:space="preserve">
+    <value>The effect used for the background of the application window.</value>
+  </data>
+  <data name="SettingsAppearancePage_WindowBackdropType_Title" xml:space="preserve">
+    <value>Window Backdrop</value>
+  </data>
   <data name="SettingsBackupWindow_Backup" xml:space="preserve">
     <value>Back Up</value>
   </data>
@@ -2303,6 +2321,9 @@ It won't affect other full screen windows, but you will not be able to click on 
   </data>
   <data name="SettingsPage_BackupSettings_Title" xml:space="preserve">
     <value>Back Up Settings</value>
+  </data>
+  <data name="SettingsPage_BootLogo_EFIInfo" xml:space="preserve">
+    <value>This feature modifies the EFI partition. Use with caution.</value>
   </data>
   <data name="SettingsPage_BootLogo_Message" xml:space="preserve">
     <value>Изберете изображение, което ще бъде показано при стартиране на системата, вместо логото по подразбиране на Lenovo.</value>
@@ -2364,6 +2385,9 @@ It won't affect other full screen windows, but you will not be able to click on 
   <data name="SettingsPage_CLI_Title" xml:space="preserve">
     <value>CLI</value>
   </data>
+  <data name="SettingsPage_Common_RestartRecommended" xml:space="preserve">
+    <value>Restart is recommended after changing this option.</value>
+  </data>
   <data name="SettingsPage_Custom_BackgroundImage_Message" xml:space="preserve">
     <value>Custom Background Image</value>
   </data>
@@ -2377,8 +2401,7 @@ It won't affect other full screen windows, but you will not be able to click on 
     <value>Couldn't disable Legion Space</value>
   </data>
   <data name="SettingsPage_DisableLegionSpace_Message" xml:space="preserve">
-    <value>Деактивирай приложението Legion Zone и неговите услуги без да бъде деинсталирано.
-Препоръчително е да рестартирате компютъра след тази промяна.</value>
+    <value>Disable Legion Space and its service without uninstalling it.</value>
   </data>
   <data name="SettingsPage_DisableLegionSpace_Title" xml:space="preserve">
     <value>Disable Legion Space</value>
@@ -2390,8 +2413,7 @@ It won't affect other full screen windows, but you will not be able to click on 
     <value>Приложението Legion Zone не можа да бъде деактивирано</value>
   </data>
   <data name="SettingsPage_DisableLegionZone_Message" xml:space="preserve">
-    <value>Деактивирай приложението Legion Zone и неговите услуги без да бъде деинсталирано.
-Препоръчително е да рестартирате компютъра след тази промяна.</value>
+    <value>Disable Legion Zone and its service without uninstalling it.</value>
   </data>
   <data name="SettingsPage_DisableLegionZone_Title" xml:space="preserve">
     <value>Деактивирай приложението Legion Zone</value>
@@ -2403,9 +2425,8 @@ It won't affect other full screen windows, but you will not be able to click on 
     <value>Приложението Lenovo Hotkeys не можа да бъде деактивирано</value>
   </data>
   <data name="SettingsPage_DisableLenovoHotkeys_Message" xml:space="preserve">
-    <value>Деактивирай приложението Lenovo Hotkeys и неговите услуги без да бъде деинсталирано.
-Ако го деактивирате, това приложение ще се справя с клавишните комбинации, които използват Fn бутона.
-Препоръчително е да рестартирате компютъра след промяна на настройката.</value>
+    <value>Disable Lenovo Hotkeys and its service without uninstalling it.
+If disabled, this app will handle Fn shortcuts.</value>
   </data>
   <data name="SettingsPage_DisableLenovoHotkeys_Title" xml:space="preserve">
     <value>Деактивирай приложението Lenovo Hotkeys</value>
@@ -2417,8 +2438,7 @@ It won't affect other full screen windows, but you will not be able to click on 
     <value>Lenovo Vantage и/или ImController не можаха да бъдат деактивирани</value>
   </data>
   <data name="SettingsPage_DisableVantage_Message" xml:space="preserve">
-    <value>Деактивирайте Lenovo Vantage и ImController без да ги деинсталирате.
-Препоръчително е да рестартирате устройство си след промяна в настройката.</value>
+    <value>Disable Lenovo Vantage and ImController without uninstalling them.</value>
   </data>
   <data name="SettingsPage_DisableVantage_Title" xml:space="preserve">
     <value>Декативирайте Lenovo Vantage и ImController</value>
@@ -2475,7 +2495,10 @@ It won't affect other full screen windows, but you will not be able to click on 
     <value>Controls sensor refresh interval.</value>
   </data>
   <data name="SettingsPage_HWiNFO_Message" xml:space="preserve">
-    <value>Споделете скоростта на вентилатора, температурата на батерията и др. с HWiNFO64. Може да се наложи да рестартирате HWiNFO64 при промяна на тази настройка.</value>
+    <value>Share fan speed, battery temperature etc. with HWiNFO64.</value>
+  </data>
+  <data name="SettingsPage_HWiNFO_RestartInfo" xml:space="preserve">
+    <value>You may need to restart HWiNFO64 after changing this option.</value>
   </data>
   <data name="SettingsPage_HWiNFO_Title" xml:space="preserve">
     <value>HWiNFO64</value>
