@@ -2262,6 +2262,24 @@ Nejprve se ujisti, že tvůj skript běží správně.</value>
   <data name="Settings" xml:space="preserve">
     <value>Nastavení</value>
   </data>
+  <data name="SettingsAppearancePage_HardwareAcceleration_Message" xml:space="preserve">
+    <value>Use hardware acceleration for the user interface. This can improve performance and fluidity.</value>
+  </data>
+  <data name="SettingsAppearancePage_HardwareAcceleration_Title" xml:space="preserve">
+    <value>Hardware Acceleration</value>
+  </data>
+  <data name="SettingsAppearancePage_HardwareAcceleration_Warning" xml:space="preserve">
+    <value>Enabling hardware acceleration may cause flickering or black flashes on some hybrid graphics systems, and may prevent the discrete GPU from being turned off.</value>
+  </data>
+  <data name="SettingsAppearancePage_WindowBackdropType_Info" xml:space="preserve">
+    <value>If you experience visual artifacts on Snackbars in HDR or ACM mode, set this to "None".</value>
+  </data>
+  <data name="SettingsAppearancePage_WindowBackdropType_Message" xml:space="preserve">
+    <value>The effect used for the background of the application window.</value>
+  </data>
+  <data name="SettingsAppearancePage_WindowBackdropType_Title" xml:space="preserve">
+    <value>Window Backdrop</value>
+  </data>
   <data name="SettingsBackupWindow_Backup" xml:space="preserve">
     <value>Back Up</value>
   </data>
@@ -2306,6 +2324,9 @@ Nejprve se ujisti, že tvůj skript běží správně.</value>
   </data>
   <data name="SettingsPage_BackupSettings_Title" xml:space="preserve">
     <value>Back Up Settings</value>
+  </data>
+  <data name="SettingsPage_BootLogo_EFIInfo" xml:space="preserve">
+    <value>This feature modifies the EFI partition. Use with caution.</value>
   </data>
   <data name="SettingsPage_BootLogo_Message" xml:space="preserve">
     <value>Přizpůsobit logo viditelné při spuštění systému.</value>
@@ -2367,6 +2388,9 @@ Nejprve se ujisti, že tvůj skript běží správně.</value>
   <data name="SettingsPage_CLI_Title" xml:space="preserve">
     <value>CLI</value>
   </data>
+  <data name="SettingsPage_Common_RestartRecommended" xml:space="preserve">
+    <value>Restart is recommended after changing this option.</value>
+  </data>
   <data name="SettingsPage_Custom_BackgroundImage_Message" xml:space="preserve">
     <value>Custom Background Image</value>
   </data>
@@ -2380,8 +2404,7 @@ Nejprve se ujisti, že tvůj skript běží správně.</value>
     <value>Legion Space se nepodařilo zalázat</value>
   </data>
   <data name="SettingsPage_DisableLegionSpace_Message" xml:space="preserve">
-    <value>Zakázat Legion Zone a její službu, aniž bys ji odinstaloval.
-Po změně této možnosti se doporučuje restartovat.</value>
+    <value>Disable Legion Space and its service without uninstalling it.</value>
   </data>
   <data name="SettingsPage_DisableLegionSpace_Title" xml:space="preserve">
     <value>Zakázat Legion Space</value>
@@ -2393,8 +2416,7 @@ Po změně této možnosti se doporučuje restartovat.</value>
     <value>Legion Zone se nepodařilo deaktivovat</value>
   </data>
   <data name="SettingsPage_DisableLegionZone_Message" xml:space="preserve">
-    <value>Zakázat Legion Zone a její službu, aniž bys ji odinstaloval.
-Po změně této možnosti se doporučuje restartovat.</value>
+    <value>Disable Legion Zone and its service without uninstalling it.</value>
   </data>
   <data name="SettingsPage_DisableLegionZone_Title" xml:space="preserve">
     <value>Zakázat Legion Zone</value>
@@ -2406,9 +2428,8 @@ Po změně této možnosti se doporučuje restartovat.</value>
     <value>Lenovo Hotkeys se nepodařilo deaktivovat</value>
   </data>
   <data name="SettingsPage_DisableLenovoHotkeys_Message" xml:space="preserve">
-    <value>Zakázat Lenovo Hotkeys a jejich službu, aniž bys ji odinstaloval.
-Pokud je zakázáno, bude tato aplikace zpracovávat zkratky Fn
-Po změně této možnosti se doporučuje restartovat.</value>
+    <value>Disable Lenovo Hotkeys and its service without uninstalling it.
+If disabled, this app will handle Fn shortcuts.</value>
   </data>
   <data name="SettingsPage_DisableLenovoHotkeys_Title" xml:space="preserve">
     <value>Zakázat Lenovo Hotkeys</value>
@@ -2420,8 +2441,7 @@ Po změně této možnosti se doporučuje restartovat.</value>
     <value>Nelze zakázat Lenovo Vantage a/nebo ImController</value>
   </data>
   <data name="SettingsPage_DisableVantage_Message" xml:space="preserve">
-    <value>Zakázat Lenovo Vantage a ImController bez jejich odinstalace.
-Po změně této volby je doporučen restart.</value>
+    <value>Disable Lenovo Vantage and ImController without uninstalling them.</value>
   </data>
   <data name="SettingsPage_DisableVantage_Title" xml:space="preserve">
     <value>Zakázat Lenovo Vantage a ImController</value>
@@ -2478,7 +2498,10 @@ Po změně této volby je doporučen restart.</value>
     <value>Controls sensor refresh interval.</value>
   </data>
   <data name="SettingsPage_HWiNFO_Message" xml:space="preserve">
-    <value>Sdílejte rychlost ventilátoru, teplotu baterie atd. s HWiNFO64. Po změně této možnosti budete možná muset restartovat HWiNFO64.</value>
+    <value>Share fan speed, battery temperature etc. with HWiNFO64.</value>
+  </data>
+  <data name="SettingsPage_HWiNFO_RestartInfo" xml:space="preserve">
+    <value>You may need to restart HWiNFO64 after changing this option.</value>
   </data>
   <data name="SettingsPage_HWiNFO_Title" xml:space="preserve">
     <value>HWiNFO64</value>
