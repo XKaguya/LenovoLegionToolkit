@@ -2260,6 +2260,24 @@ Do not proceed unless you possess the necessary technical expertise.</value>
   <data name="Settings" xml:space="preserve">
     <value>設定</value>
   </data>
+  <data name="SettingsAppearancePage_HardwareAcceleration_Message" xml:space="preserve">
+    <value>Use hardware acceleration for the user interface. This can improve performance and fluidity.</value>
+  </data>
+  <data name="SettingsAppearancePage_HardwareAcceleration_Title" xml:space="preserve">
+    <value>Hardware Acceleration</value>
+  </data>
+  <data name="SettingsAppearancePage_HardwareAcceleration_Warning" xml:space="preserve">
+    <value>Enabling hardware acceleration may cause flickering or black flashes on some hybrid graphics systems, and may prevent the discrete GPU from being turned off.</value>
+  </data>
+  <data name="SettingsAppearancePage_WindowBackdropType_Info" xml:space="preserve">
+    <value>If you experience visual artifacts on Snackbars in HDR or ACM mode, set this to "None".</value>
+  </data>
+  <data name="SettingsAppearancePage_WindowBackdropType_Message" xml:space="preserve">
+    <value>The effect used for the background of the application window.</value>
+  </data>
+  <data name="SettingsAppearancePage_WindowBackdropType_Title" xml:space="preserve">
+    <value>Window Backdrop</value>
+  </data>
   <data name="SettingsBackupWindow_Backup" xml:space="preserve">
     <value>Back Up</value>
   </data>
@@ -2304,6 +2322,9 @@ Do not proceed unless you possess the necessary technical expertise.</value>
   </data>
   <data name="SettingsPage_BackupSettings_Title" xml:space="preserve">
     <value>Back Up Settings</value>
+  </data>
+  <data name="SettingsPage_BootLogo_EFIInfo" xml:space="preserve">
+    <value>This feature modifies the EFI partition. Use with caution.</value>
   </data>
   <data name="SettingsPage_BootLogo_Message" xml:space="preserve">
     <value>客製化系統啟動時的商標圖片。</value>
@@ -2365,6 +2386,9 @@ Do not proceed unless you possess the necessary technical expertise.</value>
   <data name="SettingsPage_CLI_Title" xml:space="preserve">
     <value>命令列介面（CLI）</value>
   </data>
+  <data name="SettingsPage_Common_RestartRecommended" xml:space="preserve">
+    <value>Restart is recommended after changing this option.</value>
+  </data>
   <data name="SettingsPage_Custom_BackgroundImage_Message" xml:space="preserve">
     <value>自訂背景圖片</value>
   </data>
@@ -2378,8 +2402,7 @@ Do not proceed unless you possess the necessary technical expertise.</value>
     <value>無法停用 Legion Space</value>
   </data>
   <data name="SettingsPage_DisableLegionSpace_Message" xml:space="preserve">
-    <value>在不解除安裝 Legion Zone 及相關服務的情況下停用它們。
-變更此選項後建議重新啟動。</value>
+    <value>Disable Legion Space and its service without uninstalling it.</value>
   </data>
   <data name="SettingsPage_DisableLegionSpace_Title" xml:space="preserve">
     <value>停用 Legion Space</value>
@@ -2391,8 +2414,7 @@ Do not proceed unless you possess the necessary technical expertise.</value>
     <value>無法停用 Legion Zone</value>
   </data>
   <data name="SettingsPage_DisableLegionZone_Message" xml:space="preserve">
-    <value>在不解除安裝 Legion Zone 及相關服務的情況下停用它們。
-變更此選項後建議重新啟動。</value>
+    <value>Disable Legion Zone and its service without uninstalling it.</value>
   </data>
   <data name="SettingsPage_DisableLegionZone_Title" xml:space="preserve">
     <value>停用 Legion Zone</value>
@@ -2404,9 +2426,8 @@ Do not proceed unless you possess the necessary technical expertise.</value>
     <value>無法停用 Lenovo Hotkeys</value>
   </data>
   <data name="SettingsPage_DisableLenovoHotkeys_Message" xml:space="preserve">
-    <value>在不解除安裝 Lenovo Hotkeys 及相關服務的情況下停用它們。
-如果停用，此應用程式將處理 Fn 快捷鍵。
-變更此選項後建議重新啟動。</value>
+    <value>Disable Lenovo Hotkeys and its service without uninstalling it.
+If disabled, this app will handle Fn shortcuts.</value>
   </data>
   <data name="SettingsPage_DisableLenovoHotkeys_Title" xml:space="preserve">
     <value>停用 Lenovo Hotkeys</value>
@@ -2418,8 +2439,7 @@ Do not proceed unless you possess the necessary technical expertise.</value>
     <value>無法停用 Lenovo Vantage 與（或）ImController</value>
   </data>
   <data name="SettingsPage_DisableVantage_Message" xml:space="preserve">
-    <value>在不解除安裝 Lenovo Vantage 和 ImController 的情況下停用它們。
-變更此選項後建議重新啟動。</value>
+    <value>Disable Lenovo Vantage and ImController without uninstalling them.</value>
   </data>
   <data name="SettingsPage_DisableVantage_Title" xml:space="preserve">
     <value>停用 Lenovo Vantage 和 ImController</value>
@@ -2476,7 +2496,10 @@ Do not proceed unless you possess the necessary technical expertise.</value>
     <value>Controls sensor refresh interval.</value>
   </data>
   <data name="SettingsPage_HWiNFO_Message" xml:space="preserve">
-    <value>與 HWiNFO64 共享風扇速度、電池溫度等。變更此選項後，您可能需要重新啟動 HWiNFO64。</value>
+    <value>Share fan speed, battery temperature etc. with HWiNFO64.</value>
+  </data>
+  <data name="SettingsPage_HWiNFO_RestartInfo" xml:space="preserve">
+    <value>You may need to restart HWiNFO64 after changing this option.</value>
   </data>
   <data name="SettingsPage_HWiNFO_Title" xml:space="preserve">
     <value>HWiNFO64</value>
