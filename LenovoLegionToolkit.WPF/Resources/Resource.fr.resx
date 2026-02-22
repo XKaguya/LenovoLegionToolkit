@@ -2261,24 +2261,6 @@ Assurez-vous d'abord que votre script s'exécute correctement.</value>
   <data name="Settings" xml:space="preserve">
     <value>Paramètres</value>
   </data>
-  <data name="SettingsAppearancePage_HardwareAcceleration_Message" xml:space="preserve">
-    <value>Use hardware acceleration for the user interface. This can improve performance and fluidity.</value>
-  </data>
-  <data name="SettingsAppearancePage_HardwareAcceleration_Title" xml:space="preserve">
-    <value>Hardware Acceleration</value>
-  </data>
-  <data name="SettingsAppearancePage_HardwareAcceleration_Warning" xml:space="preserve">
-    <value>Enabling hardware acceleration may cause flickering or black flashes on some hybrid graphics systems, and may prevent the discrete GPU from being turned off.</value>
-  </data>
-  <data name="SettingsAppearancePage_WindowBackdropType_Info" xml:space="preserve">
-    <value>If you experience visual artifacts on Snackbars in HDR or ACM mode, set this to "None".</value>
-  </data>
-  <data name="SettingsAppearancePage_WindowBackdropType_Message" xml:space="preserve">
-    <value>The effect used for the background of the application window.</value>
-  </data>
-  <data name="SettingsAppearancePage_WindowBackdropType_Title" xml:space="preserve">
-    <value>Window Backdrop</value>
-  </data>
   <data name="SettingsBackupWindow_Backup" xml:space="preserve">
     <value>Back Up</value>
   </data>
@@ -2496,6 +2478,24 @@ If disabled, this app will handle Fn shortcuts.</value>
   <data name="SettingsPage_FloatingGadgets_Tooltip" xml:space="preserve">
     <value>Controls sensor refresh interval.</value>
   </data>
+  <data name="SettingsPage_HardwareAcceleration_Message" xml:space="preserve">
+    <value>Use hardware acceleration for the user interface. This can improve performance and fluidity.</value>
+  </data>
+  <data name="SettingsPage_HardwareAcceleration_Title" xml:space="preserve">
+    <value>Hardware Acceleration</value>
+  </data>
+  <data name="SettingsPage_HardwareAcceleration_Warning" xml:space="preserve">
+    <value>Enabling hardware acceleration may cause flickering or black flashes on some hybrid graphics systems, and may prevent the discrete GPU from being turned off.</value>
+  </data>
+  <data name="SettingsPage_HWA_GPUPreference_Auto" xml:space="preserve">
+    <value>Auto (Let Windows decide)</value>
+  </data>
+  <data name="SettingsPage_HWA_GPUPreference_HighPerformance" xml:space="preserve">
+    <value>High performance (dGPU)</value>
+  </data>
+  <data name="SettingsPage_HWA_GPUPreference_PowerSaving" xml:space="preserve">
+    <value>Power saving (iGPU)</value>
+  </data>
   <data name="SettingsPage_HWiNFO_Message" xml:space="preserve">
     <value>Share fan speed, battery temperature etc. with HWiNFO64.</value>
   </data>
@@ -2627,6 +2627,15 @@ If disabled, this app will handle Fn shortcuts.</value>
   </data>
   <data name="SettingsPage_UseNewSensorDashboard_Title" xml:space="preserve">
     <value>Use New Sensor Dashboard</value>
+  </data>
+  <data name="SettingsPage_WindowBackdropType_Info" xml:space="preserve">
+    <value>If you experience visual artifacts on Snackbars in HDR or ACM mode, set this to "None".</value>
+  </data>
+  <data name="SettingsPage_WindowBackdropType_Message" xml:space="preserve">
+    <value>The effect used for the background of the application window.</value>
+  </data>
+  <data name="SettingsPage_WindowBackdropType_Title" xml:space="preserve">
+    <value>Window Backdrop</value>
   </data>
   <data name="SettingsPage_WindowsPowerModes_Message" xml:space="preserve">
     <value>Sélectionnez le mode de gestion d'alimentation Windows à appliquer lorsque le mode d'alimentation change.</value>
