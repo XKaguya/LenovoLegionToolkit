@@ -497,9 +497,6 @@ Tiks izpildītas tikai tās darbības, kas atbilst pašreizējam stāvoklim.</va
   <data name="BatteryPage_ACAdapterConnectedNotCharging" xml:space="preserve">
     <value>Savienots, nenotiek uzlāde</value>
   </data>
-  <data name="BatteryPage_ACAdapterNotConnected" xml:space="preserve">
-    <value>No AC</value>
-  </data>
   <data name="BatteryPage_BatteryHealth_Message" xml:space="preserve">
     <value>Battery maximum charge capacity.</value>
   </data>
@@ -684,14 +681,8 @@ Pārslēdzot režīms dators varbūt būt jārestartē.</value>
   <data name="CompatibilityCheckError_Message" xml:space="preserve">
     <value>Error occured when reading device information.</value>
   </data>
-  <data name="ContextMenu_QuickActions" xml:space="preserve">
-    <value>Ātrās Darbības</value>
-  </data>
   <data name="Continue" xml:space="preserve">
     <value>Turpināt</value>
-  </data>
-  <data name="CopiedToClipboard_Message" xml:space="preserve">
-    <value>Teksts iekopēts starpliktuvē.</value>
   </data>
   <data name="CopiedToClipboard_Message_WithParam" xml:space="preserve">
     <value>"{0}" iekopēts starpliktuvē.</value>
@@ -713,9 +704,6 @@ Pārslēdzot režīms dators varbūt būt jārestartē.</value>
   </data>
   <data name="CustomFanCurve_Accelerate_Tooltip" xml:space="preserve">
     <value>Accelerate control's how much PWM is added to the current PWM Value.</value>
-  </data>
-  <data name="CustomFanCurve_Add_Point" xml:space="preserve">
-    <value>Add curve point</value>
   </data>
   <data name="CustomFanCurve_Critical_Temp" xml:space="preserve">
     <value>Critical Temp</value>
@@ -787,9 +775,6 @@ BRĪDINĀJUMS. Ja iekšējais displejs ir izslēgts vai hibrīda režīms nav ak
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Dzēst</value>
-  </data>
-  <data name="DeselectAll" xml:space="preserve">
-    <value>Deselect all</value>
   </data>
   <data name="DeviceAutomationPipelineTriggerTabItemContent_OnlyConnected" xml:space="preserve">
     <value>Show connected devices only</value>
@@ -1063,9 +1048,6 @@ BRĪDINĀJUMS. Ja iebūvētais ekrāns ir izslēgts, šī darbība nedarbosies p
   </data>
   <data name="FloatingGadgets_Disk_1_Temperature" xml:space="preserve">
     <value>Disk 2 Temperature</value>
-  </data>
-  <data name="FloatingGadgets_Fans" xml:space="preserve">
-    <value>Fans</value>
   </data>
   <data name="FloatingGadgets_Fps" xml:space="preserve">
     <value>FPS</value>
@@ -1467,9 +1449,6 @@ Click Yes to disable and No to ignore.</value>
   </data>
   <data name="MacroSequenceControl_Repeat_Title" xml:space="preserve">
     <value>Repeat</value>
-  </data>
-  <data name="MacroSequenceControl_StopRecording" xml:space="preserve">
-    <value>Stop recording</value>
   </data>
   <data name="MainWindows_FnKeysRunning" xml:space="preserve">
     <value>Lenovo Hotkeys is running in the background.</value>
@@ -1978,9 +1957,6 @@ Jūs varat režīmus mainīt ar Fn+Q.</value>
   <data name="QuickActionAutomationStepControl_Title" xml:space="preserve">
     <value>Quick Action</value>
   </data>
-  <data name="ReadmeWindow_Title" xml:space="preserve">
-    <value>LasiMani</value>
-  </data>
   <data name="Refresh" xml:space="preserve">
     <value>Atsvaidzināt</value>
   </data>
@@ -2124,9 +2100,6 @@ Vispirms pārliecinieties, vai skripts darbojas pareizi.</value>
   <data name="Saving" xml:space="preserve">
     <value>Saglabā...</value>
   </data>
-  <data name="SelectAll" xml:space="preserve">
-    <value>Select all</value>
-  </data>
   <data name="SelectSmartKeyPipelinesWindow_List_Description" xml:space="preserve">
     <value>Izvēlieties vienu vai vairākas ātrās darbības, pa kurām pārvietoties</value>
   </data>
@@ -2256,8 +2229,32 @@ Vispirms pārliecinieties, vai skripts darbojas pareizi.</value>
   <data name="SensorsControl_Utilization_Title" xml:space="preserve">
     <value>Lietojums</value>
   </data>
-  <data name="SensorsControl_VrTemperature_Title" xml:space="preserve">
-    <value>VR Temperature</value>
+  <data name="SensorSettingsPage_Average_Frequency_Title" xml:space="preserve">
+    <value>Average Frequency</value>
+  </data>
+  <data name="SensorSettingsPage_CPU_Frequency_Message" xml:space="preserve">
+    <value>Determine the type of CPU frequency displayed on the Dashboard and FloatingGadget.</value>
+  </data>
+  <data name="SensorSettingsPage_CPU_Frequency_Title" xml:space="preserve">
+    <value>CPU Frequency</value>
+  </data>
+  <data name="SensorSettingsPage_Discrete_GPU_Title" xml:space="preserve">
+    <value>dGPU</value>
+  </data>
+  <data name="SensorSettingsPage_IGPU_Title" xml:space="preserve">
+    <value>iGPU</value>
+  </data>
+  <data name="SensorSettingsPage_Max_Frequency_Title" xml:space="preserve">
+    <value>Max Frequency</value>
+  </data>
+  <data name="SensorSettingsPage_Preferred_GPU_Message" xml:space="preserve">
+    <value>When multiple graphics cards are present, the primary device displayed is preferred</value>
+  </data>
+  <data name="SensorSettingsPage_Preferred_GPU_Title" xml:space="preserve">
+    <value>Preferred GPU</value>
+  </data>
+  <data name="SensorSettingsPage_Title" xml:space="preserve">
+    <value>Sensor Settings</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
@@ -2351,9 +2348,6 @@ Vispirms pārliecinieties, vai skripts darbojas pareizi.</value>
   </data>
   <data name="SettingsPage_ClearBackgroundImage_Title" xml:space="preserve">
     <value>Image Cleared</value>
-  </data>
-  <data name="SettingsPage_Clear_BackgroundImage_Message" xml:space="preserve">
-    <value>Clear current selected image file.</value>
   </data>
   <data name="SettingsPage_Clear_BackgroundImage_Title" xml:space="preserve">
     <value>Clear Image</value>
@@ -2458,9 +2452,6 @@ If disabled, this app will handle Fn shortcuts.</value>
   <data name="SettingsPage_EnableVantage_Error_Title" xml:space="preserve">
     <value>Nevarēja iespējot Lenovo Vantage un/vai ImController</value>
   </data>
-  <data name="SettingsPage_ExcludeProcesses_Message" xml:space="preserve">
-    <value>Manage processes that are ignored by Game Detection.</value>
-  </data>
   <data name="SettingsPage_ExcludeProcesses_Title" xml:space="preserve">
     <value>Excluded Processes</value>
   </data>
@@ -2506,9 +2497,6 @@ If disabled, this app will handle Fn shortcuts.</value>
   <data name="SettingsPage_HWiNFO_Title" xml:space="preserve">
     <value>HWiNFO64</value>
   </data>
-  <data name="SettingsPage_Integrations_Title" xml:space="preserve">
-    <value>Integrations</value>
-  </data>
   <data name="SettingsPage_Language_Message" xml:space="preserve">
     <value>Atlasīt valodu.</value>
   </data>
@@ -2551,9 +2539,6 @@ If disabled, this app will handle Fn shortcuts.</value>
   <data name="SettingsPage_PowerModeMapping_Title" xml:space="preserve">
     <value>Power Mode Synchronization</value>
   </data>
-  <data name="SettingsPage_Power_Title" xml:space="preserve">
-    <value>Jauda</value>
-  </data>
   <data name="SettingsPage_Select_BackgroundImage_AllFiles" xml:space="preserve">
     <value>All Files</value>
   </data>
@@ -2563,8 +2548,11 @@ If disabled, this app will handle Fn shortcuts.</value>
   <data name="SettingsPage_Select_BackgroundImage_ImageFile" xml:space="preserve">
     <value>Image File</value>
   </data>
-  <data name="SettingsPage_Select_BackgroundImage_Title" xml:space="preserve">
-    <value>Select Background Image</value>
+  <data name="SettingsPage_SensorSettings_Message" xml:space="preserve">
+    <value>Edit sensor data acquisition and display settings.</value>
+  </data>
+  <data name="SettingsPage_SensorSettings_Title" xml:space="preserve">
+    <value>Sensor Settings</value>
   </data>
   <data name="SettingsPage_SmartFnLock_Message" xml:space="preserve">
     <value>Fn Lock will be temporarily disabled when Alt, Ctrl or Shift key is depressed.</value>
@@ -2613,9 +2601,6 @@ If disabled, this app will handle Fn shortcuts.</value>
   </data>
   <data name="SettingsPage_UpdateMethod_Title" xml:space="preserve">
     <value>Update Method</value>
-  </data>
-  <data name="SettingsPage_Update_Title" xml:space="preserve">
-    <value>Update</value>
   </data>
   <data name="SettingsPage_UseNewDashboard_Restart_Message" xml:space="preserve">
     <value>Restart to apply changes.</value>
@@ -2915,9 +2900,6 @@ Ja izvēlaties turpināt, reģistrēšana tiks iespējota automātiski.</value>
   <data name="UnsupportedWindow_Disclaimer_GitHub" xml:space="preserve">
     <value>Papildinformāciju skatiet GitHub projekta lapā.</value>
   </data>
-  <data name="UnsupportedWindow_Disclaimer_Logs" xml:space="preserve">
-    <value>Žurnālfailu mape</value>
-  </data>
   <data name="UnsupportedWindow_MachineType" xml:space="preserve">
     <value>Iekārtas Tips</value>
   </data>
@@ -2962,9 +2944,6 @@ Ja izvēlaties turpināt, reģistrēšana tiks iespējota automātiski.</value>
   </data>
   <data name="WiFiConnectedPipelineTriggerTabItemContent_LeaveEmptyForAnyNetwork" xml:space="preserve">
     <value>Leave empty for any Wi-Fi network.</value>
-  </data>
-  <data name="WiFiConnectedPipelineTriggerTabItemContent_NetworkName" xml:space="preserve">
-    <value>Network name (SSID)</value>
   </data>
   <data name="WindowsPowerModesWindow_Title" xml:space="preserve">
     <value>Windows Power Modes</value>
