@@ -496,9 +496,6 @@
   <data name="BatteryPage_ACAdapterConnectedNotCharging" xml:space="preserve">
     <value>Angeschlossen, nicht ladend</value>
   </data>
-  <data name="BatteryPage_ACAdapterNotConnected" xml:space="preserve">
-    <value>Kein Netzadapter</value>
-  </data>
   <data name="BatteryPage_BatteryHealth_Message" xml:space="preserve">
     <value>Maximale Ladekapazität des Akkus.</value>
   </data>
@@ -683,14 +680,8 @@ Ein Wechsel des Modus kann einen Neustart erfordern.</value>
   <data name="CompatibilityCheckError_Message" xml:space="preserve">
     <value>Beim Lesen der Geräteinformationen ist ein Fehler aufgetreten.</value>
   </data>
-  <data name="ContextMenu_QuickActions" xml:space="preserve">
-    <value>Kurzbefehle</value>
-  </data>
   <data name="Continue" xml:space="preserve">
     <value>Weiter</value>
-  </data>
-  <data name="CopiedToClipboard_Message" xml:space="preserve">
-    <value>Text in Zwischenablage kopiert.</value>
   </data>
   <data name="CopiedToClipboard_Message_WithParam" xml:space="preserve">
     <value>"{0}" in die Zwischenablage kopiert.</value>
@@ -712,9 +703,6 @@ Ein Wechsel des Modus kann einen Neustart erfordern.</value>
   </data>
   <data name="CustomFanCurve_Accelerate_Tooltip" xml:space="preserve">
     <value>Accelerate control's how much PWM is added to the current PWM Value.</value>
-  </data>
-  <data name="CustomFanCurve_Add_Point" xml:space="preserve">
-    <value>Add curve point</value>
   </data>
   <data name="CustomFanCurve_Critical_Temp" xml:space="preserve">
     <value>Critical Temp</value>
@@ -786,9 +774,6 @@ WARNUNG: Diese Aktion wird nicht korrekt ausgeführt, wenn das interne Display a
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Löschen</value>
-  </data>
-  <data name="DeselectAll" xml:space="preserve">
-    <value>Alle abwählen</value>
   </data>
   <data name="DeviceAutomationPipelineTriggerTabItemContent_OnlyConnected" xml:space="preserve">
     <value>Nur verbundene Geräte anzeigen</value>
@@ -1062,9 +1047,6 @@ WARNUNG: Diese Aktion wird nicht korrekt ausgeführt, wenn der interne Bildschir
   </data>
   <data name="FloatingGadgets_Disk_1_Temperature" xml:space="preserve">
     <value>Datenträger 2 Temperatur</value>
-  </data>
-  <data name="FloatingGadgets_Fans" xml:space="preserve">
-    <value>Lüfter</value>
   </data>
   <data name="FloatingGadgets_Fps" xml:space="preserve">
     <value>FPS</value>
@@ -1466,9 +1448,6 @@ Klicken Sie auf Ja zum Deaktivieren und Nein zum Ignorieren.</value>
   </data>
   <data name="MacroSequenceControl_Repeat_Title" xml:space="preserve">
     <value>Wiederholen</value>
-  </data>
-  <data name="MacroSequenceControl_StopRecording" xml:space="preserve">
-    <value>Aufnahme beenden</value>
   </data>
   <data name="MainWindows_FnKeysRunning" xml:space="preserve">
     <value>Lenovo Hotkeys wird im Hintergrund ausgeführt.</value>
@@ -1977,9 +1956,6 @@ Sie können den Modus mit Fn+Q wechseln.</value>
   <data name="QuickActionAutomationStepControl_Title" xml:space="preserve">
     <value>Schnellaktion</value>
   </data>
-  <data name="ReadmeWindow_Title" xml:space="preserve">
-    <value>Liesmich</value>
-  </data>
   <data name="Refresh" xml:space="preserve">
     <value>Aktualisieren</value>
   </data>
@@ -2123,9 +2099,6 @@ Stellen Sie zunächst sicher, dass Ihr Skript korrekt ausgeführt wird.</value>
   <data name="Saving" xml:space="preserve">
     <value>Wird gespeichert...</value>
   </data>
-  <data name="SelectAll" xml:space="preserve">
-    <value>Alle auswählen</value>
-  </data>
   <data name="SelectSmartKeyPipelinesWindow_List_Description" xml:space="preserve">
     <value>Wähle einen oder mehrere Kurzbefehle aus, durch die geblättert wird</value>
   </data>
@@ -2255,8 +2228,32 @@ Stellen Sie zunächst sicher, dass Ihr Skript korrekt ausgeführt wird.</value>
   <data name="SensorsControl_Utilization_Title" xml:space="preserve">
     <value>Nutzung</value>
   </data>
-  <data name="SensorsControl_VrTemperature_Title" xml:space="preserve">
-    <value>VR-Temperatur</value>
+  <data name="SensorSettingsPage_Average_Frequency_Title" xml:space="preserve">
+    <value>Average Frequency</value>
+  </data>
+  <data name="SensorSettingsPage_CPU_Frequency_Message" xml:space="preserve">
+    <value>Determine the type of CPU frequency displayed on the Dashboard and FloatingGadget.</value>
+  </data>
+  <data name="SensorSettingsPage_CPU_Frequency_Title" xml:space="preserve">
+    <value>CPU Frequency</value>
+  </data>
+  <data name="SensorSettingsPage_Discrete_GPU_Title" xml:space="preserve">
+    <value>dGPU</value>
+  </data>
+  <data name="SensorSettingsPage_IGPU_Title" xml:space="preserve">
+    <value>iGPU</value>
+  </data>
+  <data name="SensorSettingsPage_Max_Frequency_Title" xml:space="preserve">
+    <value>Max Frequency</value>
+  </data>
+  <data name="SensorSettingsPage_Preferred_GPU_Message" xml:space="preserve">
+    <value>When multiple graphics cards are present, the primary device displayed is preferred</value>
+  </data>
+  <data name="SensorSettingsPage_Preferred_GPU_Title" xml:space="preserve">
+    <value>Preferred GPU</value>
+  </data>
+  <data name="SensorSettingsPage_Title" xml:space="preserve">
+    <value>Sensor Settings</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Einstellungen</value>
@@ -2350,9 +2347,6 @@ Stellen Sie zunächst sicher, dass Ihr Skript korrekt ausgeführt wird.</value>
   </data>
   <data name="SettingsPage_ClearBackgroundImage_Title" xml:space="preserve">
     <value>Bild gelöscht</value>
-  </data>
-  <data name="SettingsPage_Clear_BackgroundImage_Message" xml:space="preserve">
-    <value>Aktuelle Bilddatei löschen.</value>
   </data>
   <data name="SettingsPage_Clear_BackgroundImage_Title" xml:space="preserve">
     <value>Bild löschen</value>
@@ -2457,9 +2451,6 @@ If disabled, this app will handle Fn shortcuts.</value>
   <data name="SettingsPage_EnableVantage_Error_Title" xml:space="preserve">
     <value>Lenovo Vantage und/oder ImController konnten nicht aktiviert werden</value>
   </data>
-  <data name="SettingsPage_ExcludeProcesses_Message" xml:space="preserve">
-    <value>Manage processes that are ignored by Game Detection.</value>
-  </data>
   <data name="SettingsPage_ExcludeProcesses_Title" xml:space="preserve">
     <value>Excluded Processes</value>
   </data>
@@ -2505,9 +2496,6 @@ If disabled, this app will handle Fn shortcuts.</value>
   <data name="SettingsPage_HWiNFO_Title" xml:space="preserve">
     <value>HWiNFO64</value>
   </data>
-  <data name="SettingsPage_Integrations_Title" xml:space="preserve">
-    <value>Integrationen</value>
-  </data>
   <data name="SettingsPage_Language_Message" xml:space="preserve">
     <value>Sprache auswählen.</value>
   </data>
@@ -2550,9 +2538,6 @@ If disabled, this app will handle Fn shortcuts.</value>
   <data name="SettingsPage_PowerModeMapping_Title" xml:space="preserve">
     <value>Synchronisation mit Leistungsmodus</value>
   </data>
-  <data name="SettingsPage_Power_Title" xml:space="preserve">
-    <value>Energie</value>
-  </data>
   <data name="SettingsPage_Select_BackgroundImage_AllFiles" xml:space="preserve">
     <value>Alle Dateien</value>
   </data>
@@ -2562,8 +2547,11 @@ If disabled, this app will handle Fn shortcuts.</value>
   <data name="SettingsPage_Select_BackgroundImage_ImageFile" xml:space="preserve">
     <value>Bilddatei</value>
   </data>
-  <data name="SettingsPage_Select_BackgroundImage_Title" xml:space="preserve">
-    <value>Hintergrundbild auswählen</value>
+  <data name="SettingsPage_SensorSettings_Message" xml:space="preserve">
+    <value>Edit sensor data acquisition and display settings.</value>
+  </data>
+  <data name="SettingsPage_SensorSettings_Title" xml:space="preserve">
+    <value>Sensor Settings</value>
   </data>
   <data name="SettingsPage_SmartFnLock_Message" xml:space="preserve">
     <value>Fn-Lock wird vorübergehend deaktiviert, wenn die Umschalt-, Strg- oder Alt-Taste gedrückt wird.</value>
@@ -2612,9 +2600,6 @@ If disabled, this app will handle Fn shortcuts.</value>
   </data>
   <data name="SettingsPage_UpdateMethod_Title" xml:space="preserve">
     <value>Update Method</value>
-  </data>
-  <data name="SettingsPage_Update_Title" xml:space="preserve">
-    <value>Update</value>
   </data>
   <data name="SettingsPage_UseNewDashboard_Restart_Message" xml:space="preserve">
     <value>Zur Anwendung der Änderungen neu starten.</value>
@@ -2913,9 +2898,6 @@ Die Protokollierung wird automatisch aktiviert, wenn Sie fortfahren möchten.</v
   <data name="UnsupportedWindow_Disclaimer_GitHub" xml:space="preserve">
     <value>Auf der Projektseite auf GitHub finden Sie weitere Informationen.</value>
   </data>
-  <data name="UnsupportedWindow_Disclaimer_Logs" xml:space="preserve">
-    <value>Verzeichnis für Protokolldateien</value>
-  </data>
   <data name="UnsupportedWindow_MachineType" xml:space="preserve">
     <value>Gerätetyp</value>
   </data>
@@ -2960,9 +2942,6 @@ Die Protokollierung wird automatisch aktiviert, wenn Sie fortfahren möchten.</v
   </data>
   <data name="WiFiConnectedPipelineTriggerTabItemContent_LeaveEmptyForAnyNetwork" xml:space="preserve">
     <value>Leer lassen für jedes Wi-Fi-Netzwerk.</value>
-  </data>
-  <data name="WiFiConnectedPipelineTriggerTabItemContent_NetworkName" xml:space="preserve">
-    <value>Netzwerkname (SSID)</value>
   </data>
   <data name="WindowsPowerModesWindow_Title" xml:space="preserve">
     <value>Windows Energiemodi</value>
