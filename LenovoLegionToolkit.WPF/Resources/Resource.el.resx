@@ -497,9 +497,6 @@
   <data name="BatteryPage_ACAdapterConnectedNotCharging" xml:space="preserve">
     <value>Συνδεδεμένη, δε φορτίζει</value>
   </data>
-  <data name="BatteryPage_ACAdapterNotConnected" xml:space="preserve">
-    <value>Χωρίς ρεύμα</value>
-  </data>
   <data name="BatteryPage_BatteryHealth_Message" xml:space="preserve">
     <value>Η μέγιστη χωρητικότητα φόρτισης της μπαταρίας.</value>
   </data>
@@ -685,14 +682,8 @@
   <data name="CompatibilityCheckError_Message" xml:space="preserve">
     <value>Σφάλμα κατά την ανάγνωση πληροφοριών συσκευής.</value>
   </data>
-  <data name="ContextMenu_QuickActions" xml:space="preserve">
-    <value>Γρήγορες Δράσεις</value>
-  </data>
   <data name="Continue" xml:space="preserve">
     <value>Συνέχεια</value>
-  </data>
-  <data name="CopiedToClipboard_Message" xml:space="preserve">
-    <value>Το κείμενο αντιγράφηκε στο πρόχειρο.</value>
   </data>
   <data name="CopiedToClipboard_Message_WithParam" xml:space="preserve">
     <value>Το "{0}" αντιγράφηκε στο πρόχειρο.</value>
@@ -714,9 +705,6 @@
   </data>
   <data name="CustomFanCurve_Accelerate_Tooltip" xml:space="preserve">
     <value>Accelerate control's how much PWM is added to the current PWM Value.</value>
-  </data>
-  <data name="CustomFanCurve_Add_Point" xml:space="preserve">
-    <value>Add curve point</value>
   </data>
   <data name="CustomFanCurve_Critical_Temp" xml:space="preserve">
     <value>Critical Temp</value>
@@ -788,9 +776,6 @@
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Διαγραφή</value>
-  </data>
-  <data name="DeselectAll" xml:space="preserve">
-    <value>Αποεπιλογή όλων</value>
   </data>
   <data name="DeviceAutomationPipelineTriggerTabItemContent_OnlyConnected" xml:space="preserve">
     <value>Εμφάνιση μόνο συνδεδεμένων συσκευών</value>
@@ -1063,9 +1048,6 @@
   </data>
   <data name="FloatingGadgets_Disk_1_Temperature" xml:space="preserve">
     <value>Disk 2 Temperature</value>
-  </data>
-  <data name="FloatingGadgets_Fans" xml:space="preserve">
-    <value>Fans</value>
   </data>
   <data name="FloatingGadgets_Fps" xml:space="preserve">
     <value>FPS</value>
@@ -1467,9 +1449,6 @@ Do not proceed unless you possess the necessary technical expertise.</value>
   </data>
   <data name="MacroSequenceControl_Repeat_Title" xml:space="preserve">
     <value>Επανάληψη</value>
-  </data>
-  <data name="MacroSequenceControl_StopRecording" xml:space="preserve">
-    <value>Τέλος εγγραφής</value>
   </data>
   <data name="MainWindows_FnKeysRunning" xml:space="preserve">
     <value>Το Lenovo Hotkeys εκτελείται στο παρασκήνιο.</value>
@@ -1978,9 +1957,6 @@ Do not proceed unless you possess the necessary technical expertise.</value>
   <data name="QuickActionAutomationStepControl_Title" xml:space="preserve">
     <value>Γρήγορη Δράση</value>
   </data>
-  <data name="ReadmeWindow_Title" xml:space="preserve">
-    <value>ΔιάβασέΜε</value>
-  </data>
   <data name="Refresh" xml:space="preserve">
     <value>Ανανέωση</value>
   </data>
@@ -2124,9 +2100,6 @@ Do not proceed unless you possess the necessary technical expertise.</value>
   <data name="Saving" xml:space="preserve">
     <value>Αποθήκευση...</value>
   </data>
-  <data name="SelectAll" xml:space="preserve">
-    <value>Επιλογή όλων</value>
-  </data>
   <data name="SelectSmartKeyPipelinesWindow_List_Description" xml:space="preserve">
     <value>Επιλέξτε μία ή περισσότερες γρήγορες δράσεις για κυκλική εναλλαγή</value>
   </data>
@@ -2256,8 +2229,32 @@ Do not proceed unless you possess the necessary technical expertise.</value>
   <data name="SensorsControl_Utilization_Title" xml:space="preserve">
     <value>Χρήση</value>
   </data>
-  <data name="SensorsControl_VrTemperature_Title" xml:space="preserve">
-    <value>Θερμοκρασία Ρυθμιστή Τάσης</value>
+  <data name="SensorSettingsPage_Average_Frequency_Title" xml:space="preserve">
+    <value>Average Frequency</value>
+  </data>
+  <data name="SensorSettingsPage_CPU_Frequency_Message" xml:space="preserve">
+    <value>Determine the type of CPU frequency displayed on the Dashboard and FloatingGadget.</value>
+  </data>
+  <data name="SensorSettingsPage_CPU_Frequency_Title" xml:space="preserve">
+    <value>CPU Frequency</value>
+  </data>
+  <data name="SensorSettingsPage_Discrete_GPU_Title" xml:space="preserve">
+    <value>dGPU</value>
+  </data>
+  <data name="SensorSettingsPage_IGPU_Title" xml:space="preserve">
+    <value>iGPU</value>
+  </data>
+  <data name="SensorSettingsPage_Max_Frequency_Title" xml:space="preserve">
+    <value>Max Frequency</value>
+  </data>
+  <data name="SensorSettingsPage_Preferred_GPU_Message" xml:space="preserve">
+    <value>When multiple graphics cards are present, the primary device displayed is preferred</value>
+  </data>
+  <data name="SensorSettingsPage_Preferred_GPU_Title" xml:space="preserve">
+    <value>Preferred GPU</value>
+  </data>
+  <data name="SensorSettingsPage_Title" xml:space="preserve">
+    <value>Sensor Settings</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Ρυθμίσεις</value>
@@ -2351,9 +2348,6 @@ Do not proceed unless you possess the necessary technical expertise.</value>
   </data>
   <data name="SettingsPage_ClearBackgroundImage_Title" xml:space="preserve">
     <value>Image Cleared</value>
-  </data>
-  <data name="SettingsPage_Clear_BackgroundImage_Message" xml:space="preserve">
-    <value>Clear current selected image file.</value>
   </data>
   <data name="SettingsPage_Clear_BackgroundImage_Title" xml:space="preserve">
     <value>Clear Image</value>
@@ -2458,9 +2452,6 @@ If disabled, this app will handle Fn shortcuts.</value>
   <data name="SettingsPage_EnableVantage_Error_Title" xml:space="preserve">
     <value>Αδυναμία ενεργοποίησης Lenovo Vantage ή/και ImController</value>
   </data>
-  <data name="SettingsPage_ExcludeProcesses_Message" xml:space="preserve">
-    <value>Manage processes that are ignored by Game Detection.</value>
-  </data>
   <data name="SettingsPage_ExcludeProcesses_Title" xml:space="preserve">
     <value>Excluded Processes</value>
   </data>
@@ -2506,9 +2497,6 @@ If disabled, this app will handle Fn shortcuts.</value>
   <data name="SettingsPage_HWiNFO_Title" xml:space="preserve">
     <value>HWINFO64</value>
   </data>
-  <data name="SettingsPage_Integrations_Title" xml:space="preserve">
-    <value>Ενσωματώσεις</value>
-  </data>
   <data name="SettingsPage_Language_Message" xml:space="preserve">
     <value>Επιλέξτε γλώσσα.</value>
   </data>
@@ -2551,9 +2539,6 @@ If disabled, this app will handle Fn shortcuts.</value>
   <data name="SettingsPage_PowerModeMapping_Title" xml:space="preserve">
     <value>Συγχρονισμός Λειτουργίας Ισχύος</value>
   </data>
-  <data name="SettingsPage_Power_Title" xml:space="preserve">
-    <value>Ισχύς</value>
-  </data>
   <data name="SettingsPage_Select_BackgroundImage_AllFiles" xml:space="preserve">
     <value>All Files</value>
   </data>
@@ -2563,8 +2548,11 @@ If disabled, this app will handle Fn shortcuts.</value>
   <data name="SettingsPage_Select_BackgroundImage_ImageFile" xml:space="preserve">
     <value>Image File</value>
   </data>
-  <data name="SettingsPage_Select_BackgroundImage_Title" xml:space="preserve">
-    <value>Select Background Image</value>
+  <data name="SettingsPage_SensorSettings_Message" xml:space="preserve">
+    <value>Edit sensor data acquisition and display settings.</value>
+  </data>
+  <data name="SettingsPage_SensorSettings_Title" xml:space="preserve">
+    <value>Sensor Settings</value>
   </data>
   <data name="SettingsPage_SmartFnLock_Message" xml:space="preserve">
     <value>Το Fn Lock θα απενεργοποιηθεί προσωρινά όταν πατήσετε τα πλήκτρα Alt, Ctrl ή Shift.</value>
@@ -2613,9 +2601,6 @@ If disabled, this app will handle Fn shortcuts.</value>
   </data>
   <data name="SettingsPage_UpdateMethod_Title" xml:space="preserve">
     <value>Update Method</value>
-  </data>
-  <data name="SettingsPage_Update_Title" xml:space="preserve">
-    <value>Ενημέρωση</value>
   </data>
   <data name="SettingsPage_UseNewDashboard_Restart_Message" xml:space="preserve">
     <value>Επανεκκίνηση για εφαρμογή αλλαγών.</value>
@@ -2914,9 +2899,6 @@ If disabled, this app will handle Fn shortcuts.</value>
   <data name="UnsupportedWindow_Disclaimer_GitHub" xml:space="preserve">
     <value>Για περισσότερες πληροφορίες δείτε τη σελίδα της εφαρμογής στο GitHub.</value>
   </data>
-  <data name="UnsupportedWindow_Disclaimer_Logs" xml:space="preserve">
-    <value>Φάκελος καταγραφής</value>
-  </data>
   <data name="UnsupportedWindow_MachineType" xml:space="preserve">
     <value>Τύπος Μηχανήματος</value>
   </data>
@@ -2961,9 +2943,6 @@ If disabled, this app will handle Fn shortcuts.</value>
   </data>
   <data name="WiFiConnectedPipelineTriggerTabItemContent_LeaveEmptyForAnyNetwork" xml:space="preserve">
     <value>Παραμονή κενού για κάθε δίκτυο Wi-Fi.</value>
-  </data>
-  <data name="WiFiConnectedPipelineTriggerTabItemContent_NetworkName" xml:space="preserve">
-    <value>Όνομα δικτύου (SSID)</value>
   </data>
   <data name="WindowsPowerModesWindow_Title" xml:space="preserve">
     <value>Λειτουργίες Ισχύος Windows</value>
