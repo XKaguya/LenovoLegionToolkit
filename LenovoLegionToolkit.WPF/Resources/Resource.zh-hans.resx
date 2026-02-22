@@ -498,9 +498,6 @@
   <data name="BatteryPage_ACAdapterConnectedNotCharging" xml:space="preserve">
     <value>已插入电源适配器，未充电...</value>
   </data>
-  <data name="BatteryPage_ACAdapterNotConnected" xml:space="preserve">
-    <value>放电中</value>
-  </data>
   <data name="BatteryPage_BatteryHealth_Message" xml:space="preserve">
     <value>电池完全充电容量</value>
   </data>
@@ -685,14 +682,8 @@
   <data name="CompatibilityCheckError_Message" xml:space="preserve">
     <value>获取硬件信息时遇到错误。</value>
   </data>
-  <data name="ContextMenu_QuickActions" xml:space="preserve">
-    <value>快捷操作</value>
-  </data>
   <data name="Continue" xml:space="preserve">
     <value>继续</value>
-  </data>
-  <data name="CopiedToClipboard_Message" xml:space="preserve">
-    <value>已复制文本到剪贴板。</value>
   </data>
   <data name="CopiedToClipboard_Message_WithParam" xml:space="preserve">
     <value>"{0}" 已复制到剪切板。</value>
@@ -714,9 +705,6 @@
   </data>
   <data name="CustomFanCurve_Accelerate_Tooltip" xml:space="preserve">
     <value>加速度控制从PWM值为基础上增加多少PWM。</value>
-  </data>
-  <data name="CustomFanCurve_Add_Point" xml:space="preserve">
-    <value>新增挡位</value>
   </data>
   <data name="CustomFanCurve_Critical_Temp" xml:space="preserve">
     <value>临界温度</value>
@@ -788,9 +776,6 @@
   </data>
   <data name="Delete" xml:space="preserve">
     <value>删除</value>
-  </data>
-  <data name="DeselectAll" xml:space="preserve">
-    <value>全不选</value>
   </data>
   <data name="DeviceAutomationPipelineTriggerTabItemContent_OnlyConnected" xml:space="preserve">
     <value>仅显示被连接的设备</value>
@@ -1065,9 +1050,6 @@
   </data>
   <data name="FloatingGadgets_Disk_1_Temperature" xml:space="preserve">
     <value>磁盘2温度</value>
-  </data>
-  <data name="FloatingGadgets_Fans" xml:space="preserve">
-    <value>风扇</value>
   </data>
   <data name="FloatingGadgets_Fps" xml:space="preserve">
     <value>FPS</value>
@@ -1474,9 +1456,6 @@
   </data>
   <data name="MacroSequenceControl_Repeat_Title" xml:space="preserve">
     <value>重复次数</value>
-  </data>
-  <data name="MacroSequenceControl_StopRecording" xml:space="preserve">
-    <value>停止记录</value>
   </data>
   <data name="MainWindows_FnKeysRunning" xml:space="preserve">
     <value>Lenovo Hotkeys 正在后台运行。</value>
@@ -1987,9 +1966,6 @@
   <data name="QuickActionAutomationStepControl_Title" xml:space="preserve">
     <value>快捷操作</value>
   </data>
-  <data name="ReadmeWindow_Title" xml:space="preserve">
-    <value>自述文件</value>
-  </data>
   <data name="Refresh" xml:space="preserve">
     <value>刷新</value>
   </data>
@@ -2133,9 +2109,6 @@
   <data name="Saving" xml:space="preserve">
     <value>保存中...</value>
   </data>
-  <data name="SelectAll" xml:space="preserve">
-    <value>全选</value>
-  </data>
   <data name="SelectSmartKeyPipelinesWindow_List_Description" xml:space="preserve">
     <value>选择单个或多个快捷操作来循环执行。</value>
   </data>
@@ -2265,8 +2238,32 @@
   <data name="SensorsControl_Utilization_Title" xml:space="preserve">
     <value>利用率</value>
   </data>
-  <data name="SensorsControl_VrTemperature_Title" xml:space="preserve">
-    <value>供电</value>
+  <data name="SensorSettingsPage_Average_Frequency_Title" xml:space="preserve">
+    <value>Average Frequency</value>
+  </data>
+  <data name="SensorSettingsPage_CPU_Frequency_Message" xml:space="preserve">
+    <value>Determine the type of CPU frequency displayed on the Dashboard and FloatingGadget.</value>
+  </data>
+  <data name="SensorSettingsPage_CPU_Frequency_Title" xml:space="preserve">
+    <value>CPU Frequency</value>
+  </data>
+  <data name="SensorSettingsPage_Discrete_GPU_Title" xml:space="preserve">
+    <value>dGPU</value>
+  </data>
+  <data name="SensorSettingsPage_IGPU_Title" xml:space="preserve">
+    <value>iGPU</value>
+  </data>
+  <data name="SensorSettingsPage_Max_Frequency_Title" xml:space="preserve">
+    <value>Max Frequency</value>
+  </data>
+  <data name="SensorSettingsPage_Preferred_GPU_Message" xml:space="preserve">
+    <value>When multiple graphics cards are present, the primary device displayed is preferred</value>
+  </data>
+  <data name="SensorSettingsPage_Preferred_GPU_Title" xml:space="preserve">
+    <value>Preferred GPU</value>
+  </data>
+  <data name="SensorSettingsPage_Title" xml:space="preserve">
+    <value>Sensor Settings</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>设置</value>
@@ -2361,9 +2358,6 @@
   </data>
   <data name="SettingsPage_ClearBackgroundImage_Title" xml:space="preserve">
     <value>背景图片已清除</value>
-  </data>
-  <data name="SettingsPage_Clear_BackgroundImage_Message" xml:space="preserve">
-    <value>清空当前所选图片</value>
   </data>
   <data name="SettingsPage_Clear_BackgroundImage_Title" xml:space="preserve">
     <value>清空图片</value>
@@ -2468,9 +2462,6 @@ If disabled, this app will handle Fn shortcuts.</value>
   <data name="SettingsPage_EnableVantage_Error_Title" xml:space="preserve">
     <value>无法启用 Lenovo Vantage 与 ImController</value>
   </data>
-  <data name="SettingsPage_ExcludeProcesses_Message" xml:space="preserve">
-    <value>管理游戏检测动作黑名单</value>
-  </data>
   <data name="SettingsPage_ExcludeProcesses_Title" xml:space="preserve">
     <value>排除应用</value>
   </data>
@@ -2516,9 +2507,6 @@ If disabled, this app will handle Fn shortcuts.</value>
   <data name="SettingsPage_HWiNFO_Title" xml:space="preserve">
     <value>HWiNFO64</value>
   </data>
-  <data name="SettingsPage_Integrations_Title" xml:space="preserve">
-    <value>应用集成</value>
-  </data>
   <data name="SettingsPage_Language_Message" xml:space="preserve">
     <value>选择语言</value>
   </data>
@@ -2561,9 +2549,6 @@ If disabled, this app will handle Fn shortcuts.</value>
   <data name="SettingsPage_PowerModeMapping_Title" xml:space="preserve">
     <value>电源模式同步</value>
   </data>
-  <data name="SettingsPage_Power_Title" xml:space="preserve">
-    <value>电源</value>
-  </data>
   <data name="SettingsPage_Select_BackgroundImage_AllFiles" xml:space="preserve">
     <value>所有文件</value>
   </data>
@@ -2573,8 +2558,11 @@ If disabled, this app will handle Fn shortcuts.</value>
   <data name="SettingsPage_Select_BackgroundImage_ImageFile" xml:space="preserve">
     <value>背景图片</value>
   </data>
-  <data name="SettingsPage_Select_BackgroundImage_Title" xml:space="preserve">
-    <value>选择背景图片</value>
+  <data name="SettingsPage_SensorSettings_Message" xml:space="preserve">
+    <value>Edit sensor data acquisition and display settings.</value>
+  </data>
+  <data name="SettingsPage_SensorSettings_Title" xml:space="preserve">
+    <value>Sensor Settings</value>
   </data>
   <data name="SettingsPage_SmartFnLock_Message" xml:space="preserve">
     <value>按下 Alt、Ctrl 或 Shift 键时，Fn 将会暂时解除锁定。</value>
@@ -2623,9 +2611,6 @@ If disabled, this app will handle Fn shortcuts.</value>
   </data>
   <data name="SettingsPage_UpdateMethod_Title" xml:space="preserve">
     <value>更新途径</value>
-  </data>
-  <data name="SettingsPage_Update_Title" xml:space="preserve">
-    <value>更新</value>
   </data>
   <data name="SettingsPage_UseNewDashboard_Restart_Message" xml:space="preserve">
     <value>重启以查看改动</value>
@@ -2923,9 +2908,6 @@ If disabled, this app will handle Fn shortcuts.</value>
   <data name="UnsupportedWindow_Disclaimer_GitHub" xml:space="preserve">
     <value>请查看 GitHub 上的项目页面以了解更多信息。</value>
   </data>
-  <data name="UnsupportedWindow_Disclaimer_Logs" xml:space="preserve">
-    <value>日志文件夹</value>
-  </data>
   <data name="UnsupportedWindow_MachineType" xml:space="preserve">
     <value>设备类型</value>
   </data>
@@ -2970,9 +2952,6 @@ If disabled, this app will handle Fn shortcuts.</value>
   </data>
   <data name="WiFiConnectedPipelineTriggerTabItemContent_LeaveEmptyForAnyNetwork" xml:space="preserve">
     <value>将任何 Wi-Fi 网络留空。</value>
-  </data>
-  <data name="WiFiConnectedPipelineTriggerTabItemContent_NetworkName" xml:space="preserve">
-    <value>网络名称（SSID）</value>
   </data>
   <data name="WindowsPowerModesWindow_Title" xml:space="preserve">
     <value>Windows 电源模式</value>
