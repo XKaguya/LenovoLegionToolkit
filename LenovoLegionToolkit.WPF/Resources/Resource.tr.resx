@@ -497,9 +497,6 @@ Yalnızca mevcut durumla eşleşen eylemler çalışacaktır.</value>
   <data name="BatteryPage_ACAdapterConnectedNotCharging" xml:space="preserve">
     <value>Bağlı, şarj etmiyor</value>
   </data>
-  <data name="BatteryPage_ACAdapterNotConnected" xml:space="preserve">
-    <value>AC Yok</value>
-  </data>
   <data name="BatteryPage_BatteryHealth_Message" xml:space="preserve">
     <value>Pilin maksimum şarj kapasitesi.</value>
   </data>
@@ -684,14 +681,8 @@ Bu modları değiştirmek yeniden başlatma gerektirebilir.</value>
   <data name="CompatibilityCheckError_Message" xml:space="preserve">
     <value>Cihaz bilgileri okunurken hata oluştu.</value>
   </data>
-  <data name="ContextMenu_QuickActions" xml:space="preserve">
-    <value>Hızlı Eylemler</value>
-  </data>
   <data name="Continue" xml:space="preserve">
     <value>Devam et</value>
-  </data>
-  <data name="CopiedToClipboard_Message" xml:space="preserve">
-    <value>Metin panoya kopyalandı.</value>
   </data>
   <data name="CopiedToClipboard_Message_WithParam" xml:space="preserve">
     <value>"{0}" panoya kopyalandı.</value>
@@ -713,9 +704,6 @@ Bu modları değiştirmek yeniden başlatma gerektirebilir.</value>
   </data>
   <data name="CustomFanCurve_Accelerate_Tooltip" xml:space="preserve">
     <value>Hızlandırma kontrolü, mevcut PWM değerine ne kadar PWM ekleneceğini belirler.</value>
-  </data>
-  <data name="CustomFanCurve_Add_Point" xml:space="preserve">
-    <value>Eğri noktası ekle</value>
   </data>
   <data name="CustomFanCurve_Critical_Temp" xml:space="preserve">
     <value>Kritik Sıcaklık</value>
@@ -787,9 +775,6 @@ UYARI: Dahili ekran kapalıysa veya Hibrit modu etkin değilse bu eylem düzgün
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Sil</value>
-  </data>
-  <data name="DeselectAll" xml:space="preserve">
-    <value>Tüm seçimi kaldır</value>
   </data>
   <data name="DeviceAutomationPipelineTriggerTabItemContent_OnlyConnected" xml:space="preserve">
     <value>Yalnızca bağlı cihazları göster</value>
@@ -1063,9 +1048,6 @@ UYARI: Dahili ekran kapalıysa, bu işlem doğru çalışmaz.</value>
   </data>
   <data name="FloatingGadgets_Disk_1_Temperature" xml:space="preserve">
     <value>Disk 2 Sıcaklığı</value>
-  </data>
-  <data name="FloatingGadgets_Fans" xml:space="preserve">
-    <value>Fanlar</value>
   </data>
   <data name="FloatingGadgets_Fps" xml:space="preserve">
     <value>FPS</value>
@@ -1467,9 +1449,6 @@ Devre dışı bırakmak için Evet'i, yok saymak için Hayır'ı tıklayın.</va
   </data>
   <data name="MacroSequenceControl_Repeat_Title" xml:space="preserve">
     <value>Tekrarla</value>
-  </data>
-  <data name="MacroSequenceControl_StopRecording" xml:space="preserve">
-    <value>Kaydı durdur</value>
   </data>
   <data name="MainWindows_FnKeysRunning" xml:space="preserve">
     <value>Lenovo Hotkeys arka planda çalışıyor.</value>
@@ -1978,9 +1957,6 @@ Fn+Q ile modu değiştirebilirsiniz.</value>
   <data name="QuickActionAutomationStepControl_Title" xml:space="preserve">
     <value>Hızlı Eylemler</value>
   </data>
-  <data name="ReadmeWindow_Title" xml:space="preserve">
-    <value>Benioku</value>
-  </data>
   <data name="Refresh" xml:space="preserve">
     <value>Yenile</value>
   </data>
@@ -2124,9 +2100,6 @@ UYARI: Dahili ekran kapalıysa, bu işlem doğru çalışmaz.</value>
   <data name="Saving" xml:space="preserve">
     <value>Kaydediliyor...</value>
   </data>
-  <data name="SelectAll" xml:space="preserve">
-    <value>Tümünü seç</value>
-  </data>
   <data name="SelectSmartKeyPipelinesWindow_List_Description" xml:space="preserve">
     <value>Geçiş yapmak için bir veya daha fazla hızlı işlem seçin</value>
   </data>
@@ -2256,8 +2229,32 @@ UYARI: Dahili ekran kapalıysa, bu işlem doğru çalışmaz.</value>
   <data name="SensorsControl_Utilization_Title" xml:space="preserve">
     <value>Kullanım</value>
   </data>
-  <data name="SensorsControl_VrTemperature_Title" xml:space="preserve">
-    <value>VR Sıcaklığı</value>
+  <data name="SensorSettingsPage_Average_Frequency_Title" xml:space="preserve">
+    <value>Average Frequency</value>
+  </data>
+  <data name="SensorSettingsPage_CPU_Frequency_Message" xml:space="preserve">
+    <value>Determine the type of CPU frequency displayed on the Dashboard and FloatingGadget.</value>
+  </data>
+  <data name="SensorSettingsPage_CPU_Frequency_Title" xml:space="preserve">
+    <value>CPU Frequency</value>
+  </data>
+  <data name="SensorSettingsPage_Discrete_GPU_Title" xml:space="preserve">
+    <value>dGPU</value>
+  </data>
+  <data name="SensorSettingsPage_IGPU_Title" xml:space="preserve">
+    <value>iGPU</value>
+  </data>
+  <data name="SensorSettingsPage_Max_Frequency_Title" xml:space="preserve">
+    <value>Max Frequency</value>
+  </data>
+  <data name="SensorSettingsPage_Preferred_GPU_Message" xml:space="preserve">
+    <value>When multiple graphics cards are present, the primary device displayed is preferred</value>
+  </data>
+  <data name="SensorSettingsPage_Preferred_GPU_Title" xml:space="preserve">
+    <value>Preferred GPU</value>
+  </data>
+  <data name="SensorSettingsPage_Title" xml:space="preserve">
+    <value>Sensor Settings</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Ayarlar</value>
@@ -2351,9 +2348,6 @@ UYARI: Dahili ekran kapalıysa, bu işlem doğru çalışmaz.</value>
   </data>
   <data name="SettingsPage_ClearBackgroundImage_Title" xml:space="preserve">
     <value>Görüntü Temizlendi</value>
-  </data>
-  <data name="SettingsPage_Clear_BackgroundImage_Message" xml:space="preserve">
-    <value>Seçili görüntü dosyasını sil.</value>
   </data>
   <data name="SettingsPage_Clear_BackgroundImage_Title" xml:space="preserve">
     <value>Görseli Temizle</value>
@@ -2458,9 +2452,6 @@ If disabled, this app will handle Fn shortcuts.</value>
   <data name="SettingsPage_EnableVantage_Error_Title" xml:space="preserve">
     <value>Lenovo Vantage ve/veya ImController etkinleştirilemedi</value>
   </data>
-  <data name="SettingsPage_ExcludeProcesses_Message" xml:space="preserve">
-    <value>Oyun Algılama tarafından yok sayılan işlemleri yönetin.</value>
-  </data>
   <data name="SettingsPage_ExcludeProcesses_Title" xml:space="preserve">
     <value>Hariç Tutulan İşlemler</value>
   </data>
@@ -2506,9 +2497,6 @@ If disabled, this app will handle Fn shortcuts.</value>
   <data name="SettingsPage_HWiNFO_Title" xml:space="preserve">
     <value>HWiNFO64</value>
   </data>
-  <data name="SettingsPage_Integrations_Title" xml:space="preserve">
-    <value>Bütünleşmeler</value>
-  </data>
   <data name="SettingsPage_Language_Message" xml:space="preserve">
     <value>Dil seçin.</value>
   </data>
@@ -2551,9 +2539,6 @@ If disabled, this app will handle Fn shortcuts.</value>
   <data name="SettingsPage_PowerModeMapping_Title" xml:space="preserve">
     <value>Güç Modu Eşitlemesi</value>
   </data>
-  <data name="SettingsPage_Power_Title" xml:space="preserve">
-    <value>Güç</value>
-  </data>
   <data name="SettingsPage_Select_BackgroundImage_AllFiles" xml:space="preserve">
     <value>Tüm Dosyalar</value>
   </data>
@@ -2563,8 +2548,11 @@ If disabled, this app will handle Fn shortcuts.</value>
   <data name="SettingsPage_Select_BackgroundImage_ImageFile" xml:space="preserve">
     <value>Görüntü Dosyası</value>
   </data>
-  <data name="SettingsPage_Select_BackgroundImage_Title" xml:space="preserve">
-    <value>Arkaplan Resmi Seç</value>
+  <data name="SettingsPage_SensorSettings_Message" xml:space="preserve">
+    <value>Edit sensor data acquisition and display settings.</value>
+  </data>
+  <data name="SettingsPage_SensorSettings_Title" xml:space="preserve">
+    <value>Sensor Settings</value>
   </data>
   <data name="SettingsPage_SmartFnLock_Message" xml:space="preserve">
     <value>Shift, Ctrl veya Alt tuşuna basıldığında Fn Kilidi geçici olarak devre dışı bırakılacaktır.</value>
@@ -2613,9 +2601,6 @@ If disabled, this app will handle Fn shortcuts.</value>
   </data>
   <data name="SettingsPage_UpdateMethod_Title" xml:space="preserve">
     <value>Update Method</value>
-  </data>
-  <data name="SettingsPage_Update_Title" xml:space="preserve">
-    <value>Güncelle</value>
   </data>
   <data name="SettingsPage_UseNewDashboard_Restart_Message" xml:space="preserve">
     <value>Değişiklikleri uygulamak için yeniden başlatın.</value>
@@ -2913,9 +2898,6 @@ Devam etmeyi seçerseniz, kayıt etme otomatik olarak etkinleştirilecektir.</va
   <data name="UnsupportedWindow_Disclaimer_GitHub" xml:space="preserve">
     <value>Daha fazla bilgi için GitHub'daki proje sayfasına göz atın.</value>
   </data>
-  <data name="UnsupportedWindow_Disclaimer_Logs" xml:space="preserve">
-    <value>Kayıt dosyası</value>
-  </data>
   <data name="UnsupportedWindow_MachineType" xml:space="preserve">
     <value>Cihaz Tipi</value>
   </data>
@@ -2960,9 +2942,6 @@ Devam etmeyi seçerseniz, kayıt etme otomatik olarak etkinleştirilecektir.</va
   </data>
   <data name="WiFiConnectedPipelineTriggerTabItemContent_LeaveEmptyForAnyNetwork" xml:space="preserve">
     <value>Herhangi bir Wi-Fi ağı için boş bırakın.</value>
-  </data>
-  <data name="WiFiConnectedPipelineTriggerTabItemContent_NetworkName" xml:space="preserve">
-    <value>Ağ adı (SSID)</value>
   </data>
   <data name="WindowsPowerModesWindow_Title" xml:space="preserve">
     <value>Windows Güç Modları</value>
