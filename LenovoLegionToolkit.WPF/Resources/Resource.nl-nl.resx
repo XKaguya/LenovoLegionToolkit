@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -2377,8 +2377,7 @@ Zorg ervoor dat uw script eerst correct wordt uitgevoerd.</value>
     <value>Kon Legion Space niet uitschakelen</value>
   </data>
   <data name="SettingsPage_DisableLegionSpace_Message" xml:space="preserve">
-    <value>Schakel Legion Zone en zijn service uit zonder deze te verwijderen. 
-Een herstart wordt aanbevolen na het wijzigen van deze optie.</value>
+    <value>Disable Legion Space and its service without uninstalling it.</value>
   </data>
   <data name="SettingsPage_DisableLegionSpace_Title" xml:space="preserve">
     <value>Schakel Legion Space uit</value>
@@ -2390,8 +2389,7 @@ Een herstart wordt aanbevolen na het wijzigen van deze optie.</value>
     <value>Kan Legion Zone niet uitschakelen</value>
   </data>
   <data name="SettingsPage_DisableLegionZone_Message" xml:space="preserve">
-    <value>Schakel Legion Zone en zijn service uit zonder deze te verwijderen. 
-Een herstart wordt aanbevolen na het wijzigen van deze optie.</value>
+    <value>Disable Legion Zone and its service without uninstalling it.</value>
   </data>
   <data name="SettingsPage_DisableLegionZone_Title" xml:space="preserve">
     <value>Schakel Legion Zone Uit</value>
@@ -2403,9 +2401,8 @@ Een herstart wordt aanbevolen na het wijzigen van deze optie.</value>
     <value>Kan Legion Zone niet uitschakelen</value>
   </data>
   <data name="SettingsPage_DisableLenovoHotkeys_Message" xml:space="preserve">
-    <value>Schakel Legion Hotkeys en zijn service uit zonder deze te verwijderen.
-Als het is uitgeschakeld, zal deze app de Fn-snelkoppelingen beheren.
-Een herstart wordt aanbevolen na het wijzigen van deze optie.</value>
+    <value>Disable Lenovo Hotkeys and its service without uninstalling it.
+If disabled, this app will handle Fn shortcuts.</value>
   </data>
   <data name="SettingsPage_DisableLenovoHotkeys_Title" xml:space="preserve">
     <value>Schakel Lenovo Hotkeys uit</value>
@@ -2417,8 +2414,7 @@ Een herstart wordt aanbevolen na het wijzigen van deze optie.</value>
     <value>Kon Lenovo Vantage en/of ImController niet uitschakelen</value>
   </data>
   <data name="SettingsPage_DisableVantage_Message" xml:space="preserve">
-    <value>Schakel Legion Vantage en ImController uit zonder deze te verwijderen. 
-Een herstart wordt aanbevolen na het wijzigen van deze optie.</value>
+    <value>Disable Lenovo Vantage and ImController without uninstalling them.</value>
   </data>
   <data name="SettingsPage_DisableVantage_Title" xml:space="preserve">
     <value>Lenovo Vantage en ImController uitschakelen</value>
@@ -2499,7 +2495,7 @@ Een herstart wordt aanbevolen na het wijzigen van deze optie.</value>
     <value>Power saving (iGPU)</value>
   </data>
   <data name="SettingsPage_HWiNFO_Message" xml:space="preserve">
-    <value>Deel ventilatorsnelheid, batterijtemperatuur, etc. met HWiNFO64. De laptop moet mogelijk opnieuw opgestart worden na het wijzigen van deze optie.</value>
+    <value>Share fan speed, battery temperature etc. with HWiNFO64.</value>
   </data>
   <data name="SettingsPage_HWiNFO_RestartInfo" xml:space="preserve">
     <value>You may need to restart HWiNFO64 after changing this option.</value>
@@ -2610,7 +2606,7 @@ Een herstart wordt aanbevolen na het wijzigen van deze optie.</value>
     <value>Update Method</value>
   </data>
   <data name="SettingsPage_RestartRequired_Message" xml:space="preserve">
-    <value>Herstart om de wijzigingen toe te passen.</value>
+    <value>Restart to apply changes.</value>
   </data>
   <data name="SettingsPage_UseNewDashboard_Switch_Title" xml:space="preserve">
     <value>Dashboard gewijzigd</value>
