@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -139,7 +139,7 @@
     <value>Kayıt</value>
   </data>
   <data name="AboutPage_ProjectWebsiteOnGitHub" xml:space="preserve">
-    <value>Projenin GitHub sayfası</value>
+    <value>Projenin Github sayfası</value>
   </data>
   <data name="AboutPage_Temp" xml:space="preserve">
     <value>Sıcaklık</value>
@@ -151,7 +151,7 @@
     <value>Hakkında</value>
   </data>
   <data name="AboutPage_TranslationCredit" xml:space="preserve">
-    <value>Undervolt tarafından Türkçe çeviri.</value>
+    <value>Undervolt tarafından Türkçe çeviri</value>
     <comment>Please replace this text with something like "Translated into &lt;language&gt; by &lt;your name&gt;."</comment>
   </data>
   <data name="AboutPage_Version" xml:space="preserve">
@@ -290,7 +290,7 @@
     <value>Güncelleme Denetleyicisini Devre Dışı Bırak</value>
   </data>
   <data name="ArgumentWindow_Flag_ExpGpuMode" xml:space="preserve">
-    <value>Deneysel GPU Çalışma Modu</value>
+    <value>Experimental GPU Working Mode</value>
   </data>
   <data name="ArgumentWindow_Flag_ProxyPassword" xml:space="preserve">
     <value>Proxy Şifresi</value>
@@ -354,7 +354,7 @@ Yalnızca mevcut durumla eşleşen eylemler çalışacaktır.</value>
     <value>Bilinen Oyun Listesi</value>
   </data>
   <data name="AutomationPage_Game_Detection_Sub_Title" xml:space="preserve">
-    <value>Algılama yöntemlerini ve istisnaları ayarlayın.</value>
+    <value>Configure detection methods and exclusions.</value>
   </data>
   <data name="AutomationPage_Game_Detection_Title" xml:space="preserve">
     <value>Oyun Algılama</value>
@@ -2377,8 +2377,7 @@ UYARI: Dahili ekran kapalıysa, bu işlem doğru çalışmaz.</value>
     <value>Legion Space devre dışı bırakılamadı</value>
   </data>
   <data name="SettingsPage_DisableLegionSpace_Message" xml:space="preserve">
-    <value>Legion Zone'u ve hizmetini kaldırmadan devre dışı bırakın.
-Bu seçeneği değiştirdikten sonra yeniden başlatma önerilir.</value>
+    <value>Disable Legion Space and its service without uninstalling it.</value>
   </data>
   <data name="SettingsPage_DisableLegionSpace_Title" xml:space="preserve">
     <value>Legion Space'i devre dışı bırak</value>
@@ -2390,8 +2389,7 @@ Bu seçeneği değiştirdikten sonra yeniden başlatma önerilir.</value>
     <value>Legion Zone devre dışı bırakılamadı</value>
   </data>
   <data name="SettingsPage_DisableLegionZone_Message" xml:space="preserve">
-    <value>Legion Zone'u ve hizmetini kaldırmadan devre dışı bırakın.
-Bu seçeneği değiştirdikten sonra yeniden başlatma önerilir.</value>
+    <value>Disable Legion Zone and its service without uninstalling it.</value>
   </data>
   <data name="SettingsPage_DisableLegionZone_Title" xml:space="preserve">
     <value>Legion Zone'u devre dışı bırak</value>
@@ -2403,9 +2401,8 @@ Bu seçeneği değiştirdikten sonra yeniden başlatma önerilir.</value>
     <value>Lenovo Hotkeys devre dışı bırakılamadı</value>
   </data>
   <data name="SettingsPage_DisableLenovoHotkeys_Message" xml:space="preserve">
-    <value>Lenovo Hotkeys ve hizmetini kaldırmadan devre dışı bırakın.
-Devre dışı bırakılırsa, bu uygulama Fn kısayollarını idare edecektir
-Bu seçeneği değiştirdikten sonra yeniden başlatma önerilir.</value>
+    <value>Disable Lenovo Hotkeys and its service without uninstalling it.
+If disabled, this app will handle Fn shortcuts.</value>
   </data>
   <data name="SettingsPage_DisableLenovoHotkeys_Title" xml:space="preserve">
     <value>Lenovo Hotkeys'i Devre Dışı Bırak</value>
@@ -2417,8 +2414,7 @@ Bu seçeneği değiştirdikten sonra yeniden başlatma önerilir.</value>
     <value>Lenovo Vantage ve/veya ImController devre dışı bırakılamadı</value>
   </data>
   <data name="SettingsPage_DisableVantage_Message" xml:space="preserve">
-    <value>Lenovo Vantage'ı ve lmController hizmetini kaldırmadan devre dışı bırakın.
-Bu seçeneği değiştirdikten sonra yeniden başlatma önerilir.</value>
+    <value>Disable Lenovo Vantage and ImController without uninstalling them.</value>
   </data>
   <data name="SettingsPage_DisableVantage_Title" xml:space="preserve">
     <value>Lenovo Vantage ve ImController'ı devre dışı bırakın</value>
@@ -2499,7 +2495,7 @@ Bu seçeneği değiştirdikten sonra yeniden başlatma önerilir.</value>
     <value>Power saving (iGPU)</value>
   </data>
   <data name="SettingsPage_HWiNFO_Message" xml:space="preserve">
-    <value>HWiNFO64 ile fan hızını, pil sıcaklığını vb. paylaşın. Bu seçeneği değiştirdikten sonra HWiNFO64 yeniden başlatılması gerekebilir.</value>
+    <value>Share fan speed, battery temperature etc. with HWiNFO64.</value>
   </data>
   <data name="SettingsPage_HWiNFO_RestartInfo" xml:space="preserve">
     <value>You may need to restart HWiNFO64 after changing this option.</value>
@@ -2610,7 +2606,7 @@ Bu seçeneği değiştirdikten sonra yeniden başlatma önerilir.</value>
     <value>Update Method</value>
   </data>
   <data name="SettingsPage_RestartRequired_Message" xml:space="preserve">
-    <value>Değişiklikleri uygulamak için yeniden başlatın.</value>
+    <value>Restart to apply changes.</value>
   </data>
   <data name="SettingsPage_UseNewDashboard_Switch_Title" xml:space="preserve">
     <value>Gösterge Paneli değiştirildi</value>
