@@ -614,14 +614,6 @@
   <data name="WhiteKeyboardBacklightState_Off" xml:space="preserve">
     <value>Off</value>
   </data>
-  <data name="WinKeyState_Off" xml:space="preserve">
-    <value>Off</value>
-    <comment>Informs the user that WinLock is or will be turned on.</comment>
-  </data>
-  <data name="WinKeyState_On" xml:space="preserve">
-    <value>On</value>
-    <comment>Informs the user that WinLock is or will be turned on.</comment>
-  </data>
   <data name="WindowBackdropType_Acrylic" xml:space="preserve">
     <value>Acrylic</value>
   </data>
@@ -633,5 +625,13 @@
   </data>
   <data name="WindowBackdropType_Tabbed" xml:space="preserve">
     <value>Tabbed</value>
+  </data>
+  <data name="WinKeyState_Off" xml:space="preserve">
+    <value>Off</value>
+    <comment>Informs the user that WinLock is or will be turned on.</comment>
+  </data>
+  <data name="WinKeyState_On" xml:space="preserve">
+    <value>On</value>
+    <comment>Informs the user that WinLock is or will be turned on.</comment>
   </data>
 </root>
