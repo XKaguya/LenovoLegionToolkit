@@ -290,6 +290,9 @@
   <data name="ArgumentWindow_Flag_DisableUpdateChecker" xml:space="preserve">
     <value>Вимкнути перевірку оновлень</value>
   </data>
+  <data name="ArgumentWindow_Flag_EnableLampArray" xml:space="preserve">
+    <value>Enable Lamp Array</value>
+  </data>
   <data name="ArgumentWindow_Flag_ExpGpuMode" xml:space="preserve">
     <value>Експериментальний режим роботи ГП</value>
   </data>

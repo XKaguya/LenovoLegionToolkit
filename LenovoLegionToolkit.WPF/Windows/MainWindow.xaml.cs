@@ -99,6 +99,11 @@ public partial class MainWindow
             _navigationStore.Items.Remove(_keyboardItem);
         }
 
+        if (!await LampArrayRGBKeyboardPage.IsSupportedAsync())
+        {
+            _navigationStore.Items.Remove(_lampArrayKeyboardItem);
+        }
+
         if (!await StandaloneFanCurvePage.IsSupportedAsync())
         {
             _navigationStore.Items.Remove(_fanItem);

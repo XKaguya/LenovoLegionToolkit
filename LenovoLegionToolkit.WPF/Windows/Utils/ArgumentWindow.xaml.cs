@@ -64,6 +64,10 @@ public partial class ArgumentWindow
             new("--force-disable-spectrumkb", Resource.ArgumentWindow_Category_Lighting, SymbolRegular.Color24, Resource.ArgumentWindow_Flag_DisableSpectrumKb)
         },
         {
+            nameof(AppFlags.Instance.EnableLampArray),
+            new("--enable-lamp-array", Resource.ArgumentWindow_Category_Lighting, SymbolRegular.Color24, Resource.ArgumentWindow_Flag_EnableLampArray)
+        },
+        {
             nameof(AppFlags.Instance.IsTraceEnabled),
             new("--trace", Resource.ArgumentWindow_Category_Debugging, SymbolRegular.AppsListDetail24, Resource.ArgumentWindow_Flag_TraceEnabled)
         },

@@ -925,6 +925,11 @@ public partial class App
     {
         try
         {
+            if (AppFlags.Instance.EnableLampArray)
+            {
+                return;
+            }
+
             var controller = IoCContainer.Resolve<RGBKeyboardBacklightController>();
 
             if (await controller.IsSupportedAsync())
@@ -942,6 +947,11 @@ public partial class App
     {
         try
         {
+            if (AppFlags.Instance.EnableLampArray)
+            {
+                return;
+            }
+
             var controller = IoCContainer.Resolve<SpectrumKeyboardBacklightController>();
 
             if (await controller.IsSupportedAsync())
@@ -1121,6 +1131,11 @@ public partial class App
     {
         try
         {
+            if (!AppFlags.Instance.EnableLampArray)
+            {
+                return;
+            }
+
             var controller = IoCContainer.Resolve<LampArrayController>();
             var settings = IoCContainer.Resolve<LampArraySettings>();
             controller.SetScreenCaptureProvider(new SpectrumScreenCapture());

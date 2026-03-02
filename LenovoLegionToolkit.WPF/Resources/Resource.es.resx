@@ -290,6 +290,9 @@
   <data name="ArgumentWindow_Flag_DisableUpdateChecker" xml:space="preserve">
     <value>Desactivar la comprobación de actualización</value>
   </data>
+  <data name="ArgumentWindow_Flag_EnableLampArray" xml:space="preserve">
+    <value>Enable Lamp Array</value>
+  </data>
   <data name="ArgumentWindow_Flag_ExpGpuMode" xml:space="preserve">
     <value>Modo de trabajo de GPU experimental</value>
   </data>

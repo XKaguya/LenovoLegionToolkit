@@ -290,6 +290,9 @@
   <data name="ArgumentWindow_Flag_DisableUpdateChecker" xml:space="preserve">
     <value>Güncelleme Denetleyicisini Devre Dışı Bırak</value>
   </data>
+  <data name="ArgumentWindow_Flag_EnableLampArray" xml:space="preserve">
+    <value>Enable Lamp Array</value>
+  </data>
   <data name="ArgumentWindow_Flag_ExpGpuMode" xml:space="preserve">
     <value>Deneysel GPU Çalışma Modu</value>
   </data>

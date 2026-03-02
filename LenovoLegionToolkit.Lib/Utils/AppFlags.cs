@@ -73,6 +73,13 @@ public class AppFlags
         set { _forceDisableLenovoLighting = value; Save(); }
     }
 
+    private bool _enableLampArray;
+    public bool EnableLampArray
+    {
+        get => _enableLampArray;
+        set { EnableLampArray = value; Save(); }
+    }
+
     private bool _experimentalGPUWorkingMode;
     public bool ExperimentalGPUWorkingMode
     {
@@ -165,6 +172,7 @@ public class AppFlags
         _forceDisableRgbKeyboardSupport = BoolValue(args, "--force-disable-rgbkb");
         _forceDisableSpectrumKeyboardSupport = BoolValue(args, "--force-disable-spectrumkb");
         _forceDisableLenovoLighting = BoolValue(args, "--force-disable-lenovolighting");
+        _enableLampArray = BoolValue(args, "--enable-lamp-array");
         _experimentalGPUWorkingMode = BoolValue(args, "--experimental-gpu-working-mode");
         _proxyUrl = Uri.TryCreate(StringValue(args, "--proxy-url"), UriKind.Absolute, out var uri) ? uri : null;
         _proxyUsername = StringValue(args, "--proxy-username");
@@ -189,6 +197,7 @@ public class AppFlags
             if (ForceDisableRgbKeyboardSupport) args.Add("--force-disable-rgbkb");
             if (ForceDisableSpectrumKeyboardSupport) args.Add("--force-disable-spectrumkb");
             if (ForceDisableLenovoLighting) args.Add("--force-disable-lenovolighting");
+            if (EnableLampArray) args.Add("--enable-lamp-array"); 
             if (ExperimentalGPUWorkingMode) args.Add("--experimental-gpu-working-mode");
             if (ProxyUrl != null) args.Add($"--proxy-url={ProxyUrl}");
             if (!string.IsNullOrEmpty(ProxyUsername)) args.Add($"--proxy-username={ProxyUsername}");
@@ -238,6 +247,7 @@ public class AppFlags
         $" {nameof(ForceDisableRgbKeyboardSupport)}: {ForceDisableRgbKeyboardSupport}," +
         $" {nameof(ForceDisableSpectrumKeyboardSupport)}: {ForceDisableSpectrumKeyboardSupport}," +
         $" {nameof(ForceDisableLenovoLighting)}: {ForceDisableLenovoLighting}," +
+        $" {nameof(EnableLampArray)}: {EnableLampArray}," +
         $" {nameof(ExperimentalGPUWorkingMode)}: {ExperimentalGPUWorkingMode}," +
         $" {nameof(ProxyUrl)}: {ProxyUrl}," +
         $" {nameof(ProxyUsername)}: {ProxyUsername}," +

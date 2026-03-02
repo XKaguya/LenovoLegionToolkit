@@ -36,7 +36,7 @@ public partial class LampArrayRGBKeyboardPage : UiPage
     private readonly CustomPatternEffect _globalCustomEffect = new();
     private readonly AuroraSyncEffect _globalAuroraEffect = new();
     private readonly SpectrumScreenCapture _screenCapture = new();
-    private RGBColor[,] _screenBuffer = new RGBColor[32, 18]; // Low res for performance
+    private RGBColor[,] _screenBuffer = new RGBColor[32, 18];
     private CancellationTokenSource? _screenCaptureCts;
 
     private readonly ILampEffect _defaultEffect = new RainbowEffect(4.0, true);
@@ -60,6 +60,24 @@ public partial class LampArrayRGBKeyboardPage : UiPage
         if (_colorPicker != null)
         {
              _colorPicker.ColorChangedContinuous += OnColorChanged;
+        }
+    }
+
+    public static async Task<bool> IsSupportedAsync()
+    {
+        try
+        {
+            if (AppFlags.Instance.EnableLampArray)
+            {
+                return true;
+            }
+
+            return false;
+        }
+        catch (Exception ex)
+        {
+            Log.Instance.Trace($"Error checking keyboard support: {ex.Message}");
+            return false;
         }
     }
 
@@ -207,7 +225,7 @@ public partial class LampArrayRGBKeyboardPage : UiPage
                 {
                     _screenCapture.CaptureScreen(ref _screenBuffer, 32, 18, token);
                     _globalAuroraEffect.UpdateScreenData(_screenBuffer, 32, 18);
-                    await Task.Delay(33, token); // ~30 FPS
+                    await Task.Delay(33, token);
                 }
             }
             catch (OperationCanceledException) { }
@@ -488,7 +506,6 @@ public partial class LampArrayRGBKeyboardPage : UiPage
             };
         }
 
-        // Show/Hide direction panel
         if (_effectSelect.SelectedIndex == 7 || _effectSelect.SelectedIndex == 9)
         {
             if (_directionPanel != null) _directionPanel.Visibility = Visibility.Visible;
