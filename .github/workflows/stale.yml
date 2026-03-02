@@ -1,0 +1,35 @@
+name: Manage stale issues and PRs
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/stale@v9
+        with:
+          # Configuration for Issues
+          days-before-issue-stale: 14
+          days-before-issue-close: 7
+          stale-issue-label: 'stale'
+          close-issue-label: 'wontfix'
+          stale-issue-message: 'This issue has been automatically marked as stale due to inactivity.'
+          close-issue-message: 'Closing this issue due to prolonged inactivity.'
+          
+          # Configuration for PRs
+          days-before-pr-stale: 30
+          days-before-pr-close: 7
+          stale-pr-label: 'stale'
+          close-pr-label: 'wontfix'
+          stale-pr-message: 'This PR has been marked as stale. Please update it or it will be closed.'
+          close-pr-message: 'Closing this PR due to prolonged inactivity.'
+          
+          # Safety Exemptions
+          exempt-issue-labels: 'keep-open,release blocker,security'
+          exempt-pr-labels: 'keep-open,release blocker'
