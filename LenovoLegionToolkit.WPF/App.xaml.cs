@@ -87,7 +87,11 @@ public partial class App
     {
         try
         {
-            await InitializeCoreEnvironmentAsync(e);
+            if (!await InitializeCoreEnvironmentAsync(e))
+            {
+                return;
+            }
+
             await InitializeSettingsAndCompatibilityAsync();
             await InitializeHardwareAndFeaturesAsync();
             var deferredInitTask = StartBackgroundServicesAsync();
@@ -123,7 +127,7 @@ public partial class App
         }
     }
 
-    private async Task InitializeCoreEnvironmentAsync(StartupEventArgs e)
+    private async Task<bool> InitializeCoreEnvironmentAsync(StartupEventArgs e)
     {
 #if DEBUG
         if (Debugger.IsAttached)
@@ -141,22 +145,25 @@ public partial class App
 
         AppFlags.Initialize(e.Args);
         Log.Instance.IsTraceEnabled = AppFlags.Instance.IsTraceEnabled;
-        
-        await Compatibility.PrintMachineInfoAsync().ConfigureAwait(false);
-        
-        SetupExceptionHandling();
 
         if (AppFlags.Instance.Debug)
         {
             InitializeDebugConsole();
-            Console.WriteLine(@$"[Startup] Parsing Flags complete. TraceEnabled: {AppFlags.Instance.IsTraceEnabled}");
             Console.WriteLine(@"[Startup] Ensuring Single Instance...");
         }
 
-        EnsureSingleInstance();
+        if (!EnsureSingleInstance())
+        {
+            return false;
+        }
+
+        await Compatibility.PrintMachineInfoAsync().ConfigureAwait(false);
+
+        SetupExceptionHandling();
 
         if (AppFlags.Instance.Debug)
         {
+            Console.WriteLine(@$"[Startup] Parsing Flags complete. TraceEnabled: {AppFlags.Instance.IsTraceEnabled}");
             Console.WriteLine(@"[Startup] Initializing IoC Container...");
         }
 
@@ -166,6 +173,8 @@ public partial class App
             new Lib.Macro.IoCModule(),
             new IoCModule()
         );
+
+        return true;
     }
 
     private async Task InitializeSettingsAndCompatibilityAsync()
@@ -573,7 +582,7 @@ public partial class App
         FloatingGadget.Show();
     }
 
-    private void EnsureSingleInstance()
+    private bool EnsureSingleInstance()
     {
         _singleInstanceMutex = new Mutex(true, MUTEX_NAME, out var isOwned);
         _singleInstanceWaitHandle = new EventWaitHandle(false, EventResetMode.AutoReset, EVENT_NAME);
@@ -582,7 +591,7 @@ public partial class App
         {
             _singleInstanceWaitHandle.Set();
             Shutdown();
-            return;
+            return false;
         }
 
         Task.Factory.StartNew(() =>
@@ -602,6 +611,8 @@ public partial class App
                 });
             }
         }, TaskCreationOptions.LongRunning);
+
+        return true; 
     }
 
     #endregion
