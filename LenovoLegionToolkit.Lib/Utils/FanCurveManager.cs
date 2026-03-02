@@ -19,11 +19,12 @@ public class FanCurveManager : IDisposable
 
     private IExtensionProvider? _extension;
     private bool _pluginLoaded;
+    private bool _isThinkBook;
+    private bool _isInitialized;
 
     private readonly Dictionary<FanType, IFanControlView> _activeViewModels = new();
 
     public int LogicInterval { get; set; } = 500;
-
     public bool IsEnabled { get; private set; }
 
     public FanCurveManager(
@@ -37,15 +38,10 @@ public class FanCurveManager : IDisposable
         _powerModeFeature = powerModeFeature;
     }
 
-    public async void Initialize()
+    public async Task InitializeAsync()
     {
-        Log.Instance.Trace($"FanCurveManager.Initialize called.");
-
-        if (IsEnabled)
-        {
-            Log.Instance.Trace($"FanCurveManager is already enabled. Skipping initialization.");
-            return;
-        }
+        if (_isInitialized) return;
+        Log.Instance.Trace($"FanCurveManager.InitializeAsync called.");
 
         LoadPlugin();
         if (_extension != null)
@@ -55,16 +51,16 @@ public class FanCurveManager : IDisposable
             Log.Instance.Trace($"FanCurveManager initialized with extension.");
 
             var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
-            if (mi.LegionSeries != LegionSeries.ThinkBook)
+            _isThinkBook = mi.LegionSeries == LegionSeries.ThinkBook;
+
+            if (!_isThinkBook)
             {
                 _powerModeListener.Changed += OnPowerModeChanged;
                 var currentState = await _powerModeFeature.GetStateAsync().ConfigureAwait(false);
-                if (currentState != PowerModeState.GodMode)
-                {
-                    Log.Instance.Trace($"Initial state is {currentState}, disabling fan control register.");
-                    await SetRegister(false).ConfigureAwait(false);
-                }
+                await ApplyStateLogicAsync(currentState).ConfigureAwait(false);
             }
+
+            _isInitialized = true;
         }
         else
         {
@@ -74,17 +70,28 @@ public class FanCurveManager : IDisposable
 
     private async void OnPowerModeChanged(object? sender, PowerModeListener.ChangedEventArgs e)
     {
-        var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
-        if (mi.LegionSeries == LegionSeries.ThinkBook) return;
+        if (_isThinkBook) return;
 
-        if (e.State == PowerModeState.GodMode)
+        try
         {
-            Log.Instance.Trace($"PowerMode changed to GodMode. Enabling custom fan control.");
+            await ApplyStateLogicAsync(e.State).ConfigureAwait(false);
+        }
+        catch (Exception ex)
+        {
+            Log.Instance.Trace($"Error handling PowerMode change: {ex}");
+        }
+    }
+
+    private async Task ApplyStateLogicAsync(PowerModeState state)
+    {
+        if (state == PowerModeState.GodMode)
+        {
+            Log.Instance.Trace($"PowerMode is GodMode. Enabling custom fan control.");
             await SetRegister(true).ConfigureAwait(false);
         }
         else
         {
-            Log.Instance.Trace($"PowerMode changed to {e.State}. Disabling custom fan control.");
+            Log.Instance.Trace($"PowerMode is {state}. Disabling custom fan control.");
             await SetRegister(false).ConfigureAwait(false);
         }
     }
@@ -103,7 +110,7 @@ public class FanCurveManager : IDisposable
         {
             var pluginDir = Path.Combine(Folders.AppData, "Plugins");
             Log.Instance.Trace($"Scanning for plugins in: {pluginDir} (Full: {Path.GetFullPath(pluginDir)})");
-            
+
             if (!Directory.Exists(pluginDir))
             {
                 Log.Instance.Trace($"Plugin directory does not exist.");
@@ -130,7 +137,7 @@ public class FanCurveManager : IDisposable
 
     private bool TryLoadPlugin(string path)
     {
-        ResolveEventHandler resolver = (_, args) => 
+        ResolveEventHandler resolver = (_, args) =>
             args.Name.Contains(typeof(IExtensionProvider).Assembly.GetName().Name!) ? typeof(IExtensionProvider).Assembly : null;
 
         try
@@ -148,7 +155,7 @@ public class FanCurveManager : IDisposable
                 _extension = (IExtensionProvider?)Activator.CreateInstance(type);
                 return _extension != null;
             }
-            
+
             Log.Instance.Trace($"No valid IExtensionProvider implementation found in this assembly.");
         }
         catch (Exception ex)
@@ -194,29 +201,21 @@ public class FanCurveManager : IDisposable
     public async Task LoadAndApply(List<FanCurveEntry> entries)
     {
         if (_extension == null) return;
+
         foreach (var entry in entries)
         {
             AddEntry(entry);
             UpdateConfig(entry.Type, entry);
         }
 
-        var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
-        if (mi.LegionSeries == LegionSeries.ThinkBook)
+        if (_isThinkBook)
         {
-             await SetRegister(true).ConfigureAwait(false);
+            await SetRegister(true).ConfigureAwait(false);
         }
         else
         {
             var currentState = await _powerModeFeature.GetStateAsync().ConfigureAwait(false);
-            if (currentState == PowerModeState.GodMode)
-            {
-                await SetRegister(true).ConfigureAwait(false);
-            }
-            else
-            {
-                 Log.Instance.Trace($"Not in GodMode, applying config but keeping register disabled.");
-                 await SetRegister(false).ConfigureAwait(false);
-            }
+            await ApplyStateLogicAsync(currentState).ConfigureAwait(false);
         }
     }
 
