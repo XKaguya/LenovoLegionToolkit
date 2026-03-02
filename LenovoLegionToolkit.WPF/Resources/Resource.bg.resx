@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -1392,6 +1392,108 @@ Click Yes to disable and No to ignore.</value>
   <data name="Keyboard_VantageEnabledWarning_Title" xml:space="preserve">
     <value>Lenovo Vantage или неговите услуги работят</value>
   </data>
+  <data name="LampArrayRGBKeyboardPage_Aft_Ambient" xml:space="preserve">
+    <value>Aft Ambient</value>
+  </data>
+  <data name="LampArrayRGBKeyboardPage_All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="LampArrayRGBKeyboardPage_Aurora_Sync" xml:space="preserve">
+    <value>Aurora Sync</value>
+  </data>
+  <data name="LampArrayRGBKeyboardPage_Bottom_to_Top" xml:space="preserve">
+    <value>Bottom to Top</value>
+  </data>
+  <data name="LampArrayRGBKeyboardPage_Breathe" xml:space="preserve">
+    <value>Breathe</value>
+  </data>
+  <data name="LampArrayRGBKeyboardPage_Brightness" xml:space="preserve">
+    <value>Brightness</value>
+  </data>
+  <data name="LampArrayRGBKeyboardPage_Clear_Colors" xml:space="preserve">
+    <value>Clear Colors</value>
+  </data>
+  <data name="LampArrayRGBKeyboardPage_Custom" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="LampArrayRGBKeyboardPage_Direction" xml:space="preserve">
+    <value>Direction</value>
+  </data>
+  <data name="LampArrayRGBKeyboardPage_Effect" xml:space="preserve">
+    <value>Effect</value>
+  </data>
+  <data name="LampArrayRGBKeyboardPage_Export_Profile" xml:space="preserve">
+    <value>Export Profile</value>
+  </data>
+  <data name="LampArrayRGBKeyboardPage_Gradient" xml:space="preserve">
+    <value>Gradient</value>
+  </data>
+  <data name="LampArrayRGBKeyboardPage_Import_Profile" xml:space="preserve">
+    <value>Import Profile</value>
+  </data>
+  <data name="LampArrayRGBKeyboardPage_Keyboard" xml:space="preserve">
+    <value>Keyboard</value>
+  </data>
+  <data name="LampArrayRGBKeyboardPage_Left_to_Right" xml:space="preserve">
+    <value>Left to Right</value>
+  </data>
+  <data name="LampArrayRGBKeyboardPage_Meteor" xml:space="preserve">
+    <value>Meteor</value>
+  </data>
+  <data name="LampArrayRGBKeyboardPage_None" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="LampArrayRGBKeyboardPage_No_Selection" xml:space="preserve">
+    <value>No Selection</value>
+  </data>
+  <data name="LampArrayRGBKeyboardPage_Probe_Indices" xml:space="preserve">
+    <value>Probe Indices</value>
+  </data>
+  <data name="LampArrayRGBKeyboardPage_Rainbow" xml:space="preserve">
+    <value>Rainbow</value>
+  </data>
+  <data name="LampArrayRGBKeyboardPage_Rainbow_Wave" xml:space="preserve">
+    <value>Rainbow Wave</value>
+  </data>
+  <data name="LampArrayRGBKeyboardPage_Rear_Ambient" xml:space="preserve">
+    <value>Rear Ambient</value>
+  </data>
+  <data name="LampArrayRGBKeyboardPage_Right_to_Left" xml:space="preserve">
+    <value>Right to Left</value>
+  </data>
+  <data name="LampArrayRGBKeyboardPage_Ripple" xml:space="preserve">
+    <value>Ripple</value>
+  </data>
+  <data name="LampArrayRGBKeyboardPage_Selection" xml:space="preserve">
+    <value>Selection</value>
+  </data>
+  <data name="LampArrayRGBKeyboardPage_Smooth_Transition" xml:space="preserve">
+    <value>Smooth Transition</value>
+  </data>
+  <data name="LampArrayRGBKeyboardPage_Sparkle" xml:space="preserve">
+    <value>Sparkle</value>
+  </data>
+  <data name="LampArrayRGBKeyboardPage_Speed" xml:space="preserve">
+    <value>Speed</value>
+  </data>
+  <data name="LampArrayRGBKeyboardPage_Spiral_Rainbow" xml:space="preserve">
+    <value>Spiral Rainbow</value>
+  </data>
+  <data name="LampArrayRGBKeyboardPage_Static" xml:space="preserve">
+    <value>Static</value>
+  </data>
+  <data name="LampArrayRGBKeyboardPage_Target_Zone" xml:space="preserve">
+    <value>Target Zone</value>
+  </data>
+  <data name="LampArrayRGBKeyboardPage_Top_to_Bottom" xml:space="preserve">
+    <value>Top to Bottom</value>
+  </data>
+  <data name="LampArrayRGBKeyboardPage_Wave" xml:space="preserve">
+    <value>Wave</value>
+  </data>
+  <data name="LivePreview" xml:space="preserve">
+    <value>Live Preview</value>
+  </data>
   <data name="Load" xml:space="preserve">
     <value>Зареди</value>
   </data>
@@ -2546,6 +2648,9 @@ It won't affect other full screen windows, but you will not be able to click on 
   <data name="SettingsPage_PowerModeMapping_Title" xml:space="preserve">
     <value>Power Mode Synchronization</value>
   </data>
+  <data name="SettingsPage_RestartRequired_Message" xml:space="preserve">
+    <value>Restart to apply changes.</value>
+  </data>
   <data name="SettingsPage_Select_BackgroundImage_AllFiles" xml:space="preserve">
     <value>All Files</value>
   </data>
@@ -2605,12 +2710,6 @@ It won't affect other full screen windows, but you will not be able to click on 
   </data>
   <data name="SettingsPage_UpdateMethod_Title" xml:space="preserve">
     <value>Update Method</value>
-  </data>
-  <data name="SettingsPage_RestartRequired_Message" xml:space="preserve">
-    <value>Restart to apply changes.</value>
-  </data>
-  <data name="SettingsPage_UseNewDashboard_Switch_Title" xml:space="preserve">
-    <value>Dashboard changed</value>
   </data>
   <data name="SettingsPage_UseNewSensorDashboard_Message" xml:space="preserve">
     <value>Use new sensor dashboard instead of the old one. 
