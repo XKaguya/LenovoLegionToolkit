@@ -50,7 +50,6 @@ public partial class FloatingGadget
     private const double PCH_TEMP_RED = 75;
     #endregion
 
-    private readonly ApplicationSettings _settings = IoCContainer.Resolve<ApplicationSettings>();
     private readonly FloatingGadgetSettings _floatingGadgetSettings = IoCContainer.Resolve<FloatingGadgetSettings>();
     private readonly SensorsController _controller = IoCContainer.Resolve<SensorsController>();
     private readonly SensorsGroupController _sensorsGroupControllers = IoCContainer.Resolve<SensorsGroupController>();
@@ -75,11 +74,6 @@ public partial class FloatingGadget
     public FloatingGadget()
     {
         InitializeComponent();
-
-        if (!_settings.Store.EnableHardwareAcceleration)
-        {
-            RenderOptions.ProcessRenderMode = RenderMode.SoftwareOnly;
-        }
 
         if (_floatingGadgetSettings.Store.Items.Count == 0)
         {

@@ -88,7 +88,6 @@ public partial class FloatingGadgetUpper
     }
     #endregion
 
-    private readonly ApplicationSettings _settings = IoCContainer.Resolve<ApplicationSettings>();
     private readonly FloatingGadgetSettings _floatingGadgetSettings = IoCContainer.Resolve<FloatingGadgetSettings>();
     private readonly SensorsController _controller = IoCContainer.Resolve<SensorsController>();
     private readonly SensorsGroupController _sensorsGroupControllers = IoCContainer.Resolve<SensorsGroupController>();
@@ -114,11 +113,6 @@ public partial class FloatingGadgetUpper
     public FloatingGadgetUpper()
     {
         InitializeComponent();
-
-        if (!_settings.Store.EnableHardwareAcceleration)
-        {
-            RenderOptions.ProcessRenderMode = RenderMode.SoftwareOnly;
-        }
 
         _activeItems = new HashSet<FloatingGadgetItem>(_floatingGadgetSettings.Store.Items);
 
