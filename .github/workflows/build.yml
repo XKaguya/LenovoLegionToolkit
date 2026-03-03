@@ -25,6 +25,14 @@ jobs:
       run: dotnet restore
     - name: Build
       run: .\make_action.bat
+    - name: Verify installer
+      run: |
+        $installerPath = "build_installer\LenovoLegionToolkitSetup.exe"
+        if (-not (Test-Path $installerPath)) {
+          Write-Error "Installer file not found at $installerPath"
+          exit 1
+        }
+      shell: powershell
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
