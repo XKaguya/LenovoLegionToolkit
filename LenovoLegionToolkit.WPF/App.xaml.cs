@@ -198,7 +198,7 @@ public partial class App
 
         var settings = IoCContainer.Resolve<ApplicationSettings>();
 
-        if (!AppFlags.Instance.EnableHardwareAcceleration && !settings.Store.EnableHardwareAcceleration)
+        if (!settings.Store.EnableHardwareAcceleration)
         {
             RenderOptions.ProcessRenderMode = RenderMode.SoftwareOnly;
         }

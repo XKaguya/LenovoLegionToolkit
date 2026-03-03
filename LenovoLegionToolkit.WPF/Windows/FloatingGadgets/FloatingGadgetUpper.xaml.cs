@@ -115,7 +115,7 @@ public partial class FloatingGadgetUpper
     {
         InitializeComponent();
 
-        if (!AppFlags.Instance.EnableHardwareAcceleration && !_settings.Store.EnableHardwareAcceleration)
+        if (!_settings.Store.EnableHardwareAcceleration)
         {
             RenderOptions.ProcessRenderMode = RenderMode.SoftwareOnly;
         }
