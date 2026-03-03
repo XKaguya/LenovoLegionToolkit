@@ -118,7 +118,7 @@ public partial class LampArrayRGBKeyboardPage : UiPage
             
             UpdateLayout();
             
-            var allRoots = new DependencyObject[] { _visualKeyboard, _rearAmbientLight, _aftAmbientLight };
+            var allRoots = new DependencyObject[] { _visualKeyboard!, _rearAmbientLight!, _aftAmbientLight! };
             foreach (var root in allRoots)
             {
                 InitializeKeyboardEvents(root);
@@ -356,7 +356,9 @@ public partial class LampArrayRGBKeyboardPage : UiPage
         grid.ReleaseMouseCapture();
         if (_selectionRect != null) _selectionRect.Visibility = Visibility.Collapsed;
         
-        var rect = new Rect(Canvas.GetLeft(_selectionRect), Canvas.GetTop(_selectionRect), _selectionRect.Width, _selectionRect.Height);
+        var rect = _selectionRect != null
+            ? new Rect(Canvas.GetLeft(_selectionRect), Canvas.GetTop(_selectionRect), _selectionRect.Width, _selectionRect.Height)
+            : default;
         
         if (rect.Width < 2 && rect.Height < 2) return;
 
@@ -570,7 +572,7 @@ public partial class LampArrayRGBKeyboardPage : UiPage
         }
     }
     
-    private void OnColorChanged(object sender, EventArgs e)
+    private void OnColorChanged(object? sender, EventArgs e)
     {
          if (_colorPicker == null) return;
          var mediaColor = _colorPicker.SelectedColor;

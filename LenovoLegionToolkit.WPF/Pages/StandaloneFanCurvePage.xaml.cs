@@ -24,11 +24,11 @@ public partial class StandaloneFanCurvePage : UiPage
         this.Unloaded += StandaloneFanCurvePage_Unloaded;
     }
 
-    private void StandaloneFanCurvePage_Loaded(object sender, RoutedEventArgs e)
+    private async void StandaloneFanCurvePage_Loaded(object sender, RoutedEventArgs e)
     {
         try
         {
-            _fanCurveManager.Initialize();
+            await _fanCurveManager.InitializeAsync();
             InitializeFanControls();
         }
         catch (Exception ex)

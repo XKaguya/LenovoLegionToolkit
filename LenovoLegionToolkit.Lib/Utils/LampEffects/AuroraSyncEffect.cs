@@ -10,7 +10,7 @@ public class AuroraSyncEffect : ILampEffect
     public string Name => "Aurora Sync";
     public Dictionary<string, object> Parameters { get; } = new();
 
-    private RGBColor[,] _screenColors;
+    private RGBColor[,]? _screenColors;
     private int _width;
     private int _height;
 

@@ -1027,7 +1027,7 @@ public partial class App
         {
             Log.Instance.Trace($"Resolving and initializing FanCurveManager...");
             var fanManager = IoCContainer.Resolve<FanCurveManager>();
-            fanManager.Initialize();
+            await fanManager.InitializeAsync();
 
             var fanSettings = IoCContainer.Resolve<FanCurveSettings>();
 

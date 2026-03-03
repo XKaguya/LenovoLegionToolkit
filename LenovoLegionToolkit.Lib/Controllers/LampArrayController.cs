@@ -39,8 +39,8 @@ public class LampArrayController : IDisposable
 
     private ILampEffect? _currentEffect;
     private ILampEffect? _targetEffect;
-    private double _transitionStartTime;
-    private double _transitionDuration;
+    private double _transitionStartTime = 0;
+    private double _transitionDuration = 0;
     private readonly Stopwatch _stopwatch = Stopwatch.StartNew();
 
     private readonly global::System.Collections.Concurrent.ConcurrentDictionary<int, ILampEffect> _effectOverrides = new();
