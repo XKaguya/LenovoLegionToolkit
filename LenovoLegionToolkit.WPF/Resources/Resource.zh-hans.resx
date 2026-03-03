@@ -122,7 +122,7 @@
     <value>应用数据文件夹</value>
   </data>
   <data name="AboutPage_AppName" xml:space="preserve">
-    <value>Lenovo Legion Toolkit (Unofficial Fork)</value>
+    <value>Lenovo Legion Toolkit</value>
   </data>
   <data name="AboutPage_Build" xml:space="preserve">
     <value>构建版本</value>

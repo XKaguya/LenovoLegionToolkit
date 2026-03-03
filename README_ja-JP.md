@@ -2,7 +2,8 @@
 
 # レノボ・レギオン・ツールキット
 
-[![Build](https://github.com/BartoszCichecki/LenovoLegionToolkit/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/BartoszCichecki/LenovoLegionToolkit/actions/workflows/build.yml)
+[![Build](https://img.shields.io/github/actions/workflow/status/LenovoLegionToolkit-Team/LenovoLegionToolkit/build.yml?branch=master&logo=github&logoColor=white)](https://github.com/LenovoLegionToolkit-Team/LenovoLegionToolkit/actions)
+[![Downloads](https://img.shields.io/github/downloads/LenovoLegionToolkit-Team/LenovoLegionToolkit/total)](https://github.com/LenovoLegionToolkit-Team/LenovoLegionToolkit/releases)
 [![Crowdin](https://badges.crowdin.net/llt/localized.svg)](https://crowdin.com/project/llt)
 [![Join Discord](https://img.shields.io/discord/761178912230473768?label=Legion%20Series%20Discord)](https://discord.com/invite/legionseries)
 <a href="https://hellogithub.com/repository/dd55be3ac0c146208259f17b29d2162f" target="_blank"><img src="https://abroad.hellogithub.com/v1/widgets/recommend.svg?rid=dd55be3ac0c146208259f17b29d2162f&claim_uid=LBbuUlZqTIm1JAP&theme=small" alt="Featured｜HelloGitHub" /></a>
@@ -49,7 +50,7 @@ _レギオンシリーズのDiscordに参加してください：https://discord
 
 次の方法でプログラムをダウンロードできます：
 
-- [リリースページ](https://github.com/BartoszCichecki/LenovoLegionToolkit/releases/latest)から手動でダウンロード
+- [リリースページ](https://github.com/LenovoLegionToolkit-Team/LenovoLegionToolkit/releases/latest)から手動でダウンロード
 - [winget](https://github.com/microsoft/winget-cli)を使用：
 
   ```sh
@@ -365,11 +366,7 @@ CLIは管理者として実行する必要はありません。
 
 ## 寄付
 
-Lenovo Legion Toolkitを楽しんで使用している場合は、寄付を検討してください。
-
-[PayPalで寄付](https://www.paypal.com/donate/?hosted_button_id=22AZE2NBP3HTL)
-
-<img src="LenovoLegionToolkit.WPF/Assets/Donate/paypal_qr.png" width="200" alt="PayPal QR code" />
+Lenovo Legion Toolkitを楽しんで使用している場合は、リポジトリページの上部にある GitHub Sponsors ボタンを使用してプロジェクトを支援することを検討してください。
 
 ## クレジット
 

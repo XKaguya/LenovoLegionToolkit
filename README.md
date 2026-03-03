@@ -1,9 +1,10 @@
 <div align="center">
   <img height="128" src="assets/logo.png" alt="Lenovo Legion Toolkit Logo">
   
-  # Lenovo Legion Toolkit (Unofficial Fork)
+  # Lenovo Legion Toolkit
 
   [![Build Status](https://img.shields.io/github/actions/workflow/status/LenovoLegionToolkit-Team/LenovoLegionToolkit/build.yml?branch=master&logo=github&logoColor=white)](https://github.com/LenovoLegionToolkit-Team/LenovoLegionToolkit/actions)
+  [![Downloads](https://img.shields.io/github/downloads/LenovoLegionToolkit-Team/LenovoLegionToolkit/total)](https://github.com/LenovoLegionToolkit-Team/LenovoLegionToolkit/releases)
   [![Translation Status](https://badges.crowdin.net/lenovolegiontoolkit-unofficial/localized.svg)](https://crowdin.com/project/lenovolegiontoolkit-unofficial)
   [![Discord Community](https://img.shields.io/badge/Discord-Legion%20Series-5865F2?logo=discord&logoColor=white)](https://discord.com/invite/legionseries)
   [![Discord Community](https://img.shields.io/badge/Discord-LOQ%20Series-5865F2?logo=discord&logoColor=white)](https://discord.gg/3GKzQtwdNf)
@@ -360,14 +361,7 @@ CLI does not need to be run as Administrator.
 
 ## Donate
 
-If you enjoy using the Lenovo Legion Toolkit, consider donating.
-
-[Donate with PayPal](https://www.paypal.com/donate/?hosted_button_id=22AZE2NBP3HTL)
-
-<img src="LenovoLegionToolkit.WPF/Assets/Donate/paypal_qr.png" width="200" alt="PayPal QR code" />
-
-> [!NOTE]
-> Although the original repository was archived, I will not delete this section. If you still want to donate, please go to the respective maintainer profiles and donate.
+If you enjoy using the Lenovo Legion Toolkit, consider sponsoring the project using the GitHub Sponsors button at the top of the repository page.
 
 ## Credits
 
@@ -408,7 +402,7 @@ Many thanks to everyone else, who monitors and corrects translations!
 
 ## FAQ
 
-- [Lenovo Legion Toolkit (Unofficial Fork)](#lenovo-legion-toolkit-unofficial-fork)
+- [Lenovo Legion Toolkit](#lenovo-legion-toolkit)
 	- [🚨 Project Status Notice](#-project-status-notice)
 			- [Other language versions of this README file:](#other-language-versions-of-this-readme-file)
 - [Localization](#localization)
