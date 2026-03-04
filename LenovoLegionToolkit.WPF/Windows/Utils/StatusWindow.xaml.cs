@@ -16,6 +16,7 @@ using LenovoLegionToolkit.Lib.System;
 using LenovoLegionToolkit.Lib.Utils;
 using LenovoLegionToolkit.WPF.Extensions;
 using LenovoLegionToolkit.WPF.Resources;
+using LenovoLegionToolkit.WPF.Settings;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Common;
 
@@ -96,7 +97,7 @@ public partial class StatusWindow
         catch { }
     }
 
-    private readonly FloatingGadgetSettings _floatingGadgetSettings = IoCContainer.Resolve<FloatingGadgetSettings>();
+    private readonly DashboardSettings _dashboardSettings = IoCContainer.Resolve<DashboardSettings>();
 
     public StatusWindow()
     {
@@ -169,7 +170,7 @@ public partial class StatusWindow
         if (IsVisible)
         {
             _sensorsGroupController.SensorsUpdated += OnSensorsUpdated;
-            _sensorsGroupController.Start(this, TimeSpan.FromSeconds(_floatingGadgetSettings.Store.FloatingGadgetsRefreshInterval));
+            _sensorsGroupController.Start(this, TimeSpan.FromSeconds(_dashboardSettings.Store.SensorsRefreshIntervalSeconds));
         }
         else
         {
