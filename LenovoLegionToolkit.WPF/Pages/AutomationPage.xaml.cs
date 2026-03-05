@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -206,7 +206,7 @@ public partial class AutomationPage
             new WhiteKeyboardBacklightAutomationStep(default),
             new WinKeyAutomationStep(default),
             new CloseAutomationStep(),
-            new FloatingGadgetAutomationStep(default),
+            new OsdAutomationStep(default),
             new FanMaxSpeedAutomationStep(default),
         };
 

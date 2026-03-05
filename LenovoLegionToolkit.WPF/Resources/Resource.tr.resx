@@ -1032,69 +1032,6 @@ UYARI: Dahili ekran kapalıysa, bu işlem doğru çalışmaz.</value>
   <data name="FlipToStartControl_Title" xml:space="preserve">
     <value>Flip To Start</value>
   </data>
-  <data name="FloatingGadgetAutomationStepControl_Message" xml:space="preserve">
-    <value>Yüzen Gadget'ı Göster veya Gizle</value>
-  </data>
-  <data name="FloatingGadgetAutomationStepControl_Title" xml:space="preserve">
-    <value>Yüzen Gadget</value>
-  </data>
-  <data name="FloatingGadgets_Chipset" xml:space="preserve">
-    <value>Çipset</value>
-  </data>
-  <data name="FloatingGadgets_Cpu" xml:space="preserve">
-    <value>CPU</value>
-  </data>
-  <data name="FloatingGadgets_CPU_Fan" xml:space="preserve">
-    <value>CPU Fanı</value>
-  </data>
-  <data name="FloatingGadgets_Disk_0_Temperature" xml:space="preserve">
-    <value>Disk 1 Sıcaklığı</value>
-  </data>
-  <data name="FloatingGadgets_Disk_1_Temperature" xml:space="preserve">
-    <value>Disk 2 Sıcaklığı</value>
-  </data>
-  <data name="FloatingGadgets_Fps" xml:space="preserve">
-    <value>FPS</value>
-  </data>
-  <data name="FloatingGadgets_Frame_Time" xml:space="preserve">
-    <value>Kare Süresi</value>
-  </data>
-  <data name="FloatingGadgets_Gpu" xml:space="preserve">
-    <value>GPU</value>
-  </data>
-  <data name="FloatingGadgets_GPU_Fan" xml:space="preserve">
-    <value>GPU Fanı</value>
-  </data>
-  <data name="FloatingGadgets_Low_Fps" xml:space="preserve">
-    <value>1% Düşük</value>
-  </data>
-  <data name="FloatingGadgets_Memory_Temperature" xml:space="preserve">
-    <value>Bellek Sıcaklığı</value>
-  </data>
-  <data name="FloatingGadgets_Memory_Utilization" xml:space="preserve">
-    <value>Bellek Kullanımı</value>
-  </data>
-  <data name="FloatingGadgets_PCH_Fan" xml:space="preserve">
-    <value>PCH Fanı</value>
-  </data>
-  <data name="FloatingGadget_Custom_Chipset" xml:space="preserve">
-    <value>Çipset</value>
-  </data>
-  <data name="FloatingGadget_Custom_CPU" xml:space="preserve">
-    <value>CPU</value>
-  </data>
-  <data name="FloatingGadget_Custom_Game" xml:space="preserve">
-    <value>Oyun</value>
-  </data>
-  <data name="FloatingGadget_Custom_GPU" xml:space="preserve">
-    <value>GPU</value>
-  </data>
-  <data name="FloatingGadget_Custom_Title" xml:space="preserve">
-    <value>Gadget Öğelerini Özelleştir</value>
-  </data>
-  <data name="FloatingGadget_Style_Simple" xml:space="preserve">
-    <value>Basit</value>
-  </data>
   <data name="FnLockAutomationStepControl_Message" xml:space="preserve">
     <value>Fn tuşunu basılı tutmadan F1-F12 tuşlarının ikincil işlevlerini kullanın.</value>
   </data>
@@ -1826,6 +1763,144 @@ Diğer tam ekran pencereleri etkilemeyecek, ancak bildirimlere tıklayamayacaks�
   <data name="Open" xml:space="preserve">
     <value>Aç</value>
   </data>
+  <data name="OsdAutomationStepControl_Message" xml:space="preserve">
+    <value>Yüzen Gadget'ı Göster veya Gizle</value>
+  </data>
+  <data name="OsdAutomationStepControl_Title" xml:space="preserve">
+    <value>Yüzen Gadget</value>
+  </data>
+  <data name="OsdColorSource_Custom" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="OsdColorSource_Default" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="OsdSettings_Appearance_BackgroundColor" xml:space="preserve">
+    <value>Background Color</value>
+  </data>
+  <data name="OsdSettings_Appearance_CornerRadius" xml:space="preserve">
+    <value>Corner Radius</value>
+  </data>
+  <data name="OsdSettings_Appearance_CriticalColor" xml:space="preserve">
+    <value>Critical Color</value>
+  </data>
+  <data name="OsdSettings_Appearance_FontSize" xml:space="preserve">
+    <value>Font Size</value>
+  </data>
+  <data name="OsdSettings_Appearance_LabelColor" xml:space="preserve">
+    <value>Label Color</value>
+  </data>
+  <data name="OsdSettings_Appearance_Opacity" xml:space="preserve">
+    <value>Opacity</value>
+  </data>
+  <data name="OsdSettings_Appearance_WarningColor" xml:space="preserve">
+    <value>Warning Color</value>
+  </data>
+  <data name="OsdSettings_General_LockPosition" xml:space="preserve">
+    <value>Lock Position</value>
+  </data>
+  <data name="OsdSettings_General_OverlayStyle" xml:space="preserve">
+    <value>Overlay Style</value>
+  </data>
+  <data name="OsdSettings_General_RefreshInterval" xml:space="preserve">
+    <value>Refresh Interval</value>
+  </data>
+  <data name="OsdSettings_General_RefreshInterval_Tooltip" xml:space="preserve">
+    <value>Sensor refresh interval</value>
+  </data>
+  <data name="OsdSettings_General_ResetPosition" xml:space="preserve">
+    <value>Reset Position</value>
+  </data>
+  <data name="OsdSettings_Tabs_Appearance" xml:space="preserve">
+    <value>Appearance</value>
+  </data>
+  <data name="OsdSettings_Tabs_General" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="OsdSettings_Tabs_SensorItems" xml:space="preserve">
+    <value>Sensors</value>
+  </data>
+  <data name="OsdSettings_Tabs_Thresholds" xml:space="preserve">
+    <value>Thresholds</value>
+  </data>
+  <data name="OsdSettings_Thresholds_Critical" xml:space="preserve">
+    <value>Critical</value>
+  </data>
+  <data name="OsdSettings_Thresholds_FpsRedline" xml:space="preserve">
+    <value>FPS Redline</value>
+  </data>
+  <data name="OsdSettings_Thresholds_FpsRedline_Description" xml:space="preserve">
+    <value>The minimum acceptable frame rate. Below this, the color turns critical.</value>
+  </data>
+  <data name="OsdSettings_Thresholds_LowFpsDelta" xml:space="preserve">
+    <value>Low FPS Delta</value>
+  </data>
+  <data name="OsdSettings_Thresholds_LowFpsDelta_Description" xml:space="preserve">
+    <value>The maximum difference between average FPS and 1% Low. Above this, the counter turns critical.</value>
+  </data>
+  <data name="OsdSettings_Thresholds_Performance" xml:space="preserve">
+    <value>Performance</value>
+  </data>
+  <data name="OsdSettings_Thresholds_Temperature" xml:space="preserve">
+    <value>Temperature</value>
+  </data>
+  <data name="OsdSettings_Thresholds_Usage" xml:space="preserve">
+    <value>Usage</value>
+  </data>
+  <data name="OsdSettings_Thresholds_Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="OsdWindow_Title" xml:space="preserve">
+    <value>OSD Settings</value>
+  </data>
+  <data name="Osd_Chipset" xml:space="preserve">
+    <value>Çipset</value>
+  </data>
+  <data name="Osd_Cpu" xml:space="preserve">
+    <value>CPU</value>
+  </data>
+  <data name="Osd_CPU_Fan" xml:space="preserve">
+    <value>CPU Fanı</value>
+  </data>
+  <data name="Osd_Disk_0_Temperature" xml:space="preserve">
+    <value>Disk 1 Sıcaklığı</value>
+  </data>
+  <data name="Osd_Disk_1_Temperature" xml:space="preserve">
+    <value>Disk 2 Sıcaklığı</value>
+  </data>
+  <data name="Osd_Fps" xml:space="preserve">
+    <value>FPS</value>
+  </data>
+  <data name="Osd_Frame_Time" xml:space="preserve">
+    <value>Kare Süresi</value>
+  </data>
+  <data name="Osd_Game" xml:space="preserve">
+    <value>Oyun</value>
+  </data>
+  <data name="Osd_Gpu" xml:space="preserve">
+    <value>GPU</value>
+  </data>
+  <data name="Osd_GPU_Fan" xml:space="preserve">
+    <value>GPU Fanı</value>
+  </data>
+  <data name="Osd_Low_Fps" xml:space="preserve">
+    <value>1% Düşük</value>
+  </data>
+  <data name="Osd_Memory_Temperature" xml:space="preserve">
+    <value>Bellek Sıcaklığı</value>
+  </data>
+  <data name="Osd_Memory_Utilization" xml:space="preserve">
+    <value>Bellek Kullanımı</value>
+  </data>
+  <data name="Osd_PCH_Fan" xml:space="preserve">
+    <value>PCH Fanı</value>
+  </data>
+  <data name="Osd_Style_Bar" xml:space="preserve">
+    <value>Bar</value>
+  </data>
+  <data name="Osd_Style_Panel" xml:space="preserve">
+    <value>Panel</value>
+  </data>
   <data name="OverclockDiscreteGPUAutomationStepControl_Message" xml:space="preserve">
     <value>Harici GPU'yu hız aşırtarak performansı artırın.
 
@@ -2339,7 +2414,7 @@ UYARI: Dahili ekran kapalıysa, bu işlem doğru çalışmaz.</value>
     <value>Average Frequency</value>
   </data>
   <data name="SensorSettingsPage_CPU_Frequency_Message" xml:space="preserve">
-    <value>Determine the type of CPU frequency displayed on the Dashboard and FloatingGadget.</value>
+    <value>Determine the type of CPU frequency displayed on the Dashboard and Osd.</value>
   </data>
   <data name="SensorSettingsPage_CPU_Frequency_Title" xml:space="preserve">
     <value>CPU Frequency</value>
@@ -2568,15 +2643,6 @@ Bu seçeneği değiştirdikten sonra yeniden başlatma önerilir.</value>
   <data name="SettingsPage_ExcludeRefreshRates_Title" xml:space="preserve">
     <value>Yenileme Hızlarını Hariç Tut</value>
   </data>
-  <data name="SettingsPage_FloatingGadgets_Message" xml:space="preserve">
-    <value>Yüzen Gadget, gerçek zamanlı sensör bilgilerini bindirme stiliyle görüntüleyen bir yüzen penceredir.</value>
-  </data>
-  <data name="SettingsPage_FloatingGadgets_Title" xml:space="preserve">
-    <value>Yüzen Gadget'ı Etkinleştir</value>
-  </data>
-  <data name="SettingsPage_FloatingGadgets_Tooltip" xml:space="preserve">
-    <value>Sensör yenileme aralığını kontrol eder.</value>
-  </data>
   <data name="SettingsPage_HardwareAcceleration_Message" xml:space="preserve">
     <value>Use hardware acceleration for the user interface. This can improve performance and fluidity.</value>
   </data>
@@ -2648,6 +2714,12 @@ Bu seçeneği değiştirdikten sonra yeniden başlatma önerilir.</value>
   </data>
   <data name="SettingsPage_OnBatterySinceReset_Title" xml:space="preserve">
     <value>Başlangıçta "Pilde" ifadesini sıfırla</value>
+  </data>
+  <data name="SettingsPage_Osd_Message" xml:space="preserve">
+    <value>Floating overlay showing live sensor data.</value>
+  </data>
+  <data name="SettingsPage_Osd_Title" xml:space="preserve">
+    <value>Enable OSD</value>
   </data>
   <data name="SettingsPage_PowerModeMapping_Message" xml:space="preserve">
     <value>Güç Modlarını değiştirirken Windows Güç Planını veya Windows Güç Modunu otomatik olarak değiştirin.</value>

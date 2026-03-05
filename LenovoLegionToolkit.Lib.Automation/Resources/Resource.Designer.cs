@@ -232,15 +232,6 @@ namespace LenovoLegionToolkit.Lib.Automation.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toggle.
-        /// </summary>
-        public static string FloatingGadgetState_Toggle {
-            get {
-                return ResourceManager.GetString("FloatingGadgetState_Toggle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to When game is running.
         /// </summary>
         public static string GamesAreRunningAutomationPipelineTrigger_DisplayName {
@@ -363,6 +354,15 @@ namespace LenovoLegionToolkit.Lib.Automation.Resources {
         public static string OnStartupAutomationPipelineTrigger_DisplayName {
             get {
                 return ResourceManager.GetString("OnStartupAutomationPipelineTrigger_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle.
+        /// </summary>
+        public static string OsdState_Toggle {
+            get {
+                return ResourceManager.GetString("OsdState_Toggle", resourceCulture);
             }
         }
         

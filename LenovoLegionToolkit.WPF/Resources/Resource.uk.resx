@@ -1029,69 +1029,6 @@
   <data name="FlipToStartControl_Title" xml:space="preserve">
     <value>Розгорнути для запуску</value>
   </data>
-  <data name="FloatingGadgetAutomationStepControl_Message" xml:space="preserve">
-    <value>Показати або приховати плаваючий ґаджет</value>
-  </data>
-  <data name="FloatingGadgetAutomationStepControl_Title" xml:space="preserve">
-    <value>Плаваючий ґаджет</value>
-  </data>
-  <data name="FloatingGadgets_Chipset" xml:space="preserve">
-    <value>Чіпсет</value>
-  </data>
-  <data name="FloatingGadgets_Cpu" xml:space="preserve">
-    <value>ЦП</value>
-  </data>
-  <data name="FloatingGadgets_CPU_Fan" xml:space="preserve">
-    <value>Вентилятор ЦП</value>
-  </data>
-  <data name="FloatingGadgets_Disk_0_Temperature" xml:space="preserve">
-    <value>Температура диску 1</value>
-  </data>
-  <data name="FloatingGadgets_Disk_1_Temperature" xml:space="preserve">
-    <value>Температура диску 2</value>
-  </data>
-  <data name="FloatingGadgets_Fps" xml:space="preserve">
-    <value>FPS</value>
-  </data>
-  <data name="FloatingGadgets_Frame_Time" xml:space="preserve">
-    <value>Час кадру</value>
-  </data>
-  <data name="FloatingGadgets_Gpu" xml:space="preserve">
-    <value>ГП</value>
-  </data>
-  <data name="FloatingGadgets_GPU_Fan" xml:space="preserve">
-    <value>Вентилятор ГП</value>
-  </data>
-  <data name="FloatingGadgets_Low_Fps" xml:space="preserve">
-    <value>Менше 1%</value>
-  </data>
-  <data name="FloatingGadgets_Memory_Temperature" xml:space="preserve">
-    <value>Температура пам'яті</value>
-  </data>
-  <data name="FloatingGadgets_Memory_Utilization" xml:space="preserve">
-    <value>Використання пам'яті</value>
-  </data>
-  <data name="FloatingGadgets_PCH_Fan" xml:space="preserve">
-    <value>Вентилятор PCH</value>
-  </data>
-  <data name="FloatingGadget_Custom_Chipset" xml:space="preserve">
-    <value>Чіпсет</value>
-  </data>
-  <data name="FloatingGadget_Custom_CPU" xml:space="preserve">
-    <value>ЦП</value>
-  </data>
-  <data name="FloatingGadget_Custom_Game" xml:space="preserve">
-    <value>Гра</value>
-  </data>
-  <data name="FloatingGadget_Custom_GPU" xml:space="preserve">
-    <value>ГП</value>
-  </data>
-  <data name="FloatingGadget_Custom_Title" xml:space="preserve">
-    <value>Налаштування елементів ґаджету</value>
-  </data>
-  <data name="FloatingGadget_Style_Simple" xml:space="preserve">
-    <value>Простий</value>
-  </data>
   <data name="FnLockAutomationStepControl_Message" xml:space="preserve">
     <value>Використовувати додаткові функції на клавішах F1-F12 без затискання клавіші Fn.</value>
   </data>
@@ -1822,6 +1759,144 @@
   </data>
   <data name="Open" xml:space="preserve">
     <value>Відкрити</value>
+  </data>
+  <data name="OsdAutomationStepControl_Message" xml:space="preserve">
+    <value>Показати або приховати плаваючий ґаджет</value>
+  </data>
+  <data name="OsdAutomationStepControl_Title" xml:space="preserve">
+    <value>Плаваючий ґаджет</value>
+  </data>
+  <data name="OsdColorSource_Custom" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="OsdColorSource_Default" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="OsdSettings_Appearance_BackgroundColor" xml:space="preserve">
+    <value>Background Color</value>
+  </data>
+  <data name="OsdSettings_Appearance_CornerRadius" xml:space="preserve">
+    <value>Corner Radius</value>
+  </data>
+  <data name="OsdSettings_Appearance_CriticalColor" xml:space="preserve">
+    <value>Critical Color</value>
+  </data>
+  <data name="OsdSettings_Appearance_FontSize" xml:space="preserve">
+    <value>Font Size</value>
+  </data>
+  <data name="OsdSettings_Appearance_LabelColor" xml:space="preserve">
+    <value>Label Color</value>
+  </data>
+  <data name="OsdSettings_Appearance_Opacity" xml:space="preserve">
+    <value>Opacity</value>
+  </data>
+  <data name="OsdSettings_Appearance_WarningColor" xml:space="preserve">
+    <value>Warning Color</value>
+  </data>
+  <data name="OsdSettings_General_LockPosition" xml:space="preserve">
+    <value>Lock Position</value>
+  </data>
+  <data name="OsdSettings_General_OverlayStyle" xml:space="preserve">
+    <value>Overlay Style</value>
+  </data>
+  <data name="OsdSettings_General_RefreshInterval" xml:space="preserve">
+    <value>Refresh Interval</value>
+  </data>
+  <data name="OsdSettings_General_RefreshInterval_Tooltip" xml:space="preserve">
+    <value>Sensor refresh interval</value>
+  </data>
+  <data name="OsdSettings_General_ResetPosition" xml:space="preserve">
+    <value>Reset Position</value>
+  </data>
+  <data name="OsdSettings_Tabs_Appearance" xml:space="preserve">
+    <value>Appearance</value>
+  </data>
+  <data name="OsdSettings_Tabs_General" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="OsdSettings_Tabs_SensorItems" xml:space="preserve">
+    <value>Sensors</value>
+  </data>
+  <data name="OsdSettings_Tabs_Thresholds" xml:space="preserve">
+    <value>Thresholds</value>
+  </data>
+  <data name="OsdSettings_Thresholds_Critical" xml:space="preserve">
+    <value>Critical</value>
+  </data>
+  <data name="OsdSettings_Thresholds_FpsRedline" xml:space="preserve">
+    <value>FPS Redline</value>
+  </data>
+  <data name="OsdSettings_Thresholds_FpsRedline_Description" xml:space="preserve">
+    <value>The minimum acceptable frame rate. Below this, the color turns critical.</value>
+  </data>
+  <data name="OsdSettings_Thresholds_LowFpsDelta" xml:space="preserve">
+    <value>Low FPS Delta</value>
+  </data>
+  <data name="OsdSettings_Thresholds_LowFpsDelta_Description" xml:space="preserve">
+    <value>The maximum difference between average FPS and 1% Low. Above this, the counter turns critical.</value>
+  </data>
+  <data name="OsdSettings_Thresholds_Performance" xml:space="preserve">
+    <value>Performance</value>
+  </data>
+  <data name="OsdSettings_Thresholds_Temperature" xml:space="preserve">
+    <value>Temperature</value>
+  </data>
+  <data name="OsdSettings_Thresholds_Usage" xml:space="preserve">
+    <value>Usage</value>
+  </data>
+  <data name="OsdSettings_Thresholds_Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="OsdWindow_Title" xml:space="preserve">
+    <value>OSD Settings</value>
+  </data>
+  <data name="Osd_Chipset" xml:space="preserve">
+    <value>Чіпсет</value>
+  </data>
+  <data name="Osd_Cpu" xml:space="preserve">
+    <value>ЦП</value>
+  </data>
+  <data name="Osd_CPU_Fan" xml:space="preserve">
+    <value>Вентилятор ЦП</value>
+  </data>
+  <data name="Osd_Disk_0_Temperature" xml:space="preserve">
+    <value>Температура диску 1</value>
+  </data>
+  <data name="Osd_Disk_1_Temperature" xml:space="preserve">
+    <value>Температура диску 2</value>
+  </data>
+  <data name="Osd_Fps" xml:space="preserve">
+    <value>FPS</value>
+  </data>
+  <data name="Osd_Frame_Time" xml:space="preserve">
+    <value>Час кадру</value>
+  </data>
+  <data name="Osd_Game" xml:space="preserve">
+    <value>Гра</value>
+  </data>
+  <data name="Osd_Gpu" xml:space="preserve">
+    <value>ГП</value>
+  </data>
+  <data name="Osd_GPU_Fan" xml:space="preserve">
+    <value>Вентилятор ГП</value>
+  </data>
+  <data name="Osd_Low_Fps" xml:space="preserve">
+    <value>Менше 1%</value>
+  </data>
+  <data name="Osd_Memory_Temperature" xml:space="preserve">
+    <value>Температура пам'яті</value>
+  </data>
+  <data name="Osd_Memory_Utilization" xml:space="preserve">
+    <value>Використання пам'яті</value>
+  </data>
+  <data name="Osd_PCH_Fan" xml:space="preserve">
+    <value>Вентилятор PCH</value>
+  </data>
+  <data name="Osd_Style_Bar" xml:space="preserve">
+    <value>Bar</value>
+  </data>
+  <data name="Osd_Style_Panel" xml:space="preserve">
+    <value>Panel</value>
   </data>
   <data name="OverclockDiscreteGPUAutomationStepControl_Message" xml:space="preserve">
     <value>Підвищення продуктивності шляхом розгону дискретного графічного процесора.
@@ -2564,15 +2639,6 @@
   <data name="SettingsPage_ExcludeRefreshRates_Title" xml:space="preserve">
     <value>Виключити частоти оновлення</value>
   </data>
-  <data name="SettingsPage_FloatingGadgets_Message" xml:space="preserve">
-    <value>Плаваючі ґаджети – це плаваюче вікно, яке відображає інформацію з датчиків у режимі реального часу у вигляді накладання.</value>
-  </data>
-  <data name="SettingsPage_FloatingGadgets_Title" xml:space="preserve">
-    <value>Увімкнути плаваючий ґаджет</value>
-  </data>
-  <data name="SettingsPage_FloatingGadgets_Tooltip" xml:space="preserve">
-    <value>Інтервал оновлення датчика.</value>
-  </data>
   <data name="SettingsPage_HardwareAcceleration_Message" xml:space="preserve">
     <value>Використовуйте апаратне прискорення для інтерфейсу користувача. Це може підвищити продуктивність та плавність.</value>
   </data>
@@ -2644,6 +2710,12 @@
   </data>
   <data name="SettingsPage_OnBatterySinceReset_Title" xml:space="preserve">
     <value>Скидання параметра "Від батареї з" під час запуску</value>
+  </data>
+  <data name="SettingsPage_Osd_Message" xml:space="preserve">
+    <value>Floating overlay showing live sensor data.</value>
+  </data>
+  <data name="SettingsPage_Osd_Title" xml:space="preserve">
+    <value>Enable OSD</value>
   </data>
   <data name="SettingsPage_PowerModeMapping_Message" xml:space="preserve">
     <value>Автоматично змінювати план живлення Windows або режим живлення Windows коли змінюється режим живлення.</value>

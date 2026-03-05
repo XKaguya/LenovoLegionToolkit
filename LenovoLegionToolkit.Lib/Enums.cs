@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel.DataAnnotations;
 using LenovoLegionToolkit.Lib.Resources;
 
@@ -139,51 +139,51 @@ public enum FlipToStartState
     On
 }
 
-public enum FloatingGadgetItem
+public enum OsdItem
 {
-    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Fps")]
+    [Display(ResourceType = typeof(Resource), Name = "OsdItem_Fps")]
     Fps,
-    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_LowFps")]
+    [Display(ResourceType = typeof(Resource), Name = "OsdItem_LowFps")]
     LowFps,
-    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_FrameTime")]
+    [Display(ResourceType = typeof(Resource), Name = "OsdItem_FrameTime")]
     FrameTime,
-    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Frequency")]
+    [Display(ResourceType = typeof(Resource), Name = "OsdItem_Frequency")]
     CpuFrequency,
-    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_P_Core_Frequency")]
+    [Display(ResourceType = typeof(Resource), Name = "OsdItem_P_Core_Frequency")]
     CpuPCoreFrequency,
-    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_E_Core_Frequency")]
+    [Display(ResourceType = typeof(Resource), Name = "OsdItem_E_Core_Frequency")]
     CpuECoreFrequency,
-    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Utilization")]
+    [Display(ResourceType = typeof(Resource), Name = "OsdItem_Utilization")]
     CpuUtilization,
-    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Temperature")]
+    [Display(ResourceType = typeof(Resource), Name = "OsdItem_Temperature")]
     CpuTemperature,
-    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Power")]
+    [Display(ResourceType = typeof(Resource), Name = "OsdItem_Power")]
     CpuPower,
-    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Fan")]
+    [Display(ResourceType = typeof(Resource), Name = "OsdItem_Fan")]
     CpuFan,
-    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Frequency")]
+    [Display(ResourceType = typeof(Resource), Name = "OsdItem_Frequency")]
     GpuFrequency,
-    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Utilization")]
+    [Display(ResourceType = typeof(Resource), Name = "OsdItem_Utilization")]
     GpuUtilization,
-    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Temperature")]
+    [Display(ResourceType = typeof(Resource), Name = "OsdItem_Temperature")]
     GpuTemperature,
-    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_VramTemperature")]
+    [Display(ResourceType = typeof(Resource), Name = "OsdItem_VramTemperature")]
     GpuVramTemperature,
-    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Power")]
+    [Display(ResourceType = typeof(Resource), Name = "OsdItem_Power")]
     GpuPower,
-    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Fan")]
+    [Display(ResourceType = typeof(Resource), Name = "OsdItem_Fan")]
     GpuFan,
-    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Disk1Temperature")]
+    [Display(ResourceType = typeof(Resource), Name = "OsdItem_Disk1Temperature")]
     Disk1Temperature,
-    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Disk2Temperature")]
+    [Display(ResourceType = typeof(Resource), Name = "OsdItem_Disk2Temperature")]
     Disk2Temperature,
-    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Utilization")]
+    [Display(ResourceType = typeof(Resource), Name = "OsdItem_Utilization")]
     MemoryUtilization,
-    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_MemoryTemperature")]
+    [Display(ResourceType = typeof(Resource), Name = "OsdItem_MemoryTemperature")]
     MemoryTemperature,
-    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_MotherboardTemperature")]
+    [Display(ResourceType = typeof(Resource), Name = "OsdItem_MotherboardTemperature")]
     PchTemperature,
-    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetItem_Fan")]
+    [Display(ResourceType = typeof(Resource), Name = "OsdItem_Fan")]
     PchFan,
 }
 
@@ -197,13 +197,13 @@ public enum FanMaxSpeedState
     Toggle,
 }
 
-public enum FloatingGadgetState
+public enum OsdState
 {
-    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetState_Hidden")]
+    [Display(ResourceType = typeof(Resource), Name = "OsdState_Hidden")]
     Hidden,
-    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetState_Show")]
+    [Display(ResourceType = typeof(Resource), Name = "OsdState_Show")]
     Show,
-    [Display(ResourceType = typeof(Resource), Name = "FloatingGadgetState_Toggle")]
+    [Display(ResourceType = typeof(Resource), Name = "OsdState_Toggle")]
     Toggle,
 }
 
@@ -810,6 +810,12 @@ public enum AccentColorSource
     [Display(ResourceType = typeof(Resource), Name = "AccentColorSource_System")]
     System,
     [Display(ResourceType = typeof(Resource), Name = "AccentColorSource_Custom")]
+    Custom
+}
+
+public enum OsdColorSource
+{
+    Default,
     Custom
 }
 

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -19,10 +19,10 @@ using LenovoLegionToolkit.WPF.Settings;
 using LenovoLegionToolkit.WPF.Utils;
 using LenovoLegionToolkit.WPF.Windows;
 using LenovoLegionToolkit.WPF.Windows.Dashboard;
-using LenovoLegionToolkit.WPF.Windows.FloatingGadgets;
+using LenovoLegionToolkit.WPF.Windows.Osd;
 using LenovoLegionToolkit.WPF.Windows.Settings;
 using LenovoLegionToolkit.WPF.Windows.Utils;
-using CustomGadgetWindow = LenovoLegionToolkit.WPF.Windows.FloatingGadgets.Custom;
+using OsdSettingsAlias = LenovoLegionToolkit.WPF.Windows.Osd.OsdSettingsWindow;
 
 namespace LenovoLegionToolkit.WPF.Controls.Settings;
 
@@ -31,7 +31,7 @@ public partial class SettingsAppBehaviorControl
     private readonly ApplicationSettings _settings = IoCContainer.Resolve<ApplicationSettings>();
     private readonly DashboardSettings _dashboardSettings = IoCContainer.Resolve<DashboardSettings>();
     private readonly AutomationProcessor _automationProcessor = IoCContainer.Resolve<AutomationProcessor>();
-    private readonly FloatingGadgetSettings _floatingGadgetSettings = IoCContainer.Resolve<FloatingGadgetSettings>();
+    private readonly OsdSettings _OsdSettings = IoCContainer.Resolve<OsdSettings>();
 
     private bool _isRefreshing = true;
 
@@ -51,7 +51,6 @@ public partial class SettingsAppBehaviorControl
         _lockWindowSizeToggle.IsChecked = _settings.Store.LockWindowSize;
         _enableLoggingToggle.IsChecked = _settings.Store.EnableLogging;
 
-        // Game Detection
         var useGpu = _settings.Store.GameDetection.UseDiscreteGPU;
         var useStore = _settings.Store.GameDetection.UseGameConfigStore;
         var useGameMode = _settings.Store.GameDetection.UseEffectiveGameMode;
@@ -70,8 +69,7 @@ public partial class SettingsAppBehaviorControl
 
         _detectionModeComboBox.SelectedItem = selectedItem;
 
-        // Floating Gadgets
-        _floatingGadgetsToggle.IsChecked = _floatingGadgetSettings.Store.ShowFloatingGadgets;
+        _osdToggle.IsChecked = _OsdSettings.Store.ShowOsd;
 
         _autorunComboBox.Visibility = Visibility.Visible;
         _minimizeToTrayToggle.Visibility = Visibility.Visible;
@@ -80,19 +78,19 @@ public partial class SettingsAppBehaviorControl
         _useNewSensorDashboardToggle.Visibility = Visibility.Visible;
         _hardwareSensorsToggle.Visibility = Visibility.Visible;
         _lockWindowSizeToggle.Visibility = Visibility.Visible;
-        _floatingGadgetsToggle.Visibility = Visibility.Visible;
+        _osdToggle.Visibility = Visibility.Visible;
 
         _hardwareSensorsToggle.IsChecked = _settings.Store.EnableHardwareSensors;
 
         if (_settings.Store.EnableHardwareSensors)
         {
             _useNewSensorDashboardCardControl.Visibility = Visibility.Visible;
-            _floatingGadgetsCardControl.Visibility = Visibility.Visible;
+            _osdCardControl.Visibility = Visibility.Visible;
         }
         else
         {
             _useNewSensorDashboardCardControl.Visibility = Visibility.Collapsed;
-            _floatingGadgetsCardControl.Visibility = Visibility.Collapsed;
+            _osdCardControl.Visibility = Visibility.Collapsed;
         }
 
         if (PawnIOHelper.IsPawnIOInstalled())
@@ -246,20 +244,20 @@ public partial class SettingsAppBehaviorControl
             _useNewSensorDashboardToggle.IsChecked = false;
             _settings.Store.UseNewSensorDashboard = false;
             
-            _floatingGadgetsToggle.IsChecked = false;
-            _floatingGadgetSettings.Store.ShowFloatingGadgets = false;
-            if (App.Current.FloatingGadget != null)
+            _osdToggle.IsChecked = false;
+            _OsdSettings.Store.ShowOsd = false;
+            if (App.Current.OsdWindow != null)
             {
-                App.Current.FloatingGadget.Hide();
+                App.Current.OsdWindow.Hide();
             }
         }
 
         _settings.Store.EnableHardwareSensors = state.Value;
         _settings.SynchronizeStore();
-        _floatingGadgetSettings.SynchronizeStore();
+        _OsdSettings.SynchronizeStore();
         
         _useNewSensorDashboardCardControl.Visibility = state.Value ? Visibility.Visible : Visibility.Collapsed;
-        _floatingGadgetsCardControl.Visibility = state.Value ? Visibility.Visible : Visibility.Collapsed;
+        _osdCardControl.Visibility = state.Value ? Visibility.Visible : Visibility.Collapsed;
         
         MessagingCenter.Publish(new SensorDashboardSwappedMessage());
     }
@@ -338,7 +336,7 @@ public partial class SettingsAppBehaviorControl
         ArgumentWindow.ShowInstance();
     }
 
-    private void FloatingGadgets_Click(object sender, RoutedEventArgs e)
+    private void OsdToggle_Click(object sender, RoutedEventArgs e)
     {
         e.Handled = true;
 
@@ -347,90 +345,90 @@ public partial class SettingsAppBehaviorControl
 
         try
         {
-            var state = _floatingGadgetsToggle.IsChecked;
+            var state = _osdToggle.IsChecked;
             if (state is null)
                 return;
 
-            Window? floatingGadget = null;
+            Window? OsdPanelWindow = null;
 
             if (state.Value)
             {
-                if (App.Current.FloatingGadget == null)
+                if (App.Current.OsdWindow == null)
                 {
-                    if (_floatingGadgetSettings.Store.SelectedStyleIndex == 0)
+                    if (_OsdSettings.Store.SelectedStyleIndex == 0)
                     {
-                        floatingGadget = new FloatingGadget();
+                        OsdPanelWindow = new OsdPanelWindow();
                     }
-                    else if (_floatingGadgetSettings.Store.SelectedStyleIndex == 1)
+                    else if (_OsdSettings.Store.SelectedStyleIndex == 1)
                     {
-                        floatingGadget = new FloatingGadgetUpper();
+                        OsdPanelWindow = new OsdBarWindow();
                     }
 
-                    if (floatingGadget != null)
+                    if (OsdPanelWindow != null)
                     {
-                        App.Current.FloatingGadget = floatingGadget;
-                        App.Current.FloatingGadget.Show();
+                        App.Current.OsdWindow = OsdPanelWindow;
+                        App.Current.OsdWindow.Show();
                     }
                 }
                 else
                 {
                     bool needsStyleUpdate = false;
 
-                    if (_floatingGadgetSettings.Store.SelectedStyleIndex == 0 && App.Current.FloatingGadget.GetType() != typeof(FloatingGadget))
+                    if (_OsdSettings.Store.SelectedStyleIndex == 0 && App.Current.OsdWindow.GetType() != typeof(OsdPanelWindow))
                     {
                         needsStyleUpdate = true;
                     }
-                    else if (_floatingGadgetSettings.Store.SelectedStyleIndex == 1 && App.Current.FloatingGadget.GetType() != typeof(FloatingGadgetUpper))
+                    else if (_OsdSettings.Store.SelectedStyleIndex == 1 && App.Current.OsdWindow.GetType() != typeof(OsdBarWindow))
                     {
                         needsStyleUpdate = true;
                     }
 
                     if (needsStyleUpdate)
                     {
-                        App.Current.FloatingGadget.Close();
+                        App.Current.OsdWindow.Close();
 
-                        if (_floatingGadgetSettings.Store.SelectedStyleIndex == 0)
+                        if (_OsdSettings.Store.SelectedStyleIndex == 0)
                         {
-                            floatingGadget = new FloatingGadget();
+                            OsdPanelWindow = new OsdPanelWindow();
                         }
-                        else if (_floatingGadgetSettings.Store.SelectedStyleIndex == 1)
+                        else if (_OsdSettings.Store.SelectedStyleIndex == 1)
                         {
-                            floatingGadget = new FloatingGadgetUpper();
+                            OsdPanelWindow = new OsdBarWindow();
                         }
 
-                        if (floatingGadget != null)
+                        if (OsdPanelWindow != null)
                         {
-                            App.Current.FloatingGadget = floatingGadget;
-                            App.Current.FloatingGadget.Show();
+                            App.Current.OsdWindow = OsdPanelWindow;
+                            App.Current.OsdWindow.Show();
                         }
                     }
                     else
                     {
-                        if (!App.Current.FloatingGadget.IsVisible)
+                        if (!App.Current.OsdWindow.IsVisible)
                         {
-                            App.Current.FloatingGadget.Show();
+                            App.Current.OsdWindow.Show();
                         }
                     }
                 }
             }
             else
             {
-                if (App.Current.FloatingGadget != null)
+                if (App.Current.OsdWindow != null)
                 {
-                    App.Current.FloatingGadget.Hide();
+                    App.Current.OsdWindow.Hide();
                 }
             }
 
-            _floatingGadgetSettings.Store.ShowFloatingGadgets = state.Value;
-            _floatingGadgetSettings.SynchronizeStore();
+            _OsdSettings.Store.ShowOsd = state.Value;
+            _OsdSettings.SynchronizeStore();
         }
         catch (Exception ex)
         {
-            Log.Instance.Trace($"FloatingGadgets_Click error: {ex.Message}");
+            Log.Instance.Trace($"Osd_Click error: {ex.Message}");
 
-            _floatingGadgetsToggle.IsChecked = false;
-            _floatingGadgetSettings.Store.ShowFloatingGadgets = false;
-            _floatingGadgetSettings.SynchronizeStore();
+            _osdToggle.IsChecked = false;
+            _OsdSettings.Store.ShowOsd = false;
+            _OsdSettings.SynchronizeStore();
         }
     }
 
@@ -441,7 +439,7 @@ public partial class SettingsAppBehaviorControl
         if (_isRefreshing || !IsLoaded)
             return;
 
-        CustomGadgetWindow.ShowInstance();
+        OsdSettingsAlias.ShowInstance();
     }
     
     private void SensorSettingsButton_Click(object sender, RoutedEventArgs e)

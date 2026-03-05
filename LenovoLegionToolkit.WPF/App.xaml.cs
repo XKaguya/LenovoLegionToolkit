@@ -37,7 +37,7 @@ using LenovoLegionToolkit.WPF.Extensions;
 using LenovoLegionToolkit.WPF.Resources;
 using LenovoLegionToolkit.WPF.Utils;
 using LenovoLegionToolkit.WPF.Windows;
-using LenovoLegionToolkit.WPF.Windows.FloatingGadgets;
+using LenovoLegionToolkit.WPF.Windows.Osd;
 using LenovoLegionToolkit.WPF.Windows.Utils;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
@@ -66,7 +66,7 @@ public partial class App
     private const string MUTEX_NAME = "LenovoLegionToolkit_Mutex_6efcc882-924c-4cbc-8fec-f45c25696f98";
     private const string EVENT_NAME = "LenovoLegionToolkit_Event_6efcc882-924c-4cbc-8fec-f45c25696f98";
 
-    public Window? FloatingGadget;
+    public Window? OsdWindow;
 
     private static readonly ConcurrentDictionary<string, string> TitleCache = new();
 
@@ -106,7 +106,7 @@ public partial class App
                 }
 
                 Compatibility.PrintControllerVersionAsync().ConfigureAwait(false);
-                InitFloatingGadget();
+                InitOsd();
 
                 if (AppFlags.Instance.Debug)
                 {
@@ -559,27 +559,27 @@ public partial class App
 
         MainWindow.Show();
 
-        if (FloatingGadget != null)
+        if (OsdWindow != null)
         {
-            FloatingGadget.Hide();
-            FloatingGadget.Close();
-            FloatingGadget = null;
+            OsdWindow.Hide();
+            OsdWindow.Close();
+            OsdWindow = null;
         }
 
-        var settingsStore = IoCContainer.Resolve<FloatingGadgetSettings>().Store;
+        var settingsStore = IoCContainer.Resolve<OsdSettings>().Store;
 
-        if (!settingsStore.ShowFloatingGadgets)
+        if (!settingsStore.ShowOsd)
         {
             return;
         }
 
-        FloatingGadget = settingsStore.SelectedStyleIndex switch
+        OsdWindow = settingsStore.SelectedStyleIndex switch
         {
-            1 => new FloatingGadgetUpper(),
-            _ => new FloatingGadget()
+            1 => new OsdBarWindow(),
+            _ => new OsdPanelWindow()
         };
 
-        FloatingGadget.Show();
+        OsdWindow.Show();
     }
 
     private bool EnsureSingleInstance()
@@ -735,7 +735,7 @@ public partial class App
 
     private static void MigrateSettingsToNew()
     {
-        _ = IoCContainer.Resolve<FloatingGadgetSettings>().Store;
+        _ = IoCContainer.Resolve<OsdSettings>().Store;
     }
 
     #endregion
@@ -905,7 +905,7 @@ public partial class App
     private static async Task InitSensorsGroupControllerFeatureAsync()
     {
         var settings = IoCContainer.Resolve<ApplicationSettings>();
-        var floatingGadgetSettings = IoCContainer.Resolve<FloatingGadgetSettings>();
+        var OsdSettings = IoCContainer.Resolve<OsdSettings>();
 
         try
         {
@@ -1053,72 +1053,72 @@ public partial class App
 
     #region UI Helpers
 
-    public void InitFloatingGadget()
+    public void InitOsd()
     {
-        MessagingCenter.Subscribe<FloatingGadgetChangedMessage>(this, message =>
+        MessagingCenter.Subscribe<OsdChangedMessage>(this, message =>
         {
             Dispatcher.Invoke(() =>
             {
-                HandleFloatingGadgetCommand(message.State);
+                HandleOsdCommand(message.State);
             });
         });
 
-        var floatingGadgetSettings = IoCContainer.Resolve<FloatingGadgetSettings>();
+        var OsdSettings = IoCContainer.Resolve<OsdSettings>();
 
-        if (floatingGadgetSettings.Store.ShowFloatingGadgets)
+        if (OsdSettings.Store.ShowOsd)
         {
-            HandleFloatingGadgetCommand(FloatingGadgetState.Show);
+            HandleOsdCommand(OsdState.Show);
         }
     }
 
-    private void HandleFloatingGadgetCommand(FloatingGadgetState command)
+    private void HandleOsdCommand(OsdState command)
     {
-        var floatingGadgetSettings = IoCContainer.Resolve<FloatingGadgetSettings>();
-        bool shouldBeUpper = floatingGadgetSettings.Store.SelectedStyleIndex == 1;
+        var OsdSettings = IoCContainer.Resolve<OsdSettings>();
+        bool shouldBeUpper = OsdSettings.Store.SelectedStyleIndex == 1;
 
         switch (command)
         {
-            case FloatingGadgetState.Hidden:
-                if (FloatingGadget != null)
+            case OsdState.Hidden:
+                if (OsdWindow != null)
                 {
-                    FloatingGadget.Hide();
+                    OsdWindow.Hide();
                 }
                 break;
 
-            case FloatingGadgetState.Show:
+            case OsdState.Show:
                 EnsureCorrectGadgetType(shouldBeUpper);
-                if (FloatingGadget != null)
+                if (OsdWindow != null)
                 {
-                    FloatingGadget.Show();
+                    OsdWindow.Show();
                 }
                 break;
 
-            case FloatingGadgetState.Toggle:
-                if (FloatingGadget is { IsVisible: true })
+            case OsdState.Toggle:
+                if (OsdWindow is { IsVisible: true })
                 {
-                    FloatingGadget.Hide();
+                    OsdWindow.Hide();
                 }
                 else
                 {
                     EnsureCorrectGadgetType(shouldBeUpper);
-                    if (FloatingGadget != null)
+                    if (OsdWindow != null)
                     {
-                        FloatingGadget.Show();
+                        OsdWindow.Show();
                     }
                 }
                 break;
         }
 
-        floatingGadgetSettings.Store.ShowFloatingGadgets = FloatingGadget?.IsVisible ?? false;
-        floatingGadgetSettings.SynchronizeStore();
+        OsdSettings.Store.ShowOsd = OsdWindow?.IsVisible ?? false;
+        OsdSettings.SynchronizeStore();
     }
 
     private void EnsureCorrectGadgetType(bool shouldBeUpper)
     {
-        if (FloatingGadget != null && (FloatingGadget is FloatingGadgetUpper) != shouldBeUpper)
+        if (OsdWindow != null && (OsdWindow is OsdBarWindow) != shouldBeUpper)
         {
-            FloatingGadget.Close();
-            FloatingGadget = null;
+            OsdWindow.Close();
+            OsdWindow = null;
         }
 
         EnsureGadgetCreated(shouldBeUpper);
@@ -1126,15 +1126,15 @@ public partial class App
 
     private void EnsureGadgetCreated(bool isUpper)
     {
-        if (FloatingGadget != null)
+        if (OsdWindow != null)
         {
             return;
         }
 
-        FloatingGadget = isUpper ? new FloatingGadgetUpper() : new FloatingGadget();
-        FloatingGadget.Closed += (s, e) =>
+        OsdWindow = isUpper ? new OsdBarWindow() : new OsdPanelWindow();
+        OsdWindow.Closed += (s, e) =>
         {
-            FloatingGadget = null;
+            OsdWindow = null;
         };
     }
 

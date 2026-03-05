@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -558,7 +558,7 @@ public class AutomationPipelineControl : UserControl
             WhiteKeyboardBacklightAutomationStep s => new WhiteKeyboardBacklightAutomationStepControl(s),
             WinKeyAutomationStep s => new WinKeyAutomationStepControl(s),
             CloseAutomationStep s => new CloseAutomationStepControl(s),
-            FloatingGadgetAutomationStep s => new FloatingGadgetAutomationStepControl(s),
+            OsdAutomationStep s => new OsdAutomationStepControl(s),
             FanMaxSpeedAutomationStep s => new FanMaxSpeedAutomationStepControl(s),
             _ => throw new InvalidOperationException("Unknown step type"),
         };

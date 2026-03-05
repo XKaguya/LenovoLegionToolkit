@@ -175,9 +175,6 @@
   <data name="ExternalDisplayDisconnectedAutomationPipelineTrigger_DisplayName" xml:space="preserve">
     <value>Ha külső kijelző lecsatlakoztatásra kerül</value>
   </data>
-  <data name="FloatingGadgetState_Toggle" xml:space="preserve">
-    <value>Kapcsoló</value>
-  </data>
   <data name="GamesAreRunningAutomationPipelineTrigger_DisplayName" xml:space="preserve">
     <value>Játék futtatásánál</value>
   </data>
@@ -219,6 +216,9 @@
   </data>
   <data name="OnStartupAutomationPipelineTrigger_DisplayName" xml:space="preserve">
     <value>Indításkor</value>
+  </data>
+  <data name="OsdState_Toggle" xml:space="preserve">
+    <value>Kapcsoló</value>
   </data>
   <data name="OverclockDiscreteGPUAutomationStepState_Off" xml:space="preserve">
     <value>Ki</value>

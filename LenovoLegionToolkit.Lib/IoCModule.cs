@@ -1,4 +1,4 @@
-﻿using Autofac;
+using Autofac;
 using LenovoLegionToolkit.Lib.AutoListeners;
 using LenovoLegionToolkit.Lib.Controllers;
 using LenovoLegionToolkit.Lib.Controllers.GodMode;
@@ -37,7 +37,7 @@ public class IoCModule : Module
 
         builder.Register<ApplicationSettings>();
         builder.Register<BalanceModeSettings>();
-        builder.Register<FloatingGadgetSettings>();
+        builder.Register<OsdSettings>();
         builder.Register<GodModeSettings>();
         builder.Register<GPUOverclockSettings>();
         builder.Register<IntegrationsSettings>();

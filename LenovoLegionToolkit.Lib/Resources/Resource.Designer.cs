@@ -286,168 +286,6 @@ namespace LenovoLegionToolkit.Lib.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disk 1 Temperature.
-        /// </summary>
-        public static string FloatingGadgetItem_Disk1Temperature {
-            get {
-                return ResourceManager.GetString("FloatingGadgetItem_Disk1Temperature", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Disk 2 Temperature.
-        /// </summary>
-        public static string FloatingGadgetItem_Disk2Temperature {
-            get {
-                return ResourceManager.GetString("FloatingGadgetItem_Disk2Temperature", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to E Core Frequency.
-        /// </summary>
-        public static string FloatingGadgetItem_E_Core_Frequency {
-            get {
-                return ResourceManager.GetString("FloatingGadgetItem_E_Core_Frequency", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Fan.
-        /// </summary>
-        public static string FloatingGadgetItem_Fan {
-            get {
-                return ResourceManager.GetString("FloatingGadgetItem_Fan", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to FPS.
-        /// </summary>
-        public static string FloatingGadgetItem_Fps {
-            get {
-                return ResourceManager.GetString("FloatingGadgetItem_Fps", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Frame Time.
-        /// </summary>
-        public static string FloatingGadgetItem_FrameTime {
-            get {
-                return ResourceManager.GetString("FloatingGadgetItem_FrameTime", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Frequency.
-        /// </summary>
-        public static string FloatingGadgetItem_Frequency {
-            get {
-                return ResourceManager.GetString("FloatingGadgetItem_Frequency", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 1% Low.
-        /// </summary>
-        public static string FloatingGadgetItem_LowFps {
-            get {
-                return ResourceManager.GetString("FloatingGadgetItem_LowFps", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Memory Temperature.
-        /// </summary>
-        public static string FloatingGadgetItem_MemoryTemperature {
-            get {
-                return ResourceManager.GetString("FloatingGadgetItem_MemoryTemperature", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Motherboard Temperature.
-        /// </summary>
-        public static string FloatingGadgetItem_MotherboardTemperature {
-            get {
-                return ResourceManager.GetString("FloatingGadgetItem_MotherboardTemperature", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to P Core Frequency.
-        /// </summary>
-        public static string FloatingGadgetItem_P_Core_Frequency {
-            get {
-                return ResourceManager.GetString("FloatingGadgetItem_P_Core_Frequency", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Power.
-        /// </summary>
-        public static string FloatingGadgetItem_Power {
-            get {
-                return ResourceManager.GetString("FloatingGadgetItem_Power", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Temperature.
-        /// </summary>
-        public static string FloatingGadgetItem_Temperature {
-            get {
-                return ResourceManager.GetString("FloatingGadgetItem_Temperature", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Utilization.
-        /// </summary>
-        public static string FloatingGadgetItem_Utilization {
-            get {
-                return ResourceManager.GetString("FloatingGadgetItem_Utilization", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Vram Temperature.
-        /// </summary>
-        public static string FloatingGadgetItem_VramTemperature {
-            get {
-                return ResourceManager.GetString("FloatingGadgetItem_VramTemperature", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hidden.
-        /// </summary>
-        public static string FloatingGadgetState_Hidden {
-            get {
-                return ResourceManager.GetString("FloatingGadgetState_Hidden", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Show.
-        /// </summary>
-        public static string FloatingGadgetState_Show {
-            get {
-                return ResourceManager.GetString("FloatingGadgetState_Show", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toggle.
-        /// </summary>
-        public static string FloatingGadgetState_Toggle {
-            get {
-                return ResourceManager.GetString("FloatingGadgetState_Toggle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Off.
         /// </summary>
         public static string FnLockState_Off {
@@ -786,6 +624,168 @@ namespace LenovoLegionToolkit.Lib.Resources {
         public static string OneLevelWhiteKeyboardBacklightState_On {
             get {
                 return ResourceManager.GetString("OneLevelWhiteKeyboardBacklightState_On", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disk 1 Temperature.
+        /// </summary>
+        public static string OsdItem_Disk1Temperature {
+            get {
+                return ResourceManager.GetString("OsdItem_Disk1Temperature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disk 2 Temperature.
+        /// </summary>
+        public static string OsdItem_Disk2Temperature {
+            get {
+                return ResourceManager.GetString("OsdItem_Disk2Temperature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to E Core Frequency.
+        /// </summary>
+        public static string OsdItem_E_Core_Frequency {
+            get {
+                return ResourceManager.GetString("OsdItem_E_Core_Frequency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fan.
+        /// </summary>
+        public static string OsdItem_Fan {
+            get {
+                return ResourceManager.GetString("OsdItem_Fan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FPS.
+        /// </summary>
+        public static string OsdItem_Fps {
+            get {
+                return ResourceManager.GetString("OsdItem_Fps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Frame Time.
+        /// </summary>
+        public static string OsdItem_FrameTime {
+            get {
+                return ResourceManager.GetString("OsdItem_FrameTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Frequency.
+        /// </summary>
+        public static string OsdItem_Frequency {
+            get {
+                return ResourceManager.GetString("OsdItem_Frequency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1% Low.
+        /// </summary>
+        public static string OsdItem_LowFps {
+            get {
+                return ResourceManager.GetString("OsdItem_LowFps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Memory Temperature.
+        /// </summary>
+        public static string OsdItem_MemoryTemperature {
+            get {
+                return ResourceManager.GetString("OsdItem_MemoryTemperature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Motherboard Temperature.
+        /// </summary>
+        public static string OsdItem_MotherboardTemperature {
+            get {
+                return ResourceManager.GetString("OsdItem_MotherboardTemperature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to P Core Frequency.
+        /// </summary>
+        public static string OsdItem_P_Core_Frequency {
+            get {
+                return ResourceManager.GetString("OsdItem_P_Core_Frequency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Power.
+        /// </summary>
+        public static string OsdItem_Power {
+            get {
+                return ResourceManager.GetString("OsdItem_Power", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Temperature.
+        /// </summary>
+        public static string OsdItem_Temperature {
+            get {
+                return ResourceManager.GetString("OsdItem_Temperature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Utilization.
+        /// </summary>
+        public static string OsdItem_Utilization {
+            get {
+                return ResourceManager.GetString("OsdItem_Utilization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vram Temperature.
+        /// </summary>
+        public static string OsdItem_VramTemperature {
+            get {
+                return ResourceManager.GetString("OsdItem_VramTemperature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hidden.
+        /// </summary>
+        public static string OsdState_Hidden {
+            get {
+                return ResourceManager.GetString("OsdState_Hidden", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show.
+        /// </summary>
+        public static string OsdState_Show {
+            get {
+                return ResourceManager.GetString("OsdState_Show", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle.
+        /// </summary>
+        public static string OsdState_Toggle {
+            get {
+                return ResourceManager.GetString("OsdState_Toggle", resourceCulture);
             }
         }
         

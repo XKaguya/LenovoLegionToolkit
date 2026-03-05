@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
 		<ApplicationIcon>Assets/icon.ico</ApplicationIcon>
@@ -46,6 +46,7 @@
 		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
 		<PackageReference Include="PixiEditor.ColorPicker" Version="3.4.2.2" />
 		<PackageReference Include="WPF-UI" Version="2.1.0" />
+		<PackageReference Include="WpfScreenHelper" Version="2.1.1" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -83,9 +84,6 @@
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
 			<DependentUpon>Resource.resx</DependentUpon>
-		</Compile>
-		<Compile Update="Windows\FloatingGadgets\FloatingGadgetUpper.xaml.cs">
-			<SubType>Code</SubType>
 		</Compile>
 	</ItemGroup>
 
