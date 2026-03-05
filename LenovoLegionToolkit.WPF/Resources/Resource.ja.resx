@@ -448,7 +448,7 @@
     <value>日の入り</value>
   </data>
   <data name="AutomationPipelineControl_SubtitlePart_AtTime" xml:space="preserve">
-    <value>えっと {0:D2}:{1:D2}</value>
+    <value>えっと {0:D2}:{1:D2}:{2:D2}</value>
   </data>
   <data name="AutomationPipelineControl_SubtitlePart_PowerMode" xml:space="preserve">
     <value>電源モード</value>

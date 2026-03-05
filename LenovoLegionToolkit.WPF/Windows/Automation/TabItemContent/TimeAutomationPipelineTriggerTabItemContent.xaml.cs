@@ -41,11 +41,12 @@ public partial class TimeAutomationPipelineTriggerTabItemContent : IAutomationPi
         _sunsetRadioButton.IsChecked = _isSunset;
 
         var local = _time is not null
-            ? DateTimeExtensions.UtcFrom(_time.Value.Hour, _time.Value.Minute).ToLocalTime()
+            ? DateTimeExtensions.UtcFrom(_time.Value.Hour, _time.Value.Minute, _time.Value.Second).ToLocalTime()
             : DateTime.Now;
 
         _timePickerHours.Value = local.Hour;
         _timePickerMinutes.Value = local.Minute;
+        _timePickerSeconds.Value = local.Second;
 
         _timeRadioButton.IsChecked = _time is not null;
         _timePickerPanel.IsEnabled = _time is not null;
@@ -75,9 +76,10 @@ public partial class TimeAutomationPipelineTriggerTabItemContent : IAutomationPi
 
         var pickedHour = (int?)_timePickerHours.Value ?? 0;
         var pickedMinute = (int?)_timePickerMinutes.Value ?? 0;
+        var pickedSecond = (int?)_timePickerSeconds.Value ?? 0;
 
-        var utc = DateTimeExtensions.LocalFrom(pickedHour, pickedMinute).ToUniversalTime();
-        return new Time(utc.Hour, utc.Minute);
+        var utc = DateTimeExtensions.LocalFrom(pickedHour, pickedMinute, pickedSecond).ToUniversalTime();
+        return new Time(utc.Hour, utc.Minute, utc.Second);
     }
 
     private DayOfWeek[] GetSelectedDays()

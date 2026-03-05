@@ -56,9 +56,19 @@
                     Maximum="59"
                     Minimum="0" />
                 <Label
+                    Margin="4,0,4,0"
+                    VerticalContentAlignment="Center"
+                    Content=":" />
+                <ui:NumberBox
+                    x:Name="_timePickerSeconds"
+                    ClearButtonEnabled="False"
+                    MaxDecimalPlaces="0"
+                    Maximum="59"
+                    Minimum="0" />
+                <Label
                     Margin="8,0,0,0"
                     VerticalContentAlignment="Center"
-                    Content="(HH:MM)" />
+                    Content="(HH:MM:SS)" />
             </StackPanel>
             <StackPanel x:Name="_daysOfWeekPanel" Margin="0,16,0,0">
                 <CheckBox Click="DayOfWeekCheckBox_OnClick" Tag="{x:Static system:DayOfWeek.Monday}" />

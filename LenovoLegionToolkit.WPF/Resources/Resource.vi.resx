@@ -448,7 +448,7 @@ Chỉ có các Hành động thỏa điều kiện hiện tại sẽ được ch
     <value>Lúc hoàng hôn</value>
   </data>
   <data name="AutomationPipelineControl_SubtitlePart_AtTime" xml:space="preserve">
-    <value>Vào lúc {0:D2}:{1:D2}</value>
+    <value>Vào lúc {0:D2}:{1:D2}:{2:D2}</value>
   </data>
   <data name="AutomationPipelineControl_SubtitlePart_PowerMode" xml:space="preserve">
     <value>Chế độ</value>
