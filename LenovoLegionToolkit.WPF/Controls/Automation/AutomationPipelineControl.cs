@@ -413,15 +413,15 @@ public class AutomationPipelineControl : UserControl
                 result += $" | {Resource.AutomationPipelineControl_SubtitlePart_AtSunset}";
             if (tt.Time is not null)
             {
-                var local = DateTimeExtensions.UtcFrom(tt.Time.Value.Hour, tt.Time.Value.Minute).ToLocalTime();
+                var local = DateTimeExtensions.UtcFrom(tt.Time.Value.Hour, tt.Time.Value.Minute, tt.Time.Value.Second).ToLocalTime();
                 if (tt.Days.IsEmpty() || tt.Days.OrderBy(x => x).SequenceEqual(Enum.GetValues<DayOfWeek>()))
                 {
-                    result += $" | {string.Format(Resource.AutomationPipelineControl_SubtitlePart_AtTime, local.Hour, local.Minute)}";
+                    result += $" | {string.Format(Resource.AutomationPipelineControl_SubtitlePart_AtTime, local.Hour, local.Minute, local.Second)}";
                 }
                 else
                 {
                     var localizedDayStrings = tt.Days.Select(day => Resource.Culture.DateTimeFormat.GetDayName(day));
-                    result += $" | {string.Join(", ", localizedDayStrings)} {string.Format(Resource.AutomationPipelineControl_SubtitlePart_AtTime.ToLower(Resource.Culture), local.Hour, local.Minute)}";
+                    result += $" | {string.Join(", ", localizedDayStrings)} {string.Format(Resource.AutomationPipelineControl_SubtitlePart_AtTime.ToLower(Resource.Culture), local.Hour, local.Minute, local.Second)}";
                 }
             }
         }

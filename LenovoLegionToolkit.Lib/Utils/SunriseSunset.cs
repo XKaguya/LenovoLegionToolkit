@@ -22,7 +22,7 @@ public class SunriseSunset(SunriseSunsetSettings settings, HttpClientFactory htt
 
         (sunrise, sunset) = CalculateSunriseSunset(coordinate);
 
-        settings.Store.LastCheckDateTime = DateTime.UtcNow;
+        settings.Store.LastCheckDateTime = DateTime.Today;
         settings.Store.Sunrise = sunrise;
         settings.Store.Sunset = sunset;
         settings.SynchronizeStore();
@@ -38,7 +38,7 @@ public class SunriseSunset(SunriseSunsetSettings settings, HttpClientFactory htt
             var responseJson = await httpClient.GetStringAsync("http://ip-api.com/json?fields=lat,lon", token).ConfigureAwait(false);
             var responseJsonNode = JsonNode.Parse(responseJson);
             if (responseJsonNode is not null && double.TryParse(responseJsonNode["lat"]?.ToString(), out var lat) && double.TryParse(responseJsonNode["lon"]?.ToString(), out var lon))
-                return new Coordinate(lat, lon, DateTime.UtcNow);
+                return new Coordinate(lat, lon, DateTime.Today);
         }
         catch (Exception ex)
         {
@@ -56,6 +56,6 @@ public class SunriseSunset(SunriseSunsetSettings settings, HttpClientFactory htt
         if (sunrise is null || sunset is null)
             return (null, null);
 
-        return (new Time(sunrise.Value.Hour, sunrise.Value.Minute), new Time(sunset.Value.Hour, sunset.Value.Minute));
+        return (new Time(sunrise.Value.Hour, sunrise.Value.Minute, sunrise.Value.Second), new Time(sunset.Value.Hour, sunset.Value.Minute, sunset.Value.Second));
     }
 }

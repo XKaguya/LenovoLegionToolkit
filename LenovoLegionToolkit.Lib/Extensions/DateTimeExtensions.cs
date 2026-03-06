@@ -4,16 +4,16 @@ namespace LenovoLegionToolkit.Lib.Extensions;
 
 public static class DateTimeExtensions
 {
-    public static DateTime UtcFrom(int hours, int minutes)
+    public static DateTime UtcFrom(int hours, int minutes, int seconds)
     {
         var now = DateTime.UtcNow;
-        return new(now.Year, now.Month, now.Day, hours, minutes, 0, DateTimeKind.Utc);
+        return new(now.Year, now.Month, now.Day, hours, minutes, seconds, DateTimeKind.Utc);
     }
 
-    public static DateTime LocalFrom(int hours, int minutes)
+    public static DateTime LocalFrom(int hours, int minutes, int seconds)
     {
         var now = DateTime.Now;
-        return new(now.Year, now.Month, now.Day, hours, minutes, 0, DateTimeKind.Local);
+        return new(now.Year, now.Month, now.Day, hours, minutes, seconds, DateTimeKind.Local);
     }
 
     public static DateTime UtcDayFrom(DayOfWeek targetDay, int hours, int minutes)

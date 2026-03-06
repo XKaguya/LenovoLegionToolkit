@@ -1183,21 +1183,22 @@ public readonly struct StepperValue(int value, int min, int max, int step, int[]
     }
 }
 
-public readonly struct Time(int hour, int minute)
+public readonly struct Time(int hour, int minute, int second)
 {
     public int Hour { get; } = hour;
     public int Minute { get; } = minute;
+    public int Second { get; } = second;
 
-    #region Equality
+    #region Equality / Overrides
 
     public override bool Equals(object? obj)
     {
-        return obj is Time time && Hour == time.Hour && Minute == time.Minute;
+        return obj is Time time && Hour == time.Hour && Minute == time.Minute && Second == time.Second;
     }
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(Hour, Minute);
+        return HashCode.Combine(Hour, Minute, Second);
     }
 
     public static bool operator ==(Time left, Time right)
@@ -1208,6 +1209,11 @@ public readonly struct Time(int hour, int minute)
     public static bool operator !=(Time left, Time right)
     {
         return !(left == right);
+    }
+    
+    public override string ToString()
+    {
+        return $"{Hour}:{Minute}:{Second}";
     }
 
     #endregion

@@ -448,7 +448,7 @@ Spustí se pouze akce, které odpovídají aktuálnímu stavu.</value>
     <value>Při západu slunce</value>
   </data>
   <data name="AutomationPipelineControl_SubtitlePart_AtTime" xml:space="preserve">
-    <value>V {0:D2}:{1:D2}</value>
+    <value>V {0:D2}:{1:D2}:{2:D2}</value>
   </data>
   <data name="AutomationPipelineControl_SubtitlePart_PowerMode" xml:space="preserve">
     <value>Režim výkonu</value>
