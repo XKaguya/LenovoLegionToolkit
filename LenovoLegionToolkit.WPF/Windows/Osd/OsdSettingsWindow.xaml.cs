@@ -61,7 +61,7 @@ public partial class OsdSettingsWindow
         _osdStyleComboBox.SelectedIndex = _OsdSettings.Store.SelectedStyleIndex;
 
         _osdOpacitySlider.Value = _OsdSettings.Store.BackgroundOpacity;
-        _opacityValueText.Text = $"{(_OsdSettings.Store.BackgroundOpacity * 100):0}%";
+        _opacityValueText.Text = $"{(_OsdSettings.Store.BackgroundOpacity * 100):0}{Resource.Percent}";
         
         _osdFontSize.Value = _OsdSettings.Store.FontSize;
 
@@ -81,17 +81,17 @@ public partial class OsdSettingsWindow
             _osdBackgroundColorPicker.SelectedColor = Color.FromRgb(0x1E, 0x1E, 0x1E);
         }
 
-        _tempYellow.Value = _OsdSettings.Store.TempThresholdYellow;
-        _tempRed.Value = _OsdSettings.Store.TempThresholdRed;
-        _usageYellow.Value = _OsdSettings.Store.UsageThresholdYellow;
-        _usageRed.Value = _OsdSettings.Store.UsageThresholdRed;
-        _fpsRedline.Value = _OsdSettings.Store.FpsThresholdRed;
+        _tempWarning.Value = _OsdSettings.Store.TempThresholdWarning;
+        _tempCritical.Value = _OsdSettings.Store.TempThresholdCritical;
+        _usageWarning.Value = _OsdSettings.Store.UsageThresholdWarning;
+        _usageCritical.Value = _OsdSettings.Store.UsageThresholdCritical;
+        _fpsCritical.Value = _OsdSettings.Store.FpsThresholdCritical;
         _lowFpsDelta.Value = _OsdSettings.Store.LowFpsDeltaThreshold;
+        _osdSnapThreshold.Value = _OsdSettings.Store.SnapThreshold;
 
-        _labelColorSourceComboBox.SetItems(Enum.GetValues<OsdColorSource>(), _OsdSettings.Store.LabelColorSource, t => t.GetDisplayName());
-        UpdateLabelColorPicker();
-
+        _categoryColorPicker.SelectedColor = GetColorFromHex(_OsdSettings.Store.CategoryColor) ?? Colors.Transparent;
         _labelColorPicker.SelectedColor = GetColorFromHex(_OsdSettings.Store.LabelColor) ?? Colors.Transparent;
+        _valueColorPicker.SelectedColor = GetColorFromHex(_OsdSettings.Store.ValueColor) ?? Colors.Transparent;
         _warningColorPicker.SelectedColor = GetColorFromHex(_OsdSettings.Store.WarningColor) ?? Colors.Transparent;
         _criticalColorPicker.SelectedColor = GetColorFromHex(_OsdSettings.Store.CriticalColor) ?? Colors.Transparent;
 
@@ -293,7 +293,7 @@ public partial class OsdSettingsWindow
             return;
 
         _OsdSettings.Store.BackgroundOpacity = _osdOpacitySlider.Value;
-        _opacityValueText.Text = $"{(_osdOpacitySlider.Value * 100):0}%";
+        _opacityValueText.Text = $"{(_osdOpacitySlider.Value * 100):0}{Resource.Percent}";
         _OsdSettings.SynchronizeStore();
         MessagingCenter.Publish(new OsdAppearanceChangedMessage());
     }
@@ -307,6 +307,13 @@ public partial class OsdSettingsWindow
         _OsdSettings.Store.BackgroundColor = $"#{color.R:X2}{color.G:X2}{color.B:X2}";
         _OsdSettings.SynchronizeStore();
         MessagingCenter.Publish(new OsdAppearanceChangedMessage());
+    }
+
+    private void OsdSnapThreshold_ValueChanged(object sender, RoutedEventArgs e)
+    {
+        if (_isInitializing || !IsLoaded) return;
+        _OsdSettings.Store.SnapThreshold = (int)(_osdSnapThreshold.Value ?? 20);
+        _OsdSettings.SynchronizeStore();
     }
 
     private void OsdFontSize_ValueChanged(object sender, RoutedEventArgs e)
@@ -370,51 +377,24 @@ public partial class OsdSettingsWindow
     {
         if (_isInitializing || !IsLoaded) return;
 
-        _OsdSettings.Store.TempThresholdYellow = (int)(_tempYellow.Value ?? 75);
-        _OsdSettings.Store.TempThresholdRed = (int)(_tempRed.Value ?? 90);
-        _OsdSettings.Store.UsageThresholdYellow = (int)(_usageYellow.Value ?? 70);
-        _OsdSettings.Store.UsageThresholdRed = (int)(_usageRed.Value ?? 90);
-        _OsdSettings.Store.FpsThresholdRed = (int)(_fpsRedline.Value ?? 30);
+        _OsdSettings.Store.TempThresholdWarning = (int)(_tempWarning.Value ?? 75);
+        _OsdSettings.Store.TempThresholdCritical = (int)(_tempCritical.Value ?? 90);
+        _OsdSettings.Store.UsageThresholdWarning = (int)(_usageWarning.Value ?? 70);
+        _OsdSettings.Store.UsageThresholdCritical = (int)(_usageCritical.Value ?? 90);
+        _OsdSettings.Store.FpsThresholdCritical = (int)(_fpsCritical.Value ?? 30);
         _OsdSettings.Store.LowFpsDeltaThreshold = (int)(_lowFpsDelta.Value ?? 30);
 
         _OsdSettings.SynchronizeStore();
         MessagingCenter.Publish(new OsdAppearanceChangedMessage());
     }
 
-    private void LabelColorSourceComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        if (_isInitializing || !IsLoaded)
-            return;
-
-        if (!_labelColorSourceComboBox.TryGetSelectedItem(out OsdColorSource state))
-            return;
-
-        _OsdSettings.Store.LabelColorSource = state;
-        _OsdSettings.SynchronizeStore();
-
-        UpdateLabelColorPicker();
-
-        MessagingCenter.Publish(new OsdAppearanceChangedMessage());
-    }
-
-    private void UpdateLabelColorPicker()
-    {
-        _labelColorPicker.Visibility = _OsdSettings.Store.LabelColorSource == OsdColorSource.Custom ? Visibility.Visible : Visibility.Collapsed;
-        if (_OsdSettings.Store.LabelColorSource == OsdColorSource.Custom && _labelColorPicker.SelectedColor == Colors.Transparent)
-        {
-            _labelColorPicker.SelectedColor = Colors.White;
-        }
-    }
-
     private void ColorPicker_ColorChangedDelayed(object? sender, EventArgs e)
     {
         if (_isInitializing || !IsLoaded) return;
 
-        bool hasLabelColor = _labelColorPicker.SelectedColor != Colors.Transparent;
-        _OsdSettings.Store.LabelColor = hasLabelColor && _OsdSettings.Store.LabelColorSource == OsdColorSource.Custom
-            ? $"#{_labelColorPicker.SelectedColor.R:X2}{_labelColorPicker.SelectedColor.G:X2}{_labelColorPicker.SelectedColor.B:X2}"
-            : null;
-
+        _OsdSettings.Store.CategoryColor = $"#{_categoryColorPicker.SelectedColor.R:X2}{_categoryColorPicker.SelectedColor.G:X2}{_categoryColorPicker.SelectedColor.B:X2}";
+        _OsdSettings.Store.LabelColor = $"#{_labelColorPicker.SelectedColor.R:X2}{_labelColorPicker.SelectedColor.G:X2}{_labelColorPicker.SelectedColor.B:X2}";
+        _OsdSettings.Store.ValueColor = $"#{_valueColorPicker.SelectedColor.R:X2}{_valueColorPicker.SelectedColor.G:X2}{_valueColorPicker.SelectedColor.B:X2}";
         _OsdSettings.Store.WarningColor = $"#{_warningColorPicker.SelectedColor.R:X2}{_warningColorPicker.SelectedColor.G:X2}{_warningColorPicker.SelectedColor.B:X2}";
         _OsdSettings.Store.CriticalColor = $"#{_criticalColorPicker.SelectedColor.R:X2}{_criticalColorPicker.SelectedColor.G:X2}{_criticalColorPicker.SelectedColor.B:X2}";
 

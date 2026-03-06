@@ -646,7 +646,7 @@ namespace LenovoLegionToolkit.Lib.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to E Core Frequency.
+        ///   Looks up a localized string similar to E-Core Clock.
         /// </summary>
         public static string OsdItem_E_Core_Frequency {
             get {
@@ -718,7 +718,7 @@ namespace LenovoLegionToolkit.Lib.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to P Core Frequency.
+        ///   Looks up a localized string similar to P-Core Clock.
         /// </summary>
         public static string OsdItem_P_Core_Frequency {
             get {
@@ -754,7 +754,7 @@ namespace LenovoLegionToolkit.Lib.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vram Temperature.
+        ///   Looks up a localized string similar to VRAM Temperature.
         /// </summary>
         public static string OsdItem_VramTemperature {
             get {

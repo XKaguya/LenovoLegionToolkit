@@ -61,22 +61,18 @@
                     <TextBlock
                         x:Name="_fpsLabel"
                         MinWidth="25"
-                        Foreground="#2196F3"
                         Style="{DynamicResource TextBlockStyle}"
-                        Text="FPS" />
+                        Text="{Binding Source={x:Static resources:Resource.Osd_Fps}}" />
                     <TextBlock
                         x:Name="_fps"
-                        Foreground="White"
                         Style="{DynamicResource TextBlockStyle}"
                         Text="-" />
                     <TextBlock
                         x:Name="_lowFps"
-                        Foreground="White"
                         Style="{DynamicResource TextBlockStyle}"
                         Text="-" />
                     <TextBlock
                         x:Name="_frameTime"
-                        Foreground="White"
                         Style="{DynamicResource TextBlockStyle}"
                         Text="-" />
                 </StackPanel>
@@ -97,49 +93,41 @@
                     <TextBlock
                         x:Name="_cpuLabel"
                         MinWidth="25"
-                        Foreground="#FF5722"
                         Style="{DynamicResource TextBlockStyle}"
                         Text="{Binding Source={x:Static resources:Resource.Osd_Cpu}}" />
                     <TextBlock
                         x:Name="_cpuFrequency"
                         MinWidth="40"
-                        Foreground="White"
                         Style="{DynamicResource TextBlockStyle}"
                         Text="-" />
                     <TextBlock
                         x:Name="_cpuPFrequency"
                         MinWidth="40"
-                        Foreground="White"
                         Style="{DynamicResource TextBlockStyle}"
                         Text="-"
                         Visibility="Collapsed" />
                     <TextBlock
                         x:Name="_cpuEFrequency"
                         MinWidth="40"
-                        Foreground="White"
                         Style="{DynamicResource TextBlockStyle}"
                         Text="-"
                         Visibility="Collapsed" />
                     <TextBlock
                         x:Name="_cpuUsage"
-                        Foreground="White"
                         Style="{DynamicResource TextBlockStyle}"
                         Text="-" />
                     <TextBlock
                         x:Name="_cpuTemperature"
-                        Foreground="White"
                         Style="{DynamicResource TextBlockStyle}"
                         Text="-" />
                     <TextBlock
                         x:Name="_cpuPower"
-                        Foreground="White"
                         Style="{DynamicResource TextBlockStyle}"
                         Text="-" />
                     <TextBlock
                         x:Name="_cpuFanSpeed"
                         MinWidth="40"
                         Margin="0"
-                        Foreground="White"
                         Style="{DynamicResource TextBlockStyle}"
                         Text="-" />
                 </StackPanel>
@@ -160,40 +148,33 @@
                     <TextBlock
                         x:Name="_gpuLabel"
                         MinWidth="25"
-                        Foreground="#4CAF50"
                         Style="{DynamicResource TextBlockStyle}"
                         Text="{Binding Source={x:Static resources:Resource.Osd_Gpu}}" />
                     <TextBlock
                         x:Name="_gpuFrequency"
                         MinWidth="40"
-                        Foreground="White"
                         Style="{DynamicResource TextBlockStyle}"
                         Text="-" />
                     <TextBlock
                         x:Name="_gpuUsage"
-                        Foreground="White"
                         Style="{DynamicResource TextBlockStyle}"
                         Text="-" />
                     <TextBlock
                         x:Name="_gpuTemperature"
-                        Foreground="White"
                         Style="{DynamicResource TextBlockStyle}"
                         Text="-" />
                     <TextBlock
                         x:Name="_gpuVramTemperature"
-                        Foreground="White"
                         Style="{DynamicResource TextBlockStyle}"
                         Text="-" />
                     <TextBlock
                         x:Name="_gpuPower"
-                        Foreground="White"
                         Style="{DynamicResource TextBlockStyle}"
                         Text="-" />
                     <TextBlock
                         x:Name="_gpuFanSpeed"
                         MinWidth="40"
                         Margin="0"
-                        Foreground="White"
                         Style="{DynamicResource TextBlockStyle}"
                         Text="-" />
                 </StackPanel>
@@ -214,18 +195,15 @@
                     <TextBlock
                         x:Name="_memLabel"
                         MinWidth="25"
-                        Foreground="#FFC107"
                         Style="{DynamicResource TextBlockStyle}"
                         Text="{Binding Source={x:Static resources:Resource.SensorsControl_Memory_Title}}" />
                     <TextBlock
                         x:Name="_memUsage"
-                        Foreground="White"
                         Style="{DynamicResource TextBlockStyle}"
                         Text="-" />
                     <TextBlock
                         x:Name="_memTemperature"
                         Margin="0"
-                        Foreground="White"
                         Style="{DynamicResource TextBlockStyle}"
                         Text="-" />
                 </StackPanel>
@@ -246,29 +224,24 @@
                     <TextBlock
                         x:Name="_pchName"
                         MinWidth="25"
-                        Foreground="#9C27B0"
                         Style="{DynamicResource TextBlockStyle}"
-                        Text="{Binding Source={x:Static resources:Resource.FanCurveControl_PCH}}" />
+                        Text="{Binding Source={x:Static resources:Resource.Osd_Chipset}}" />
                     <TextBlock
                         x:Name="_pchTemperature"
-                        Foreground="White"
                         Style="{DynamicResource TextBlockStyle}"
                         Text="-" />
                     <TextBlock
                         x:Name="_pchFanSpeed"
                         MinWidth="40"
-                        Foreground="White"
                         Style="{DynamicResource TextBlockStyle}"
                         Text="-" />
                     <TextBlock
                         x:Name="_disk0Temperature"
-                        Foreground="White"
                         Style="{DynamicResource TextBlockStyle}"
                         Text="-" />
                     <TextBlock
                         x:Name="_disk1Temperature"
                         Margin="0"
-                        Foreground="White"
                         Style="{DynamicResource TextBlockStyle}"
                         Text="-" />
                 </StackPanel>

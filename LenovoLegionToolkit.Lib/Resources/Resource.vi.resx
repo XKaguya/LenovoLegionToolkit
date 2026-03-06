@@ -323,7 +323,7 @@
     <value>Disk 2 Temperature</value>
   </data>
   <data name="OsdItem_E_Core_Frequency" xml:space="preserve">
-    <value>Xung nhịp nhân E</value>
+    <value>E-Core Clock</value>
   </data>
   <data name="OsdItem_Fan" xml:space="preserve">
     <value>Quạt</value>
@@ -350,7 +350,7 @@
     <value>Công suất</value>
   </data>
   <data name="OsdItem_P_Core_Frequency" xml:space="preserve">
-    <value>Xung nhịp nhân P</value>
+    <value>P-Core Clock</value>
   </data>
   <data name="OsdItem_Temperature" xml:space="preserve">
     <value>Nhiệt độ</value>
@@ -359,7 +359,7 @@
     <value>Mức sử dụng</value>
   </data>
   <data name="OsdItem_VramTemperature" xml:space="preserve">
-    <value>Nhiệt độ VRAM</value>
+    <value>VRAM Temperature</value>
   </data>
   <data name="OsdState_Hidden" xml:space="preserve">
     <value>Ẩn</value>

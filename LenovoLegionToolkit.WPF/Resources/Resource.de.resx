@@ -1768,17 +1768,20 @@ Andere Vollbildfenster werden dadurch nicht beeinträchtigt, aber Sie können ni
   <data name="OsdAutomationStepControl_Title" xml:space="preserve">
     <value>Schwebendes Gadget</value>
   </data>
-  <data name="OsdColorSource_Custom" xml:space="preserve">
-    <value>Custom</value>
-  </data>
-  <data name="OsdColorSource_Default" xml:space="preserve">
-    <value>Default</value>
-  </data>
   <data name="OsdSettings_Appearance_BackgroundColor" xml:space="preserve">
     <value>Background Color</value>
   </data>
+  <data name="OsdSettings_Appearance_CategoryColor" xml:space="preserve">
+    <value>Category Color</value>
+  </data>
   <data name="OsdSettings_Appearance_CornerRadius" xml:space="preserve">
     <value>Corner Radius</value>
+  </data>
+  <data name="OsdSettings_Appearance_CornerRadiusBottom" xml:space="preserve">
+    <value>Bottom</value>
+  </data>
+  <data name="OsdSettings_Appearance_CornerRadiusTop" xml:space="preserve">
+    <value>Top</value>
   </data>
   <data name="OsdSettings_Appearance_CriticalColor" xml:space="preserve">
     <value>Critical Color</value>
@@ -1791,6 +1794,9 @@ Andere Vollbildfenster werden dadurch nicht beeinträchtigt, aber Sie können ni
   </data>
   <data name="OsdSettings_Appearance_Opacity" xml:space="preserve">
     <value>Opacity</value>
+  </data>
+  <data name="OsdSettings_Appearance_ValueColor" xml:space="preserve">
+    <value>Value Color</value>
   </data>
   <data name="OsdSettings_Appearance_WarningColor" xml:space="preserve">
     <value>Warning Color</value>
@@ -1859,13 +1865,16 @@ Andere Vollbildfenster werden dadurch nicht beeinträchtigt, aber Sie können ni
     <value>CPU</value>
   </data>
   <data name="Osd_CPU_Fan" xml:space="preserve">
-    <value>CPU Lüfter</value>
+    <value>Fan</value>
   </data>
   <data name="Osd_Disk_0_Temperature" xml:space="preserve">
     <value>Datenträger 1 Temperatur</value>
   </data>
   <data name="Osd_Disk_1_Temperature" xml:space="preserve">
     <value>Datenträger 2 Temperatur</value>
+  </data>
+  <data name="Osd_ECoreClock" xml:space="preserve">
+    <value>E-Core Clock</value>
   </data>
   <data name="Osd_Fps" xml:space="preserve">
     <value>FPS</value>
@@ -1880,19 +1889,22 @@ Andere Vollbildfenster werden dadurch nicht beeinträchtigt, aber Sie können ni
     <value>GPU</value>
   </data>
   <data name="Osd_GPU_Fan" xml:space="preserve">
-    <value>GPU Lüfter</value>
+    <value>Fan</value>
   </data>
   <data name="Osd_Low_Fps" xml:space="preserve">
     <value>1% niedrig</value>
   </data>
   <data name="Osd_Memory_Temperature" xml:space="preserve">
-    <value>Arbeitsspeichertemperatur</value>
+    <value>Temperature</value>
   </data>
   <data name="Osd_Memory_Utilization" xml:space="preserve">
-    <value>Arbeitsspeicherauslastung</value>
+    <value>Utilization</value>
   </data>
   <data name="Osd_PCH_Fan" xml:space="preserve">
     <value>PCH Lüfter</value>
+  </data>
+  <data name="Osd_PCoreClock" xml:space="preserve">
+    <value>P-Core Clock</value>
   </data>
   <data name="Osd_Style_Bar" xml:space="preserve">
     <value>Bar</value>
@@ -2067,6 +2079,9 @@ Stellen Sie immer sicher, dass Sie die richtigen Pakete installieren.</value>
   </data>
   <data name="Paste" xml:space="preserve">
     <value>Einfügen</value>
+  </data>
+  <data name="Percent" xml:space="preserve">
+    <value>%</value>
   </data>
   <data name="PeriodicActionPipelineTriggerTabItemContent_Minutes" xml:space="preserve">
     <value>Minutes</value>
@@ -2308,7 +2323,7 @@ Stellen Sie zunächst sicher, dass Ihr Skript korrekt ausgeführt wird.</value>
     <value>CPU-Temperatur</value>
   </data>
   <data name="SensorItem_CpuUtilitzation" xml:space="preserve">
-    <value>CPU-Auslastung</value>
+    <value>CPU Utilization</value>
   </data>
   <data name="SensorItem_Disk1Temperature" xml:space="preserve">
     <value>Datenträger 1 Temperatur</value>
@@ -2371,7 +2386,7 @@ Stellen Sie zunächst sicher, dass Ihr Skript korrekt ausgeführt wird.</value>
     <value>Kern</value>
   </data>
   <data name="SensorsControl_GpuMemoryTemperature_Title" xml:space="preserve">
-    <value>Vram</value>
+    <value>VRAM</value>
   </data>
   <data name="SensorsControl_GPU_Power" xml:space="preserve">
     <value>Energie</value>
@@ -2398,7 +2413,7 @@ Stellen Sie zunächst sicher, dass Ihr Skript korrekt ausgeführt wird.</value>
     <value>PCH Temperatur</value>
   </data>
   <data name="SensorsControl_RefreshInterval" xml:space="preserve">
-    <value>Aktualisierungsintervall</value>
+    <value>Refresh Interval</value>
   </data>
   <data name="SensorsControl_State_Title" xml:space="preserve">
     <value>Zustand</value>
@@ -3106,6 +3121,9 @@ Die Protokollierung wird automatisch aktiviert, wenn Sie fortfahren möchten.</v
   </data>
   <data name="Warning" xml:space="preserve">
     <value>Warnung</value>
+  </data>
+  <data name="Watt" xml:space="preserve">
+    <value>W</value>
   </data>
   <data name="WhiteKeyboardBacklightAutomationStepControl_Message" xml:space="preserve">
     <value>Helligkeit der Tastaturbeleuchtung einstellen.</value>

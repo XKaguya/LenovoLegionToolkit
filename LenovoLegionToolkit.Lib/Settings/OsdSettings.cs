@@ -25,16 +25,18 @@ public class OsdSettings() : AbstractSettings<OsdSettings.OsdSettingsStore>("osd
         public double? BarPositionX { get; set; }
         public double? BarPositionY { get; set; }
 
-        public int TempThresholdYellow { get; set; } = 75;
-        public int TempThresholdRed { get; set; } = 90;
-        public int UsageThresholdYellow { get; set; } = 70;
-        public int UsageThresholdRed { get; set; } = 90;
-        public int FpsThresholdRed { get; set; } = 30;
+        public int TempThresholdWarning { get; set; } = 75;
+        public int TempThresholdCritical { get; set; } = 90;
+        public int UsageThresholdWarning { get; set; } = 70;
+        public int UsageThresholdCritical { get; set; } = 90;
+        public int FpsThresholdCritical { get; set; } = 30;
         public int LowFpsDeltaThreshold { get; set; } = 30;
 
-        public OsdColorSource LabelColorSource { get; set; } = OsdColorSource.Default;
-        public string? LabelColor { get; set; }
+        public string CategoryColor { get; set; } = "#2196F3";
+        public string LabelColor { get; set; } = "#ADFF2F";
+        public string ValueColor { get; set; } = "#FFFFFF";
         public string WarningColor { get; set; } = "#FFFF00";
         public string CriticalColor { get; set; } = "#FF0000";
+        public int SnapThreshold { get; set; } = 20;
     }
 }

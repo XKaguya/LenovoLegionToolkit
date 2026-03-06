@@ -68,10 +68,10 @@
 
                 <StackPanel x:Name="_fpsGroup" Margin="0,5,0,0">
                     <TextBlock
+                        x:Name="_fpsHeader"
                         Margin="0,0,0,5"
                         FontSize="14"
                         FontWeight="Bold"
-                        Foreground="#FF5722"
                         Style="{DynamicResource SensorLabelStyle}"
                         Text="{Binding Source={x:Static resources:Resource.Osd_Fps}, StringFormat='— {0} —'}" />
 
@@ -131,10 +131,10 @@
 
                 <StackPanel x:Name="_cpuGroup" Margin="0,5,0,0">
                     <TextBlock
+                        x:Name="_cpuHeader"
                         Margin="0,0,0,5"
                         FontSize="14"
                         FontWeight="Bold"
-                        Foreground="#FF5722"
                         Style="{DynamicResource SensorLabelStyle}"
                         Text="{Binding Source={x:Static resources:Resource.Osd_Cpu}, StringFormat='— {0} —'}" />
 
@@ -178,7 +178,7 @@
                         <TextBlock
                             Grid.Column="0"
                             Style="{DynamicResource SensorLabelStyle}"
-                            Text="P-Core Clock" />
+                            Text="{x:Static resources:Resource.Osd_PCoreClock}" />
                         <TextBlock
                             x:Name="_cpuPFrequency"
                             Grid.Column="1"
@@ -194,7 +194,7 @@
                         <TextBlock
                             Grid.Column="0"
                             Style="{DynamicResource SensorLabelStyle}"
-                            Text="E-Core Clock" />
+                            Text="{x:Static resources:Resource.Osd_ECoreClock}" />
                         <TextBlock
                             x:Name="_cpuEFrequency"
                             Grid.Column="1"
@@ -255,10 +255,10 @@
 
                 <StackPanel x:Name="_gpuGroup">
                     <TextBlock
+                        x:Name="_gpuHeader"
                         Margin="0,0,0,5"
                         FontSize="14"
                         FontWeight="Bold"
-                        Foreground="#4CAF50"
                         Style="{DynamicResource SensorLabelStyle}"
                         Text="{Binding Source={x:Static resources:Resource.Osd_Gpu}, StringFormat='— {0} —'}" />
 
@@ -334,7 +334,7 @@
                         <TextBlock
                             Grid.Column="0"
                             Style="{DynamicResource SensorLabelStyle}"
-                            Text="{x:Static resources:Resource.SensorsControl_CPU_Power}" />
+                            Text="{x:Static resources:Resource.SensorsControl_GPU_Power}" />
                         <TextBlock
                             x:Name="_gpuPower"
                             Grid.Column="1"
@@ -363,10 +363,10 @@
 
                 <StackPanel x:Name="_memoryGroup">
                     <TextBlock
+                        x:Name="_memHeader"
                         Margin="0,0,0,5"
                         FontSize="14"
                         FontWeight="Bold"
-                        Foreground="#FFC107"
                         Style="{DynamicResource SensorLabelStyle}"
                         Text="{Binding Source={x:Static resources:Resource.SensorsControl_Memory_Title}, StringFormat='— {0} —'}" />
 
@@ -407,10 +407,10 @@
 
                 <StackPanel x:Name="_pchGroup">
                     <TextBlock
+                        x:Name="_pchHeader"
                         Margin="0,0,0,5"
                         FontSize="14"
                         FontWeight="Bold"
-                        Foreground="#9C27B0"
                         Style="{DynamicResource SensorLabelStyle}"
                         Text="{Binding Source={x:Static resources:Resource.Osd_Chipset}, StringFormat='— {0} —'}" />
 

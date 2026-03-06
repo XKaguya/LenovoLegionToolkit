@@ -323,7 +323,7 @@
     <value>Disk 2 Sıcaklığı</value>
   </data>
   <data name="OsdItem_E_Core_Frequency" xml:space="preserve">
-    <value>E Çekirdek Frekansı</value>
+    <value>E-Core Clock</value>
   </data>
   <data name="OsdItem_Fan" xml:space="preserve">
     <value>Fan</value>
@@ -350,7 +350,7 @@
     <value>Güç</value>
   </data>
   <data name="OsdItem_P_Core_Frequency" xml:space="preserve">
-    <value>P Çekirdek Frekansı</value>
+    <value>P-Core Clock</value>
   </data>
   <data name="OsdItem_Temperature" xml:space="preserve">
     <value>Sıcaklık</value>
@@ -359,7 +359,7 @@
     <value>Kullanım</value>
   </data>
   <data name="OsdItem_VramTemperature" xml:space="preserve">
-    <value>Vram Sıcaklığı</value>
+    <value>VRAM Temperature</value>
   </data>
   <data name="OsdState_Hidden" xml:space="preserve">
     <value>Gizli</value>

@@ -47,7 +47,9 @@ public abstract class OsdWindowBase : Window
     protected const double MAX_FRAME_TIME_MS = 10.0;
     protected const long FRAMETIME_TIMEOUT_TICKS = 2 * 10_000_000;
 
-    protected Brush? _labelBrush;
+    protected Brush _categoryBrush = Brushes.White;
+    protected Brush _labelBrush = Brushes.White;
+    protected Brush _valueBrush = Brushes.White;
     protected Brush _warningBrush = Brushes.Goldenrod;
     protected Brush _criticalBrush = Brushes.Red;
 
@@ -176,7 +178,7 @@ public abstract class OsdWindowBase : Window
             {
                 var workArea = screen.WpfWorkingArea;
                 
-                double snapThreshold = 32.0;
+                double snapThreshold = _OsdSettings.Store.SnapThreshold;
 
                 double left = this.Left;
                 double top = this.Top;
@@ -340,10 +342,9 @@ public abstract class OsdWindowBase : Window
     {
         var converter = new BrushConverter();
 
-        _labelBrush = _OsdSettings.Store.LabelColorSource == OsdColorSource.Custom && !string.IsNullOrEmpty(_OsdSettings.Store.LabelColor)
-            ? (Brush)converter.ConvertFromString(_OsdSettings.Store.LabelColor)!
-            : null;
-
+        _categoryBrush = (Brush)converter.ConvertFromString(_OsdSettings.Store.CategoryColor)!;
+        _labelBrush = (Brush)converter.ConvertFromString(_OsdSettings.Store.LabelColor)!;
+        _valueBrush = (Brush)converter.ConvertFromString(_OsdSettings.Store.ValueColor)!;
         _warningBrush = (Brush)converter.ConvertFromString(_OsdSettings.Store.WarningColor)!;
         _criticalBrush = (Brush)converter.ConvertFromString(_OsdSettings.Store.CriticalColor)!;
 
@@ -429,12 +430,12 @@ public abstract class OsdWindowBase : Window
     #region UI Helpers
 
     protected void UpdateTextBlock(TextBlock tb, double value, string format,
-        double yellowThreshold = double.MaxValue, double redThreshold = double.MaxValue)
+        double warningThreshold = double.MaxValue, double criticalThreshold = double.MaxValue)
     {
         if (tb.Visibility != Visibility.Visible) return;
 
         string text;
-        Brush foreground = Brushes.White;
+        Brush foreground = _valueBrush;
 
         if (double.IsNaN(value) || value < 0)
         {
@@ -446,24 +447,27 @@ public abstract class OsdWindowBase : Window
             _stringBuilder.AppendFormat(format, value);
             text = _stringBuilder.ToString();
 
-            if (yellowThreshold != double.MaxValue)
-                foreground = SeverityBrush(value, yellowThreshold, redThreshold);
+            if (warningThreshold != double.MaxValue)
+                foreground = SeverityBrush(value, warningThreshold, criticalThreshold);
         }
 
         SetTextIfChanged(tb, text);
         SetForegroundIfChanged(tb, foreground);
     }
 
-    protected void UpdateTextBlock(TextBlock tb, int value, string suffix = " RPM")
+    protected void UpdateTextBlock(TextBlock tb, int value, string? suffix = null)
     {
+        if (suffix == null)
+            suffix = $" {Resource.RPM}";
         if (tb.Visibility != Visibility.Visible) return;
         SetTextIfChanged(tb, value < 0 ? "-" : $"{value}{suffix}");
+        SetForegroundIfChanged(tb, _valueBrush);
     }
 
-    protected Brush SeverityBrush(double value, double yellowThreshold, double redThreshold)
+    protected Brush SeverityBrush(double value, double warningThreshold, double criticalThreshold)
     {
-        if (value >= redThreshold) return _criticalBrush;
-        return value >= yellowThreshold ? _warningBrush : Brushes.White;
+        if (value >= criticalThreshold) return _criticalBrush;
+        return value >= warningThreshold ? _warningBrush : _valueBrush;
     }
 
     protected static void SetTextIfChanged(TextBlock tb, string text)
@@ -543,7 +547,7 @@ public abstract class OsdWindowBase : Window
             const string dash = "-";
 
             fpsText = fpsVal.ToString();
-            fpsBrush = (fpsVal < _OsdSettings.Store.FpsThresholdRed) ? _criticalBrush : Brushes.White;
+            fpsBrush = (fpsVal < _OsdSettings.Store.FpsThresholdCritical) ? _criticalBrush : Brushes.White;
 
             lowText = (lowVal > 0) ? lowVal.ToString() : dash;
             lowBrush = (lowVal > 0 && (fpsVal - lowVal) >= _OsdSettings.Store.LowFpsDeltaThreshold) ? _criticalBrush : Brushes.White;

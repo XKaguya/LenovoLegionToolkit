@@ -1770,17 +1770,20 @@ No afectará a otras ventanas a pantalla completa, pero no podrá hacer clic en 
   <data name="OsdAutomationStepControl_Title" xml:space="preserve">
     <value>Widget flotante</value>
   </data>
-  <data name="OsdColorSource_Custom" xml:space="preserve">
-    <value>Custom</value>
-  </data>
-  <data name="OsdColorSource_Default" xml:space="preserve">
-    <value>Default</value>
-  </data>
   <data name="OsdSettings_Appearance_BackgroundColor" xml:space="preserve">
     <value>Background Color</value>
   </data>
+  <data name="OsdSettings_Appearance_CategoryColor" xml:space="preserve">
+    <value>Category Color</value>
+  </data>
   <data name="OsdSettings_Appearance_CornerRadius" xml:space="preserve">
     <value>Corner Radius</value>
+  </data>
+  <data name="OsdSettings_Appearance_CornerRadiusBottom" xml:space="preserve">
+    <value>Bottom</value>
+  </data>
+  <data name="OsdSettings_Appearance_CornerRadiusTop" xml:space="preserve">
+    <value>Top</value>
   </data>
   <data name="OsdSettings_Appearance_CriticalColor" xml:space="preserve">
     <value>Critical Color</value>
@@ -1793,6 +1796,9 @@ No afectará a otras ventanas a pantalla completa, pero no podrá hacer clic en 
   </data>
   <data name="OsdSettings_Appearance_Opacity" xml:space="preserve">
     <value>Opacity</value>
+  </data>
+  <data name="OsdSettings_Appearance_ValueColor" xml:space="preserve">
+    <value>Value Color</value>
   </data>
   <data name="OsdSettings_Appearance_WarningColor" xml:space="preserve">
     <value>Warning Color</value>
@@ -1861,13 +1867,16 @@ No afectará a otras ventanas a pantalla completa, pero no podrá hacer clic en 
     <value>CPU</value>
   </data>
   <data name="Osd_CPU_Fan" xml:space="preserve">
-    <value>Ventilador CPU</value>
+    <value>Fan</value>
   </data>
   <data name="Osd_Disk_0_Temperature" xml:space="preserve">
     <value>Temperatura Disco 1</value>
   </data>
   <data name="Osd_Disk_1_Temperature" xml:space="preserve">
     <value>Temperatura Disco 2</value>
+  </data>
+  <data name="Osd_ECoreClock" xml:space="preserve">
+    <value>E-Core Clock</value>
   </data>
   <data name="Osd_Fps" xml:space="preserve">
     <value>FPS</value>
@@ -1882,19 +1891,22 @@ No afectará a otras ventanas a pantalla completa, pero no podrá hacer clic en 
     <value>GPU</value>
   </data>
   <data name="Osd_GPU_Fan" xml:space="preserve">
-    <value>Ventilador GPU</value>
+    <value>Fan</value>
   </data>
   <data name="Osd_Low_Fps" xml:space="preserve">
     <value>1% Mínimo</value>
   </data>
   <data name="Osd_Memory_Temperature" xml:space="preserve">
-    <value>Temperatura memoria</value>
+    <value>Temperature</value>
   </data>
   <data name="Osd_Memory_Utilization" xml:space="preserve">
-    <value>Uso de memoria</value>
+    <value>Utilization</value>
   </data>
   <data name="Osd_PCH_Fan" xml:space="preserve">
     <value>Ventilador PCH</value>
+  </data>
+  <data name="Osd_PCoreClock" xml:space="preserve">
+    <value>P-Core Clock</value>
   </data>
   <data name="Osd_Style_Bar" xml:space="preserve">
     <value>Bar</value>
@@ -2069,6 +2081,9 @@ Asegúrese de instalar siempre los paquetes correctos.</value>
   </data>
   <data name="Paste" xml:space="preserve">
     <value>Pegar</value>
+  </data>
+  <data name="Percent" xml:space="preserve">
+    <value>%</value>
   </data>
   <data name="PeriodicActionPipelineTriggerTabItemContent_Minutes" xml:space="preserve">
     <value>Minutos</value>
@@ -2310,7 +2325,7 @@ Asegúrese primero de que su script se ejecuta correctamente.</value>
     <value>Temperatura de la CPU</value>
   </data>
   <data name="SensorItem_CpuUtilitzation" xml:space="preserve">
-    <value>Uso de la CPU</value>
+    <value>CPU Utilization</value>
   </data>
   <data name="SensorItem_Disk1Temperature" xml:space="preserve">
     <value>Temperatura del disco 1</value>
@@ -2400,7 +2415,7 @@ Asegúrese primero de que su script se ejecuta correctamente.</value>
     <value>Temperatura PCH</value>
   </data>
   <data name="SensorsControl_RefreshInterval" xml:space="preserve">
-    <value>Intervalo de actualización</value>
+    <value>Refresh Interval</value>
   </data>
   <data name="SensorsControl_State_Title" xml:space="preserve">
     <value>Estado</value>
@@ -3109,6 +3124,9 @@ El registro de sucesos se activará automáticamente, si decide continuar.</valu
   </data>
   <data name="Warning" xml:space="preserve">
     <value>Aviso</value>
+  </data>
+  <data name="Watt" xml:space="preserve">
+    <value>W</value>
   </data>
   <data name="WhiteKeyboardBacklightAutomationStepControl_Message" xml:space="preserve">
     <value>Ajustar el brillo de la retroiluminación del teclado.</value>

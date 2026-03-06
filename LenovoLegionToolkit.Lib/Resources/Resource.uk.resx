@@ -323,7 +323,7 @@
     <value>Температура диску 2</value>
   </data>
   <data name="OsdItem_E_Core_Frequency" xml:space="preserve">
-    <value>Частота Е-ядра</value>
+    <value>E-Core Clock</value>
   </data>
   <data name="OsdItem_Fan" xml:space="preserve">
     <value>Вентилятор</value>
@@ -350,7 +350,7 @@
     <value>Потужність</value>
   </data>
   <data name="OsdItem_P_Core_Frequency" xml:space="preserve">
-    <value>Частота P-ядра</value>
+    <value>P-Core Clock</value>
   </data>
   <data name="OsdItem_Temperature" xml:space="preserve">
     <value>Температура</value>
@@ -359,7 +359,7 @@
     <value>Використання</value>
   </data>
   <data name="OsdItem_VramTemperature" xml:space="preserve">
-    <value>Температура VR</value>
+    <value>VRAM Temperature</value>
   </data>
   <data name="OsdState_Hidden" xml:space="preserve">
     <value>Сховати</value>

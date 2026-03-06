@@ -323,7 +323,7 @@
     <value>Disk 2 Temperature</value>
   </data>
   <data name="OsdItem_E_Core_Frequency" xml:space="preserve">
-    <value>E Core Frequency</value>
+    <value>E-Core Clock</value>
   </data>
   <data name="OsdItem_Fan" xml:space="preserve">
     <value>Lüfter</value>
@@ -350,7 +350,7 @@
     <value>Energie</value>
   </data>
   <data name="OsdItem_P_Core_Frequency" xml:space="preserve">
-    <value>P Core Frequency</value>
+    <value>P-Core Clock</value>
   </data>
   <data name="OsdItem_Temperature" xml:space="preserve">
     <value>Temperatur</value>
@@ -359,7 +359,7 @@
     <value>Auslastung</value>
   </data>
   <data name="OsdItem_VramTemperature" xml:space="preserve">
-    <value>Vram Temperatur</value>
+    <value>VRAM Temperature</value>
   </data>
   <data name="OsdState_Hidden" xml:space="preserve">
     <value>Ausgeblendet</value>

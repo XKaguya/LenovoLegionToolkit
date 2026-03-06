@@ -164,7 +164,7 @@
 
             <TabControl Grid.Row="0">
                 <TabItem Header="{x:Static resources:Resource.OsdSettings_Tabs_General}">
-                    <StackPanel Margin="0,12,0,0">
+                    <StackPanel>
                         <wpfui:CardControl Margin="0,0,0,8" Icon="Window24">
                             <wpfui:CardControl.Header>
                                 <TextBlock Text="{x:Static resources:Resource.OsdSettings_General_OverlayStyle}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
@@ -195,25 +195,40 @@
                                 ValueChanged="OsdRefreshInterval_ValueChanged" />
                         </wpfui:CardControl>
 
+                        <wpfui:CardControl Margin="0,0,0,8" Icon="Target24">
+                            <wpfui:CardControl.Header>
+                                <TextBlock Text="{x:Static resources:Resource.OsdSettings_General_SnapThreshold}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                            </wpfui:CardControl.Header>
+                            <wpfui:NumberBox
+                                x:Name="_osdSnapThreshold"
+                                Width="100"
+                                Maximum="100"
+                                Minimum="0"
+                                SpinButtonPlacementMode="Compact"
+                                ValueChanged="OsdSnapThreshold_ValueChanged" />
+                        </wpfui:CardControl>
+
                         <wpfui:CardControl Margin="0,0,0,8" Icon="LockClosed24">
                             <wpfui:CardControl.Header>
                                 <TextBlock Text="{x:Static resources:Resource.OsdSettings_General_LockPosition}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
                             </wpfui:CardControl.Header>
-                            <wpfui:ToggleSwitch x:Name="_osdLockPosition" Checked="OsdLockPosition_CheckedOrUnchecked" Unchecked="OsdLockPosition_CheckedOrUnchecked" />
+                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <wpfui:Button
+                                    Padding="8,4"
+                                    Margin="0,0,12,0"
+                                    VerticalAlignment="Center"
+                                    Click="ResetPositionButton_Click"
+                                    ToolTip="{x:Static resources:Resource.OsdSettings_General_ResetPosition}"
+                                    Icon="ArrowReset24" />
+                                <wpfui:ToggleSwitch x:Name="_osdLockPosition" VerticalAlignment="Center" Checked="OsdLockPosition_CheckedOrUnchecked" Unchecked="OsdLockPosition_CheckedOrUnchecked" />
+                            </StackPanel>
                         </wpfui:CardControl>
-
-                        <wpfui:Button
-                            Margin="0,0,0,8"
-                            HorizontalAlignment="Stretch"
-                            Click="ResetPositionButton_Click"
-                            Content="{x:Static resources:Resource.OsdSettings_General_ResetPosition}"
-                            Icon="ArrowReset24" />
                     </StackPanel>
                 </TabItem>
 
                 <TabItem Header="{x:Static resources:Resource.OsdSettings_Tabs_Appearance}">
-                    <ScrollViewer Margin="0,12,0,0" VerticalScrollBarVisibility="Auto">
-                        <StackPanel Margin="4,4,12,12">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel Margin="0,0,12,0">
                             <wpfui:CardControl Margin="0,0,0,8" Icon="Layer24">
                                 <wpfui:CardControl.Header>
                                     <StackPanel>
@@ -229,29 +244,6 @@
                                     SmallChange="0.1"
                                     TickFrequency="0.1"
                                     ValueChanged="OsdOpacitySlider_ValueChanged" />
-                            </wpfui:CardControl>
-
-                            <wpfui:CardControl Margin="0,0,0,8" Icon="Color24">
-                                <wpfui:CardControl.Header>
-                                    <TextBlock Text="{x:Static resources:Resource.OsdSettings_Appearance_BackgroundColor}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
-                                </wpfui:CardControl.Header>
-                                <controls:ColorPickerControl
-                                    x:Name="_osdBackgroundColorPicker"
-                                    HorizontalAlignment="Right"
-                                    ColorChangedDelayed="OsdBackgroundColorPicker_ColorChangedDelayed" />
-                            </wpfui:CardControl>
-
-                            <wpfui:CardControl Margin="0,0,0,8" Icon="TextFontSize24">
-                                <wpfui:CardControl.Header>
-                                    <TextBlock Text="{x:Static resources:Resource.OsdSettings_Appearance_FontSize}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
-                                </wpfui:CardControl.Header>
-                                <wpfui:NumberBox
-                                    x:Name="_osdFontSize"
-                                    Width="100"
-                                    Maximum="24"
-                                    Minimum="8"
-                                    SpinButtonPlacementMode="Compact"
-                                    ValueChanged="OsdFontSize_ValueChanged" />
                             </wpfui:CardControl>
 
                             <wpfui:CardControl Margin="0,0,0,8" Icon="AppGeneric24">
@@ -289,22 +281,57 @@
                                 </StackPanel>
                             </wpfui:CardControl>
 
+                            <wpfui:CardControl Margin="0,0,0,8" Icon="TextFontSize24">
+                                <wpfui:CardControl.Header>
+                                    <TextBlock Text="{x:Static resources:Resource.OsdSettings_Appearance_FontSize}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                                </wpfui:CardControl.Header>
+                                <wpfui:NumberBox
+                                    x:Name="_osdFontSize"
+                                    Width="100"
+                                    Maximum="24"
+                                    Minimum="8"
+                                    SpinButtonPlacementMode="Compact"
+                                    ValueChanged="OsdFontSize_ValueChanged" />
+                            </wpfui:CardControl>
+
+                            <wpfui:CardControl Margin="0,0,0,8" Icon="Color24">
+                                <wpfui:CardControl.Header>
+                                    <TextBlock Text="{x:Static resources:Resource.OsdSettings_Appearance_BackgroundColor}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                                </wpfui:CardControl.Header>
+                                <controls:ColorPickerControl
+                                    x:Name="_osdBackgroundColorPicker"
+                                    HorizontalAlignment="Right"
+                                    ColorChangedDelayed="OsdBackgroundColorPicker_ColorChangedDelayed" />
+                            </wpfui:CardControl>
+
+                            <wpfui:CardControl Margin="0,0,0,8" Icon="Grid24">
+                                <wpfui:CardControl.Header>
+                                    <TextBlock Text="{x:Static resources:Resource.OsdSettings_Appearance_CategoryColor}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                                </wpfui:CardControl.Header>
+                                <controls:ColorPickerControl
+                                    x:Name="_categoryColorPicker"
+                                    HorizontalAlignment="Right"
+                                    ColorChangedDelayed="ColorPicker_ColorChangedDelayed" />
+                            </wpfui:CardControl>
+
                             <wpfui:CardControl Margin="0,0,0,8" Icon="Tag24">
                                 <wpfui:CardControl.Header>
                                     <TextBlock Text="{x:Static resources:Resource.OsdSettings_Appearance_LabelColor}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
                                 </wpfui:CardControl.Header>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                    <controls:ColorPickerControl
-                                        x:Name="_labelColorPicker"
-                                        ColorChangedDelayed="ColorPicker_ColorChangedDelayed" />
-                                    <ComboBox
-                                        x:Name="_labelColorSourceComboBox"
-                                        MinWidth="160"
-                                        Margin="8,0,0,0"
-                                        AutomationProperties.Name="{x:Static resources:Resource.OsdSettings_Appearance_LabelColor}"
-                                        MaxDropDownHeight="Auto"
-                                        SelectionChanged="LabelColorSourceComboBox_SelectionChanged" />
-                                </StackPanel>
+                                <controls:ColorPickerControl
+                                    x:Name="_labelColorPicker"
+                                    HorizontalAlignment="Right"
+                                    ColorChangedDelayed="ColorPicker_ColorChangedDelayed" />
+                            </wpfui:CardControl>
+
+                            <wpfui:CardControl Margin="0,0,0,8" Icon="TextNumberFormat24">
+                                <wpfui:CardControl.Header>
+                                    <TextBlock Text="{x:Static resources:Resource.OsdSettings_Appearance_ValueColor}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                                </wpfui:CardControl.Header>
+                                <controls:ColorPickerControl
+                                    x:Name="_valueColorPicker"
+                                    HorizontalAlignment="Right"
+                                    ColorChangedDelayed="ColorPicker_ColorChangedDelayed" />
                             </wpfui:CardControl>
 
                             <wpfui:CardControl Margin="0,0,0,8" Icon="Warning24">
@@ -331,66 +358,8 @@
                 </TabItem>
 
                 <TabItem Header="{x:Static resources:Resource.OsdSettings_Tabs_Thresholds}">
-                    <ScrollViewer Margin="0,12,0,0" VerticalScrollBarVisibility="Auto">
-                        <StackPanel Margin="4,4,12,12">
-                            <GroupBox Header="{x:Static resources:Resource.OsdSettings_Thresholds_Temperature}">
-                                <StackPanel>
-                                    <wpfui:CardControl Margin="0,0,0,8" Icon="Temperature24">
-                                        <wpfui:CardControl.Header>
-                                            <TextBlock Text="{x:Static resources:Resource.OsdSettings_Thresholds_Warning}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
-                                        </wpfui:CardControl.Header>
-                                        <wpfui:NumberBox
-                                            x:Name="_tempYellow"
-                                            Width="100"
-                                            Maximum="110"
-                                            Minimum="0"
-                                            SpinButtonPlacementMode="Compact"
-                                            ValueChanged="Threshold_ValueChanged" />
-                                    </wpfui:CardControl>
-                                    <wpfui:CardControl Margin="0" Icon="Temperature24">
-                                        <wpfui:CardControl.Header>
-                                            <TextBlock Text="{x:Static resources:Resource.OsdSettings_Thresholds_Critical}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
-                                        </wpfui:CardControl.Header>
-                                        <wpfui:NumberBox
-                                            x:Name="_tempRed"
-                                            Width="100"
-                                            Maximum="110"
-                                            Minimum="0"
-                                            SpinButtonPlacementMode="Compact"
-                                            ValueChanged="Threshold_ValueChanged" />
-                                    </wpfui:CardControl>
-                                </StackPanel>
-                            </GroupBox>
-
-                            <GroupBox Header="{x:Static resources:Resource.OsdSettings_Thresholds_Usage}">
-                                <StackPanel>
-                                    <wpfui:CardControl Margin="0,0,0,8" Icon="Handshake24">
-                                        <wpfui:CardControl.Header>
-                                            <TextBlock Text="{x:Static resources:Resource.OsdSettings_Thresholds_Warning}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
-                                        </wpfui:CardControl.Header>
-                                        <wpfui:NumberBox
-                                            x:Name="_usageYellow"
-                                            Width="100"
-                                            Maximum="100"
-                                            Minimum="0"
-                                            SpinButtonPlacementMode="Compact"
-                                            ValueChanged="Threshold_ValueChanged" />
-                                    </wpfui:CardControl>
-                                    <wpfui:CardControl Margin="0" Icon="Handshake24">
-                                        <wpfui:CardControl.Header>
-                                            <TextBlock Text="{x:Static resources:Resource.OsdSettings_Thresholds_Critical}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
-                                        </wpfui:CardControl.Header>
-                                        <wpfui:NumberBox
-                                            x:Name="_usageRed"
-                                            Width="100"
-                                            Maximum="100"
-                                            Minimum="0"
-                                            SpinButtonPlacementMode="Compact"
-                                            ValueChanged="Threshold_ValueChanged" />
-                                    </wpfui:CardControl>
-                                </StackPanel>
-                            </GroupBox>
-
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel Margin="0,0,12,0">
                             <GroupBox Header="{x:Static resources:Resource.OsdSettings_Thresholds_Performance}">
                                 <StackPanel>
                                     <wpfui:CardControl
@@ -401,7 +370,7 @@
                                             <TextBlock Text="{x:Static resources:Resource.OsdSettings_Thresholds_FpsRedline}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
                                         </wpfui:CardControl.Header>
                                         <wpfui:NumberBox
-                                            x:Name="_fpsRedline"
+                                            x:Name="_fpsCritical"
                                             Width="100"
                                             Maximum="1000"
                                             Minimum="0"
@@ -425,13 +394,71 @@
                                     </wpfui:CardControl>
                                 </StackPanel>
                             </GroupBox>
+
+                            <GroupBox Header="{x:Static resources:Resource.OsdSettings_Thresholds_Temperature}">
+                                <StackPanel>
+                                    <wpfui:CardControl Margin="0,0,0,8" Icon="Temperature24">
+                                        <wpfui:CardControl.Header>
+                                            <TextBlock Text="{x:Static resources:Resource.OsdSettings_Thresholds_Warning}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                                        </wpfui:CardControl.Header>
+                                        <wpfui:NumberBox
+                                            x:Name="_tempWarning"
+                                            Width="100"
+                                            Maximum="110"
+                                            Minimum="0"
+                                            SpinButtonPlacementMode="Compact"
+                                            ValueChanged="Threshold_ValueChanged" />
+                                    </wpfui:CardControl>
+                                    <wpfui:CardControl Margin="0" Icon="Temperature24">
+                                        <wpfui:CardControl.Header>
+                                            <TextBlock Text="{x:Static resources:Resource.OsdSettings_Thresholds_Critical}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                                        </wpfui:CardControl.Header>
+                                        <wpfui:NumberBox
+                                            x:Name="_tempCritical"
+                                            Width="100"
+                                            Maximum="110"
+                                            Minimum="0"
+                                            SpinButtonPlacementMode="Compact"
+                                            ValueChanged="Threshold_ValueChanged" />
+                                    </wpfui:CardControl>
+                                </StackPanel>
+                            </GroupBox>
+
+                            <GroupBox Header="{x:Static resources:Resource.OsdSettings_Thresholds_Usage}">
+                                <StackPanel>
+                                    <wpfui:CardControl Margin="0,0,0,8" Icon="DataUsage24">
+                                        <wpfui:CardControl.Header>
+                                            <TextBlock Text="{x:Static resources:Resource.OsdSettings_Thresholds_Warning}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                                        </wpfui:CardControl.Header>
+                                        <wpfui:NumberBox
+                                            x:Name="_usageWarning"
+                                            Width="100"
+                                            Maximum="100"
+                                            Minimum="0"
+                                            SpinButtonPlacementMode="Compact"
+                                            ValueChanged="Threshold_ValueChanged" />
+                                    </wpfui:CardControl>
+                                    <wpfui:CardControl Margin="0" Icon="DataUsage24">
+                                        <wpfui:CardControl.Header>
+                                            <TextBlock Text="{x:Static resources:Resource.OsdSettings_Thresholds_Critical}" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                                        </wpfui:CardControl.Header>
+                                        <wpfui:NumberBox
+                                            x:Name="_usageCritical"
+                                            Width="100"
+                                            Maximum="100"
+                                            Minimum="0"
+                                            SpinButtonPlacementMode="Compact"
+                                            ValueChanged="Threshold_ValueChanged" />
+                                    </wpfui:CardControl>
+                                </StackPanel>
+                            </GroupBox>
                         </StackPanel>
                     </ScrollViewer>
                 </TabItem>
 
                 <TabItem Header="{x:Static resources:Resource.OsdSettings_Tabs_SensorItems}">
-                    <ScrollViewer Margin="0,12,0,0" VerticalScrollBarVisibility="Auto">
-                        <StackPanel x:Name="_itemsStackPanel" Margin="4,4,12,12" />
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel x:Name="_itemsStackPanel" Margin="0,0,12,0" />
                     </ScrollViewer>
                 </TabItem>
             </TabControl>

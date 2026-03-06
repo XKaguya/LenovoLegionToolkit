@@ -813,11 +813,6 @@ public enum AccentColorSource
     Custom
 }
 
-public enum OsdColorSource
-{
-    Default,
-    Custom
-}
 
 public enum TemperatureUnit
 {
