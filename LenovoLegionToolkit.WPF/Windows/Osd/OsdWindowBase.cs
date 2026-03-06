@@ -180,15 +180,14 @@ public abstract class OsdWindowBase : Window
             var screen = WpfScreenHelper.Screen.FromWindow(this);
             if (screen != null)
             {
-                var workArea = screen.WorkingArea;
+                var workArea = screen.WpfWorkingArea;
                 
                 double snapThreshold = 32.0;
 
-                var rect = this.GetWindowPlacement();
                 double left = this.Left;
                 double top = this.Top;
-                double width = rect.Width;
-                double height = rect.Height;
+                double width = this.ActualWidth > 0 ? this.ActualWidth : this.Width;
+                double height = this.ActualHeight > 0 ? this.ActualHeight : this.Height;
 
                 if (Math.Abs(left - workArea.Left) < snapThreshold)
                 {
