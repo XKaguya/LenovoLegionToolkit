@@ -289,6 +289,9 @@
   <data name="ArgumentWindow_Flag_DisableUpdateChecker" xml:space="preserve">
     <value>Disable Update Checker</value>
   </data>
+  <data name="ArgumentWindow_Flag_EnableLampArray" xml:space="preserve">
+    <value>Enable Lamp Array</value>
+  </data>
   <data name="ArgumentWindow_Flag_ExpGpuMode" xml:space="preserve">
     <value>Experimental GPU Working Mode</value>
   </data>
@@ -1027,69 +1030,6 @@
   <data name="FlipToStartControl_Title" xml:space="preserve">
     <value>Разгъни за стартиране</value>
   </data>
-  <data name="FloatingGadgetAutomationStepControl_Message" xml:space="preserve">
-    <value>Show or Hide the Floating Gadget</value>
-  </data>
-  <data name="FloatingGadgetAutomationStepControl_Title" xml:space="preserve">
-    <value>Floating Gadget</value>
-  </data>
-  <data name="FloatingGadgets_Chipset" xml:space="preserve">
-    <value>Chipset</value>
-  </data>
-  <data name="FloatingGadgets_Cpu" xml:space="preserve">
-    <value>CPU</value>
-  </data>
-  <data name="FloatingGadgets_CPU_Fan" xml:space="preserve">
-    <value>CPU Fan</value>
-  </data>
-  <data name="FloatingGadgets_Disk_0_Temperature" xml:space="preserve">
-    <value>Disk 1 Temperature</value>
-  </data>
-  <data name="FloatingGadgets_Disk_1_Temperature" xml:space="preserve">
-    <value>Disk 2 Temperature</value>
-  </data>
-  <data name="FloatingGadgets_Fps" xml:space="preserve">
-    <value>FPS</value>
-  </data>
-  <data name="FloatingGadgets_Frame_Time" xml:space="preserve">
-    <value>Frame Time</value>
-  </data>
-  <data name="FloatingGadgets_Gpu" xml:space="preserve">
-    <value>GPU</value>
-  </data>
-  <data name="FloatingGadgets_GPU_Fan" xml:space="preserve">
-    <value>GPU Fan</value>
-  </data>
-  <data name="FloatingGadgets_Low_Fps" xml:space="preserve">
-    <value>1% Low</value>
-  </data>
-  <data name="FloatingGadgets_Memory_Temperature" xml:space="preserve">
-    <value>Memory Temperature</value>
-  </data>
-  <data name="FloatingGadgets_Memory_Utilization" xml:space="preserve">
-    <value>Memory Utilization</value>
-  </data>
-  <data name="FloatingGadgets_PCH_Fan" xml:space="preserve">
-    <value>PCH Fan</value>
-  </data>
-  <data name="FloatingGadget_Custom_Chipset" xml:space="preserve">
-    <value>Chipset</value>
-  </data>
-  <data name="FloatingGadget_Custom_CPU" xml:space="preserve">
-    <value>CPU</value>
-  </data>
-  <data name="FloatingGadget_Custom_Game" xml:space="preserve">
-    <value>Game</value>
-  </data>
-  <data name="FloatingGadget_Custom_GPU" xml:space="preserve">
-    <value>GPU</value>
-  </data>
-  <data name="FloatingGadget_Custom_Title" xml:space="preserve">
-    <value>Customize Gadget Elements</value>
-  </data>
-  <data name="FloatingGadget_Style_Simple" xml:space="preserve">
-    <value>Simple</value>
-  </data>
   <data name="FnLockAutomationStepControl_Message" xml:space="preserve">
     <value>Използвайте второстепенните функции на клавишите F1-F12 без да задържате клавиша Fn.</value>
   </data>
@@ -1821,6 +1761,150 @@ It won't affect other full screen windows, but you will not be able to click on 
   <data name="Open" xml:space="preserve">
     <value>Отвори</value>
   </data>
+  <data name="OsdAutomationStepControl_Message" xml:space="preserve">
+    <value>Show or Hide the OSD</value>
+  </data>
+  <data name="OsdAutomationStepControl_Title" xml:space="preserve">
+    <value>OSD</value>
+  </data>
+  <data name="OsdColorSource_Custom" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="OsdColorSource_Default" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="OsdSettings_Appearance_BackgroundColor" xml:space="preserve">
+    <value>Background Color</value>
+  </data>
+  <data name="OsdSettings_Appearance_CornerRadius" xml:space="preserve">
+    <value>Corner Radius</value>
+  </data>
+  <data name="OsdSettings_Appearance_CornerRadiusBottom" xml:space="preserve">
+    <value>Bottom</value>
+  </data>
+  <data name="OsdSettings_Appearance_CornerRadiusTop" xml:space="preserve">
+    <value>Top</value>
+  </data>
+  <data name="OsdSettings_Appearance_CriticalColor" xml:space="preserve">
+    <value>Critical Color</value>
+  </data>
+  <data name="OsdSettings_Appearance_FontSize" xml:space="preserve">
+    <value>Font Size</value>
+  </data>
+  <data name="OsdSettings_Appearance_LabelColor" xml:space="preserve">
+    <value>Label Color</value>
+  </data>
+  <data name="OsdSettings_Appearance_Opacity" xml:space="preserve">
+    <value>Opacity</value>
+  </data>
+  <data name="OsdSettings_Appearance_WarningColor" xml:space="preserve">
+    <value>Warning Color</value>
+  </data>
+  <data name="OsdSettings_General_LockPosition" xml:space="preserve">
+    <value>Lock Position</value>
+  </data>
+  <data name="OsdSettings_General_OverlayStyle" xml:space="preserve">
+    <value>Overlay Style</value>
+  </data>
+  <data name="OsdSettings_General_RefreshInterval" xml:space="preserve">
+    <value>Refresh Interval</value>
+  </data>
+  <data name="OsdSettings_General_RefreshInterval_Tooltip" xml:space="preserve">
+    <value>Sensor refresh interval</value>
+  </data>
+  <data name="OsdSettings_General_ResetPosition" xml:space="preserve">
+    <value>Reset Position</value>
+  </data>
+  <data name="OsdSettings_Tabs_Appearance" xml:space="preserve">
+    <value>Appearance</value>
+  </data>
+  <data name="OsdSettings_Tabs_General" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="OsdSettings_Tabs_SensorItems" xml:space="preserve">
+    <value>Sensors</value>
+  </data>
+  <data name="OsdSettings_Tabs_Thresholds" xml:space="preserve">
+    <value>Thresholds</value>
+  </data>
+  <data name="OsdSettings_Thresholds_Critical" xml:space="preserve">
+    <value>Critical</value>
+  </data>
+  <data name="OsdSettings_Thresholds_FpsRedline" xml:space="preserve">
+    <value>FPS Redline</value>
+  </data>
+  <data name="OsdSettings_Thresholds_FpsRedline_Description" xml:space="preserve">
+    <value>The minimum acceptable frame rate. Below this, the color turns critical.</value>
+  </data>
+  <data name="OsdSettings_Thresholds_LowFpsDelta" xml:space="preserve">
+    <value>Low FPS Delta</value>
+  </data>
+  <data name="OsdSettings_Thresholds_LowFpsDelta_Description" xml:space="preserve">
+    <value>The maximum difference between average FPS and 1% Low. Above this, the counter turns critical.</value>
+  </data>
+  <data name="OsdSettings_Thresholds_Performance" xml:space="preserve">
+    <value>Performance</value>
+  </data>
+  <data name="OsdSettings_Thresholds_Temperature" xml:space="preserve">
+    <value>Temperature</value>
+  </data>
+  <data name="OsdSettings_Thresholds_Usage" xml:space="preserve">
+    <value>Usage</value>
+  </data>
+  <data name="OsdSettings_Thresholds_Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="OsdWindow_Title" xml:space="preserve">
+    <value>OSD Settings</value>
+  </data>
+  <data name="Osd_Chipset" xml:space="preserve">
+    <value>Chipset</value>
+  </data>
+  <data name="Osd_Cpu" xml:space="preserve">
+    <value>CPU</value>
+  </data>
+  <data name="Osd_CPU_Fan" xml:space="preserve">
+    <value>CPU Fan</value>
+  </data>
+  <data name="Osd_Disk_0_Temperature" xml:space="preserve">
+    <value>Disk 1 Temperature</value>
+  </data>
+  <data name="Osd_Disk_1_Temperature" xml:space="preserve">
+    <value>Disk 2 Temperature</value>
+  </data>
+  <data name="Osd_Fps" xml:space="preserve">
+    <value>FPS</value>
+  </data>
+  <data name="Osd_Frame_Time" xml:space="preserve">
+    <value>Frame Time</value>
+  </data>
+  <data name="Osd_Game" xml:space="preserve">
+    <value>Game</value>
+  </data>
+  <data name="Osd_Gpu" xml:space="preserve">
+    <value>GPU</value>
+  </data>
+  <data name="Osd_GPU_Fan" xml:space="preserve">
+    <value>GPU Fan</value>
+  </data>
+  <data name="Osd_Low_Fps" xml:space="preserve">
+    <value>1% Low</value>
+  </data>
+  <data name="Osd_Memory_Temperature" xml:space="preserve">
+    <value>Memory Temperature</value>
+  </data>
+  <data name="Osd_Memory_Utilization" xml:space="preserve">
+    <value>Memory Utilization</value>
+  </data>
+  <data name="Osd_PCH_Fan" xml:space="preserve">
+    <value>PCH Fan</value>
+  </data>
+  <data name="Osd_Style_Bar" xml:space="preserve">
+    <value>Bar</value>
+  </data>
+  <data name="Osd_Style_Panel" xml:space="preserve">
+    <value>Panel</value>
+  </data>
   <data name="OverclockDiscreteGPUAutomationStepControl_Message" xml:space="preserve">
     <value>Увеличете производителността чрез овърклок на допълнителната видео карта.
 
@@ -2332,7 +2416,7 @@ It won't affect other full screen windows, but you will not be able to click on 
     <value>Average Frequency</value>
   </data>
   <data name="SensorSettingsPage_CPU_Frequency_Message" xml:space="preserve">
-    <value>Determine the type of CPU frequency displayed on the Dashboard and FloatingGadget.</value>
+    <value>Determine the type of CPU frequency displayed on the Dashboard and Osd.</value>
   </data>
   <data name="SensorSettingsPage_CPU_Frequency_Title" xml:space="preserve">
     <value>CPU Frequency</value>
@@ -2561,15 +2645,6 @@ It won't affect other full screen windows, but you will not be able to click on 
   <data name="SettingsPage_ExcludeRefreshRates_Title" xml:space="preserve">
     <value>Изключи честотата на опресняване</value>
   </data>
-  <data name="SettingsPage_FloatingGadgets_Message" xml:space="preserve">
-    <value>Floating Gadgets​​ is a floating window that displays real-time sensor information in an overlay style.</value>
-  </data>
-  <data name="SettingsPage_FloatingGadgets_Title" xml:space="preserve">
-    <value>Enable Floating Gadget</value>
-  </data>
-  <data name="SettingsPage_FloatingGadgets_Tooltip" xml:space="preserve">
-    <value>Controls sensor refresh interval.</value>
-  </data>
   <data name="SettingsPage_HardwareAcceleration_Message" xml:space="preserve">
     <value>Use hardware acceleration for the user interface. This can improve performance and fluidity.</value>
   </data>
@@ -2641,6 +2716,12 @@ It won't affect other full screen windows, but you will not be able to click on 
   </data>
   <data name="SettingsPage_OnBatterySinceReset_Title" xml:space="preserve">
     <value>Нулиране на "На батерия от" брояча при стартиране</value>
+  </data>
+  <data name="SettingsPage_Osd_Message" xml:space="preserve">
+    <value>Floating overlay showing live sensor data.</value>
+  </data>
+  <data name="SettingsPage_Osd_Title" xml:space="preserve">
+    <value>Enable OSD</value>
   </data>
   <data name="SettingsPage_PowerModeMapping_Message" xml:space="preserve">
     <value>Automatically change Windows Power Plan or Windows Power Mode when changing Power Modes.</value>
