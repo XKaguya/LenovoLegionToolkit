@@ -78,7 +78,7 @@ public abstract class OsdWindowBase : Window
 
     protected HashSet<OsdItem> _activeItems = [];
     protected Dictionary<OsdItem, FrameworkElement> _itemsMap = [];
-    protected Dictionary<FrameworkElement, (List<OsdItem> Items, FrameworkElement? Separator)> _gadgetGroups = [];
+    protected Dictionary<FrameworkElement, (List<OsdItem> Items, FrameworkElement? Separator)> _measurementGroups = [];
 
     #endregion
 
@@ -86,12 +86,6 @@ public abstract class OsdWindowBase : Window
 
     protected void InitOsd()
     {
-        if (_OsdSettings.Store.Items.Count == 0)
-        {
-            _OsdSettings.Store.Items = Enum.GetValues<OsdItem>().ToList();
-            _OsdSettings.SynchronizeStore();
-        }
-
         _activeItems = new HashSet<OsdItem>(_OsdSettings.Store.Items);
 
         IsVisibleChanged += OnVisibilityChanged;
@@ -109,7 +103,7 @@ public abstract class OsdWindowBase : Window
         _fpsController.FpsDataUpdated += OnFpsDataUpdated;
 
         ApplyAppearanceSettings();
-        UpdateGadgetControlsVisibility();
+        UpdateMeasurementControlsVisibility();
     }
 
     private async void InitializeComponentSpecifics()
@@ -135,7 +129,7 @@ public abstract class OsdWindowBase : Window
                 if (_activeItems.SetEquals(newItemsSet)) return;
 
                 _activeItems = newItemsSet;
-                UpdateGadgetControlsVisibility();
+                UpdateMeasurementControlsVisibility();
             });
         });
 
@@ -313,7 +307,7 @@ public abstract class OsdWindowBase : Window
             _cts = new CancellationTokenSource();
 
             CheckAndUpdateFpsMonitoring();
-            UpdateGadgetControlsVisibility();
+            UpdateMeasurementControlsVisibility();
 
             await TheRing(_cts.Token);
         }
@@ -377,7 +371,7 @@ public abstract class OsdWindowBase : Window
 
     #region Visibility
 
-    protected void UpdateGadgetControlsVisibility()
+    protected void UpdateMeasurementControlsVisibility()
     {
         bool isHybrid = _sensorsGroupControllers.IsHybrid;
 
@@ -401,7 +395,7 @@ public abstract class OsdWindowBase : Window
 
         var visibleGroups = new List<FrameworkElement>();
 
-        foreach (var (groupPanel, (items, _)) in _gadgetGroups)
+        foreach (var (groupPanel, (items, _)) in _measurementGroups)
         {
             bool isGroupActive = items.Any(item =>
             {
@@ -415,7 +409,7 @@ public abstract class OsdWindowBase : Window
             if (isGroupActive) visibleGroups.Add(groupPanel);
         }
 
-        foreach (var (groupPanel, (_, separator)) in _gadgetGroups)
+        foreach (var (groupPanel, (_, separator)) in _measurementGroups)
         {
             if (separator == null) continue;
 

@@ -41,7 +41,7 @@ public partial class OsdPanelWindow : OsdWindowBase
             { OsdItem.Disk2Temperature, _disk1Temperature },
         };
 
-        _gadgetGroups = new()
+        _measurementGroups = new()
         {
             { _fpsGroup, ([OsdItem.Fps, OsdItem.LowFps, OsdItem.FrameTime], _separatorFps) },
             { _cpuGroup, ([OsdItem.CpuUtilization, OsdItem.CpuFrequency, OsdItem.CpuPCoreFrequency, OsdItem.CpuECoreFrequency, OsdItem.CpuTemperature, OsdItem.CpuPower, OsdItem.CpuFan], null) },

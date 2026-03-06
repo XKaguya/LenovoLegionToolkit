@@ -17,7 +17,7 @@ using LenovoLegionToolkit.WPF.Resources;
 
 namespace LenovoLegionToolkit.WPF.Windows.Osd;
 
-public class GadgetItemGroup
+public class OsdItemGroup
 {
     public string Header { get; set; } = string.Empty;
     public List<OsdItem> Items { get; set; } = new List<OsdItem>();
@@ -107,26 +107,26 @@ public partial class OsdSettingsWindow
 
     private void InitializeCheckboxes()
     {
-        var groups = new List<GadgetItemGroup>
+        var groups = new List<OsdItemGroup>
         {
-            new GadgetItemGroup { Header = Resource.Osd_Game, Items =
+            new OsdItemGroup { Header = Resource.Osd_Game, Items =
                 [OsdItem.Fps, OsdItem.LowFps, OsdItem.FrameTime]
             },
-            new GadgetItemGroup { Header = Resource.Osd_Cpu, Items =
+            new OsdItemGroup { Header = Resource.Osd_Cpu, Items =
                 [
                     OsdItem.CpuUtilization, OsdItem.CpuFrequency,
                     OsdItem.CpuTemperature,
                     OsdItem.CpuPower, OsdItem.CpuFan
                 ]
             },
-            new GadgetItemGroup { Header = Resource.Osd_Gpu, Items =
+            new OsdItemGroup { Header = Resource.Osd_Gpu, Items =
                 [
                     OsdItem.GpuUtilization, OsdItem.GpuFrequency,
                     OsdItem.GpuTemperature,
                     OsdItem.GpuVramTemperature, OsdItem.GpuPower, OsdItem.GpuFan
                 ]
             },
-            new GadgetItemGroup { Header = Resource.Osd_Chipset, Items =
+            new OsdItemGroup { Header = Resource.Osd_Chipset, Items =
                 [
                     OsdItem.MemoryUtilization, OsdItem.MemoryTemperature,
                     OsdItem.Disk1Temperature, OsdItem.Disk2Temperature,
@@ -264,14 +264,14 @@ public partial class OsdSettingsWindow
                 if (styleTypeMapping.TryGetValue(selectedStyle, out Type? targetType) &&
                     App.Current.OsdWindow.GetType() != targetType)
                 {
-                    var oldGadgetPos = new Point(App.Current.OsdWindow.Left, App.Current.OsdWindow.Top);
+                    var oldOsdPos = new Point(App.Current.OsdWindow.Left, App.Current.OsdWindow.Top);
                     App.Current.OsdWindow.Close();
 
                     if (constructorMapping.TryGetValue(selectedStyle, out Func<Window>? constructor))
                     {
                         App.Current.OsdWindow = constructor();
-                        App.Current.OsdWindow.Left = oldGadgetPos.X;
-                        App.Current.OsdWindow.Top = oldGadgetPos.Y;
+                        App.Current.OsdWindow.Left = oldOsdPos.X;
+                        App.Current.OsdWindow.Top = oldOsdPos.Y;
                         App.Current.OsdWindow.Show();
                     }
                 }

@@ -1074,7 +1074,7 @@ public partial class App
     private void HandleOsdCommand(OsdState command)
     {
         var OsdSettings = IoCContainer.Resolve<OsdSettings>();
-        bool shouldBeUpper = OsdSettings.Store.SelectedStyleIndex == 1;
+        bool shouldBeBar = OsdSettings.Store.SelectedStyleIndex == 1;
 
         switch (command)
         {
@@ -1086,7 +1086,7 @@ public partial class App
                 break;
 
             case OsdState.Show:
-                EnsureCorrectGadgetType(shouldBeUpper);
+                EnsureCorrectOsdStyle(shouldBeBar);
                 if (OsdWindow != null)
                 {
                     OsdWindow.Show();
@@ -1100,7 +1100,7 @@ public partial class App
                 }
                 else
                 {
-                    EnsureCorrectGadgetType(shouldBeUpper);
+                    EnsureCorrectOsdStyle(shouldBeBar);
                     if (OsdWindow != null)
                     {
                         OsdWindow.Show();
@@ -1113,25 +1113,25 @@ public partial class App
         OsdSettings.SynchronizeStore();
     }
 
-    private void EnsureCorrectGadgetType(bool shouldBeUpper)
+    private void EnsureCorrectOsdStyle(bool shouldBeBar)
     {
-        if (OsdWindow != null && (OsdWindow is OsdBarWindow) != shouldBeUpper)
+        if (OsdWindow != null && (OsdWindow is OsdBarWindow) != shouldBeBar)
         {
             OsdWindow.Close();
             OsdWindow = null;
         }
 
-        EnsureGadgetCreated(shouldBeUpper);
+        EnsureOsdWindowCreated(shouldBeBar);
     }
 
-    private void EnsureGadgetCreated(bool isUpper)
+    private void EnsureOsdWindowCreated(bool isBar)
     {
         if (OsdWindow != null)
         {
             return;
         }
 
-        OsdWindow = isUpper ? new OsdBarWindow() : new OsdPanelWindow();
+        OsdWindow = isBar ? new OsdBarWindow() : new OsdPanelWindow();
         OsdWindow.Closed += (s, e) =>
         {
             OsdWindow = null;
