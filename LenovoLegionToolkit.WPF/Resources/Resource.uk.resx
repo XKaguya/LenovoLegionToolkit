@@ -1760,10 +1760,10 @@
     <value>Відкрити</value>
   </data>
   <data name="OsdAutomationStepControl_Message" xml:space="preserve">
-    <value>Show or Hide the OSD</value>
+    <value>Показати або приховати плаваючий ґаджет</value>
   </data>
   <data name="OsdAutomationStepControl_Title" xml:space="preserve">
-    <value>OSD</value>
+    <value>Плаваючий ґаджет</value>
   </data>
   <data name="OsdColorSource_Custom" xml:space="preserve">
     <value>Custom</value>
@@ -1856,37 +1856,37 @@
     <value>OSD Settings</value>
   </data>
   <data name="Osd_Chipset" xml:space="preserve">
-    <value>Chipset</value>
+    <value>Чіпсет</value>
   </data>
   <data name="Osd_Cpu" xml:space="preserve">
-    <value>CPU</value>
+    <value>ЦП</value>
   </data>
   <data name="Osd_CPU_Fan" xml:space="preserve">
     <value>CPU Fan</value>
   </data>
   <data name="Osd_Disk_0_Temperature" xml:space="preserve">
-    <value>Disk 1 Temperature</value>
+    <value>Температура диску 1</value>
   </data>
   <data name="Osd_Disk_1_Temperature" xml:space="preserve">
-    <value>Disk 2 Temperature</value>
+    <value>Температура диску 2</value>
   </data>
   <data name="Osd_Fps" xml:space="preserve">
     <value>FPS</value>
   </data>
   <data name="Osd_Frame_Time" xml:space="preserve">
-    <value>Frame Time</value>
+    <value>Час кадру</value>
   </data>
   <data name="Osd_Game" xml:space="preserve">
-    <value>Game</value>
+    <value>Гра</value>
   </data>
   <data name="Osd_Gpu" xml:space="preserve">
-    <value>GPU</value>
+    <value>ГП</value>
   </data>
   <data name="Osd_GPU_Fan" xml:space="preserve">
     <value>GPU Fan</value>
   </data>
   <data name="Osd_Low_Fps" xml:space="preserve">
-    <value>1% Low</value>
+    <value>Менше 1%</value>
   </data>
   <data name="Osd_Memory_Temperature" xml:space="preserve">
     <value>Memory Temperature</value>
@@ -1895,7 +1895,7 @@
     <value>Memory Utilization</value>
   </data>
   <data name="Osd_PCH_Fan" xml:space="preserve">
-    <value>PCH Fan</value>
+    <value>Вентилятор PCH</value>
   </data>
   <data name="Osd_Style_Bar" xml:space="preserve">
     <value>Bar</value>
@@ -2415,7 +2415,7 @@
     <value>Середня частота</value>
   </data>
   <data name="SensorSettingsPage_CPU_Frequency_Message" xml:space="preserve">
-    <value>Determine the type of CPU frequency displayed on the Dashboard and Osd.</value>
+    <value>Визначте тип частоти ЦП, що показується на панелі інструментів та плаваючому гаджеті.</value>
   </data>
   <data name="SensorSettingsPage_CPU_Frequency_Title" xml:space="preserve">
     <value>Частота ЦП</value>
@@ -2729,7 +2729,7 @@
     <value>Синхронізація режиму живлення</value>
   </data>
   <data name="SettingsPage_RestartRequired_Message" xml:space="preserve">
-    <value>Restart to apply changes.</value>
+    <value>Перезапустіть, щоб застосувати зміни.</value>
   </data>
   <data name="SettingsPage_Select_BackgroundImage_AllFiles" xml:space="preserve">
     <value>Всі файли</value>
