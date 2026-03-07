@@ -293,13 +293,13 @@
     <value>Enable Lamp Array</value>
   </data>
   <data name="ArgumentWindow_Flag_ExpGpuMode" xml:space="preserve">
-    <value>Experimental GPU Working Mode</value>
+    <value> Experimental GPU Working Mode</value>
   </data>
   <data name="ArgumentWindow_Flag_ProxyPassword" xml:space="preserve">
     <value>Proxy Password</value>
   </data>
   <data name="ArgumentWindow_Flag_ProxyUrl" xml:space="preserve">
-    <value>Proxy URL</value>
+    <value> Proxy URL</value>
   </data>
   <data name="ArgumentWindow_Flag_ProxyUsername" xml:space="preserve">
     <value>Proxy Username</value>
@@ -447,7 +447,7 @@ Seules les actions qui correspondent à l'état actuel seront exécutées.</valu
     <value>Au coucher du soleil</value>
   </data>
   <data name="AutomationPipelineControl_SubtitlePart_AtTime" xml:space="preserve">
-    <value>At {0:D2}:{1:D2}:{2:D2}</value>
+    <value>À {0:D2}:{1:D2}:{2:D2}</value>
   </data>
   <data name="AutomationPipelineControl_SubtitlePart_PowerMode" xml:space="preserve">
     <value>Mode d'alimentation</value>
@@ -1546,7 +1546,7 @@ Click Yes to disable and No to ignore.</value>
     <value>Paramètres</value>
   </data>
   <data name="MainWindow_PawnIO_Warning_Message" xml:space="preserve">
-    <value>You need to install PawnIO first to use hardware sensors!</value>
+    <value>You need install PawnIO first to use the new dashboard!</value>
   </data>
   <data name="MainWindow_PawnIO_Warning_Title" xml:space="preserve">
     <value>Warning</value>
