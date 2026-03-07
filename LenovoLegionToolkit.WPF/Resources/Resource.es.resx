@@ -1764,10 +1764,10 @@ No afectará a otras ventanas a pantalla completa, pero no podrá hacer clic en 
     <value>Abrir</value>
   </data>
   <data name="OsdAutomationStepControl_Message" xml:space="preserve">
-    <value>Show or Hide the OSD</value>
+    <value>Mostrar u ocultar el widget flotante</value>
   </data>
   <data name="OsdAutomationStepControl_Title" xml:space="preserve">
-    <value>OSD</value>
+    <value>Widget flotante</value>
   </data>
   <data name="OsdColorSource_Custom" xml:space="preserve">
     <value>Custom</value>
@@ -1869,19 +1869,19 @@ No afectará a otras ventanas a pantalla completa, pero no podrá hacer clic en 
     <value>CPU Fan</value>
   </data>
   <data name="Osd_Disk_0_Temperature" xml:space="preserve">
-    <value>Disk 1 Temperature</value>
+    <value>Temperatura Disco 1</value>
   </data>
   <data name="Osd_Disk_1_Temperature" xml:space="preserve">
-    <value>Disk 2 Temperature</value>
+    <value>Temperatura Disco 2</value>
   </data>
   <data name="Osd_Fps" xml:space="preserve">
     <value>FPS</value>
   </data>
   <data name="Osd_Frame_Time" xml:space="preserve">
-    <value>Frame Time</value>
+    <value>Tiempo de fotograma</value>
   </data>
   <data name="Osd_Game" xml:space="preserve">
-    <value>Game</value>
+    <value>Juego</value>
   </data>
   <data name="Osd_Gpu" xml:space="preserve">
     <value>GPU</value>
@@ -1890,7 +1890,7 @@ No afectará a otras ventanas a pantalla completa, pero no podrá hacer clic en 
     <value>GPU Fan</value>
   </data>
   <data name="Osd_Low_Fps" xml:space="preserve">
-    <value>1% Low</value>
+    <value>1% Mínimo</value>
   </data>
   <data name="Osd_Memory_Temperature" xml:space="preserve">
     <value>Memory Temperature</value>
@@ -1899,7 +1899,7 @@ No afectará a otras ventanas a pantalla completa, pero no podrá hacer clic en 
     <value>Memory Utilization</value>
   </data>
   <data name="Osd_PCH_Fan" xml:space="preserve">
-    <value>PCH Fan</value>
+    <value>Ventilador PCH</value>
   </data>
   <data name="Osd_Style_Bar" xml:space="preserve">
     <value>Bar</value>
@@ -2420,7 +2420,7 @@ Asegúrese primero de que su script se ejecuta correctamente.</value>
     <value>Frecuencia Media</value>
   </data>
   <data name="SensorSettingsPage_CPU_Frequency_Message" xml:space="preserve">
-    <value>Determine the type of CPU frequency displayed on the Dashboard and Osd.</value>
+    <value>Determina el tipo de frecuencia de CPU mostrada en el panel de control y ventana flotante.</value>
   </data>
   <data name="SensorSettingsPage_CPU_Frequency_Title" xml:space="preserve">
     <value>Frecuencia de la CPU</value>
