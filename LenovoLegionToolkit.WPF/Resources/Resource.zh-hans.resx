@@ -448,7 +448,7 @@
     <value>日落时</value>
   </data>
   <data name="AutomationPipelineControl_SubtitlePart_AtTime" xml:space="preserve">
-    <value>At {0:D2}:{1:D2}:{2:D2}</value>
+    <value>将在 {0:D2}:{1:D2}:{2:D2} 运行</value>
   </data>
   <data name="AutomationPipelineControl_SubtitlePart_PowerMode" xml:space="preserve">
     <value>性能模式</value>
@@ -1779,7 +1779,7 @@
     <value>背景色</value>
   </data>
   <data name="OsdSettings_Appearance_CategoryColor" xml:space="preserve">
-    <value>Category Color</value>
+    <value>类别颜色</value>
   </data>
   <data name="OsdSettings_Appearance_CornerRadius" xml:space="preserve">
     <value>圆角半径</value>
@@ -1803,7 +1803,7 @@
     <value>透明度</value>
   </data>
   <data name="OsdSettings_Appearance_ValueColor" xml:space="preserve">
-    <value>Value Color</value>
+    <value>数值颜色</value>
   </data>
   <data name="OsdSettings_Appearance_WarningColor" xml:space="preserve">
     <value>警告值颜色</value>
@@ -1824,7 +1824,7 @@
     <value>默认位置</value>
   </data>
   <data name="OsdSettings_General_SnapThreshold" xml:space="preserve">
-    <value>Snapping Threshold</value>
+    <value>吸附阈值</value>
   </data>
   <data name="OsdSettings_Tabs_Appearance" xml:space="preserve">
     <value>样式</value>
@@ -1875,7 +1875,7 @@
     <value>CPU</value>
   </data>
   <data name="Osd_CPU_Fan" xml:space="preserve">
-    <value>Fan</value>
+    <value>风扇转速</value>
   </data>
   <data name="Osd_Disk_0_Temperature" xml:space="preserve">
     <value>磁盘1温度</value>
@@ -1884,7 +1884,7 @@
     <value>磁盘2温度</value>
   </data>
   <data name="Osd_ECoreClock" xml:space="preserve">
-    <value>E-Core Clock</value>
+    <value>能效核频率</value>
   </data>
   <data name="Osd_Fps" xml:space="preserve">
     <value>FPS</value>
@@ -1899,22 +1899,22 @@
     <value>GPU</value>
   </data>
   <data name="Osd_GPU_Fan" xml:space="preserve">
-    <value>Fan</value>
+    <value>风扇转速</value>
   </data>
   <data name="Osd_Low_Fps" xml:space="preserve">
     <value>1% Low</value>
   </data>
   <data name="Osd_Memory_Temperature" xml:space="preserve">
-    <value>Temperature</value>
+    <value>温度</value>
   </data>
   <data name="Osd_Memory_Utilization" xml:space="preserve">
-    <value>Utilization</value>
+    <value>利用率</value>
   </data>
   <data name="Osd_PCH_Fan" xml:space="preserve">
     <value>风扇转速</value>
   </data>
   <data name="Osd_PCoreClock" xml:space="preserve">
-    <value>P-Core Clock</value>
+    <value>性能核频率</value>
   </data>
   <data name="Osd_Style_Bar" xml:space="preserve">
     <value>栏（简洁）</value>
@@ -2335,7 +2335,7 @@
     <value>CPU 温度</value>
   </data>
   <data name="SensorItem_CpuUtilitzation" xml:space="preserve">
-    <value>CPU Utilization</value>
+    <value>利用率</value>
   </data>
   <data name="SensorItem_Disk1Temperature" xml:space="preserve">
     <value>磁盘 1 温度</value>
@@ -2398,10 +2398,10 @@
     <value>核心</value>
   </data>
   <data name="SensorsControl_GpuMemoryTemperature_Title" xml:space="preserve">
-    <value>VRAM Temperature</value>
+    <value>显存温度</value>
   </data>
   <data name="SensorsControl_GpuVramUtilization_Title" xml:space="preserve">
-    <value>VRAM Utilization</value>
+    <value>显存利用率</value>
   </data>
   <data name="SensorsControl_GPU_Power" xml:space="preserve">
     <value>功耗</value>
@@ -2428,7 +2428,7 @@
     <value>南桥</value>
   </data>
   <data name="SensorsControl_RefreshInterval" xml:space="preserve">
-    <value>Refresh Interval</value>
+    <value>刷新频率</value>
   </data>
   <data name="SensorsControl_State_Title" xml:space="preserve">
     <value>状态</value>
