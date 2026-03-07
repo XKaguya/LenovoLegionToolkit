@@ -1762,10 +1762,10 @@ Andere Vollbildfenster werden dadurch nicht beeinträchtigt, aber Sie können ni
     <value>Öffnen</value>
   </data>
   <data name="OsdAutomationStepControl_Message" xml:space="preserve">
-    <value>Show or Hide the OSD</value>
+    <value>Schwebendes Gadget anzeigen oder verstecken</value>
   </data>
   <data name="OsdAutomationStepControl_Title" xml:space="preserve">
-    <value>OSD</value>
+    <value>Schwebendes Gadget</value>
   </data>
   <data name="OsdColorSource_Custom" xml:space="preserve">
     <value>Custom</value>
@@ -1858,7 +1858,7 @@ Andere Vollbildfenster werden dadurch nicht beeinträchtigt, aber Sie können ni
     <value>OSD Settings</value>
   </data>
   <data name="Osd_Chipset" xml:space="preserve">
-    <value>Chipset</value>
+    <value>Chipsatz</value>
   </data>
   <data name="Osd_Cpu" xml:space="preserve">
     <value>CPU</value>
@@ -1867,19 +1867,19 @@ Andere Vollbildfenster werden dadurch nicht beeinträchtigt, aber Sie können ni
     <value>CPU Fan</value>
   </data>
   <data name="Osd_Disk_0_Temperature" xml:space="preserve">
-    <value>Disk 1 Temperature</value>
+    <value>Datenträger 1 Temperatur</value>
   </data>
   <data name="Osd_Disk_1_Temperature" xml:space="preserve">
-    <value>Disk 2 Temperature</value>
+    <value>Datenträger 2 Temperatur</value>
   </data>
   <data name="Osd_Fps" xml:space="preserve">
     <value>FPS</value>
   </data>
   <data name="Osd_Frame_Time" xml:space="preserve">
-    <value>Frame Time</value>
+    <value>Frame Dauer</value>
   </data>
   <data name="Osd_Game" xml:space="preserve">
-    <value>Game</value>
+    <value>Spiel</value>
   </data>
   <data name="Osd_Gpu" xml:space="preserve">
     <value>GPU</value>
@@ -1888,7 +1888,7 @@ Andere Vollbildfenster werden dadurch nicht beeinträchtigt, aber Sie können ni
     <value>GPU Fan</value>
   </data>
   <data name="Osd_Low_Fps" xml:space="preserve">
-    <value>1% Low</value>
+    <value>1% niedrig</value>
   </data>
   <data name="Osd_Memory_Temperature" xml:space="preserve">
     <value>Memory Temperature</value>
@@ -1897,7 +1897,7 @@ Andere Vollbildfenster werden dadurch nicht beeinträchtigt, aber Sie können ni
     <value>Memory Utilization</value>
   </data>
   <data name="Osd_PCH_Fan" xml:space="preserve">
-    <value>PCH Fan</value>
+    <value>PCH Lüfter</value>
   </data>
   <data name="Osd_Style_Bar" xml:space="preserve">
     <value>Bar</value>
@@ -2792,7 +2792,7 @@ Nach dem Ändern dieser Option wird ein Neustart empfohlen.</value>
     <value>Automatisch auf Updates prüfen</value>
   </data>
   <data name="SettingsPage_UpdateMethod_Title" xml:space="preserve">
-    <value>Update Method</value>
+    <value>Update-Methode</value>
   </data>
   <data name="SettingsPage_UseNewSensorDashboard_Message" xml:space="preserve">
     <value>Verwenden Sie das neue Sensor-Dashboard anstelle des alten. 
