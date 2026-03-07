@@ -1762,10 +1762,10 @@ Dit heeft geen invloed op andere schermvensters, maar je kunt niet op de notific
     <value>Open</value>
   </data>
   <data name="OsdAutomationStepControl_Message" xml:space="preserve">
-    <value>Show or Hide the OSD</value>
+    <value>Toon of verberg de zwevende Gadget</value>
   </data>
   <data name="OsdAutomationStepControl_Title" xml:space="preserve">
-    <value>OSD</value>
+    <value>Zwevende Gadget</value>
   </data>
   <data name="OsdColorSource_Custom" xml:space="preserve">
     <value>Custom</value>
@@ -1861,28 +1861,28 @@ Dit heeft geen invloed op andere schermvensters, maar je kunt niet op de notific
     <value>Chipset</value>
   </data>
   <data name="Osd_Cpu" xml:space="preserve">
-    <value>CPU</value>
+    <value>Processor</value>
   </data>
   <data name="Osd_CPU_Fan" xml:space="preserve">
     <value>CPU Fan</value>
   </data>
   <data name="Osd_Disk_0_Temperature" xml:space="preserve">
-    <value>Disk 1 Temperature</value>
+    <value>Schijf 1 temperatuur</value>
   </data>
   <data name="Osd_Disk_1_Temperature" xml:space="preserve">
-    <value>Disk 2 Temperature</value>
+    <value>Schijf 2 temperatuur</value>
   </data>
   <data name="Osd_Fps" xml:space="preserve">
     <value>FPS</value>
   </data>
   <data name="Osd_Frame_Time" xml:space="preserve">
-    <value>Frame Time</value>
+    <value>Frame Tijd</value>
   </data>
   <data name="Osd_Game" xml:space="preserve">
-    <value>Game</value>
+    <value>Spel</value>
   </data>
   <data name="Osd_Gpu" xml:space="preserve">
-    <value>GPU</value>
+    <value>Videokaart</value>
   </data>
   <data name="Osd_GPU_Fan" xml:space="preserve">
     <value>GPU Fan</value>
@@ -2793,7 +2793,7 @@ Een herstart wordt aanbevolen na het wijzigen van deze optie.</value>
     <value>Automatisch controleren op updates</value>
   </data>
   <data name="SettingsPage_UpdateMethod_Title" xml:space="preserve">
-    <value>Update Method</value>
+    <value>Update methode</value>
   </data>
   <data name="SettingsPage_UseNewSensorDashboard_Message" xml:space="preserve">
     <value>Gebruik het nieuwe sensordashboard in plaats van het oude. </value>
