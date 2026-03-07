@@ -332,40 +332,40 @@
     <value>FPS</value>
   </data>
   <data name="OsdItem_FrameTime" xml:space="preserve">
-    <value>Frame Time</value>
+    <value>Frame Tijd</value>
   </data>
   <data name="OsdItem_Frequency" xml:space="preserve">
-    <value>Frequency</value>
+    <value>Frequentie</value>
   </data>
   <data name="OsdItem_LowFps" xml:space="preserve">
     <value>1% Low</value>
   </data>
   <data name="OsdItem_MemoryTemperature" xml:space="preserve">
-    <value>Memory Temperature</value>
+    <value>Geheugen Temperatuur</value>
   </data>
   <data name="OsdItem_MotherboardTemperature" xml:space="preserve">
-    <value>Motherboard Temperature</value>
+    <value>Moederbord Temperatuur</value>
   </data>
   <data name="OsdItem_Power" xml:space="preserve">
-    <value>Power</value>
+    <value>Stroom</value>
   </data>
   <data name="OsdItem_P_Core_Frequency" xml:space="preserve">
     <value>P Core Frequency</value>
   </data>
   <data name="OsdItem_Temperature" xml:space="preserve">
-    <value>Temperature</value>
+    <value>Temperatuur</value>
   </data>
   <data name="OsdItem_Utilization" xml:space="preserve">
-    <value>Utilization</value>
+    <value>Gebruik</value>
   </data>
   <data name="OsdItem_VramTemperature" xml:space="preserve">
     <value>Vram Temperature</value>
   </data>
   <data name="OsdState_Hidden" xml:space="preserve">
-    <value>Hidden</value>
+    <value>Verborgen</value>
   </data>
   <data name="OsdState_Show" xml:space="preserve">
-    <value>Show</value>
+    <value>Weergeven</value>
   </data>
   <data name="OsdState_Toggle" xml:space="preserve">
     <value>Toggle</value>
