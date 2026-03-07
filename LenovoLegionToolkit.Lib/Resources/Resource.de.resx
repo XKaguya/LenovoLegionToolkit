@@ -326,46 +326,46 @@
     <value>E Core Frequency</value>
   </data>
   <data name="OsdItem_Fan" xml:space="preserve">
-    <value>Fan</value>
+    <value>Lüfter</value>
   </data>
   <data name="OsdItem_Fps" xml:space="preserve">
     <value>FPS</value>
   </data>
   <data name="OsdItem_FrameTime" xml:space="preserve">
-    <value>Frame Time</value>
+    <value>Frame Dauer</value>
   </data>
   <data name="OsdItem_Frequency" xml:space="preserve">
-    <value>Frequency</value>
+    <value>Frequenz</value>
   </data>
   <data name="OsdItem_LowFps" xml:space="preserve">
-    <value>1% Low</value>
+    <value>1% niedrig</value>
   </data>
   <data name="OsdItem_MemoryTemperature" xml:space="preserve">
-    <value>Memory Temperature</value>
+    <value>Arbeitsspeichertemperatur</value>
   </data>
   <data name="OsdItem_MotherboardTemperature" xml:space="preserve">
-    <value>Motherboard Temperature</value>
+    <value>Motherboard Temperatur</value>
   </data>
   <data name="OsdItem_Power" xml:space="preserve">
-    <value>Power</value>
+    <value>Energie</value>
   </data>
   <data name="OsdItem_P_Core_Frequency" xml:space="preserve">
     <value>P Core Frequency</value>
   </data>
   <data name="OsdItem_Temperature" xml:space="preserve">
-    <value>Temperature</value>
+    <value>Temperatur</value>
   </data>
   <data name="OsdItem_Utilization" xml:space="preserve">
-    <value>Utilization</value>
+    <value>Auslastung</value>
   </data>
   <data name="OsdItem_VramTemperature" xml:space="preserve">
     <value>Vram Temperature</value>
   </data>
   <data name="OsdState_Hidden" xml:space="preserve">
-    <value>Hidden</value>
+    <value>Ausgeblendet</value>
   </data>
   <data name="OsdState_Show" xml:space="preserve">
-    <value>Show</value>
+    <value>Zeigen</value>
   </data>
   <data name="OsdState_Toggle" xml:space="preserve">
     <value>Toggle</value>
