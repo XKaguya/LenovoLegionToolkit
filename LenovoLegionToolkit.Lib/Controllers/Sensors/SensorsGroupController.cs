@@ -67,12 +67,10 @@ public class SensorsGroupController : IDisposable
     private ISensor? _cpuUsageSensor;
     private ISensor? _gpuUsageSensor;
     private ISensor? _gpuTempSensor;
-    private ISensor? _gpuVramUsageSensor;
     private ISensor? _gpuClockSensor;
 
     private ISensor? _iGpuUsageSensor;
     private ISensor? _iGpuTempSensor;
-    private ISensor? _iGpuVramUsageSensor;
     private ISensor? _iGpuClockSensor;
     private ISensor? _iGpuPowerSensor;
 
@@ -257,12 +255,10 @@ public class SensorsGroupController : IDisposable
         _cpuUsageSensor = null;
         _gpuUsageSensor = null;
         _gpuTempSensor = null;
-        _gpuVramUsageSensor = null;
         _gpuClockSensor = null;
 
         _iGpuUsageSensor = null;
         _iGpuTempSensor = null;
-        _iGpuVramUsageSensor = null;
         _iGpuClockSensor = null;
         _iGpuPowerSensor = null;
 
@@ -372,9 +368,6 @@ public class SensorsGroupController : IDisposable
                 {
                     case SensorType.Load when s.Name.Contains("Core") || s.Name.Contains("Utilization"):
                         _iGpuUsageSensor = s;
-                        break;
-                    case SensorType.Load when s.Name.Contains("D3D Dedicated Memory"):
-                        _iGpuVramUsageSensor = s;
                         break;
                     case SensorType.Temperature when s.Name.Contains("Core"):
                         _iGpuTempSensor = s;
@@ -520,7 +513,9 @@ public class SensorsGroupController : IDisposable
     {
         lock (_dataLock)
         {
-            float total = SelectedGpuIsIgpu ? _cachedIGpuVramTotal : _cachedGpuVramTotal;
+            var dGpu = _gpuHardware ?? _amdGpuHardware;
+            var forceIgpu = !SelectedGpuIsIgpu && (dGpu == null || !_isDgpuConnected);
+            float total = (SelectedGpuIsIgpu || forceIgpu) ? _cachedIGpuVramTotal : _cachedGpuVramTotal;
             return Task.FromResult(total > 0 ? total / MB_PER_GB : INVALID_VALUE_FLOAT);
         }
     }
