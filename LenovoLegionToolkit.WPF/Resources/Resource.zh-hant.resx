@@ -121,7 +121,7 @@
     <value>應用程式資料夾</value>
   </data>
   <data name="AboutPage_AppName" xml:space="preserve">
-    <value>Lenovo Legion Toolkit</value>
+    <value>Lenovo Legion 工具套件</value>
   </data>
   <data name="AboutPage_Build" xml:space="preserve">
     <value>構建</value>
@@ -227,7 +227,7 @@
     <value>Success</value>
   </data>
   <data name="AmdOverclocking_X3D_Gaming_Mode_Message" xml:space="preserve">
-    <value>Disable CCD 1 to get stability on both FPS and temperatures</value>
+    <value>停用 CCD 1 以獲得更穩定的 FPS 與溫度</value>
   </data>
   <data name="AmdOverclocking_X3D_Gaming_Mode_Title" xml:space="preserve">
     <value>X3D Gaming Mode</value>
@@ -272,22 +272,22 @@
     <value>偵錯模式</value>
   </data>
   <data name="ArgumentWindow_Flag_DisableConflictWarning" xml:space="preserve">
-    <value>Disable Conflict Warning</value>
+    <value>停用衝突警告</value>
   </data>
   <data name="ArgumentWindow_Flag_DisableLenovoLighting" xml:space="preserve">
-    <value>Disable Lenovo Lighting</value>
+    <value>停用 Lenovo 燈光</value>
   </data>
   <data name="ArgumentWindow_Flag_DisableRgbKb" xml:space="preserve">
-    <value>Disable RGB Keyboard</value>
+    <value>停用 RGB 鍵盤</value>
   </data>
   <data name="ArgumentWindow_Flag_DisableSpectrumKb" xml:space="preserve">
-    <value>Disable Spectrum Keyboard</value>
+    <value>停用 Spectrum 鍵盤</value>
   </data>
   <data name="ArgumentWindow_Flag_DisableTrayTooltip" xml:space="preserve">
-    <value>Disable Tray Tooltip</value>
+    <value>停用系統匣提示</value>
   </data>
   <data name="ArgumentWindow_Flag_DisableUpdateChecker" xml:space="preserve">
-    <value>Disable Update Checker</value>
+    <value>停用檢查更新</value>
   </data>
   <data name="ArgumentWindow_Flag_EnableLampArray" xml:space="preserve">
     <value>Enable Lamp Array</value>
@@ -1216,13 +1216,13 @@ Do not proceed unless you possess the necessary technical expertise.</value>
     <value>客製化模式設定</value>
   </data>
   <data name="GodModeSettingsWindow_Toggle_CoreCurve_Message" xml:space="preserve">
-    <value>Enable / Disable Core Curve Adjustment.</value>
+    <value>啟用／停用核心電壓調整。</value>
   </data>
   <data name="GodModeSettingsWindow_Toggle_CoreCurve_Title" xml:space="preserve">
     <value>Core Curve Adjustment</value>
   </data>
   <data name="GodModeSettingsWindow_Toggle_OC_Message" xml:space="preserve">
-    <value>Enable / Disable Advanced Overclocking options.</value>
+    <value>啟用／停用進階超頻選項。</value>
   </data>
   <data name="GodModeSettingsWindow_Toggle_OC_Title" xml:space="preserve">
     <value>Advanced Overclocking Options</value>
@@ -1875,10 +1875,10 @@ Do not proceed unless you possess the necessary technical expertise.</value>
     <value>FPS</value>
   </data>
   <data name="Osd_Frame_Time" xml:space="preserve">
-    <value>Frame Time</value>
+    <value>影格時間</value>
   </data>
   <data name="Osd_Game" xml:space="preserve">
-    <value>Game</value>
+    <value>遊戲</value>
   </data>
   <data name="Osd_Gpu" xml:space="preserve">
     <value>GPU</value>
@@ -1896,7 +1896,7 @@ Do not proceed unless you possess the necessary technical expertise.</value>
     <value>Memory Utilization</value>
   </data>
   <data name="Osd_PCH_Fan" xml:space="preserve">
-    <value>PCH Fan</value>
+    <value>PCH 風扇</value>
   </data>
   <data name="Osd_Style_Bar" xml:space="preserve">
     <value>Bar</value>
@@ -2791,7 +2791,7 @@ Do not proceed unless you possess the necessary technical expertise.</value>
     <value>自動檢查更新</value>
   </data>
   <data name="SettingsPage_UpdateMethod_Title" xml:space="preserve">
-    <value>Update Method</value>
+    <value>更新途徑</value>
   </data>
   <data name="SettingsPage_UseNewSensorDashboard_Message" xml:space="preserve">
     <value>使用新的傳感器儀錶板而不是舊的。</value>
