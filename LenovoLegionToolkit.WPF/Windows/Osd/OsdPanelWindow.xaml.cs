@@ -17,37 +17,58 @@ public partial class OsdPanelWindow : OsdWindowBase
 
         _itemsMap = new()
         {
+            // Game
             { OsdItem.Fps, _fps },
             { OsdItem.LowFps, _lowFps },
             { OsdItem.FrameTime, _frameTime },
-            { OsdItem.CpuUtilization, _cpuUsage },
+
+            // CPU
             { OsdItem.CpuFrequency, _cpuFrequency },
             { OsdItem.CpuPCoreFrequency, _cpuPFrequency },
             { OsdItem.CpuECoreFrequency, _cpuEFrequency },
+            { OsdItem.CpuUtilization, _cpuUsage },
             { OsdItem.CpuTemperature, _cpuTemperature },
             { OsdItem.CpuPower, _cpuPower },
             { OsdItem.CpuFan, _cpuFanSpeed },
-            { OsdItem.GpuUtilization, _gpuUsage },
+
+            // GPU
             { OsdItem.GpuFrequency, _gpuFrequency },
+            { OsdItem.GpuUtilization, _gpuUsage },
             { OsdItem.GpuTemperature, _gpuTemperature },
+            { OsdItem.GpuVramUtilization, _gpuVramUsage },
             { OsdItem.GpuVramTemperature, _gpuVramTemperature },
             { OsdItem.GpuPower, _gpuPower },
             { OsdItem.GpuFan, _gpuFanSpeed },
+
+            // RAM
             { OsdItem.MemoryUtilization, _memUsage },
             { OsdItem.MemoryTemperature, _memTemperature },
-            { OsdItem.PchTemperature, _pchTemperature },
-            { OsdItem.PchFan, _pchFanSpeed },
+
+            // Storage
             { OsdItem.Disk1Temperature, _disk0Temperature },
             { OsdItem.Disk2Temperature, _disk1Temperature },
+
+            // Motherboard
+            { OsdItem.PchTemperature, _pchTemperature },
+            { OsdItem.PchFan, _pchFanSpeed },
         };
 
         _measurementGroups = new()
         {
+            // Game
             { _fpsGroup, ([OsdItem.Fps, OsdItem.LowFps, OsdItem.FrameTime], _separatorFps) },
-            { _cpuGroup, ([OsdItem.CpuUtilization, OsdItem.CpuFrequency, OsdItem.CpuPCoreFrequency, OsdItem.CpuECoreFrequency, OsdItem.CpuTemperature, OsdItem.CpuPower, OsdItem.CpuFan], null) },
-            { _gpuGroup, ([OsdItem.GpuUtilization, OsdItem.GpuFrequency, OsdItem.GpuTemperature, OsdItem.GpuVramTemperature, OsdItem.GpuPower, OsdItem.GpuFan], null) },
+
+            // CPU
+            { _cpuGroup, ([OsdItem.CpuFrequency, OsdItem.CpuPCoreFrequency, OsdItem.CpuECoreFrequency, OsdItem.CpuUtilization, OsdItem.CpuTemperature, OsdItem.CpuPower, OsdItem.CpuFan], null) },
+
+            // GPU
+            { _gpuGroup, ([OsdItem.GpuFrequency, OsdItem.GpuUtilization, OsdItem.GpuTemperature, OsdItem.GpuVramUtilization, OsdItem.GpuVramTemperature, OsdItem.GpuPower, OsdItem.GpuFan], null) },
+
+            // RAM
             { _memoryGroup, ([OsdItem.MemoryUtilization, OsdItem.MemoryTemperature], null) },
-            { _pchGroup, ([OsdItem.PchTemperature, OsdItem.PchFan, OsdItem.Disk1Temperature, OsdItem.Disk2Temperature], null) }
+
+            // Storage / Motherboard
+            { _pchGroup, ([OsdItem.Disk1Temperature, OsdItem.Disk2Temperature, OsdItem.PchTemperature, OsdItem.PchFan], null) }
         };
 
         if (_sensorsPanel.Resources["SensorLabelStyle"] is Style labelStyle)
@@ -176,6 +197,7 @@ public partial class OsdPanelWindow : OsdWindowBase
         UpdateTextBlock(_gpuFrequency, data.GpuFrequency, $"{{0}} {Resource.MHz}");
         UpdateTextBlock(_gpuUsage, data.GpuUsage, $"{{0:F0}}{Resource.Percent}", store.UsageThresholdWarning, store.UsageThresholdCritical);
         UpdateTextBlock(_gpuTemperature, data.GpuTemp, $"{{0:F0}}{Resource.Celsius}", store.TempThresholdWarning, store.TempThresholdCritical);
+        UpdateTextBlock(_gpuVramUsage, data.GpuVramUsage, $"{{0:F0}}{Resource.Percent}", store.UsageThresholdWarning, store.UsageThresholdCritical);
         UpdateTextBlock(_gpuVramTemperature, data.GpuVramTemp, $"{{0:F0}}{Resource.Celsius}", store.TempThresholdWarning, store.TempThresholdCritical);
         UpdateTextBlock(_gpuPower, data.GpuPower, $"{{0:F1}} {Resource.Watt}");
         UpdateTextBlock(_gpuFanSpeed, data.GpuFanSpeed);

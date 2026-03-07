@@ -2387,7 +2387,7 @@ It won't affect other full screen windows, but you will not be able to click on 
     <value>Core</value>
   </data>
   <data name="SensorsControl_GpuMemoryTemperature_Title" xml:space="preserve">
-    <value>VRAM</value>
+    <value>VRAM Temperature</value>
   </data>
   <data name="SensorsControl_GPU_Power" xml:space="preserve">
     <value>Power</value>
@@ -3119,6 +3119,9 @@ It won't affect other full screen windows, but you will not be able to click on 
   </data>
   <data name="UpdateWindow_WhatsNew" xml:space="preserve">
     <value>﻿Что нового?</value>
+  </data>
+  <data name="SensorsControl_GpuVramUtilization_Title" xml:space="preserve">
+    <value>VRAM Utilization</value>
   </data>
   <data name="Warning" xml:space="preserve">
     <value>Warning</value>

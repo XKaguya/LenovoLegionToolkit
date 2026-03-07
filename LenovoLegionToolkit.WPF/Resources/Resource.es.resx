@@ -2388,7 +2388,7 @@ Asegúrese primero de que su script se ejecuta correctamente.</value>
     <value>Núcleo</value>
   </data>
   <data name="SensorsControl_GpuMemoryTemperature_Title" xml:space="preserve">
-    <value>VRAM</value>
+    <value>VRAM Temperature</value>
   </data>
   <data name="SensorsControl_GPU_Power" xml:space="preserve">
     <value>Consumo</value>
@@ -3121,6 +3121,9 @@ El registro de sucesos se activará automáticamente, si decide continuar.</valu
   </data>
   <data name="UpdateWindow_WhatsNew" xml:space="preserve">
     <value>Novedades</value>
+  </data>
+  <data name="SensorsControl_GpuVramUtilization_Title" xml:space="preserve">
+    <value>VRAM Utilization</value>
   </data>
   <data name="Warning" xml:space="preserve">
     <value>Aviso</value>

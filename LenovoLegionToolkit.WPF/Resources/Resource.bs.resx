@@ -2386,7 +2386,7 @@ Make sure that your script runs correctly first.</value>
     <value>Core</value>
   </data>
   <data name="SensorsControl_GpuMemoryTemperature_Title" xml:space="preserve">
-    <value>VRAM</value>
+    <value>VRAM Temperature</value>
   </data>
   <data name="SensorsControl_GPU_Power" xml:space="preserve">
     <value>Power</value>
@@ -3120,6 +3120,9 @@ Logiranje će biti automatski omogućeno, ukoliko izaberete da nastavite.</value
   </data>
   <data name="UpdateWindow_WhatsNew" xml:space="preserve">
     <value>Šta je novo?</value>
+  </data>
+  <data name="SensorsControl_GpuVramUtilization_Title" xml:space="preserve">
+    <value>VRAM Utilization</value>
   </data>
   <data name="Warning" xml:space="preserve">
     <value>Warning</value>

@@ -1,10 +1,4 @@
-﻿// This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
-// If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
-// Copyright (C) RAMSPDToolkit and Contributors.
-// Partial Copyright (C) Michael Möller <mmoeller@openhardwaremonitor.org> and Contributors.
-// All Rights Reserved.
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -64,12 +58,22 @@ public class SensorsGroupController : IDisposable
     private ISensor? _cpuUsageSensor;
     private ISensor? _gpuUsageSensor;
     private ISensor? _gpuTempSensor;
+    private ISensor? _gpuVramUsageSensor;
     private ISensor? _gpuClockSensor;
 
     private ISensor? _iGpuUsageSensor;
     private ISensor? _iGpuTempSensor;
+    private ISensor? _iGpuVramUsageSensor;
     private ISensor? _iGpuClockSensor;
     private ISensor? _iGpuPowerSensor;
+
+    private ISensor? _gpuD3DVramUsedSensor;
+    private ISensor? _gpuVramTotalSensor;
+    private float _cachedGpuVramTotal = INVALID_VALUE_FLOAT;
+
+    private ISensor? _iGpuD3DVramUsedSensor;
+    private ISensor? _iGpuVramTotalSensor;
+    private float _cachedIGpuVramTotal = INVALID_VALUE_FLOAT;
 
     private readonly List<ISensor> _pCoreClockSensors = [];
     private readonly List<ISensor> _eCoreClockSensors = [];
@@ -169,6 +173,8 @@ public class SensorsGroupController : IDisposable
     private float _snapshotGpuClock = INVALID_VALUE_FLOAT;
     private float _snapshotGpuPower = INVALID_VALUE_FLOAT;
     private float _snapshotGpuVramTemp = INVALID_VALUE_FLOAT;
+    private float _snapshotGpuVramUsage = INVALID_VALUE_FLOAT;
+    private float _snapshotGpuVramUtilization = INVALID_VALUE_FLOAT;
     private float _snapshotMemUsage = INVALID_VALUE_FLOAT;
     private double _snapshotMemMaxTemp = INVALID_VALUE_DOUBLE;
     private (float, float) _snapshotSsdTemps = (INVALID_VALUE_FLOAT, INVALID_VALUE_FLOAT);
@@ -237,12 +243,22 @@ public class SensorsGroupController : IDisposable
         _cpuUsageSensor = null;
         _gpuUsageSensor = null;
         _gpuTempSensor = null;
+        _gpuVramUsageSensor = null;
         _gpuClockSensor = null;
 
         _iGpuUsageSensor = null;
         _iGpuTempSensor = null;
+        _iGpuVramUsageSensor = null;
         _iGpuClockSensor = null;
         _iGpuPowerSensor = null;
+
+        _gpuD3DVramUsedSensor = null;
+        _gpuVramTotalSensor = null;
+        _cachedGpuVramTotal = INVALID_VALUE_FLOAT;
+
+        _iGpuD3DVramUsedSensor = null;
+        _iGpuVramTotalSensor = null;
+        _cachedIGpuVramTotal = INVALID_VALUE_FLOAT;
 
         _pCoreClockSensors.Clear();
         _eCoreClockSensors.Clear();
@@ -316,11 +332,19 @@ public class SensorsGroupController : IDisposable
                     case SensorType.Temperature when s.Name.Contains(SENSOR_NAME_GPU_HOTSPOT, StringComparison.OrdinalIgnoreCase):
                         _gpuHotspotSensor = s;
                         break;
+                    case SensorType.SmallData when s.Name.Contains("D3D Dedicated Memory Used", StringComparison.OrdinalIgnoreCase):
+                        _gpuD3DVramUsedSensor = s;
+                        break;
+                    case SensorType.SmallData when s.Name.Contains("GPU Memory Total", StringComparison.OrdinalIgnoreCase):
+                        _gpuVramTotalSensor = s;
+                        break;
                 }
             }
             _gpuUsageSensor ??= mainGpu.Sensors.FirstOrDefault(s => s.SensorType == SensorType.Load);
             _gpuTempSensor ??= mainGpu.Sensors.FirstOrDefault(s => s.SensorType == SensorType.Temperature);
             _gpuClockSensor ??= mainGpu.Sensors.FirstOrDefault(s => s.SensorType == SensorType.Clock);
+            _gpuD3DVramUsedSensor ??= mainGpu.Sensors.FirstOrDefault(s => s.SensorType == SensorType.SmallData && s.Name.Contains("Used", StringComparison.OrdinalIgnoreCase));
+            _gpuVramTotalSensor ??= mainGpu.Sensors.FirstOrDefault(s => s.SensorType == SensorType.SmallData && s.Name.Contains("Total", StringComparison.OrdinalIgnoreCase));
         }
 
         if (_iGpuHardware?.Sensors != null)
@@ -332,6 +356,9 @@ public class SensorsGroupController : IDisposable
                     case SensorType.Load when s.Name.Contains("Core") || s.Name.Contains("Utilization"):
                         _iGpuUsageSensor = s;
                         break;
+                    case SensorType.Load when s.Name.Contains("D3D Dedicated Memory"):
+                        _iGpuVramUsageSensor = s;
+                        break;
                     case SensorType.Temperature when s.Name.Contains("Core"):
                         _iGpuTempSensor = s;
                         break;
@@ -341,11 +368,19 @@ public class SensorsGroupController : IDisposable
                     case SensorType.Power:
                         _iGpuPowerSensor = s;
                         break;
+                    case SensorType.SmallData when s.Name.Contains("D3D Dedicated Memory Used", StringComparison.OrdinalIgnoreCase):
+                        _iGpuD3DVramUsedSensor = s;
+                        break;
+                    case SensorType.SmallData when s.Name.Contains("GPU Memory Total", StringComparison.OrdinalIgnoreCase):
+                        _iGpuVramTotalSensor = s;
+                        break;
                 }
             }
             _iGpuUsageSensor ??= _iGpuHardware.Sensors.FirstOrDefault(s => s.SensorType == SensorType.Load);
             _iGpuTempSensor ??= _iGpuHardware.Sensors.FirstOrDefault(s => s.SensorType == SensorType.Temperature);
             _iGpuClockSensor ??= _iGpuHardware.Sensors.FirstOrDefault(s => s.SensorType == SensorType.Clock);
+            _iGpuD3DVramUsedSensor ??= _iGpuHardware.Sensors.FirstOrDefault(s => s.SensorType == SensorType.SmallData && s.Name.Contains("Used", StringComparison.OrdinalIgnoreCase));
+            _iGpuVramTotalSensor ??= _iGpuHardware.Sensors.FirstOrDefault(s => s.SensorType == SensorType.SmallData && s.Name.Contains("Total", StringComparison.OrdinalIgnoreCase));
         }
 
         _memoryLoadSensor = _memoryHardware?.Sensors?.FirstOrDefault(s => s.SensorType == SensorType.Load);
@@ -452,6 +487,11 @@ public class SensorsGroupController : IDisposable
         lock (_dataLock) return Task.FromResult(_snapshotGpuVramTemp);
     }
 
+    public Task<float> GetGpuVramUtilizationAsync()
+    {
+        lock (_dataLock) return Task.FromResult(_snapshotGpuVramUtilization);
+    }
+
     public Task<(float, float)> GetSsdTemperaturesAsync()
     {
         lock (_dataLock) return Task.FromResult(_snapshotSsdTemps);
@@ -504,7 +544,7 @@ public class SensorsGroupController : IDisposable
             {
                 NVAPI.Initialize();
             }
-            catch { /* Ignore */ }
+            catch { }
 
             _needRefreshGpuHardware = true;
         }
@@ -540,7 +580,7 @@ public class SensorsGroupController : IDisposable
                     {
                         _snapshotCpuTemp = _cpuTempSensor?.Value ?? INVALID_VALUE_FLOAT;
                         _snapshotCpuUsage = _cpuUsageSensor?.Value ?? INVALID_VALUE_FLOAT;
-                        
+
                         if (_cpuCoreClockSensors.Count > 0)
                         {
                             _snapshotCpuMaxClock = _cpuCoreClockSensors.Max(s => s.Value) ?? INVALID_VALUE_FLOAT;
@@ -586,15 +626,30 @@ public class SensorsGroupController : IDisposable
 
                         if (SelectedGpuIsIgpu || forceIgpu)
                         {
-                            float gPower = _iGpuPowerSensor?.Value ?? INVALID_VALUE_FLOAT;
-                            _snapshotGpuPower = gPower;
-                            _snapshotGpuVramTemp = INVALID_VALUE_FLOAT; // typically no VRAM temp sensor for iGPU
+                            if (_cachedIGpuVramTotal <= 0 && _iGpuVramTotalSensor != null)
+                                _cachedIGpuVramTotal = _iGpuVramTotalSensor.Value ?? INVALID_VALUE_FLOAT;
+
+                            _snapshotGpuVramUsage = _iGpuD3DVramUsedSensor?.Value ?? INVALID_VALUE_FLOAT;
+
+                            if (_snapshotGpuVramUsage != INVALID_VALUE_FLOAT && _cachedIGpuVramTotal > 0)
+                            {
+                                _snapshotGpuVramUtilization = (_snapshotGpuVramUsage / _cachedIGpuVramTotal) * 100f;
+                            }
+                            else
+                            {
+                                _snapshotGpuVramUtilization = INVALID_VALUE_FLOAT;
+                            }
+
+                            _snapshotGpuPower = _iGpuPowerSensor?.Value ?? INVALID_VALUE_FLOAT;
                             _snapshotGpuUsage = _iGpuUsageSensor?.Value ?? INVALID_VALUE_FLOAT;
                             _snapshotGpuTemp = _iGpuTempSensor?.Value ?? INVALID_VALUE_FLOAT;
+                            _snapshotGpuVramTemp = INVALID_VALUE_FLOAT;
                             _snapshotGpuClock = _iGpuClockSensor?.Value ?? INVALID_VALUE_FLOAT;
                         }
                         else if (gpuInactive)
                         {
+                            _snapshotGpuVramUtilization = INVALID_VALUE_FLOAT;
+                            _snapshotGpuVramUsage = INVALID_VALUE_FLOAT;
                             _snapshotGpuPower = INVALID_VALUE_FLOAT;
                             _snapshotGpuVramTemp = INVALID_VALUE_FLOAT;
                             _snapshotGpuUsage = INVALID_VALUE_FLOAT;
@@ -603,6 +658,20 @@ public class SensorsGroupController : IDisposable
                         }
                         else
                         {
+                            if (_cachedGpuVramTotal <= 0 && _gpuVramTotalSensor != null)
+                                _cachedGpuVramTotal = _gpuVramTotalSensor.Value ?? INVALID_VALUE_FLOAT;
+
+                            _snapshotGpuVramUsage = _gpuD3DVramUsedSensor?.Value ?? INVALID_VALUE_FLOAT;
+
+                            if (_snapshotGpuVramUsage != INVALID_VALUE_FLOAT && _cachedGpuVramTotal > 0)
+                            {
+                                _snapshotGpuVramUtilization = (_snapshotGpuVramUsage / _cachedGpuVramTotal) * 100f;
+                            }
+                            else
+                            {
+                                _snapshotGpuVramUtilization = INVALID_VALUE_FLOAT;
+                            }
+
                             float gPower = _gpuPowerSensor?.Value ?? INVALID_VALUE_FLOAT;
                             _lastGpuPower = gPower;
                             _snapshotGpuPower = _lastGpuPower > MIN_ACTIVE_GPU_POWER ? _lastGpuPower : INVALID_VALUE_FLOAT;

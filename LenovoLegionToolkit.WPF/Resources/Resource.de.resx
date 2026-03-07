@@ -2386,7 +2386,7 @@ Stellen Sie zunächst sicher, dass Ihr Skript korrekt ausgeführt wird.</value>
     <value>Kern</value>
   </data>
   <data name="SensorsControl_GpuMemoryTemperature_Title" xml:space="preserve">
-    <value>VRAM</value>
+    <value>VRAM Temperature</value>
   </data>
   <data name="SensorsControl_GPU_Power" xml:space="preserve">
     <value>Energie</value>
@@ -3118,6 +3118,9 @@ Die Protokollierung wird automatisch aktiviert, wenn Sie fortfahren möchten.</v
   </data>
   <data name="UpdateWindow_WhatsNew" xml:space="preserve">
     <value>Was ist neu?</value>
+  </data>
+  <data name="SensorsControl_GpuVramUtilization_Title" xml:space="preserve">
+    <value>VRAM Utilization</value>
   </data>
   <data name="Warning" xml:space="preserve">
     <value>Warnung</value>

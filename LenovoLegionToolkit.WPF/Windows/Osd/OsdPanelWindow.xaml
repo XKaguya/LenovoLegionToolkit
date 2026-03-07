@@ -7,18 +7,18 @@
     xmlns:resources="clr-namespace:LenovoLegionToolkit.WPF.Resources"
     xmlns:utils="clr-namespace:LenovoLegionToolkit.WPF.Utils"
     Title="OsdPanelWindow"
-    MinWidth="220"
     Width="Auto"
     Height="Auto"
-    SizeToContent="WidthAndHeight"
+    MinWidth="220"
     AllowsTransparency="True"
     Background="Transparent"
     Left="0"
+    ResizeMode="NoResize"
     ShowInTaskbar="False"
+    SizeToContent="WidthAndHeight"
     Top="20"
     Topmost="True"
     WindowStartupLocation="Manual"
-    ResizeMode="NoResize"
     WindowStyle="None">
 
     <Border
@@ -305,6 +305,22 @@
                             Text="{x:Static resources:Resource.SensorsControl_GpuCore_Title}" />
                         <TextBlock
                             x:Name="_gpuTemperature"
+                            Grid.Column="1"
+                            Style="{DynamicResource SensorValueStyle}"
+                            Text="-" />
+                    </Grid>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Column="0"
+                            Style="{DynamicResource SensorLabelStyle}"
+                            Text="{x:Static resources:Resource.SensorsControl_GpuVramUtilization_Title}" />
+                        <TextBlock
+                            x:Name="_gpuVramUsage"
                             Grid.Column="1"
                             Style="{DynamicResource SensorValueStyle}"
                             Text="-" />

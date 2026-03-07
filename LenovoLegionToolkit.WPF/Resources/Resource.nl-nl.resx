@@ -2387,7 +2387,7 @@ Zorg ervoor dat uw script eerst correct wordt uitgevoerd.</value>
     <value>Core</value>
   </data>
   <data name="SensorsControl_GpuMemoryTemperature_Title" xml:space="preserve">
-    <value>VRAM</value>
+    <value>VRAM Temperature</value>
   </data>
   <data name="SensorsControl_GPU_Power" xml:space="preserve">
     <value>Stroom</value>
@@ -3118,6 +3118,9 @@ Logboekregistratie wordt automatisch ingeschakeld als u ervoor kiest om door te 
   </data>
   <data name="UpdateWindow_WhatsNew" xml:space="preserve">
     <value>Wat is er nieuw?</value>
+  </data>
+  <data name="SensorsControl_GpuVramUtilization_Title" xml:space="preserve">
+    <value>VRAM Utilization</value>
   </data>
   <data name="Warning" xml:space="preserve">
     <value>Waarschuwing</value>

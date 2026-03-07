@@ -141,12 +141,15 @@ public enum FlipToStartState
 
 public enum OsdItem
 {
+    // === Game ===
     [Display(ResourceType = typeof(Resource), Name = "OsdItem_Fps")]
     Fps,
     [Display(ResourceType = typeof(Resource), Name = "OsdItem_LowFps")]
     LowFps,
     [Display(ResourceType = typeof(Resource), Name = "OsdItem_FrameTime")]
     FrameTime,
+
+    // === CPU ===
     [Display(ResourceType = typeof(Resource), Name = "OsdItem_Frequency")]
     CpuFrequency,
     [Display(ResourceType = typeof(Resource), Name = "OsdItem_P_Core_Frequency")]
@@ -161,26 +164,36 @@ public enum OsdItem
     CpuPower,
     [Display(ResourceType = typeof(Resource), Name = "OsdItem_Fan")]
     CpuFan,
+
+    // === GPU ===
     [Display(ResourceType = typeof(Resource), Name = "OsdItem_Frequency")]
     GpuFrequency,
     [Display(ResourceType = typeof(Resource), Name = "OsdItem_Utilization")]
     GpuUtilization,
     [Display(ResourceType = typeof(Resource), Name = "OsdItem_Temperature")]
     GpuTemperature,
+    [Display(ResourceType = typeof(Resource), Name = "OsdItem_VramUtilization")]
+    GpuVramUtilization,
     [Display(ResourceType = typeof(Resource), Name = "OsdItem_VramTemperature")]
     GpuVramTemperature,
     [Display(ResourceType = typeof(Resource), Name = "OsdItem_Power")]
     GpuPower,
     [Display(ResourceType = typeof(Resource), Name = "OsdItem_Fan")]
     GpuFan,
-    [Display(ResourceType = typeof(Resource), Name = "OsdItem_Disk1Temperature")]
-    Disk1Temperature,
-    [Display(ResourceType = typeof(Resource), Name = "OsdItem_Disk2Temperature")]
-    Disk2Temperature,
+
+    // === Memory ===
     [Display(ResourceType = typeof(Resource), Name = "OsdItem_Utilization")]
     MemoryUtilization,
     [Display(ResourceType = typeof(Resource), Name = "OsdItem_MemoryTemperature")]
     MemoryTemperature,
+
+    // === Storage ===
+    [Display(ResourceType = typeof(Resource), Name = "OsdItem_Disk1Temperature")]
+    Disk1Temperature,
+    [Display(ResourceType = typeof(Resource), Name = "OsdItem_Disk2Temperature")]
+    Disk2Temperature,
+
+    // === Motherboard ===
     [Display(ResourceType = typeof(Resource), Name = "OsdItem_MotherboardTemperature")]
     PchTemperature,
     [Display(ResourceType = typeof(Resource), Name = "OsdItem_Fan")]

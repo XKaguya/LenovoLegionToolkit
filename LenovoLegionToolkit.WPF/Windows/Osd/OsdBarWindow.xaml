@@ -11,11 +11,11 @@
     Height="Auto"
     AllowsTransparency="True"
     Background="Transparent"
+    ResizeMode="NoResize"
     ShowInTaskbar="False"
     SizeToContent="WidthAndHeight"
     Topmost="True"
     WindowStartupLocation="Manual"
-    ResizeMode="NoResize"
     WindowStyle="None">
 
     <Window.Resources>
@@ -161,6 +161,10 @@
                         Text="-" />
                     <TextBlock
                         x:Name="_gpuTemperature"
+                        Style="{DynamicResource TextBlockStyle}"
+                        Text="-" />
+                    <TextBlock
+                        x:Name="_gpuVramUsage"
                         Style="{DynamicResource TextBlockStyle}"
                         Text="-" />
                     <TextBlock

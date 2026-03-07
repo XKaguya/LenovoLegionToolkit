@@ -123,7 +123,8 @@ public partial class OsdSettingsWindow
                 [
                     OsdItem.GpuUtilization, OsdItem.GpuFrequency,
                     OsdItem.GpuTemperature,
-                    OsdItem.GpuVramTemperature, OsdItem.GpuPower, OsdItem.GpuFan
+                    OsdItem.GpuVramUtilization, OsdItem.GpuVramTemperature, 
+                    OsdItem.GpuPower, OsdItem.GpuFan
                 ]
             },
             new OsdItemGroup { Header = Resource.Osd_Chipset, Items =

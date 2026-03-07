@@ -2387,7 +2387,7 @@ Do not proceed unless you possess the necessary technical expertise.</value>
     <value>Πυρήνας</value>
   </data>
   <data name="SensorsControl_GpuMemoryTemperature_Title" xml:space="preserve">
-    <value>VRAM</value>
+    <value>VRAM Temperature</value>
   </data>
   <data name="SensorsControl_GPU_Power" xml:space="preserve">
     <value>Ισχύς</value>
@@ -3119,6 +3119,9 @@ Do not proceed unless you possess the necessary technical expertise.</value>
   </data>
   <data name="UpdateWindow_WhatsNew" xml:space="preserve">
     <value>Τι νέο υπάρχει;</value>
+  </data>
+  <data name="SensorsControl_GpuVramUtilization_Title" xml:space="preserve">
+    <value>VRAM Utilization</value>
   </data>
   <data name="Warning" xml:space="preserve">
     <value>Προειδοποίηση</value>

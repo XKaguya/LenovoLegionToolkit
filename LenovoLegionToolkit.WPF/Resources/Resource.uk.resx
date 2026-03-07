@@ -2383,7 +2383,7 @@
     <value>Ядро</value>
   </data>
   <data name="SensorsControl_GpuMemoryTemperature_Title" xml:space="preserve">
-    <value>VRAM</value>
+    <value>VRAM Temperature</value>
   </data>
   <data name="SensorsControl_GPU_Power" xml:space="preserve">
     <value>Потужність</value>
@@ -3115,6 +3115,9 @@
   </data>
   <data name="UpdateWindow_WhatsNew" xml:space="preserve">
     <value>Що нового?</value>
+  </data>
+  <data name="SensorsControl_GpuVramUtilization_Title" xml:space="preserve">
+    <value>VRAM Utilization</value>
   </data>
   <data name="Warning" xml:space="preserve">
     <value>Попередження</value>

@@ -361,6 +361,9 @@
   <data name="OsdItem_VramTemperature" xml:space="preserve">
     <value>VRAM Temperature</value>
   </data>
+  <data name="OsdItem_VramUtilization" xml:space="preserve">
+    <value>VRAM Utilization</value>
+  </data>
   <data name="OsdState_Hidden" xml:space="preserve">
     <value>Verborgen</value>
   </data>

@@ -2385,7 +2385,7 @@ Certifique-se de que seu script seja executado corretamente primeiro.</value>
     <value>Core</value>
   </data>
   <data name="SensorsControl_GpuMemoryTemperature_Title" xml:space="preserve">
-    <value>VRAM</value>
+    <value>VRAM Temperature</value>
   </data>
   <data name="SensorsControl_GPU_Power" xml:space="preserve">
     <value>Power</value>
@@ -3117,6 +3117,9 @@ O registro será ativado automaticamente, se você optar por continuar.</value>
   </data>
   <data name="UpdateWindow_WhatsNew" xml:space="preserve">
     <value>O que há de novo?</value>
+  </data>
+  <data name="SensorsControl_GpuVramUtilization_Title" xml:space="preserve">
+    <value>VRAM Utilization</value>
   </data>
   <data name="Warning" xml:space="preserve">
     <value>Warning</value>

@@ -2386,7 +2386,7 @@ Make sure that your script runs correctly first.</value>
     <value>Core</value>
   </data>
   <data name="SensorsControl_GpuMemoryTemperature_Title" xml:space="preserve">
-    <value>VRAM</value>
+    <value>VRAM Temperature</value>
   </data>
   <data name="SensorsControl_GPU_Power" xml:space="preserve">
     <value>Power</value>
@@ -3119,6 +3119,9 @@ Logging will be enabled automatically, if you choose to continue.</value>
   </data>
   <data name="UpdateWindow_WhatsNew" xml:space="preserve">
     <value>What's new?</value>
+  </data>
+  <data name="SensorsControl_GpuVramUtilization_Title" xml:space="preserve">
+    <value>VRAM Utilization</value>
   </data>
   <data name="Warning" xml:space="preserve">
     <value>Warning</value>
