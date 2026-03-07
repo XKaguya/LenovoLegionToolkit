@@ -2793,7 +2793,7 @@ Po změně této volby je doporučen restart.</value>
     <value>Automaticky kontrolovat dostupnost aktualizací</value>
   </data>
   <data name="SettingsPage_UpdateMethod_Title" xml:space="preserve">
-    <value>Update Method</value>
+    <value>Způsob aktualizace</value>
   </data>
   <data name="SettingsPage_UseNewSensorDashboard_Message" xml:space="preserve">
     <value>Používejte nový snímač namísto starého. </value>
