@@ -447,7 +447,7 @@ Yalnızca mevcut durumla eşleşen eylemler çalışacaktır.</value>
     <value>Gün batımında</value>
   </data>
   <data name="AutomationPipelineControl_SubtitlePart_AtTime" xml:space="preserve">
-    <value>{0:D2}:{1:D2}</value>
+    <value>At {0:D2}:{1:D2}:{2:D2}</value>
   </data>
   <data name="AutomationPipelineControl_SubtitlePart_PowerMode" xml:space="preserve">
     <value>Güç Kipi</value>
@@ -1768,14 +1768,11 @@ Diğer tam ekran pencereleri etkilemeyecek, ancak bildirimlere tıklayamayacaks�
   <data name="OsdAutomationStepControl_Title" xml:space="preserve">
     <value>Yüzen Gadget</value>
   </data>
-  <data name="OsdColorSource_Custom" xml:space="preserve">
-    <value>Custom</value>
-  </data>
-  <data name="OsdColorSource_Default" xml:space="preserve">
-    <value>Default</value>
-  </data>
   <data name="OsdSettings_Appearance_BackgroundColor" xml:space="preserve">
     <value>Background Color</value>
+  </data>
+  <data name="OsdSettings_Appearance_CategoryColor" xml:space="preserve">
+    <value>Category Color</value>
   </data>
   <data name="OsdSettings_Appearance_CornerRadius" xml:space="preserve">
     <value>Corner Radius</value>
@@ -1798,6 +1795,9 @@ Diğer tam ekran pencereleri etkilemeyecek, ancak bildirimlere tıklayamayacaks�
   <data name="OsdSettings_Appearance_Opacity" xml:space="preserve">
     <value>Opacity</value>
   </data>
+  <data name="OsdSettings_Appearance_ValueColor" xml:space="preserve">
+    <value>Value Color</value>
+  </data>
   <data name="OsdSettings_Appearance_WarningColor" xml:space="preserve">
     <value>Warning Color</value>
   </data>
@@ -1815,6 +1815,9 @@ Diğer tam ekran pencereleri etkilemeyecek, ancak bildirimlere tıklayamayacaks�
   </data>
   <data name="OsdSettings_General_ResetPosition" xml:space="preserve">
     <value>Reset Position</value>
+  </data>
+  <data name="OsdSettings_General_SnapThreshold" xml:space="preserve">
+    <value>Snapping Threshold</value>
   </data>
   <data name="OsdSettings_Tabs_Appearance" xml:space="preserve">
     <value>Appearance</value>
@@ -1865,13 +1868,16 @@ Diğer tam ekran pencereleri etkilemeyecek, ancak bildirimlere tıklayamayacaks�
     <value>CPU</value>
   </data>
   <data name="Osd_CPU_Fan" xml:space="preserve">
-    <value>CPU Fan</value>
+    <value>Fan</value>
   </data>
   <data name="Osd_Disk_0_Temperature" xml:space="preserve">
     <value>Disk 1 Sıcaklığı</value>
   </data>
   <data name="Osd_Disk_1_Temperature" xml:space="preserve">
     <value>Disk 2 Sıcaklığı</value>
+  </data>
+  <data name="Osd_ECoreClock" xml:space="preserve">
+    <value>E-Core Clock</value>
   </data>
   <data name="Osd_Fps" xml:space="preserve">
     <value>FPS</value>
@@ -1886,19 +1892,22 @@ Diğer tam ekran pencereleri etkilemeyecek, ancak bildirimlere tıklayamayacaks�
     <value>GPU</value>
   </data>
   <data name="Osd_GPU_Fan" xml:space="preserve">
-    <value>GPU Fan</value>
+    <value>Fan</value>
   </data>
   <data name="Osd_Low_Fps" xml:space="preserve">
     <value>1% Düşük</value>
   </data>
   <data name="Osd_Memory_Temperature" xml:space="preserve">
-    <value>Memory Temperature</value>
+    <value>Temperature</value>
   </data>
   <data name="Osd_Memory_Utilization" xml:space="preserve">
-    <value>Memory Utilization</value>
+    <value>Utilization</value>
   </data>
   <data name="Osd_PCH_Fan" xml:space="preserve">
     <value>PCH Fanı</value>
+  </data>
+  <data name="Osd_PCoreClock" xml:space="preserve">
+    <value>P-Core Clock</value>
   </data>
   <data name="Osd_Style_Bar" xml:space="preserve">
     <value>Bar</value>
@@ -2073,6 +2082,9 @@ Daima doğru paketleri kurduğunuzdan emin olun.</value>
   </data>
   <data name="Paste" xml:space="preserve">
     <value>Yapıştır</value>
+  </data>
+  <data name="Percent" xml:space="preserve">
+    <value>%</value>
   </data>
   <data name="PeriodicActionPipelineTriggerTabItemContent_Minutes" xml:space="preserve">
     <value>Dakika</value>
@@ -2314,7 +2326,7 @@ UYARI: Dahili ekran kapalıysa, bu işlem doğru çalışmaz.</value>
     <value>CPU Sıcaklığı</value>
   </data>
   <data name="SensorItem_CpuUtilitzation" xml:space="preserve">
-    <value>CPU Kullanımı</value>
+    <value>CPU Utilization</value>
   </data>
   <data name="SensorItem_Disk1Temperature" xml:space="preserve">
     <value>Disk 1 Sıcaklığı</value>
@@ -2377,7 +2389,10 @@ UYARI: Dahili ekran kapalıysa, bu işlem doğru çalışmaz.</value>
     <value>Çekirdek</value>
   </data>
   <data name="SensorsControl_GpuMemoryTemperature_Title" xml:space="preserve">
-    <value>Vram</value>
+    <value>VRAM Temperature</value>
+  </data>
+  <data name="SensorsControl_GpuVramUtilization_Title" xml:space="preserve">
+    <value>VRAM Utilization</value>
   </data>
   <data name="SensorsControl_GPU_Power" xml:space="preserve">
     <value>Güç</value>
@@ -2404,7 +2419,7 @@ UYARI: Dahili ekran kapalıysa, bu işlem doğru çalışmaz.</value>
     <value>PCH Sıcaklığı</value>
   </data>
   <data name="SensorsControl_RefreshInterval" xml:space="preserve">
-    <value>Yenileme aralığı</value>
+    <value>Refresh Interval</value>
   </data>
   <data name="SensorsControl_State_Title" xml:space="preserve">
     <value>Durum</value>
@@ -3111,6 +3126,9 @@ Devam etmeyi seçerseniz, kayıt etme otomatik olarak etkinleştirilecektir.</va
   </data>
   <data name="Warning" xml:space="preserve">
     <value>Uyarı</value>
+  </data>
+  <data name="Watt" xml:space="preserve">
+    <value>W</value>
   </data>
   <data name="WhiteKeyboardBacklightAutomationStepControl_Message" xml:space="preserve">
     <value>Klavye parlaklığını ayarlayın.</value>
