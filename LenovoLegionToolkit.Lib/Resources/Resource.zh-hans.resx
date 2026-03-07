@@ -323,7 +323,7 @@
     <value>磁盘 2 温度</value>
   </data>
   <data name="OsdItem_E_Core_Frequency" xml:space="preserve">
-    <value>E-Core Clock</value>
+    <value>性能核频率</value>
   </data>
   <data name="OsdItem_Fan" xml:space="preserve">
     <value>风扇转速</value>
@@ -350,7 +350,7 @@
     <value>功耗</value>
   </data>
   <data name="OsdItem_P_Core_Frequency" xml:space="preserve">
-    <value>P-Core Clock</value>
+    <value>能效核频率</value>
   </data>
   <data name="OsdItem_Temperature" xml:space="preserve">
     <value>温度</value>
@@ -359,10 +359,10 @@
     <value>利用率</value>
   </data>
   <data name="OsdItem_VramTemperature" xml:space="preserve">
-    <value>VRAM Temperature</value>
+    <value>显存温度</value>
   </data>
   <data name="OsdItem_VramUtilization" xml:space="preserve">
-    <value>VRAM Utilization</value>
+    <value>显存利用率</value>
   </data>
   <data name="OsdState_Hidden" xml:space="preserve">
     <value>隐藏</value>
