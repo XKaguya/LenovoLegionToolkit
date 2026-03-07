@@ -2381,8 +2381,8 @@ Do not proceed unless you possess the necessary technical expertise.</value>
   <data name="SensorsControl_Fan_Title" xml:space="preserve">
     <value>風扇</value>
   </data>
-  <data name="SensorsControl_GpuCore_Title" xml:space="preserve">
-    <value>核心</value>
+  <data name="SensorsControl_GpuCoreTemperature_Title" xml:space="preserve">
+    <value>Core Temperature</value>
   </data>
   <data name="SensorsControl_GpuMemoryTemperature_Title" xml:space="preserve">
     <value>VRAM Temperature</value>

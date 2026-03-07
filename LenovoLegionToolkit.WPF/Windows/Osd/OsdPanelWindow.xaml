@@ -302,7 +302,7 @@
                         <TextBlock
                             Grid.Column="0"
                             Style="{DynamicResource SensorLabelStyle}"
-                            Text="{x:Static resources:Resource.SensorsControl_GpuCore_Title}" />
+                            Text="{x:Static resources:Resource.SensorsControl_GpuCoreTemperature_Title}" />
                         <TextBlock
                             x:Name="_gpuTemperature"
                             Grid.Column="1"

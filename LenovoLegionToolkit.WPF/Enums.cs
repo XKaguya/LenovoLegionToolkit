@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using LenovoLegionToolkit.WPF.Resources;
-
-namespace LenovoLegionToolkit.WPF;
+﻿namespace LenovoLegionToolkit.WPF;
 
 public enum DashboardGroupType
 {
@@ -70,7 +67,8 @@ public enum SensorItem
     MemoryUtilization,
     MemoryTemperature,
     Disk1Temperature,
-    Disk2Temperature
+    Disk2Temperature,
+    GpuVramUtilization
 }
 
 public enum SnackbarType

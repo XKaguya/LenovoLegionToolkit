@@ -2383,8 +2383,8 @@ Hãy đảm bảo chương trình hoặc script của bạn chạy đúng trư�
   <data name="SensorsControl_Fan_Title" xml:space="preserve">
     <value>Quạt</value>
   </data>
-  <data name="SensorsControl_GpuCore_Title" xml:space="preserve">
-    <value>Core</value>
+  <data name="SensorsControl_GpuCoreTemperature_Title" xml:space="preserve">
+    <value>Core Temperature</value>
   </data>
   <data name="SensorsControl_GpuMemoryTemperature_Title" xml:space="preserve">
     <value>VRAM Temperature</value>

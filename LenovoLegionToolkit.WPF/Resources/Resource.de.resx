@@ -2382,8 +2382,8 @@ Stellen Sie zunächst sicher, dass Ihr Skript korrekt ausgeführt wird.</value>
   <data name="SensorsControl_Fan_Title" xml:space="preserve">
     <value>Lüfter</value>
   </data>
-  <data name="SensorsControl_GpuCore_Title" xml:space="preserve">
-    <value>Kern</value>
+  <data name="SensorsControl_GpuCoreTemperature_Title" xml:space="preserve">
+    <value>Core Temperature</value>
   </data>
   <data name="SensorsControl_GpuMemoryTemperature_Title" xml:space="preserve">
     <value>VRAM Temperature</value>

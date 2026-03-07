@@ -20,7 +20,7 @@
             <Setter Property="BorderThickness" Value="1" />
             <Setter Property="Background" Value="{DynamicResource ControlFillColorDefaultBrush}" />
             <Setter Property="Width" Value="250" />
-            <Setter Property="Height" Value="170" />
+            <Setter Property="Height" Value="180" />
         </Style>
 
         <Style x:Key="CardTitleStyle" TargetType="TextBlock">
@@ -238,6 +238,30 @@
                                         Style="{StaticResource CompactProgressBarStyle}"
                                         Value="0" />
                                 </Grid>
+                                <Grid x:Name="_gpuVramUtilizationGrid" Margin="0,6,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock
+                                        Grid.Column="0"
+                                        Style="{StaticResource DataLabelStyle}"
+                                        Text="{x:Static resources:Resource.SensorsControl_GpuVramUtilization_Title}" />
+                                    <TextBlock
+                                        x:Name="_gpuVramUtilizationLabel"
+                                        Grid.Column="2"
+                                        Margin="8,0,0,0"
+                                        Style="{StaticResource DataValueStyle}"
+                                        Text="-" />
+                                    <ProgressBar
+                                        x:Name="_gpuVramUtilizationBar"
+                                        Grid.Column="3"
+                                        Maximum="100"
+                                        Style="{StaticResource CompactProgressBarStyle}"
+                                        Value="0" />
+                                </Grid>
                                 <Grid x:Name="_gpuCoreClockGrid" Margin="0,6,0,0">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
@@ -287,54 +311,49 @@
                                 </Grid>
                                 <Grid x:Name="_gpuTemperaturesGrid" Margin="0,6,0,0">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock
-                                        Grid.Column="0"
-                                        Width="60"
-                                        Style="{StaticResource DataLabelStyle}"
-                                        Text="{x:Static resources:Resource.SensorsControl_Temperature_Title}"
-                                        TextWrapping="NoWrap" />
-                                    <StackPanel
+                                    <Grid
                                         x:Name="_gpuCoreTempPanel"
-                                        Grid.Column="2"
-                                        Orientation="Horizontal">
-                                        <TextBlock Style="{StaticResource DataLabelStyle}" Text="{x:Static resources:Resource.SensorsControl_GpuCore_Title}" />
+                                        Grid.Column="0"
+                                        HorizontalAlignment="Stretch">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock
+                                            Grid.Column="0"
+                                            Style="{StaticResource DataLabelStyle}"
+                                            Text="{x:Static resources:Resource.SensorsControl_GpuCoreTemperature_Title}" />
                                         <TextBlock
                                             x:Name="_gpuCoreTemperatureLabel"
+                                            Grid.Column="1"
                                             Margin="8,0,0,0"
                                             Style="{StaticResource DataValueStyle}"
                                             Text="-" />
-                                    </StackPanel>
-                                    <StackPanel
+                                    </Grid>
+                                    <Grid
                                         x:Name="_gpuVramTempPanel"
-                                        Grid.Column="3"
+                                        Grid.Column="1"
                                         Margin="12,0,0,0"
-                                        Orientation="Horizontal">
-                                        <TextBlock Style="{StaticResource DataLabelStyle}" Text="{x:Static resources:Resource.SensorsControl_GpuMemoryTemperature_Title}" />
+                                        HorizontalAlignment="Stretch">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock
+                                            Grid.Column="0"
+                                            Style="{StaticResource DataLabelStyle}"
+                                            Text="{x:Static resources:Resource.SensorsControl_GpuMemoryTemperature_Title}" />
                                         <TextBlock
                                             x:Name="_gpuMemoryTemperatureLabel"
+                                            Grid.Column="1"
                                             Margin="8,0,0,0"
                                             Style="{StaticResource DataValueStyle}"
                                             Text="-" />
-                                    </StackPanel>
+                                    </Grid>
                                 </Grid>
-                                <!--
-                                <Grid x:Name="_gpuTemperatureGrid" Margin="0,6,0,0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Style="{StaticResource DataLabelStyle}" Text="{x:Static resources:Resource.SensorsControl_GpuCore_Title}"/>
-                                    <TextBlock x:Name="_gpuCoreTemperatureLabel" Grid.Column="2" Style="{StaticResource DataValueStyle}" Text="-"/>
-                                    <ProgressBar x:Name="_gpuCoreTemperatureBar" Grid.Column="3" Style="{StaticResource CompactProgressBarStyle}" Value="0" Maximum="100"/>
-                                </Grid>
-                                -->
                                 <Grid x:Name="_gpuPowerGrid" Margin="0,6,0,0">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />

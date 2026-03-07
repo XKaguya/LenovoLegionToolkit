@@ -2383,8 +2383,8 @@ Nejprve se ujisti, že tvůj skript běží správně.</value>
   <data name="SensorsControl_Fan_Title" xml:space="preserve">
     <value>Ventilátor</value>
   </data>
-  <data name="SensorsControl_GpuCore_Title" xml:space="preserve">
-    <value>Jádro</value>
+  <data name="SensorsControl_GpuCoreTemperature_Title" xml:space="preserve">
+    <value>Core Temperature</value>
   </data>
   <data name="SensorsControl_GpuMemoryTemperature_Title" xml:space="preserve">
     <value>VRAM Temperature</value>

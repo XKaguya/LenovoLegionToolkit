@@ -470,6 +470,22 @@ public abstract class OsdWindowBase : Window
         return value >= warningThreshold ? _warningBrush : _valueBrush;
     }
 
+    protected string GetMemoryDisplayText(double usage, double used, double total)
+    {
+        if (_sensorsControlSettings.Store.DisplayMemoryInGigabytes)
+        {
+            if (used >= 0 && total > 0) return $"{used:F1}/{total:F1} {Resource.GB}";
+            if (used >= 0) return $"{used:F1} {Resource.GB}";
+            return "-";
+        }
+
+        return usage >= 0 ? $"{usage:F0}{Resource.Percent}" : "-";
+    }
+
+    protected string GetMemoryDisplayText(SensorSnapshot data) => GetMemoryDisplayText(data.MemUsage, data.MemUsed, data.MemTotal);
+
+    protected string GetGpuVramDisplayText(SensorSnapshot data) => GetMemoryDisplayText(data.GpuVramUsage, data.GpuVramUsed, data.GpuVramTotal);
+
     protected static void SetTextIfChanged(TextBlock tb, string text)
     {
         if (!string.Equals(tb.Text, text, StringComparison.Ordinal))
@@ -640,8 +656,12 @@ public abstract class OsdWindowBase : Window
         var cpuPowerTask = _sensorsGroupControllers.GetCpuPowerAsync();
         var gpuPowerTask = _sensorsGroupControllers.GetGpuPowerAsync();
         var gpuVramUsageTask = _sensorsGroupControllers.GetGpuVramUtilizationAsync();
+        var gpuVramUsedTask = _sensorsGroupControllers.GetGpuVramUsedAsync();
+        var gpuVramTotalTask = _sensorsGroupControllers.GetGpuVramTotalAsync();
         var gpuVramTempTask = _sensorsGroupControllers.GetGpuVramTemperatureAsync();
         var memUsageTask = _sensorsGroupControllers.GetMemoryUsageAsync();
+        var memUsedTask = _sensorsGroupControllers.GetMemoryUsedAsync();
+        var memTotalTask = _sensorsGroupControllers.GetMemoryTotalAsync();
         var memTempTask = _sensorsGroupControllers.GetHighestMemoryTemperatureAsync();
         var diskTempsTask = _sensorsGroupControllers.GetSsdTemperaturesAsync();
 
@@ -649,7 +669,7 @@ public abstract class OsdWindowBase : Window
         var cpuPClockTask = _sensorsGroupControllers.IsHybrid ? _sensorsGroupControllers.GetCpuPCoreClockAsync() : Task.FromResult(float.NaN);
         var cpuEClockTask = _sensorsGroupControllers.IsHybrid ? _sensorsGroupControllers.GetCpuECoreClockAsync() : Task.FromResult(float.NaN);
 
-        await Task.WhenAll(dataTask, cpuPowerTask, gpuPowerTask, gpuVramUsageTask, gpuVramTempTask, memUsageTask, memTempTask, diskTempsTask, cpuPClockTask, cpuEClockTask);
+        await Task.WhenAll(dataTask, cpuPowerTask, gpuPowerTask, gpuVramUsageTask, gpuVramUsedTask, gpuVramTotalTask, gpuVramTempTask, memUsageTask, memUsedTask, memTotalTask, memTempTask, diskTempsTask, cpuPClockTask, cpuEClockTask);
 
         if (token.IsCancellationRequested) return;
 
@@ -674,11 +694,15 @@ public abstract class OsdWindowBase : Window
             GpuFrequency = mainData.GPU.CoreClock,
             GpuTemp = mainData.GPU.Temperature,
             GpuVramUsage = await gpuVramUsageTask,
+            GpuVramUsed = await gpuVramUsedTask,
+            GpuVramTotal = await gpuVramTotalTask,
             GpuVramTemp = await gpuVramTempTask,
             GpuPower = await gpuPowerTask,
             GpuFanSpeed = mainData.GPU.FanSpeed,
 
             MemUsage = await memUsageTask,
+            MemUsed = await memUsedTask,
+            MemTotal = await memTotalTask,
             MemTemp = await memTempTask,
 
             PchTemp = mainData.PCH.Temperature,

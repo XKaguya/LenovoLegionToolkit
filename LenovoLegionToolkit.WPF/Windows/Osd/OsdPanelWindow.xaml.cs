@@ -197,12 +197,12 @@ public partial class OsdPanelWindow : OsdWindowBase
         UpdateTextBlock(_gpuFrequency, data.GpuFrequency, $"{{0}} {Resource.MHz}");
         UpdateTextBlock(_gpuUsage, data.GpuUsage, $"{{0:F0}}{Resource.Percent}", store.UsageThresholdWarning, store.UsageThresholdCritical);
         UpdateTextBlock(_gpuTemperature, data.GpuTemp, $"{{0:F0}}{Resource.Celsius}", store.TempThresholdWarning, store.TempThresholdCritical);
-        UpdateTextBlock(_gpuVramUsage, data.GpuVramUsage, $"{{0:F0}}{Resource.Percent}", store.UsageThresholdWarning, store.UsageThresholdCritical);
+        UpdateTextBlock(_gpuVramUsage, data.GpuVramUsage, GetGpuVramDisplayText(data), store.UsageThresholdWarning, store.UsageThresholdCritical);
         UpdateTextBlock(_gpuVramTemperature, data.GpuVramTemp, $"{{0:F0}}{Resource.Celsius}", store.TempThresholdWarning, store.TempThresholdCritical);
         UpdateTextBlock(_gpuPower, data.GpuPower, $"{{0:F1}} {Resource.Watt}");
         UpdateTextBlock(_gpuFanSpeed, data.GpuFanSpeed);
 
-        UpdateTextBlock(_memUsage, data.MemUsage, $"{{0:F0}}{Resource.Percent}", store.UsageThresholdWarning, store.UsageThresholdCritical);
+        UpdateTextBlock(_memUsage, data.MemUsage, GetMemoryDisplayText(data), store.UsageThresholdWarning, store.UsageThresholdCritical);
         UpdateTextBlock(_memTemperature, data.MemTemp, $"{{0:F0}}{Resource.Celsius}", store.TempThresholdWarning, store.TempThresholdCritical);
 
         UpdateTextBlock(_pchTemperature, data.PchTemp, $"{{0:F0}}{Resource.Celsius}", store.TempThresholdWarning, store.TempThresholdCritical);

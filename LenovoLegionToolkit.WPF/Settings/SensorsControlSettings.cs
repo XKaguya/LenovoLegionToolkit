@@ -11,6 +11,7 @@ public class SensorsControlSettings() : AbstractSettings<SensorsControlSettings.
         public int SensorsRefreshIntervalSeconds { get; set; } = 1;
         public bool SelectedGpuIsIgpu { get; set; } = false;
         public bool ShowCpuAverageFrequency { get; set; } = false;
+        public bool DisplayMemoryInGigabytes { get; set; }
         public SensorGroup[]? Groups { get; set; } = SensorGroup.DefaultGroups;
         public SensorItem[]? VisibleItems { get; set; } = SensorGroup.DefaultGroups.SelectMany(group => group.Items).ToArray();
     }

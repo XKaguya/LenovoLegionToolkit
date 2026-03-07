@@ -26,6 +26,8 @@ public class SensorsGroupController : IDisposable
     private const string UNKNOWN_NAME = "UNKNOWN";
 
     private const string SENSOR_NAME_TOTAL_MEMORY = "Total Memory";
+    private const string SENSOR_NAME_MEMORY_USED = "Memory Used";
+    private const string SENSOR_NAME_MEMORY_AVAILABLE = "Memory Available";
     private const string SENSOR_NAME_PACKAGE = "Package";
     private const string SENSOR_NAME_GPU_HOTSPOT = "GPU Memory Junction";
 
@@ -41,6 +43,7 @@ public class SensorsGroupController : IDisposable
     private const float MIN_VALID_POWER_READING = 0f;
     private const int MAX_CPU_POWER_STUCK_RETRIES = 10;
     private const float MIN_ACTIVE_GPU_POWER = 10f;
+    private const float MB_PER_GB = 1024f;
 
     #endregion
 
@@ -90,6 +93,9 @@ public class SensorsGroupController : IDisposable
     private ISensor? _gpuHotspotSensor;
 
     private ISensor? _memoryLoadSensor;
+    private ISensor? _memoryUsedSensor;
+    private ISensor? _memoryAvailableSensor;
+    private float _cachedMemoryTotal = INVALID_VALUE_FLOAT;
     private readonly List<ISensor> _memoryTempSensors = [];
     private readonly List<ISensor> _storageTempSensors = [];
 
@@ -182,6 +188,8 @@ public class SensorsGroupController : IDisposable
     private float _snapshotGpuVramUsage = INVALID_VALUE_FLOAT;
     private float _snapshotGpuVramUtilization = INVALID_VALUE_FLOAT;
     private float _snapshotMemUsage = INVALID_VALUE_FLOAT;
+    private float _snapshotMemUsed = INVALID_VALUE_FLOAT;
+    private float _snapshotMemTotal = INVALID_VALUE_FLOAT;
     private double _snapshotMemMaxTemp = INVALID_VALUE_DOUBLE;
     private (float, float) _snapshotSsdTemps = (INVALID_VALUE_FLOAT, INVALID_VALUE_FLOAT);
 
@@ -276,6 +284,9 @@ public class SensorsGroupController : IDisposable
         _gpuPowerSensor = null;
         _gpuHotspotSensor = null;
         _memoryLoadSensor = null;
+        _memoryUsedSensor = null;
+        _memoryAvailableSensor = null;
+        _cachedMemoryTotal = INVALID_VALUE_FLOAT;
 
         IsHybrid = false;
 
@@ -390,6 +401,8 @@ public class SensorsGroupController : IDisposable
         }
 
         _memoryLoadSensor = _memoryHardware?.Sensors?.FirstOrDefault(s => s.SensorType == SensorType.Load);
+        _memoryUsedSensor = _memoryHardware?.Sensors?.FirstOrDefault(s => s.SensorType == SensorType.Data && s.Name.Contains(SENSOR_NAME_MEMORY_USED, StringComparison.OrdinalIgnoreCase));
+        _memoryAvailableSensor = _memoryHardware?.Sensors?.FirstOrDefault(s => s.SensorType == SensorType.Data && s.Name.Contains(SENSOR_NAME_MEMORY_AVAILABLE, StringComparison.OrdinalIgnoreCase));
 
         foreach (var hw in _hardware.Where(h => h.HardwareType == HardwareType.Memory))
         {
@@ -498,6 +511,20 @@ public class SensorsGroupController : IDisposable
         lock (_dataLock) return Task.FromResult(_snapshotGpuVramUtilization);
     }
 
+    public Task<float> GetGpuVramUsedAsync()
+    {
+        lock (_dataLock) return Task.FromResult(_snapshotGpuVramUsage > 0 ? _snapshotGpuVramUsage / MB_PER_GB : _snapshotGpuVramUsage);
+    }
+
+    public Task<float> GetGpuVramTotalAsync()
+    {
+        lock (_dataLock)
+        {
+            float total = SelectedGpuIsIgpu ? _cachedIGpuVramTotal : _cachedGpuVramTotal;
+            return Task.FromResult(total > 0 ? total / MB_PER_GB : INVALID_VALUE_FLOAT);
+        }
+    }
+
     public Task<(float, float)> GetSsdTemperaturesAsync()
     {
         lock (_dataLock) return Task.FromResult(_snapshotSsdTemps);
@@ -506,6 +533,16 @@ public class SensorsGroupController : IDisposable
     public Task<float> GetMemoryUsageAsync()
     {
         lock (_dataLock) return Task.FromResult(_snapshotMemUsage);
+    }
+
+    public Task<float> GetMemoryUsedAsync()
+    {
+        lock (_dataLock) return Task.FromResult(_snapshotMemUsed);
+    }
+
+    public Task<float> GetMemoryTotalAsync()
+    {
+        lock (_dataLock) return Task.FromResult(_snapshotMemTotal);
     }
 
     public Task<double> GetHighestMemoryTemperatureAsync()
@@ -688,6 +725,32 @@ public class SensorsGroupController : IDisposable
                         }
 
                         _snapshotMemUsage = _memoryLoadSensor?.Value ?? INVALID_VALUE_FLOAT;
+
+                        float memoryUsed = _memoryUsedSensor?.Value ?? INVALID_VALUE_FLOAT;
+                        float memoryAvailable = _memoryAvailableSensor?.Value ?? INVALID_VALUE_FLOAT;
+
+                        if (memoryUsed >= 0 && memoryAvailable >= 0)
+                        {
+                            _snapshotMemUsed = memoryUsed;
+                            _snapshotMemTotal = memoryUsed + memoryAvailable;
+                            _cachedMemoryTotal = _snapshotMemTotal;
+
+                            if (_snapshotMemUsage < 0 && _snapshotMemTotal > 0)
+                            {
+                                _snapshotMemUsage = (_snapshotMemUsed / _snapshotMemTotal) * 100f;
+                            }
+                        }
+                        else if (_cachedMemoryTotal > 0 && _snapshotMemUsage >= 0)
+                        {
+                            _snapshotMemTotal = _cachedMemoryTotal;
+                            _snapshotMemUsed = (_snapshotMemUsage / 100f) * _snapshotMemTotal;
+                        }
+                        else
+                        {
+                            _snapshotMemUsed = INVALID_VALUE_FLOAT;
+                            _snapshotMemTotal = INVALID_VALUE_FLOAT;
+                        }
+
                         _snapshotMemMaxTemp = _memoryTempSensors.Count > 0 ? (double)(_memoryTempSensors.Max(s => s.Value) ?? 0) : INVALID_VALUE_DOUBLE;
 
                         float t1 = _storageTempSensors.Count > 0 ? _storageTempSensors[0].Value ?? INVALID_VALUE_FLOAT : INVALID_VALUE_FLOAT;

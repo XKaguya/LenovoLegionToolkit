@@ -15,6 +15,7 @@ public partial class SensorSettingsWindow
         InitializeComponent();
 
         _cpuFrequencySelector.SelectedIndex = _sensorsSettings.Store.ShowCpuAverageFrequency ? 1 : 0;
+        _memoryDisplayModeSelector.SelectedIndex = _sensorsSettings.Store.DisplayMemoryInGigabytes ? 1 : 0;
 
         if (Displays.HasMultipleGpus())
         {
@@ -31,8 +32,10 @@ public partial class SensorSettingsWindow
     {
         _sensorsSettings.Store.ShowCpuAverageFrequency = false;
         _sensorsSettings.Store.SelectedGpuIsIgpu = false;
+        _sensorsSettings.Store.DisplayMemoryInGigabytes = false;
         _cpuFrequencySelector.SelectedIndex = 0;
         _gpuSelector.SelectedIndex = 0;
+        _memoryDisplayModeSelector.SelectedIndex = 0;
         _sensorsSettings.SynchronizeStore();
 
         Close();
@@ -50,6 +53,8 @@ public partial class SensorSettingsWindow
         {
             _sensorsSettings.Store.SelectedGpuIsIgpu = _gpuSelector.SelectedIndex == 1;
         }
+
+        _sensorsSettings.Store.DisplayMemoryInGigabytes = _memoryDisplayModeSelector.SelectedIndex == 1;
 
         _sensorsSettings.SynchronizeStore();
         Close();

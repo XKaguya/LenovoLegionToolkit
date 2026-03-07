@@ -174,6 +174,7 @@ public readonly struct SensorGroup(SensorGroupType type, params SensorItem[] ite
             SensorItem.CpuPower),
         new(SensorGroupType.GPU,
             SensorItem.GpuUtilization,
+            SensorItem.GpuVramUtilization,
             SensorItem.GpuFrequency,
             SensorItem.GpuFanSpeed,
             SensorItem.GpuCoreTemperature,
@@ -237,10 +238,14 @@ public readonly struct SensorSnapshot
     public double GpuFrequency { get; init; }
     public double GpuTemp { get; init; }
     public double GpuVramUsage { get; init; }
+    public double GpuVramUsed { get; init; }
+    public double GpuVramTotal { get; init; }
     public double GpuVramTemp { get; init; }
     public double GpuPower { get; init; }
     public int GpuFanSpeed { get; init; }
     public double MemUsage { get; init; }
+    public double MemUsed { get; init; }
+    public double MemTotal { get; init; }
     public double MemTemp { get; init; }
     public double PchTemp { get; init; }
     public int PchFanSpeed { get; init; }

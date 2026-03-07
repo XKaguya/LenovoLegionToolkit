@@ -80,6 +80,16 @@
                         <ComboBoxItem Content="{x:Static resources:Resource.SensorSettingsPage_IGPU_Title}" />
                     </ComboBox>
                 </custom:CardControl>
+
+                <custom:CardControl Margin="0,0,0,8">
+                    <custom:CardControl.Header>
+                        <controls:CardHeaderControl Title="{x:Static resources:Resource.SensorSettingsPage_Memory_Display_Mode_Title}" Subtitle="{x:Static resources:Resource.SensorSettingsPage_Memory_Display_Mode_Message}" />
+                    </custom:CardControl.Header>
+                    <ComboBox x:Name="_memoryDisplayModeSelector" MinWidth="140">
+                        <ComboBoxItem Content="{x:Static resources:Resource.SensorSettingsPage_Percentage_Title}" />
+                        <ComboBoxItem Content="{x:Static resources:Resource.SensorSettingsPage_Used_Memory_GB_Title}" />
+                    </ComboBox>
+                </custom:CardControl>
             </StackPanel>
         </ScrollViewer>
 

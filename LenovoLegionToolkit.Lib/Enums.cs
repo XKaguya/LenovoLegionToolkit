@@ -666,7 +666,8 @@ public enum SensorItem
     MemoryUtilization,
     MemoryTemperature,
     Disk1Temperature,
-    Disk2Temperature
+    Disk2Temperature,
+    GpuVramUtilization
 }
 
 public enum SpeakerState
