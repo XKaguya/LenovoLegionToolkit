@@ -121,7 +121,7 @@
     <value>Φάκελοι εφαρμογής</value>
   </data>
   <data name="AboutPage_AppName" xml:space="preserve">
-    <value>Lenovo Legion Toolkit</value>
+    <value>Lenovo Legion Toolkit (Ανεπίσημη Διακλάδωση)</value>
   </data>
   <data name="AboutPage_Build" xml:space="preserve">
     <value>Κατασκευή</value>
@@ -2793,7 +2793,7 @@ Do not proceed unless you possess the necessary technical expertise.</value>
     <value>Αυτόματος έλεγχος για ενημερώσεις</value>
   </data>
   <data name="SettingsPage_UpdateMethod_Title" xml:space="preserve">
-    <value>Update Method</value>
+    <value>Μέθοδος Ενημέρωσης</value>
   </data>
   <data name="SettingsPage_UseNewSensorDashboard_Message" xml:space="preserve">
     <value>Χρήση νέου πίνακα ελέγχου του αισθητήρα αντί του παλιού. </value>
