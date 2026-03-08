@@ -23,6 +23,12 @@ jobs:
         cache-dependency-path: '**/*.csproj'
     - name: Restore
       run: dotnet restore
+    - name: Restore certificate
+      if: ${{ secrets.LAMPARRAY_CERT != '' }}
+      run: |
+        [IO.File]::WriteAllBytes("LenovoLegionToolkit.LampArray.cer", [Convert]::FromBase64String("${{ secrets.LAMPARRAY_CERT }}"))
+      shell: powershell
+
     - name: Build
       run: .\make_action.bat
     - name: Verify installer
