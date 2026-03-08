@@ -60,45 +60,45 @@
             : and then encoded with base64 encoding.
     -->
   <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -117,7 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="AboutPage_ApplicationFolders" xml:space="preserve">
     <value>Anwendungsordner</value>
   </data>
@@ -294,13 +293,13 @@
     <value>Enable Lamp Array</value>
   </data>
   <data name="ArgumentWindow_Flag_ExpGpuMode" xml:space="preserve">
-    <value>Experimental GPU Working Mode</value>
+    <value> Experimental GPU Working Mode</value>
   </data>
   <data name="ArgumentWindow_Flag_ProxyPassword" xml:space="preserve">
     <value>Proxy Password</value>
   </data>
   <data name="ArgumentWindow_Flag_ProxyUrl" xml:space="preserve">
-    <value>Proxy URL</value>
+    <value> Proxy URL</value>
   </data>
   <data name="ArgumentWindow_Flag_ProxyUsername" xml:space="preserve">
     <value>Proxy Benutzername</value>
@@ -1547,7 +1546,7 @@ Klicken Sie auf Ja zum Deaktivieren und Nein zum Ignorieren.</value>
     <value>Einstellungen</value>
   </data>
   <data name="MainWindow_PawnIO_Warning_Message" xml:space="preserve">
-    <value>You need to install PawnIO first to use hardware sensors!</value>
+    <value>Sie müssen zuerst PawnIO installieren, um das neue Dashboard zu verwenden!</value>
   </data>
   <data name="MainWindow_PawnIO_Warning_Title" xml:space="preserve">
     <value>Warnung</value>
@@ -1815,6 +1814,9 @@ Andere Vollbildfenster werden dadurch nicht beeinträchtigt, aber Sie können ni
   </data>
   <data name="OsdSettings_General_ResetPosition" xml:space="preserve">
     <value>Reset Position</value>
+  </data>
+  <data name="OsdSettings_General_SnapThreshold" xml:space="preserve">
+    <value>Snapping Threshold</value>
   </data>
   <data name="OsdSettings_Tabs_Appearance" xml:space="preserve">
     <value>Appearance</value>
@@ -2382,11 +2384,14 @@ Stellen Sie zunächst sicher, dass Ihr Skript korrekt ausgeführt wird.</value>
   <data name="SensorsControl_Fan_Title" xml:space="preserve">
     <value>Lüfter</value>
   </data>
-  <data name="SensorsControl_GpuCoreTemperature_Title" xml:space="preserve">
-    <value>Core Temperature</value>
+  <data name="SensorsControl_GpuCore_Title" xml:space="preserve">
+    <value>Kern</value>
   </data>
   <data name="SensorsControl_GpuMemoryTemperature_Title" xml:space="preserve">
     <value>VRAM Temperature</value>
+  </data>
+  <data name="SensorsControl_GpuVramUtilization_Title" xml:space="preserve">
+    <value>VRAM Utilization</value>
   </data>
   <data name="SensorsControl_GPU_Power" xml:space="preserve">
     <value>Energie</value>
@@ -2802,7 +2807,7 @@ Nach dem Ändern dieser Option wird ein Neustart empfohlen.</value>
     <value>Automatisch auf Updates prüfen</value>
   </data>
   <data name="SettingsPage_UpdateMethod_Title" xml:space="preserve">
-    <value>Update Method</value>
+    <value>Update-Methode</value>
   </data>
   <data name="SettingsPage_UseNewSensorDashboard_Message" xml:space="preserve">
     <value>Verwenden Sie das neue Sensor-Dashboard anstelle des alten. 
@@ -3118,9 +3123,6 @@ Die Protokollierung wird automatisch aktiviert, wenn Sie fortfahren möchten.</v
   </data>
   <data name="UpdateWindow_WhatsNew" xml:space="preserve">
     <value>Was ist neu?</value>
-  </data>
-  <data name="SensorsControl_GpuVramUtilization_Title" xml:space="preserve">
-    <value>VRAM Utilization</value>
   </data>
   <data name="Warning" xml:space="preserve">
     <value>Warnung</value>
