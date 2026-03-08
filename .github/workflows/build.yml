@@ -24,9 +24,12 @@ jobs:
     - name: Restore
       run: dotnet restore
     - name: Restore certificate
-      if: ${{ secrets.LAMPARRAY_CERT != '' }}
+      env:
+        LAMPARRAY_CERT: ${{ secrets.LAMPARRAY_CERT }}
       run: |
-        [IO.File]::WriteAllBytes("LenovoLegionToolkit.LampArray.cer", [Convert]::FromBase64String("${{ secrets.LAMPARRAY_CERT }}"))
+        if ($env:LAMPARRAY_CERT) {
+          [IO.File]::WriteAllBytes("LenovoLegionToolkit.LampArray.cer", [Convert]::FromBase64String($env:LAMPARRAY_CERT))
+        }
       shell: powershell
 
     - name: Build
