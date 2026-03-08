@@ -15,7 +15,6 @@
 *.userosscache
 *.sln.docstates
 *.pfx
-*.cer
 make_debug.bat
 make_release.bat
 
