@@ -38,34 +38,44 @@ public class FanCurveManager : IDisposable
         _powerModeFeature = powerModeFeature;
     }
 
+    public async Task<bool> IsSupportedAsync()
+    {
+        if (_extension != null) return true;
+
+        await Task.Run(LoadPlugin).ConfigureAwait(false);
+
+        IsEnabled = _extension != null;
+        Log.Instance.Trace($"State: {IsEnabled}");
+
+        return IsEnabled;
+    }
+
     public async Task InitializeAsync()
     {
         if (_isInitialized) return;
-        Log.Instance.Trace($"FanCurveManager.InitializeAsync called.");
+        Log.Instance.Trace($"InitializeAsync called.");
 
-        LoadPlugin();
-        if (_extension != null)
-        {
-            IsEnabled = true;
-            _extension.Initialize(this);
-            Log.Instance.Trace($"FanCurveManager initialized with extension.");
-
-            var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
-            _isThinkBook = mi.LegionSeries == LegionSeries.ThinkBook;
-
-            if (!_isThinkBook)
-            {
-                _powerModeListener.Changed += OnPowerModeChanged;
-                var currentState = await _powerModeFeature.GetStateAsync().ConfigureAwait(false);
-                await ApplyStateLogicAsync(currentState).ConfigureAwait(false);
-            }
-
-            _isInitialized = true;
-        }
-        else
+        bool isSupported = await IsSupportedAsync().ConfigureAwait(false);
+        if (!isSupported)
         {
             Log.Instance.Trace($"No extension found during Initialize.");
+            return;
         }
+
+        _extension!.Initialize(this);
+        Log.Instance.Trace($"FanCurveManager initialized with extension.");
+
+        var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
+        _isThinkBook = mi.LegionSeries == LegionSeries.ThinkBook;
+
+        if (!_isThinkBook)
+        {
+            _powerModeListener.Changed += OnPowerModeChanged;
+            var currentState = await _powerModeFeature.GetStateAsync().ConfigureAwait(false);
+            await ApplyStateLogicAsync(currentState).ConfigureAwait(false);
+        }
+
+        _isInitialized = true;
     }
 
     private async void OnPowerModeChanged(object? sender, PowerModeListener.ChangedEventArgs e)
@@ -87,12 +97,12 @@ public class FanCurveManager : IDisposable
         if (state == PowerModeState.GodMode)
         {
             Log.Instance.Trace($"PowerMode is GodMode. Enabling custom fan control.");
-            await SetRegister(true).ConfigureAwait(false);
+            await SetRegisterAsync(true).ConfigureAwait(false);
         }
         else
         {
             Log.Instance.Trace($"PowerMode is {state}. Disabling custom fan control.");
-            await SetRegister(false).ConfigureAwait(false);
+            await SetRegisterAsync(false).ConfigureAwait(false);
         }
     }
 
@@ -210,7 +220,7 @@ public class FanCurveManager : IDisposable
 
         if (_isThinkBook)
         {
-            await SetRegister(true).ConfigureAwait(false);
+            await SetRegisterAsync(true).ConfigureAwait(false);
         }
         else
         {
@@ -219,7 +229,7 @@ public class FanCurveManager : IDisposable
         }
     }
 
-    public async Task SetRegister(bool flag = false)
+    public async Task SetRegisterAsync(bool flag = false)
     {
         if (!IsEnabled) return;
         if (_extension != null)

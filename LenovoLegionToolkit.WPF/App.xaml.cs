@@ -354,11 +354,12 @@ public partial class App
         Environment.Exit(-1);
     }
 
-    private void Application_Exit(object sender, ExitEventArgs e)
+    private async void Application_Exit(object sender, ExitEventArgs e)
     {
         try
         {
             var controller = IoCContainer.TryResolve<AmdOverclockingController>();
+            var fanManager = IoCContainer.TryResolve<FanCurveManager>();
 
             if (controller != null && controller.IsActive())
             {
@@ -369,6 +370,11 @@ public partial class App
                 };
 
                 controller.SaveShutdownInfo(cleanInfo);
+            }
+
+            if (fanManager != null && await fanManager.IsSupportedAsync().ConfigureAwait(false))
+            {
+                await fanManager.SetRegisterAsync(false).ConfigureAwait(false);
             }
         }
         catch (Exception ex)
@@ -413,7 +419,10 @@ public partial class App
         }
 
         var fanManager = IoCContainer.Resolve<FanCurveManager>();
-        if (fanManager.IsEnabled) await fanManager.SetRegister().ConfigureAwait(false);
+        if (fanManager != null && await fanManager.IsSupportedAsync().ConfigureAwait(false))
+        {
+            await fanManager.SetRegisterAsync(false).ConfigureAwait(false);
+        }
 
         Shutdown();
     }
@@ -613,7 +622,7 @@ public partial class App
             }
         }, TaskCreationOptions.LongRunning);
 
-        return true; 
+        return true;
     }
 
     #endregion
@@ -1028,7 +1037,20 @@ public partial class App
         {
             Log.Instance.Trace($"Resolving and initializing FanCurveManager...");
             var fanManager = IoCContainer.Resolve<FanCurveManager>();
-            await fanManager.InitializeAsync();
+
+            if (!await fanManager.IsSupportedAsync().ConfigureAwait(false))
+            {
+                Log.Instance.Trace($"Extension is not supported or missing.");
+                return;
+            }
+
+            await fanManager.InitializeAsync().ConfigureAwait(false);
+
+            var powerMode = IoCContainer.Resolve<PowerModeFeature>();
+            if (await powerMode.GetStateAsync().ConfigureAwait(false) != PowerModeState.GodMode)
+            {
+                return;
+            }
 
             var fanSettings = IoCContainer.Resolve<FanCurveSettings>();
 
@@ -1039,10 +1061,6 @@ public partial class App
 
             Log.Instance.Trace($"Applying {fanSettings.Store.Entries.Count} fan curves from settings...");
             await fanManager.LoadAndApply(fanSettings.Store.Entries).ConfigureAwait(false);
-        }
-        catch (InvalidOperationException)
-        {
-            Log.Instance.Trace($"Profile apply has been canceled due to AC issue.");
         }
         catch (Exception ex)
         {
