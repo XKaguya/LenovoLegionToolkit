@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <assembly manifestVersion="1.0" xmlns="urn:schemas-microsoft-com:asm.v1">
 
-	<assemblyIdentity version="1.0.0.0" name="MyApplication.app"/>
+	<assemblyIdentity version="1.0.0.0" name="LenovoLegionToolkit.app"/>
 
 	<trustInfo xmlns="urn:schemas-microsoft-com:asm.v2">
 		<security>
@@ -25,5 +25,10 @@
 			<ultraHighResolutionScrollingAware xmlns="http://schemas.microsoft.com/SMI/2013/WindowsSettings">false</ultraHighResolutionScrollingAware>
 		</windowsSettings>
 	</application>
+
+	<msix xmlns="urn:schemas-microsoft-com:msix.v1"
+		  publisher="CN=LenovoLegionToolkit"
+		  packageName="eef45acd-2cf3-4d7d-9d33-92f37c74cc31"
+		  applicationId="App" />
 
 </assembly>

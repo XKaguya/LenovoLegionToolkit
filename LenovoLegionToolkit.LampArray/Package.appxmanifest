@@ -6,7 +6,8 @@
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
   xmlns:iot="http://schemas.microsoft.com/appx/manifest/iot/windows10"
   xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
-  IgnorableNamespaces="uap rescap iot">
+  xmlns:uap10="http://schemas.microsoft.com/appx/manifest/uap/windows10/10"
+  IgnorableNamespaces="uap rescap iot uap10">
 
   <Identity
 	Name="eef45acd-2cf3-4d7d-9d33-92f37c74cc31"
@@ -15,8 +16,9 @@
 
   <Properties>
 	<DisplayName>Lenovo Legion Toolkit</DisplayName>
-	<PublisherDisplayName>Administrator</PublisherDisplayName>
+	<PublisherDisplayName>Lenovo Legion Toolkit</PublisherDisplayName>
 	<Logo>Images\StoreLogo.png</Logo>
+	<uap10:AllowExternalContent>true</uap10:AllowExternalContent>
   </Properties>
 
   <Dependencies>
@@ -42,7 +44,7 @@
 	  </uap:VisualElements>
 		<Extensions>
 			<uap3:Extension Category="windows.appExtension">
-				<uap3:AppExtension Name="com.microsoft.windows.lighting" Id="Id" PublicFolder="public" DisplayName="Id" />
+				<uap3:AppExtension Name="com.microsoft.windows.lighting" Id="LenovoLegionToolkitLighting" PublicFolder="public" DisplayName="Lenovo Legion Toolkit Lighting" />
 			</uap3:Extension>
 		</Extensions>
 	</Application>

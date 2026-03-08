@@ -1,7 +1,7 @@
 #define DotNetPrettyName "Microsoft .NET Desktop Runtime"
 #define DotNetName "Microsoft.WindowsDesktop.App 9"
-#define DotNetVersion "9.0.11"
-#define DotNetURL "https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/9.0.11/windowsdesktop-runtime-9.0.11-win-x64.exe"
+#define DotNetVersion "9.0.13"
+#define DotNetURL "https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/9.0.13/windowsdesktop-runtime-9.0.13-win-x64.exe"
 #define DotNetExeName "dotnet9.exe"
 #define DotNetExeArgs "/install /repair /passive /norestart"
 
@@ -95,7 +95,7 @@ begin
   DeleteFile(fileName);
 end;
 
-procedure InstallDotNet6DesktopRuntime;
+procedure InstallDotNetDesktopRuntime;
 begin
   if not IsDotNetInstalled('{#DotNetName}', '{#DotNetVersion}') then begin 
     NeedsInstall := True;
@@ -147,7 +147,7 @@ var
   resultCode: Integer;
 begin
   if NeedsInstall then begin
-    prettyName := '{#DotNetPrettyName} {#DotNetVersion}'
+    prettyName := '{#DotNetPrettyName} {#DotNetVersion}';
 
     Dependency_DownloadPage.Show;
     Dependency_DownloadPage.Clear;

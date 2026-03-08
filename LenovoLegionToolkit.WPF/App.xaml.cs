@@ -107,6 +107,7 @@ public partial class App
 
                 Compatibility.PrintControllerVersionAsync().ConfigureAwait(false);
                 InitOsd();
+                LogIdentityStatus();
 
                 if (AppFlags.Instance.Debug)
                 {
@@ -1168,6 +1169,23 @@ public partial class App
         catch (Exception ex)
         {
             Log.Instance.Trace($"{taskName} failed: {ex.Message}");
+        }
+    }
+
+    private void LogIdentityStatus()
+    {
+        try
+        {
+            var package = global::Windows.ApplicationModel.Package.Current;
+            Log.Instance.Trace($"Package Identity found: {package.Id.FamilyName}");
+        }
+        catch (InvalidOperationException)
+        {
+            Log.Instance.Trace($"Package Identity not found (Running as standard Win32).");
+        }
+        catch (Exception ex)
+        {
+            Log.Instance.Trace($"Failed to check Package Identity: {ex.Message}");
         }
     }
 
