@@ -1044,6 +1044,9 @@ CẢNH BÁO! Hành động này sẽ không chạy nếu màn hình laptop tắt
   <data name="FnLockControl_Title" xml:space="preserve">
     <value>Khóa phím Fn</value>
   </data>
+  <data name="GB" xml:space="preserve">
+    <value>GB</value>
+  </data>
   <data name="GHz" xml:space="preserve">
     <value>GHz</value>
   </data>
@@ -1817,6 +1820,9 @@ Chức năng này không ảnh hưởng các cửa sổ ở chế độ toàn m�
   <data name="OsdSettings_General_ResetPosition" xml:space="preserve">
     <value>Reset Position</value>
   </data>
+  <data name="OsdSettings_General_SnapThreshold" xml:space="preserve">
+    <value>Snapping Threshold</value>
+  </data>
   <data name="OsdSettings_Tabs_Appearance" xml:space="preserve">
     <value>Appearance</value>
   </data>
@@ -2384,10 +2390,13 @@ Hãy đảm bảo chương trình hoặc script của bạn chạy đúng trư�
     <value>Quạt</value>
   </data>
   <data name="SensorsControl_GpuCoreTemperature_Title" xml:space="preserve">
-    <value>Core Temperature</value>
+    <value>Core Temp</value>
   </data>
   <data name="SensorsControl_GpuMemoryTemperature_Title" xml:space="preserve">
-    <value>VRAM Temperature</value>
+    <value>VRAM Temp</value>
+  </data>
+  <data name="SensorsControl_GpuVramUtilization_Title" xml:space="preserve">
+    <value>VRAM Utilization</value>
   </data>
   <data name="SensorsControl_GPU_Power" xml:space="preserve">
     <value>Công suất</value>
@@ -2443,11 +2452,23 @@ Hãy đảm bảo chương trình hoặc script của bạn chạy đúng trư�
   <data name="SensorSettingsPage_Max_Frequency_Title" xml:space="preserve">
     <value>Max Frequency</value>
   </data>
+  <data name="SensorSettingsPage_Memory_Display_Mode_Message" xml:space="preserve">
+    <value>Choose how memory utilization is displayed on the Dashboard and OSD.</value>
+  </data>
+  <data name="SensorSettingsPage_Memory_Display_Mode_Title" xml:space="preserve">
+    <value>Memory Display Mode</value>
+  </data>
+  <data name="SensorSettingsPage_Percentage_Title" xml:space="preserve">
+    <value>Percentage</value>
+  </data>
   <data name="SensorSettingsPage_Preferred_GPU_Message" xml:space="preserve">
     <value>When multiple graphics cards are present, the primary device displayed is preferred</value>
   </data>
   <data name="SensorSettingsPage_Preferred_GPU_Title" xml:space="preserve">
     <value>Preferred GPU</value>
+  </data>
+  <data name="SensorSettingsPage_Used_Memory_GB_Title" xml:space="preserve">
+    <value>Used/Total Memory (GB)</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Cài đặt</value>
@@ -3118,9 +3139,6 @@ Logging sẽ được tự động bật, nếu bạn chọn tiếp tục.</valu
   </data>
   <data name="UpdateWindow_WhatsNew" xml:space="preserve">
     <value>Có gì mới?</value>
-  </data>
-  <data name="SensorsControl_GpuVramUtilization_Title" xml:space="preserve">
-    <value>VRAM Utilization</value>
   </data>
   <data name="Warning" xml:space="preserve">
     <value>Cảnh báo</value>

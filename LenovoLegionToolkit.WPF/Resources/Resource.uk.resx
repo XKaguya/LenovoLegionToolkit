@@ -1041,6 +1041,9 @@
   <data name="FnLockControl_Title" xml:space="preserve">
     <value>Блокування Fn</value>
   </data>
+  <data name="GB" xml:space="preserve">
+    <value>GB</value>
+  </data>
   <data name="GHz" xml:space="preserve">
     <value>ГГц</value>
   </data>
@@ -1814,6 +1817,9 @@
   <data name="OsdSettings_General_ResetPosition" xml:space="preserve">
     <value>Reset Position</value>
   </data>
+  <data name="OsdSettings_General_SnapThreshold" xml:space="preserve">
+    <value>Snapping Threshold</value>
+  </data>
   <data name="OsdSettings_Tabs_Appearance" xml:space="preserve">
     <value>Appearance</value>
   </data>
@@ -2380,10 +2386,13 @@
     <value>Вентилятор</value>
   </data>
   <data name="SensorsControl_GpuCoreTemperature_Title" xml:space="preserve">
-    <value>Core Temperature</value>
+    <value>Core Temp</value>
   </data>
   <data name="SensorsControl_GpuMemoryTemperature_Title" xml:space="preserve">
-    <value>VRAM Temperature</value>
+    <value>VRAM Temp</value>
+  </data>
+  <data name="SensorsControl_GpuVramUtilization_Title" xml:space="preserve">
+    <value>VRAM Utilization</value>
   </data>
   <data name="SensorsControl_GPU_Power" xml:space="preserve">
     <value>Потужність</value>
@@ -2439,11 +2448,23 @@
   <data name="SensorSettingsPage_Max_Frequency_Title" xml:space="preserve">
     <value>Максимальна частота</value>
   </data>
+  <data name="SensorSettingsPage_Memory_Display_Mode_Message" xml:space="preserve">
+    <value>Choose how memory utilization is displayed on the Dashboard and OSD.</value>
+  </data>
+  <data name="SensorSettingsPage_Memory_Display_Mode_Title" xml:space="preserve">
+    <value>Memory Display Mode</value>
+  </data>
+  <data name="SensorSettingsPage_Percentage_Title" xml:space="preserve">
+    <value>Percentage</value>
+  </data>
   <data name="SensorSettingsPage_Preferred_GPU_Message" xml:space="preserve">
     <value>Коли присутні кілька відеокарт, перевага надається головному пристрою, що показується</value>
   </data>
   <data name="SensorSettingsPage_Preferred_GPU_Title" xml:space="preserve">
     <value>Бажаний ГП</value>
+  </data>
+  <data name="SensorSettingsPage_Used_Memory_GB_Title" xml:space="preserve">
+    <value>Used/Total Memory (GB)</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Налаштування</value>
@@ -3115,9 +3136,6 @@
   </data>
   <data name="UpdateWindow_WhatsNew" xml:space="preserve">
     <value>Що нового?</value>
-  </data>
-  <data name="SensorsControl_GpuVramUtilization_Title" xml:space="preserve">
-    <value>VRAM Utilization</value>
   </data>
   <data name="Warning" xml:space="preserve">
     <value>Попередження</value>

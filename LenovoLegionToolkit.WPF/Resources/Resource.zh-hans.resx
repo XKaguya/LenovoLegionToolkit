@@ -1048,6 +1048,9 @@
   <data name="FnLockControl_Title" xml:space="preserve">
     <value>锁定 Fn 键</value>
   </data>
+  <data name="GB" xml:space="preserve">
+    <value>GB</value>
+  </data>
   <data name="GHz" xml:space="preserve">
     <value>GHz</value>
   </data>
@@ -1824,6 +1827,9 @@
   <data name="OsdSettings_General_ResetPosition" xml:space="preserve">
     <value>Reset Position</value>
   </data>
+  <data name="OsdSettings_General_SnapThreshold" xml:space="preserve">
+    <value>Snapping Threshold</value>
+  </data>
   <data name="OsdSettings_Tabs_Appearance" xml:space="preserve">
     <value>Appearance</value>
   </data>
@@ -2393,10 +2399,13 @@
     <value>风扇</value>
   </data>
   <data name="SensorsControl_GpuCoreTemperature_Title" xml:space="preserve">
-    <value>Core Temperature</value>
+    <value>Core Temp</value>
   </data>
   <data name="SensorsControl_GpuMemoryTemperature_Title" xml:space="preserve">
-    <value>VRAM Temperature</value>
+    <value>VRAM Temp</value>
+  </data>
+  <data name="SensorsControl_GpuVramUtilization_Title" xml:space="preserve">
+    <value>VRAM Utilization</value>
   </data>
   <data name="SensorsControl_GPU_Power" xml:space="preserve">
     <value>功耗</value>
@@ -2452,11 +2461,23 @@
   <data name="SensorSettingsPage_Max_Frequency_Title" xml:space="preserve">
     <value>最高频率</value>
   </data>
+  <data name="SensorSettingsPage_Memory_Display_Mode_Message" xml:space="preserve">
+    <value>Choose how memory utilization is displayed on the Dashboard and OSD.</value>
+  </data>
+  <data name="SensorSettingsPage_Memory_Display_Mode_Title" xml:space="preserve">
+    <value>Memory Display Mode</value>
+  </data>
+  <data name="SensorSettingsPage_Percentage_Title" xml:space="preserve">
+    <value>Percentage</value>
+  </data>
   <data name="SensorSettingsPage_Preferred_GPU_Message" xml:space="preserve">
     <value>当设备同时拥有多个显卡时优先显示的设备。</value>
   </data>
   <data name="SensorSettingsPage_Preferred_GPU_Title" xml:space="preserve">
     <value>首选显卡</value>
+  </data>
+  <data name="SensorSettingsPage_Used_Memory_GB_Title" xml:space="preserve">
+    <value>Used/Total Memory (GB)</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>设置</value>
@@ -3128,9 +3149,6 @@
   </data>
   <data name="UpdateWindow_WhatsNew" xml:space="preserve">
     <value>更新日志</value>
-  </data>
-  <data name="SensorsControl_GpuVramUtilization_Title" xml:space="preserve">
-    <value>VRAM Utilization</value>
   </data>
   <data name="Warning" xml:space="preserve">
     <value>警告</value>
