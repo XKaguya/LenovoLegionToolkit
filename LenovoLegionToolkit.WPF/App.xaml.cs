@@ -424,7 +424,7 @@ public partial class App
             await fanManager.SetRegisterAsync(false).ConfigureAwait(false);
         }
 
-        Shutdown();
+        Dispatcher.Invoke(Shutdown);
     }
 
     private static async Task SafeExecuteAsync<T>(Func<T, Task> action) where T : class

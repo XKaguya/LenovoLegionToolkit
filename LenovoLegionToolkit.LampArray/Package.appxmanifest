@@ -7,12 +7,13 @@
   xmlns:iot="http://schemas.microsoft.com/appx/manifest/iot/windows10"
   xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
   xmlns:uap10="http://schemas.microsoft.com/appx/manifest/uap/windows10/10"
-  IgnorableNamespaces="uap rescap iot uap10">
+  IgnorableNamespaces="uap rescap iot uap3 uap10">
 
   <Identity
 	Name="eef45acd-2cf3-4d7d-9d33-92f37c74cc31"
 	Publisher="CN=LenovoLegionToolkit"
-	Version="2.31.0.0" />
+	Version="2.31.0.0"
+	ProcessorArchitecture="neutral" />
 
   <Properties>
 	<DisplayName>Lenovo Legion Toolkit</DisplayName>
@@ -26,22 +27,23 @@
   </Dependencies>
 
   <Resources>
-	<Resource Language="x-generate"/>
+	<Resource Language="en-US"/>
   </Resources>
 
   <Applications>
 	<Application Id="App"
-	  Executable="$targetnametoken$.exe"
-	  EntryPoint="$targetentrypoint$">
-	  <uap:VisualElements
-		DisplayName="Lenovo Legion Toolkit"
-		Description="Lenovo Legion Toolkit"
-		BackgroundColor="transparent"
-		Square150x150Logo="Images\Square150x150Logo.png"
-		Square44x44Logo="Images\Square44x44Logo.png">
-		<uap:DefaultTile Wide310x150Logo="Images\Wide310x150Logo.png" />
-		<uap:SplashScreen Image="Images\SplashScreen.png" />
-	  </uap:VisualElements>
+	  Executable="Lenovo Legion Toolkit.exe"
+	  uap10:TrustLevel="mediumIL"
+	  uap10:RuntimeBehavior="win32App">
+    <uap:VisualElements
+      DisplayName="Lenovo Legion Toolkit"
+      Description="Lenovo Legion Toolkit"
+      BackgroundColor="transparent"
+      Square150x150Logo="Images\Square150x150Logo.png"
+      Square44x44Logo="Images\Square44x44Logo.png">
+      <uap:DefaultTile Wide310x150Logo="Images\Wide310x150Logo.png" />
+      <uap:SplashScreen Image="Images\SplashScreen.png" />
+    </uap:VisualElements>
 		<Extensions>
 			<uap3:Extension Category="windows.appExtension">
 				<uap3:AppExtension Name="com.microsoft.windows.lighting" Id="LenovoLegionToolkitLighting" PublicFolder="public" DisplayName="Lenovo Legion Toolkit Lighting" />
@@ -53,6 +55,7 @@
   <Capabilities>
 	<Capability Name="internetClient" />
 	<rescap:Capability Name="runFullTrust" />
+	<rescap:Capability Name="unvirtualizedResources" />
 	<iot:Capability Name="systemManagement"/>
 	<DeviceCapability Name="humaninterfacedevice"/>
   </Capabilities>

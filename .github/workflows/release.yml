@@ -108,7 +108,21 @@ jobs:
     - name: Restore
       run: dotnet restore
 
+    - name: Restore identity package signing key
+      env:
+        LAMPARRAY_PFX: ${{ secrets.LAMPARRAY_PFX }}
+      run: |
+        if (-not $env:LAMPARRAY_PFX) {
+          Write-Error "Missing LAMPARRAY_PFX secret. The identity MSIX package cannot be signed."
+          exit 1
+        }
+
+        [IO.File]::WriteAllBytes("LenovoLegionToolkit.LampArray.pfx", [Convert]::FromBase64String($env:LAMPARRAY_PFX))
+      shell: powershell
+
     - name: Build
+      env:
+        LLT_CERT_PASSWORD: ${{ secrets.LAMPARRAY_PFX_PASSWORD }}
       run: .\make_action.bat ${{ steps.release_meta.outputs.version }}
 
     - name: Rename installer

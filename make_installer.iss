@@ -178,10 +178,12 @@ Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
 Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
 
 [Run]
+; Unregister existing package identity (required for upgrades)
+Filename: "powershell.exe"; Parameters: "-NoProfile -ExecutionPolicy Bypass -Command ""Get-AppxPackage -Name 'eef45acd-2cf3-4d7d-9d33-92f37c74cc31' | Remove-AppxPackage -ErrorAction SilentlyContinue"""; Flags: runhidden; StatusMsg: "Removing previous identity..."
 ; Trust the self-signed certificate (required for registration)
 Filename: "powershell.exe"; Parameters: "-NoProfile -ExecutionPolicy Bypass -Command ""Import-Certificate -FilePath '{app}\LenovoLegionToolkit.LampArray.cer' -CertStoreLocation 'Cert:\LocalMachine\TrustedPeople'"""; Flags: runhidden; StatusMsg: "Trusting application identity..."
-; Register the Sparse Package identity
-Filename: "powershell.exe"; Parameters: "-NoProfile -ExecutionPolicy Bypass -Command ""Add-AppxPackage -Register '{app}\AppxManifest.xml' -AllowDevelopmentSettings"""; Flags: runhidden; StatusMsg: "Registering application identity..."
+; Register the Sparse Package identity (conditional: use .msix if present, else raw manifest)
+Filename: "powershell.exe"; Parameters: "-NoProfile -ExecutionPolicy Bypass -Command ""if (Test-Path '{app}\LenovoLegionToolkit.LampArray.msix') {{ Add-AppxPackage -Path '{app}\LenovoLegionToolkit.LampArray.msix' -ExternalLocation '{app}' } else {{ Add-AppxPackage -Register '{app}\AppxManifest.xml' -ExternalLocation '{app}' }"""; Flags: runhidden; StatusMsg: "Registering application identity..."
 
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: runascurrentuser nowait postinstall
 

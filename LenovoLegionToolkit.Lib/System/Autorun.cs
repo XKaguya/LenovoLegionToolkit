@@ -49,7 +49,10 @@ public static class Autorun
             return;
         }
 
-        if (currentTask.Definition.Data == fileVersion)
+        var launchTarget = GetLaunchTarget();
+        var taskData = BuildTaskData(fileVersion, launchTarget);
+
+        if (currentTask.Definition.Data == taskData)
         {
             Log.Instance.Trace($"Autorun settings seems to be fine.");
             return;
@@ -75,18 +78,18 @@ public static class Autorun
         Disable();
 
         var mainModule = Process.GetCurrentProcess().MainModule ?? throw new InvalidOperationException("Main Module cannot be null");
-        var filename = mainModule.FileName ?? throw new InvalidOperationException("Current process file name cannot be null");
         var fileVersion = mainModule.FileVersionInfo.FileVersion ?? throw new InvalidOperationException("Current process file version cannot be null");
         var currentUser = WindowsIdentity.GetCurrent().Name;
+        var launchTarget = GetLaunchTarget();
 
         var ts = TaskService.Instance;
         var td = ts.NewTask();
         td.Settings.Compatibility = TaskCompatibility.V2_1;
-        td.Data = fileVersion;
+        td.Data = BuildTaskData(fileVersion, launchTarget);
         td.Principal.UserId = currentUser;
         td.Principal.RunLevel = TaskRunLevel.Highest;
         td.Triggers.Add(new LogonTrigger { UserId = currentUser, Delay = new TimeSpan(0, 0, delayed ? 30 : 0) });
-        td.Actions.Add($"\"{filename}\"", "--minimized");
+        td.Actions.Add($"\"{launchTarget}\"", "--minimized");
         td.Settings.DisallowStartIfOnBatteries = false;
         td.Settings.StopIfGoingOnBatteries = false;
         td.Settings.ExecutionTimeLimit = TimeSpan.Zero;
@@ -107,5 +110,14 @@ public static class Autorun
         {
             Log.Instance.Trace($"Autorun was not enabled");
         }
+    }
+
+    private static string BuildTaskData(string fileVersion, string launchTarget) => $"{fileVersion}|{launchTarget}";
+
+    private static string GetLaunchTarget()
+    {
+        var mainModule = Process.GetCurrentProcess().MainModule ?? throw new InvalidOperationException("Main Module cannot be null");
+        var filename = mainModule.FileName ?? throw new InvalidOperationException("Current process file name cannot be null");
+        return filename;
     }
 }
