@@ -19,7 +19,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File ".\build_identity_package.ps
 
 echo Registering package identity...
 powershell -NoProfile -ExecutionPolicy Bypass -Command "Get-AppxPackage -Name 'eef45acd-2cf3-4d7d-9d33-92f37c74cc31' | Remove-AppxPackage -ErrorAction SilentlyContinue"
-powershell -NoProfile -ExecutionPolicy Bypass -Command "Import-Certificate -FilePath '%~dp0BuildLLT\LenovoLegionToolkit.LampArray.cer' -CertStoreLocation 'Cert:\LocalMachine\TrustedPeople'"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "Import-Certificate -FilePath '%~dp0BuildLLT\LenovoLegionToolkit.LampArray.cer' -CertStoreLocation 'Cert:\CurrentUser\TrustedPeople' -ErrorAction SilentlyContinue"
 powershell -NoProfile -ExecutionPolicy Bypass -Command "if (Test-Path '%~dp0BuildLLT\LenovoLegionToolkit.LampArray.msix') { Add-AppxPackage -Path '%~dp0BuildLLT\LenovoLegionToolkit.LampArray.msix' -ExternalLocation '%~dp0BuildLLT' } else { Add-AppxPackage -Register '%~dp0BuildLLT\AppxManifest.xml' -ExternalLocation '%~dp0BuildLLT' }" || exit /b
 
 echo.
