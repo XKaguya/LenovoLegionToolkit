@@ -1,11 +1,11 @@
-﻿using System;
+﻿using LenovoLegionToolkit.Lib;
+using LenovoLegionToolkit.Lib.Utils;
+using LenovoLegionToolkit.WPF.Resources;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
-using LenovoLegionToolkit.Lib;
-using LenovoLegionToolkit.Lib.Utils;
-using LenovoLegionToolkit.WPF.Resources;
 
 namespace LenovoLegionToolkit.WPF;
 
