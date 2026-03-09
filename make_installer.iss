@@ -13,8 +13,8 @@
   #define MyAppVersion "0.0.1"
 #endif
 
-#ifndef MyTimestamp
-#define MyTimestamp ""
+#ifndef MyBuildDate
+  #define MyBuildDate "00000000"
 #endif
 
 [Setup]
@@ -32,7 +32,7 @@ DefaultDirName={userpf}\{#MyAppNameCompact}
 DisableProgramGroupPage=yes
 LicenseFile=LICENSE
 PrivilegesRequired=admin
-OutputBaseFilename=LenovoLegionToolkitSetup [{#MyAppVersion}][{#MyTimestamp}]
+OutputBaseFilename=LenovoLegionToolkitSetup-v{#MyAppVersion}_Build{#MyBuildDate}
 Compression=lzma2/ultra64
 SolidCompression=yes
 WizardStyle=modern

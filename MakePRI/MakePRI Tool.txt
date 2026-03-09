@@ -1,0 +1,327 @@
+--------------------------------------------------------------------------------
+Main Command
+--------------------------------------------------------------------------------
+Microsoft (R) MakePRI Tool
+Copyright (C) 2013 Microsoft. All rights reserved.
+
+Usage:
+------
+    MakePri.exe <Command> [options]
+
+Example:
+--------
+    MakePri.exe new /pr C:\MyApp\src\ /cf C:\MyApp\priconfig.xml /in PackageName
+
+Description:
+------------
+    MakePri.exe creates, dumps and does utility functions on a PRI file.
+    A PRI file is an index of application resources (i.e. strings, files, etc).
+
+Command Options:
+----------------
+    MakePri.exe createconfig   Creates a PRI Config file for use with other
+                               commands
+    MakePri.exe new            Creates a new PRI file from scratch
+    MakePri.exe versioned      Creates a PRI file based off a previous version
+    MakePri.exe resourcepack   Creates a PRI file that contains additional
+                               resource variants for a base PRI
+    MakePri.exe dump           Dumps the contents of a PRI file
+    MakePri.exe help           Show this help page
+
+Help:
+    Specify a command with help for more detailed help
+    MakePri.exe new /?
+
+
+--------------------------------------------------------------------------------
+CreateConfig Command
+--------------------------------------------------------------------------------
+Microsoft (R) MakePRI Tool
+Copyright (C) 2013 Microsoft. All rights reserved.
+
+Usage:
+------
+    MakePri.exe createconfig /cf <config file destination> /dq
+    <default qualifiers> /pv 10.0.0 [options]
+
+Example:
+--------
+    MakePri.exe createconfig /cf C:\MyApp\priconfig.xml /dq en-US /pv 10.0.0 /o
+
+Description:
+------------
+    MakePri.exe createconfig creates a PRI configuration file at
+    [config file destination] with default qualifiers specified by
+    [default qualifiers]. Multiple qualifiers are separated by underscores (_)
+
+Required Parameters:
+--------------------
+    /ConfigXml(cf)    : <FILEPATH> Configuration file output location
+    /Default(dq)      : <QUALIFIERS> The default qualifier set in the
+                        configuration file. Some qualifiers are required
+                        (i.e. language)
+
+Options:
+--------
+    /Platform(pv)     : <VERSION> Platform version to use for generated
+                        configuration file.
+    /Overwrite(o)     : Overwrite an existing output file of the same name
+                        without prompting
+    /Help(h, ?)       : Display the usage help text
+    /ExtensionDll(ex) : <FILEPATH> Location of the MRT environment extension
+                        DLL. This DLL must be signed by a Microsoft-issued
+                        certificate. Default is an empty path (no DLL
+                        will be used).
+
+
+    FOLDERPATH       - is a valid path to a folder
+    QUALIFIERS       - is a valid qualifier token
+                  (i.e. lang-en-US_scale-100_contrast-high)
+
+
+--------------------------------------------------------------------------------
+New Command
+--------------------------------------------------------------------------------
+Microsoft (R) MakePRI Tool
+Copyright (C) 2013 Microsoft. All rights reserved.
+
+Usage:
+------
+    MakePri.exe new /pr <project root> /cf <config file> [options]
+
+Example:
+--------
+    MakePri.exe new /pr C:\MyApp\src\ /cf C:\MyApp\priconfig.xml /mn
+    C:\MyApp\AppXManifest.xml /of C:\MyApp\src\resources.pri /o
+
+Description:
+------------
+    Creates a PRI file at [outputfile] by indexing all files in the
+    [projectroot]and its subdirectories as directed by the [configxml]. The
+    index will be assigned [indexname] to reference resources in the application
+
+Required Parameters:
+--------------------
+    /ProjectRoot(pr)  : <FOLDERPATH> Root location of project files
+    /ConfigXml(cf)    : <FILEPATH> Configuration file location. Use
+                        'Makepri.exe createconfig' command to generate one
+
+Options:
+--------
+    /OutputFile(of)   : <FILEPATH> Output location of PRI file, default is
+                        [current directory]\resources.pri
+    /Manifest(mn)     : <FILEPATH> Location of the application or component's
+                        manifest. This parameter is ignored if [indexname]
+                        is given. Default is [projectroot]\AppXManifest.xml
+    /IndexName(in)    : <STRING> Name for the generated index of resources.
+                        Typically matches the AppX package name, class library
+                        simple name, etc. May be supplied via the
+                        [manifest] parameter.
+                        If IndexName is not specified and an AppX manifest
+                        file is not present, the default name 'Application'
+                        will be used.
+    /VersionMajor(vma): <INTEGER> [Deprecated] Major version number for
+                        index, default is 1
+    /IndexLog(il)     : <FILEPATH> XML Log of indexed resources, no file
+                        generated by default
+    /AutoMerge(am)    : This flag is not recommended for normal use with AppX
+                        packages. It causes Makepri.exe to set the auto
+                        merge flag within the PRI file. Default is not set.
+    /ReverseMap(rm)   : Generate a reverse mapping section in the PRI file
+                        which can be used for debugging purposes.
+    /MappingFile(mf)  : <MAPPINGFILETYPE> Generate a mapping file in the given
+                        file format.
+    /SchemaFile(sf)   : <FILEPATH> Output location of XML resource schema
+                        description.
+    /IndexOptions(io) : <OPTIONS> Options to provide detailed control over
+                        behavior of resource indexers.
+    /Overwrite(o)     : Overwrite an existing output file of the same name
+                        without prompting
+    /Verbose(v)       : Causes verbose messages to be output to the console
+    /Help(h, ?)       : Display the usage help text
+    /ExtensionDll(ex) : <FILEPATH> Location of the MRT environment extension
+                        DLL. This DLL must be signed by a Microsoft-issued
+                        certificate. Default is an empty path (no DLL
+                        will be used).
+
+
+    FOLDERPATH       - is a valid path to a folder
+    FILEPATH         - is a path to a file, either relative to the current
+                       directory or absolute
+    MAPPINGFILETYPE  - Supported File type(s): 'AppX'
+
+
+--------------------------------------------------------------------------------
+Versioned Command
+--------------------------------------------------------------------------------
+Microsoft (R) MakePRI Tool
+Copyright (C) 2013 Microsoft. All rights reserved.
+
+Usage:
+------
+    MakePri.exe versioned /pr <project root> /cf <config file> [options]
+
+Example:
+--------
+    MakePri.exe versioned /o /if C:\MyApp\1.2\resources.pri /pr C:\MyApp\src
+    /cf C:\MyApp\priconfig.xml /of C:\MyApp\src\resources.pri /o
+
+Description:
+------------
+    MakePri.exe versioned creates a versioned PRI file at [outputfile] by
+    indexing all files in the [projectroot] and its subdirectories based on
+    [indexfile] and as directed by the [configxml].
+
+Required Parameters:
+--------------------
+    /ProjectRoot(pr)  : <FOLDERPATH> Root location of project files
+    /ConfigXml(cf)    : <FILEPATH> Configuration file location. Use
+                        'Makepri.exe createconfig' command to generate one
+
+Options:
+--------
+    /OutputFile(of)   : <FILEPATH> Output location of PRI file, default is
+                        [current directory]\resources.pri
+    /IndexFile(if)    : <FILEPATH> Location of the base PRI or XML schema file.
+                        Default is [projectroot]\resources.pri
+    /IndexLog(il)     : <FILEPATH> XML Log of indexed resources, no file
+                        generated by default
+    /AutoMerge(am)    : This flag is not recommended for normal use with AppX
+                        packages. It causes Makepri.exe to set the auto
+                        merge flag within the PRI file. By default it is set
+                        to same as the base PRI file.
+    /ReverseMap(rm)   : Generate a reverse mapping section in the PRI file
+                        which can be used for debugging purposes.
+    /MappingFile(mf)  : <MAPPINGFILETYPE> Generate a mapping file in the given
+                        file format.
+    /SchemaFile(sf)   : <FILEPATH> Output location of XML resource schema
+                        description.
+    /IndexOptions(io) : <OPTIONS> Options to provide detailed control over
+                        behavior of resource indexers.
+    /Overwrite(o)     : Overwrite an existing output file of the same name
+                        without prompting
+    /Verbose(v)       : Causes verbose messages to be output to the console
+    /Help(h, ?)       : Display the usage help text
+    /ExtensionDll(ex) : <FILEPATH> Location of the MRT environment extension
+                        DLL. This DLL must be signed by a Microsoft-issued
+                        certificate. Default is an empty path (no DLL
+                        will be used).
+
+
+    FOLDERPATH       - is a valid path to a folder
+    FILEPATH         - is a path to a file, either relative to the current
+                       directory or absolute
+    MAPPINGFILETYPE  - Supported File type(s): 'AppX'
+
+
+--------------------------------------------------------------------------------
+ResourcePack Command
+--------------------------------------------------------------------------------
+Microsoft (R) MakePRI Tool
+Copyright (C) 2013 Microsoft. All rights reserved.
+
+Usage:
+------
+    MakePri.exe resourcepack /pr <project root> /cf <config file> [options]
+
+Example:
+--------
+    MakePri.exe resourcepack /o /if C:\MyApp\1.2\resources.pri
+    /pr C:\MyAppEs /cf C:\MyAppEs\priconfig.xml /of C:\MyAppEs\resources.pri
+
+Description:
+------------
+    MakePri.exe resourcepack creates a PRI file at [outputfile] by indexing
+    all files in the [projectroot] and its subdirectories as directed by the
+    [configxml]. ResourcePack PRI files contain only additional variants of
+    resources already specified in [indexfile].
+
+Required Parameters:
+--------------------
+    /ProjectRoot(pr)  : <FOLDERPATH> Root location of project files
+    /ConfigXml(cf)    : <FILEPATH> Configuration file location. Use
+                        'Makepri.exe createconfig' command to generate one
+
+Options:
+--------
+    /OutputFile(of)   : <FILEPATH> Output location of PRI file, default is
+                        [current directory]\resources.pri
+    /IndexFile(if)    : <FILEPATH> Location of the base PRI or XML schema file.
+                        Default is [projectroot]\resources.pri
+    /IndexLog(il)     : <FILEPATH> XML Log of indexed resources, no file
+                        generated by default
+    /AutoMerge(am)    : This flag is not recommended for normal use with AppX
+                        packages. It causes Makepri.exe to set the auto
+                        merge flag within the PRI file. By default it is set
+                        to same as the base PRI file.
+    /ReverseMap(rm)   : Generate a reverse mapping section in the PRI file
+                        which can be used for debugging purposes.
+    /MappingFile(mf)  : <MAPPINGFILETYPE> Generate a mapping file in the given
+                        file format.
+    /SchemaFile(sf)   : <FILEPATH> Output location of XML resource schema
+                        description.
+    /IndexOptions(io) : <OPTIONS> Options to provide detailed control over
+                        behavior of resource indexers.
+    /Overwrite(o)     : Overwrite an existing output file of the same name
+                        without prompting
+    /Verbose(v)       : Causes verbose messages to be output to the console
+    /Help(h, ?)       : Display the usage help text
+    /ExtensionDll(ex) : <FILEPATH> Location of the MRT environment extension
+                        DLL. This DLL must be signed by a Microsoft-issued
+                        certificate. Default is an empty path (no DLL
+                        will be used).
+
+
+    FOLDERPATH       - is a valid path to a folder
+    FILEPATH         - is a path to a file, either relative to the current
+                       directory or absolute
+    MAPPINGFILETYPE  - Supported File type(s): 'AppX'
+
+
+--------------------------------------------------------------------------------
+Dump Command
+--------------------------------------------------------------------------------
+Microsoft (R) MakePRI Tool
+Copyright (C) 2013 Microsoft. All rights reserved.
+
+Usage:
+------
+    MakePri.exe dump [options]
+
+Example:
+--------
+    MakePri.exe dump /if C:\MyApp\resources.pri
+    /of C:\resources.pri.xml
+
+Description:
+------------
+    MakePri.exe dump outputs a dumped xml file at [outputfile] containing a
+    list of all resources in [indexfile].
+
+Options:
+--------
+    /OutputFile(of)   : <FILEPATH> Output location of the dump file, default
+                        is .\[indexfile].xml
+    /IndexFile(if)    : <FILEPATH> Location of the PRI file to dump from,
+                        default is .\resources.pri
+    /DumpType(dt)     : <STRING> Format of the dumped file, default is
+                        Basic
+    /Overwrite(o)     : Overwrite an existing output file of the same name
+                        without prompting
+    /Verbose(v)       : Causes verbose messages to be output to the console
+    /OutputOptions(oo): <OPTIONS> Options to provide detailed control over
+                        contents of XML output files.
+    /ExternalSchema(es) : <FILEPATH> Location of the external schema file
+    /ExtensionDll(ex) : <FILEPATH> Location of the MRT environment extension
+                        DLL. This DLL must be signed by a Microsoft-issued
+                        certificate. Default is an empty path (no DLL
+                        will be used).
+    /Help(h, ?)       : Display the usage help text
+
+Dump Type:
+    Either 'Basic', 'Detailed', 'Schema' or 'Summary'
+
+
+    FOLDERPATH       - is a valid path to a folder
+    FILEPATH         - is a path to a file, either relative to the current
+                       directory or absolute

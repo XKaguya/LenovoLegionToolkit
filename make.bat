@@ -6,8 +6,8 @@ SET VERSION=0.0.1
 SET VERSION=%1
 )
 
-REM Use PowerShell to get the current date in YYYY-MM-DD format (locale independent)
-for /f %%i in ('powershell -NoProfile -Command "Get-Date -Format yyyy-MM-dd"') do set TIMESTAMP=%%i
+REM Use PowerShell to get the current date in YYYYMMDD format
+for /f %%i in ('powershell -NoProfile -Command "Get-Date -Format yyyyMMdd"') do set BUILD_DATE=%%i
 
 SET PATH=%PATH%;"C:\Program Files (x86)\Inno Setup 6"
 
@@ -19,4 +19,4 @@ dotnet publish LenovoLegionToolkit.CLI -c release -o build /p:DebugType=None /p:
 echo Copying packaging files...
 powershell -NoProfile -ExecutionPolicy Bypass -File ".\build_identity_package.ps1" -Version %VERSION% -OutputDir "build" || exit /b
 
-iscc make_installer.iss /DMyAppVersion=%VERSION% /DMyTimestamp=%TIMESTAMP% || exit /b
+iscc make_installer.iss /DMyAppVersion=%VERSION% /DMyBuildDate=%BUILD_DATE% || exit /b
