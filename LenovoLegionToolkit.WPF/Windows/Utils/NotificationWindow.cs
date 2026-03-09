@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,6 +22,19 @@ namespace LenovoLegionToolkit.WPF.Windows.Utils;
 
 public class NotificationWindow : UiWindow, INotificationWindow
 {
+    #region Win32 Constants
+    private const int GWL_EXSTYLE = -20;
+    private const int WS_EX_TRANSPARENT = 0x00000020;
+    private const int WS_EX_TOOLWINDOW = 0x00000080;
+    private const int WS_EX_NOACTIVATE = 0x08000000;
+
+    [DllImport("user32.dll")]
+    private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+
+    [DllImport("user32.dll")]
+    private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+    #endregion
+
     private readonly ScreenInfo _screenInfo;
 
     private readonly Grid _mainGrid = new()
@@ -59,6 +73,10 @@ public class NotificationWindow : UiWindow, INotificationWindow
         InitializeStyle();
         InitializeContent(symbol, overlaySymbol, symbolTransform, text);
 
+        ShowInTaskbar = false;
+        SourceInitialized += OnSourceInitialized;
+
+
         _screenInfo = screenInfo;
 
         SourceInitialized += (_, _) => InitializePosition(screenInfo.WorkArea, screenInfo.DpiX, screenInfo.DpiY, position);
@@ -67,6 +85,18 @@ public class NotificationWindow : UiWindow, INotificationWindow
             Close();
             clickAction?.Invoke();
         };
+    }
+
+    private void OnSourceInitialized(object? sender, EventArgs e)
+    {
+        if (PresentationSource.FromVisual(this) is not HwndSource source)
+        {
+            return;
+        }
+
+        var hwnd = source.Handle;
+        var extendedStyle = GetWindowLong(hwnd, GWL_EXSTYLE);
+        SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle | WS_EX_TRANSPARENT | WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE);
     }
 
     public void Show(int closeAfter)

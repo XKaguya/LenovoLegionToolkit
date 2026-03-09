@@ -416,7 +416,7 @@ public partial class GodModeSettingsWindow
         var mi = await Compatibility.GetMachineInformationAsync();
         var isBiosOcEnabled = await IsBiosOcEnabledAsync();
         _toggleOcCard.Visibility = (isBiosOcEnabled && mi.Properties.IsAmdDevice) ? Visibility.Visible : Visibility.Collapsed;
-        var ocVisible = (isBiosOcEnabled && _overclockingToggle.IsChecked == true) ? Visibility.Visible : Visibility.Collapsed;
+        var ocVisible = (isBiosOcEnabled && mi.Properties.IsAmdDevice && _overclockingToggle.IsChecked == true) ? Visibility.Visible : Visibility.Collapsed;
         _cpuPrecisionBoostOverdriveScaler.Visibility = ocVisible;
         _cpuPrecisionBoostOverdriveBoostFrequency.Visibility = ocVisible;
         _toggleCoreCurveCard.Visibility = ocVisible;
