@@ -1,3 +1,7 @@
+# Lenovo Legion Toolkit - Identity Packaging Script
+# This script handles the generation of the resources.pri file and the creation of
+# the signed MSIX package (CI) or raw manifest files (Local) for Package Identity.
+
 param(
     [Parameter(Mandatory)]
     [string]$Version,
@@ -123,16 +127,13 @@ if (-not $makeAppx -or -not $signTool) {
 
     Write-FallbackIdentityFiles -DestinationDir $resolvedOutputDir -ResolvedVersion $resolvedVersion -ManifestSource $manifestSource
     
-    # Try to generate PRI even in fallback mode if makepri is available
     if ($makePri -and (Test-Path $makePri)) {
         Write-Host "Generating resources.pri for fallback..."
-        # Create a temp directory for PRI indexing to avoid indexing the whole build folder
         $priStaging = Join-Path $resolvedOutputDir "pri_staging"
         New-Item -ItemType Directory -Path $priStaging -Force | Out-Null
         Copy-Item (Join-Path $resolvedOutputDir "AppxManifest.xml") -Destination $priStaging -Force
         Copy-Item (Join-Path $resolvedOutputDir "Images") -Destination $priStaging -Recurse -Force
-        
-        # Ensure neutral resources exist for PRI indexing
+    
         Get-ChildItem -Path $priStaging -Filter "*.scale-200.png" -Recurse | ForEach-Object {
             $neutralPath = $_.FullName -replace '\.scale-200\.png$', '.png'
             if (-not (Test-Path $neutralPath)) {
@@ -141,7 +142,6 @@ if (-not $makeAppx -or -not $signTool) {
         }
         
         $configPath = Join-Path $priStaging "priconfig.xml"
-        # Generate config without auto-split logic for a single PRI
         & $makePri createconfig /cf $configPath /dq en-US /pv 10.0.0 /o | Out-Null
         & $makePri new /pr $priStaging /cf $configPath /of (Join-Path $resolvedOutputDir "resources.pri") /o /v | Out-Null
         
@@ -152,7 +152,6 @@ if (-not $makeAppx -or -not $signTool) {
     return
 }
 
-# MakeAppx and SignTool are available — signing is required from here on
 if (-not (Test-Path $PfxPath)) {
     throw "Signing certificate not found: $PfxPath"
 }
@@ -181,7 +180,6 @@ $stagingImagesDestination = Join-Path $stagingDir "Images"
 New-Item -ItemType Directory -Path $stagingImagesDestination -Force | Out-Null
 Copy-Item "LenovoLegionToolkit.LampArray\Images\*" -Destination $stagingImagesDestination -Recurse -Force
 
-# Ensure neutral resources exist for PRI indexing
 Get-ChildItem -Path $stagingImagesDestination -Filter "*.scale-200.png" -Recurse | ForEach-Object {
     $neutralPath = $_.FullName -replace '\.scale-200\.png$', '.png'
     if (-not (Test-Path $neutralPath)) {
@@ -194,7 +192,6 @@ New-Item -ItemType Directory -Path (Join-Path $stagingDir "public") -Force | Out
 $manifest.Package.Identity.Version = $resolvedVersion
 $manifest.Save($manifestDestination)
 
-# Generate PRI before packing
 if ($makePri -and (Test-Path $makePri)) {
     Write-Host "Generating resources.pri..."
     $configPath = Join-Path $stagingDir "priconfig.xml"
