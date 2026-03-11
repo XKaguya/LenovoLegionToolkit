@@ -1047,6 +1047,9 @@
   <data name="FnLockControl_Title" xml:space="preserve">
     <value>锁定 Fn 键</value>
   </data>
+  <data name="GB" xml:space="preserve">
+    <value>GB</value>
+  </data>
   <data name="GHz" xml:space="preserve">
     <value>GHz</value>
   </data>
@@ -2394,8 +2397,8 @@
   <data name="SensorsControl_Fan_Title" xml:space="preserve">
     <value>风扇</value>
   </data>
-  <data name="SensorsControl_GpuCore_Title" xml:space="preserve">
-    <value>核心</value>
+  <data name="SensorsControl_GpuCoreTemperature_Title" xml:space="preserve">
+    <value>核心温度</value>
   </data>
   <data name="SensorsControl_GpuMemoryTemperature_Title" xml:space="preserve">
     <value>显存温度</value>
@@ -2457,11 +2460,23 @@
   <data name="SensorSettingsPage_Max_Frequency_Title" xml:space="preserve">
     <value>最高频率</value>
   </data>
+  <data name="SensorSettingsPage_Memory_Display_Mode_Message" xml:space="preserve">
+    <value>选择显示在主页和覆盖层的内存占用率显示方式</value>
+  </data>
+  <data name="SensorSettingsPage_Memory_Display_Mode_Title" xml:space="preserve">
+    <value>内存占用率显示方式</value>
+  </data>
+  <data name="SensorSettingsPage_Percentage_Title" xml:space="preserve">
+    <value>百分比</value>
+  </data>
   <data name="SensorSettingsPage_Preferred_GPU_Message" xml:space="preserve">
     <value>当设备同时拥有多个显卡时优先显示的设备。</value>
   </data>
   <data name="SensorSettingsPage_Preferred_GPU_Title" xml:space="preserve">
     <value>首选显卡</value>
+  </data>
+  <data name="SensorSettingsPage_Used_Memory_GB_Title" xml:space="preserve">
+    <value>已使用/总内存 (GB)</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>设置</value>
