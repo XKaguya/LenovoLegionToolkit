@@ -60,45 +60,45 @@
             : and then encoded with base64 encoding.
     -->
   <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -117,7 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="AboutPage_ApplicationFolders" xml:space="preserve">
     <value>Uygulama klasörleri</value>
   </data>
@@ -291,7 +290,7 @@
     <value>Güncelleme Denetleyicisini Devre Dışı Bırak</value>
   </data>
   <data name="ArgumentWindow_Flag_EnableLampArray" xml:space="preserve">
-    <value>Enable Lamp Array</value>
+    <value>Lamp Array'i Etkinleştir</value>
   </data>
   <data name="ArgumentWindow_Flag_ExpGpuMode" xml:space="preserve">
     <value>Deneysel GPU Çalışma Modu</value>
@@ -1044,9 +1043,6 @@ UYARI: Dahili ekran kapalıysa, bu işlem doğru çalışmaz.</value>
   <data name="FnLockControl_Title" xml:space="preserve">
     <value>Fn Kilidi</value>
   </data>
-  <data name="GB" xml:space="preserve">
-    <value>GB</value>
-  </data>
   <data name="GHz" xml:space="preserve">
     <value>GHz</value>
   </data>
@@ -1338,106 +1334,106 @@ Devre dışı bırakmak için Evet'i, yok saymak için Hayır'ı tıklayın.</va
     <value>Lenovo Vantage veya hizmetleri çalışıyor</value>
   </data>
   <data name="LampArrayRGBKeyboardPage_Aft_Ambient" xml:space="preserve">
-    <value>Aft Ambient</value>
+    <value>Aft Ambiyans</value>
   </data>
   <data name="LampArrayRGBKeyboardPage_All" xml:space="preserve">
-    <value>All</value>
+    <value>Hepsi</value>
   </data>
   <data name="LampArrayRGBKeyboardPage_Aurora_Sync" xml:space="preserve">
-    <value>Aurora Sync</value>
+    <value>Aurora Senkronizasyonu</value>
   </data>
   <data name="LampArrayRGBKeyboardPage_Bottom_to_Top" xml:space="preserve">
-    <value>Bottom to Top</value>
+    <value>Aşağıdan Yukarıya</value>
   </data>
   <data name="LampArrayRGBKeyboardPage_Breathe" xml:space="preserve">
-    <value>Breathe</value>
+    <value>Nefes</value>
   </data>
   <data name="LampArrayRGBKeyboardPage_Brightness" xml:space="preserve">
-    <value>Brightness</value>
+    <value>Parlaklık</value>
   </data>
   <data name="LampArrayRGBKeyboardPage_Clear_Colors" xml:space="preserve">
-    <value>Clear Colors</value>
+    <value>Net Renkler</value>
   </data>
   <data name="LampArrayRGBKeyboardPage_Custom" xml:space="preserve">
-    <value>Custom</value>
+    <value>Özel</value>
   </data>
   <data name="LampArrayRGBKeyboardPage_Direction" xml:space="preserve">
-    <value>Direction</value>
+    <value>Yön</value>
   </data>
   <data name="LampArrayRGBKeyboardPage_Effect" xml:space="preserve">
-    <value>Effect</value>
+    <value>Efekt</value>
   </data>
   <data name="LampArrayRGBKeyboardPage_Export_Profile" xml:space="preserve">
-    <value>Export Profile</value>
+    <value>Profili Dışa Aktar</value>
   </data>
   <data name="LampArrayRGBKeyboardPage_Gradient" xml:space="preserve">
-    <value>Gradient</value>
+    <value>Gradyan</value>
   </data>
   <data name="LampArrayRGBKeyboardPage_Import_Profile" xml:space="preserve">
-    <value>Import Profile</value>
+    <value>Profili İçe Aktar</value>
   </data>
   <data name="LampArrayRGBKeyboardPage_Keyboard" xml:space="preserve">
-    <value>Keyboard</value>
+    <value>Klavye</value>
   </data>
   <data name="LampArrayRGBKeyboardPage_Left_to_Right" xml:space="preserve">
-    <value>Left to Right</value>
+    <value>Soldan Sağa</value>
   </data>
   <data name="LampArrayRGBKeyboardPage_Meteor" xml:space="preserve">
     <value>Meteor</value>
   </data>
   <data name="LampArrayRGBKeyboardPage_None" xml:space="preserve">
-    <value>None</value>
+    <value>Yok</value>
   </data>
   <data name="LampArrayRGBKeyboardPage_No_Selection" xml:space="preserve">
-    <value>No Selection</value>
+    <value>Seçim Yok</value>
   </data>
   <data name="LampArrayRGBKeyboardPage_Probe_Indices" xml:space="preserve">
-    <value>Probe Indices</value>
+    <value>Prob İndeksleri</value>
   </data>
   <data name="LampArrayRGBKeyboardPage_Rainbow" xml:space="preserve">
-    <value>Rainbow</value>
+    <value>Gökkuşağı</value>
   </data>
   <data name="LampArrayRGBKeyboardPage_Rainbow_Wave" xml:space="preserve">
-    <value>Rainbow Wave</value>
+    <value>Gökkuşağı Dalgası</value>
   </data>
   <data name="LampArrayRGBKeyboardPage_Rear_Ambient" xml:space="preserve">
-    <value>Rear Ambient</value>
+    <value>Arka Ambiyans</value>
   </data>
   <data name="LampArrayRGBKeyboardPage_Right_to_Left" xml:space="preserve">
-    <value>Right to Left</value>
+    <value>Sağdan Sola</value>
   </data>
   <data name="LampArrayRGBKeyboardPage_Ripple" xml:space="preserve">
-    <value>Ripple</value>
+    <value>Dalgalanma</value>
   </data>
   <data name="LampArrayRGBKeyboardPage_Selection" xml:space="preserve">
-    <value>Selection</value>
+    <value>Seçim</value>
   </data>
   <data name="LampArrayRGBKeyboardPage_Smooth_Transition" xml:space="preserve">
-    <value>Smooth Transition</value>
+    <value>Yumuşak Geçiş</value>
   </data>
   <data name="LampArrayRGBKeyboardPage_Sparkle" xml:space="preserve">
-    <value>Sparkle</value>
+    <value>Parıltı</value>
   </data>
   <data name="LampArrayRGBKeyboardPage_Speed" xml:space="preserve">
-    <value>Speed</value>
+    <value>Sürat</value>
   </data>
   <data name="LampArrayRGBKeyboardPage_Spiral_Rainbow" xml:space="preserve">
-    <value>Spiral Rainbow</value>
+    <value>Spiral Gökkuşağı</value>
   </data>
   <data name="LampArrayRGBKeyboardPage_Static" xml:space="preserve">
-    <value>Static</value>
+    <value>Statik</value>
   </data>
   <data name="LampArrayRGBKeyboardPage_Target_Zone" xml:space="preserve">
-    <value>Target Zone</value>
+    <value>Hedef Bölge</value>
   </data>
   <data name="LampArrayRGBKeyboardPage_Top_to_Bottom" xml:space="preserve">
-    <value>Top to Bottom</value>
+    <value>Yukarıdan Aşağıya</value>
   </data>
   <data name="LampArrayRGBKeyboardPage_Wave" xml:space="preserve">
-    <value>Wave</value>
+    <value>Dalga</value>
   </data>
   <data name="LivePreview" xml:space="preserve">
-    <value>Live Preview</value>
+    <value>Canlı Önizleme</value>
   </data>
   <data name="Load" xml:space="preserve">
     <value>Yükle</value>
@@ -1551,7 +1547,7 @@ Devre dışı bırakmak için Evet'i, yok saymak için Hayır'ı tıklayın.</va
     <value>Ayarlar</value>
   </data>
   <data name="MainWindow_PawnIO_Warning_Message" xml:space="preserve">
-    <value>You need to install PawnIO first to use hardware sensors!</value>
+    <value>Yeni gösterge panelini kullanmak için önce PawnIO'yu yüklemeniz gerekiyor!</value>
   </data>
   <data name="MainWindow_PawnIO_Warning_Title" xml:space="preserve">
     <value>Uyarı</value>
@@ -1773,97 +1769,97 @@ Diğer tam ekran pencereleri etkilemeyecek, ancak bildirimlere tıklayamayacaks�
     <value>Yüzen Gadget</value>
   </data>
   <data name="OsdSettings_Appearance_BackgroundColor" xml:space="preserve">
-    <value>Background Color</value>
+    <value>Arkaplan Rengi</value>
   </data>
   <data name="OsdSettings_Appearance_CategoryColor" xml:space="preserve">
-    <value>Category Color</value>
+    <value>Kategori Rengi</value>
   </data>
   <data name="OsdSettings_Appearance_CornerRadius" xml:space="preserve">
-    <value>Corner Radius</value>
+    <value>Köşe Yarıçapı</value>
   </data>
   <data name="OsdSettings_Appearance_CornerRadiusBottom" xml:space="preserve">
-    <value>Bottom</value>
+    <value>Alt</value>
   </data>
   <data name="OsdSettings_Appearance_CornerRadiusTop" xml:space="preserve">
-    <value>Top</value>
+    <value>Üst</value>
   </data>
   <data name="OsdSettings_Appearance_CriticalColor" xml:space="preserve">
-    <value>Critical Color</value>
+    <value>Kritik Renk</value>
   </data>
   <data name="OsdSettings_Appearance_FontSize" xml:space="preserve">
-    <value>Font Size</value>
+    <value>Font Boyutu</value>
   </data>
   <data name="OsdSettings_Appearance_LabelColor" xml:space="preserve">
-    <value>Label Color</value>
+    <value>Etiket Rengi</value>
   </data>
   <data name="OsdSettings_Appearance_Opacity" xml:space="preserve">
-    <value>Opacity</value>
+    <value>Opaklık</value>
   </data>
   <data name="OsdSettings_Appearance_ValueColor" xml:space="preserve">
-    <value>Value Color</value>
+    <value>Değer Rengi</value>
   </data>
   <data name="OsdSettings_Appearance_WarningColor" xml:space="preserve">
-    <value>Warning Color</value>
+    <value>Uyarı Rengi</value>
   </data>
   <data name="OsdSettings_General_LockPosition" xml:space="preserve">
-    <value>Lock Position</value>
+    <value>Konumu Kilitle</value>
   </data>
   <data name="OsdSettings_General_OverlayStyle" xml:space="preserve">
-    <value>Overlay Style</value>
+    <value>Bindirme Stili</value>
   </data>
   <data name="OsdSettings_General_RefreshInterval" xml:space="preserve">
-    <value>Refresh Interval</value>
+    <value>Yenileme Aralığı</value>
   </data>
   <data name="OsdSettings_General_RefreshInterval_Tooltip" xml:space="preserve">
-    <value>Sensor refresh interval</value>
+    <value>Sensör yenileme aralığı</value>
   </data>
   <data name="OsdSettings_General_ResetPosition" xml:space="preserve">
-    <value>Reset Position</value>
+    <value>Konumu Sıfırla</value>
   </data>
   <data name="OsdSettings_General_SnapThreshold" xml:space="preserve">
-    <value>Snapping Threshold</value>
+    <value>Kırılma Eşiği</value>
   </data>
   <data name="OsdSettings_Tabs_Appearance" xml:space="preserve">
-    <value>Appearance</value>
+    <value>Görünüm</value>
   </data>
   <data name="OsdSettings_Tabs_General" xml:space="preserve">
-    <value>General</value>
+    <value>Genel</value>
   </data>
   <data name="OsdSettings_Tabs_SensorItems" xml:space="preserve">
-    <value>Sensors</value>
+    <value>Sensörler</value>
   </data>
   <data name="OsdSettings_Tabs_Thresholds" xml:space="preserve">
-    <value>Thresholds</value>
+    <value>Eşikler</value>
   </data>
   <data name="OsdSettings_Thresholds_Critical" xml:space="preserve">
-    <value>Critical</value>
+    <value>Kritik</value>
   </data>
   <data name="OsdSettings_Thresholds_FpsRedline" xml:space="preserve">
-    <value>FPS Redline</value>
+    <value>FPS Kırmızı Çizgisi</value>
   </data>
   <data name="OsdSettings_Thresholds_FpsRedline_Description" xml:space="preserve">
-    <value>The minimum acceptable frame rate. Below this, the color turns critical.</value>
+    <value>Kabul edilebilir minimum kare hızı. Bunun altında, renkler kritik hale gelir.</value>
   </data>
   <data name="OsdSettings_Thresholds_LowFpsDelta" xml:space="preserve">
-    <value>Low FPS Delta</value>
+    <value>Düşük FPS Delta</value>
   </data>
   <data name="OsdSettings_Thresholds_LowFpsDelta_Description" xml:space="preserve">
-    <value>The maximum difference between average FPS and 1% Low. Above this, the counter turns critical.</value>
+    <value>Ortalama FPS ile 1% Düşük arasındaki maksimum fark. Bunun üzerinde, sayaç kritik hale gelir.</value>
   </data>
   <data name="OsdSettings_Thresholds_Performance" xml:space="preserve">
-    <value>Performance</value>
+    <value>Performans</value>
   </data>
   <data name="OsdSettings_Thresholds_Temperature" xml:space="preserve">
-    <value>Temperature</value>
+    <value>Sıcaklık</value>
   </data>
   <data name="OsdSettings_Thresholds_Usage" xml:space="preserve">
-    <value>Usage</value>
+    <value>Kullanım</value>
   </data>
   <data name="OsdSettings_Thresholds_Warning" xml:space="preserve">
-    <value>Warning</value>
+    <value>Uyarı</value>
   </data>
   <data name="OsdWindow_Title" xml:space="preserve">
-    <value>OSD Settings</value>
+    <value>OSD Ayarları</value>
   </data>
   <data name="Osd_Chipset" xml:space="preserve">
     <value>Çipset</value>
@@ -1881,7 +1877,7 @@ Diğer tam ekran pencereleri etkilemeyecek, ancak bildirimlere tıklayamayacaks�
     <value>Disk 2 Sıcaklığı</value>
   </data>
   <data name="Osd_ECoreClock" xml:space="preserve">
-    <value>E-Core Clock</value>
+    <value>E-Çekirdek Frekansı</value>
   </data>
   <data name="Osd_Fps" xml:space="preserve">
     <value>FPS</value>
@@ -1902,16 +1898,16 @@ Diğer tam ekran pencereleri etkilemeyecek, ancak bildirimlere tıklayamayacaks�
     <value>1% Düşük</value>
   </data>
   <data name="Osd_Memory_Temperature" xml:space="preserve">
-    <value>Temperature</value>
+    <value>Sıcaklık</value>
   </data>
   <data name="Osd_Memory_Utilization" xml:space="preserve">
-    <value>Utilization</value>
+    <value>Kullanım</value>
   </data>
   <data name="Osd_PCH_Fan" xml:space="preserve">
     <value>PCH Fanı</value>
   </data>
   <data name="Osd_PCoreClock" xml:space="preserve">
-    <value>P-Core Clock</value>
+    <value>P-Çekirdek Frekansı</value>
   </data>
   <data name="Osd_Style_Bar" xml:space="preserve">
     <value>Bar</value>
@@ -2330,7 +2326,7 @@ UYARI: Dahili ekran kapalıysa, bu işlem doğru çalışmaz.</value>
     <value>CPU Sıcaklığı</value>
   </data>
   <data name="SensorItem_CpuUtilitzation" xml:space="preserve">
-    <value>CPU Utilization</value>
+    <value>CPU Kullanımı</value>
   </data>
   <data name="SensorItem_Disk1Temperature" xml:space="preserve">
     <value>Disk 1 Sıcaklığı</value>
@@ -2389,14 +2385,14 @@ UYARI: Dahili ekran kapalıysa, bu işlem doğru çalışmaz.</value>
   <data name="SensorsControl_Fan_Title" xml:space="preserve">
     <value>Fan</value>
   </data>
-  <data name="SensorsControl_GpuCoreTemperature_Title" xml:space="preserve">
-    <value>Core Temp</value>
+  <data name="SensorsControl_GpuCore_Title" xml:space="preserve">
+    <value>Çekirdek</value>
   </data>
   <data name="SensorsControl_GpuMemoryTemperature_Title" xml:space="preserve">
     <value>VRAM Temp</value>
   </data>
   <data name="SensorsControl_GpuVramUtilization_Title" xml:space="preserve">
-    <value>VRAM Utilization</value>
+    <value>VRAM Kullanımı</value>
   </data>
   <data name="SensorsControl_GPU_Power" xml:space="preserve">
     <value>Güç</value>
@@ -2423,7 +2419,7 @@ UYARI: Dahili ekran kapalıysa, bu işlem doğru çalışmaz.</value>
     <value>PCH Sıcaklığı</value>
   </data>
   <data name="SensorsControl_RefreshInterval" xml:space="preserve">
-    <value>Refresh Interval</value>
+    <value>Yenileme Aralığı</value>
   </data>
   <data name="SensorsControl_State_Title" xml:space="preserve">
     <value>Durum</value>
@@ -2435,13 +2431,13 @@ UYARI: Dahili ekran kapalıysa, bu işlem doğru çalışmaz.</value>
     <value>Kullanım</value>
   </data>
   <data name="SensorSettingsPage_Average_Frequency_Title" xml:space="preserve">
-    <value>Average Frequency</value>
+    <value>Ortalama Frekans</value>
   </data>
   <data name="SensorSettingsPage_CPU_Frequency_Message" xml:space="preserve">
-    <value>Determine the type of CPU frequency displayed on the Dashboard and Osd.</value>
+    <value>Gösterge Paneli ve OSD'de görüntülenen CPU frekansının türünü belirleyin.</value>
   </data>
   <data name="SensorSettingsPage_CPU_Frequency_Title" xml:space="preserve">
-    <value>CPU Frequency</value>
+    <value>CPU Frekansı</value>
   </data>
   <data name="SensorSettingsPage_Discrete_GPU_Title" xml:space="preserve">
     <value>dGPU</value>
@@ -2450,25 +2446,13 @@ UYARI: Dahili ekran kapalıysa, bu işlem doğru çalışmaz.</value>
     <value>iGPU</value>
   </data>
   <data name="SensorSettingsPage_Max_Frequency_Title" xml:space="preserve">
-    <value>Max Frequency</value>
-  </data>
-  <data name="SensorSettingsPage_Memory_Display_Mode_Message" xml:space="preserve">
-    <value>Choose how memory utilization is displayed on the Dashboard and OSD.</value>
-  </data>
-  <data name="SensorSettingsPage_Memory_Display_Mode_Title" xml:space="preserve">
-    <value>Memory Display Mode</value>
-  </data>
-  <data name="SensorSettingsPage_Percentage_Title" xml:space="preserve">
-    <value>Percentage</value>
+    <value>Max Frekans</value>
   </data>
   <data name="SensorSettingsPage_Preferred_GPU_Message" xml:space="preserve">
-    <value>When multiple graphics cards are present, the primary device displayed is preferred</value>
+    <value>Birden fazla grafik kartı mevcutsa görüntülenen birincil aygıt tercih edilir</value>
   </data>
   <data name="SensorSettingsPage_Preferred_GPU_Title" xml:space="preserve">
-    <value>Preferred GPU</value>
-  </data>
-  <data name="SensorSettingsPage_Used_Memory_GB_Title" xml:space="preserve">
-    <value>Used/Total Memory (GB)</value>
+    <value>Tercih Edilen GPU</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Ayarlar</value>
@@ -2519,7 +2503,7 @@ UYARI: Dahili ekran kapalıysa, bu işlem doğru çalışmaz.</value>
     <value>Yedekleme Ayarları</value>
   </data>
   <data name="SettingsPage_BootLogo_EFIInfo" xml:space="preserve">
-    <value>This feature modifies the EFI partition. Use with caution.</value>
+    <value>Bu özellik EFI bölümünü değiştirir. Dikkatli kullanın.</value>
   </data>
   <data name="SettingsPage_BootLogo_Message" xml:space="preserve">
     <value>Sistem başladığında görülebilen Açılış Logosu görüntüsünü özelleştirin.</value>
@@ -2579,7 +2563,7 @@ UYARI: Dahili ekran kapalıysa, bu işlem doğru çalışmaz.</value>
     <value>CLI</value>
   </data>
   <data name="SettingsPage_Common_RestartRecommended" xml:space="preserve">
-    <value>Restart is recommended after changing this option.</value>
+    <value>Bu seçeneği değiştirdikten sonra yeniden başlatmanız önerilir.</value>
   </data>
   <data name="SettingsPage_Custom_BackgroundImage_Message" xml:space="preserve">
     <value>Özel Arkaplan Resmi</value>
@@ -2680,37 +2664,37 @@ Bu seçeneği değiştirdikten sonra yeniden başlatma önerilir.</value>
     <value>Yenileme Hızlarını Hariç Tut</value>
   </data>
   <data name="SettingsPage_HardwareAcceleration_Message" xml:space="preserve">
-    <value>Use hardware acceleration for the user interface. This can improve performance and fluidity.</value>
+    <value>Kullanıcı arayüzü için donanımsal hızlandırmayı kullan. Bu, performansı ve akıcılığı artırabilir.</value>
   </data>
   <data name="SettingsPage_HardwareAcceleration_Title" xml:space="preserve">
-    <value>Hardware Acceleration</value>
+    <value>Donanımsal Hızlandırma</value>
   </data>
   <data name="SettingsPage_HardwareAcceleration_Warning" xml:space="preserve">
-    <value>Enabling hardware acceleration may cause flickering or black flashes on some hybrid graphics systems, and may prevent the discrete GPU from being turned off.</value>
+    <value>Donanımsal hızlandırmayı etkinleştirmek, bazı hibrit grafik sistemlerinde titreme veya siyah flaşlara neden olabilir ve harici GPU'nun kapatılmasını engelleyebilir.</value>
   </data>
   <data name="SettingsPage_HardwareSensors_Message" xml:space="preserve">
-    <value>Enable advanced hardware polling to monitor detailed temperatures, frequencies, and power limits.</value>
+    <value>Ayrıntılı sıcaklıkları, frekansları ve güç sınırlarını izlemek için gelişmiş donanım yoklamasını etkinleştirin.</value>
   </data>
   <data name="SettingsPage_HardwareSensors_PawnIOWarning" xml:space="preserve">
-    <value>You need to install PawnIO first to use hardware sensors!</value>
+    <value>Donanım sensörlerini kullanmak için önce PawnIO'yu yüklemeniz gerekiyor!</value>
   </data>
   <data name="SettingsPage_HardwareSensors_Title" xml:space="preserve">
-    <value>Hardware Sensors</value>
+    <value>Donanım Sensörleri</value>
   </data>
   <data name="SettingsPage_HWA_GPUPreference_Auto" xml:space="preserve">
-    <value>Auto (Let Windows decide)</value>
+    <value>Otomatik (Windows'un karar vermesine izin ver)</value>
   </data>
   <data name="SettingsPage_HWA_GPUPreference_HighPerformance" xml:space="preserve">
-    <value>High performance (dGPU)</value>
+    <value>Yüksek performans (dGPU)</value>
   </data>
   <data name="SettingsPage_HWA_GPUPreference_PowerSaving" xml:space="preserve">
-    <value>Power saving (iGPU)</value>
+    <value>Güç tasarrufu (iGPU)</value>
   </data>
   <data name="SettingsPage_HWiNFO_Message" xml:space="preserve">
     <value>HWiNFO64 ile fan hızını, pil sıcaklığını vb. paylaşın. Bu seçeneği değiştirdikten sonra HWiNFO64 yeniden başlatılması gerekebilir.</value>
   </data>
   <data name="SettingsPage_HWiNFO_RestartInfo" xml:space="preserve">
-    <value>You may need to restart HWiNFO64 after changing this option.</value>
+    <value>Bu seçeneği değiştirdikten sonra HWiNFO64'ü yeniden başlatmanız gerekebilir.</value>
   </data>
   <data name="SettingsPage_HWiNFO_Title" xml:space="preserve">
     <value>HWiNFO64</value>
@@ -2752,10 +2736,10 @@ Bu seçeneği değiştirdikten sonra yeniden başlatma önerilir.</value>
     <value>Başlangıçta "Pilde" ifadesini sıfırla</value>
   </data>
   <data name="SettingsPage_Osd_Message" xml:space="preserve">
-    <value>Floating overlay showing live sensor data.</value>
+    <value>Canlı sensör verilerini gösteren yüzen bindirme.</value>
   </data>
   <data name="SettingsPage_Osd_Title" xml:space="preserve">
-    <value>Enable OSD</value>
+    <value>OSD'yi Etkinleştir</value>
   </data>
   <data name="SettingsPage_PowerModeMapping_Message" xml:space="preserve">
     <value>Güç Modlarını değiştirirken Windows Güç Planını veya Windows Güç Modunu otomatik olarak değiştirin.</value>
@@ -2776,7 +2760,7 @@ Bu seçeneği değiştirdikten sonra yeniden başlatma önerilir.</value>
     <value>Görüntü Dosyası</value>
   </data>
   <data name="SettingsPage_SensorSettings_Title" xml:space="preserve">
-    <value>Sensor Settings</value>
+    <value>Sensör Ayarları</value>
   </data>
   <data name="SettingsPage_SmartFnLock_Message" xml:space="preserve">
     <value>Shift, Ctrl veya Alt tuşuna basıldığında Fn Kilidi geçici olarak devre dışı bırakılacaktır.</value>
@@ -2833,13 +2817,13 @@ Bu seçeneği değiştirdikten sonra yeniden başlatma önerilir.</value>
     <value>Yeni Sensör Gösterge Panelini Kullan</value>
   </data>
   <data name="SettingsPage_WindowBackdropType_Info" xml:space="preserve">
-    <value>If you experience visual artifacts on Snackbars in HDR or ACM mode, set this to "None".</value>
+    <value>HDR veya ACM modunda Snackbar'larda görsel bozulmalar yaşıyorsanız, bunu “Yok” olarak ayarlayın.</value>
   </data>
   <data name="SettingsPage_WindowBackdropType_Message" xml:space="preserve">
-    <value>The effect used for the background of the application window.</value>
+    <value>Uygulama penceresinin arka planında kullanılan efekt.</value>
   </data>
   <data name="SettingsPage_WindowBackdropType_Title" xml:space="preserve">
-    <value>Window Backdrop</value>
+    <value>Pencere Arka Planı</value>
   </data>
   <data name="SettingsPage_WindowsPowerModes_Message" xml:space="preserve">
     <value>Güç Modu değiştiğinde uygulanacak Windows Güç Planlarını seçin.</value>
