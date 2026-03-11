@@ -175,9 +175,6 @@
   <data name="ExternalDisplayDisconnectedAutomationPipelineTrigger_DisplayName" xml:space="preserve">
     <value>При откачане на външен дисплей</value>
   </data>
-  <data name="FloatingGadgetState_Toggle" xml:space="preserve">
-    <value>Toggle</value>
-  </data>
   <data name="GamesAreRunningAutomationPipelineTrigger_DisplayName" xml:space="preserve">
     <value>По време на игра</value>
   </data>
@@ -219,6 +216,9 @@
   </data>
   <data name="OnStartupAutomationPipelineTrigger_DisplayName" xml:space="preserve">
     <value>При стартиране</value>
+  </data>
+  <data name="OsdState_Toggle" xml:space="preserve">
+    <value>Toggle</value>
   </data>
   <data name="OverclockDiscreteGPUAutomationStepState_Off" xml:space="preserve">
     <value>Изключен</value>

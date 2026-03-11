@@ -175,9 +175,6 @@
   <data name="ExternalDisplayDisconnectedAutomationPipelineTrigger_DisplayName" xml:space="preserve">
     <value>Harici ekran bağlantısı kesildiğinde</value>
   </data>
-  <data name="FloatingGadgetState_Toggle" xml:space="preserve">
-    <value>Aç/Kapat</value>
-  </data>
   <data name="GamesAreRunningAutomationPipelineTrigger_DisplayName" xml:space="preserve">
     <value>Oyun çalıştığında</value>
   </data>
@@ -219,6 +216,9 @@
   </data>
   <data name="OnStartupAutomationPipelineTrigger_DisplayName" xml:space="preserve">
     <value>Başlangıçta</value>
+  </data>
+  <data name="OsdState_Toggle" xml:space="preserve">
+    <value>Toggle</value>
   </data>
   <data name="OverclockDiscreteGPUAutomationStepState_Off" xml:space="preserve">
     <value>Kapalı</value>

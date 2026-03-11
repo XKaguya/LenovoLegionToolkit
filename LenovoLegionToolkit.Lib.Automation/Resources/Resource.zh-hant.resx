@@ -175,9 +175,6 @@
   <data name="ExternalDisplayDisconnectedAutomationPipelineTrigger_DisplayName" xml:space="preserve">
     <value>當與外接顯示器中斷連接時</value>
   </data>
-  <data name="FloatingGadgetState_Toggle" xml:space="preserve">
-    <value>切換</value>
-  </data>
   <data name="GamesAreRunningAutomationPipelineTrigger_DisplayName" xml:space="preserve">
     <value>當執行遊戲時</value>
   </data>
@@ -219,6 +216,9 @@
   </data>
   <data name="OnStartupAutomationPipelineTrigger_DisplayName" xml:space="preserve">
     <value>當啟動時</value>
+  </data>
+  <data name="OsdState_Toggle" xml:space="preserve">
+    <value>Toggle</value>
   </data>
   <data name="OverclockDiscreteGPUAutomationStepState_Off" xml:space="preserve">
     <value>關閉</value>
