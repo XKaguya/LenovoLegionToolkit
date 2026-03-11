@@ -1043,6 +1043,9 @@ UYARI: Dahili ekran kapalıysa, bu işlem doğru çalışmaz.</value>
   <data name="FnLockControl_Title" xml:space="preserve">
     <value>Fn Kilidi</value>
   </data>
+  <data name="GB" xml:space="preserve">
+    <value>GB</value>
+  </data>
   <data name="GHz" xml:space="preserve">
     <value>GHz</value>
   </data>
@@ -2385,8 +2388,8 @@ UYARI: Dahili ekran kapalıysa, bu işlem doğru çalışmaz.</value>
   <data name="SensorsControl_Fan_Title" xml:space="preserve">
     <value>Fan</value>
   </data>
-  <data name="SensorsControl_GpuCore_Title" xml:space="preserve">
-    <value>Çekirdek</value>
+  <data name="SensorsControl_GpuCoreTemperature_Title" xml:space="preserve">
+    <value>Core Temp</value>
   </data>
   <data name="SensorsControl_GpuMemoryTemperature_Title" xml:space="preserve">
     <value>VRAM Temp</value>
@@ -2448,11 +2451,23 @@ UYARI: Dahili ekran kapalıysa, bu işlem doğru çalışmaz.</value>
   <data name="SensorSettingsPage_Max_Frequency_Title" xml:space="preserve">
     <value>Max Frekans</value>
   </data>
+  <data name="SensorSettingsPage_Memory_Display_Mode_Message" xml:space="preserve">
+    <value>Choose how memory utilization is displayed on the Dashboard and OSD.</value>
+  </data>
+  <data name="SensorSettingsPage_Memory_Display_Mode_Title" xml:space="preserve">
+    <value>Memory Display Mode</value>
+  </data>
+  <data name="SensorSettingsPage_Percentage_Title" xml:space="preserve">
+    <value>Percentage</value>
+  </data>
   <data name="SensorSettingsPage_Preferred_GPU_Message" xml:space="preserve">
     <value>Birden fazla grafik kartı mevcutsa görüntülenen birincil aygıt tercih edilir</value>
   </data>
   <data name="SensorSettingsPage_Preferred_GPU_Title" xml:space="preserve">
     <value>Tercih Edilen GPU</value>
+  </data>
+  <data name="SensorSettingsPage_Used_Memory_GB_Title" xml:space="preserve">
+    <value>Used/Total Memory (GB)</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Ayarlar</value>
