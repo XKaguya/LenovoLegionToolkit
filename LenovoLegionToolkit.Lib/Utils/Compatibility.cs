@@ -77,6 +77,7 @@ public static partial class Compatibility
         "15IRX",
         "15ITH",
 
+        "14AHP",
         "14APH",
         "14IRP",
         "14AKP",
