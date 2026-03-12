@@ -45,7 +45,18 @@
     </UserControl.Resources>
 
     <Grid>
-        <Border x:Name="_background" Background="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=LampBrush}" CornerRadius="4" Opacity="0.8" />
+        <Border x:Name="_background" Background="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=LampBrush}" CornerRadius="4" Opacity="0.8">
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="Visibility" Value="Visible" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=ShowBacklight}" Value="False">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+        </Border>
 
         <ToggleButton
             x:Name="_button"
