@@ -150,10 +150,16 @@ public partial class LampArrayRGBKeyboardPage : UiPage
             _controller.Speed = store.Speed;
             _controller.SmoothTransition = store.SmoothTransition;
 
+            if (_brightnessSlider != null)
+                _brightnessSlider.Value = store.Brightness * 100.0;
             if (_brightnessValue != null)
                 _brightnessValue.Text = $"{store.Brightness * 100:F0}%";
+            
+            if (_speedSlider != null)
+                _speedSlider.Value = store.Speed * 100.0;
             if (_speedValue != null)
                 _speedValue.Text = $"{store.Speed * 100:F0}%";
+                
             if (_smoothTransitionCheckBox != null)
                 _smoothTransitionCheckBox.IsChecked = store.SmoothTransition;
 

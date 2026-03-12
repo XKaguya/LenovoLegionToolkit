@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -514,6 +514,11 @@ public class LampArrayController : IDisposable
             {
                 Log.Instance.Trace($"Failed to create LampArray instance from {args.Id}");
                 return;
+            }
+
+            if (ApiInformation.IsPropertyPresent("Windows.Devices.Lights.LampArray", "IsEnabled"))
+            {
+                lampArray.IsEnabled = true;
             }
 
             var deviceWrapper = new LampArrayDevice(lampArray);

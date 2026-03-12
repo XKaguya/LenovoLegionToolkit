@@ -42,6 +42,7 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock VerticalAlignment="Center" Text="{x:Static resources:Resource.LampArrayRGBKeyboardPage_Brightness}" />
                         <Slider
+                            x:Name="_brightnessSlider"
                             Grid.Column="1"
                             Maximum="100"
                             Minimum="0"
