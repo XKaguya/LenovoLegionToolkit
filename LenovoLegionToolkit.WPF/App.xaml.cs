@@ -948,6 +948,7 @@ public partial class App
         {
             if (AppFlags.Instance.EnableLampArray)
             {
+                AppFlags.Instance.ForceDisableRgbKeyboardSupport = true;
                 return;
             }
 
@@ -970,6 +971,7 @@ public partial class App
         {
             if (AppFlags.Instance.EnableLampArray)
             {
+                AppFlags.Instance.ForceDisableSpectrumKeyboardSupport = true;
                 return;
             }
 
