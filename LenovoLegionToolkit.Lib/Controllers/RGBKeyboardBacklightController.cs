@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using LenovoLegionToolkit.Lib.Extensions;
@@ -28,6 +28,11 @@ public class RGBKeyboardBacklightController(RGBKeyboardSettings settings, Vantag
         if (AppFlags.Instance.Debug)
         {
             return true;
+        }
+
+        if (AppFlags.Instance.EnableLampArray || AppFlags.Instance.ForceDisableRgbKeyboardSupport)
+        {
+            return false;
         }
 
 #if MOCK_RGB

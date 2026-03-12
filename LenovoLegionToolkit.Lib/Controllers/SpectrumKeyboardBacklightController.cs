@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -86,6 +86,11 @@ public class SpectrumKeyboardBacklightController
         if (AppFlags.Instance.Debug)
         {
             return true;
+        }
+
+        if (AppFlags.Instance.EnableLampArray || AppFlags.Instance.ForceDisableSpectrumKeyboardSupport)
+        {
+            return false;
         }
 
         return await _deviceFactory.GetHandleAsync().ConfigureAwait(false) is not null;

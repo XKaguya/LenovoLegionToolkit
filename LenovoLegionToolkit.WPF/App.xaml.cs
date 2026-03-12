@@ -946,12 +946,6 @@ public partial class App
     {
         try
         {
-            if (AppFlags.Instance.EnableLampArray)
-            {
-                AppFlags.Instance.ForceDisableRgbKeyboardSupport = true;
-                return;
-            }
-
             var controller = IoCContainer.Resolve<RGBKeyboardBacklightController>();
 
             if (await controller.IsSupportedAsync())
@@ -969,12 +963,6 @@ public partial class App
     {
         try
         {
-            if (AppFlags.Instance.EnableLampArray)
-            {
-                AppFlags.Instance.ForceDisableSpectrumKeyboardSupport = true;
-                return;
-            }
-
             var controller = IoCContainer.Resolve<SpectrumKeyboardBacklightController>();
 
             if (await controller.IsSupportedAsync())
