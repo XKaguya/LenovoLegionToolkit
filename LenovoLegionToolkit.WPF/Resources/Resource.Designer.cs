@@ -8096,7 +8096,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use new sensor dashboard instead of the old one. .
+        ///   Looks up a localized string similar to Use new sensor dashboard instead of the old one..
         /// </summary>
         public static string SettingsPage_UseNewSensorDashboard_Message {
             get {
