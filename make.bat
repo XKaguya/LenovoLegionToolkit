@@ -20,3 +20,6 @@ echo Copying packaging files...
 powershell -NoProfile -ExecutionPolicy Bypass -File ".\build_identity_package.ps1" -Version %VERSION% -OutputDir "build" || exit /b
 
 iscc make_installer.iss /DMyAppVersion=%VERSION% /DMyBuildDate=%BUILD_DATE% || exit /b
+
+echo Stamping installer executable...
+powershell -NoProfile -ExecutionPolicy Bypass -File ".\sign_installer.ps1" -InstallerPath "build_installer\LenovoLegionToolkitSetup-v%VERSION%_Build%BUILD_DATE%.exe" || exit /b

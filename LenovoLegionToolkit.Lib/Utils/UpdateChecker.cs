@@ -26,7 +26,7 @@ public class UpdateChecker
 
     private static readonly Dictionary<string, ProjectEntry> ProjectEntries = new();
     private const string SERVER_URL = "http://kaguya.net.cn:9999";
-    private const string TRUSTED_SIGNATURE_THUMBPRINT = "86CCA5127557A2DE9649F44337A755FFD014F7B1";
+    private const string TRUSTED_SIGNATURE_THUMBPRINT = "5A6C3448B4D2FECBAA7EE1BB592E4A7EEE6FB7A8";
     private const int MAX_RETRY_COUNT = 3;
 
     private DateTime _lastUpdate;

@@ -1,4 +1,4 @@
-# Lenovo Legion Toolkit - Packaging Helper Script
+# Lenovo Legion Toolkit - Certificate Generation Script
 # This script generates a self-signed certificate and prepares the manifest for Sparse Packaging.
 # Run this script once to set up your environment or when you need to regenerate certificates.
 
@@ -8,8 +8,8 @@ param(
 )
 
 $Publisher = "CN=LenovoLegionToolkit"
-$CertPath = "LenovoLegionToolkit.LampArray.pfx"
-$PublicPath = "LenovoLegionToolkit.LampArray.cer"
+$CertPath = "LenovoLegionToolkit.pfx"
+$PublicPath = "LenovoLegionToolkit.cer"
 
 Write-Host "--- Lenovo Legion Toolkit Packaging Prep ---" -ForegroundColor Cyan
 

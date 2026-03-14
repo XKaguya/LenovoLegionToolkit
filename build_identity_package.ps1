@@ -10,7 +10,7 @@ param(
     [string]$OutputDir = "build",
 
     [Parameter()]
-    [string]$PfxPath = "LenovoLegionToolkit.LampArray.pfx",
+    [string]$PfxPath = "LenovoLegionToolkit.pfx",
 
     [Parameter()]
     [string]$Password = $env:LLT_CERT_PASSWORD
@@ -72,11 +72,11 @@ function Write-FallbackIdentityFiles {
         Copy-Item $priSource -Destination (Join-Path $DestinationDir "resources.pri") -Force
     }
 
-    if (-not (Test-Path "LenovoLegionToolkit.LampArray.cer")) {
-        throw "Public certificate not found: LenovoLegionToolkit.LampArray.cer"
+    if (-not (Test-Path "LenovoLegionToolkit.cer")) {
+        throw "Public certificate not found: LenovoLegionToolkit.cer"
     }
 
-    Copy-Item "LenovoLegionToolkit.LampArray.cer" -Destination (Join-Path $DestinationDir "LenovoLegionToolkit.LampArray.cer") -Force
+    Copy-Item "LenovoLegionToolkit.cer" -Destination (Join-Path $DestinationDir "LenovoLegionToolkit.cer") -Force
 }
 
 $normalizedVersion = [Version]$Version
@@ -210,9 +210,9 @@ if ($LASTEXITCODE -ne 0) {
     throw "SignTool failed with exit code $LASTEXITCODE"
 }
 
-if (-not (Test-Path "LenovoLegionToolkit.LampArray.cer")) {
-    throw "Public certificate not found: LenovoLegionToolkit.LampArray.cer"
+if (-not (Test-Path "LenovoLegionToolkit.cer")) {
+    throw "Public certificate not found: LenovoLegionToolkit.cer"
 }
 
-Copy-Item "LenovoLegionToolkit.LampArray.cer" -Destination (Join-Path $resolvedOutputDir "LenovoLegionToolkit.LampArray.cer") -Force
+Copy-Item "LenovoLegionToolkit.cer" -Destination (Join-Path $resolvedOutputDir "LenovoLegionToolkit.cer") -Force
 Write-Host "Built identity package: $msixPath"

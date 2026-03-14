@@ -17,3 +17,6 @@ echo Copying packaging files...
 powershell -NoProfile -ExecutionPolicy Bypass -File ".\build_identity_package.ps1" -Version %VERSION% -OutputDir "build" || exit /b
 
 iscc make_installer_action.iss /DMyAppVersion=%VERSION% || exit /b
+
+echo Stamping installer executable...
+powershell -NoProfile -ExecutionPolicy Bypass -File ".\sign_installer.ps1" || exit /b
