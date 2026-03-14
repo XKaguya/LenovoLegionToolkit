@@ -1408,6 +1408,9 @@ Chọn Có để tắt và Không để bỏ qua.</value>
   <data name="LampArrayRGBKeyboardPage_Ripple" xml:space="preserve">
     <value>Ripple</value>
   </data>
+  <data name="LampArrayRGBKeyboardPage_Selected_Key" xml:space="preserve">
+    <value>Selected {0} keys with {1} effect</value>
+  </data>
   <data name="LampArrayRGBKeyboardPage_Selection" xml:space="preserve">
     <value>Selection</value>
   </data>

@@ -170,7 +170,7 @@
 
             <custom:CardControl Margin="0,0,0,24" Icon="ColorFill24">
                 <custom:CardControl.Header>
-                    <controls:CardHeaderControl Title="Effects" />
+                    <controls:CardHeaderControl Title="{x:Static resources:Resource.LampArrayRGBKeyboardPage_Effect}" />
                 </custom:CardControl.Header>
                 <StackPanel>
                     <TextBlock

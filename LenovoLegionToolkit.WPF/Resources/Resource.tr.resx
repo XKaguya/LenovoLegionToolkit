@@ -1408,6 +1408,9 @@ Devre dışı bırakmak için Evet'i, yok saymak için Hayır'ı tıklayın.</va
   <data name="LampArrayRGBKeyboardPage_Ripple" xml:space="preserve">
     <value>Dalgalanma</value>
   </data>
+  <data name="LampArrayRGBKeyboardPage_Selected_Key" xml:space="preserve">
+    <value>Selected {0} keys with {1} effect</value>
+  </data>
   <data name="LampArrayRGBKeyboardPage_Selection" xml:space="preserve">
     <value>Seçim</value>
   </data>

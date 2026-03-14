@@ -20,6 +20,7 @@ using WpfColor = System.Windows.Media.Color;
 using System.Windows.Media;
 using Microsoft.Win32;
 using Wpf.Ui.Controls;
+using LenovoLegionToolkit.WPF.Resources;
 
 namespace LenovoLegionToolkit.WPF.Pages;
 
@@ -414,7 +415,7 @@ public partial class LampArrayRGBKeyboardPage : UiPage
         if (_selectedIndices.Count == 0) 
         {
             _effectSelect.IsEnabled = false;
-            if (_selectionSummary != null) _selectionSummary.Text = "No keys selected.";
+            if (_selectionSummary != null) _selectionSummary.Text = $"{Resource.LampArrayRGBKeyboardPage_No_Selection}";
             return;
         }
         _effectSelect.IsEnabled = true;
@@ -480,9 +481,11 @@ public partial class LampArrayRGBKeyboardPage : UiPage
 
         _isUpdatingUi = false;
         _isUpdatingUi = false;
-        
-        if (_selectionSummary != null) 
-             _selectionSummary.Text = $"{_selectedIndices.Count} keys selected ({effectName})";
+
+        if (_selectionSummary != null)
+        {
+            _selectionSummary.Text = string.Format(Resource.LampArrayRGBKeyboardPage_Selected_Key, _selectedIndices.Count, effectName);
+        }
     }
 
     private void EffectSelect_SelectionChanged(object sender, SelectionChangedEventArgs e)
