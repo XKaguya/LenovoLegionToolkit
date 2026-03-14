@@ -18,7 +18,9 @@ if (-not (Test-Path $PfxPath) -or [string]::IsNullOrWhiteSpace($Password)) {
     return
 }
 
-Import-Module Microsoft.PowerShell.Security -ErrorAction SilentlyContinue
+try {
+    Import-Module Microsoft.PowerShell.Security -ErrorAction Stop -WarningAction SilentlyContinue
+} catch {}
 
 Write-Host "Stamping installer: $InstallerPath"
 $cert = New-Object System.Security.Cryptography.X509Certificates.X509Certificate2($PfxPath, $Password)
