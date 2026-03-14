@@ -8,6 +8,8 @@
 #define MyAppGitHub "https://github.com/LenovoLegionToolkit-Team/LenovoLegionToolkit"
 #define MyAppLegionDiscord "https://discord.com/invite/legionseries"
 #define MyAppLOQDiscord "https://discord.gg/3GKzQtwdNf"
+#define MyAppOfficialDiscord "https://discord.gg/TB3ER8ZVdt"
+#define MyAppCopyright "© 2026 Bartosz Cichecki, Kaguya, and Dr. Skinner"
 
 #ifndef MyAppVersion
   #define MyAppVersion "0.0.1"
@@ -23,6 +25,7 @@ AppId={{0C37B9AC-9C3D-4302-8ABB-125C7C7D83D5}
 AppMutex=LenovoLegionToolkit_Mutex_6efcc882-924c-4cbc-8fec-f45c25696f98
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
+AppCopyright={#MyAppCopyright}
 VersionInfoVersion={#MyAppVersion}
 AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
@@ -73,6 +76,11 @@ begin
   ShellExec('open', Url, '', '', SW_SHOWNORMAL, ewNoWait, ResultCode);
 end;
 
+procedure OfficialDiscordLinkClick(Sender: TObject);
+begin
+  OpenBrowser('{#MyAppOfficialDiscord}');
+end;
+
 procedure GitHubLinkClick(Sender: TObject);
 begin
   OpenBrowser('{#MyAppGitHub}');
@@ -90,7 +98,7 @@ end;
 
 procedure CurPageChanged(CurPageID: Integer);
 var
-  GitHubLink, LegionDiscordLink, LOQDiscordLink: TNewStaticText;
+  OfficialDiscordLink, GitHubLink, LegionDiscordLink, LOQDiscordLink: TNewStaticText;
   Offset: Integer;
 begin
   if CurPageID = wpFinished then
@@ -107,9 +115,19 @@ begin
     GitHubLink.Cursor := crHand;
     GitHubLink.OnClick := @GitHubLinkClick;
 
+    OfficialDiscordLink := TNewStaticText.Create(WizardForm);
+    OfficialDiscordLink.Parent := WizardForm.FinishedPage;
+    OfficialDiscordLink.Top := GitHubLink.Top + GitHubLink.Height + ScaleY(8);
+    OfficialDiscordLink.Left := WizardForm.FinishedLabel.Left;
+    OfficialDiscordLink.Caption := ExpandConstant('{cm:JoinOfficialDiscord}');
+    OfficialDiscordLink.Font.Color := clBlue;
+    OfficialDiscordLink.Font.Style := [fsUnderline];
+    OfficialDiscordLink.Cursor := crHand;
+    OfficialDiscordLink.OnClick := @OfficialDiscordLinkClick;
+
     LegionDiscordLink := TNewStaticText.Create(WizardForm);
     LegionDiscordLink.Parent := WizardForm.FinishedPage;
-    LegionDiscordLink.Top := GitHubLink.Top + GitHubLink.Height + ScaleY(8);
+    LegionDiscordLink.Top := OfficialDiscordLink.Top + OfficialDiscordLink.Height + ScaleY(8);
     LegionDiscordLink.Left := WizardForm.FinishedLabel.Left;
     LegionDiscordLink.Caption := ExpandConstant('{cm:JoinLegionDiscord}');
     LegionDiscordLink.Font.Color := clBlue;
@@ -133,6 +151,7 @@ begin
 end;
 [CustomMessages]
 VisitGitHub=Visit GitHub Repository
+JoinOfficialDiscord=Join Official Discord Community
 JoinLegionDiscord=Join Legion Series Discord Community
 JoinLOQDiscord=Join LOQ Series Discord Community
 

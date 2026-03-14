@@ -1,4 +1,4 @@
-## Welcome to Lenvo Legion Toolkit contributing guide!
+## Welcome to Lenovo Legion Toolkit contributing guide!
 
 ### Other language versions of this contributing guide:
 * [简体中文版开发者指南](CONTRIBUTING_zh-hans.md)
@@ -14,11 +14,11 @@ _Due to large number of issues created, those that do not meet the criteria will
 
 **1. Before reporting an issue make yourself familiar with the README**
 
-[README](https://github.com/BartoszCichecki/LenovoLegionToolkit/blob/master/README.md) is regularly updated to include answers to frequently asked questions as well as information about most common issues. Take your time to go through what is there before creating an issue or starting a discussion.
+[README](https://github.com/LenovoLegionToolkit-Team/LenovoLegionToolkit/blob/master/README.md) is regularly updated to include answers to frequently asked questions as well as information about most common issues. Take your time to go through what is there before creating an issue or starting a discussion.
 
 **2. Check already reported issues**
 
-Go through [issues](https://github.com/BartoszCichecki/LenovoLegionToolkit/issues?q=is%3Aissue) that were already reported, as well as [discussions](https://github.com/BartoszCichecki/LenovoLegionToolkit/discussions?discussions_q=). Do not create duplicate issues or discussions. Even if the issue is marked as closed, you can still leave a comment there.
+Go through [issues](https://github.com/LenovoLegionToolkit-Team/LenovoLegionToolkit/issues?q=is%3Aissue) that were already reported, as well as [discussions](https://github.com/LenovoLegionToolkit-Team/LenovoLegionToolkit/discussions?discussions_q=). Do not create duplicate issues or discussions. Even if the issue is marked as closed, you can still leave a comment there. You can also discuss known issues on our **Official Discord Server**.
 
 **3. Use English**
 
@@ -50,11 +50,11 @@ Do not report many problems or request many features withing one issue. Make one
 
 **10. Translations**
 
-Translation contributions are done using [Crowdin](https://crowdin.com/project/llt), so please request access to the project there if you want to contribute.
+Translation contributions are done using [Crowdin](https://crowdin.com/project/lenovolegiontoolkit-unofficial), so please request access to the project there if you want to contribute.
 
 **11. Pull requests**
 
-Pull requests are welcome (of course). Unless you create a very simple and understandable PR, make an issue first and describe the problem you are solving. It doesn't make sense to spend time working on an idea that will be rejected, because it doesn't fit the project vision. Follow the code style and architecture of the project.
+Pull requests are welcome (of course). Unless you create a very simple and understandable PR, make an issue first and describe the problem you are solving. It doesn't make sense to spend time working on an idea that will be rejected, because it doesn't fit the project vision. Follow the code style and architecture of the project. We encourage discussing complex changes on our **Official Discord Server** first.
 
 <br/>
 

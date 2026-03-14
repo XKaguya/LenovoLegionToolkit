@@ -7,15 +7,103 @@ This product includes the following third-party components:
 
 1. RAMSPDToolkit
    - Source: https://github.com/Blacktempel/RAMSPDToolkit
-   - License: MPL-2.0 (full text at [LICENSES/third-party/RAMSPDToolkit-LICENSE](https://github.com/Blacktempel/RAMSPDToolkit/blob/master/LICENSE))
+   - License: MPL-2.0
 
 2. LibreHardwareMonitor
    - Source: https://github.com/LibreHardwareMonitor/LibreHardwareMonitor
-   - License: MPL-2.0 (full text at [LICENSES/third-party/LibreHardwareMonitor-LICENSE](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor/blob/master/LICENSE))
+   - License: MPL-2.0
 
 3. PawnIO
    - Source: https://github.com/namazso/PawnIO
-   - License: GPL-2.0 (full text at [LICENSES/third-party/PawnIO-LICENSE](https://github.com/namazso/PawnIO/blob/master/COPYING))
+   - License: GPL-2.0
+
+4. wpfui
+   - Source: https://github.com/lepoco/wpfui
+   - License: MIT
+
+5. Autofac
+   - Source: https://github.com/autofac/Autofac
+   - License: MIT
+
+6. Humanizer
+   - Source: https://github.com/Humanizr/Humanizer
+   - License: MIT
+
+7. Markdig
+   - Source: https://github.com/xoofx/markdig
+   - License: BSD-2-Clause
+
+8. Markdig.Wpf
+   - Source: https://github.com/Kryptos-FR/markdig.wpf
+   - License: MIT
+
+9. CoordinateSharp
+   - Source: https://github.com/Tronald/CoordinateSharp
+   - License: AGPL-3.0
+
+10. UniversalFanControl.Lib
+    - Source: https://www.nuget.org/packages/UniversalFanControl.Lib
+    - License: MIT (by Kaguya)
+
+11. ZenStates-Core
+    - Source: https://github.com/irusanov/ZenStates-Core
+    - License: GPL-3.0
+
+12. PresentMonFps
+    - Source: https://github.com/lemutec/PresentMonFps
+    - License: MIT
+
+13. Newtonsoft.Json
+    - Source: https://github.com/JamesNK/Newtonsoft.Json
+    - License: MIT
+
+14. Octokit
+    - Source: https://github.com/octokit/octokit.net
+    - License: MIT
+
+15. TaskScheduler
+    - Source: https://github.com/dahall/TaskScheduler
+    - License: MIT
+
+16. ManagedNativeWifi
+    - Source: https://github.com/emoacht/ManagedNativeWifi
+    - License: MIT
+
+17. PubSub
+    - Source: https://github.com/upta/pubsub
+    - License: MIT
+
+18. NeoSmart.AsyncLock
+    - Source: https://github.com/neosmart/AsyncLock
+    - License: MIT
+
+19. System.CommandLine
+    - Source: https://github.com/dotnet/command-line-api
+    - License: MIT
+
+20. NAudio.Wasapi
+    - Source: https://github.com/naudio/NAudio
+    - License: MIT
+
+21. Ben.Demystifier
+    - Source: https://github.com/benaadams/Ben.Demystifier
+    - License: Apache-2.0
+
+22. PixiEditor.ColorPicker
+    - Source: https://github.com/PixiEditor/ColorPicker
+    - License: MIT
+
+23. WpfScreenHelper
+    - Source: https://github.com/micdenny/WpfScreenHelper
+    - License: MIT
+
+24. NvAPIWrapper
+    - Source: https://github.com/tebjan/NvAPIWrapper
+    - License: MIT
+
+25. WindowsDisplayAPI
+    - Source: https://github.com/falahati/WindowsDisplayAPI
+    - License: MIT
 
 ---------------------------------
-© [2025] [LenovoLegionToolkit]
+© 2026 LenovoLegionToolkit-Team
