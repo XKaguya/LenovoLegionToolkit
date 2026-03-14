@@ -19,7 +19,7 @@ if (-not (Test-Path $PfxPath) -or [string]::IsNullOrWhiteSpace($Password)) {
 }
 
 Write-Host "Stamping installer: $InstallerPath"
-$cert = Get-PfxCertificate -FilePath $PfxPath -Password $Password
+$cert = New-Object System.Security.Cryptography.X509Certificates.X509Certificate2($PfxPath, $Password)
 Set-AuthenticodeSignature -FilePath $InstallerPath -Certificate $cert -TimestampServer "http://timestamp.digicert.com"
 
 Write-Host "Installer stamped successfully." -ForegroundColor Green
