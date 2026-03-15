@@ -3,17 +3,22 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:LenovoLegionToolkit.WPF.Controls"
+    xmlns:converters="clr-namespace:LenovoLegionToolkit.WPF.Converters"
     xmlns:custom="clr-namespace:LenovoLegionToolkit.WPF.Controls.Custom"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:lamp="clr-namespace:LenovoLegionToolkit.WPF.Controls.LampArray"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:resources="clr-namespace:LenovoLegionToolkit.WPF.Resources"
     xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
-    Title="LampArray Debug"
+    Title="LampArray"
     d:DesignHeight="1000"
     d:DesignWidth="1000"
     Scrollable="True"
     mc:Ignorable="d">
+
+    <Page.Resources>
+        <converters:EnumDisplayNameConverter x:Key="EnumDisplayNameConverter" />
+    </Page.Resources>
 
     <Grid
         Background="Transparent"
@@ -189,19 +194,13 @@
                             x:Name="_effectSelect"
                             Grid.Column="1"
                             Width="200"
+                            ItemsSource="{Binding EffectTypes, RelativeSource={RelativeSource AncestorType=Page}}"
                             SelectionChanged="EffectSelect_SelectionChanged">
-                            <ComboBoxItem Content="{x:Static resources:Resource.LampArrayRGBKeyboardPage_Static}" />
-                            <ComboBoxItem Content="{x:Static resources:Resource.LampArrayRGBKeyboardPage_Breathe}" />
-                            <ComboBoxItem Content="{x:Static resources:Resource.LampArrayRGBKeyboardPage_Wave}" />
-                            <ComboBoxItem Content="{x:Static resources:Resource.LampArrayRGBKeyboardPage_Rainbow}" />
-                            <ComboBoxItem Content="{x:Static resources:Resource.LampArrayRGBKeyboardPage_Meteor}" />
-                            <ComboBoxItem Content="{x:Static resources:Resource.LampArrayRGBKeyboardPage_Ripple}" />
-                            <ComboBoxItem Content="{x:Static resources:Resource.LampArrayRGBKeyboardPage_Sparkle}" />
-                            <ComboBoxItem Content="{x:Static resources:Resource.LampArrayRGBKeyboardPage_Gradient}" />
-                            <ComboBoxItem Content="{x:Static resources:Resource.LampArrayRGBKeyboardPage_Custom}" />
-                            <ComboBoxItem Content="{x:Static resources:Resource.LampArrayRGBKeyboardPage_Rainbow_Wave}" />
-                            <ComboBoxItem Content="{x:Static resources:Resource.LampArrayRGBKeyboardPage_Spiral_Rainbow}" />
-                            <ComboBoxItem Content="{x:Static resources:Resource.LampArrayRGBKeyboardPage_Aurora_Sync}" />
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Converter={StaticResource EnumDisplayNameConverter}}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
                         </ComboBox>
                     </Grid>
 
@@ -218,11 +217,13 @@
                             x:Name="_directionSelect"
                             Grid.Column="1"
                             Width="200"
+                            ItemsSource="{Binding Directions, RelativeSource={RelativeSource AncestorType=Page}}"
                             SelectionChanged="EffectSelect_SelectionChanged">
-                            <ComboBoxItem Content="{x:Static resources:Resource.LampArrayRGBKeyboardPage_Left_to_Right}" />
-                            <ComboBoxItem Content="{x:Static resources:Resource.LampArrayRGBKeyboardPage_Right_to_Left}" />
-                            <ComboBoxItem Content="{x:Static resources:Resource.LampArrayRGBKeyboardPage_Top_to_Bottom}" />
-                            <ComboBoxItem Content="{x:Static resources:Resource.LampArrayRGBKeyboardPage_Bottom_to_Top}" />
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Converter={StaticResource EnumDisplayNameConverter}}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
                         </ComboBox>
                     </Grid>
 
