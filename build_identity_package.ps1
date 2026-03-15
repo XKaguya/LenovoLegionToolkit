@@ -13,7 +13,10 @@ param(
     [string]$PfxPath = "LenovoLegionToolkit.pfx",
 
     [Parameter()]
-    [string]$Password = $env:LLT_CERT_PASSWORD
+    [string]$Password = $env:LLT_CERT_PASSWORD,
+
+    [Parameter()]
+    [switch]$UseManifest
 )
 
 $ErrorActionPreference = "Stop"
@@ -30,17 +33,37 @@ function Get-SdkToolPath {
     }
 
     $sdkRoot = Join-Path ${env:ProgramFiles(x86)} "Windows Kits\10\bin"
-    if (-not (Test-Path $sdkRoot)) {
-        return $null
+    if (Test-Path $sdkRoot) {
+        $candidate = Get-ChildItem $sdkRoot -Directory |
+            Sort-Object Name -Descending |
+            ForEach-Object { Join-Path $_.FullName "x64\$ToolName" } |
+            Where-Object { Test-Path $_ } |
+            Select-Object -First 1
+
+        if ($candidate) {
+            return $candidate
+        }
     }
 
-    $candidate = Get-ChildItem $sdkRoot -Directory |
-        Sort-Object Name -Descending |
-        ForEach-Object { Join-Path $_.FullName "x64\$ToolName" } |
-        Where-Object { Test-Path $_ } |
-        Select-Object -First 1
+    $nugetPackages = Join-Path $env:UserProfile ".nuget\packages\microsoft.windows.sdk.buildtools"
+    if (Test-Path $nugetPackages) {
+        $candidate = Get-ChildItem $nugetPackages -Directory |
+            Sort-Object Name -Descending |
+            ForEach-Object {
+                $binPath = Join-Path $_.FullName "bin"
+                if (Test-Path $binPath) {
+                    Get-ChildItem $binPath -Directory | ForEach-Object {
+                        Join-Path $_.FullName "x64\$ToolName"
+                    } | Where-Object { Test-Path $_ }
+                }
+            } | Select-Object -First 1
 
-    return $candidate
+        if ($candidate) {
+            return $candidate
+        }
+    }
+
+    return $null
 }
 
 function Write-FallbackIdentityFiles {
@@ -95,10 +118,7 @@ $manifestDestination = Join-Path $stagingDir "AppxManifest.xml"
 
 $makeAppx = Get-SdkToolPath -ToolName "MakeAppx.exe"
 $signTool = Get-SdkToolPath -ToolName "SignTool.exe"
-$makePri = Join-Path (Resolve-Path ".").Path "MakePRI\makepri.exe"
-if (-not (Test-Path $makePri)) {
-    $makePri = Get-SdkToolPath -ToolName "makepri.exe"
-}
+$makePri = Get-SdkToolPath -ToolName "makepri.exe"
 
 New-Item -ItemType Directory -Path $resolvedOutputDir -Force | Out-Null
 if (Test-Path $stagingDir) {
@@ -111,8 +131,8 @@ if (Test-Path $msixPath) {
 
 Remove-Item (Join-Path $resolvedOutputDir "resources*.pri") -ErrorAction SilentlyContinue
 
-if (-not $makeAppx -or -not $signTool) {
-    if ($env:CI -eq "true") {
+if ($UseManifest -or -not $makeAppx -or -not $signTool) {
+    if ($env:CI -eq "true" -and -not $UseManifest) {
         $missingTools = @()
         if (-not $makeAppx) {
             $missingTools += 'MakeAppx.exe'

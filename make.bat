@@ -1,10 +1,8 @@
 @echo off
+dotnet restore LenovoLegionToolkit.sln || exit /b
 
-IF "%1"=="" (
 SET VERSION=0.0.1
-) ELSE (
-SET VERSION=%1
-)
+IF NOT "%1"=="" IF /I NOT "%1"=="raw" SET VERSION=%1
 
 REM Use PowerShell to get the current date in YYYYMMDD format
 for /f %%i in ('powershell -NoProfile -Command "Get-Date -Format yyyyMMdd"') do set BUILD_DATE=%%i
@@ -17,7 +15,9 @@ dotnet publish LenovoLegionToolkit.Probe -c release -o build /p:DebugType=None /
 dotnet publish LenovoLegionToolkit.CLI -c release -o build /p:DebugType=None /p:FileVersion=%VERSION% /p:Version=%VERSION% || exit /b
 
 echo Copying packaging files...
-powershell -NoProfile -ExecutionPolicy Bypass -File ".\build_identity_package.ps1" -Version %VERSION% -OutputDir "build" || exit /b
+SET USE_MANIFEST=
+FOR %%A IN (%*) DO IF "%%A"=="raw" SET USE_MANIFEST=-UseManifest
+powershell -NoProfile -ExecutionPolicy Bypass -File ".\build_identity_package.ps1" -Version %VERSION% -OutputDir "build" %USE_MANIFEST% || exit /b
 
 iscc make_installer.iss /DMyAppVersion=%VERSION% /DMyBuildDate=%BUILD_DATE% || exit /b
 
