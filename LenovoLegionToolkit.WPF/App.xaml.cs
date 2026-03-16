@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -58,6 +58,9 @@ public partial class App
     private static extern bool AttachConsole(int dwProcessId);
 
     private const int ATTACH_PARENT_PROCESS = -1;
+
+    [DllImport("shell32.dll", SetLastError = true)]
+    private static extern int SetCurrentProcessExplicitAppUserModelID([MarshalAs(UnmanagedType.LPWStr)] string appId);
 
     #endregion
 
@@ -1185,7 +1188,9 @@ public partial class App
         try
         {
             var package = global::Windows.ApplicationModel.Package.Current;
-            Log.Instance.Trace($"Package Identity found: {package.Id.FamilyName}");
+            var aumid = $"{package.Id.FamilyName}!App";
+            SetCurrentProcessExplicitAppUserModelID(aumid);
+            Log.Instance.Trace($"Package Identity found and AUMID set: {aumid}");
         }
         catch (InvalidOperationException)
         {

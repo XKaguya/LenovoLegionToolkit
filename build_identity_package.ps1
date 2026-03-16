@@ -66,6 +66,68 @@ function Get-SdkToolPath {
     return $null
 }
 
+function Update-PackageManifestVersion {
+    param(
+        [Parameter(Mandatory)]
+        [string]$Path,
+        [Parameter(Mandatory)]
+        [string]$Version
+    )
+    [xml]$xml = Get-Content $Path
+    $xml.Package.Identity.Version = $Version
+    $xml.Save($Path)
+}
+
+function New-IdentityPri {
+    param(
+        [Parameter(Mandatory)]
+        [string]$MakePriPath,
+        [Parameter(Mandatory)]
+        [string]$StagingDir,
+        [Parameter(Mandatory)]
+        [string]$OutputDir
+    )
+    Write-Host "Generating resources.pri..."
+    $configPath = Join-Path $StagingDir "priconfig.xml"
+    & $MakePriPath createconfig /cf $configPath /dq en-US /pv 10.0.0 /o | Out-Null
+    
+    [xml]$priConfig = Get-Content $configPath
+    $packagingNode = $priConfig.SelectSingleNode("//packaging")
+    if ($packagingNode) {
+        $packagingNode.ParentNode.RemoveChild($packagingNode) | Out-Null
+        $priConfig.Save($configPath)
+    }
+
+    & $MakePriPath new /pr $StagingDir /cf $configPath /of (Join-Path $OutputDir "resources.pri") /o /v | Out-Null
+    Remove-Item $configPath -ErrorAction SilentlyContinue
+}
+
+function Write-IdentityImages {
+    param(
+        [Parameter(Mandatory)]
+        [string]$DestinationDir
+    )
+
+    $imagesDestination = Join-Path $DestinationDir "Images"
+    New-Item -ItemType Directory -Path $imagesDestination -Force | Out-Null
+    Copy-Item "LenovoLegionToolkit.LampArray\Images\*" -Destination $imagesDestination -Recurse -Force
+
+    $manifestLogos = @("Square150x150Logo", "Square44x44Logo", "Wide310x150Logo", "SplashScreen", "StoreLogo")
+    foreach ($logoName in $manifestLogos) {
+        $neutralPath = Join-Path $imagesDestination "$logoName.png"
+        if (-not (Test-Path $neutralPath)) {
+            $variant = Get-ChildItem -Path $imagesDestination -Filter "$logoName.targetsize-44_altform-unplated.png" -Recurse | Select-Object -First 1
+            if (-not $variant) {
+                $variant = Get-ChildItem -Path $imagesDestination -Filter "$logoName.scale-200.png" -Recurse | Select-Object -First 1
+            }
+            
+            if ($variant) {
+                Copy-Item $variant.FullName -Destination $neutralPath -Force
+            }
+        }
+    }
+}
+
 function Write-FallbackIdentityFiles {
     param(
         [Parameter(Mandatory)]
@@ -81,14 +143,11 @@ function Write-FallbackIdentityFiles {
     Write-Warning "MakeAppx.exe was not found. Falling back to raw manifest registration for this local build."
 
     $manifestDestination = Join-Path $DestinationDir "AppxManifest.xml"
-    $imagesDestination = Join-Path $DestinationDir "Images"
-    New-Item -ItemType Directory -Path $imagesDestination -Force | Out-Null
-    Copy-Item "LenovoLegionToolkit.LampArray\Images\*" -Destination $imagesDestination -Recurse -Force
+    Write-IdentityImages -DestinationDir $DestinationDir
     New-Item -ItemType Directory -Path (Join-Path $DestinationDir "public") -Force | Out-Null
 
-    [xml]$fallbackManifest = Get-Content $ManifestSource
-    $fallbackManifest.Package.Identity.Version = $ResolvedVersion
-    $fallbackManifest.Save($manifestDestination)
+    Copy-Item $ManifestSource -Destination $manifestDestination -Force
+    Update-PackageManifestVersion -Path $manifestDestination -Version $ResolvedVersion
 
     $priSource = Join-Path "LenovoLegionToolkit.LampArray" "resources.pri"
     if (Test-Path $priSource) {
@@ -153,18 +212,9 @@ if ($UseManifest -or -not $makeAppx -or -not $signTool) {
         New-Item -ItemType Directory -Path $priStaging -Force | Out-Null
         Copy-Item (Join-Path $resolvedOutputDir "AppxManifest.xml") -Destination $priStaging -Force
         Copy-Item (Join-Path $resolvedOutputDir "Images") -Destination $priStaging -Recurse -Force
-    
-        Get-ChildItem -Path $priStaging -Filter "*.scale-200.png" -Recurse | ForEach-Object {
-            $neutralPath = $_.FullName -replace '\.scale-200\.png$', '.png'
-            if (-not (Test-Path $neutralPath)) {
-                Copy-Item $_.FullName -Destination $neutralPath -Force
-            }
-        }
+        New-Item -ItemType Directory -Path (Join-Path $priStaging "public") -Force | Out-Null
         
-        $configPath = Join-Path $priStaging "priconfig.xml"
-        & $makePri createconfig /cf $configPath /dq en-US /pv 10.0.0 /o | Out-Null
-        & $makePri new /pr $priStaging /cf $configPath /of (Join-Path $resolvedOutputDir "resources.pri") /o /v | Out-Null
-        
+        New-IdentityPri -MakePriPath $makePri -StagingDir $priStaging -OutputDir $resolvedOutputDir
         Remove-Item $priStaging -Recurse -Force
     }
 
@@ -196,28 +246,15 @@ if ([string]::IsNullOrWhiteSpace($Password)) {
 }
 
 New-Item -ItemType Directory -Path $stagingDir -Force | Out-Null
-$stagingImagesDestination = Join-Path $stagingDir "Images"
-New-Item -ItemType Directory -Path $stagingImagesDestination -Force | Out-Null
-Copy-Item "LenovoLegionToolkit.LampArray\Images\*" -Destination $stagingImagesDestination -Recurse -Force
-
-Get-ChildItem -Path $stagingImagesDestination -Filter "*.scale-200.png" -Recurse | ForEach-Object {
-    $neutralPath = $_.FullName -replace '\.scale-200\.png$', '.png'
-    if (-not (Test-Path $neutralPath)) {
-        Copy-Item $_.FullName -Destination $neutralPath -Force
-    }
-}
+Write-IdentityImages -DestinationDir $stagingDir
 New-Item -ItemType Directory -Path (Join-Path $stagingDir "public") -Force | Out-Null
 
-[xml]$manifest = Get-Content $manifestSource
-$manifest.Package.Identity.Version = $resolvedVersion
-$manifest.Save($manifestDestination)
+Copy-Item $manifestSource -Destination $manifestDestination -Force
+Update-PackageManifestVersion -Path $manifestDestination -Version $resolvedVersion
 
 if ($makePri -and (Test-Path $makePri)) {
-    Write-Host "Generating resources.pri..."
-    $configPath = Join-Path $stagingDir "priconfig.xml"
-    & $makePri createconfig /cf $configPath /dq en-US /pv 10.0.0 /o | Out-Null
-    & $makePri new /pr $stagingDir /cf $configPath /of (Join-Path $stagingDir "resources.pri") /o /v | Out-Null
-    Remove-Item $configPath -ErrorAction SilentlyContinue
+    New-IdentityPri -MakePriPath $makePri -StagingDir $stagingDir -OutputDir $resolvedOutputDir
+    Copy-Item (Join-Path $resolvedOutputDir "resources.pri") -Destination (Join-Path $stagingDir "resources.pri") -Force
 }
 
 & $makeAppx pack /o /d $stagingDir /nv /p $msixPath
@@ -235,4 +272,11 @@ if (-not (Test-Path "LenovoLegionToolkit.cer")) {
 }
 
 Copy-Item "LenovoLegionToolkit.cer" -Destination (Join-Path $resolvedOutputDir "LenovoLegionToolkit.cer") -Force
+
+Copy-Item $manifestDestination -Destination (Join-Path $resolvedOutputDir "AppxManifest.xml") -Force
+$finalImagesDestination = Join-Path $resolvedOutputDir "Images"
+New-Item -ItemType Directory -Path $finalImagesDestination -Force | Out-Null
+Copy-Item (Join-Path $stagingDir "Images\*") -Destination $finalImagesDestination -Recurse -Force
+
+Remove-Item $stagingDir -Recurse -Force
 Write-Host "Built identity package: $msixPath"
