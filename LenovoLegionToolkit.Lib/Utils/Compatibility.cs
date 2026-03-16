@@ -31,7 +31,7 @@ public static partial class Compatibility
     [GeneratedRegex("[0-9]{2}")]
     private static partial Regex BiosVersionRegex();
 
-    private const string ALLOWED_VENDOR = "LENOVO";
+    private static readonly string[] ALLOWED_VENDORS = ["LENOVO", "MOTOROLA"];
     private static readonly string FakeMachineInformationPath = Path.Combine(Folders.AppData, "fake_mi.json");
     public static bool FakeMachineInformationMode { get; private set; } = false;
 
@@ -145,20 +145,24 @@ public static partial class Compatibility
     {
         var mi = await GetMachineInformationAsync().ConfigureAwait(false);
 
-        if (!await CheckBasicCompatibilityAsync().ConfigureAwait(false) || !mi.Vendor.Equals(ALLOWED_VENDOR, StringComparison.InvariantCultureIgnoreCase))
+        bool isBasicCompatible = await CheckBasicCompatibilityAsync().ConfigureAwait(false);
+
+        bool isAllowedVendor = ALLOWED_VENDORS.Contains(mi.Vendor, StringComparer.InvariantCultureIgnoreCase);
+
+        if (!await CheckBasicCompatibilityAsync().ConfigureAwait(false) || !isAllowedVendor)
             return (false, mi);
 
-        if (!File.Exists(FakeMachineInformationPath))
-            return AllowedModelsPrefix.Any(allowedModel =>
-                mi.Model.Contains(allowedModel, StringComparison.InvariantCultureIgnoreCase))
-                ? (true, mi)
-                : (false, mi);
+        if (File.Exists(FakeMachineInformationPath))
+        {
+            var jsonString = await File.ReadAllTextAsync(FakeMachineInformationPath).ConfigureAwait(false);
+            _fakeMachineInformation = JsonConvert.DeserializeObject<FakeMachineInformation>(jsonString);
+            FakeMachineInformationMode = true;
+        }
 
-        var jsonString = await File.ReadAllTextAsync(FakeMachineInformationPath).ConfigureAwait(false);
-        _fakeMachineInformation = JsonConvert.DeserializeObject<FakeMachineInformation>(jsonString);
-        FakeMachineInformationMode = true;
+        bool isAllowedModel = AllowedModelsPrefix.Any(allowedModel =>
+            mi.Model.Contains(allowedModel, StringComparison.InvariantCultureIgnoreCase));
 
-        return AllowedModelsPrefix.Any(allowedModel => mi.Model.Contains(allowedModel, StringComparison.InvariantCultureIgnoreCase)) ? (true, mi) : (false, mi);
+        return (isAllowedModel, mi);
     }
 
     public static Task<FakeMachineInformation?> GetFakeMachineInformationAsync()
