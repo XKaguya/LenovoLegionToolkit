@@ -108,7 +108,7 @@
                                         </Grid.ColumnDefinitions>
                                         <CheckBox Grid.Column="0" IsChecked="{Binding IsSelected}" VerticalAlignment="Center" Margin="0,0,12,0" />
                                         <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                            <TextBlock Text="{Binding FileName}" FontWeight="SemiBold" />
+                                            <TextBlock Text="{Binding DisplayName}" FontWeight="SemiBold" />
                                         </StackPanel>
                                         <TextBlock Grid.Column="2" Text="{Binding FileSize}" VerticalAlignment="Center" Opacity="0.6" Margin="12,0,0,0" />
                                     </Grid>

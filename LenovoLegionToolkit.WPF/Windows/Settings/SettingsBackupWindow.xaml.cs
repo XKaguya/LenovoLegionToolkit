@@ -217,6 +217,7 @@ public class BackupItem : INotifyPropertyChanged
     private bool _isSelected;
 
     public string FileName { get; }
+    public string DisplayName { get; }
     public string FullPath { get; }
     public string FileSize { get; }
     
@@ -233,7 +234,8 @@ public class BackupItem : INotifyPropertyChanged
 
     public BackupItem(FileInfo info)
     {
-        FileName = Path.GetFileNameWithoutExtension(info.Name).Titleize();
+        FileName = info.Name;
+        DisplayName = Path.GetFileNameWithoutExtension(info.Name).Titleize();
         FullPath = info.FullName;
         FileSize = BytesToString(info.Length);
         IsSelected = true;
