@@ -133,7 +133,8 @@ public static partial class Compatibility
         ("IdeaPad", LegionSeries.IdeaPad),
         ("YOGA", LegionSeries.YOGA),
         ("Lenovo Slim", LegionSeries.Lenovo_Slim),
-        ("ThinkBook", LegionSeries.ThinkBook)
+        ("ThinkBook", LegionSeries.ThinkBook),
+        ("Legion", LegionSeries.Legion_Legacy)
     ];
 
     private static MachineInformation? _machineInformation;
