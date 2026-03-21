@@ -349,11 +349,12 @@ public enum LegionSeries
     Legion_9 = 5,
     Legion_Go = 6,
     Lenovo_Slim = 7,
-    IdeaPad = 8,
-    IdeaPad_Gaming = 9,
-    LOQ = 10,
-    YOGA = 11,
-    ThinkBook = 12,
+    Legion_Legacy = 8,
+    IdeaPad = 9,
+    IdeaPad_Gaming = 10,
+    LOQ = 11,
+    YOGA = 12,
+    ThinkBook = 13,
     Unknown = 255
 }
 

@@ -1040,7 +1040,7 @@ public partial class App
             await fanManager.InitializeAsync().ConfigureAwait(false);
 
             var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
-            if (mi.LegionSeries <= LegionSeries.Lenovo_Slim)
+            if (mi.LegionSeries <= LegionSeries.Legion_Legacy)
             {
                 var powerMode = IoCContainer.Resolve<PowerModeFeature>();
                 if (await powerMode.GetStateAsync().ConfigureAwait(false) != PowerModeState.GodMode)
