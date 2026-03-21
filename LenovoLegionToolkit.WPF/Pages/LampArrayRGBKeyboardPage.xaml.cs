@@ -98,15 +98,8 @@ public partial class LampArrayRGBKeyboardPage : UiPage
             {
                 _rearAmbientLight.Visibility = Visibility.Collapsed;
                 _aftAmbientLight.Visibility = Visibility.Collapsed;
-                if (_cbiRear != null)
-                {
-                    _cbiRear.Visibility = Visibility.Collapsed;
-                }
-
-                if (_cbiAft != null)
-                {
-                    _cbiAft.Visibility = Visibility.Collapsed;
-                }
+                if (_cbiRear != null) _cbiRear.Visibility = Visibility.Collapsed;
+                if (_cbiAft != null) _cbiAft.Visibility = Visibility.Collapsed;
                 _zoneSelect.SelectedIndex = 0;
             }
 
@@ -116,9 +109,21 @@ public partial class LampArrayRGBKeyboardPage : UiPage
 
         await Dispatcher.InvokeAsync(() =>
         {
-            if (_visualKeyboard != null) _visualKeyboard.Visibility = Visibility.Visible;
-            if (_rearAmbientLight != null) _rearAmbientLight.Visibility = Visibility.Visible;
-            if (_aftAmbientLight != null) _aftAmbientLight.Visibility = Visibility.Visible;
+            if (_visualKeyboard != null)
+            {
+                _visualKeyboard.Visibility = Visibility.Visible;
+                _visualKeyboard.ApplyTemplate();
+            }
+            if (_rearAmbientLight != null)
+            {
+                _rearAmbientLight.Visibility = Visibility.Visible;
+                _rearAmbientLight.ApplyTemplate();
+            }
+            if (_aftAmbientLight != null)
+            {
+                _aftAmbientLight.Visibility = Visibility.Visible;
+                _aftAmbientLight.ApplyTemplate();
+            }
 
             UpdateLayout();
 
@@ -154,18 +159,13 @@ public partial class LampArrayRGBKeyboardPage : UiPage
             _controller.Speed = store.Speed;
             _controller.SmoothTransition = store.SmoothTransition;
 
-            if (_brightnessSlider != null)
-                _brightnessSlider.Value = store.Brightness * 100.0;
-            if (_brightnessValue != null)
-                _brightnessValue.Text = $"{store.Brightness * 100:F0}%";
+            if (_brightnessSlider != null) _brightnessSlider.Value = store.Brightness * 100.0;
+            if (_brightnessValue != null) _brightnessValue.Text = $"{store.Brightness * 100:F0}%";
 
-            if (_speedSlider != null)
-                _speedSlider.Value = store.Speed * 100.0;
-            if (_speedValue != null)
-                _speedValue.Text = $"{store.Speed * 100:F0}%";
+            if (_speedSlider != null) _speedSlider.Value = store.Speed * 100.0;
+            if (_speedValue != null) _speedValue.Text = $"{store.Speed * 100:F0}%";
 
-            if (_smoothTransitionCheckBox != null)
-                _smoothTransitionCheckBox.IsChecked = store.SmoothTransition;
+            if (_smoothTransitionCheckBox != null) _smoothTransitionCheckBox.IsChecked = store.SmoothTransition;
 
             UpdateZoneVisibility();
             ClearSelection();
@@ -208,8 +208,6 @@ public partial class LampArrayRGBKeyboardPage : UiPage
             double centerY = minY + height / 2.0;
 
             if (height < 0.05) height = 0.15;
-            if (width < 0.2) width = 0.45;
-
             if (width < 0.2) width = 0.45;
 
             centerY -= 0.04;
@@ -402,12 +400,9 @@ public partial class LampArrayRGBKeyboardPage : UiPage
     private void ClearSelection()
     {
         _selectedIndices.Clear();
-        foreach (var root in new DependencyObject[] { _visualKeyboard, _rearAmbientLight, _aftAmbientLight })
+        foreach (var key in _controlMap.Values)
         {
-            foreach (var key in EnumerateKeys(root))
-            {
-                key.IsChecked = false;
-            }
+            key.IsChecked = false;
         }
     }
 
@@ -609,7 +604,7 @@ public partial class LampArrayRGBKeyboardPage : UiPage
             _controller.SetEffectForIndices(_selectedIndices.ToList(), _globalCustomEffect);
 
             if (_selectionSummary != null)
-                _selectionSummary.Text = $"{_selectedIndices.Count} keys selected (Custom)";
+                _selectionSummary.Text = string.Format(Resource.LampArrayRGBKeyboardPage_Selected_Key, _selectedIndices.Count, LampEffectType.Custom.GetDisplayName());
         }
 
         foreach (var idx in _selectedIndices)
@@ -648,45 +643,118 @@ public partial class LampArrayRGBKeyboardPage : UiPage
             _controller.SmoothTransition = _smoothTransitionCheckBox.IsChecked ?? true;
     }
 
+    private void LogZoneSummaries()
+    {
+        try
+        {
+            var lamps = _controller.GetLamps().OrderBy(l => l.Info.Index).ToList();
+            if (lamps.Count == 0)
+            {
+                Log.Instance.Trace($"[Probe Zones] No lamps found from HID device.");
+                System.Diagnostics.Debug.WriteLine($"[Probe Zones] No lamps found from HID device.");
+                return;
+            }
+
+            var summaries = new List<string>();
+            var groupedLamps = lamps.GroupBy(l => l.Info.Purposes);
+
+            foreach (var group in groupedLamps)
+            {
+                string purposeName = group.Key.ToString();
+                var indices = group.Select(l => l.Info.Index).Distinct().OrderBy(i => i).ToList();
+                var ranges = new List<string>();
+
+                if (indices.Count > 0)
+                {
+                    int start = indices[0];
+                    int end = indices[0];
+
+                    for (int i = 1; i < indices.Count; i++)
+                    {
+                        if (indices[i] == end + 1)
+                        {
+                            end = indices[i];
+                        }
+                        else
+                        {
+                            ranges.Add(start == end ? start.ToString() : $"{start}-{end}");
+                            start = end = indices[i];
+                        }
+                    }
+                    ranges.Add(start == end ? start.ToString() : $"{start}-{end}");
+                }
+
+                summaries.Add($"{purposeName} {string.Join(", ", ranges)}");
+            }
+
+            string summaryText = string.Join(" | ", summaries);
+            Log.Instance.Trace($"[Probe Zones] Total Lamps: {lamps.Count} ({summaryText})");
+            System.Diagnostics.Debug.WriteLine($"[Probe Zones] Total Lamps: {lamps.Count} ({summaryText})");
+        }
+        catch (Exception ex)
+        {
+            Log.Instance.Trace($"[Probe Zones] Failed to retrieve lamp info: {ex.Message}");
+        }
+    }
+
     private async void ProbeLamps_Click(object sender, RoutedEventArgs e)
     {
-        _isProbing = true;
-
         var btn = sender as Button;
         if (btn == null) return;
 
         if (_probeCts != null)
         {
             CancelProbe(btn);
-            _isProbing = false;
             return;
         }
 
+        _isProbing = true;
         _probeCts = new CancellationTokenSource();
         var token = _probeCts.Token;
         btn.Content = "STOP PROBE";
 
-        _controller.SetAllLampsColor(WinUIColor.FromArgb(255, 0, 0, 0));
+        LogZoneSummaries();
+
+        var allIndices = _controlMap.Keys.ToList();
+        foreach (var idx in allIndices)
+        {
+            _lampEffectMap[idx] = _globalCustomEffect;
+            _globalCustomEffect.SetColor(idx, WinUIColor.FromArgb(0, 0, 0, 0));
+        }
+        _controller.SetEffectForIndices(allIndices, _globalCustomEffect);
+        SyncVisualsForIndices(allIndices);
 
         try
         {
-            var lamps = _controller.GetLamps().OrderBy(l => l.Info.Index).ToList();
-            foreach (var lamp in lamps)
+            int maxIndex = allIndices.Count > 0 ? allIndices.Max() : 0;
+
+            for (int i = 0; i <= maxIndex; i++)
             {
                 if (token.IsCancellationRequested) break;
-                _controller.SetAllLampsColor(WinUIColor.FromArgb(255, 0, 0, 0));
 
-                var dict = new Dictionary<int, WinUIColor> { { lamp.Info.Index, WinUIColor.FromArgb(255, 255, 0, 0) } };
-                _controller.SetLampColors(dict);
+                if (i > 0)
+                {
+                    _globalCustomEffect.SetColor(i - 1, WinUIColor.FromArgb(0, 0, 0, 0));
+                    SyncVisualsForIndices(new[] { i - 1 });
+                }
 
-                await Task.Delay(200, token);
+                _globalCustomEffect.SetColor(i, WinUIColor.FromArgb(255, 255, 0, 0));
+                SyncVisualsForIndices(new[] { i });
+
+                await Task.Delay(500, token);
             }
+
+            _globalCustomEffect.SetColor(maxIndex, WinUIColor.FromArgb(0, 0, 0, 0));
+            SyncVisualsForIndices(new[] { maxIndex });
         }
         catch (TaskCanceledException) { }
         finally
         {
             if (_probeCts != null) CancelProbe(btn);
             _isProbing = false;
+
+            RestoreEffectsFromSettings();
+            UpdateEffectSelectionUI();
         }
     }
 
@@ -694,8 +762,14 @@ public partial class LampArrayRGBKeyboardPage : UiPage
     {
         _probeCts?.Cancel();
         _probeCts = null;
-        btn.Content = "Probe Indices";
-        _controller.SetAllLampsColor(WinUIColor.FromArgb(255, 0, 0, 0));
+        btn.Content = Resource.LampArrayRGBKeyboardPage_Probe_Indices;
+
+        var allIndices = _controlMap.Keys.ToList();
+        foreach (var idx in allIndices)
+        {
+            _globalCustomEffect.SetColor(idx, WinUIColor.FromArgb(0, 0, 0, 0));
+        }
+        SyncVisualsForIndices(allIndices);
     }
 
     private void OnEffectTick(object? sender, EventArgs e)
@@ -748,21 +822,22 @@ public partial class LampArrayRGBKeyboardPage : UiPage
         var store = _settings.Store;
         bool hasAurora = false;
 
-        if (store.DefaultEffect is { } defCfg)
+        var defEffect = store.DefaultEffect is { } defCfg
+            ? LampArrayController.EffectFromConfig(defCfg) ?? _defaultEffect
+            : _defaultEffect;
+
+        if (defEffect is AuroraSyncEffect)
         {
-            var defEffect = LampArrayController.EffectFromConfig(defCfg);
-            if (defEffect != null)
-            {
-                if (defEffect is AuroraSyncEffect)
-                {
-                    defEffect = _globalAuroraEffect;
-                    hasAurora = true;
-                }
-                foreach (var idx in _controlMap.Keys.ToList())
-                    _lampEffectMap[idx] = defEffect;
-                _controller.SetEffectForIndices(_controlMap.Keys.ToList(), defEffect);
-            }
+            defEffect = _globalAuroraEffect;
+            hasAurora = true;
         }
+
+        var allIndices = _controlMap.Keys.ToList();
+        foreach (var idx in allIndices)
+        {
+            _lampEffectMap[idx] = defEffect;
+        }
+        _controller.SetEffectForIndices(allIndices, defEffect);
 
         foreach (var kvp in store.PerLampEffects)
         {
