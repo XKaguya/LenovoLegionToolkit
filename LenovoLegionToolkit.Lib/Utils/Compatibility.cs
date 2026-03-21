@@ -713,12 +713,14 @@ public static partial class Compatibility
         {
             LegionSeries.Legion_5 => true,
             LegionSeries.Legion_Pro_5 => true,
+            LegionSeries.Lenovo_Slim => true,
             LegionSeries.Legion_Slim_5 => true,
             LegionSeries.Legion_7 => true,
             LegionSeries.Legion_Pro_7 => true,
             LegionSeries.Legion_9 => true,
             LegionSeries.Legion_Go => true,
             LegionSeries.LOQ => true,
+            LegionSeries.Legion_Legacy => true,
             _ => false
         };
     }
