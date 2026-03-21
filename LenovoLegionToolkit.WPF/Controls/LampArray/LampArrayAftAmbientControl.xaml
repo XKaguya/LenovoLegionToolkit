@@ -14,9 +14,16 @@
     mc:Ignorable="d">
     <UserControl.Resources>
         <Style TargetType="Path">
-
             <Setter Property="Fill" Value="{Binding RelativeSource={RelativeSource AncestorType=controls:LampArrayZoneControl}, Path=LampBrush}" />
+            <Setter Property="Stroke" Value="{DynamicResource ControlElevationBorderBrush}" />
+            <Setter Property="StrokeThickness" Value="1" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=controls:LampArrayZoneControl}, Path=LampBrush}" Value="{x:Null}">
+                    <Setter Property="Fill" Value="{DynamicResource ControlFillColorDefaultBrush}" />
+                </DataTrigger>
+            </Style.Triggers>
         </Style>
+
         <Style x:Key="VentKey" TargetType="controls:LampArrayZoneControl">
             <Setter Property="Background" Value="{x:Null}" />
             <Setter Property="ButtonBackground" Value="{x:Null}" />
