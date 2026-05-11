@@ -136,6 +136,12 @@ public abstract class OsdWindowBase : Window
     private void OnSourceInitialized(object? sender, EventArgs e)
     {
         this.SetClickThrough(_OsdSettings.Store.IsLocked);
+
+        if (PresentationSource.FromVisual(this) is HwndSource source)
+        {
+            source.RemoveHook(WindowExtensions.WndProcHook);
+            source.AddHook(WindowExtensions.WndProcHook);
+        }
     }
 
     private void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
