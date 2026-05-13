@@ -31,8 +31,14 @@ public class PowerModeListener(
 
     protected override async Task OnChangedAsync(PowerModeState value)
     {
-        await ChangeDependenciesAsync(value).ConfigureAwait(false);
-        PublishNotification(value);
+        var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
+        if (Compatibility.IsLegion(mi.LegionSeries))
+        {
+            await ChangeDependenciesAsync(value).ConfigureAwait(false);
+            PublishNotification(value);
+        }
+
+        Log.Instance.Trace($"TEST POWER MODE LISTENER: {value} {(int)value}");
     }
 
     public async Task NotifyAsync(PowerModeState value)
@@ -44,7 +50,7 @@ public class PowerModeListener(
     protected override async Task<bool> CanStartAsync()
     {
         var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
-        return Compatibility.IsLegion(mi.LegionSeries);
+        return Compatibility.IsLegion(mi.LegionSeries) || mi.LegionSeries == LegionSeries.ThinkBook;
     }
 
     private async Task ChangeDependenciesAsync(PowerModeState value)
