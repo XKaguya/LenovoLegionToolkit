@@ -18,7 +18,8 @@ public class DriverKeyListener(
     FnKeysDisabler fnKeysDisabler,
     MicrophoneFeature microphoneFeature,
     TouchpadLockFeature touchpadLockFeature,
-    WhiteKeyboardBacklightFeature whiteKeyboardBacklightFeature)
+    WhiteKeyboardBacklightFeature whiteKeyboardBacklightFeature,
+    ITSModeFeature itsModeFeature)
     : IListener<DriverKeyListener.ChangedEventArgs>
 {
     public class ChangedEventArgs(DriverKey driverKey) : EventArgs
@@ -28,7 +29,6 @@ public class DriverKeyListener(
 
     public event EventHandler<ChangedEventArgs>? Changed;
 
-    private ITSModeFeature _itsModeFeature = IoCContainer.Resolve<ITSModeFeature>();
     private CancellationTokenSource? _cancellationTokenSource;
     private Task? _listenTask;
 
@@ -108,9 +108,9 @@ public class DriverKeyListener(
         {
             if(value.HasFlag(DriverKey.FnQ))
             {
-                if (await _itsModeFeature.IsSupportedAsync().ConfigureAwait(false))
+                if (await itsModeFeature.IsSupportedAsync().ConfigureAwait(false))
                 {
-                    await _itsModeFeature.ToggleItsMode();
+                    await itsModeFeature.ToggleItsMode();
                 }
             }
 

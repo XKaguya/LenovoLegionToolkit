@@ -20,7 +20,8 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<ApplicationManifest>app.manifest</ApplicationManifest>
+		<ApplicationManifest Condition="'$(Configuration)'=='Debug'">app.debug.manifest</ApplicationManifest>
+		<ApplicationManifest Condition="'$(Configuration)'!='Debug'">app.manifest</ApplicationManifest>
 		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
 		<SatelliteResourceLanguages>ar;bg;cs;de;en;el;es;fr;hu;it;ja;lv;nl;nl-nl;pl;pt;pt-br;ro;ru;sk;uk;tr;vi;zh;zh-hans;zh-hant</SatelliteResourceLanguages>
 	</PropertyGroup>

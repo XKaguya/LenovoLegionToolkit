@@ -113,15 +113,9 @@ public partial class MainWindow
             _navigationStore.Items.Remove(_lampArrayKeyboardItem);
         }
 
-        SmartKeyHelper.Instance.BringToForeground = () => Dispatcher.Invoke(BringToForeground);
+        IoCContainer.Resolve<SpecialKeyActionManager>().WireUp(_specialKeyListener, () => Dispatcher.Invoke(BringToForeground));
 
         AddExtensionNavigationItems();
-
-        _specialKeyListener.Changed += (_, args) =>
-        {
-            if (args.SpecialKey == SpecialKey.FnN)
-                Dispatcher.Invoke(BringToForeground);
-        };
 
         _contentGrid.Visibility = Visibility.Visible;
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,6 +25,8 @@ public class SpecialKeyListener(
         public SpecialKey SpecialKey { get; } = specialKey;
     }
 
+    public Func<SpecialKey, Task<bool>>? CustomKeyHandler { get; set; }
+
     private readonly ThrottleFirstDispatcher _refreshRateDispatcher = new(TimeSpan.FromSeconds(2), nameof(SpecialKeyListener));
 
     protected override SpecialKey GetValue(int value)
@@ -47,8 +49,57 @@ public class SpecialKeyListener(
                 return;
             }
 
-            var mi = Compatibility.GetMachineInformationAsync().Result;
-            var feature = IoCContainer.Resolve<ITSModeFeature>();
+            if (value is SpecialKey.FnLockOn or SpecialKey.FnLockOff)
+            {
+                NotifyFnLockState(value);
+                return;
+            }
+            if (value is SpecialKey.CameraOn or SpecialKey.CameraOff)
+            {
+                NotifyCameraState(value);
+                return;
+            }
+
+            if (value is SpecialKey.SpectrumBacklightOff or SpecialKey.SpectrumBacklight1
+                or SpecialKey.SpectrumBacklight2 or SpecialKey.SpectrumBacklight3)
+            {
+                var brightness = value switch
+                {
+                    SpecialKey.SpectrumBacklightOff => SpectrumKeyboardBacklightBrightness.Off,
+                    SpecialKey.SpectrumBacklight1 => SpectrumKeyboardBacklightBrightness.Low,
+                    SpecialKey.SpectrumBacklight2 => SpectrumKeyboardBacklightBrightness.Medium,
+                    SpecialKey.SpectrumBacklight3 => SpectrumKeyboardBacklightBrightness.High,
+                    _ => SpectrumKeyboardBacklightBrightness.Off
+                };
+                NotifySpectrumBacklight(brightness);
+                return;
+            }
+            if (value is >= SpecialKey.SpectrumPreset1 and <= SpecialKey.SpectrumPreset6)
+            {
+                var preset = value - SpecialKey.SpectrumPreset1 + 1;
+                NotifySpectrumPreset(preset);
+                return;
+            }
+            if (value is SpecialKey.WhiteBacklightOff or SpecialKey.WhiteBacklight1
+                or SpecialKey.WhiteBacklight2)
+            {
+                var state = value switch
+                {
+                    SpecialKey.WhiteBacklightOff => WhiteKeyboardBacklightState.Off,
+                    SpecialKey.WhiteBacklight1 => WhiteKeyboardBacklightState.Low,
+                    SpecialKey.WhiteBacklight2 => WhiteKeyboardBacklightState.High,
+                    _ => WhiteKeyboardBacklightState.Off
+                };
+                NotifyWhiteBacklight(state);
+                return;
+            }
+
+            if (CustomKeyHandler is not null)
+            {
+                var handled = await CustomKeyHandler(value).ConfigureAwait(false);
+                if (handled)
+                    return;
+            }
 
             switch (value)
             {

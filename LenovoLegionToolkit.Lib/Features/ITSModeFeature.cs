@@ -20,7 +20,6 @@ namespace LenovoLegionToolkit.Lib.Features;
 
 public partial class ITSModeFeature : IFeature<ITSMode>
 {
-    private readonly ITSModeSettings _itsModeSettings = IoCContainer.Resolve<ITSModeSettings>();
 
     #region Magic Constants
     private const string REG_KEY_LITSSVC_BASE = @"SYSTEM\CurrentControlSet\Services\LITSSVC\LNBITS\IC";
@@ -45,8 +44,9 @@ public partial class ITSModeFeature : IFeature<ITSMode>
 
     private void SaveCurrentStateToSettings(ITSMode state)
     {
-        _itsModeSettings.Store.LastState = state;
-        _itsModeSettings.SynchronizeStore();
+        var settings = IoCContainer.Resolve<ITSModeSettings>();
+        settings.Store.LastState = state;
+        settings.SynchronizeStore();
     }
 
     public async Task<bool> IsSupportedAsync()

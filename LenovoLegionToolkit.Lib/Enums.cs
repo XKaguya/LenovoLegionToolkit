@@ -95,6 +95,14 @@ public enum CpuProfileMode
     X3DGaming
 }
 
+public enum CustomSpecialKey
+{
+    [Display(ResourceType = typeof(Resource), Name = "CustomSpecialKey_Default")]
+    Default,
+    [Display(ResourceType = typeof(Resource), Name = "CustomSpecialKey_Custom")]
+    Custom
+}
+
 [Flags]
 public enum DriverKey
 {

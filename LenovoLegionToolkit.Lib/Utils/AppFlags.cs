@@ -129,8 +129,6 @@ public class AppFlags
         set { _disableConflictingSoftwareWarning = value; Save(); }
     }
 
-
-
     public static void Initialize(IEnumerable<string>? startupArgs)
     {
         _instance = new AppFlags(startupArgs);

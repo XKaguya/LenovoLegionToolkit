@@ -2361,6 +2361,18 @@ Vispirms pārliecinieties, vai skripts darbojas pareizi.</value>
   <data name="SelectSmartKeyPipelinesWindow_ShowThisApp" xml:space="preserve">
     <value>Parādīt šo aplikāciju</value>
   </data>
+  <data name="SelectSpecialKeyPipelinesWindow_Configure_Title" xml:space="preserve">
+    <value>Configure {0}</value>
+  </data>
+  <data name="SelectSpecialKeyPipelinesWindow_List_Description" xml:space="preserve">
+    <value>Choose one or more quick actions to cycle through.</value>
+  </data>
+  <data name="SelectSpecialKeyPipelinesWindow_List_Empty" xml:space="preserve">
+    <value>No Quick Actions defined.</value>
+  </data>
+  <data name="SelectSpecialKeyPipelinesWindow_ShowThisApp" xml:space="preserve">
+    <value>Show this app</value>
+  </data>
   <data name="SensorItem_BatteryLevel" xml:space="preserve">
     <value>Battery Level</value>
   </data>
@@ -2932,6 +2944,12 @@ Pēc šīs opcijas maiņas ieteicams restartēt datoru.</value>
   </data>
   <data name="SpeakerVolumeAutomationStepControl_Title" xml:space="preserve">
     <value>Speaker Volume</value>
+  </data>
+  <data name="SpecialKeyDetailWindow_KeyDiscovery" xml:space="preserve">
+    <value>Key Discovery</value>
+  </data>
+  <data name="SpecialKeyDetailWindow_KeyDiscovery_Message" xml:space="preserve">
+    <value>Find key that is not defined in LLT.</value>
   </data>
   <data name="SpectrumKeyboardBacklightBrightnessAutomationStepControl_Message" xml:space="preserve">
     <value>Pielāgojiet tastatūras izgaismojuma spožumu.</value>

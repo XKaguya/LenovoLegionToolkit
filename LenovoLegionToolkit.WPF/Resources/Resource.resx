@@ -2360,6 +2360,18 @@ Make sure that your script runs correctly first.</value>
   <data name="SelectSmartKeyPipelinesWindow_ShowThisApp" xml:space="preserve">
     <value>Show this app</value>
   </data>
+  <data name="SelectSpecialKeyPipelinesWindow_Configure_Title" xml:space="preserve">
+    <value>Configure {0}</value>
+  </data>
+  <data name="SelectSpecialKeyPipelinesWindow_List_Description" xml:space="preserve">
+    <value>Choose one or more quick actions to cycle through.</value>
+  </data>
+  <data name="SelectSpecialKeyPipelinesWindow_List_Empty" xml:space="preserve">
+    <value>No Quick Actions defined.</value>
+  </data>
+  <data name="SelectSpecialKeyPipelinesWindow_ShowThisApp" xml:space="preserve">
+    <value>Show this app</value>
+  </data>
   <data name="SensorItem_BatteryLevel" xml:space="preserve">
     <value>Battery Level</value>
   </data>
@@ -2596,6 +2608,9 @@ Make sure that your script runs correctly first.</value>
   </data>
   <data name="SettingsPage_Category_SoftwareControl" xml:space="preserve">
     <value>Software Control</value>
+  </data>
+  <data name="SettingsPage_Category_SpecialKeys" xml:space="preserve">
+    <value>Special Keys</value>
   </data>
   <data name="SettingsPage_Category_Updates" xml:space="preserve">
     <value>Updates</value>
@@ -2927,6 +2942,39 @@ If disabled, this app will handle Fn shortcuts.</value>
   </data>
   <data name="SpeakerVolumeAutomationStepControl_Title" xml:space="preserve">
     <value>Speaker Volume</value>
+  </data>
+  <data name="SpecialKeyDetailWindow_KeyDiscovery" xml:space="preserve">
+    <value>Key Discovery</value>
+  </data>
+  <data name="SpecialKeyDetailWindow_KeyDiscovery_Message" xml:space="preserve">
+    <value>Find key that is not defined in LLT.</value>
+  </data>
+  <data name="SpecialKey_Configure" xml:space="preserve">
+    <value>Configure...</value>
+  </data>
+  <data name="SpecialKey_FnF4" xml:space="preserve">
+    <value>Fn + F4 (Microphone)</value>
+  </data>
+  <data name="SpecialKey_FnF8" xml:space="preserve">
+    <value>Fn + F8 (Airplane Mode)</value>
+  </data>
+  <data name="SpecialKey_FnF9" xml:space="preserve">
+    <value>Fn + F9</value>
+  </data>
+  <data name="SpecialKey_FnN" xml:space="preserve">
+    <value>Fn + N</value>
+  </data>
+  <data name="SpecialKey_FnPrtSc" xml:space="preserve">
+    <value>Fn + PrtSc</value>
+  </data>
+  <data name="SpecialKey_FnR" xml:space="preserve">
+    <value>Fn + R</value>
+  </data>
+  <data name="SpecialKey_Mode_Custom_Description" xml:space="preserve">
+    <value>Custom Quick Action</value>
+  </data>
+  <data name="SpecialKey_Mode_Default_Description" xml:space="preserve">
+    <value>Default behavior</value>
   </data>
   <data name="SpectrumKeyboardBacklightBrightnessAutomationStepControl_Message" xml:space="preserve">
     <value>Adjust keyboard backlight brightness.</value>
