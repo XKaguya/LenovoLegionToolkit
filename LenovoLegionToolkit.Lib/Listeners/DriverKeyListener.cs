@@ -28,6 +28,7 @@ public class DriverKeyListener(
 
     public event EventHandler<ChangedEventArgs>? Changed;
 
+    private ITSModeFeature _itsModeFeature = IoCContainer.Resolve<ITSModeFeature>();
     private CancellationTokenSource? _cancellationTokenSource;
     private Task? _listenTask;
 
@@ -105,6 +106,14 @@ public class DriverKeyListener(
     {
         try
         {
+            if(value.HasFlag(DriverKey.FnQ))
+            {
+                if (await _itsModeFeature.IsSupportedAsync().ConfigureAwait(false))
+                {
+                    await _itsModeFeature.ToggleItsMode();
+                }
+            }
+
             if (value.HasFlag(DriverKey.FnF4))
             {
                 if (await microphoneFeature.IsSupportedAsync().ConfigureAwait(false))

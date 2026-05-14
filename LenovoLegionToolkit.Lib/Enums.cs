@@ -98,6 +98,7 @@ public enum CpuProfileMode
 [Flags]
 public enum DriverKey
 {
+    FnQ = 1,
     FnF10 = 32,
     FnF4 = 256,
     FnF8 = 8192,
@@ -743,6 +744,31 @@ public enum SpecialKey
     WhiteBacklightOff = 64,
     WhiteBacklight1 = 65,
     WhiteBacklight2 = 66
+}
+
+public enum ThinkBookSpecialKey
+{
+    VoipAnswer = 5,
+    VoipEnd = 6,
+    ServiceKey = 7,
+    LSKClick = 8,
+    VoiceAssistant = 9,
+    VoipAnswer2 = 14,
+    VoipEnd2 = 15,
+    LSK2 = 17,
+    DolbyThreeMode = 18,
+    NightScreenMode = 19,
+    GameLogoOn = 20,
+    GameLogoOff = 21,
+    PluginLEDOn = 22,
+    PluginLEDOff = 23,
+    RGBWave = 27,
+    RGBBreath = 28,
+    RGBSmooth = 29,
+    RGBAlways = 30,
+    RGBOff = 31,
+    ServiceKeyC970 = 39,
+    CameraBackgroundBlur = 40,
 }
 
 public enum SpectrumKeyboardBacklightBrightness
