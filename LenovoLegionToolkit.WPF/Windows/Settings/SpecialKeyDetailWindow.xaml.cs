@@ -19,19 +19,25 @@ public partial class SpecialKeyDetailWindow
     private readonly AutomationProcessor _automationProcessor = IoCContainer.Resolve<AutomationProcessor>();
     private readonly SpecialKeySettings _settings = IoCContainer.Resolve<SpecialKeySettings>();
 
-    private readonly SpecialKey _key;
+    private readonly int _keyCode;
+    private readonly string _displayName;
     private bool _isRefreshing;
+    private bool _descriptionDirty;
 
     private List<Guid> ActionList =>
-        _settings.Store.KeyActions.GetValueOrDefault((int)_key, []);
+        _settings.Store.KeyActions.GetValueOrDefault(_keyCode, []);
 
     public SpecialKeyDetailWindow(SpecialKey key)
+        : this((int)key, FormatDefaultDisplayName(key)) { }
+
+    public SpecialKeyDetailWindow(int keyCode, string displayName)
     {
-        _key = key;
+        _keyCode = keyCode;
+        _displayName = displayName;
 
         InitializeComponent();
 
-        Title = _title.Text = string.Format(Resource.SelectSpecialKeyPipelinesWindow_Configure_Title, GetSpecialKeyDisplayName(key));
+        Title = _title.Text = string.Format(Resource.SelectSpecialKeyPipelinesWindow_Configure_Title, displayName);
 
         IsVisibleChanged += SpecialKeyDetailWindow_IsVisibleChanged;
     }
@@ -46,7 +52,11 @@ public partial class SpecialKeyDetailWindow
     {
         _isRefreshing = true;
 
-        var mode = _settings.Store.KeyModes.TryGetValue((int)_key, out var m) ? m : CustomSpecialKey.Default;
+        _descriptionTextBox.Text = _settings.Store.KeyDescriptions.TryGetValue(_keyCode, out var desc)
+            ? desc : "";
+        _descriptionDirty = false;
+
+        var mode = _settings.Store.KeyModes.TryGetValue(_keyCode, out var m) ? m : CustomSpecialKey.Default;
 
         _modeComboBox.SetItems(
             [CustomSpecialKey.Default, CustomSpecialKey.Custom],
@@ -89,6 +99,12 @@ public partial class SpecialKeyDetailWindow
         _loader.IsLoading = false;
     }
 
+    private void DescriptionTextBox_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        if (_isRefreshing) return;
+        _descriptionDirty = true;
+    }
+
     private void ModeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (_isRefreshing) return;
@@ -97,11 +113,11 @@ public partial class SpecialKeyDetailWindow
 
         _isRefreshing = true;
 
-        _settings.Store.KeyModes[(int)_key] = mode;
+        _settings.Store.KeyModes[_keyCode] = mode;
         if (mode == CustomSpecialKey.Default)
-            _settings.Store.KeyActions.Remove((int)_key);
-        else if (!_settings.Store.KeyActions.ContainsKey((int)_key))
-            _settings.Store.KeyActions[(int)_key] = [];
+            _settings.Store.KeyActions.Remove(_keyCode);
+        else if (!_settings.Store.KeyActions.ContainsKey(_keyCode))
+            _settings.Store.KeyActions[_keyCode] = [];
         _settings.SynchronizeStore();
 
         var isCustom = mode == CustomSpecialKey.Custom;
@@ -120,7 +136,15 @@ public partial class SpecialKeyDetailWindow
 
     private void SaveButton_Click(object sender, RoutedEventArgs e)
     {
-        var mode = _settings.Store.KeyModes.TryGetValue((int)_key, out var m)
+        if (_descriptionDirty)
+        {
+            if (string.IsNullOrWhiteSpace(_descriptionTextBox.Text))
+                _settings.Store.KeyDescriptions.Remove(_keyCode);
+            else
+                _settings.Store.KeyDescriptions[_keyCode] = _descriptionTextBox.Text.Trim();
+        }
+
+        var mode = _settings.Store.KeyModes.TryGetValue(_keyCode, out var m)
             ? m : CustomSpecialKey.Default;
 
         if (mode == CustomSpecialKey.Custom)
@@ -130,7 +154,7 @@ public partial class SpecialKeyDetailWindow
                 .Select(li => li.Pipeline.Id)
                 .ToList();
 
-            _settings.Store.KeyActions[(int)_key] = selectedPipelines;
+            _settings.Store.KeyActions[_keyCode] = selectedPipelines;
         }
 
         _settings.SynchronizeStore();
@@ -140,6 +164,14 @@ public partial class SpecialKeyDetailWindow
     private void CancelButton_Click(object sender, RoutedEventArgs e)
     {
         Close();
+    }
+
+    private static string FormatDefaultDisplayName(SpecialKey key)
+    {
+        string str = key.ToString();
+        if (str.StartsWith("Fn", StringComparison.OrdinalIgnoreCase) && str.Length > 2)
+            return string.Concat("Fn ", str.AsSpan(2));
+        return str;
     }
 
     private class PipelineListItem : UserControl
@@ -186,15 +218,5 @@ public partial class SpecialKeyDetailWindow
 
             Content = _grid;
         }
-    }
-
-    private string GetSpecialKeyDisplayName(SpecialKey key)
-    {
-        string str = key.ToString();
-        if (str.StartsWith("Fn", StringComparison.OrdinalIgnoreCase) && str.Length > 2)
-        {
-            return string.Concat("Fn ", str.AsSpan(2));
-        }
-        return str;
     }
 }

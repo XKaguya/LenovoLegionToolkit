@@ -2949,6 +2949,23 @@ Uma reinicialização é recomendada após alterar esta opção.</value>
   <data name="SpecialKeyDetailWindow_KeyDiscovery_Message" xml:space="preserve">
     <value>Find key that is not defined in LLT.</value>
   </data>
+  <data name="KeyDiscovery_AddCustomKey" xml:space="preserve">
+    <value>Add Custom Key</value>
+  </data>
+  <data name="KeyDiscovery_EnterKeyName" xml:space="preserve">
+    <value>Enter key name...</value>
+  </data>
+  <data name="SpecialKeyDetail_Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+
+  <data name="SpecialKeyDetailWindow_KeyDiscovery_Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="SpecialKeyDetailWindow_KeyDiscovery_Stop" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+
   <data name="SpectrumKeyboardBacklightBrightnessAutomationStepControl_Message" xml:space="preserve">
     <value>Ajustar a iluminação do teclado.</value>
   </data>

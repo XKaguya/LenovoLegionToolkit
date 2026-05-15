@@ -22,10 +22,13 @@ public class DriverKeyListener(
     WhiteKeyboardBacklightFeature whiteKeyboardBacklightFeature)
     : IListener<DriverKeyListener.ChangedEventArgs>
 {
-    public class ChangedEventArgs(DriverKey driverKey) : EventArgs
+    public class ChangedEventArgs(DriverKey driverKey, uint rawValue) : EventArgs
     {
         public DriverKey DriverKey { get; } = driverKey;
+        public uint RawValue { get; } = rawValue;
     }
+
+    public bool DiscoveryMode { get; set; }
 
     public event EventHandler<ChangedEventArgs>? Changed;
 
@@ -88,8 +91,9 @@ public class DriverKeyListener(
                 var key = (DriverKey)value;
                 Log.Instance.Trace($"Event received. [key={key}, value={value}]");
 
-                await OnChangedAsync(key).ConfigureAwait(false);
-                Changed?.Invoke(this, new(key));
+                if (!DiscoveryMode)
+                    await OnChangedAsync(key).ConfigureAwait(false);
+                Changed?.Invoke(this, new(key, value));
 
                 resetEvent.Reset();
             }

@@ -46,6 +46,16 @@
             <StackPanel Margin="12,0,16,0">
                 <custom:CardControl Margin="0,0,0,12">
                     <custom:CardControl.Header>
+                        <controls:CardHeaderControl Title="{x:Static resources:Resource.SpecialKeyDetail_Description}" />
+                    </custom:CardControl.Header>
+                    <TextBox
+                        x:Name="_descriptionTextBox"
+                        MinWidth="200"
+                        TextChanged="DescriptionTextBox_TextChanged" />
+                </custom:CardControl>
+
+                <custom:CardControl Margin="0,0,0,12">
+                    <custom:CardControl.Header>
                         <controls:CardHeaderControl Title="Mode" Subtitle="{x:Static resources:Resource.SpecialKey_Mode_Custom_Description}" />
                     </custom:CardControl.Header>
                     <ComboBox

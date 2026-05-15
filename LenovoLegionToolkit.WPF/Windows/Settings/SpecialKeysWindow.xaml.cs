@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 using LenovoLegionToolkit.Lib;
@@ -38,6 +39,8 @@ public partial class SpecialKeysWindow
     {
         _keyList.Items.Clear();
 
+        var displayedCodes = new HashSet<int>();
+
         foreach (var key in Enum.GetValues<SpecialKey>())
         {
             if (key is not (SpecialKey.FnF9 or SpecialKey.FnPrtSc or SpecialKey.FnPrtSc2
@@ -45,53 +48,69 @@ public partial class SpecialKeysWindow
                 or SpecialKey.FnF4 or SpecialKey.FnF8))
                 continue;
 
-            var keyInt = (int)key;
-            var mode = _settings.Store.KeyModes.TryGetValue(keyInt, out var m)
-                ? m : CustomSpecialKey.Default;
+            var code = (int)key;
+            displayedCodes.Add(code);
+            AddKeyCard(code, GetSpecialKeyDisplayName(code));
+        }
 
-            var subtitleText = mode == CustomSpecialKey.Default
-                ? Resource.SpecialKey_Mode_Default_Description
-                : Resource.SpecialKey_Mode_Custom_Description;
+        foreach (var (code, name) in _settings.Store.KeyDescriptions)
+        {
+            if (displayedCodes.Contains(code))
+                continue;
+            if (Enum.IsDefined(typeof(SpecialKey), (SpecialKey)code))
+                continue;
 
-            var keyCopy = key;
-            var card = new CardAction
-            {
-                Margin = new(0, 0, 0, 4),
-                Icon = SymbolRegular.Keyboard24,
-                Content = new CardHeaderControl
-                {
-                    Title = GetSpecialKeyDisplayName(key),
-                    Subtitle = subtitleText
-                },
-                Tag = keyInt,
-                Cursor = System.Windows.Input.Cursors.Hand
-            };
-            card.Click += (_, _) => OpenKeyDetailWindow(keyCopy);
-
-            _keyList.Items.Add(card);
+            AddKeyCard(code, name);
         }
     }
 
-    private void KeyDiscovery_Click(object sender, RoutedEventArgs e)
+    private void AddKeyCard(int code, string displayName)
     {
-        var window = new KeyDiscoveryWindow { Owner = this };
-        window.ShowDialog();
+        var mode = _settings.Store.KeyModes.TryGetValue(code, out var m)
+            ? m : CustomSpecialKey.Default;
+
+        var subtitleText = mode == CustomSpecialKey.Default
+            ? Resource.SpecialKey_Mode_Default_Description
+            : Resource.SpecialKey_Mode_Custom_Description;
+
+        var card = new CardAction
+        {
+            Margin = new(0, 0, 0, 4),
+            Icon = SymbolRegular.Keyboard24,
+            Content = new CardHeaderControl
+            {
+                Title = displayName,
+                Subtitle = subtitleText
+            },
+            Tag = code,
+            Cursor = System.Windows.Input.Cursors.Hand
+        };
+        card.Click += (_, _) => OpenKeyDetailWindow(code, displayName);
+
+        _keyList.Items.Add(card);
     }
 
-    private void OpenKeyDetailWindow(SpecialKey key)
+    private void OpenKeyDetailWindow(int keyCode, string displayName)
     {
-        var window = new SpecialKeyDetailWindow(key) { Owner = this };
+        var window = new SpecialKeyDetailWindow(keyCode, displayName) { Owner = this };
         window.ShowDialog();
         BuildKeyList();
     }
 
-    private string GetSpecialKeyDisplayName(SpecialKey key)
+    private string GetSpecialKeyDisplayName(int code)
     {
-        string str = key.ToString();
-        if (str.StartsWith("Fn", StringComparison.OrdinalIgnoreCase) && str.Length > 2)
+        if (_settings.Store.KeyDescriptions.TryGetValue(code, out var customName))
+            return customName;
+
+        if (Enum.IsDefined(typeof(SpecialKey), (SpecialKey)code))
         {
-            return string.Concat("Fn ", str.AsSpan(2));
+            var key = (SpecialKey)code;
+            string str = key.ToString();
+            if (str.StartsWith("Fn", StringComparison.OrdinalIgnoreCase) && str.Length > 2)
+                return string.Concat("Fn ", str.AsSpan(2));
+            return str;
         }
-        return str;
+
+        return $"Key {code}";
     }
 }

@@ -13,6 +13,7 @@ public class SpecialKeySettings : AbstractSettings<SpecialKeySettings.SpecialKey
     {
         public Dictionary<int, CustomSpecialKey> KeyModes { get; set; } = [];
         public Dictionary<int, List<Guid>> KeyActions { get; set; } = [];
+        public Dictionary<int, string> KeyDescriptions { get; set; } = [];
 
         public Guid? SmartKeySinglePressActionId { get; set; }
         public Guid? SmartKeyDoublePressActionId { get; set; }

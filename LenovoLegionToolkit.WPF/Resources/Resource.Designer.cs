@@ -3782,6 +3782,36 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Add Custom Key 的本地化字符串。
+        /// </summary>
+        public static string KeyDiscovery_AddCustomKey {
+            get {
+                return ResourceManager.GetString("KeyDiscovery_AddCustomKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Enter key name... 的本地化字符串。
+        /// </summary>
+        public static string KeyDiscovery_EnterKeyName {
+            get {
+                return ResourceManager.GetString("KeyDiscovery_EnterKeyName", resourceCulture);
+            }
+        }
+
+        public static string KeyDiscovery_EmptyList {
+            get {
+                return ResourceManager.GetString("KeyDiscovery_EmptyList", resourceCulture);
+            }
+        }
+
+        public static string KeyDiscovery_Instruction {
+            get {
+                return ResourceManager.GetString("KeyDiscovery_Instruction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Aft Ambient 的本地化字符串。
         /// </summary>
         public static string LampArrayRGBKeyboardPage_Aft_Ambient {
@@ -8528,6 +8558,57 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Description 的本地化字符串。
+        /// </summary>
+        public static string SpecialKeyDetail_Description {
+            get {
+                return ResourceManager.GetString("SpecialKeyDetail_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Key Discovery 的本地化字符串。
+        /// </summary>
+        public static string SpecialKeyDetailWindow_KeyDiscovery {
+            get {
+                return ResourceManager.GetString("SpecialKeyDetailWindow_KeyDiscovery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Find key that is not defined in LLT. 的本地化字符串。
+        /// </summary>
+        public static string SpecialKeyDetailWindow_KeyDiscovery_Message {
+            get {
+                return ResourceManager.GetString("SpecialKeyDetailWindow_KeyDiscovery_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Start 的本地化字符串。
+        /// </summary>
+        public static string SpecialKeyDetailWindow_KeyDiscovery_Start {
+            get {
+                return ResourceManager.GetString("SpecialKeyDetailWindow_KeyDiscovery_Start", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Stop 的本地化字符串。
+        /// </summary>
+        public static string SpecialKeyDetailWindow_KeyDiscovery_Stop {
+            get {
+                return ResourceManager.GetString("SpecialKeyDetailWindow_KeyDiscovery_Stop", resourceCulture);
+            }
+        }
+
+        public static string SpecialKeyDetailWindow_KeyDiscovery_Listening {
+            get {
+                return ResourceManager.GetString("SpecialKeyDetailWindow_KeyDiscovery_Listening", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Adjust keyboard backlight brightness. 的本地化字符串。
         /// </summary>
         public static string SpectrumKeyboardBacklightBrightnessAutomationStepControl_Message {
@@ -9503,30 +9584,6 @@ namespace LenovoLegionToolkit.WPF.Resources {
         public static string Yes {
             get {
                 return ResourceManager.GetString("Yes", resourceCulture);
-            }
-        }
-
-        public static string SpecialKeyDetailWindow_KeyDiscovery {
-            get {
-                return ResourceManager.GetString("SpecialKeyDetailWindow_KeyDiscovery", resourceCulture);
-            }
-        }
-
-        public static string SpecialKeyDetailWindow_KeyDiscovery_Message {
-            get {
-                return ResourceManager.GetString("SpecialKeyDetailWindow_KeyDiscovery_Message", resourceCulture);
-            }
-        }
-
-        public static string SpecialKeyDetailWindow_KeyDiscovery_Start {
-            get {
-                return ResourceManager.GetString("SpecialKeyDetailWindow_KeyDiscovery_Start", resourceCulture);
-            }
-        }
-
-        public static string SpecialKeyDetailWindow_KeyDiscovery_Stop {
-            get {
-                return ResourceManager.GetString("SpecialKeyDetailWindow_KeyDiscovery_Stop", resourceCulture);
             }
         }
     }

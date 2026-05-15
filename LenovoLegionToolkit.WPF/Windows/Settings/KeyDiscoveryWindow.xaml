@@ -6,19 +6,25 @@
     xmlns:resources="clr-namespace:LenovoLegionToolkit.WPF.Resources"
     xmlns:utils="clr-namespace:LenovoLegionToolkit.WPF.Utils"
     xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
-    Width="500"
-    Height="400"
-    MinWidth="400"
-    MinHeight="300"
+    Width="620"
+    Height="520"
+    MinWidth="460"
+    MinHeight="360"
     FlowDirection="{x:Static utils:LocalizationHelper.Direction}"
     ResizeMode="CanMinimize"
     ShowInTaskbar="False"
     WindowStartupLocation="CenterOwner">
 
+    <local:BaseWindow.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </local:BaseWindow.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <wpfui:TitleBar
@@ -39,17 +45,128 @@
                 IsHitTestVisible="False" />
         </Grid>
 
-        <StackPanel Grid.Row="1" Margin="16,8,16,16">
+        <StackPanel Grid.Row="1" Margin="16,0,16,8">
             <TextBlock
-                x:Name="_discoveryResult"
-                Margin="0,0,0,12"
-                Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+                x:Name="_statusLabel"
+                Margin="0,0,0,4"
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                TextWrapping="Wrap" />
+            <TextBlock
+                Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                Text="{x:Static resources:Resource.KeyDiscovery_Instruction}"
+                TextWrapping="Wrap" />
+        </StackPanel>
+
+        <Border
+            Grid.Row="2"
+            Margin="16,0,16,0"
+            CornerRadius="8">
+            <Border.Background>
+                <SolidColorBrush Color="{DynamicResource ControlFillColorDefault}" />
+            </Border.Background>
+
+            <Grid>
+                <TextBlock
+                    x:Name="_emptyLabel"
+                    Margin="12"
+                    Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                    Text="{x:Static resources:Resource.KeyDiscovery_EmptyList}"
+                    Visibility="Visible" />
+
+                <wpfui:DynamicScrollViewer>
+                    <ItemsControl
+                        x:Name="_eventList"
+                        HorizontalContentAlignment="Stretch">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="8,6,12,6">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock
+                                        Grid.Column="0"
+                                        Width="60"
+                                        Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                                        Text="{Binding Time}" />
+                                    <Ellipse
+                                        Grid.Column="1"
+                                        Width="8"
+                                        Height="8"
+                                        Margin="8,0,0,0"
+                                        VerticalAlignment="Center">
+                                        <Ellipse.Style>
+                                            <Style TargetType="Ellipse">
+                                                <Setter Property="Fill" Value="{DynamicResource SystemFillColorSuccessBrush}" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsKnown}" Value="False">
+                                                        <Setter Property="Fill" Value="{DynamicResource SystemFillColorCautionBrush}" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Ellipse.Style>
+                                    </Ellipse>
+                                    <TextBlock
+                                        Grid.Column="2"
+                                        Width="50"
+                                        Margin="8,0,0,0"
+                                        VerticalAlignment="Center"
+                                        Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                                        Text="{Binding Channel}" />
+                                    <TextBlock
+                                        Grid.Column="3"
+                                        Margin="8,0,0,0"
+                                        VerticalAlignment="Center"
+                                        Text="{Binding DisplayName}" />
+                                    <TextBlock
+                                        Grid.Column="4"
+                                        Margin="8,0,0,0"
+                                        VerticalAlignment="Center"
+                                        Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                                        Text="{Binding CodeText}" />
+                                    <wpfui:Button
+                                        Grid.Column="5"
+                                        Margin="8,0,0,0"
+                                        Padding="8,2"
+                                        Appearance="Secondary"
+                                        Click="AddDetectedKeyButton_Click"
+                                        Content="{x:Static resources:Resource.KeyDiscovery_AddCustomKey}"
+                                        Tag="{Binding}"
+                                        Visibility="{Binding CanAdd, Converter={StaticResource BoolToVisibilityConverter}}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </wpfui:DynamicScrollViewer>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="3" Margin="16,12,16,16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
             <wpfui:Button
                 x:Name="_discoveryButton"
-                MinWidth="120"
-                HorizontalAlignment="Left"
-                Appearance="Secondary" />
-            <!--  Click="DiscoveryButton_Click" />  -->
-        </StackPanel>
+                Grid.Column="1"
+                MinWidth="100"
+                Appearance="Primary"
+                Click="DiscoveryButton_Click"
+                Content="{x:Static resources:Resource.SpecialKeyDetailWindow_KeyDiscovery_Start}" />
+
+            <wpfui:Button
+                Grid.Column="2"
+                MinWidth="80"
+                Margin="8,0,0,0"
+                Appearance="Secondary"
+                Click="ClearButton_Click"
+                Content="{x:Static resources:Resource.Clear}" />
+        </Grid>
     </Grid>
 </local:BaseWindow>

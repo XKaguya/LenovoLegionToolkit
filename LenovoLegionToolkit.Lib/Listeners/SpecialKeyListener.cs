@@ -20,27 +20,34 @@ public class SpecialKeyListener(
     MicrophoneFeature microphoneFeature)
     : AbstractWMIListener<SpecialKeyListener.ChangedEventArgs, SpecialKey, int>(WMI.LenovoUtilityEvent.Listen)
 {
-    public class ChangedEventArgs(SpecialKey specialKey) : EventArgs
+    public class ChangedEventArgs(SpecialKey specialKey, int rawValue) : EventArgs
     {
         public SpecialKey SpecialKey { get; } = specialKey;
+        public int RawValue { get; } = rawValue;
     }
 
     public Func<SpecialKey, Task<bool>>? CustomKeyHandler { get; set; }
+    public bool DiscoveryMode { get; set; }
 
     private readonly ThrottleFirstDispatcher _refreshRateDispatcher = new(TimeSpan.FromSeconds(2), nameof(SpecialKeyListener));
+    private int _currentRawValue;
 
     protected override SpecialKey GetValue(int value)
     {
         Log.Instance.Trace($"Event received. [value={value}]");
 
+        _currentRawValue = value;
         var result = (SpecialKey)value;
         return result;
     }
 
-    protected override ChangedEventArgs GetEventArgs(SpecialKey value) => new(value);
+    protected override ChangedEventArgs GetEventArgs(SpecialKey value) => new(value, _currentRawValue);
 
     protected override async Task OnChangedAsync(SpecialKey value)
     {
+        if (DiscoveryMode)
+            return;
+
         try
         {
             if (await fnKeysDisabler.GetStatusAsync().ConfigureAwait(false) == SoftwareStatus.Enabled)
