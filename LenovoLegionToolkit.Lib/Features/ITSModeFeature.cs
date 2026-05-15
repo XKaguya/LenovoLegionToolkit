@@ -21,9 +21,8 @@ using Registry = Microsoft.Win32.Registry;
 
 namespace LenovoLegionToolkit.Lib.Features;
 
-public partial class ITSModeFeature(ITSModeListener iTSModeListener) : IFeature<ITSMode>
+public partial class ITSModeFeature(Lazy<ITSModeListener> iTSModeListener) : IFeature<ITSMode>
 {
-
     #region Magic Constants
     private const string REG_KEY_LITSSVC_BASE = @"SYSTEM\CurrentControlSet\Services\LITSSVC\LNBITS\IC";
     private const string REG_KEY_LITSSVC_MMC = @"SYSTEM\CurrentControlSet\Services\LITSSVC\LNBITS\IC\MMC";
@@ -122,7 +121,7 @@ public partial class ITSModeFeature(ITSModeListener iTSModeListener) : IFeature<
 
             PublishNotification(state);
 
-            await iTSModeListener.NotifyAsync(state).ConfigureAwait(false);
+            await iTSModeListener.Value.NotifyAsync(state).ConfigureAwait(false);
         }
         catch (Exception ex)
         {
