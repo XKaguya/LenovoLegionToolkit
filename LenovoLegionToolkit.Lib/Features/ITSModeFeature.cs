@@ -15,10 +15,13 @@ using Windows.Win32.Foundation;
 using Windows.Win32.Storage.FileSystem;
 using LenovoLegionToolkit.Lib.Settings;
 using System.Threading;
+using LenovoLegionToolkit.Lib.System;
+using LenovoLegionToolkit.Lib.Listeners;
+using Registry = Microsoft.Win32.Registry;
 
 namespace LenovoLegionToolkit.Lib.Features;
 
-public partial class ITSModeFeature : IFeature<ITSMode>
+public partial class ITSModeFeature(ITSModeListener iTSModeListener) : IFeature<ITSMode>
 {
 
     #region Magic Constants
@@ -118,6 +121,8 @@ public partial class ITSModeFeature : IFeature<ITSMode>
             SaveCurrentStateToSettings(state);
 
             PublishNotification(state);
+
+            await iTSModeListener.NotifyAsync(state).ConfigureAwait(false);
         }
         catch (Exception ex)
         {
@@ -126,36 +131,56 @@ public partial class ITSModeFeature : IFeature<ITSMode>
         }
     }
 
-    public async Task ToggleItsMode()
+    public async Task<ITSMode> ToggleItsMode()
     {
         try
         {
             var currentState = await GetStateAsync().ConfigureAwait(false);
             var allStates = await GetAllStatesAsync().ConfigureAwait(false);
-            var availableStates = allStates.Where(state => state != ITSMode.None).ToArray();
 
-            if (availableStates.Length == 0) return;
+            var isConnected = await Power.IsPowerAdapterConnectedAsync().ConfigureAwait(false) == PowerAdapterStatus.Connected;
+
+            var availableStates = allStates
+                .Where(state => state != ITSMode.None)
+                .Where(state => isConnected || state != ITSMode.MmcGeek)
+                .ToArray();
+
+            if (availableStates.Length == 0) return ITSMode.None;
 
             ITSMode nextState;
 
-            if (currentState == ITSMode.None)
+            var currentIndex = Array.IndexOf(availableStates, currentState);
+
+            if (currentIndex >= 0)
             {
-                nextState = LastItsMode != ITSMode.None && availableStates.Contains(LastItsMode)
-                    ? LastItsMode
-                    : availableStates[0];
+                nextState = availableStates[(currentIndex + 1) % availableStates.Length];
             }
             else
             {
-                var currentIndex = Array.IndexOf(availableStates, currentState);
-                nextState = availableStates[(currentIndex + 1) % availableStates.Length];
+                if (!isConnected && currentState == ITSMode.MmcGeek)
+                {
+                    Log.Instance.Trace($"Currently in MMC Geek mode but on battery. Resetting to fallback state.");
+                }
+
+                nextState = (LastItsMode != ITSMode.None && availableStates.Contains(LastItsMode))
+                    ? LastItsMode
+                    : availableStates[0];
+            }
+
+            if (currentState == nextState)
+            {
+                return currentState;
             }
 
             Log.Instance.Trace($"Toggling ITS mode: {currentState} -> {nextState}");
             await SetStateAsync(nextState).ConfigureAwait(false);
+
+            return nextState;
         }
         catch (Exception ex)
         {
             Log.Instance.Trace($"Failed to toggle ITS mode", ex);
+            return ITSMode.None;
         }
     }
 

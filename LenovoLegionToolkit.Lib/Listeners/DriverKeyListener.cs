@@ -1,9 +1,4 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Windows.Win32;
-using Windows.Win32.Foundation;
-using LenovoLegionToolkit.Lib.Extensions;
+﻿using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.Features;
 using LenovoLegionToolkit.Lib.Features.WhiteKeyboardBacklight;
 using LenovoLegionToolkit.Lib.Messaging;
@@ -11,6 +6,12 @@ using LenovoLegionToolkit.Lib.Messaging.Messages;
 using LenovoLegionToolkit.Lib.SoftwareDisabler;
 using LenovoLegionToolkit.Lib.System;
 using LenovoLegionToolkit.Lib.Utils;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+using Windows.Win32;
+using Windows.Win32.Foundation;
+using static System.Windows.Forms.AxHost;
 
 namespace LenovoLegionToolkit.Lib.Listeners;
 
@@ -18,8 +19,7 @@ public class DriverKeyListener(
     FnKeysDisabler fnKeysDisabler,
     MicrophoneFeature microphoneFeature,
     TouchpadLockFeature touchpadLockFeature,
-    WhiteKeyboardBacklightFeature whiteKeyboardBacklightFeature,
-    ITSModeFeature itsModeFeature)
+    WhiteKeyboardBacklightFeature whiteKeyboardBacklightFeature)
     : IListener<DriverKeyListener.ChangedEventArgs>
 {
     public class ChangedEventArgs(DriverKey driverKey) : EventArgs
@@ -108,10 +108,7 @@ public class DriverKeyListener(
         {
             if(value.HasFlag(DriverKey.FnQ))
             {
-                if (await itsModeFeature.IsSupportedAsync().ConfigureAwait(false))
-                {
-                    await itsModeFeature.ToggleItsMode();
-                }
+                MessagingCenter.Publish(new DriverKeyPressedMessage(DriverKey.FnQ));
             }
 
             if (value.HasFlag(DriverKey.FnF4))
