@@ -108,7 +108,17 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
+
+            <wpfui:Button
+                x:Name="_deleteButton"
+                Grid.Column="0"
+                MinWidth="100"
+                Appearance="Danger"
+                Click="DeleteButton_Click"
+                Content="{x:Static resources:Resource.Delete}"
+                Visibility="Collapsed" />
 
             <wpfui:Button
                 Grid.Column="1"

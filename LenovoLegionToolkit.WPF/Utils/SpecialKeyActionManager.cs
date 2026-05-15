@@ -31,20 +31,35 @@ public class SpecialKeyActionManager
         listener.CustomKeyHandler = ExecuteAsync;
     }
 
+    public void WireUp(DriverKeyListener listener)
+    {
+        listener.CustomKeyHandler = ExecuteDriverKeyAsync;
+    }
+
     private async Task<bool> ExecuteAsync(SpecialKey key)
     {
         var keyInt = (int)key;
+        return await ExecuteByCodeAsync(keyInt, key.ToString()).ConfigureAwait(false);
+    }
 
+    private async Task<bool> ExecuteDriverKeyAsync(DriverKey key)
+    {
+        var keyInt = (int)key;
+        return await ExecuteByCodeAsync(keyInt, key.ToString()).ConfigureAwait(false);
+    }
+
+    private async Task<bool> ExecuteByCodeAsync(int keyInt, string keyName)
+    {
         if (!_settings.Store.KeyModes.TryGetValue(keyInt, out var mode) || mode != CustomSpecialKey.Custom)
             return false;
 
-        Log.Instance.Trace($"Custom action triggered for {key}");
+        Log.Instance.Trace($"Custom action triggered for {keyName} [code={keyInt}]");
 
         var actions = _settings.Store.KeyActions.GetValueOrDefault(keyInt);
 
         if (actions is null || actions.Count == 0)
         {
-            Log.Instance.Trace($"Bringing to foreground for {key}");
+            Log.Instance.Trace($"Bringing to foreground for {keyName}");
             _bringToForeground?.Invoke();
             return true;
         }
@@ -57,14 +72,14 @@ public class SpecialKeyActionManager
             var pipeline = pipelines.FirstOrDefault(p => p.Id == currentId);
             if (pipeline is not null)
             {
-                Log.Instance.Trace($"Running pipeline {currentId} for {key}");
+                Log.Instance.Trace($"Running pipeline {currentId} for {keyName}");
                 await _automationProcessor.RunNowAsync(pipeline.Id).ConfigureAwait(false);
                 MessagingCenter.Publish(new NotificationMessage(NotificationType.SmartKeySinglePress, pipeline.Name ?? string.Empty));
             }
         }
         catch (Exception ex)
         {
-            Log.Instance.Trace($"Running pipeline {currentId} for {key} failed.", ex);
+            Log.Instance.Trace($"Running pipeline {currentId} for {keyName} failed.", ex);
         }
 
         actions.RemoveAt(0);

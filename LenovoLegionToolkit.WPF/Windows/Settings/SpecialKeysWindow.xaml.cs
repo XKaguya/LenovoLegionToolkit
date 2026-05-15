@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.Settings;
@@ -53,11 +54,23 @@ public partial class SpecialKeysWindow
             AddKeyCard(code, GetSpecialKeyDisplayName(code));
         }
 
+        foreach (var key in Enum.GetValues<DriverKey>())
+        {
+            var code = (int)key;
+            if (displayedCodes.Contains(code))
+                continue;
+
+            displayedCodes.Add(code);
+            AddKeyCard(code, GetDriverKeyDisplayName(key));
+        }
+
         foreach (var (code, name) in _settings.Store.KeyDescriptions)
         {
             if (displayedCodes.Contains(code))
                 continue;
             if (Enum.IsDefined(typeof(SpecialKey), (SpecialKey)code))
+                continue;
+            if (Enum.IsDefined(typeof(DriverKey), (DriverKey)code))
                 continue;
 
             AddKeyCard(code, name);
@@ -73,6 +86,9 @@ public partial class SpecialKeysWindow
             ? Resource.SpecialKey_Mode_Default_Description
             : Resource.SpecialKey_Mode_Custom_Description;
 
+        var isCustom = !Enum.IsDefined(typeof(SpecialKey), (SpecialKey)code)
+            && !Enum.IsDefined(typeof(DriverKey), (DriverKey)code);
+
         var card = new CardAction
         {
             Margin = new(0, 0, 0, 4),
@@ -83,11 +99,27 @@ public partial class SpecialKeysWindow
                 Subtitle = subtitleText
             },
             Tag = code,
-            Cursor = System.Windows.Input.Cursors.Hand
+            Cursor = System.Windows.Input.Cursors.Hand,
+            ContextMenu = isCustom ? CreateDeleteContextMenu(code) : null
         };
         card.Click += (_, _) => OpenKeyDetailWindow(code, displayName);
 
         _keyList.Items.Add(card);
+    }
+
+    private ContextMenu CreateDeleteContextMenu(int code)
+    {
+        var deleteItem = new MenuItem { Header = Resource.Delete };
+        deleteItem.Click += (_, _) =>
+        {
+            _settings.Store.KeyDescriptions.Remove(code);
+            _settings.Store.KeyModes.Remove(code);
+            _settings.Store.KeyActions.Remove(code);
+            _settings.SynchronizeStore();
+            BuildKeyList();
+        };
+
+        return new ContextMenu { Items = { deleteItem } };
     }
 
     private void OpenKeyDetailWindow(int keyCode, string displayName)
@@ -112,5 +144,13 @@ public partial class SpecialKeysWindow
         }
 
         return $"Key {code}";
+    }
+
+    private static string GetDriverKeyDisplayName(DriverKey key)
+    {
+        string str = key.ToString();
+        if (str.StartsWith("Fn", StringComparison.OrdinalIgnoreCase) && str.Length > 2)
+            return string.Concat("Fn ", str.AsSpan(2), " (Driver)");
+        return $"{str} (Driver)";
     }
 }

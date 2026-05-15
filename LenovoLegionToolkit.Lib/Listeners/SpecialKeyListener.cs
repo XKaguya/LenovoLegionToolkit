@@ -56,122 +56,132 @@ public class SpecialKeyListener(
                 return;
             }
 
-            if (value is SpecialKey.FnLockOn or SpecialKey.FnLockOff)
-            {
-                NotifyFnLockState(value);
+            if (HandleNotification(value))
                 return;
-            }
-            if (value is SpecialKey.CameraOn or SpecialKey.CameraOff)
-            {
-                NotifyCameraState(value);
-                return;
-            }
 
-            if (value is SpecialKey.SpectrumBacklightOff or SpecialKey.SpectrumBacklight1
-                or SpecialKey.SpectrumBacklight2 or SpecialKey.SpectrumBacklight3)
-            {
-                var brightness = value switch
-                {
-                    SpecialKey.SpectrumBacklightOff => SpectrumKeyboardBacklightBrightness.Off,
-                    SpecialKey.SpectrumBacklight1 => SpectrumKeyboardBacklightBrightness.Low,
-                    SpecialKey.SpectrumBacklight2 => SpectrumKeyboardBacklightBrightness.Medium,
-                    SpecialKey.SpectrumBacklight3 => SpectrumKeyboardBacklightBrightness.High,
-                    _ => SpectrumKeyboardBacklightBrightness.Off
-                };
-                NotifySpectrumBacklight(brightness);
+            if (CustomKeyHandler is not null && await CustomKeyHandler(value).ConfigureAwait(false))
                 return;
-            }
-            if (value is >= SpecialKey.SpectrumPreset1 and <= SpecialKey.SpectrumPreset6)
-            {
-                var preset = value - SpecialKey.SpectrumPreset1 + 1;
-                NotifySpectrumPreset(preset);
-                return;
-            }
-            if (value is SpecialKey.WhiteBacklightOff or SpecialKey.WhiteBacklight1
-                or SpecialKey.WhiteBacklight2)
-            {
-                var state = value switch
-                {
-                    SpecialKey.WhiteBacklightOff => WhiteKeyboardBacklightState.Off,
-                    SpecialKey.WhiteBacklight1 => WhiteKeyboardBacklightState.Low,
-                    SpecialKey.WhiteBacklight2 => WhiteKeyboardBacklightState.High,
-                    _ => WhiteKeyboardBacklightState.Off
-                };
-                NotifyWhiteBacklight(state);
-                return;
-            }
 
-            if (CustomKeyHandler is not null)
-            {
-                var handled = await CustomKeyHandler(value).ConfigureAwait(false);
-                if (handled)
-                    return;
-            }
-
-            switch (value)
-            {
-                case SpecialKey.CameraOn or SpecialKey.CameraOff:
-                    NotifyCameraState(value);
-                    break;
-                case SpecialKey.FnLockOn or SpecialKey.FnLockOff:
-                    NotifyFnLockState(value);
-                    break;
-                case SpecialKey.FnR or SpecialKey.FnR2:
-                    await ToggleRefreshRateAsync().ConfigureAwait(false);
-                    break;
-                case SpecialKey.FnPrtSc or SpecialKey.FnPrtSc2:
-                    OpenSnippingTool();
-                    break;
-                case SpecialKey.SpectrumBacklightOff:
-                    NotifySpectrumBacklight(SpectrumKeyboardBacklightBrightness.Off);
-                    break;
-                case SpecialKey.SpectrumBacklight1:
-                    NotifySpectrumBacklight(SpectrumKeyboardBacklightBrightness.Low);
-                    break;
-                case SpecialKey.SpectrumBacklight2:
-                    NotifySpectrumBacklight(SpectrumKeyboardBacklightBrightness.Medium);
-                    break;
-                case SpecialKey.SpectrumBacklight3:
-                    NotifySpectrumBacklight(SpectrumKeyboardBacklightBrightness.High);
-                    break;
-                case SpecialKey.SpectrumPreset1:
-                    NotifySpectrumPreset(1);
-                    break;
-                case SpecialKey.SpectrumPreset2:
-                    NotifySpectrumPreset(2);
-                    break;
-                case SpecialKey.SpectrumPreset3:
-                    NotifySpectrumPreset(3);
-                    break;
-                case SpecialKey.SpectrumPreset4:
-                    NotifySpectrumPreset(4);
-                    break;
-                case SpecialKey.SpectrumPreset5:
-                    NotifySpectrumPreset(5);
-                    break;
-                case SpecialKey.SpectrumPreset6:
-                    NotifySpectrumPreset(6);
-                    break;
-                case SpecialKey.FnF4:
-                    await ToggleMicrophoneAsync().ConfigureAwait(false);
-                    break;
-                case SpecialKey.FnF8:
-                    OpenAirplaneModeSettings();
-                    break;
-                case SpecialKey.WhiteBacklightOff:
-                    NotifyWhiteBacklight(WhiteKeyboardBacklightState.Off);
-                    break;
-                case SpecialKey.WhiteBacklight1:
-                    NotifyWhiteBacklight(WhiteKeyboardBacklightState.Low);
-                    break;
-                case SpecialKey.WhiteBacklight2:
-                    NotifyWhiteBacklight(WhiteKeyboardBacklightState.High);
-                    break;
-            }
+            await RunBuiltInAsync(value).ConfigureAwait(false);
         }
         catch (Exception ex)
         {
             Log.Instance.Trace($"Failed to handle key. [key={value}, value={(int)value}]", ex);
+        }
+    }
+
+    private static bool HandleNotification(SpecialKey value)
+    {
+        if (value is SpecialKey.FnLockOn or SpecialKey.FnLockOff) 
+        { 
+            NotifyFnLockState(value); 
+            return true; 
+        }
+        if (value is SpecialKey.CameraOn or SpecialKey.CameraOff) 
+        { 
+            NotifyCameraState(value); 
+            return true; 
+        }
+
+        if (value is SpecialKey.SpectrumBacklightOff or SpecialKey.SpectrumBacklight1
+            or SpecialKey.SpectrumBacklight2 or SpecialKey.SpectrumBacklight3)
+        {
+            var brightness = value switch
+            {
+                SpecialKey.SpectrumBacklightOff => SpectrumKeyboardBacklightBrightness.Off,
+                SpecialKey.SpectrumBacklight1 => SpectrumKeyboardBacklightBrightness.Low,
+                SpecialKey.SpectrumBacklight2 => SpectrumKeyboardBacklightBrightness.Medium,
+                SpecialKey.SpectrumBacklight3 => SpectrumKeyboardBacklightBrightness.High,
+                _ => SpectrumKeyboardBacklightBrightness.Off
+            };
+            NotifySpectrumBacklight(brightness);
+            return true;
+        }
+
+        if (value is >= SpecialKey.SpectrumPreset1 and <= SpecialKey.SpectrumPreset6)
+        {
+            NotifySpectrumPreset(value - SpecialKey.SpectrumPreset1 + 1);
+            return true;
+        }
+
+        if (value is SpecialKey.WhiteBacklightOff or SpecialKey.WhiteBacklight1
+            or SpecialKey.WhiteBacklight2)
+        {
+            var state = value switch
+            {
+                SpecialKey.WhiteBacklightOff => WhiteKeyboardBacklightState.Off,
+                SpecialKey.WhiteBacklight1 => WhiteKeyboardBacklightState.Low,
+                SpecialKey.WhiteBacklight2 => WhiteKeyboardBacklightState.High,
+                _ => WhiteKeyboardBacklightState.Off
+            };
+            NotifyWhiteBacklight(state);
+            return true;
+        }
+
+        return false;
+    }
+
+    private async Task RunBuiltInAsync(SpecialKey value)
+    {
+        switch (value)
+        {
+            case SpecialKey.CameraOn or SpecialKey.CameraOff:
+                NotifyCameraState(value);
+                break;
+            case SpecialKey.FnLockOn or SpecialKey.FnLockOff:
+                NotifyFnLockState(value);
+                break;
+            case SpecialKey.FnR or SpecialKey.FnR2:
+                await ToggleRefreshRateAsync().ConfigureAwait(false);
+                break;
+            case SpecialKey.FnPrtSc or SpecialKey.FnPrtSc2:
+                OpenSnippingTool();
+                break;
+            case SpecialKey.SpectrumBacklightOff:
+                NotifySpectrumBacklight(SpectrumKeyboardBacklightBrightness.Off);
+                break;
+            case SpecialKey.SpectrumBacklight1:
+                NotifySpectrumBacklight(SpectrumKeyboardBacklightBrightness.Low);
+                break;
+            case SpecialKey.SpectrumBacklight2:
+                NotifySpectrumBacklight(SpectrumKeyboardBacklightBrightness.Medium);
+                break;
+            case SpecialKey.SpectrumBacklight3:
+                NotifySpectrumBacklight(SpectrumKeyboardBacklightBrightness.High);
+                break;
+            case SpecialKey.SpectrumPreset1:
+                NotifySpectrumPreset(1);
+                break;
+            case SpecialKey.SpectrumPreset2:
+                NotifySpectrumPreset(2);
+                break;
+            case SpecialKey.SpectrumPreset3:
+                NotifySpectrumPreset(3);
+                break;
+            case SpecialKey.SpectrumPreset4:
+                NotifySpectrumPreset(4);
+                break;
+            case SpecialKey.SpectrumPreset5:
+                NotifySpectrumPreset(5);
+                break;
+            case SpecialKey.SpectrumPreset6:
+                NotifySpectrumPreset(6);
+                break;
+            case SpecialKey.FnF4:
+                await ToggleMicrophoneAsync().ConfigureAwait(false);
+                break;
+            case SpecialKey.FnF8:
+                OpenAirplaneModeSettings();
+                break;
+            case SpecialKey.WhiteBacklightOff:
+                NotifyWhiteBacklight(WhiteKeyboardBacklightState.Off);
+                break;
+            case SpecialKey.WhiteBacklight1:
+                NotifyWhiteBacklight(WhiteKeyboardBacklightState.Low);
+                break;
+            case SpecialKey.WhiteBacklight2:
+                NotifyWhiteBacklight(WhiteKeyboardBacklightState.High);
+                break;
         }
     }
 

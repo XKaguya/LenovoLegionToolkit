@@ -30,6 +30,8 @@ public class DriverKeyListener(
 
     public bool DiscoveryMode { get; set; }
 
+    public Func<DriverKey, Task<bool>>? CustomKeyHandler { get; set; }
+
     public event EventHandler<ChangedEventArgs>? Changed;
 
     private CancellationTokenSource? _cancellationTokenSource;
@@ -110,58 +112,79 @@ public class DriverKeyListener(
     {
         try
         {
-            if(value.HasFlag(DriverKey.FnQ))
+            foreach (DriverKey flag in Enum.GetValues<DriverKey>())
             {
-                MessagingCenter.Publish(new DriverKeyPressedMessage(DriverKey.FnQ));
-            }
-
-            if (value.HasFlag(DriverKey.FnF4))
-            {
-                if (await microphoneFeature.IsSupportedAsync().ConfigureAwait(false))
-                {
-                    switch (await microphoneFeature.GetStateAsync().ConfigureAwait(false))
-                    {
-                        case MicrophoneState.On:
-                            await microphoneFeature.SetStateAsync(MicrophoneState.Off).ConfigureAwait(false);
-                            MessagingCenter.Publish(new NotificationMessage(NotificationType.MicrophoneOff));
-                            break;
-                        case MicrophoneState.Off:
-                            await microphoneFeature.SetStateAsync(MicrophoneState.On).ConfigureAwait(false);
-                            MessagingCenter.Publish(new NotificationMessage(NotificationType.MicrophoneOn));
-                            break;
-                    }
-                }
-            }
-
-            if (value.HasFlag(DriverKey.FnF8))
-                AirplaneMode.Open();
-
-            if (value.HasFlag(DriverKey.FnF10))
-            {
-                if (await touchpadLockFeature.IsSupportedAsync().ConfigureAwait(false))
-                {
-                    var status = await touchpadLockFeature.GetStateAsync().ConfigureAwait(false);
-                    MessagingCenter.Publish(status == TouchpadLockState.Off
-                        ? new NotificationMessage(NotificationType.TouchpadOn)
-                        : new NotificationMessage(NotificationType.TouchpadOff));
-                }
-            }
-
-            if (value.HasFlag(DriverKey.FnSpace))
-            {
-                if (await whiteKeyboardBacklightFeature.IsSupportedAsync().ConfigureAwait(false))
-                {
-                    var state = await whiteKeyboardBacklightFeature.GetStateAsync().ConfigureAwait(false);
-                    MessagingCenter.Publish(state == WhiteKeyboardBacklightState.Off
-                        ? new NotificationMessage(NotificationType.WhiteKeyboardBacklightOff, state.GetDisplayName())
-                        : new NotificationMessage(NotificationType.WhiteKeyboardBacklightChanged, state.GetDisplayName()));
-                }
+                if (!value.HasFlag(flag))
+                    continue;
+                if (CustomKeyHandler is not null && await CustomKeyHandler(flag).ConfigureAwait(false))
+                    continue;
+                await RunBuiltInAsync(flag).ConfigureAwait(false);
             }
         }
         catch (Exception ex)
         {
             Log.Instance.Trace($"Couldn't handle key press. [value={value}]", ex);
         }
+    }
+
+    private async Task RunBuiltInAsync(DriverKey key)
+    {
+        switch (key)
+        {
+            case DriverKey.FnQ:
+                MessagingCenter.Publish(new DriverKeyPressedMessage(key));
+                break;
+            case DriverKey.FnF4:
+                await ToggleMicrophoneAsync().ConfigureAwait(false);
+                break;
+            case DriverKey.FnF8:
+                AirplaneMode.Open();
+                break;
+            case DriverKey.FnF10:
+                await NotifyTouchpadLockAsync().ConfigureAwait(false);
+                break;
+            case DriverKey.FnSpace:
+                await NotifyWhiteBacklightAsync().ConfigureAwait(false);
+                break;
+        }
+    }
+
+    private async Task ToggleMicrophoneAsync()
+    {
+        if (!await microphoneFeature.IsSupportedAsync().ConfigureAwait(false))
+            return;
+        var state = await microphoneFeature.GetStateAsync().ConfigureAwait(false);
+        switch (state)
+        {
+            case MicrophoneState.On:
+                await microphoneFeature.SetStateAsync(MicrophoneState.Off).ConfigureAwait(false);
+                MessagingCenter.Publish(new NotificationMessage(NotificationType.MicrophoneOff));
+                break;
+            case MicrophoneState.Off:
+                await microphoneFeature.SetStateAsync(MicrophoneState.On).ConfigureAwait(false);
+                MessagingCenter.Publish(new NotificationMessage(NotificationType.MicrophoneOn));
+                break;
+        }
+    }
+
+    private async Task NotifyTouchpadLockAsync()
+    {
+        if (!await touchpadLockFeature.IsSupportedAsync().ConfigureAwait(false))
+            return;
+        var status = await touchpadLockFeature.GetStateAsync().ConfigureAwait(false);
+        MessagingCenter.Publish(status == TouchpadLockState.Off
+            ? new NotificationMessage(NotificationType.TouchpadOn)
+            : new NotificationMessage(NotificationType.TouchpadOff));
+    }
+
+    private async Task NotifyWhiteBacklightAsync()
+    {
+        if (!await whiteKeyboardBacklightFeature.IsSupportedAsync().ConfigureAwait(false))
+            return;
+        var state = await whiteKeyboardBacklightFeature.GetStateAsync().ConfigureAwait(false);
+        MessagingCenter.Publish(state == WhiteKeyboardBacklightState.Off
+            ? new NotificationMessage(NotificationType.WhiteKeyboardBacklightOff, state.GetDisplayName())
+            : new NotificationMessage(NotificationType.WhiteKeyboardBacklightChanged, state.GetDisplayName()));
     }
 
     private static unsafe bool BindListener(WaitHandle waitHandle)

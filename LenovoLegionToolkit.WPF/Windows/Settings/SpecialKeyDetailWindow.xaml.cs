@@ -56,6 +56,10 @@ public partial class SpecialKeyDetailWindow
             ? desc : "";
         _descriptionDirty = false;
 
+        var isBuiltIn = Enum.IsDefined(typeof(SpecialKey), (SpecialKey)_keyCode)
+            || Enum.IsDefined(typeof(DriverKey), (DriverKey)_keyCode);
+        _deleteButton.Visibility = isBuiltIn ? Visibility.Collapsed : Visibility.Visible;
+
         var mode = _settings.Store.KeyModes.TryGetValue(_keyCode, out var m) ? m : CustomSpecialKey.Default;
 
         _modeComboBox.SetItems(
@@ -163,6 +167,15 @@ public partial class SpecialKeyDetailWindow
 
     private void CancelButton_Click(object sender, RoutedEventArgs e)
     {
+        Close();
+    }
+
+    private void DeleteButton_Click(object sender, RoutedEventArgs e)
+    {
+        _settings.Store.KeyDescriptions.Remove(_keyCode);
+        _settings.Store.KeyModes.Remove(_keyCode);
+        _settings.Store.KeyActions.Remove(_keyCode);
+        _settings.SynchronizeStore();
         Close();
     }
 
