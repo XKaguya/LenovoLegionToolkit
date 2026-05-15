@@ -64,7 +64,6 @@ public class ITSModeListener(ITSModeFeature itsModeFeature) : IListener<ITSModeL
     protected virtual Task OnChangedAsync(ITSMode value)
     {
         itsModeFeature.LastItsMode = value;
-        MessagingCenter.Publish(new NotificationMessage(value.ToNotificationType(), value.GetDisplayName()));
         RaiseChanged(value);
 
         return Task.CompletedTask;
