@@ -39,9 +39,8 @@ public partial class KeyDiscoveryWindow
     {
         _isDiscovering = true;
         _events.Clear();
-        _emptyLabel.Visibility = Visibility.Visible;
 
-        _statusLabel.Text = Resource.SpecialKeyDetailWindow_KeyDiscovery_Listening;
+        _statusLabel.Text = Resource.SpecialKeyDetailWindow_KeyDiscovery_Message;
         _discoveryButton.Content = Resource.SpecialKeyDetailWindow_KeyDiscovery_Stop;
 
         _specialKeyListener.DiscoveryMode = true;
@@ -101,14 +100,12 @@ public partial class KeyDiscoveryWindow
         Dispatcher.Invoke(() =>
         {
             _events.Insert(0, entry);
-            _emptyLabel.Visibility = Visibility.Collapsed;
         });
     }
 
     private void ClearButton_Click(object sender, RoutedEventArgs e)
     {
         _events.Clear();
-        _emptyLabel.Visibility = Visibility.Visible;
     }
 
     private void AddDetectedKeyButton_Click(object sender, RoutedEventArgs e)

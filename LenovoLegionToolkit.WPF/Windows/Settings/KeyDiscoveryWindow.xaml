@@ -66,20 +66,11 @@
             </Border.Background>
 
             <Grid>
-                <TextBlock
-                    x:Name="_emptyLabel"
-                    Margin="12"
-                    Foreground="{DynamicResource TextFillColorTertiaryBrush}"
-                    Text="{x:Static resources:Resource.KeyDiscovery_EmptyList}"
-                    Visibility="Visible" />
-
                 <wpfui:DynamicScrollViewer>
-                    <ItemsControl
-                        x:Name="_eventList"
-                        HorizontalContentAlignment="Stretch">
+                    <ItemsControl x:Name="_eventList" HorizontalContentAlignment="Stretch">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Grid Margin="8,6,12,6">
+                                <Grid MinHeight="28" Margin="8,6,12,6">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="Auto" />
@@ -91,6 +82,8 @@
                                     <TextBlock
                                         Grid.Column="0"
                                         Width="60"
+                                        Padding="0,1,0,0"
+                                        VerticalAlignment="Center"
                                         Foreground="{DynamicResource TextFillColorTertiaryBrush}"
                                         Text="{Binding Time}" />
                                     <Ellipse
@@ -114,17 +107,20 @@
                                         Grid.Column="2"
                                         Width="50"
                                         Margin="8,0,0,0"
+                                        Padding="0,1,0,0"
                                         VerticalAlignment="Center"
                                         Foreground="{DynamicResource TextFillColorTertiaryBrush}"
                                         Text="{Binding Channel}" />
                                     <TextBlock
                                         Grid.Column="3"
                                         Margin="8,0,0,0"
+                                        Padding="0,1,0,0"
                                         VerticalAlignment="Center"
                                         Text="{Binding DisplayName}" />
                                     <TextBlock
                                         Grid.Column="4"
                                         Margin="8,0,0,0"
+                                        Padding="0,1,0,0"
                                         VerticalAlignment="Center"
                                         Foreground="{DynamicResource TextFillColorTertiaryBrush}"
                                         Text="{Binding CodeText}" />

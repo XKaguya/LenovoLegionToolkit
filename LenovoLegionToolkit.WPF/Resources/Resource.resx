@@ -1383,6 +1383,9 @@ Click Yes to disable and No to ignore.</value>
   <data name="KeyDiscovery_EnterKeyName" xml:space="preserve">
     <value>Enter key name...</value>
   </data>
+  <data name="KeyDiscovery_Instruction" xml:space="preserve">
+    <value>Press the Fn hotkey to check if it supports customization.</value>
+  </data>
   <data name="LampArrayRGBKeyboardPage_Aft_Ambient" xml:space="preserve">
     <value>Aft Ambient</value>
   </data>
@@ -2615,9 +2618,6 @@ Make sure that your script runs correctly first.</value>
   <data name="SettingsPage_Category_SoftwareControl" xml:space="preserve">
     <value>Software Control</value>
   </data>
-  <data name="SettingsPage_Category_SpecialKeys" xml:space="preserve">
-    <value>Special Keys</value>
-  </data>
   <data name="SettingsPage_Category_Updates" xml:space="preserve">
     <value>Updates</value>
   </data>
@@ -2963,27 +2963,6 @@ If disabled, this app will handle Fn shortcuts.</value>
   </data>
   <data name="SpecialKeyDetail_Description" xml:space="preserve">
     <value>Description</value>
-  </data>
-  <data name="SpecialKey_Configure" xml:space="preserve">
-    <value>Configure...</value>
-  </data>
-  <data name="SpecialKey_FnF4" xml:space="preserve">
-    <value>Fn + F4 (Microphone)</value>
-  </data>
-  <data name="SpecialKey_FnF8" xml:space="preserve">
-    <value>Fn + F8 (Airplane Mode)</value>
-  </data>
-  <data name="SpecialKey_FnF9" xml:space="preserve">
-    <value>Fn + F9</value>
-  </data>
-  <data name="SpecialKey_FnN" xml:space="preserve">
-    <value>Fn + N</value>
-  </data>
-  <data name="SpecialKey_FnPrtSc" xml:space="preserve">
-    <value>Fn + PrtSc</value>
-  </data>
-  <data name="SpecialKey_FnR" xml:space="preserve">
-    <value>Fn + R</value>
   </data>
   <data name="SpecialKey_Mode_Custom_Description" xml:space="preserve">
     <value>Custom Quick Action</value>

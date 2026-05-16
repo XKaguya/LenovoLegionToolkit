@@ -1375,6 +1375,15 @@ Click Yes to disable and No to ignore.</value>
   <data name="Keyboard_VantageEnabledWarning_Title" xml:space="preserve">
     <value>Lenovo Vantage またはそのサービスが実行されています</value>
   </data>
+  <data name="KeyDiscovery_AddCustomKey" xml:space="preserve">
+    <value>Add Custom Key</value>
+  </data>
+  <data name="KeyDiscovery_EnterKeyName" xml:space="preserve">
+    <value>Enter key name...</value>
+  </data>
+  <data name="KeyDiscovery_Instruction" xml:space="preserve">
+    <value>Press the Fn hotkey to check if it supports customization.</value>
+  </data>
   <data name="LampArrayRGBKeyboardPage_Aft_Ambient" xml:space="preserve">
     <value>Aft Ambient</value>
   </data>
@@ -2948,23 +2957,15 @@ It won't affect other full screen windows, but you will not be able to click on 
   <data name="SpecialKeyDetailWindow_KeyDiscovery_Message" xml:space="preserve">
     <value>Find key that is not defined in LLT.</value>
   </data>
-  <data name="KeyDiscovery_AddCustomKey" xml:space="preserve">
-    <value>Add Custom Key</value>
-  </data>
-  <data name="KeyDiscovery_EnterKeyName" xml:space="preserve">
-    <value>Enter key name...</value>
-  </data>
-  <data name="SpecialKeyDetail_Description" xml:space="preserve">
-    <value>Description</value>
-  </data>
-
   <data name="SpecialKeyDetailWindow_KeyDiscovery_Start" xml:space="preserve">
     <value>Start</value>
   </data>
   <data name="SpecialKeyDetailWindow_KeyDiscovery_Stop" xml:space="preserve">
     <value>Stop</value>
   </data>
-
+  <data name="SpecialKeyDetail_Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
   <data name="SpectrumKeyboardBacklightBrightnessAutomationStepControl_Message" xml:space="preserve">
     <value>キーボードのバックライトの明るさを調整します。</value>
   </data>

@@ -3798,13 +3798,10 @@ namespace LenovoLegionToolkit.WPF.Resources {
                 return ResourceManager.GetString("KeyDiscovery_EnterKeyName", resourceCulture);
             }
         }
-
-        public static string KeyDiscovery_EmptyList {
-            get {
-                return ResourceManager.GetString("KeyDiscovery_EmptyList", resourceCulture);
-            }
-        }
-
+        
+        /// <summary>
+        ///   查找类似 Press the Fn hotkey to check if it supports customization. 的本地化字符串。
+        /// </summary>
         public static string KeyDiscovery_Instruction {
             get {
                 return ResourceManager.GetString("KeyDiscovery_Instruction", resourceCulture);
@@ -7495,15 +7492,6 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   查找类似 Special Keys 的本地化字符串。
-        /// </summary>
-        public static string SettingsPage_Category_SpecialKeys {
-            get {
-                return ResourceManager.GetString("SettingsPage_Category_SpecialKeys", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 Updates 的本地化字符串。
         /// </summary>
         public static string SettingsPage_Category_Updates {
@@ -8477,69 +8465,6 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   查找类似 Configure... 的本地化字符串。
-        /// </summary>
-        public static string SpecialKey_Configure {
-            get {
-                return ResourceManager.GetString("SpecialKey_Configure", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Fn + F4 (Microphone) 的本地化字符串。
-        /// </summary>
-        public static string SpecialKey_FnF4 {
-            get {
-                return ResourceManager.GetString("SpecialKey_FnF4", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Fn + F8 (Airplane Mode) 的本地化字符串。
-        /// </summary>
-        public static string SpecialKey_FnF8 {
-            get {
-                return ResourceManager.GetString("SpecialKey_FnF8", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Fn + F9 的本地化字符串。
-        /// </summary>
-        public static string SpecialKey_FnF9 {
-            get {
-                return ResourceManager.GetString("SpecialKey_FnF9", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Fn + N 的本地化字符串。
-        /// </summary>
-        public static string SpecialKey_FnN {
-            get {
-                return ResourceManager.GetString("SpecialKey_FnN", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Fn + PrtSc 的本地化字符串。
-        /// </summary>
-        public static string SpecialKey_FnPrtSc {
-            get {
-                return ResourceManager.GetString("SpecialKey_FnPrtSc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Fn + R 的本地化字符串。
-        /// </summary>
-        public static string SpecialKey_FnR {
-            get {
-                return ResourceManager.GetString("SpecialKey_FnR", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 Custom Quick Action 的本地化字符串。
         /// </summary>
         public static string SpecialKey_Mode_Custom_Description {
@@ -8599,12 +8524,6 @@ namespace LenovoLegionToolkit.WPF.Resources {
         public static string SpecialKeyDetailWindow_KeyDiscovery_Stop {
             get {
                 return ResourceManager.GetString("SpecialKeyDetailWindow_KeyDiscovery_Stop", resourceCulture);
-            }
-        }
-
-        public static string SpecialKeyDetailWindow_KeyDiscovery_Listening {
-            get {
-                return ResourceManager.GetString("SpecialKeyDetailWindow_KeyDiscovery_Listening", resourceCulture);
             }
         }
         
