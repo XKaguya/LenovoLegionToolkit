@@ -7979,6 +7979,24 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Find undefined Fn hotkeys in LLT. 的本地化字符串。
+        /// </summary>
+        public static string SettingsPage_Key_Discovery_Message {
+            get {
+                return ResourceManager.GetString("SettingsPage_Key_Discovery_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Key Discovery 的本地化字符串。
+        /// </summary>
+        public static string SettingsPage_Key_Discovery_Title {
+            get {
+                return ResourceManager.GetString("SettingsPage_Key_Discovery_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Select language. 的本地化字符串。
         /// </summary>
         public static string SettingsPage_Language_Message {
@@ -8227,6 +8245,24 @@ namespace LenovoLegionToolkit.WPF.Resources {
         public static string SettingsPage_SmartKeyDoublePressAction_Title {
             get {
                 return ResourceManager.GetString("SettingsPage_SmartKeyDoublePressAction_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Customize the Fn hotkeys. 的本地化字符串。
+        /// </summary>
+        public static string SettingsPage_SmartKeys_Message {
+            get {
+                return ResourceManager.GetString("SettingsPage_SmartKeys_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Smart Keys 的本地化字符串。
+        /// </summary>
+        public static string SettingsPage_SmartKeys_Title {
+            get {
+                return ResourceManager.GetString("SettingsPage_SmartKeys_Title", resourceCulture);
             }
         }
         

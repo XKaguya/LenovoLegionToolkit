@@ -2786,6 +2786,12 @@ Pēc šīs opcijas maiņas ieteicams restartēt datoru.</value>
   <data name="SettingsPage_HWiNFO_Title" xml:space="preserve">
     <value>HWiNFO64</value>
   </data>
+  <data name="SettingsPage_Key_Discovery_Message" xml:space="preserve">
+    <value>Find undefined Fn hotkeys in LLT.</value>
+  </data>
+  <data name="SettingsPage_Key_Discovery_Title" xml:space="preserve">
+    <value>Key Discovery</value>
+  </data>
   <data name="SettingsPage_Language_Message" xml:space="preserve">
     <value>Atlasīt valodu.</value>
   </data>
@@ -2875,6 +2881,12 @@ Pēc šīs opcijas maiņas ieteicams restartēt datoru.</value>
   </data>
   <data name="SettingsPage_SmartKeySinglePressAction_Title" xml:space="preserve">
     <value>Smart Taustiņa Darbība</value>
+  </data>
+  <data name="SettingsPage_SmartKeys_Message" xml:space="preserve">
+    <value>Customize the Fn hotkeys.</value>
+  </data>
+  <data name="SettingsPage_SmartKeys_Title" xml:space="preserve">
+    <value>Smart Keys</value>
   </data>
   <data name="SettingsPage_SynchronizeBrightnessToAllPowerPlans_Message" xml:space="preserve">
     <value>Kad iespējots, visiem Windows Barošanas Plāniem tiks lietots vienāds spilgtuma līmenis ikreiz, kad to mainīsit.</value>

@@ -2786,6 +2786,12 @@ Een herstart wordt aanbevolen na het wijzigen van deze optie.</value>
   <data name="SettingsPage_HWiNFO_Title" xml:space="preserve">
     <value>HWiNFO64</value>
   </data>
+  <data name="SettingsPage_Key_Discovery_Message" xml:space="preserve">
+    <value>Find undefined Fn hotkeys in LLT.</value>
+  </data>
+  <data name="SettingsPage_Key_Discovery_Title" xml:space="preserve">
+    <value>Key Discovery</value>
+  </data>
   <data name="SettingsPage_Language_Message" xml:space="preserve">
     <value>Selecteer taal.</value>
   </data>
@@ -2875,6 +2881,12 @@ Een herstart wordt aanbevolen na het wijzigen van deze optie.</value>
   </data>
   <data name="SettingsPage_SmartKeySinglePressAction_Title" xml:space="preserve">
     <value>Smart Key Actie</value>
+  </data>
+  <data name="SettingsPage_SmartKeys_Message" xml:space="preserve">
+    <value>Customize the Fn hotkeys.</value>
+  </data>
+  <data name="SettingsPage_SmartKeys_Title" xml:space="preserve">
+    <value>Smart Keys</value>
   </data>
   <data name="SettingsPage_SynchronizeBrightnessToAllPowerPlans_Message" xml:space="preserve">
     <value>Wanneer deze instelling is ingeschakeld, zal dezelfde helderheid worden toegepast op alle Windows Energiebeheerschema's wanneer je deze aanpast.</value>

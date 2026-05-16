@@ -2784,6 +2784,12 @@ Uma reinicialização é recomendada após alterar esta opção.</value>
   <data name="SettingsPage_HWiNFO_Title" xml:space="preserve">
     <value>HWiNFO64</value>
   </data>
+  <data name="SettingsPage_Key_Discovery_Message" xml:space="preserve">
+    <value>Find undefined Fn hotkeys in LLT.</value>
+  </data>
+  <data name="SettingsPage_Key_Discovery_Title" xml:space="preserve">
+    <value>Key Discovery</value>
+  </data>
   <data name="SettingsPage_Language_Message" xml:space="preserve">
     <value>Selecionar idioma.</value>
   </data>
@@ -2873,6 +2879,12 @@ Uma reinicialização é recomendada após alterar esta opção.</value>
   </data>
   <data name="SettingsPage_SmartKeySinglePressAction_Title" xml:space="preserve">
     <value>Ação da Tecla de Acesso Rápido</value>
+  </data>
+  <data name="SettingsPage_SmartKeys_Message" xml:space="preserve">
+    <value>Customize the Fn hotkeys.</value>
+  </data>
+  <data name="SettingsPage_SmartKeys_Title" xml:space="preserve">
+    <value>Smart Keys</value>
   </data>
   <data name="SettingsPage_SynchronizeBrightnessToAllPowerPlans_Message" xml:space="preserve">
     <value>Quando ativo, o mesmo nível de brilho da tela será aplicado a todos os planos de energia do Windows.</value>

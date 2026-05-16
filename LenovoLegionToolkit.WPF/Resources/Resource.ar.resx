@@ -2783,6 +2783,12 @@ Restart is recommended after changing this option.</value>
   <data name="SettingsPage_HWiNFO_Title" xml:space="preserve">
     <value>HWiNFO64</value>
   </data>
+  <data name="SettingsPage_Key_Discovery_Message" xml:space="preserve">
+    <value>Find undefined Fn hotkeys in LLT.</value>
+  </data>
+  <data name="SettingsPage_Key_Discovery_Title" xml:space="preserve">
+    <value>Key Discovery</value>
+  </data>
   <data name="SettingsPage_Language_Message" xml:space="preserve">
     <value>اختر اللغة.</value>
   </data>
@@ -2872,6 +2878,12 @@ Restart is recommended after changing this option.</value>
   </data>
   <data name="SettingsPage_SmartKeySinglePressAction_Title" xml:space="preserve">
     <value>أجراء المفتاح الذكي</value>
+  </data>
+  <data name="SettingsPage_SmartKeys_Message" xml:space="preserve">
+    <value>Customize the Fn hotkeys.</value>
+  </data>
+  <data name="SettingsPage_SmartKeys_Title" xml:space="preserve">
+    <value>Smart Keys</value>
   </data>
   <data name="SettingsPage_SynchronizeBrightnessToAllPowerPlans_Message" xml:space="preserve">
     <value>When on, same brightness level will be applied to all Windows power plans whenever you change it.</value>

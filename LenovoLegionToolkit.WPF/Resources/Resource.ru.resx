@@ -2614,7 +2614,7 @@
     <value>Питание</value>
   </data>
   <data name="SettingsPage_Category_SmartKeys" xml:space="preserve">
-    <value>Умные клавиши</value>
+    <value>Smart Keys</value>
   </data>
   <data name="SettingsPage_Category_SoftwareControl" xml:space="preserve">
     <value>Программное управление</value>
@@ -2786,6 +2786,12 @@
   <data name="SettingsPage_HWiNFO_Title" xml:space="preserve">
     <value>HWiNFO64</value>
   </data>
+  <data name="SettingsPage_Key_Discovery_Message" xml:space="preserve">
+    <value>Find undefined Fn hotkeys in LLT.</value>
+  </data>
+  <data name="SettingsPage_Key_Discovery_Title" xml:space="preserve">
+    <value>Key Discovery</value>
+  </data>
   <data name="SettingsPage_Language_Message" xml:space="preserve">
     <value>Выбрать язык.</value>
   </data>
@@ -2875,6 +2881,12 @@
   </data>
   <data name="SettingsPage_SmartKeySinglePressAction_Title" xml:space="preserve">
     <value>Действие умной клавиши</value>
+  </data>
+  <data name="SettingsPage_SmartKeys_Message" xml:space="preserve">
+    <value>Customize the Fn hotkeys.</value>
+  </data>
+  <data name="SettingsPage_SmartKeys_Title" xml:space="preserve">
+    <value>Умные клавиши</value>
   </data>
   <data name="SettingsPage_SynchronizeBrightnessToAllPowerPlans_Message" xml:space="preserve">
     <value>При включении этого параметра один и тот же уровень яркости будет применяться ко всем схемам питания Windows при каждом его изменении.</value>

@@ -69,7 +69,7 @@ public partial class KeyDiscoveryWindow
     private void OnSpecialKeyDetected(object? sender, SpecialKeyListener.ChangedEventArgs e)
     {
         var isKnown = Enum.IsDefined(typeof(SpecialKey), (SpecialKey)e.RawValue);
-        var name = isKnown ? e.SpecialKey.ToString() : $"Unknown (code: {e.RawValue})";
+        var name = GetSpecialKeyDisplayName(e.RawValue, isKnown);
         InsertEvent(e.RawValue, "WMI", name, isKnown);
     }
 
@@ -77,7 +77,7 @@ public partial class KeyDiscoveryWindow
     {
         var rawValue = (int)e.RawValue;
         var isKnown = Enum.IsDefined(typeof(DriverKey), (DriverKey)e.RawValue);
-        var name = isKnown ? e.DriverKey.ToString() : $"Unknown (bits: 0x{e.RawValue:X4})";
+        var name = GetSpecialKeyDisplayName((int)e.RawValue, isKnown);
         InsertEvent(rawValue, "IOCTL", name, isKnown);
     }
 
@@ -127,6 +127,20 @@ public partial class KeyDiscoveryWindow
         var i = _events.IndexOf(entry);
         if (i >= 0)
             _events[i] = entry;
+    }
+
+    private string GetSpecialKeyDisplayName(int code, bool isKnown)
+    {
+        if (isKnown)
+        {
+            var key = (SpecialKey)code;
+            string str = key.ToString();
+            if (str.StartsWith("Fn", StringComparison.OrdinalIgnoreCase) && str.Length > 2)
+                return string.Concat("Fn ", str.AsSpan(2));
+            return str;
+        }
+
+        return $"Fn + 0x{code:X2}";
     }
 }
 

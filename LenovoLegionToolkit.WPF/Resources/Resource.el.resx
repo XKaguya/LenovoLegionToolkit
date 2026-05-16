@@ -2786,6 +2786,12 @@ Do not proceed unless you possess the necessary technical expertise.</value>
   <data name="SettingsPage_HWiNFO_Title" xml:space="preserve">
     <value>HWINFO64</value>
   </data>
+  <data name="SettingsPage_Key_Discovery_Message" xml:space="preserve">
+    <value>Find undefined Fn hotkeys in LLT.</value>
+  </data>
+  <data name="SettingsPage_Key_Discovery_Title" xml:space="preserve">
+    <value>Key Discovery</value>
+  </data>
   <data name="SettingsPage_Language_Message" xml:space="preserve">
     <value>Επιλέξτε γλώσσα.</value>
   </data>
@@ -2875,6 +2881,12 @@ Do not proceed unless you possess the necessary technical expertise.</value>
   </data>
   <data name="SettingsPage_SmartKeySinglePressAction_Title" xml:space="preserve">
     <value>Δράση Έξυπνου Πλήκτρου</value>
+  </data>
+  <data name="SettingsPage_SmartKeys_Message" xml:space="preserve">
+    <value>Customize the Fn hotkeys.</value>
+  </data>
+  <data name="SettingsPage_SmartKeys_Title" xml:space="preserve">
+    <value>Smart Keys</value>
   </data>
   <data name="SettingsPage_SynchronizeBrightnessToAllPowerPlans_Message" xml:space="preserve">
     <value>Όταν ενεργοποιείται, το ίδιο επίπεδο φωτεινότητας θα εφαρμοστεί σε όλα τα πλάνα τροφοδοσίας Windows όποτε το αλλάζετε.</value>
