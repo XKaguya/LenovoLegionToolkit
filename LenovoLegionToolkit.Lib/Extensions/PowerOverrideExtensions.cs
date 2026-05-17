@@ -85,8 +85,6 @@ public static class PowerOverrideExtensions
             overrides.Remove(state);
     }
 
-    // ITSMode-keyed overloads
-
     public static WindowsPowerMode? GetPowerModeOnAc(this Dictionary<ITSMode, Dictionary<PowerOverrideKey, string>> itsOverrides, ITSMode mode) =>
         itsOverrides.TryGetValue(mode, out var dict) ? dict.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerModeOnAc) : null;
 

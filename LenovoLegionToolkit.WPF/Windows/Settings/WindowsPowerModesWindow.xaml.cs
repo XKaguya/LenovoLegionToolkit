@@ -62,7 +62,7 @@ public partial class WindowsPowerModesWindow
             {
                 if (state == PowerModeState.GodMode)
                 {
-                    BuildGodModeCard(powerModes);
+                    await BuildGodModeCardAsync(powerModes);
                 }
                 else
                 {
@@ -94,8 +94,11 @@ public partial class WindowsPowerModesWindow
         var savedAc = _settings.Store.Overrides.GetPowerModeOnAc(powerModeState);
         var savedDc = _settings.Store.Overrides.GetPowerModeOnDc(powerModeState);
 
-        var card = new CardControl { Margin = new Thickness(0, 0, 0, 8) };
-        card.Header = new CardHeaderControl { Title = title };
+        var card = new CardControl
+        {
+            Margin = new Thickness(0, 0, 0, 8),
+            Header = new CardHeaderControl { Title = title }
+        };
 
         var (row, acCombo, dcCombo) = BuildAcDcRow(powerModes, savedAc ?? defaultMode, savedDc ?? defaultMode);
 
@@ -124,8 +127,11 @@ public partial class WindowsPowerModesWindow
         var savedAc = _settings.Store.ITSOverrides.GetPowerModeOnAc(itsMode);
         var savedDc = _settings.Store.ITSOverrides.GetPowerModeOnDc(itsMode);
 
-        var card = new CardControl { Margin = new Thickness(0, 0, 0, 8) };
-        card.Header = new CardHeaderControl { Title = itsMode.GetDisplayName() };
+        var card = new CardControl
+        {
+            Margin = new Thickness(0, 0, 0, 8),
+            Header = new CardHeaderControl { Title = itsMode.GetDisplayName() }
+        };
 
         var (row, acCombo, dcCombo) = BuildAcDcRow(powerModes, savedAc ?? defaultMode, savedDc ?? defaultMode);
 
@@ -148,13 +154,21 @@ public partial class WindowsPowerModesWindow
         _cardsContainer.Children.Add(card);
     }
 
-    private async void BuildGodModeCard(WindowsPowerMode[] powerModes)
+    private async Task BuildGodModeCardAsync(WindowsPowerMode[] powerModes)
     {
         var controller = await _godModeController.GetControllerAsync().ConfigureAwait(false);
         var presets = await controller.GetGodModePresetsAsync().ConfigureAwait(false);
 
         if (presets.Count > 1)
         {
+            var card = new CardControl
+            {
+                Margin = new Thickness(0, 0, 0, 8),
+                Header = new CardHeaderControl { Title = PowerModeState.GodMode.GetDisplayName() }
+            };
+
+            var contentStack = new StackPanel();
+
             foreach (var preset in presets)
             {
                 var savedAc = preset.Value.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerModeOnAc)
@@ -162,10 +176,7 @@ public partial class WindowsPowerModesWindow
                 var savedDc = preset.Value.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerModeOnDc)
                     ?? _settings.Store.PowerModes.GetValueOrDefault(PowerModeState.GodMode, WindowsPowerMode.Balanced);
 
-                var card = new CardControl { Margin = new Thickness(0, 8, 0, 8) };
-                card.Header = new CardHeaderControl { Title = preset.Value.Name };
-
-                var (row, acCombo, dcCombo) = BuildAcDcRow(powerModes, savedAc, savedDc);
+                var (row, acCombo, dcCombo) = BuildPresetRow(powerModes, savedAc, savedDc, preset.Value.Name);
 
                 var presetKey = preset.Key.ToString();
                 acCombo.SelectionChanged += async (_, _) =>
@@ -183,9 +194,11 @@ public partial class WindowsPowerModesWindow
                     }
                 };
 
-                card.Content = row;
-                _cardsContainer.Children.Add(card);
+                contentStack.Children.Add(row);
             }
+
+            card.Content = contentStack;
+            _cardsContainer.Children.Add(card);
         }
         else
         {
@@ -226,7 +239,7 @@ public partial class WindowsPowerModesWindow
             Margin = new Thickness(0, 0, 4, 0)
         };
         Grid.SetColumn(acLabel, 0);
-        var acCombo = new ComboBox { Width = 120, MaxDropDownHeight = 300 };
+        var acCombo = new ComboBox { Width = 140, MaxDropDownHeight = 300 };
         Grid.SetColumn(acCombo, 1);
         acCombo.SetItems(powerModes, savedAc, pm => pm.GetDisplayName());
 
@@ -239,10 +252,76 @@ public partial class WindowsPowerModesWindow
             Margin = new Thickness(16, 0, 4, 0)
         };
         Grid.SetColumn(dcLabel, 2);
-        var dcCombo = new ComboBox { Width = 120, MaxDropDownHeight = 300 };
+        var dcCombo = new ComboBox { Width = 140, MaxDropDownHeight = 300 };
         Grid.SetColumn(dcCombo, 3);
         dcCombo.SetItems(powerModes, savedDc, pm => pm.GetDisplayName());
 
+        grid.Children.Add(acLabel);
+        grid.Children.Add(acCombo);
+        grid.Children.Add(dcLabel);
+        grid.Children.Add(dcCombo);
+
+        var row = new StackPanel();
+        row.Children.Add(grid);
+
+        return (row, acCombo, dcCombo);
+    }
+
+    private static (StackPanel Row, ComboBox AcCombo, ComboBox DcCombo) BuildPresetRow(
+        WindowsPowerMode[] powerModes, WindowsPowerMode savedAc, WindowsPowerMode savedDc, string presetName)
+    {
+        var grayBrush = new SolidColorBrush(Color.FromRgb(0x88, 0x88, 0x88));
+
+        var grid = new Grid
+        {
+            Margin = new Thickness(0, 4, 0, 4),
+            ColumnDefinitions =
+            {
+                new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) },
+                new ColumnDefinition { Width = GridLength.Auto, SharedSizeGroup = "AcLabel" },
+                new ColumnDefinition { Width = GridLength.Auto, SharedSizeGroup = "AcCombo" },
+                new ColumnDefinition { Width = GridLength.Auto, SharedSizeGroup = "DcLabel" },
+                new ColumnDefinition { Width = GridLength.Auto, SharedSizeGroup = "DcCombo" },
+            }
+        };
+
+        var nameLabel = new TextBlock
+        {
+            Text = presetName,
+            FontSize = 13,
+            VerticalAlignment = VerticalAlignment.Center,
+            Margin = new Thickness(0, 0, 12, 0),
+            TextTrimming = TextTrimming.CharacterEllipsis,
+        };
+        Grid.SetColumn(nameLabel, 0);
+
+        var acLabel = new TextBlock
+        {
+            Text = Resource.WindowsPowerPlansWindow_PowerMode_AC,
+            FontSize = 11,
+            Foreground = grayBrush,
+            VerticalAlignment = VerticalAlignment.Center,
+            Margin = new Thickness(0, 0, 4, 0)
+        };
+        Grid.SetColumn(acLabel, 1);
+        var acCombo = new ComboBox { Width = 140, MaxDropDownHeight = 300 };
+        Grid.SetColumn(acCombo, 2);
+        acCombo.SetItems(powerModes, savedAc, pm => pm.GetDisplayName());
+
+        var dcLabel = new TextBlock
+        {
+            Text = Resource.WindowsPowerPlansWindow_PowerMode_DC,
+            FontSize = 11,
+            Foreground = grayBrush,
+            VerticalAlignment = VerticalAlignment.Center,
+            Margin = new Thickness(16, 0, 4, 0)
+        };
+        Grid.SetColumn(dcLabel, 3);
+        var dcCombo = new ComboBox { Width = 140, MaxDropDownHeight = 300 };
+        Grid.SetColumn(dcCombo, 4);
+        dcCombo.SetItems(powerModes, savedDc, pm => pm.GetDisplayName());
+
+        grid.Children.Add(nameLabel);
         grid.Children.Add(acLabel);
         grid.Children.Add(acCombo);
         grid.Children.Add(dcLabel);

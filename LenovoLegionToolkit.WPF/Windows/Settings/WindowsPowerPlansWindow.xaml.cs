@@ -116,10 +116,13 @@ public partial class WindowsPowerPlansWindow
             settingsPowerPlanGuid = Guid.Empty;
         }
         var selectedPlan = powerPlans.FirstOrDefault(pp => pp.Guid == settingsPowerPlanGuid);
-        var effectivePlan = (selectedPlan == default(WindowsPowerPlan)) ? DefaultValue : selectedPlan;
+        var effectivePlan = (selectedPlan == default) ? DefaultValue : selectedPlan;
 
-        var card = new CardControl { Margin = new Thickness(0, 0, 0, 8) };
-        card.Header = new CardHeaderControl { Title = title };
+        var card = new CardControl
+        {
+            Margin = new Thickness(0, 0, 0, 8),
+            Header = new CardHeaderControl { Title = title }
+        };
 
         var comboBox = new ComboBox
         {
@@ -195,10 +198,13 @@ public partial class WindowsPowerPlansWindow
     {
         var settingsPowerPlanGuid = _settings.Store.ITSPowerPlans.GetValueOrDefault(itsMode);
         var selectedPlan = powerPlans.FirstOrDefault(pp => pp.Guid == settingsPowerPlanGuid);
-        var effectivePlan = (selectedPlan == default(WindowsPowerPlan)) ? DefaultValue : selectedPlan;
+        var effectivePlan = (selectedPlan == default) ? DefaultValue : selectedPlan;
 
-        var card = new CardControl { Margin = new Thickness(0, 0, 0, 8) };
-        card.Header = new CardHeaderControl { Title = itsMode.GetDisplayName() };
+        var card = new CardControl
+        {
+            Margin = new Thickness(0, 0, 0, 8),
+            Header = new CardHeaderControl { Title = itsMode.GetDisplayName() }
+        };
 
         var comboBox = new ComboBox
         {
@@ -256,10 +262,22 @@ public partial class WindowsPowerPlansWindow
 
         if (presets.Count > 1)
         {
+            var card = new CardControl
+            {
+                Margin = new Thickness(0, 0, 0, 8),
+                Header = new CardHeaderControl { Title = PowerModeState.GodMode.GetDisplayName() }
+            };
+
+            var contentStack = new StackPanel();
+
             foreach (var preset in presets)
             {
-                BuildGodModePresetCard(powerPlans, powerModes, preset);
+                var presetContent = BuildGodModePresetContent(powerPlans, powerModes, preset);
+                contentStack.Children.Add(presetContent);
             }
+
+            card.Content = contentStack;
+            _cardsContainer.Children.Add(card);
         }
         else
         {
@@ -302,7 +320,7 @@ public partial class WindowsPowerPlansWindow
             VerticalAlignment = VerticalAlignment.Center,
             Margin = new Thickness(0, 0, 4, 0)
         };
-        var acCombo = new ComboBox { Width = 120, MaxDropDownHeight = 300 };
+        var acCombo = new ComboBox { Width = 140, MaxDropDownHeight = 300 };
         acCombo.SetItems(powerModes, savedAc, pm => pm.GetDisplayName());
 
         var dcLabel = new TextBlock
@@ -313,7 +331,7 @@ public partial class WindowsPowerPlansWindow
             VerticalAlignment = VerticalAlignment.Center,
             Margin = new Thickness(16, 0, 4, 0)
         };
-        var dcCombo = new ComboBox { Width = 120, MaxDropDownHeight = 300 };
+        var dcCombo = new ComboBox { Width = 140, MaxDropDownHeight = 300 };
         dcCombo.SetItems(powerModes, savedDc, pm => pm.GetDisplayName());
 
         row.Children.Add(title);
@@ -325,31 +343,52 @@ public partial class WindowsPowerPlansWindow
         return (row, acCombo, dcCombo);
     }
 
-    private void BuildGodModePresetCard(WindowsPowerPlan[] powerPlans, WindowsPowerMode[] powerModes,
+    private StackPanel BuildGodModePresetContent(WindowsPowerPlan[] powerPlans, WindowsPowerMode[] powerModes,
         KeyValuePair<Guid, GodModeSettingsStore.Preset> preset)
     {
-        var cardControl = new CardControl { Margin = new Thickness(0, 8, 0, 8) };
-        var headerControl = new CardHeaderControl { Title = preset.Value.Name };
-        cardControl.Header = headerControl;
+        var container = new StackPanel { Margin = new Thickness(0, 4, 0, 4) };
+
+        var headerGrid = new Grid
+        {
+            ColumnDefinitions =
+            {
+                new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) },
+                new ColumnDefinition { Width = GridLength.Auto },
+            }
+        };
+
+        var nameLabel = new TextBlock
+        {
+            Text = preset.Value.Name,
+            FontSize = 13,
+            VerticalAlignment = VerticalAlignment.Center,
+            Margin = new Thickness(0, 0, 12, 0),
+            TextTrimming = TextTrimming.CharacterEllipsis,
+        };
+        Grid.SetColumn(nameLabel, 0);
 
         var comboBox = new ComboBox
         {
-            MinWidth = 300,
-            Margin = new Thickness(0, 8, 0, 8),
-            Tag = preset.Key,
+            MinWidth = 200,
             MaxDropDownHeight = 300
         };
 
         var currentPowerPlanGuid = GetGodModePresetPowerPlan(preset.Key.ToString());
         var selectedPlanGuid = currentPowerPlanGuid ?? Guid.Empty;
         var selectedPlan = powerPlans.FirstOrDefault(pp => pp.Guid == selectedPlanGuid);
-        var effectivePlan = (selectedPlan == default(WindowsPowerPlan)) ? DefaultValue : selectedPlan;
+        var effectivePlan = (selectedPlan == default) ? DefaultValue : selectedPlan;
         comboBox.SetItems(powerPlans, effectivePlan, pp => pp.Name);
+        Grid.SetColumn(comboBox, 1);
+
+        headerGrid.Children.Add(nameLabel);
+        headerGrid.Children.Add(comboBox);
+        container.Children.Add(headerGrid);
 
         var savedAc = preset.Value.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerPlanBalanceOnAc) ?? WindowsPowerMode.Balanced;
         var savedDc = preset.Value.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerPlanBalanceOnDc) ?? WindowsPowerMode.Balanced;
         var (overlayRow, acCombo, dcCombo) = BuildBalanceOverlayRow(powerModes, savedAc, savedDc);
         overlayRow.Visibility = IsBalancedPlan(effectivePlan.Guid) ? Visibility.Visible : Visibility.Collapsed;
+        container.Children.Add(overlayRow);
 
         comboBox.SelectionChanged += async (_, _) =>
         {
@@ -374,12 +413,7 @@ public partial class WindowsPowerPlansWindow
             }
         };
 
-        var stackPanel = new StackPanel();
-        stackPanel.Children.Add(comboBox);
-        stackPanel.Children.Add(overlayRow);
-
-        cardControl.Content = stackPanel;
-        _cardsContainer.Children.Add(cardControl);
+        return container;
     }
 
     private static bool IsBalancedPlan(Guid guid) =>
