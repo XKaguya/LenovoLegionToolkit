@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using Windows.Win32;
 using Windows.Win32.Foundation;
 using Windows.Win32.Storage.FileSystem;
+using LenovoLegionToolkit.Lib.Controllers;
 using LenovoLegionToolkit.Lib.Settings;
 using System.Threading;
 using LenovoLegionToolkit.Lib.System;
@@ -121,6 +122,8 @@ public partial class ITSModeFeature(Lazy<ITSModeListener> iTSModeListener) : IFe
 
             PublishNotification(state);
 
+            await SyncWindowsPowerSettingsAsync(state).ConfigureAwait(false);
+
             await iTSModeListener.Value.NotifyAsync(state).ConfigureAwait(false);
         }
         catch (Exception ex)
@@ -180,6 +183,22 @@ public partial class ITSModeFeature(Lazy<ITSModeListener> iTSModeListener) : IFe
         {
             Log.Instance.Trace($"Failed to toggle ITS mode", ex);
             return ITSMode.None;
+        }
+    }
+
+    private async Task SyncWindowsPowerSettingsAsync(ITSMode itsMode)
+    {
+        try
+        {
+            var windowsPowerModeController = IoCContainer.Resolve<WindowsPowerModeController>();
+            var windowsPowerPlanController = IoCContainer.Resolve<WindowsPowerPlanController>();
+
+            await windowsPowerModeController.SetPowerModeAsync(itsMode).ConfigureAwait(false);
+            await windowsPowerPlanController.SetPowerPlanAsync(itsMode, true).ConfigureAwait(false);
+        }
+        catch (Exception ex)
+        {
+            Log.Instance.Trace($"Failed to sync Windows power settings after ITS mode change", ex);
         }
     }
 

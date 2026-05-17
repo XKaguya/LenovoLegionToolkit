@@ -84,4 +84,54 @@ public static class PowerOverrideExtensions
         if (dict.Count == 0)
             overrides.Remove(state);
     }
+
+    // ITSMode-keyed overloads
+
+    public static WindowsPowerMode? GetPowerModeOnAc(this Dictionary<ITSMode, Dictionary<PowerOverrideKey, string>> itsOverrides, ITSMode mode) =>
+        itsOverrides.TryGetValue(mode, out var dict) ? dict.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerModeOnAc) : null;
+
+    public static void SetPowerModeOnAc(this Dictionary<ITSMode, Dictionary<PowerOverrideKey, string>> itsOverrides, ITSMode mode, WindowsPowerMode? modeValue)
+    {
+        if (!itsOverrides.TryGetValue(mode, out var dict))
+            itsOverrides[mode] = dict = [];
+        dict.SetEnum(PowerOverrideKey.PowerModeOnAc, modeValue);
+        if (dict.Count == 0)
+            itsOverrides.Remove(mode);
+    }
+
+    public static WindowsPowerMode? GetPowerModeOnDc(this Dictionary<ITSMode, Dictionary<PowerOverrideKey, string>> itsOverrides, ITSMode mode) =>
+        itsOverrides.TryGetValue(mode, out var dict) ? dict.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerModeOnDc) : null;
+
+    public static void SetPowerModeOnDc(this Dictionary<ITSMode, Dictionary<PowerOverrideKey, string>> itsOverrides, ITSMode mode, WindowsPowerMode? modeValue)
+    {
+        if (!itsOverrides.TryGetValue(mode, out var dict))
+            itsOverrides[mode] = dict = [];
+        dict.SetEnum(PowerOverrideKey.PowerModeOnDc, modeValue);
+        if (dict.Count == 0)
+            itsOverrides.Remove(mode);
+    }
+
+    public static WindowsPowerMode? GetPowerPlanBalanceOnAc(this Dictionary<ITSMode, Dictionary<PowerOverrideKey, string>> itsOverrides, ITSMode mode) =>
+        itsOverrides.TryGetValue(mode, out var dict) ? dict.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerPlanBalanceOnAc) : null;
+
+    public static void SetPowerPlanBalanceOnAc(this Dictionary<ITSMode, Dictionary<PowerOverrideKey, string>> itsOverrides, ITSMode mode, WindowsPowerMode? modeValue)
+    {
+        if (!itsOverrides.TryGetValue(mode, out var dict))
+            itsOverrides[mode] = dict = [];
+        dict.SetEnum(PowerOverrideKey.PowerPlanBalanceOnAc, modeValue);
+        if (dict.Count == 0)
+            itsOverrides.Remove(mode);
+    }
+
+    public static WindowsPowerMode? GetPowerPlanBalanceOnDc(this Dictionary<ITSMode, Dictionary<PowerOverrideKey, string>> itsOverrides, ITSMode mode) =>
+        itsOverrides.TryGetValue(mode, out var dict) ? dict.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerPlanBalanceOnDc) : null;
+
+    public static void SetPowerPlanBalanceOnDc(this Dictionary<ITSMode, Dictionary<PowerOverrideKey, string>> itsOverrides, ITSMode mode, WindowsPowerMode? modeValue)
+    {
+        if (!itsOverrides.TryGetValue(mode, out var dict))
+            itsOverrides[mode] = dict = [];
+        dict.SetEnum(PowerOverrideKey.PowerPlanBalanceOnDc, modeValue);
+        if (dict.Count == 0)
+            itsOverrides.Remove(mode);
+    }
 }

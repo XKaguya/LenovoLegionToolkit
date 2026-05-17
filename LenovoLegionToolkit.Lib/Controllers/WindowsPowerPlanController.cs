@@ -98,9 +98,9 @@ public class WindowsPowerPlanController(ApplicationSettings settings, VantageDis
 
     private async Task ApplyBalanceOverlayIfNeededAsync(Guid activePowerPlanGuid, PowerModeState powerModeState, GodModeSettingsStore.Preset? preset = null)
     {
-        if (activePowerPlanGuid != DefaultPowerPlan)
+        if (!PowerPlanExtensions.IsPlanBasedOnBalanced(activePowerPlanGuid))
         {
-            Log.Instance.Trace($"Active power plan is not the default Balanced plan, skipping overlay. [guid={activePowerPlanGuid}]");
+            Log.Instance.Trace($"Active power plan is not based on Balanced plan, skipping overlay. [guid={activePowerPlanGuid}]");
             return;
         }
 
@@ -131,6 +131,135 @@ public class WindowsPowerPlanController(ApplicationSettings settings, VantageDis
         if (!acMode.HasValue && !dcMode.HasValue)
         {
             Log.Instance.Trace($"No Balance overlay configured for {powerModeState}, skipping.");
+            return;
+        }
+
+        var adapterStatus = await Power.IsPowerAdapterConnectedAsync().ConfigureAwait(false);
+        var isAc = adapterStatus != PowerAdapterStatus.Disconnected;
+
+        var activeMode = isAc ? acMode : dcMode;
+        Guid? activeGuid = activeMode.HasValue ? WindowsPowerModeController.GuidForWindowsPowerMode(activeMode.Value) : (Guid?)null;
+
+        var acRegistryGuid = acMode.HasValue ? WindowsPowerModeController.GuidForWindowsPowerMode(acMode.Value) : (Guid?)null;
+        var dcRegistryGuid = dcMode.HasValue ? WindowsPowerModeController.GuidForWindowsPowerMode(dcMode.Value) : (Guid?)null;
+
+        if (!activeGuid.HasValue)
+        {
+            Log.Instance.Trace($"No Balance overlay configured for current power source, skipping overlay scheme.");
+            return;
+        }
+
+        var guidToApply = activeGuid.Value;
+        await _overlayDispatcher.DispatchAsync(() =>
+        {
+            mainThreadDispatcher.Dispatch(() =>
+            {
+                try
+                {
+                    WindowsPowerModeController.ApplyActiveOverlayScheme(guidToApply);
+                    Log.Instance.Trace($"Balance overlay scheme applied. [guidToApply={guidToApply}]");
+                }
+                catch (Exception ex)
+                {
+                    Log.Instance.Trace($"Failed to apply balance overlay scheme.", ex);
+                }
+            });
+
+            if (acRegistryGuid.HasValue)
+                WindowsPowerModeController.SetActiveOverlayRegistryForAc(acRegistryGuid.Value);
+            if (dcRegistryGuid.HasValue)
+                WindowsPowerModeController.SetActiveOverlayRegistryForDc(dcRegistryGuid.Value);
+
+            return Task.CompletedTask;
+        }).ConfigureAwait(false);
+    }
+
+    public async Task SetPowerPlanAsync(ITSMode itsMode, bool alwaysActivateDefaults = false)
+    {
+        if (settings.Store.PowerModeMappingMode is not PowerModeMappingMode.WindowsPowerPlan)
+        {
+            Log.Instance.Trace($"Ignoring... [powerModeMappingMode={settings.Store.PowerModeMappingMode}]");
+            return;
+        }
+
+        Log.Instance.Trace($"Activating... [itsMode={itsMode}, alwaysActivateDefaults={alwaysActivateDefaults}]");
+
+        var powerPlanId = settings.Store.ITSPowerPlans.GetValueOrDefault(itsMode);
+
+        var isDefault = false;
+
+        if (powerPlanId == Guid.Empty)
+        {
+            Log.Instance.Trace($"Power plan for ITS mode {itsMode} was not found in settings");
+
+            powerPlanId = DefaultPowerPlan;
+            isDefault = true;
+        }
+
+        Log.Instance.Trace($"Power plan to be activated is {powerPlanId} [isDefault={isDefault}]");
+
+        if (!await ShouldSetPowerPlanAsync(alwaysActivateDefaults, isDefault).ConfigureAwait(false))
+        {
+            Log.Instance.Trace($"Power plan {powerPlanId} will not be activated [isDefault={isDefault}]");
+            return;
+        }
+
+        var powerPlans = GetPowerPlans().ToArray();
+
+        Log.Instance.Trace($"Available power plans:");
+        foreach (var powerPlan in powerPlans)
+            Log.Instance.Trace($" - {powerPlan}");
+
+        var powerPlanToActivate = powerPlans.FirstOrDefault(pp => pp.Guid == powerPlanId);
+        if (powerPlanToActivate.Equals(default(WindowsPowerPlan)))
+        {
+            Log.Instance.Trace($"Power plan {powerPlanId} was not found");
+            return;
+        }
+
+        if (powerPlanToActivate.IsActive)
+        {
+            Log.Instance.Trace($"Power plan {powerPlanToActivate.Guid} is already active. [name={powerPlanToActivate.Name}]");
+
+            await ApplyBalanceOverlayIfNeededAsync(powerPlanToActivate.Guid, itsMode).ConfigureAwait(false);
+            return;
+        }
+
+        try
+        {
+            SetActivePowerPlan(powerPlanToActivate.Guid);
+            Log.Instance.Trace($"Power plan {powerPlanToActivate.Guid} activated. [name={powerPlanToActivate.Name}]");
+        }
+        catch (Exception ex)
+        {
+            Log.Instance.Trace($"Failed to set active power plan. [guid={powerPlanToActivate.Guid}]", ex);
+            return;
+        }
+
+        await ApplyBalanceOverlayIfNeededAsync(powerPlanToActivate.Guid, itsMode).ConfigureAwait(false);
+    }
+
+    private async Task ApplyBalanceOverlayIfNeededAsync(Guid activePowerPlanGuid, ITSMode itsMode)
+    {
+        if (!PowerPlanExtensions.IsPlanBasedOnBalanced(activePowerPlanGuid))
+        {
+            Log.Instance.Trace($"Active power plan is not based on Balanced plan, skipping overlay. [guid={activePowerPlanGuid}]");
+            return;
+        }
+
+        if (Power.IsBatterySaverEnabled())
+        {
+            Log.Instance.Trace($"Battery saver is on - will not set overlay scheme.");
+            return;
+        }
+
+        var acMode = settings.Store.ITSOverrides.GetPowerPlanBalanceOnAc(itsMode);
+        var dcMode = settings.Store.ITSOverrides.GetPowerPlanBalanceOnDc(itsMode);
+        Log.Instance.Trace($"Using per-mode Balance overlay. [itsMode={itsMode}, acMode={acMode}, dcMode={dcMode}]");
+
+        if (!acMode.HasValue && !dcMode.HasValue)
+        {
+            Log.Instance.Trace($"No Balance overlay configured for {itsMode}, skipping.");
             return;
         }
 

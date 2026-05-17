@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using LenovoLegionToolkit.Lib;
+using LenovoLegionToolkit.Lib.Controllers;
 using LenovoLegionToolkit.Lib.Controllers.GodMode;
 using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.Features;
@@ -21,6 +22,7 @@ namespace LenovoLegionToolkit.WPF.Windows.Settings;
 public partial class WindowsPowerModesWindow
 {
     private readonly PowerModeFeature _powerModeFeature = IoCContainer.Resolve<PowerModeFeature>();
+    private readonly ITSModeFeature _itsModeFeature = IoCContainer.Resolve<ITSModeFeature>();
     private readonly ApplicationSettings _settings = IoCContainer.Resolve<ApplicationSettings>();
     private readonly GodModeController _godModeController = IoCContainer.Resolve<GodModeController>();
     private readonly GodModeSettings _godModeSettings = IoCContainer.Resolve<GodModeSettings>();
@@ -30,14 +32,15 @@ public partial class WindowsPowerModesWindow
     public WindowsPowerModesWindow()
     {
         InitializeComponent();
-
         IsVisibleChanged += PowerModesWindow_IsVisibleChanged;
     }
 
     private async void PowerModesWindow_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
         if (IsVisible)
+        {
             await RefreshAsync();
+        }
     }
 
     private async Task RefreshAsync()
@@ -46,139 +49,159 @@ public partial class WindowsPowerModesWindow
 
         var loadingTask = Task.Delay(500);
 
+        _cardsContainer.Children.Clear();
+
         var powerModes = Enum.GetValues<WindowsPowerMode>();
-        RefreshMode(_quietCardControl, _quietAcDcRow, powerModes, PowerModeState.Quiet);
-        RefreshMode(_balanceCardControl, _balanceAcDcRow, powerModes, PowerModeState.Balance);
-        RefreshMode(_performanceCardControl, _performanceAcDcRow, powerModes, PowerModeState.Performance);
 
-        var allStates = await _powerModeFeature.GetAllStatesAsync();
-        if (allStates.Contains(PowerModeState.Extreme))
-            RefreshMode(_extremeCardControl, _extremeAcDcRow, powerModes, PowerModeState.Extreme);
-        else
-            _extremeCardControl.Visibility = Visibility.Collapsed;
-
-        if (allStates.Contains(PowerModeState.GodMode))
+        var isPowerModeSupported = await _powerModeFeature.IsSupportedAsync();
+        if (isPowerModeSupported)
         {
-            _godModeCardControl.Visibility = Visibility.Visible;
+            var allStates = await _powerModeFeature.GetAllStatesAsync();
 
-            var controller = await _godModeController.GetControllerAsync().ConfigureAwait(false);
-            var presets = await controller.GetGodModePresetsAsync().ConfigureAwait(false);
-
-            if (presets.Count > 1)
+            foreach (var state in allStates)
             {
-                _godModeSinglePresetContainer.Visibility = Visibility.Collapsed;
-                _godModePresetsContainer.Visibility = Visibility.Visible;
-                _godModePresetsContainer.Children.Clear();
-
-                foreach (var preset in presets)
+                if (state == PowerModeState.GodMode)
                 {
-                    var cardControl = new CardControl
-                    {
-                        Margin = new Thickness(0, 8, 0, 8)
-                    };
-
-                    var headerControl = new CardHeaderControl
-                    {
-                        Title = preset.Value.Name
-                    };
-                    cardControl.Header = headerControl;
-
-                    var savedAc = preset.Value.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerModeOnAc) ?? _settings.Store.PowerModes.GetValueOrDefault(PowerModeState.GodMode, WindowsPowerMode.Balanced);
-                    var savedDc = preset.Value.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerModeOnDc) ?? _settings.Store.PowerModes.GetValueOrDefault(PowerModeState.GodMode, WindowsPowerMode.Balanced);
-
-                    var (row, acCombo, dcCombo) = BuildAcDcRow(powerModes, savedAc, savedDc);
-
-                    acCombo.SelectionChanged += async (_, _) =>
-                    {
-                        if (acCombo.TryGetSelectedItem(out WindowsPowerMode mode))
-                            await GodModePresetPowerModeChangedAsync(preset.Key.ToString(), mode, isAc: true);
-                    };
-                    dcCombo.SelectionChanged += async (_, _) =>
-                    {
-                        if (dcCombo.TryGetSelectedItem(out WindowsPowerMode mode))
-                            await GodModePresetPowerModeChangedAsync(preset.Key.ToString(), mode, isAc: false);
-                    };
-
-                    cardControl.Content = row;
-                    _godModePresetsContainer.Children.Add(cardControl);
+                    BuildGodModeCard(powerModes);
                 }
-            }
-            else
-            {
-                _godModePresetsContainer.Visibility = Visibility.Collapsed;
-                _godModeSinglePresetContainer.Visibility = Visibility.Visible;
-
-                var singlePreset = presets.FirstOrDefault();
-                var savedAc = singlePreset.Value?.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerModeOnAc) ?? _settings.Store.PowerModes.GetValueOrDefault(PowerModeState.GodMode, WindowsPowerMode.Balanced);
-                var savedDc = singlePreset.Value?.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerModeOnDc) ?? _settings.Store.PowerModes.GetValueOrDefault(PowerModeState.GodMode, WindowsPowerMode.Balanced);
-
-                RefreshModeRow(_godModeSingleAcDcRow, powerModes, savedAc, savedDc, singlePreset.Key.ToString());
+                else
+                {
+                    BuildModeCard(powerModes, state, state.GetDisplayName(), (mode, isAc) => WindowsPowerModeAcDcChangedAsync(mode, state, isAc));
+                }
             }
         }
         else
         {
-            _godModeCardControl.Visibility = Visibility.Collapsed;
+            var isITSModeSupported = await _itsModeFeature.IsSupportedAsync();
+            if (isITSModeSupported)
+            {
+                var itsModes = await _itsModeFeature.GetAllStatesAsync();
+                foreach (var itsMode in itsModes.Where(m => m != ITSMode.None))
+                {
+                    BuildITSModeCard(powerModes, itsMode);
+                }
+            }
         }
 
         await loadingTask;
-
         _loader.IsLoading = false;
     }
 
-    private void RefreshMode(CardControl cardControl, StackPanel acDcRow, WindowsPowerMode[] windowsPowerModes, PowerModeState powerModeState)
+    private void BuildModeCard(WindowsPowerMode[] powerModes, PowerModeState powerModeState, string title,
+        Func<WindowsPowerMode, bool, Task> onChanged)
     {
         var defaultMode = _settings.Store.PowerModes.GetValueOrDefault(powerModeState, WindowsPowerMode.Balanced);
         var savedAc = _settings.Store.Overrides.GetPowerModeOnAc(powerModeState);
         var savedDc = _settings.Store.Overrides.GetPowerModeOnDc(powerModeState);
 
-        RefreshModeRow(acDcRow, windowsPowerModes, savedAc ?? defaultMode, savedDc ?? defaultMode, powerModeState);
-    }
+        var card = new CardControl { Margin = new Thickness(0, 0, 0, 8) };
+        card.Header = new CardHeaderControl { Title = title };
 
-    private void RefreshModeRow(StackPanel row, WindowsPowerMode[] powerModes, WindowsPowerMode savedAc, WindowsPowerMode savedDc, PowerModeState powerModeState)
-    {
-        row.Children.Clear();
-
-        var (_, acCombo, dcCombo) = SetupAcDcRow(row, powerModes, savedAc, savedDc);
+        var (row, acCombo, dcCombo) = BuildAcDcRow(powerModes, savedAc ?? defaultMode, savedDc ?? defaultMode);
 
         acCombo.SelectionChanged += async (_, _) =>
         {
             if (acCombo.TryGetSelectedItem(out WindowsPowerMode mode))
-                await WindowsPowerModeAcDcChangedAsync(mode, powerModeState, isAc: true);
+            {
+                await onChanged(mode, true);
+            }
         };
         dcCombo.SelectionChanged += async (_, _) =>
         {
             if (dcCombo.TryGetSelectedItem(out WindowsPowerMode mode))
-                await WindowsPowerModeAcDcChangedAsync(mode, powerModeState, isAc: false);
+            {
+                await onChanged(mode, false);
+            }
         };
+
+        card.Content = row;
+        _cardsContainer.Children.Add(card);
     }
 
-    private void RefreshModeRow(StackPanel row, WindowsPowerMode[] powerModes, WindowsPowerMode savedAc, WindowsPowerMode savedDc, string presetKey)
+    private void BuildITSModeCard(WindowsPowerMode[] powerModes, ITSMode itsMode)
     {
-        row.Children.Clear();
+        var defaultMode = _settings.Store.ITSPowerModes.GetValueOrDefault(itsMode, WindowsPowerMode.Balanced);
+        var savedAc = _settings.Store.ITSOverrides.GetPowerModeOnAc(itsMode);
+        var savedDc = _settings.Store.ITSOverrides.GetPowerModeOnDc(itsMode);
 
-        var (_, acCombo, dcCombo) = SetupAcDcRow(row, powerModes, savedAc, savedDc);
+        var card = new CardControl { Margin = new Thickness(0, 0, 0, 8) };
+        card.Header = new CardHeaderControl { Title = itsMode.GetDisplayName() };
+
+        var (row, acCombo, dcCombo) = BuildAcDcRow(powerModes, savedAc ?? defaultMode, savedDc ?? defaultMode);
 
         acCombo.SelectionChanged += async (_, _) =>
         {
             if (acCombo.TryGetSelectedItem(out WindowsPowerMode mode))
-                await GodModePresetPowerModeChangedAsync(presetKey, mode, isAc: true);
+            {
+                await ITSModeAcDcChangedAsync(itsMode, mode, isAc: true);
+            }
         };
         dcCombo.SelectionChanged += async (_, _) =>
         {
             if (dcCombo.TryGetSelectedItem(out WindowsPowerMode mode))
-                await GodModePresetPowerModeChangedAsync(presetKey, mode, isAc: false);
+            {
+                await ITSModeAcDcChangedAsync(itsMode, mode, isAc: false);
+            }
         };
+
+        card.Content = row;
+        _cardsContainer.Children.Add(card);
+    }
+
+    private async void BuildGodModeCard(WindowsPowerMode[] powerModes)
+    {
+        var controller = await _godModeController.GetControllerAsync().ConfigureAwait(false);
+        var presets = await controller.GetGodModePresetsAsync().ConfigureAwait(false);
+
+        if (presets.Count > 1)
+        {
+            foreach (var preset in presets)
+            {
+                var savedAc = preset.Value.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerModeOnAc)
+                    ?? _settings.Store.PowerModes.GetValueOrDefault(PowerModeState.GodMode, WindowsPowerMode.Balanced);
+                var savedDc = preset.Value.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerModeOnDc)
+                    ?? _settings.Store.PowerModes.GetValueOrDefault(PowerModeState.GodMode, WindowsPowerMode.Balanced);
+
+                var card = new CardControl { Margin = new Thickness(0, 8, 0, 8) };
+                card.Header = new CardHeaderControl { Title = preset.Value.Name };
+
+                var (row, acCombo, dcCombo) = BuildAcDcRow(powerModes, savedAc, savedDc);
+
+                var presetKey = preset.Key.ToString();
+                acCombo.SelectionChanged += async (_, _) =>
+                {
+                    if (acCombo.TryGetSelectedItem(out WindowsPowerMode mode))
+                    {
+                        await GodModePresetPowerModeChangedAsync(presetKey, mode, isAc: true);
+                    }
+                };
+                dcCombo.SelectionChanged += async (_, _) =>
+                {
+                    if (dcCombo.TryGetSelectedItem(out WindowsPowerMode mode))
+                    {
+                        await GodModePresetPowerModeChangedAsync(presetKey, mode, isAc: false);
+                    }
+                };
+
+                card.Content = row;
+                _cardsContainer.Children.Add(card);
+            }
+        }
+        else
+        {
+            var singlePreset = presets.FirstOrDefault();
+            var defaultMode = _settings.Store.PowerModes.GetValueOrDefault(PowerModeState.GodMode, WindowsPowerMode.Balanced);
+            var savedAc = singlePreset.Value?.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerModeOnAc) ?? defaultMode;
+            var savedDc = singlePreset.Value?.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerModeOnDc) ?? defaultMode;
+
+            var presetKey = singlePreset.Key.ToString();
+            BuildModeCard(powerModes, PowerModeState.GodMode, singlePreset.Value?.Name ?? PowerModeState.GodMode.GetDisplayName(),
+                async (mode, isAc) => await GodModePresetPowerModeChangedAsync(presetKey, mode, isAc));
+        }
     }
 
     private static (StackPanel Row, ComboBox AcCombo, ComboBox DcCombo) BuildAcDcRow(
         WindowsPowerMode[] powerModes, WindowsPowerMode savedAc, WindowsPowerMode savedDc)
-    {
-        var row = new StackPanel();
-        return SetupAcDcRow(row, powerModes, savedAc, savedDc);
-    }
-
-    private static (StackPanel Row, ComboBox AcCombo, ComboBox DcCombo) SetupAcDcRow(
-        StackPanel row, WindowsPowerMode[] powerModes, WindowsPowerMode savedAc, WindowsPowerMode savedDc)
     {
         var grayBrush = new SolidColorBrush(Color.FromRgb(0x88, 0x88, 0x88));
 
@@ -225,6 +248,7 @@ public partial class WindowsPowerModesWindow
         grid.Children.Add(dcLabel);
         grid.Children.Add(dcCombo);
 
+        var row = new StackPanel();
         row.Children.Add(grid);
 
         return (row, acCombo, dcCombo);
@@ -233,12 +257,18 @@ public partial class WindowsPowerModesWindow
     private async Task WindowsPowerModeAcDcChangedAsync(WindowsPowerMode windowsPowerMode, PowerModeState powerModeState, bool isAc)
     {
         if (IsRefreshing)
+        {
             return;
+        }
 
         if (isAc)
+        {
             _settings.Store.Overrides.SetPowerModeOnAc(powerModeState, windowsPowerMode);
+        }
         else
+        {
             _settings.Store.Overrides.SetPowerModeOnDc(powerModeState, windowsPowerMode);
+        }
 
         _settings.SynchronizeStore();
 
@@ -249,10 +279,38 @@ public partial class WindowsPowerModesWindow
         }
     }
 
+    private async Task ITSModeAcDcChangedAsync(ITSMode itsMode, WindowsPowerMode windowsPowerMode, bool isAc)
+    {
+        if (IsRefreshing)
+        {
+            return;
+        }
+
+        if (isAc)
+        {
+            _settings.Store.ITSOverrides.SetPowerModeOnAc(itsMode, windowsPowerMode);
+        }
+        else
+        {
+            _settings.Store.ITSOverrides.SetPowerModeOnDc(itsMode, windowsPowerMode);
+        }
+
+        _settings.SynchronizeStore();
+
+        var currentState = await _itsModeFeature.GetStateAsync();
+        if (currentState == itsMode)
+        {
+            var controller = IoCContainer.Resolve<WindowsPowerModeController>();
+            await controller.SetPowerModeAsync(itsMode);
+        }
+    }
+
     private async Task GodModePresetPowerModeChangedAsync(string presetKey, WindowsPowerMode windowsPowerMode, bool isAc)
     {
         if (IsRefreshing)
+        {
             return;
+        }
 
         var presetKvp = _godModeSettings.Store.Presets.FirstOrDefault(profile => profile.Key.ToString() == presetKey);
 
@@ -260,9 +318,13 @@ public partial class WindowsPowerModesWindow
         {
             var newOv = new Dictionary<PowerOverrideKey, string>(presetKvp.Value.Overrides ?? []);
             if (isAc)
+            {
                 newOv.SetEnum(PowerOverrideKey.PowerModeOnAc, (WindowsPowerMode?)windowsPowerMode);
+            }
             else
+            {
                 newOv.SetEnum(PowerOverrideKey.PowerModeOnDc, (WindowsPowerMode?)windowsPowerMode);
+            }
             var updated = presetKvp.Value with { Overrides = newOv };
             _godModeSettings.Store.Presets[presetKvp.Key] = updated;
             _godModeSettings.SynchronizeStore();

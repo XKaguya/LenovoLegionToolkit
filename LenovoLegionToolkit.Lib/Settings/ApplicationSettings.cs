@@ -35,6 +35,10 @@ public class ApplicationSettings : AbstractSettings<ApplicationSettingsStore>
         public Dictionary<PowerModeState, WindowsPowerMode> PowerModes { get; set; } = [];
         public Dictionary<PowerModeState, Dictionary<PowerOverrideKey, string>> Overrides { get; set; } = [];
 
+        public Dictionary<ITSMode, Guid> ITSPowerPlans { get; set; } = [];
+        public Dictionary<ITSMode, WindowsPowerMode> ITSPowerModes { get; set; } = [];
+        public Dictionary<ITSMode, Dictionary<PowerOverrideKey, string>> ITSOverrides { get; set; } = [];
+
         public bool MinimizeToTray { get; set; } = true;
         public bool MinimizeOnClose { get; set; }
         public WindowSize? WindowSize { get; set; }
