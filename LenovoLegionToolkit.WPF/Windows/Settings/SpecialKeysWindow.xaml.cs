@@ -285,14 +285,14 @@ public partial class SpecialKeysWindow
             return str;
         }
 
-        return $"Key {code}";
+        return string.Format(Resource.SpecialKey_UnknownKey, code);
     }
 
     private static string GetDriverKeyDisplayName(DriverKey key)
     {
         string str = key.ToString();
         if (str.StartsWith("Fn", StringComparison.OrdinalIgnoreCase) && str.Length > 2)
-            return string.Concat("Fn + ", str.AsSpan(2), " (Driver)");
-        return $"{str} (Driver)";
+            return $"Fn + {str[2..]} {Resource.SpecialKey_DriverSuffix}";
+        return $"{str} {Resource.SpecialKey_DriverSuffix}";
     }
 }

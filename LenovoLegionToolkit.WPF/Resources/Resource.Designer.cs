@@ -3791,6 +3791,15 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to code: {0}.
+        /// </summary>
+        public static string KeyDiscovery_CodeText {
+            get {
+                return ResourceManager.GetString("KeyDiscovery_CodeText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter key name....
         /// </summary>
         public static string KeyDiscovery_EnterKeyName {
@@ -8524,6 +8533,24 @@ namespace LenovoLegionToolkit.WPF.Resources {
         public static string SpeakerVolumeAutomationStepControl_Title {
             get {
                 return ResourceManager.GetString("SpeakerVolumeAutomationStepControl_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (Driver).
+        /// </summary>
+        public static string SpecialKey_DriverSuffix {
+            get {
+                return ResourceManager.GetString("SpecialKey_DriverSuffix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Key {0}.
+        /// </summary>
+        public static string SpecialKey_UnknownKey {
+            get {
+                return ResourceManager.GetString("SpecialKey_UnknownKey", resourceCulture);
             }
         }
         

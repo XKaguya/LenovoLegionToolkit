@@ -95,7 +95,7 @@ public partial class KeyDiscoveryWindow
             StorageCode = storageCode,
             DisplayName = displayName,
             Channel = channel,
-            CodeText = $"code: {code}",
+            CodeText = string.Format(Resource.KeyDiscovery_CodeText, code),
             Time = time,
             IsKnown = isKnown,
             CanAdd = canAdd
@@ -118,7 +118,7 @@ public partial class KeyDiscoveryWindow
             return;
 
         var name = string.IsNullOrWhiteSpace(entry.DisplayName)
-            ? $"Custom Key {entry.Code}"
+            ? string.Format(Resource.SpecialKey_UnknownKey, entry.Code)
             : entry.DisplayName;
 
         _settings.Store.KeyDescriptions[entry.StorageCode] = name;
@@ -154,11 +154,11 @@ public partial class KeyDiscoveryWindow
             var key = (DriverKey)code;
             string str = key.ToString();
             if (str.StartsWith("Fn", StringComparison.OrdinalIgnoreCase) && str.Length > 2)
-                return string.Concat("Fn + ", str.AsSpan(2), " (Driver)");
-            return $"{str} (Driver)";
+                return $"Fn + {str[2..]} {Resource.SpecialKey_DriverSuffix}";
+            return $"{str} {Resource.SpecialKey_DriverSuffix}";
         }
 
-        return $"Fn + 0x{code:X2} (Driver)";
+        return $"Fn + 0x{code:X2} {Resource.SpecialKey_DriverSuffix}";
     }
 }
 
