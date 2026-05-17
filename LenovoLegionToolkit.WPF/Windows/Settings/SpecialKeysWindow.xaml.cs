@@ -129,7 +129,10 @@ public partial class SpecialKeysWindow
             },
             Tag = code,
             Cursor = System.Windows.Input.Cursors.Hand,
-            ContextMenu = CreateHideContextMenu(code)
+            ContextMenu = CreateHideContextMenu(code,
+                !Enum.IsDefined(typeof(SpecialKey), (SpecialKey)code)
+                && !(code >= SpecialKeySettings.SpecialKeySettingsStore.DriverKeyCodeOffset
+                    && Enum.IsDefined(typeof(DriverKey), (DriverKey)(code - SpecialKeySettings.SpecialKeySettingsStore.DriverKeyCodeOffset))))
         };
         card.Click += (_, _) => OpenKeyDetailWindow(code, displayName);
 
@@ -157,7 +160,7 @@ public partial class SpecialKeysWindow
         _hiddenArea.Children.Add(card);
     }
 
-    private ContextMenu CreateHideContextMenu(int code)
+    private ContextMenu CreateHideContextMenu(int code, bool isCustom)
     {
         var hideItem = new MenuItem
         {
@@ -171,7 +174,23 @@ public partial class SpecialKeysWindow
             BuildKeyList();
         };
 
-        return new ContextMenu { Items = { hideItem } };
+        var menu = new ContextMenu { Items = { hideItem } };
+
+        if (isCustom)
+        {
+            var deleteItem = new MenuItem { SymbolIcon = SymbolRegular.Delete24, Header = Resource.Delete };
+            deleteItem.Click += (_, _) =>
+            {
+                _settings.Store.KeyDescriptions.Remove(code);
+                _settings.Store.KeyModes.Remove(code);
+                _settings.Store.KeyActions.Remove(code);
+                _settings.SynchronizeStore();
+                BuildKeyList();
+            };
+            menu.Items.Add(deleteItem);
+        }
+
+        return menu;
     }
 
     private ContextMenu CreateUnhideContextMenu(int code, bool isCustom)
@@ -192,7 +211,7 @@ public partial class SpecialKeysWindow
 
         if (isCustom)
         {
-            var deleteItem = new MenuItem { Header = Resource.Delete };
+            var deleteItem = new MenuItem { SymbolIcon = SymbolRegular.Delete24, Header = Resource.Delete };
             deleteItem.Click += (_, _) =>
             {
                 _settings.Store.HiddenKeys.Remove(code);
