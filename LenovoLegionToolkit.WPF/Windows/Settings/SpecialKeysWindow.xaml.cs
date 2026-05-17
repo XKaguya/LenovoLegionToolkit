@@ -10,6 +10,7 @@ using LenovoLegionToolkit.Lib.Settings;
 using LenovoLegionToolkit.WPF.Controls;
 using LenovoLegionToolkit.WPF.Controls.Custom;
 using LenovoLegionToolkit.WPF.Resources;
+using LenovoLegionToolkit.WPF.Utils;
 using Wpf.Ui.Common;
 using CardAction = LenovoLegionToolkit.WPF.Controls.Custom.CardAction;
 using MenuItem = Wpf.Ui.Controls.MenuItem;
@@ -174,7 +175,22 @@ public partial class SpecialKeysWindow
             BuildKeyList();
         };
 
-        var menu = new ContextMenu { Items = { hideItem } };
+        var renameItem = new MenuItem { SymbolIcon = SymbolRegular.Edit24, Header = Resource.Rename };
+        renameItem.Click += async (_, _) =>
+        {
+            var current = _settings.Store.KeyDescriptions.TryGetValue(code, out var n) ? n : null;
+            var newName = await MessageBoxHelper.ShowInputAsync(this, Resource.Rename, null, current, allowEmpty: true);
+            if (newName is null)
+                return;
+            if (string.IsNullOrWhiteSpace(newName))
+                _settings.Store.KeyDescriptions.Remove(code);
+            else
+                _settings.Store.KeyDescriptions[code] = newName.Trim();
+            _settings.SynchronizeStore();
+            BuildKeyList();
+        };
+
+        var menu = new ContextMenu { Items = { hideItem, renameItem } };
 
         if (isCustom)
         {
@@ -207,7 +223,22 @@ public partial class SpecialKeysWindow
             BuildKeyList();
         };
 
-        var menu = new ContextMenu { Items = { unhideItem } };
+        var renameItem2 = new MenuItem { SymbolIcon = SymbolRegular.Edit24, Header = Resource.Rename };
+        renameItem2.Click += async (_, _) =>
+        {
+            var current = _settings.Store.KeyDescriptions.TryGetValue(code, out var n) ? n : null;
+            var newName = await MessageBoxHelper.ShowInputAsync(this, Resource.Rename, null, current, allowEmpty: true);
+            if (newName is null)
+                return;
+            if (string.IsNullOrWhiteSpace(newName))
+                _settings.Store.KeyDescriptions.Remove(code);
+            else
+                _settings.Store.KeyDescriptions[code] = newName.Trim();
+            _settings.SynchronizeStore();
+            BuildKeyList();
+        };
+
+        var menu = new ContextMenu { Items = { unhideItem, renameItem2 } };
 
         if (isCustom)
         {
