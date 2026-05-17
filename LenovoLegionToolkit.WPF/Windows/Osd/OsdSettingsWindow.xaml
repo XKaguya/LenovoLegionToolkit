@@ -114,7 +114,11 @@
                             </Trigger>
                             <Trigger Property="IsSelected" Value="True">
                                 <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
-                                <Setter TargetName="ActiveIndicator" Property="Fill" Value="{DynamicResource SystemAccentColorPrimaryBrush}" />
+                                <Setter TargetName="ActiveIndicator" Property="Fill">
+                                    <Setter.Value>
+                                        <SolidColorBrush Color="{DynamicResource SystemAccentColorSecondary}" />
+                                    </Setter.Value>
+                                </Setter>
                                 <Setter Property="FontWeight" Value="Bold" />
                             </Trigger>
                         </ControlTemplate.Triggers>
