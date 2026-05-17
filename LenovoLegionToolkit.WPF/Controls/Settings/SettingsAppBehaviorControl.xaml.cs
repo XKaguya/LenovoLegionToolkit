@@ -158,6 +158,8 @@ public partial class SettingsAppBehaviorControl
 
         _settings.Store.LockWindowSize = state.Value;
         _settings.SynchronizeStore();
+
+        App.MainWindowInstance?.ApplyWindowLock(state.Value);
     }
 
     private async void EnableLoggingToggle_Click(object sender, RoutedEventArgs e)

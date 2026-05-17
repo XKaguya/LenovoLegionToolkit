@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -12,6 +11,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Shell;
 using Microsoft.Xaml.Behaviors.Core;
 using Windows.Win32;
 using Windows.Win32.System.Threading;
@@ -31,7 +31,6 @@ using LenovoLegionToolkit.WPF.Pages;
 using LenovoLegionToolkit.WPF.Resources;
 using LenovoLegionToolkit.WPF.Utils;
 using LenovoLegionToolkit.WPF.Windows.Utils;
-using CustomCardControl = LenovoLegionToolkit.WPF.Controls.Custom.CardControl;
 using CustomNavigationItem = LenovoLegionToolkit.WPF.Controls.Custom.NavigationItem;
 
 namespace LenovoLegionToolkit.WPF.Windows;
@@ -49,6 +48,7 @@ public partial class MainWindow
     private readonly UpdateChecker _updateChecker = IoCContainer.Resolve<UpdateChecker>();
 
     private TrayHelper? _trayHelper;
+    private bool _windowSizeLocked;
 
     public bool TrayTooltipEnabled { get; init; } = true;
     public bool DisableConflictingSoftwareWarning { get; set; }
@@ -172,6 +172,12 @@ public partial class MainWindow
     {
         Log.Instance.Trace($"Window state changed to {WindowState}");
 
+        if (_windowSizeLocked && WindowState == WindowState.Maximized)
+        {
+            WindowState = WindowState.Normal;
+            return;
+        }
+
         switch (WindowState)
         {
             case WindowState.Minimized:
@@ -188,17 +194,35 @@ public partial class MainWindow
     private void MainWindow_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
         var settings = IoCContainer.Resolve<ApplicationSettings>();
-        if (settings.Store.LockWindowSize)
-        {
-            ResizeMode = ResizeMode.NoResize;
-            SizeToContent = SizeToContent.Manual;
-        }
+        ApplyWindowLock(settings.Store.LockWindowSize);
 
         if (!IsVisible)
             return;
 
         CheckForUpdates();
         SetVisual();
+    }
+
+    public void ApplyWindowLock(bool locked)
+    {
+        _windowSizeLocked = locked;
+        if (locked)
+        {
+            ResizeMode = ResizeMode.NoResize;
+            SizeToContent = SizeToContent.Manual;
+        }
+        else
+        {
+            ResizeMode = ResizeMode.CanResize;
+        }
+
+        var chrome = WindowChrome.GetWindowChrome(this);
+        if (chrome is not null)
+        {
+            var newChrome = (WindowChrome)chrome.Clone();
+            newChrome.ResizeBorderThickness = locked ? new Thickness(0) : SystemParameters.WindowResizeBorderThickness;
+            WindowChrome.SetWindowChrome(this, newChrome);
+        }
     }
 
     private void AddExtensionNavigationItems()
@@ -476,42 +500,7 @@ public partial class MainWindow
 
     public void SetWindowOpacity(double opacity)
     {
-        var rootElement = App.MainWindowInstance!.Content as DependencyObject;
-
-        if (rootElement != null)
-        {
-            var allBorders = FindVisualChildren<Border>(rootElement);
-            foreach (var border in allBorders)
-            {
-                SetBorderOpacity(border, opacity);
-            }
-
-            var allCardControls = FindVisualChildren<CustomCardControl>(rootElement);
-            foreach (var cardControl in allCardControls)
-            {
-                SetCardControlOpacity(cardControl, opacity);
-            }
-        }
-    }
-
-    private IEnumerable<T> FindVisualChildren<T>(DependencyObject? parent) where T : DependencyObject
-    {
-        if (parent == null) yield break;
-
-        for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
-        {
-            var child = VisualTreeHelper.GetChild(parent, i);
-
-            if (child is T result)
-            {
-                yield return result;
-            }
-
-            foreach (var childOfChild in FindVisualChildren<T>(child))
-            {
-                yield return childOfChild;
-            }
-        }
+        _backgroundDimOverlay.Opacity = opacity;
     }
 
     public void SetVisual()
@@ -524,60 +513,18 @@ public partial class MainWindow
             if (result != string.Empty)
             {
                 SetMainWindowBackgroundImage(result);
+                SetWindowOpacity(opacity);
             }
-
-            if (opacity != 1)
+            else
             {
-                App.MainWindowInstance?.SetWindowOpacity(opacity);
+                _backgroundImage.ImageSource = null;
+                SetWindowOpacity(0);
             }
         }
         catch (Exception ex)
         {
             SnackbarHelper.Show(Resource.Warning, ex.Message, SnackbarType.Error);
             Log.Instance.Trace($"Exception occured when executing SetBackgroundImage().", ex);
-        }
-    }
-    private void SetBorderOpacity(Border border, double opacity)
-    {
-        if (border.Background != null)
-        {
-            var background = border.Background.Clone();
-            background.Opacity = opacity;
-            border.Background = background;
-        }
-
-        if (border.BorderBrush != null)
-        {
-            var borderBrush = border.BorderBrush.Clone();
-            borderBrush.Opacity = opacity;
-            border.BorderBrush = borderBrush;
-        }
-    }
-    private void SetCardControlOpacity(CustomCardControl cardControl, double opacity)
-    {
-        if (cardControl.Background == null)
-        {
-            cardControl.Background = new SolidColorBrush(Colors.Transparent);
-        }
-
-        if (cardControl.Background.IsFrozen || cardControl.Background.IsSealed)
-        {
-            cardControl.Background = cardControl.Background.Clone();
-        }
-        cardControl.Background.Opacity = opacity;
-
-        if (cardControl.BorderBrush != null)
-        {
-            if (cardControl.BorderBrush.IsFrozen || cardControl.BorderBrush.IsSealed)
-            {
-                cardControl.BorderBrush = cardControl.BorderBrush.Clone();
-            }
-            cardControl.BorderBrush.Opacity = opacity;
-        }
-
-        if (cardControl.Content is UIElement content)
-        {
-            content.Opacity = 1.0;
         }
     }
 

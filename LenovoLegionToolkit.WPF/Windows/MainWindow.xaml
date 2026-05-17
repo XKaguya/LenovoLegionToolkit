@@ -30,6 +30,12 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
+        <Rectangle
+            x:Name="_backgroundDimOverlay"
+            Grid.RowSpan="7"
+            Fill="{DynamicResource ApplicationBackgroundBrush}"
+            IsHitTestVisible="False" />
+
         <wpfui:TitleBar Grid.Row="0" />
 
         <Grid Grid.Row="0" Margin="12,4,150,4">

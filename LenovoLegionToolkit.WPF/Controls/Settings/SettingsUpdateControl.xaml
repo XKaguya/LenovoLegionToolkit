@@ -13,7 +13,7 @@
                 Margin="0,0,0,8"
                 Icon="ArrowSync24">
                 <custom:CardControl.Header>
-                    <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_CheckUpdates_Title}" />
+                    <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_CheckUpdates_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_CheckUpdates_Message}" />
                 </custom:CardControl.Header>
                 <wpfui:Button
                     x:Name="_checkUpdatesButton"
@@ -29,7 +29,7 @@
                 Margin="0,0,0,8"
                 Icon="ArrowSort24">
                 <custom:CardControl.Header>
-                    <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_UpdateChannel_Title}" />
+                    <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_UpdateChannel_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_UpdateChannel_Message}" />
                 </custom:CardControl.Header>
                 <ComboBox
                     x:Name="_updateChannelComboBox"
@@ -45,7 +45,7 @@
                 Margin="0,0,0,8"
                 Icon="ArrowSort24">
                 <custom:CardControl.Header>
-                    <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_UpdateMethod_Title}" />
+                    <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_UpdateMethod_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_UpdateMethod_Message}" />
                 </custom:CardControl.Header>
                 <ComboBox
                     x:Name="_updateMethodComboBox"
@@ -61,7 +61,7 @@
                 Margin="0,0,0,8"
                 Icon="Clock24">
                 <custom:CardControl.Header>
-                    <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_UpdateCheckFrequency_Title}" />
+                    <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_UpdateCheckFrequency_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_UpdateCheckFrequency_Message}" />
                 </custom:CardControl.Header>
                 <ComboBox
                     x:Name="_updateCheckFrequencyComboBox"

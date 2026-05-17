@@ -475,7 +475,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Open an argument window for convenient modification of arguments..
+        ///   Looks up a localized string similar to Modify startup arguments for the app..
         /// </summary>
         public static string ArgumentWindow_Edit_Message {
             get {
@@ -7555,6 +7555,15 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Check now for the latest version..
+        /// </summary>
+        public static string SettingsPage_CheckUpdates_Message {
+            get {
+                return ResourceManager.GetString("SettingsPage_CheckUpdates_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Checking for updates....
         /// </summary>
         public static string SettingsPage_CheckUpdates_Started_Title {
@@ -7587,15 +7596,6 @@ namespace LenovoLegionToolkit.WPF.Resources {
         public static string SettingsPage_Clear_BackgroundImage_Title {
             get {
                 return ResourceManager.GetString("SettingsPage_Clear_BackgroundImage_Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Image Cleared.
-        /// </summary>
-        public static string SettingsPage_ClearBackgroundImage_Title {
-            get {
-                return ResourceManager.GetString("SettingsPage_ClearBackgroundImage_Title", resourceCulture);
             }
         }
         
@@ -7645,7 +7645,16 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Custom Background Image.
+        ///   Looks up a localized string similar to Dim.
+        /// </summary>
+        public static string SettingsPage_Custom_BackgroundImage_Dim {
+            get {
+                return ResourceManager.GetString("SettingsPage_Custom_BackgroundImage_Dim", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set a custom wallpaper for the app window..
         /// </summary>
         public static string SettingsPage_Custom_BackgroundImage_Message {
             get {
@@ -7654,7 +7663,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Custom Background Image.
+        ///   Looks up a localized string similar to Background Image.
         /// </summary>
         public static string SettingsPage_Custom_BackgroundImage_Title {
             get {
@@ -7907,7 +7916,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You can exclude refresh rates, to make Fn+R shortcut more useful..
+        ///   Looks up a localized string similar to Hide specific refresh rates from the Fn+R cycle..
         /// </summary>
         public static string SettingsPage_ExcludeRefreshRates_Message {
             get {
@@ -7925,7 +7934,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use hardware acceleration for the user interface. This can improve performance and fluidity..
+        ///   Looks up a localized string similar to Use hardware acceleration for the user interface..
         /// </summary>
         public static string SettingsPage_HardwareAcceleration_Message {
             get {
@@ -8051,7 +8060,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select language..
+        ///   Looks up a localized string similar to Change the display language of the app..
         /// </summary>
         public static string SettingsPage_Language_Message {
             get {
@@ -8069,7 +8078,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lock LLT&apos;s window size. To prevent something change it..
+        ///   Looks up a localized string similar to Prevent the window from being resized..
         /// </summary>
         public static string SettingsPage_LockWindowSize_Message {
             get {
@@ -8087,7 +8096,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Always minimize to tray. Close with right click on tray icon..
+        ///   Looks up a localized string similar to Minimize to the system tray instead of closing..
         /// </summary>
         public static string SettingsPage_MinimizeOnClose_Message {
             get {
@@ -8267,7 +8276,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fn Lock will be temporarily disabled when Alt, Ctrl or Shift key is depressed..
+        ///   Looks up a localized string similar to Temporarily disable Fn Lock while Alt, Ctrl or Shift is held..
         /// </summary>
         public static string SettingsPage_SmartFnLock_Message {
             get {
@@ -8339,7 +8348,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to When on, same brightness level will be applied to all Windows power plans whenever you change it..
+        ///   Looks up a localized string similar to Apply the same brightness level across all Windows power plans..
         /// </summary>
         public static string SettingsPage_SynchronizeBrightnessToAllPowerPlans_Message {
             get {
@@ -8375,7 +8384,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set light theme, dark theme or follow system settings..
+        ///   Looks up a localized string similar to Set light, dark, or system-matched theme..
         /// </summary>
         public static string SettingsPage_Theme_Description {
             get {
@@ -8402,6 +8411,15 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choose between stable, beta and dev releases..
+        /// </summary>
+        public static string SettingsPage_UpdateChannel_Message {
+            get {
+                return ResourceManager.GetString("SettingsPage_UpdateChannel_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Update Channel.
         /// </summary>
         public static string SettingsPage_UpdateChannel_Title {
@@ -8411,11 +8429,29 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choose how often to check for new versions..
+        /// </summary>
+        public static string SettingsPage_UpdateCheckFrequency_Message {
+            get {
+                return ResourceManager.GetString("SettingsPage_UpdateCheckFrequency_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Automatically check for updates.
         /// </summary>
         public static string SettingsPage_UpdateCheckFrequency_Title {
             get {
                 return ResourceManager.GetString("SettingsPage_UpdateCheckFrequency_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose how updates are downloaded and installed..
+        /// </summary>
+        public static string SettingsPage_UpdateMethod_Message {
+            get {
+                return ResourceManager.GetString("SettingsPage_UpdateMethod_Message", resourceCulture);
             }
         }
         

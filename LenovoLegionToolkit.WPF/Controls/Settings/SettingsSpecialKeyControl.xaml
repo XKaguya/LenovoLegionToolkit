@@ -42,7 +42,7 @@
                 x:Name="_keyDiscoveryCard"
                 Margin="0,0,0,8"
                 Click="KeyDiscovery_Click"
-                Icon="Keyboard24">
+                Icon="Search24">
                 <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_Key_Discovery_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_Key_Discovery_Message}" />
             </custom:CardAction>
         </StackPanel>

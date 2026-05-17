@@ -59,11 +59,12 @@ public partial class SettingsAppearanceControl
         _accentColorSourceComboBox.SetItems(Enum.GetValues<AccentColorSource>(), _settings.Store.AccentColorSource, t => t.GetDisplayName());
 
         _backgroundImageOpacitySlider.Value = _settings.Store.Opacity;
+        _backgroundImageDimValueText.Text = FormatDimValue(_settings.Store.Opacity);
 
         _themeComboBox.Visibility = Visibility.Visible;
         _selectBackgroundImageButton.Visibility = Visibility.Visible;
         _clearBackgroundImageButton.Visibility = Visibility.Visible;
-        _backgroundImageOpacitySlider.Visibility = Visibility.Visible;
+        UpdateDimSliderVisibility();
         _hardwareAccelerationToggle.IsChecked = _settings.Store.EnableHardwareAcceleration;
 
         var array = Enum.GetValues<WindowBackdropType>()
@@ -172,9 +173,12 @@ public partial class SettingsAppearanceControl
             {
                 var filePath = openFileDialog.FileName;
                 App.MainWindowInstance!.SetMainWindowBackgroundImage(filePath);
+                App.MainWindowInstance!.SetWindowOpacity(_settings.Store.Opacity);
 
                 _settings.Store.BackGroundImageFilePath = filePath;
                 _settings.SynchronizeStore();
+
+                UpdateDimSliderVisibility();
             }
         }
         catch (Exception ex)
@@ -184,14 +188,27 @@ public partial class SettingsAppearanceControl
         }
     }
 
+    private void UpdateDimSliderVisibility()
+    {
+        var hasImage = _settings.Store.BackGroundImageFilePath != string.Empty;
+        var visibility = hasImage ? Visibility.Visible : Visibility.Collapsed;
+        _backgroundImageOpacitySlider.Visibility = visibility;
+        _backgroundImageDimLabel.Visibility = visibility;
+        _backgroundImageDimValueText.Visibility = visibility;
+    }
+
     private void OpacitySlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
     {
         if (_isRefreshing)
             return;
 
+        if (_settings.Store.BackGroundImageFilePath == string.Empty)
+            return;
+
         App.MainWindowInstance!.SetWindowOpacity(e.NewValue);
         _settings.Store.Opacity = e.NewValue;
         _settings.SynchronizeStore();
+        _backgroundImageDimValueText.Text = FormatDimValue(e.NewValue);
     }
 
     private void ClearBackgroundImageButton_Click(object sender, RoutedEventArgs e)
@@ -199,10 +216,11 @@ public partial class SettingsAppearanceControl
         if (_isRefreshing)
             return;
 
-        SnackbarHelper.Show(Resource.SettingsPage_ClearBackgroundImage_Title, Resource.SettingsPage_RestartRequired_Message, SnackbarType.Success);
-
         _settings.Store.BackGroundImageFilePath = string.Empty;
         _settings.SynchronizeStore();
+
+        App.MainWindowInstance?.SetVisual();
+        UpdateDimSliderVisibility();
     }
 
     private void HardwareAccelerationToggle_Checked(object sender, RoutedEventArgs e)
@@ -261,5 +279,7 @@ public partial class SettingsAppearanceControl
 
         SnackbarHelper.Show(Resource.SettingsPage_HardwareAcceleration_Title, Resource.SettingsPage_RestartRequired_Message, SnackbarType.Success);
     }
+
+    private static string FormatDimValue(double opacity) => $"{opacity * 100:0}{Resource.Percent}";
 }
 
