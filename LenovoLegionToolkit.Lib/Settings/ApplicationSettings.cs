@@ -47,10 +47,6 @@ public class ApplicationSettings : AbstractSettings<ApplicationSettingsStore>
         public TemperatureUnit TemperatureUnit { get; set; }
         public List<RefreshRate> ExcludedRefreshRates { get; set; } = [];
         public WarrantyInfo? WarrantyInfo { get; set; }
-        public Guid? SmartKeySinglePressActionId { get; set; }
-        public Guid? SmartKeyDoublePressActionId { get; set; }
-        public List<Guid> SmartKeySinglePressActionList { get; set; } = [];
-        public List<Guid> SmartKeyDoublePressActionList { get; set; } = [];
         public bool SynchronizeBrightnessToAllPowerPlans { get; set; }
         public ModifierKey SmartFnLockFlags { get; set; }
         public bool ResetBatteryOnSinceTimerOnReboot { get; set; }

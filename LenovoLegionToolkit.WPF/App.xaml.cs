@@ -142,7 +142,6 @@ public partial class App
             return false;
         }
 
-
 #if DEBUG
         if (Debugger.IsAttached)
         {

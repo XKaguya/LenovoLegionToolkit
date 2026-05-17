@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.Features;
+using LenovoLegionToolkit.Lib.Listeners;
 using LenovoLegionToolkit.Lib.Utils;
 using LenovoLegionToolkit.WPF.Resources;
 using LenovoLegionToolkit.WPF.Utils;
@@ -18,6 +19,7 @@ namespace LenovoLegionToolkit.WPF.Controls.Dashboard;
 public class ITSModeControl : AbstractComboBoxFeatureCardControl<ITSMode>
 {
     private readonly ITSModeFeature _itsModeFeature = IoCContainer.Resolve<ITSModeFeature>();
+    private readonly ITSModeListener _iTSModeListener = IoCContainer.Resolve<ITSModeListener>();
 
     private readonly Button _configButton = new()
     {
@@ -36,6 +38,16 @@ public class ITSModeControl : AbstractComboBoxFeatureCardControl<ITSMode>
         AutomationProperties.SetName(_configButton, Resource.ITSModeControl_Title);
 
         IsVisibleChanged += ITSModeControl_IsVisibleChanged;
+        _iTSModeListener.Changed += ITSModeListener_Changed;
+    }
+
+    private async void ITSModeListener_Changed(object? sender, ITSModeListener.ChangedEventArgs e)
+    {
+        await Dispatcher.InvokeAsync(async () =>
+        {
+            if (IsLoaded && IsVisible)
+                await RefreshAsync();
+        });
     }
 
     private async void ITSModeControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)

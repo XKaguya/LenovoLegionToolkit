@@ -21,7 +21,7 @@ public partial class SettingsPage
     private SettingsAppearanceControl? _appearanceControl;
     private SettingsAppBehaviorControl? _appBehaviorControl;
     private SettingsSoftwareControlControl? _softwareControlControl;
-    private SettingsSmartKeysControl? _smartKeysControl;
+    private SettingsSpecialKeyControl? _specialKeyControl;
     private SettingsDisplayControl? _displayControl;
     private SettingsUpdateControl? _updateControl;
     private SettingsPowerControl? _powerControl;
@@ -72,7 +72,7 @@ public partial class SettingsPage
             _appearanceControl = new SettingsAppearanceControl();
             _appBehaviorControl = new SettingsAppBehaviorControl();
             _softwareControlControl = new SettingsSoftwareControlControl();
-            _smartKeysControl = new SettingsSmartKeysControl();
+            _specialKeyControl = new SettingsSpecialKeyControl();
             _displayControl = new SettingsDisplayControl();
             _updateControl = new SettingsUpdateControl();
             _powerControl = new SettingsPowerControl();
@@ -126,7 +126,7 @@ public partial class SettingsPage
             "Appearance" => _appearanceControl,
             "AppBehavior" => _appBehaviorControl,
             "SoftwareControl" => _softwareControlControl,
-            "SmartKeys" => _smartKeysControl,
+            "SmartKeys" => _specialKeyControl,
             "Display" => _displayControl,
             "Updates" => _updateControl,
             "Power" => _powerControl,
@@ -168,7 +168,7 @@ public partial class SettingsPage
                     if (_softwareControlControl is not null) await _softwareControlControl.RefreshAsync();
                     break;
                 case "SmartKeys":
-                    if (_smartKeysControl is not null) await _smartKeysControl.RefreshAsync();
+                    if (_specialKeyControl is not null) await _specialKeyControl.RefreshAsync();
                     break;
                 case "Display":
                     if (_displayControl is not null) await _displayControl.RefreshAsync();
@@ -192,7 +192,14 @@ public partial class SettingsPage
 
     private void SoftwareControl_FnKeysStatusChanged(object? sender, SoftwareStatus fnKeysStatus)
     {
-        _smartKeysControl?.UpdateVisibilityBasedOnFnKeys(fnKeysStatus);
+        try
+        {
+            _specialKeyControl?.UpdateFnKeysVisibility(fnKeysStatus);
+        }
+        catch (Exception ex)
+        {
+            Log.Instance.Trace($"Failed to update FnKeys visibility.", ex);
+        }
     }
 
     private void PlayTransitionAnimation()

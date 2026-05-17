@@ -41,11 +41,12 @@ public class SpeakerFeature : IFeature<SpeakerState>
         return Task.FromResult(result);
     }
 
-    public Task SetStateAsync(SpeakerState state)
+    public async Task SetStateAsync(SpeakerState state)
     {
         var mute = SpeakerState.Mute == state;
         AudioEndpointVolumes.ForEach(v => v.Mute = mute);
-        return Task.CompletedTask;
+
+        await SpecialKeyLedHelper.SetLedAsync(mute ? SpecialKeyLedState.SpeakerOn : SpecialKeyLedState.SpeakerOff).ConfigureAwait(false);
     }
 
     public Task SetVolumeAsync(int value)

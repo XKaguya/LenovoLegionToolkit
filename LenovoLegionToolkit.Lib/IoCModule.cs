@@ -47,6 +47,7 @@ public class IoCModule : Module
         builder.Register<SunriseSunsetSettings>();
         builder.Register<UpdateSettings>();
         builder.Register<LampArraySettings>();
+        builder.Register<SpecialKeySettings>();
         builder.Register<ITSModeSettings>();
 
         builder.Register<AlwaysOnUSBFeature>();
@@ -95,17 +96,19 @@ public class IoCModule : Module
 
         builder.Register<DisplayBrightnessListener>().AutoActivateListener();
         builder.Register<DisplayConfigurationListener>().AutoActivateListener();
-        builder.Register<DriverKeyListener>().AutoActivateListener();
+        builder.Register<DriverKeyListener>().SingleInstance().AutoActivateListener();
         builder.Register<LightingChangeListener>().AutoActivateListener();
         builder.Register<NativeWindowsMessageListener>().AutoActivateListener();
         builder.Register<PowerModeListener>().AutoActivateListener();
         builder.Register<PowerStateListener>().AutoActivateListener();
         builder.Register<RGBKeyboardBacklightListener>().AutoActivateListener();
         builder.Register<SessionLockUnlockListener>().AutoActivateListener();
-        builder.Register<SpecialKeyListener>().AutoActivateListener();
+        builder.Register<SpecialKeyListener>().SingleInstance().AutoActivateListener();
         builder.Register<SystemThemeListener>().AutoActivateListener();
         builder.Register<ThermalModeListener>().AutoActivateListener();
         builder.Register<WinKeyListener>().AutoActivateListener();
+        builder.Register<ITSModeListener>().AutoActivateListener();
+        builder.Register<VolumeListener>().AutoActivateListener();
 
         builder.Register<GameAutoListener>();
         builder.Register<InstanceStartedEventAutoAutoListener>();

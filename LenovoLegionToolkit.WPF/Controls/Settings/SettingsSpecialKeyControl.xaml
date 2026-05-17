@@ -1,12 +1,12 @@
 <UserControl
-    x:Class="LenovoLegionToolkit.WPF.Controls.Settings.SettingsSmartKeysControl"
+    x:Class="LenovoLegionToolkit.WPF.Controls.Settings.SettingsSpecialKeyControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:LenovoLegionToolkit.WPF.Controls"
     xmlns:custom="clr-namespace:LenovoLegionToolkit.WPF.Controls.Custom"
     xmlns:resources="clr-namespace:LenovoLegionToolkit.WPF.Resources"
     xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml">
-    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
         <StackPanel Margin="0,0,16,12">
             <custom:CardControl Margin="0,0,0,8" Icon="Keyboard24">
                 <custom:CardControl.Header>
@@ -22,28 +22,28 @@
                     Visibility="Hidden" />
             </custom:CardControl>
             <custom:CardAction
-                x:Name="_smartKeySinglePressActionCard"
-                Margin="0,0,0,8"
-                Click="SmartKeySinglePressActionCard_Click"
-                Icon="Key24"
-                Visibility="Collapsed">
-                <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_SmartKeySinglePressAction_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_SmartKeySinglePressAction_Message}" />
-            </custom:CardAction>
-            <custom:CardAction
-                x:Name="_smartKeyDoublePressActionCard"
-                Margin="0,0,0,8"
-                Click="SmartKeyDoublePressActionCard_Click"
-                Icon="KeyMultiple20"
-                Visibility="Collapsed">
-                <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_SmartKeyDoublePressAction_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_SmartKeyDoublePressAction_Message}" />
-            </custom:CardAction>
-            <custom:CardAction
                 x:Name="_excludeRefreshRatesCard"
                 Margin="0,0,0,8"
                 Click="ExcludeRefreshRates_Click"
                 Icon="DesktopPulse24"
                 Visibility="Collapsed">
                 <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_ExcludeRefreshRates_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_ExcludeRefreshRates_Message}" />
+            </custom:CardAction>
+
+            <custom:CardAction
+                x:Name="_specialKeysCard"
+                Margin="0,0,0,8"
+                Click="SpecialKeys_Click"
+                Icon="Keyboard24">
+                <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_SmartKeys_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_SmartKeys_Message}" />
+            </custom:CardAction>
+
+            <custom:CardAction
+                x:Name="_keyDiscoveryCard"
+                Margin="0,0,0,8"
+                Click="KeyDiscovery_Click"
+                Icon="Keyboard24">
+                <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_Key_Discovery_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_Key_Discovery_Message}" />
             </custom:CardAction>
         </StackPanel>
     </ScrollViewer>

@@ -41,10 +41,11 @@ public class MicrophoneFeature : IFeature<MicrophoneState>
         return Task.FromResult(result);
     }
 
-    public Task SetStateAsync(MicrophoneState state)
+    public async Task SetStateAsync(MicrophoneState state)
     {
         var mute = MicrophoneState.Off == state;
         AudioEndpointVolumes.ForEach(v => v.Mute = mute);
-        return Task.CompletedTask;
+
+        await SpecialKeyLedHelper.SetLedAsync(mute ? SpecialKeyLedState.MicrophoneOn : SpecialKeyLedState.MicrophoneOff).ConfigureAwait(false);
     }
 }

@@ -40,13 +40,32 @@ public sealed class ExtensionManager
         var dlls = Directory.EnumerateFiles(pluginRoot, "*.dll", SearchOption.AllDirectories).ToArray();
         _logger.Trace($"Discovered {dlls.Length} plugin assembly file(s)");
 
-        foreach (var dll in dlls)
+        AppDomain.CurrentDomain.AssemblyResolve += OnAssemblyResolve;
+        try
         {
-            _logger.Trace($"Discovered plugin candidate: {dll}");
-            TryLoadAssemblyProviders(dll);
+            foreach (var dll in dlls)
+            {
+                _logger.Trace($"Discovered plugin candidate: {dll}");
+                TryLoadAssemblyProviders(dll);
+            }
+        }
+        finally
+        {
+            AppDomain.CurrentDomain.AssemblyResolve -= OnAssemblyResolve;
         }
 
         _logger.Trace($"Extension discovery completed. Loaded provider count: {_providers.Count}");
+    }
+
+    private static Assembly? OnAssemblyResolve(object? sender, ResolveEventArgs args)
+    {
+        var requestedName = new AssemblyName(args.Name);
+        foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+        {
+            if (assembly.GetName().Name == requestedName.Name)
+                return assembly;
+        }
+        return null;
     }
 
     public async Task StopAsync()
