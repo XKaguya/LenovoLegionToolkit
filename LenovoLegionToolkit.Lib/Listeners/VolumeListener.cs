@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using LenovoLegionToolkit.Lib.System.Management;
 using LenovoLegionToolkit.Lib.Utils;
 using NAudio.CoreAudioApi;
 
@@ -20,14 +19,12 @@ public class VolumeListener : IListener<VolumeListener.ChangedEventArgs>, IDispo
     private MMDevice? _speakerDevice;
     private bool _disposed;
 
-    private MachineInformation? _cachedMachineInformation;
     private bool? _lastMuteState;
 
     public async Task StartAsync()
     {
         try
         {
-            _cachedMachineInformation = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
             _enumerator = new MMDeviceEnumerator();
             _speakerDevice = _enumerator.EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active).FirstOrDefault();
 
@@ -83,13 +80,7 @@ public class VolumeListener : IListener<VolumeListener.ChangedEventArgs>, IDispo
 
             _lastMuteState = data.Muted;
 
-            _cachedMachineInformation ??= await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
-
-            if (_cachedMachineInformation.Value.LegionSeries > LegionSeries.Legion_Legacy)
-            {
-                var ledState = data.Muted ? SpecialKeyLedState.SpeakerOff : SpecialKeyLedState.SpeakerOn;
-                await WMI.LenovoUtilityData.SetFeatureAsync(ledState).ConfigureAwait(false);
-            }
+            await SpecialKeyLedHelper.SetLedAsync(data.Muted ? SpecialKeyLedState.SpeakerOn : SpecialKeyLedState.SpeakerOff).ConfigureAwait(false);
 
             await OnChangedAsync(data.Muted).ConfigureAwait(false);
         }

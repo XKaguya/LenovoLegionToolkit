@@ -192,6 +192,14 @@ public partial class SettingsPage
 
     private void SoftwareControl_FnKeysStatusChanged(object? sender, SoftwareStatus fnKeysStatus)
     {
+        try
+        {
+            _specialKeyControl?.UpdateFnKeysVisibility(fnKeysStatus);
+        }
+        catch (Exception ex)
+        {
+            Log.Instance.Trace($"Failed to update FnKeys visibility.", ex);
+        }
     }
 
     private void PlayTransitionAnimation()

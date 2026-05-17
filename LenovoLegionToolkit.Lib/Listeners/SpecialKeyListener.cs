@@ -31,7 +31,6 @@ public class SpecialKeyListener(
 
     private readonly ThrottleFirstDispatcher _refreshRateDispatcher = new(TimeSpan.FromSeconds(2), nameof(SpecialKeyListener));
     private int _currentRawValue;
-    private MachineInformation? _cachedMachineInformation;
 
     protected override SpecialKey GetValue(int value)
     {
@@ -291,12 +290,7 @@ public class SpecialKeyListener(
         await microphoneFeature.SetStateAsync(newState).ConfigureAwait(false);
         MessagingCenter.Publish(new NotificationMessage(notification));
 
-        _cachedMachineInformation ??= await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
-
-        if (_cachedMachineInformation.Value.LegionSeries > LegionSeries.Legion_Legacy)
-        {
-            await WMI.LenovoUtilityData.SetFeatureAsync(isCurrentlyOn ? SpecialKeyLedState.MicrophoneOn : SpecialKeyLedState.MicrophoneOff).ConfigureAwait(false);
-        }
+        await SpecialKeyLedHelper.SetLedAsync(isCurrentlyOn ? SpecialKeyLedState.MicrophoneOn : SpecialKeyLedState.MicrophoneOff).ConfigureAwait(false);
     }
 
     private static void NotifyWhiteBacklight(WhiteKeyboardBacklightState value)

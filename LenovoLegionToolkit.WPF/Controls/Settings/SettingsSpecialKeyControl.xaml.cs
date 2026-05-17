@@ -24,6 +24,16 @@ public partial class SettingsSpecialKeyControl
         InitializeComponent();
     }
 
+    public void UpdateFnKeysVisibility(SoftwareStatus fnKeysStatus)
+    {
+        if (_isRefreshing)
+            return;
+
+        var visible = fnKeysStatus != SoftwareStatus.Enabled ? Visibility.Visible : Visibility.Collapsed;
+        _smartFnLockComboBox.Visibility = Visibility.Visible;
+        _excludeRefreshRatesCard.Visibility = visible;
+    }
+
     public async Task RefreshAsync()
     {
         _isRefreshing = true;

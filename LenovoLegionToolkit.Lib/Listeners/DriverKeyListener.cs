@@ -5,7 +5,6 @@ using LenovoLegionToolkit.Lib.Messaging;
 using LenovoLegionToolkit.Lib.Messaging.Messages;
 using LenovoLegionToolkit.Lib.SoftwareDisabler;
 using LenovoLegionToolkit.Lib.System;
-using LenovoLegionToolkit.Lib.System.Management;
 using LenovoLegionToolkit.Lib.Utils;
 using System;
 using System.Threading;
@@ -37,7 +36,6 @@ public class DriverKeyListener(
 
     private CancellationTokenSource? _cancellationTokenSource;
     private Task? _listenTask;
-    private MachineInformation? _cachedMachineInformation;
 
     public Task StartAsync()
     {
@@ -165,12 +163,7 @@ public class DriverKeyListener(
         await microphoneFeature.SetStateAsync(newState).ConfigureAwait(false);
         MessagingCenter.Publish(new NotificationMessage(notification));
 
-        _cachedMachineInformation ??= await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
-
-        if (_cachedMachineInformation.Value.LegionSeries > LegionSeries.Legion_Legacy)
-        {
-            await WMI.LenovoUtilityData.SetFeatureAsync(isCurrentlyOn ? SpecialKeyLedState.MicrophoneOn : SpecialKeyLedState.MicrophoneOff).ConfigureAwait(false);
-        }
+        await SpecialKeyLedHelper.SetLedAsync(isCurrentlyOn ? SpecialKeyLedState.MicrophoneOn : SpecialKeyLedState.MicrophoneOff).ConfigureAwait(false);
     }
 
     private async Task NotifyTouchpadLockAsync()
