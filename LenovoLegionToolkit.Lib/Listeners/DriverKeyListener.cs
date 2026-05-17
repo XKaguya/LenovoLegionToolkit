@@ -5,6 +5,7 @@ using LenovoLegionToolkit.Lib.Messaging;
 using LenovoLegionToolkit.Lib.Messaging.Messages;
 using LenovoLegionToolkit.Lib.SoftwareDisabler;
 using LenovoLegionToolkit.Lib.System;
+using LenovoLegionToolkit.Lib.System.Management;
 using LenovoLegionToolkit.Lib.Utils;
 using System;
 using System.Threading;
@@ -36,6 +37,7 @@ public class DriverKeyListener(
 
     private CancellationTokenSource? _cancellationTokenSource;
     private Task? _listenTask;
+    private MachineInformation? _cachedMachineInformation;
 
     public Task StartAsync()
     {
@@ -153,17 +155,21 @@ public class DriverKeyListener(
     {
         if (!await microphoneFeature.IsSupportedAsync().ConfigureAwait(false))
             return;
-        var state = await microphoneFeature.GetStateAsync().ConfigureAwait(false);
-        switch (state)
+
+        var currentState = await microphoneFeature.GetStateAsync().ConfigureAwait(false);
+        var isCurrentlyOn = currentState == MicrophoneState.On;
+
+        var newState = isCurrentlyOn ? MicrophoneState.Off : MicrophoneState.On;
+        var notification = isCurrentlyOn ? NotificationType.MicrophoneOff : NotificationType.MicrophoneOn;
+
+        await microphoneFeature.SetStateAsync(newState).ConfigureAwait(false);
+        MessagingCenter.Publish(new NotificationMessage(notification));
+
+        _cachedMachineInformation ??= await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
+
+        if (_cachedMachineInformation.Value.LegionSeries > LegionSeries.Legion_Legacy)
         {
-            case MicrophoneState.On:
-                await microphoneFeature.SetStateAsync(MicrophoneState.Off).ConfigureAwait(false);
-                MessagingCenter.Publish(new NotificationMessage(NotificationType.MicrophoneOff));
-                break;
-            case MicrophoneState.Off:
-                await microphoneFeature.SetStateAsync(MicrophoneState.On).ConfigureAwait(false);
-                MessagingCenter.Publish(new NotificationMessage(NotificationType.MicrophoneOn));
-                break;
+            await WMI.LenovoUtilityData.SetFeatureAsync(isCurrentlyOn ? SpecialKeyLedState.MicrophoneOn : SpecialKeyLedState.MicrophoneOff).ConfigureAwait(false);
         }
     }
 
