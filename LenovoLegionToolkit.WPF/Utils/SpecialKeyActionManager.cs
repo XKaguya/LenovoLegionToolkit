@@ -39,12 +39,21 @@ public class SpecialKeyActionManager
     private async Task<bool> ExecuteAsync(SpecialKey key)
     {
         var keyInt = (int)key;
-        return await ExecuteByCodeAsync(keyInt, key.ToString()).ConfigureAwait(false);
+        if (await ExecuteByCodeAsync(keyInt, key.ToString()).ConfigureAwait(false))
+            return true;
+
+        if (key == SpecialKey.FnN)
+        {
+            _bringToForeground?.Invoke();
+            return true;
+        }
+
+        return false;
     }
 
     private async Task<bool> ExecuteDriverKeyAsync(DriverKey key)
     {
-        var keyInt = (int)key;
+        var keyInt = (int)key + SpecialKeySettings.SpecialKeySettingsStore.DriverKeyCodeOffset;
         return await ExecuteByCodeAsync(keyInt, key.ToString()).ConfigureAwait(false);
     }
 

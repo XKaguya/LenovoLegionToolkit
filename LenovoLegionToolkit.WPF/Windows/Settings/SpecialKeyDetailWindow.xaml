@@ -56,7 +56,7 @@
 
                 <custom:CardControl Margin="0,0,0,12">
                     <custom:CardControl.Header>
-                        <controls:CardHeaderControl Title="Mode" Subtitle="{x:Static resources:Resource.SpecialKey_Mode_Custom_Description}" />
+                        <controls:CardHeaderControl x:Name="_modeHeader" Title="{x:Static resources:Resource.SpecialKeyDetail_Mode}" />
                     </custom:CardControl.Header>
                     <ComboBox
                         x:Name="_modeComboBox"

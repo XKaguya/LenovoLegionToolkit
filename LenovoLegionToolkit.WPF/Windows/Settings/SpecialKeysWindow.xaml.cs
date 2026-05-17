@@ -10,12 +10,16 @@ using LenovoLegionToolkit.WPF.Controls;
 using LenovoLegionToolkit.WPF.Controls.Custom;
 using LenovoLegionToolkit.WPF.Resources;
 using Wpf.Ui.Common;
+using CardAction = LenovoLegionToolkit.WPF.Controls.Custom.CardAction;
+using MenuItem = Wpf.Ui.Controls.MenuItem;
 
 namespace LenovoLegionToolkit.WPF.Windows.Settings;
 
 public partial class SpecialKeysWindow
 {
     private readonly SpecialKeySettings _settings = IoCContainer.Resolve<SpecialKeySettings>();
+
+    private bool _showingHidden;
 
     public SpecialKeysWindow()
     {
@@ -39,24 +43,29 @@ public partial class SpecialKeysWindow
     private void BuildKeyList()
     {
         _keyList.Items.Clear();
+        _hiddenArea.Children.Clear();
 
         var displayedCodes = new HashSet<int>();
 
         foreach (var key in Enum.GetValues<SpecialKey>())
         {
-            if (key is not (SpecialKey.FnF9 or SpecialKey.FnPrtSc or SpecialKey.FnPrtSc2
-                or SpecialKey.FnR or SpecialKey.FnR2 or SpecialKey.FnN
-                or SpecialKey.FnF4 or SpecialKey.FnF8))
+            var code = (int)key;
+            if (_settings.Store.HiddenKeys.Contains(code))
                 continue;
 
-            var code = (int)key;
+            if (displayedCodes.Contains(code))
+                continue;
+
             displayedCodes.Add(code);
             AddKeyCard(code, GetSpecialKeyDisplayName(code));
         }
 
         foreach (var key in Enum.GetValues<DriverKey>())
         {
-            var code = (int)key;
+            var code = (int)key + SpecialKeySettings.SpecialKeySettingsStore.DriverKeyCodeOffset;
+            if (_settings.Store.HiddenKeys.Contains(code))
+                continue;
+
             if (displayedCodes.Contains(code))
                 continue;
 
@@ -68,12 +77,45 @@ public partial class SpecialKeysWindow
         {
             if (displayedCodes.Contains(code))
                 continue;
+
+            if (_settings.Store.HiddenKeys.Contains(code))
+                continue;
+
             if (Enum.IsDefined(typeof(SpecialKey), (SpecialKey)code))
                 continue;
-            if (Enum.IsDefined(typeof(DriverKey), (DriverKey)code))
+
+            if (code >= SpecialKeySettings.SpecialKeySettingsStore.DriverKeyCodeOffset
+                && Enum.IsDefined(typeof(DriverKey), (DriverKey)(code - SpecialKeySettings.SpecialKeySettingsStore.DriverKeyCodeOffset)))
                 continue;
 
             AddKeyCard(code, name);
+        }
+
+        var hiddenCount = _settings.Store.HiddenKeys.Count;
+        _showHiddenButton.Visibility = hiddenCount > 0 ? Visibility.Visible : Visibility.Collapsed;
+        if (hiddenCount > 0)
+        {
+            _showHiddenButton.Icon = _showingHidden ? SymbolRegular.EyeOff24 : SymbolRegular.Eye24;
+            _showHiddenButton.ToolTip = _showingHidden
+                ? string.Format(Resource.SpecialKeysWindow_HideHiddenKeys, hiddenCount)
+                : string.Format(Resource.SpecialKeysWindow_ShowHiddenKeys, hiddenCount);
+
+            if (_showingHidden)
+            {
+                foreach (var code in _settings.Store.HiddenKeys)
+                {
+                    string name;
+                    if (_settings.Store.KeyDescriptions.TryGetValue(code, out var desc))
+                        name = desc;
+                    else if (code >= SpecialKeySettings.SpecialKeySettingsStore.DriverKeyCodeOffset
+                        && Enum.IsDefined(typeof(DriverKey), (DriverKey)(code - SpecialKeySettings.SpecialKeySettingsStore.DriverKeyCodeOffset)))
+                        name = GetDriverKeyDisplayName((DriverKey)(code - SpecialKeySettings.SpecialKeySettingsStore.DriverKeyCodeOffset));
+                    else
+                        name = GetSpecialKeyDisplayName(code);
+
+                    AddHiddenKeyCard(code, name);
+                }
+            }
         }
     }
 
@@ -82,12 +124,7 @@ public partial class SpecialKeysWindow
         var mode = _settings.Store.KeyModes.TryGetValue(code, out var m)
             ? m : CustomSpecialKey.Default;
 
-        var subtitleText = mode == CustomSpecialKey.Default
-            ? Resource.SpecialKey_Mode_Default_Description
-            : Resource.SpecialKey_Mode_Custom_Description;
-
-        var isCustom = !Enum.IsDefined(typeof(SpecialKey), (SpecialKey)code)
-            && !Enum.IsDefined(typeof(DriverKey), (DriverKey)code);
+        var subtitleText = mode.GetDisplayName();
 
         var card = new CardAction
         {
@@ -100,26 +137,89 @@ public partial class SpecialKeysWindow
             },
             Tag = code,
             Cursor = System.Windows.Input.Cursors.Hand,
-            ContextMenu = isCustom ? CreateDeleteContextMenu(code) : null
+            ContextMenu = CreateHideContextMenu(code)
         };
         card.Click += (_, _) => OpenKeyDetailWindow(code, displayName);
 
         _keyList.Items.Add(card);
     }
 
-    private ContextMenu CreateDeleteContextMenu(int code)
+    private void AddHiddenKeyCard(int code, string displayName)
     {
-        var deleteItem = new MenuItem { Header = Resource.Delete };
-        deleteItem.Click += (_, _) =>
+        var isCustom = !Enum.IsDefined(typeof(SpecialKey), (SpecialKey)code)
+            && !(code >= SpecialKeySettings.SpecialKeySettingsStore.DriverKeyCodeOffset
+                && Enum.IsDefined(typeof(DriverKey), (DriverKey)(code - SpecialKeySettings.SpecialKeySettingsStore.DriverKeyCodeOffset)));
+
+        var card = new CardAction
         {
-            _settings.Store.KeyDescriptions.Remove(code);
-            _settings.Store.KeyModes.Remove(code);
-            _settings.Store.KeyActions.Remove(code);
+            Margin = new(0, 4, 0, 0),
+            Opacity = 0.5,
+            Icon = SymbolRegular.Keyboard24,
+            Content = new CardHeaderControl
+            {
+                Title = displayName
+            },
+            Cursor = System.Windows.Input.Cursors.Arrow,
+            ContextMenu = CreateUnhideContextMenu(code, isCustom)
+        };
+        _hiddenArea.Children.Add(card);
+    }
+
+    private ContextMenu CreateHideContextMenu(int code)
+    {
+        var hideItem = new MenuItem
+        {
+            SymbolIcon = SymbolRegular.EyeOff24,
+            Header = Resource.Hide,
+        };
+        hideItem.Click += (_, _) =>
+        {
+            _settings.Store.HiddenKeys.Add(code);
             _settings.SynchronizeStore();
             BuildKeyList();
         };
 
-        return new ContextMenu { Items = { deleteItem } };
+        return new ContextMenu { Items = { hideItem } };
+    }
+
+    private ContextMenu CreateUnhideContextMenu(int code, bool isCustom)
+    {
+        var unhideItem = new MenuItem
+        {
+            SymbolIcon = SymbolRegular.Eye24,
+            Header = Resource.Unhide,
+        };
+        unhideItem.Click += (_, _) =>
+        {
+            _settings.Store.HiddenKeys.Remove(code);
+            _settings.SynchronizeStore();
+            BuildKeyList();
+        };
+
+        var menu = new ContextMenu { Items = { unhideItem } };
+
+        if (isCustom)
+        {
+            var deleteItem = new MenuItem { Header = Resource.Delete };
+            deleteItem.Click += (_, _) =>
+            {
+                _settings.Store.HiddenKeys.Remove(code);
+                _settings.Store.KeyDescriptions.Remove(code);
+                _settings.Store.KeyModes.Remove(code);
+                _settings.Store.KeyActions.Remove(code);
+                _settings.SynchronizeStore();
+                BuildKeyList();
+            };
+            menu.Items.Add(deleteItem);
+        }
+
+        return menu;
+    }
+
+    private void ShowHiddenButton_Click(object sender, RoutedEventArgs e)
+    {
+        _showingHidden = !_showingHidden;
+        BuildKeyList();
     }
 
     private void OpenKeyDetailWindow(int keyCode, string displayName)
@@ -139,7 +239,7 @@ public partial class SpecialKeysWindow
             var key = (SpecialKey)code;
             string str = key.ToString();
             if (str.StartsWith("Fn", StringComparison.OrdinalIgnoreCase) && str.Length > 2)
-                return string.Concat("Fn ", str.AsSpan(2));
+                return string.Concat("Fn + ", str.AsSpan(2));
             return str;
         }
 
@@ -150,7 +250,7 @@ public partial class SpecialKeysWindow
     {
         string str = key.ToString();
         if (str.StartsWith("Fn", StringComparison.OrdinalIgnoreCase) && str.Length > 2)
-            return string.Concat("Fn ", str.AsSpan(2), " (Driver)");
+            return string.Concat("Fn + ", str.AsSpan(2), " (Driver)");
         return $"{str} (Driver)";
     }
 }

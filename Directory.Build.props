@@ -9,6 +9,7 @@
     <Copyright>© 2026 Bartosz Cichecki, Kaguya, and Dr. Skinner</Copyright>
     <Nullable>enable</Nullable>
     <NeutralLanguage>en</NeutralLanguage>
+    <NuGetAudit>false</NuGetAudit>
     <BaseOutputPath>$(MSBuildThisFileDirectory)BuildLLT\bin\</BaseOutputPath>
     <BaseIntermediateOutputPath>$(MSBuildThisFileDirectory)BuildLLT\obj\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
   </PropertyGroup>

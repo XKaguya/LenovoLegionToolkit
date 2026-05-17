@@ -23,6 +23,7 @@ public partial class SpecialKeyDetailWindow
     private readonly string _displayName;
     private bool _isRefreshing;
     private bool _descriptionDirty;
+    private CustomSpecialKey _pendingMode;
 
     private List<Guid> ActionList =>
         _settings.Store.KeyActions.GetValueOrDefault(_keyCode, []);
@@ -56,18 +57,21 @@ public partial class SpecialKeyDetailWindow
             ? desc : "";
         _descriptionDirty = false;
 
-        var isBuiltIn = Enum.IsDefined(typeof(SpecialKey), (SpecialKey)_keyCode)
-            || Enum.IsDefined(typeof(DriverKey), (DriverKey)_keyCode);
+        var isDriverKey = _keyCode >= SpecialKeySettings.SpecialKeySettingsStore.DriverKeyCodeOffset
+            && Enum.IsDefined(typeof(DriverKey), (DriverKey)(_keyCode - SpecialKeySettings.SpecialKeySettingsStore.DriverKeyCodeOffset));
+        var isBuiltIn = Enum.IsDefined(typeof(SpecialKey), (SpecialKey)_keyCode) || isDriverKey;
         _deleteButton.Visibility = isBuiltIn ? Visibility.Collapsed : Visibility.Visible;
 
-        var mode = _settings.Store.KeyModes.TryGetValue(_keyCode, out var m) ? m : CustomSpecialKey.Default;
+        _pendingMode = _settings.Store.KeyModes.TryGetValue(_keyCode, out var m) ? m : CustomSpecialKey.Default;
 
         _modeComboBox.SetItems(
             [CustomSpecialKey.Default, CustomSpecialKey.Custom],
-            mode,
+            _pendingMode,
             v => v.GetDisplayName());
 
-        var isCustom = mode == CustomSpecialKey.Custom;
+        _modeHeader.Subtitle = Resource.SpecialKeyDetail_Mode_Description;
+
+        var isCustom = _pendingMode == CustomSpecialKey.Custom;
         _customPanel.Visibility = isCustom ? Visibility.Visible : Visibility.Collapsed;
         _showThisAppToggle.IsChecked = isCustom && ActionList.Count == 0;
 
@@ -117,12 +121,7 @@ public partial class SpecialKeyDetailWindow
 
         _isRefreshing = true;
 
-        _settings.Store.KeyModes[_keyCode] = mode;
-        if (mode == CustomSpecialKey.Default)
-            _settings.Store.KeyActions.Remove(_keyCode);
-        else if (!_settings.Store.KeyActions.ContainsKey(_keyCode))
-            _settings.Store.KeyActions[_keyCode] = [];
-        _settings.SynchronizeStore();
+        _pendingMode = mode;
 
         var isCustom = mode == CustomSpecialKey.Custom;
         _customPanel.Visibility = isCustom ? Visibility.Visible : Visibility.Collapsed;
@@ -148,10 +147,13 @@ public partial class SpecialKeyDetailWindow
                 _settings.Store.KeyDescriptions[_keyCode] = _descriptionTextBox.Text.Trim();
         }
 
-        var mode = _settings.Store.KeyModes.TryGetValue(_keyCode, out var m)
-            ? m : CustomSpecialKey.Default;
+        _settings.Store.KeyModes[_keyCode] = _pendingMode;
 
-        if (mode == CustomSpecialKey.Custom)
+        if (_pendingMode == CustomSpecialKey.Default)
+        {
+            _settings.Store.KeyActions.Remove(_keyCode);
+        }
+        else
         {
             var selectedPipelines = _list.Items.OfType<PipelineListItem>()
                 .Where(li => li.IsChecked)
@@ -183,7 +185,7 @@ public partial class SpecialKeyDetailWindow
     {
         string str = key.ToString();
         if (str.StartsWith("Fn", StringComparison.OrdinalIgnoreCase) && str.Length > 2)
-            return string.Concat("Fn ", str.AsSpan(2));
+            return string.Concat("Fn + ", str.AsSpan(2));
         return str;
     }
 

@@ -77,18 +77,22 @@ public partial class KeyDiscoveryWindow
     {
         var rawValue = (int)e.RawValue;
         var isKnown = Enum.IsDefined(typeof(DriverKey), (DriverKey)e.RawValue);
-        var name = GetSpecialKeyDisplayName((int)e.RawValue, isKnown);
+        var name = GetDriverKeyDisplayName(rawValue, isKnown);
         InsertEvent(rawValue, "IOCTL", name, isKnown);
     }
 
     private void InsertEvent(int code, string channel, string displayName, bool isKnown)
     {
-        var canAdd = !isKnown && !_settings.Store.KeyDescriptions.ContainsKey(code);
+        var storageCode = channel == "IOCTL"
+            ? code + SpecialKeySettings.SpecialKeySettingsStore.DriverKeyCodeOffset
+            : code;
+        var canAdd = !isKnown && !_settings.Store.KeyDescriptions.ContainsKey(storageCode);
         var time = DateTime.Now.ToString("HH:mm:ss");
 
         var entry = new DetectedKeyEvent
         {
             Code = code,
+            StorageCode = storageCode,
             DisplayName = displayName,
             Channel = channel,
             CodeText = $"code: {code}",
@@ -117,8 +121,8 @@ public partial class KeyDiscoveryWindow
             ? $"Custom Key {entry.Code}"
             : entry.DisplayName;
 
-        _settings.Store.KeyDescriptions[entry.Code] = name;
-        _settings.Store.KeyModes[entry.Code] = CustomSpecialKey.Default;
+        _settings.Store.KeyDescriptions[entry.StorageCode] = name;
+        _settings.Store.KeyModes[entry.StorageCode] = CustomSpecialKey.Default;
         _settings.SynchronizeStore();
 
         entry.CanAdd = false;
@@ -136,17 +140,32 @@ public partial class KeyDiscoveryWindow
             var key = (SpecialKey)code;
             string str = key.ToString();
             if (str.StartsWith("Fn", StringComparison.OrdinalIgnoreCase) && str.Length > 2)
-                return string.Concat("Fn ", str.AsSpan(2));
+                return string.Concat("Fn + ", str.AsSpan(2));
             return str;
         }
 
         return $"Fn + 0x{code:X2}";
+    }
+
+    private static string GetDriverKeyDisplayName(int code, bool isKnown)
+    {
+        if (isKnown)
+        {
+            var key = (DriverKey)code;
+            string str = key.ToString();
+            if (str.StartsWith("Fn", StringComparison.OrdinalIgnoreCase) && str.Length > 2)
+                return string.Concat("Fn + ", str.AsSpan(2), " (Driver)");
+            return $"{str} (Driver)";
+        }
+
+        return $"Fn + 0x{code:X2} (Driver)";
     }
 }
 
 public class DetectedKeyEvent : INotifyPropertyChanged
 {
     public int Code { get; init; }
+    public int StorageCode { get; init; }
     public string Time { get; init; } = string.Empty;
     public string Channel { get; init; } = string.Empty;
     public string CodeText { get; init; } = string.Empty;

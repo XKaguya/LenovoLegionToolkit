@@ -43,7 +43,21 @@
 
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="12,4,16,12">
+                <custom:CardControl
+                    Margin="0,4,0,8"
+                    Icon="Info24">
+                    <custom:CardControl.Header>
+                        <TextBlock Text="{x:Static resources:Resource.SpecialKeysWindow_Description}" TextWrapping="Wrap" />
+                    </custom:CardControl.Header>
+                    <wpfui:Button
+                        x:Name="_showHiddenButton"
+                        Appearance="Primary"
+                        Icon="Eye24"
+                        Visibility="Collapsed"
+                        Click="ShowHiddenButton_Click" />
+                </custom:CardControl>
                 <ItemsControl x:Name="_keyList" />
+                <StackPanel x:Name="_hiddenArea" Margin="0,8,0,0" />
             </StackPanel>
         </ScrollViewer>
     </Grid>
