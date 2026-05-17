@@ -3791,7 +3791,16 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to code: {0}.
+        ///   Looks up a localized string similar to Added.
+        /// </summary>
+        public static string KeyDiscovery_Added {
+            get {
+                return ResourceManager.GetString("KeyDiscovery_Added", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Code: {0}.
         /// </summary>
         public static string KeyDiscovery_CodeText {
             get {
@@ -3800,20 +3809,29 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter key name....
+        ///   Looks up a localized string similar to Known key.
         /// </summary>
-        public static string KeyDiscovery_EnterKeyName {
+        public static string KeyDiscovery_KnownKeyTooltip {
             get {
-                return ResourceManager.GetString("KeyDiscovery_EnterKeyName", resourceCulture);
+                return ResourceManager.GetString("KeyDiscovery_KnownKeyTooltip", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Press the Fn hotkey to check if it supports customization..
+        ///   Looks up a localized string similar to Listening for key presses... Press ESC to stop..
         /// </summary>
-        public static string KeyDiscovery_Instruction {
+        public static string KeyDiscovery_Listening {
             get {
-                return ResourceManager.GetString("KeyDiscovery_Instruction", resourceCulture);
+                return ResourceManager.GetString("KeyDiscovery_Listening", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown key – can be added.
+        /// </summary>
+        public static string KeyDiscovery_UnknownKeyTooltip {
+            get {
+                return ResourceManager.GetString("KeyDiscovery_UnknownKeyTooltip", resourceCulture);
             }
         }
         
@@ -8591,7 +8609,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Find key that is not defined in LLT..
+        ///   Looks up a localized string similar to Press Fn hotkeys to discover which ones can be added and customized as Smart Keys..
         /// </summary>
         public static string SpecialKeyDetailWindow_KeyDiscovery_Message {
             get {

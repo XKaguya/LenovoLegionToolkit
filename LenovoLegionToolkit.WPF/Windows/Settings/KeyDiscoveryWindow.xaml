@@ -45,17 +45,12 @@
                 IsHitTestVisible="False" />
         </Grid>
 
-        <StackPanel Grid.Row="1" Margin="16,0,16,8">
-            <TextBlock
-                x:Name="_statusLabel"
-                Margin="0,0,0,4"
-                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                TextWrapping="Wrap" />
-            <TextBlock
-                Foreground="{DynamicResource TextFillColorTertiaryBrush}"
-                Text="{x:Static resources:Resource.KeyDiscovery_Instruction}"
-                TextWrapping="Wrap" />
-        </StackPanel>
+        <TextBlock
+            x:Name="_statusLabel"
+            Grid.Row="1"
+            Margin="16,0,16,8"
+            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+            TextWrapping="Wrap" />
 
         <Border
             Grid.Row="2"
@@ -66,6 +61,22 @@
             </Border.Background>
 
             <Grid>
+                                <StackPanel
+                                    x:Name="_listeningOverlay"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Visibility="Collapsed">
+                                    <wpfui:SymbolIcon
+                                        HorizontalAlignment="Center"
+                                        FontSize="32"
+                                        Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                                        Symbol="Keyboard24" />
+                                    <TextBlock
+                                        Margin="0,8,0,0"
+                                        HorizontalAlignment="Center"
+                                        Foreground="{DynamicResource TextFillColorTertiaryBrush}"
+                                        Text="{x:Static resources:Resource.KeyDiscovery_Listening}" />
+                                </StackPanel>
                 <wpfui:DynamicScrollViewer>
                     <ItemsControl x:Name="_eventList" HorizontalContentAlignment="Stretch">
                         <ItemsControl.ItemTemplate>
@@ -95,9 +106,11 @@
                                         <Ellipse.Style>
                                             <Style TargetType="Ellipse">
                                                 <Setter Property="Fill" Value="{DynamicResource SystemFillColorSuccessBrush}" />
+                                                <Setter Property="ToolTip" Value="{x:Static resources:Resource.KeyDiscovery_KnownKeyTooltip}" />
                                                 <Style.Triggers>
                                                     <DataTrigger Binding="{Binding IsKnown}" Value="False">
                                                         <Setter Property="Fill" Value="{DynamicResource SystemFillColorCautionBrush}" />
+                                                        <Setter Property="ToolTip" Value="{x:Static resources:Resource.KeyDiscovery_UnknownKeyTooltip}" />
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
@@ -133,6 +146,22 @@
                                         Content="{x:Static resources:Resource.KeyDiscovery_AddCustomKey}"
                                         Tag="{Binding}"
                                         Visibility="{Binding CanAdd, Converter={StaticResource BoolToVisibilityConverter}}" />
+                                    <StackPanel
+                                        Grid.Column="5"
+                                        Margin="8,0,0,0"
+                                        Orientation="Horizontal"
+                                        VerticalAlignment="Center"
+                                        Visibility="{Binding IsAdded, Converter={StaticResource BoolToVisibilityConverter}}">
+                                        <wpfui:SymbolIcon
+                                            FontSize="14"
+                                            Foreground="{DynamicResource SystemFillColorSuccessBrush}"
+                                            Symbol="CheckmarkCircle24" />
+                                        <TextBlock
+                                            Margin="4,0,0,0"
+                                            VerticalAlignment="Center"
+                                            Foreground="{DynamicResource SystemFillColorSuccessBrush}"
+                                            Text="{x:Static resources:Resource.KeyDiscovery_Added}" />
+                                    </StackPanel>
                                 </Grid>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>

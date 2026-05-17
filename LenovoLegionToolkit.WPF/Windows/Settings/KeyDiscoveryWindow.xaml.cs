@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Input;
 using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Listeners;
 using LenovoLegionToolkit.Lib.Settings;
@@ -35,10 +36,21 @@ public partial class KeyDiscoveryWindow
             StartKeyDiscovery();
     }
 
+    protected override void OnKeyDown(KeyEventArgs e)
+    {
+        if (e.Key == Key.Escape && _isDiscovering)
+        {
+            StopKeyDiscovery();
+            e.Handled = true;
+        }
+        base.OnKeyDown(e);
+    }
+
     private void StartKeyDiscovery()
     {
         _isDiscovering = true;
         _events.Clear();
+        _listeningOverlay.Visibility = Visibility.Visible;
 
         _statusLabel.Text = Resource.SpecialKeyDetailWindow_KeyDiscovery_Message;
         _discoveryButton.Content = Resource.SpecialKeyDetailWindow_KeyDiscovery_Stop;
@@ -62,6 +74,7 @@ public partial class KeyDiscoveryWindow
         _driverKeyListener.DiscoveryMode = false;
 
         _isDiscovering = false;
+        _listeningOverlay.Visibility = Visibility.Collapsed;
         _statusLabel.Text = Resource.SpecialKeyDetailWindow_KeyDiscovery_Message;
         _discoveryButton.Content = Resource.SpecialKeyDetailWindow_KeyDiscovery_Start;
     }
@@ -104,6 +117,7 @@ public partial class KeyDiscoveryWindow
         Dispatcher.Invoke(() =>
         {
             _events.Insert(0, entry);
+            _listeningOverlay.Visibility = Visibility.Collapsed;
         });
     }
 
@@ -126,6 +140,7 @@ public partial class KeyDiscoveryWindow
         _settings.SynchronizeStore();
 
         entry.CanAdd = false;
+        entry.IsAdded = true;
         entry.DisplayName = name;
 
         var i = _events.IndexOf(entry);
@@ -183,6 +198,13 @@ public class DetectedKeyEvent : INotifyPropertyChanged
     {
         get => _canAdd;
         set { _canAdd = value; OnPropertyChanged(); }
+    }
+
+    private bool _isAdded;
+    public bool IsAdded
+    {
+        get => _isAdded;
+        set { _isAdded = value; OnPropertyChanged(); }
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;
