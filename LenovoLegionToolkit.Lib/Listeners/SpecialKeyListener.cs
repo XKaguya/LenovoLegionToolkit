@@ -170,7 +170,7 @@ public class SpecialKeyListener(
                 await ToggleMicrophoneAsync().ConfigureAwait(false);
                 break;
             case SpecialKey.FnF8:
-                AirplaneMode.Toggle();
+                ToggleAirplaneMode();
                 break;
             case SpecialKey.WhiteBacklightOff:
                 NotifyWhiteBacklight(WhiteKeyboardBacklightState.Off);
@@ -259,6 +259,13 @@ public class SpecialKeyListener(
             Log.Instance.Trace($"Failed to switch refresh rate after Fn+R.", ex);
         }
     });
+
+    private static void ToggleAirplaneMode()
+    {
+        var isAirplaneModeOn = AirplaneMode.Toggle();
+        MessagingCenter.Publish(new NotificationMessage(
+            isAirplaneModeOn ? NotificationType.AirplaneModeOn : NotificationType.AirplaneModeOff));
+    }
 
     private static void OpenSnippingTool()
     {

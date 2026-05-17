@@ -447,6 +447,8 @@ public enum NotificationType
     ACAdapterConnected,
     ACAdapterConnectedLowWattage,
     ACAdapterDisconnected,
+    AirplaneModeOn,
+    AirplaneModeOff,
     AutomationNotification,
     CameraOn,
     CameraOff,

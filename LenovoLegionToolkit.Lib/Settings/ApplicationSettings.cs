@@ -16,6 +16,7 @@ public class ApplicationSettings : AbstractSettings<ApplicationSettingsStore>
         public bool TouchpadLock { get; set; } = true;
         public bool KeyboardBacklight { get; set; } = true;
         public bool CameraLock { get; set; } = true;
+        public bool AirplaneMode { get; set; } = true;
         public bool Microphone { get; set; } = true;
         public bool PowerMode { get; set; }
         public bool RefreshRate { get; set; } = true;

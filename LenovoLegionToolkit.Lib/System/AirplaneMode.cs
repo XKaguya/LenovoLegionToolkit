@@ -16,13 +16,13 @@ public static class AirplaneMode
         [PreserveSig] int SetSystemRadioState(int state);
     }
 
-    public static void Toggle()
+    public static bool Toggle()
     {
         var comType = Type.GetTypeFromCLSID(RadioManagerClsid);
         if (comType == null)
         {
             Log.Instance.Trace($"Failed to get COM type for IRadioManager.");
-            return;
+            return false;
         }
 
         var radioManager = (IRadioManager)Activator.CreateInstance(comType)!;
@@ -30,14 +30,13 @@ public static class AirplaneMode
         try
         {
             radioManager.GetSystemRadioState(out var state, out _, out _);
-            radioManager.SetSystemRadioState(state == 0 ? 1 : 0);
+            var newState = state == 0 ? 1 : 0;
+            radioManager.SetSystemRadioState(newState);
+            return newState == 0;
         }
         finally
         {
-            if (radioManager != null)
-            {
-                Marshal.ReleaseComObject(radioManager);
-            }
+            Marshal.ReleaseComObject(radioManager);
         }
     }
 }

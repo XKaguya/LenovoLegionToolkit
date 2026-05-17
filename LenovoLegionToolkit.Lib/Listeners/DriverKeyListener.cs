@@ -138,7 +138,7 @@ public class DriverKeyListener(
                 await ToggleMicrophoneAsync().ConfigureAwait(false);
                 break;
             case DriverKey.FnF8:
-                AirplaneMode.Toggle();
+                ToggleAirplaneMode();
                 break;
             case DriverKey.FnF10:
                 await NotifyTouchpadLockAsync().ConfigureAwait(false);
@@ -147,6 +147,13 @@ public class DriverKeyListener(
                 await NotifyWhiteBacklightAsync().ConfigureAwait(false);
                 break;
         }
+    }
+
+    private static void ToggleAirplaneMode()
+    {
+        var isAirplaneModeOn = AirplaneMode.Toggle();
+        MessagingCenter.Publish(new NotificationMessage(
+            isAirplaneModeOn ? NotificationType.AirplaneModeOn : NotificationType.AirplaneModeOff));
     }
 
     private async Task ToggleMicrophoneAsync()
