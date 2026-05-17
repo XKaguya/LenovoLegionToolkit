@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -46,50 +47,37 @@ public partial class SpecialKeysWindow
         _hiddenArea.Children.Clear();
 
         var displayedCodes = new HashSet<int>();
+        var entries = new List<(int Code, string Name)>();
 
         foreach (var key in Enum.GetValues<SpecialKey>())
         {
             var code = (int)key;
-            if (_settings.Store.HiddenKeys.Contains(code))
-                continue;
-
-            if (displayedCodes.Contains(code))
-                continue;
-
-            displayedCodes.Add(code);
-            AddKeyCard(code, GetSpecialKeyDisplayName(code));
+            if (_settings.Store.HiddenKeys.Contains(code)) continue;
+            if (!displayedCodes.Add(code)) continue;
+            entries.Add((code, GetSpecialKeyDisplayName(code)));
         }
 
         foreach (var key in Enum.GetValues<DriverKey>())
         {
             var code = (int)key + SpecialKeySettings.SpecialKeySettingsStore.DriverKeyCodeOffset;
-            if (_settings.Store.HiddenKeys.Contains(code))
-                continue;
-
-            if (displayedCodes.Contains(code))
-                continue;
-
-            displayedCodes.Add(code);
-            AddKeyCard(code, GetDriverKeyDisplayName(key));
+            if (_settings.Store.HiddenKeys.Contains(code)) continue;
+            if (!displayedCodes.Add(code)) continue;
+            entries.Add((code, GetDriverKeyDisplayName(key)));
         }
 
         foreach (var (code, name) in _settings.Store.KeyDescriptions)
         {
-            if (displayedCodes.Contains(code))
-                continue;
-
-            if (_settings.Store.HiddenKeys.Contains(code))
-                continue;
-
-            if (Enum.IsDefined(typeof(SpecialKey), (SpecialKey)code))
-                continue;
-
+            if (_settings.Store.HiddenKeys.Contains(code)) continue;
+            if (!displayedCodes.Add(code)) continue;
+            if (Enum.IsDefined(typeof(SpecialKey), (SpecialKey)code)) continue;
             if (code >= SpecialKeySettings.SpecialKeySettingsStore.DriverKeyCodeOffset
                 && Enum.IsDefined(typeof(DriverKey), (DriverKey)(code - SpecialKeySettings.SpecialKeySettingsStore.DriverKeyCodeOffset)))
                 continue;
-
-            AddKeyCard(code, name);
+            entries.Add((code, name));
         }
+
+        foreach (var (code, name) in entries.OrderBy(e => e.Name, StringComparer.OrdinalIgnoreCase))
+            AddKeyCard(code, name);
 
         var hiddenCount = _settings.Store.HiddenKeys.Count;
         _showHiddenButton.Visibility = hiddenCount > 0 ? Visibility.Visible : Visibility.Collapsed;
@@ -102,19 +90,23 @@ public partial class SpecialKeysWindow
 
             if (_showingHidden)
             {
-                foreach (var code in _settings.Store.HiddenKeys)
-                {
-                    string name;
-                    if (_settings.Store.KeyDescriptions.TryGetValue(code, out var desc))
-                        name = desc;
-                    else if (code >= SpecialKeySettings.SpecialKeySettingsStore.DriverKeyCodeOffset
-                        && Enum.IsDefined(typeof(DriverKey), (DriverKey)(code - SpecialKeySettings.SpecialKeySettingsStore.DriverKeyCodeOffset)))
-                        name = GetDriverKeyDisplayName((DriverKey)(code - SpecialKeySettings.SpecialKeySettingsStore.DriverKeyCodeOffset));
-                    else
-                        name = GetSpecialKeyDisplayName(code);
+                var hiddenEntries = _settings.Store.HiddenKeys
+                    .Select(code =>
+                    {
+                        string name;
+                        if (_settings.Store.KeyDescriptions.TryGetValue(code, out var desc))
+                            name = desc;
+                        else if (code >= SpecialKeySettings.SpecialKeySettingsStore.DriverKeyCodeOffset
+                            && Enum.IsDefined(typeof(DriverKey), (DriverKey)(code - SpecialKeySettings.SpecialKeySettingsStore.DriverKeyCodeOffset)))
+                            name = GetDriverKeyDisplayName((DriverKey)(code - SpecialKeySettings.SpecialKeySettingsStore.DriverKeyCodeOffset));
+                        else
+                            name = GetSpecialKeyDisplayName(code);
+                        return (Code: code, Name: name);
+                    })
+                    .OrderBy(e => e.Name, StringComparer.OrdinalIgnoreCase);
 
+                foreach (var (code, name) in hiddenEntries)
                     AddHiddenKeyCard(code, name);
-                }
             }
         }
     }
