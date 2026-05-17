@@ -108,6 +108,7 @@ public class IoCModule : Module
         builder.Register<ThermalModeListener>().AutoActivateListener();
         builder.Register<WinKeyListener>().AutoActivateListener();
         builder.Register<ITSModeListener>().AutoActivateListener();
+        builder.Register<VolumeListener>().AutoActivateListener();
 
         builder.Register<GameAutoListener>();
         builder.Register<InstanceStartedEventAutoAutoListener>();

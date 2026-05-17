@@ -31,14 +31,13 @@ public class SpecialKeyListener(
 
     private readonly ThrottleFirstDispatcher _refreshRateDispatcher = new(TimeSpan.FromSeconds(2), nameof(SpecialKeyListener));
     private int _currentRawValue;
+    private MachineInformation? _cachedMachineInformation;
 
     protected override SpecialKey GetValue(int value)
     {
         Log.Instance.Trace($"Event received. [value={value}]");
-
         _currentRawValue = value;
-        var result = (SpecialKey)value;
-        return result;
+        return (SpecialKey)value;
     }
 
     protected override ChangedEventArgs GetEventArgs(SpecialKey value) => new(value, _currentRawValue);
@@ -72,15 +71,16 @@ public class SpecialKeyListener(
 
     private static bool HandleNotification(SpecialKey value)
     {
-        if (value is SpecialKey.FnLockOn or SpecialKey.FnLockOff) 
-        { 
-            NotifyFnLockState(value); 
-            return true; 
+        if (value is SpecialKey.FnLockOn or SpecialKey.FnLockOff)
+        {
+            NotifyFnLockState(value);
+            return true;
         }
-        if (value is SpecialKey.CameraOn or SpecialKey.CameraOff) 
-        { 
-            NotifyCameraState(value); 
-            return true; 
+
+        if (value is SpecialKey.CameraOn or SpecialKey.CameraOff)
+        {
+            NotifyCameraState(value);
+            return true;
         }
 
         if (value is SpecialKey.SpectrumBacklightOff or SpecialKey.SpectrumBacklight1
@@ -264,7 +264,6 @@ public class SpecialKeyListener(
     private static void OpenSnippingTool()
     {
         Log.Instance.Trace($"Starting snipping tool..");
-
         Process.Start("explorer", "ms-screenclip:");
     }
 
@@ -280,20 +279,23 @@ public class SpecialKeyListener(
 
     private async Task ToggleMicrophoneAsync()
     {
-
         if (!await microphoneFeature.IsSupportedAsync().ConfigureAwait(false))
             return;
 
-        switch (await microphoneFeature.GetStateAsync().ConfigureAwait(false))
+        var currentState = await microphoneFeature.GetStateAsync().ConfigureAwait(false);
+        var isCurrentlyOn = currentState == MicrophoneState.On;
+
+        var newState = isCurrentlyOn ? MicrophoneState.Off : MicrophoneState.On;
+        var notification = isCurrentlyOn ? NotificationType.MicrophoneOff : NotificationType.MicrophoneOn;
+
+        await microphoneFeature.SetStateAsync(newState).ConfigureAwait(false);
+        MessagingCenter.Publish(new NotificationMessage(notification));
+
+        _cachedMachineInformation ??= await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
+
+        if (_cachedMachineInformation.Value.LegionSeries > LegionSeries.Legion_Legacy)
         {
-            case MicrophoneState.On:
-                await microphoneFeature.SetStateAsync(MicrophoneState.Off).ConfigureAwait(false);
-                MessagingCenter.Publish(new NotificationMessage(NotificationType.MicrophoneOff));
-                break;
-            case MicrophoneState.Off:
-                await microphoneFeature.SetStateAsync(MicrophoneState.On).ConfigureAwait(false);
-                MessagingCenter.Publish(new NotificationMessage(NotificationType.MicrophoneOn));
-                break;
+            await WMI.LenovoUtilityData.SetFeatureAsync(isCurrentlyOn ? SpecialKeyLedState.MicrophoneOn : SpecialKeyLedState.MicrophoneOff).ConfigureAwait(false);
         }
     }
 

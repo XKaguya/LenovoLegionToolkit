@@ -17,11 +17,16 @@ public class ITSModeListener(ITSModeFeature itsModeFeature) : IListener<ITSModeL
 
     public event EventHandler<ChangedEventArgs>? Changed;
 
-    public Task StartAsync()
+    public async Task StartAsync()
     {
+        var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
+        if (mi.LegionSeries <= LegionSeries.Legion_Legacy)
+        {
+            return;
+        }
+
         MessagingCenter.Subscribe<DriverKeyPressedMessage>(this, OnFnQKeyPressedAsync);
         Log.Instance.Trace($"ITSModeListener started, listening for driver keys.");
-        return Task.CompletedTask;
     }
 
     public Task StopAsync()

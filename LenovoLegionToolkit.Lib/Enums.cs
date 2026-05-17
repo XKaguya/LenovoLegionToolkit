@@ -754,6 +754,14 @@ public enum SpecialKey
     WhiteBacklight2 = 66
 }
 
+public enum SpecialKeyLedState
+{
+    MicrophoneOn = 1,
+    MicrophoneOff = 2,
+    SpeakerOn = 4,
+    SpeakerOff = 5,
+}
+
 public enum ThinkBookSpecialKey
 {
     VoipAnswer = 5,
