@@ -17,6 +17,7 @@ public class SpecialKeyListener(
     ApplicationSettings settings,
     FnKeysDisabler fnKeysDisabler,
     RefreshRateFeature feature,
+    TouchpadLockFeature touchpadLockFeature,
     MicrophoneFeature microphoneFeature)
     : AbstractWMIListener<SpecialKeyListener.ChangedEventArgs, SpecialKey, int>(WMI.LenovoUtilityEvent.Listen)
 {
@@ -172,6 +173,9 @@ public class SpecialKeyListener(
             case SpecialKey.FnF8:
                 ToggleAirplaneMode();
                 break;
+            case SpecialKey.FnF8Special:
+                await NotifyTouchpadLockAsync().ConfigureAwait(false);
+                break;
             case SpecialKey.WhiteBacklightOff:
                 NotifyWhiteBacklight(WhiteKeyboardBacklightState.Off);
                 break;
@@ -182,6 +186,16 @@ public class SpecialKeyListener(
                 NotifyWhiteBacklight(WhiteKeyboardBacklightState.High);
                 break;
         }
+    }
+
+    private async Task NotifyTouchpadLockAsync()
+    {
+        if (!await touchpadLockFeature.IsSupportedAsync().ConfigureAwait(false))
+            return;
+        var status = await touchpadLockFeature.GetStateAsync().ConfigureAwait(false);
+        MessagingCenter.Publish(status == TouchpadLockState.Off
+            ? new NotificationMessage(NotificationType.TouchpadOn)
+            : new NotificationMessage(NotificationType.TouchpadOff));
     }
 
     private static void NotifyCameraState(SpecialKey value)
