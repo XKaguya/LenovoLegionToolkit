@@ -1818,6 +1818,9 @@ It won't affect other full screen windows, but you will not be able to click on 
   <data name="Notification_WhiteKeyboardBacklight" xml:space="preserve">
     <value>Backlight {0}</value>
   </data>
+  <data name="Notification_WhiteKeyboardBacklightSpecial" xml:space="preserve">
+    <value>Backlight changed</value>
+  </data>
   <data name="Off" xml:space="preserve">
     <value>Off</value>
   </data>
@@ -2594,6 +2597,12 @@ Make sure that your script runs correctly first.</value>
   <data name="SettingsPage_AccentColor_Title" xml:space="preserve">
     <value>Accent color</value>
   </data>
+  <data name="SettingsPage_AlwaysOnTop_Message" xml:space="preserve">
+    <value>Keep the app window above all other windows.</value>
+  </data>
+  <data name="SettingsPage_AlwaysOnTop_Title" xml:space="preserve">
+    <value>Pin to Top</value>
+  </data>
   <data name="SettingsPage_Autorun_Message" xml:space="preserve">
     <value>Start minimized to tray when you log in to Windows.</value>
   </data>
@@ -2819,12 +2828,6 @@ If disabled, this app will handle Fn shortcuts.</value>
   </data>
   <data name="SettingsPage_LockWindowSize_Title" xml:space="preserve">
     <value>Lock Window Size</value>
-  </data>
-  <data name="SettingsPage_AlwaysOnTop_Message" xml:space="preserve">
-    <value>Keep the app window above all other windows.</value>
-  </data>
-  <data name="SettingsPage_AlwaysOnTop_Title" xml:space="preserve">
-    <value>Pin to Top</value>
   </data>
   <data name="SettingsPage_MinimizeOnClose_Message" xml:space="preserve">
     <value>Minimize to the system tray instead of closing.</value>

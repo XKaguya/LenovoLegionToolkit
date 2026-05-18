@@ -1799,6 +1799,9 @@ Do not proceed unless you possess the necessary technical expertise.</value>
   <data name="Notification_WhiteKeyboardBacklight" xml:space="preserve">
     <value>背光 {0}</value>
   </data>
+  <data name="Notification_WhiteKeyboardBacklightSpecial" xml:space="preserve">
+    <value>Backlight changed</value>
+  </data>
   <data name="Off" xml:space="preserve">
     <value>關閉</value>
   </data>

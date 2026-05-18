@@ -481,6 +481,7 @@ public enum NotificationType
     TouchpadOff,
     UpdateAvailable,
     WhiteKeyboardBacklightChanged,
+    WhiteKeyboardBacklightChangedSpecial,
     WhiteKeyboardBacklightOff,
     ITSModeAuto,
     ITSModeCool,

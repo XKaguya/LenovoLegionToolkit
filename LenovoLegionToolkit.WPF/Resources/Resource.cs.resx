@@ -1801,6 +1801,9 @@ Nebude to mít vliv na ostatní celoobrazovková okna, ale nebudete moci kliknou
   <data name="Notification_WhiteKeyboardBacklight" xml:space="preserve">
     <value>Podsvícení {0}</value>
   </data>
+  <data name="Notification_WhiteKeyboardBacklightSpecial" xml:space="preserve">
+    <value>Backlight changed</value>
+  </data>
   <data name="Off" xml:space="preserve">
     <value>Vypnuto</value>
   </data>

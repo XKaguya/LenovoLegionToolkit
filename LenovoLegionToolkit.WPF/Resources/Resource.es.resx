@@ -1802,6 +1802,9 @@ No afectará a otras ventanas a pantalla completa, pero no podrá hacer clic en 
   <data name="Notification_WhiteKeyboardBacklight" xml:space="preserve">
     <value>Retroiluminación {0}</value>
   </data>
+  <data name="Notification_WhiteKeyboardBacklightSpecial" xml:space="preserve">
+    <value>Backlight changed</value>
+  </data>
   <data name="Off" xml:space="preserve">
     <value>Apagado</value>
   </data>

@@ -194,28 +194,7 @@ public class DriverKeyListener(
             return;
         }
 
-        try
-        {
-            var handle = Drivers.GetEnergy();
-            if (PInvokeExtensions.DeviceIoControl(handle, Drivers.IOCTL_ENERGY_KEYBOARD, 0x1u, out uint buf))
-            {
-                if ((buf & 1) == 1)
-                    buf >>= 1;
-                var state = buf switch
-                {
-                    0 => WhiteKeyboardBacklightState.Off,
-                    1 => WhiteKeyboardBacklightState.Low,
-                    _ => WhiteKeyboardBacklightState.High,
-                };
-                MessagingCenter.Publish(state == WhiteKeyboardBacklightState.Off
-                    ? new NotificationMessage(NotificationType.WhiteKeyboardBacklightOff, state.GetDisplayName())
-                    : new NotificationMessage(NotificationType.WhiteKeyboardBacklightChanged, state.GetDisplayName()));
-            }
-        }
-        catch (Exception ex)
-        {
-            Log.Instance.Trace($"Backlight read failed. [message={ex.Message}]");
-        }
+        MessagingCenter.Publish(new NotificationMessage(NotificationType.WhiteKeyboardBacklightChangedSpecial));
     }
 
     private static unsafe bool BindListener(WaitHandle waitHandle)

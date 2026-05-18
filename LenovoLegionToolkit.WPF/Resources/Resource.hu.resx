@@ -1800,6 +1800,9 @@ Nincs hatással a többi teljes képernyős ablakokra, de nem lehet kattintani a
   <data name="Notification_WhiteKeyboardBacklight" xml:space="preserve">
     <value>Háttérvilágítás {0}</value>
   </data>
+  <data name="Notification_WhiteKeyboardBacklightSpecial" xml:space="preserve">
+    <value>Backlight changed</value>
+  </data>
   <data name="Off" xml:space="preserve">
     <value>Ki</value>
   </data>
