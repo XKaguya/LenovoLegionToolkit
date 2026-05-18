@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using LenovoLegionToolkit.Lib.Features.Hybrid.Notify;
 using LenovoLegionToolkit.Lib.System;
+using LenovoLegionToolkit.Lib.System.Management;
 using LenovoLegionToolkit.Lib.Utils;
 
 namespace LenovoLegionToolkit.Lib.Features.Hybrid;
@@ -26,6 +27,12 @@ public class HybridModeFeature(GSyncFeature gSyncFeature, IGPUModeFeature igpuMo
     public async Task<HybridModeState[]> GetAllStatesAsync()
     {
         var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
+        var result = await WMI.LenovoBiosSetting.GetBiosSelections("GraphicsDevice").ConfigureAwait(false);
+
+        if (result.Contains("UMA"))
+        {
+            return [HybridModeState.On, HybridModeState.OnIGPUOnly, HybridModeState.OnAuto, HybridModeState.UMA, HybridModeState.Off];
+        }
 
         return (mi.Properties.SupportsGSync, mi.Properties.SupportsIGPUMode) switch
         {
@@ -39,6 +46,13 @@ public class HybridModeFeature(GSyncFeature gSyncFeature, IGPUModeFeature igpuMo
     public async Task<HybridModeState> GetStateAsync()
     {
         Log.Instance.Trace($"Getting state...");
+
+        var result = await WMI.LenovoBiosSetting.GetBiosSetting("GraphicsDevice").ConfigureAwait(false);
+        if (result.Contains("UMA"))
+        {
+            Log.Instance.Trace($"State is {HybridModeState.UMA} BiosGPUModeFeature");
+            return HybridModeState.UMA;
+        }
 
         var gSyncSupported = await gSyncFeature.IsSupportedAsync().ConfigureAwait(false);
         var igpuModeSupported = await igpuModeFeature.IsSupportedAsync().ConfigureAwait(false);
@@ -61,6 +75,13 @@ public class HybridModeFeature(GSyncFeature gSyncFeature, IGPUModeFeature igpuMo
 
     public async Task SetStateAsync(HybridModeState state)
     {
+        if (state == HybridModeState.UMA)
+        {
+            await WMI.LenovoBiosSetting.SetBiosSetting("GraphicsDevice", "UMA Graphics").ConfigureAwait(false);
+            await WMI.LenovoBiosSetting.SaveBiosSetting().ConfigureAwait(false);
+            Log.Instance.Trace($"State set to {HybridModeState.UMA}  BiosGPUModeFeature");
+        }
+
         await _ensureDGPUEjectedIfNeededCancellationTokenSource.CancelAsync().ConfigureAwait(false);
 
         var (gSync, igpuMode) = Unpack(state);

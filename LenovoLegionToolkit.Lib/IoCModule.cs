@@ -61,6 +61,7 @@ public class IoCModule : Module
         builder.Register<GSyncFeature>();
         builder.Register<HDRFeature>();
         builder.Register<HybridModeFeature>();
+        builder.Register<BiosGPUModeFeature>();
         builder.Register<IGPUModeFeature>();
         builder.Register<IGPUModeCapabilityFeature>(true);
         builder.Register<IGPUModeFeatureFlagsFeature>(true);
