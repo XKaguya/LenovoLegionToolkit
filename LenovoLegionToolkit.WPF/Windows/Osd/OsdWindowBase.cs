@@ -64,6 +64,7 @@ public abstract class OsdWindowBase : Window
     private CancellationTokenSource? _cts;
     protected bool _positionSet;
     private bool _fpsMonitoringStarted;
+    private bool _hasLenovoController;
 
     protected HashSet<OsdItem> _activeItems = [];
     protected Dictionary<OsdItem, FrameworkElement> _itemsMap = [];
@@ -103,6 +104,8 @@ public abstract class OsdWindowBase : Window
         {
             OnAmdDeviceDetected();
         }
+
+        _hasLenovoController = await _controller.IsSupportedAsync();
     }
 
     protected abstract void OnAmdDeviceDetected();
@@ -672,52 +675,94 @@ public abstract class OsdWindowBase : Window
 
     private async Task RefreshSensorsDataAsync(CancellationToken token)
     {
-        var dataTask = _controller.GetDataAsync();
-
-        await Task.WhenAll(dataTask).ConfigureAwait(false);
-
-        if (token.IsCancellationRequested) return;
-
-        if (_uiUpdateThrottleMs > 0 && (DateTime.Now - _lastUpdate).TotalMilliseconds < _uiUpdateThrottleMs) return;
-
-        _lastUpdate = DateTime.Now;
-
-        var mainData = dataTask.Result;
-
         var gs = _sensorsGroupControllers.Snapshot;
-        var snapshot = new SensorSnapshot
+
+        if (_hasLenovoController)
         {
-            CpuUsage = mainData.CPU.Utilization,
-            CpuFrequency = _sensorsGroupControllers.ShowAverageCpuFrequency ? gs.CpuAvgClock : gs.CpuMaxClock,
-            CpuPClock = _sensorsGroupControllers.ShowAverageCpuFrequency ? gs.CpuPAvgClock : gs.CpuPClock,
-            CpuEClock = _sensorsGroupControllers.ShowAverageCpuFrequency ? gs.CpuEAvgClock : gs.CpuEClock,
-            CpuTemp = mainData.CPU.Temperature,
-            CpuPower = gs.CpuPower,
-            CpuFanSpeed = mainData.CPU.FanSpeed,
+            var mainData = await _controller.GetDataAsync();
 
-            GpuUsage = mainData.GPU.Utilization,
-            GpuFrequency = mainData.GPU.CoreClock,
-            GpuTemp = mainData.GPU.Temperature,
-            GpuVramUsage = gs.GpuVramUtilization,
-            GpuVramUsed = gs.GpuVramUsed,
-            GpuVramTotal = gs.GpuVramTotal,
-            GpuVramTemp = gs.GpuVramTemp,
-            GpuPower = gs.GpuPower,
-            GpuFanSpeed = mainData.GPU.FanSpeed,
+            if (token.IsCancellationRequested) return;
 
-            MemUsage = gs.MemUsage,
-            MemUsed = gs.MemUsed,
-            MemTotal = gs.MemTotal,
-            MemTemp = (float)gs.MemMaxTemp,
+            if (_uiUpdateThrottleMs > 0 && (DateTime.Now - _lastUpdate).TotalMilliseconds < _uiUpdateThrottleMs) return;
 
-            PchTemp = mainData.PCH.Temperature,
-            PchFanSpeed = mainData.PCH.FanSpeed,
+            _lastUpdate = DateTime.Now;
 
-            Disk1Temp = gs.SsdTemps.Item1,
-            Disk2Temp = gs.SsdTemps.Item2
-        };
+            var snapshot = new SensorSnapshot
+            {
+                CpuUsage = mainData.CPU.Utilization,
+                CpuFrequency = _sensorsGroupControllers.ShowAverageCpuFrequency ? gs.CpuAvgClock : gs.CpuMaxClock,
+                CpuPClock = _sensorsGroupControllers.ShowAverageCpuFrequency ? gs.CpuPAvgClock : gs.CpuPClock,
+                CpuEClock = _sensorsGroupControllers.ShowAverageCpuFrequency ? gs.CpuEAvgClock : gs.CpuEClock,
+                CpuTemp = mainData.CPU.Temperature,
+                CpuPower = gs.CpuPower,
+                CpuFanSpeed = mainData.CPU.FanSpeed,
 
-        await Dispatcher.BeginInvoke(() => UpdateSensorData(snapshot), DispatcherPriority.Normal);
+                GpuUsage = mainData.GPU.Utilization,
+                GpuFrequency = mainData.GPU.CoreClock,
+                GpuTemp = mainData.GPU.Temperature,
+                GpuVramUsage = gs.GpuVramUtilization,
+                GpuVramUsed = gs.GpuVramUsed,
+                GpuVramTotal = gs.GpuVramTotal,
+                GpuVramTemp = gs.GpuVramTemp,
+                GpuPower = gs.GpuPower,
+                GpuFanSpeed = mainData.GPU.FanSpeed,
+
+                MemUsage = gs.MemUsage,
+                MemUsed = gs.MemUsed,
+                MemTotal = gs.MemTotal,
+                MemTemp = (float)gs.MemMaxTemp,
+
+                PchTemp = mainData.PCH.Temperature,
+                PchFanSpeed = mainData.PCH.FanSpeed,
+
+                Disk1Temp = gs.SsdTemps.Item1,
+                Disk2Temp = gs.SsdTemps.Item2
+            };
+
+            await Dispatcher.BeginInvoke(() => UpdateSensorData(snapshot), DispatcherPriority.Normal);
+        }
+        else
+        {
+            if (token.IsCancellationRequested) return;
+
+            if (_uiUpdateThrottleMs > 0 && (DateTime.Now - _lastUpdate).TotalMilliseconds < _uiUpdateThrottleMs) return;
+
+            _lastUpdate = DateTime.Now;
+
+            var snapshot = new SensorSnapshot
+            {
+                CpuUsage = gs.CpuUsage,
+                CpuFrequency = _sensorsGroupControllers.ShowAverageCpuFrequency ? gs.CpuAvgClock : gs.CpuMaxClock,
+                CpuPClock = _sensorsGroupControllers.ShowAverageCpuFrequency ? gs.CpuPAvgClock : gs.CpuPClock,
+                CpuEClock = _sensorsGroupControllers.ShowAverageCpuFrequency ? gs.CpuEAvgClock : gs.CpuEClock,
+                CpuTemp = gs.CpuTemp,
+                CpuPower = gs.CpuPower,
+                CpuFanSpeed = -1,
+
+                GpuUsage = gs.GpuUsage,
+                GpuFrequency = gs.GpuClock,
+                GpuTemp = gs.GpuTemp,
+                GpuVramUsage = gs.GpuVramUtilization,
+                GpuVramUsed = gs.GpuVramUsed,
+                GpuVramTotal = gs.GpuVramTotal,
+                GpuVramTemp = gs.GpuVramTemp,
+                GpuPower = gs.GpuPower,
+                GpuFanSpeed = -1,
+
+                MemUsage = gs.MemUsage,
+                MemUsed = gs.MemUsed,
+                MemTotal = gs.MemTotal,
+                MemTemp = (float)gs.MemMaxTemp,
+
+                PchTemp = -1,
+                PchFanSpeed = -1,
+
+                Disk1Temp = gs.SsdTemps.Item1,
+                Disk2Temp = gs.SsdTemps.Item2
+            };
+
+            await Dispatcher.BeginInvoke(() => UpdateSensorData(snapshot), DispatcherPriority.Normal);
+        }
     }
 
     protected abstract void UpdateSensorData(SensorSnapshot data);
