@@ -58,6 +58,8 @@ public class ApplicationSettings : AbstractSettings<ApplicationSettingsStore>
         public bool UseNewSensorDashboard { get; set; }
         public bool EnableHardwareSensors { get; set; }
         public bool LockWindowSize { get; set; }
+        public bool AlwaysOnTop { get; set; }
+        public WindowPosition? WindowPosition { get; set; }
         public bool EnableLogging { get; set; }
         public string BackGroundImageFilePath { get; set; } = string.Empty;
         public double Opacity { get; set; } = 1.0f;

@@ -195,6 +195,7 @@ public partial class MainWindow
     {
         var settings = IoCContainer.Resolve<ApplicationSettings>();
         ApplyWindowLock(settings.Store.LockWindowSize);
+        Topmost = settings.Store.AlwaysOnTop;
 
         if (!IsVisible)
             return;
@@ -404,8 +405,18 @@ public partial class MainWindow
             return;
 
         var desktopWorkingArea = primaryScreen.Value.WorkArea;
-        Left = (desktopWorkingArea.Width - Width) / 2 + desktopWorkingArea.Left;
-        Top = (desktopWorkingArea.Height - Height) / 2 + desktopWorkingArea.Top;
+
+        if (_applicationSettings.Store.WindowPosition.HasValue)
+        {
+            var pos = _applicationSettings.Store.WindowPosition.Value;
+            Left = Math.Max(desktopWorkingArea.Left, Math.Min(pos.Left, desktopWorkingArea.Right - Width));
+            Top = Math.Max(desktopWorkingArea.Top, Math.Min(pos.Top, desktopWorkingArea.Bottom - Height));
+        }
+        else
+        {
+            Left = (desktopWorkingArea.Width - Width) / 2 + desktopWorkingArea.Left;
+            Top = (desktopWorkingArea.Height - Height) / 2 + desktopWorkingArea.Top;
+        }
     }
 
     private void SaveSize()
@@ -413,6 +424,9 @@ public partial class MainWindow
         _applicationSettings.Store.WindowSize = WindowState != WindowState.Normal
             ? new(RestoreBounds.Width, RestoreBounds.Height)
             : new(Width, Height);
+        _applicationSettings.Store.WindowPosition = WindowState != WindowState.Normal
+            ? new(RestoreBounds.Left, RestoreBounds.Top)
+            : new(Left, Top);
         _applicationSettings.SynchronizeStore();
     }
 

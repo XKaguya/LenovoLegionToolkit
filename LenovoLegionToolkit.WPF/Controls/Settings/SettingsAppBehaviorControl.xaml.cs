@@ -52,6 +52,7 @@ public partial class SettingsAppBehaviorControl
         _minimizeOnCloseToggle.IsChecked = _settings.Store.MinimizeOnClose;
         _useNewSensorDashboardToggle.IsChecked = _settings.Store.UseNewSensorDashboard;
         _lockWindowSizeToggle.IsChecked = _settings.Store.LockWindowSize;
+        _alwaysOnTopToggle.IsChecked = _settings.Store.AlwaysOnTop;
         _enableLoggingToggle.IsChecked = _settings.Store.EnableLogging;
 
         var useGpu = _settings.Store.GameDetection.UseDiscreteGPU;
@@ -81,6 +82,7 @@ public partial class SettingsAppBehaviorControl
         _useNewSensorDashboardToggle.Visibility = Visibility.Visible;
         _hardwareSensorsToggle.Visibility = Visibility.Visible;
         _lockWindowSizeToggle.Visibility = Visibility.Visible;
+        _alwaysOnTopToggle.Visibility = Visibility.Visible;
         _osdToggle.Visibility = Visibility.Visible;
 
         _hardwareSensorsToggle.IsChecked = _settings.Store.EnableHardwareSensors;
@@ -160,6 +162,22 @@ public partial class SettingsAppBehaviorControl
         _settings.SynchronizeStore();
 
         App.MainWindowInstance?.ApplyWindowLock(state.Value);
+    }
+
+    private void AlwaysOnTopToggle_Click(object sender, RoutedEventArgs e)
+    {
+        if (_isRefreshing || !IsLoaded)
+            return;
+
+        var state = _alwaysOnTopToggle.IsChecked;
+        if (state is null)
+            return;
+
+        _settings.Store.AlwaysOnTop = state.Value;
+        _settings.SynchronizeStore();
+
+        if (App.MainWindowInstance is { } w)
+            w.Topmost = state.Value;
     }
 
     private async void EnableLoggingToggle_Click(object sender, RoutedEventArgs e)

@@ -7420,6 +7420,24 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Keep the app window above all other windows..
+        /// </summary>
+        public static string SettingsPage_AlwaysOnTop_Message {
+            get {
+                return ResourceManager.GetString("SettingsPage_AlwaysOnTop_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pin to Top.
+        /// </summary>
+        public static string SettingsPage_AlwaysOnTop_Title {
+            get {
+                return ResourceManager.GetString("SettingsPage_AlwaysOnTop_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Start minimized to tray when you log in to Windows..
         /// </summary>
         public static string SettingsPage_Autorun_Message {

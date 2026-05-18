@@ -56,19 +56,14 @@
                 Visibility="Collapsed">
                 <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_WindowsPowerPlans_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_WindowsPowerPlans_Message}" />
             </custom:CardAction>
-            <custom:CardControl
+            <custom:CardAction
                 x:Name="_windowsPowerPlansControlPanelCard"
                 Margin="0,0,0,8"
                 Click="WindowsPowerPlansControlPanel_Click"
+                Icon="Open24"
                 Visibility="Collapsed">
-                <custom:CardControl.Header>
-                    <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_WindowsPowerPlansControlPanel_Title}" />
-                </custom:CardControl.Header>
-                <wpfui:SymbolIcon
-                    Margin="4,0,0,0"
-                    FontSize="20"
-                    Symbol="Open24" />
-            </custom:CardControl>
+                <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_WindowsPowerPlansControlPanel_Title}" />
+            </custom:CardAction>
             <custom:CardControl Margin="0,0,0,8" Icon="Battery024">
                 <custom:CardControl.Header>
                     <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_OnBatterySinceReset_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_OnBatterySinceReset_Message}" />

@@ -103,9 +103,10 @@ public static class WindowExtensions
             window.WindowState = WindowState.Normal;
         }
 
+        var wasTopmost = window.Topmost;
         window.Activate();
         window.Topmost = true;
-        window.Topmost = false;
+        window.Topmost = wasTopmost;
         window.Focus();
     }
 

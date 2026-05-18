@@ -1288,6 +1288,12 @@ public readonly struct WindowSize(double width, double height)
     public double Height { get; } = height;
 }
 
+public readonly struct WindowPosition(double left, double top)
+{
+    public double Left { get; } = left;
+    public double Top { get; } = top;
+}
+
 public struct ProjectEntry()
 {
     public bool MaintenanceMode { get; set; } = false;
