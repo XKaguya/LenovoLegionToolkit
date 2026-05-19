@@ -16,6 +16,14 @@
                 From="0" To="1"
                 Duration="0:0:0.2" />
         </Storyboard>
+        <DataTemplate x:Key="CompactNavTemplate">
+            <StackPanel
+                HorizontalAlignment="Center"
+                Margin="0,6"
+                ToolTip="{Binding Title}">
+                <wpfui:SymbolIcon Symbol="{Binding Icon}" FontSize="16" />
+            </StackPanel>
+        </DataTemplate>
     </wpfui:UiPage.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -23,7 +31,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="220" />
+            <ColumnDefinition x:Name="_navColumn" Width="220" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 

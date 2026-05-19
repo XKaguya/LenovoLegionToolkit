@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:LenovoLegionToolkit.WPF.Windows"
+    xmlns:custom="clr-namespace:LenovoLegionToolkit.WPF.Controls.Custom"
     xmlns:dashboard="clr-namespace:LenovoLegionToolkit.WPF.Windows.Dashboard"
     xmlns:resources="clr-namespace:LenovoLegionToolkit.WPF.Resources"
     xmlns:utils="clr-namespace:LenovoLegionToolkit.WPF.Utils"
@@ -121,8 +122,8 @@
                     </ListBox.ItemContainerStyle>
                     <ListBox.ItemTemplate>
                         <DataTemplate DataType="{x:Type dashboard:DiscreteGPUAppViewModel}">
-                            <wpfui:CardControl Margin="0,0,0,8">
-                                <wpfui:CardControl.ContextMenu>
+                            <custom:CardControl Margin="0,0,0,8">
+                                <custom:CardControl.ContextMenu>
                                     <ContextMenu>
                                         <MenuItem Header="{x:Static resources:Resource.DiscreteGPUControl_ForceKillProcessMenu}" CommandParameter="{Binding ProcessIds}" Click="KillProcessMenuItem_Click" IsEnabled="{Binding CanKill}">
                                             <MenuItem.Icon>
@@ -130,8 +131,8 @@
                                             </MenuItem.Icon>
                                         </MenuItem>
                                     </ContextMenu>
-                                </wpfui:CardControl.ContextMenu>
-                                <wpfui:CardControl.Header>
+                                </custom:CardControl.ContextMenu>
+                                <custom:CardControl.Header>
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
@@ -143,7 +144,7 @@
                                             <TextBlock Text="{Binding Path}" FontSize="10" Foreground="{DynamicResource TextFillColorSecondaryBrush}" TextWrapping="WrapWithOverflow" />
                                         </StackPanel>
                                     </Grid>
-                                </wpfui:CardControl.Header>
+                                </custom:CardControl.Header>
                                 <Grid VerticalAlignment="Center">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
@@ -165,7 +166,7 @@
                                         <ComboBoxItem Content="{x:Static resources:Resource.DiscreteGPUControl_PreferenceDiscrete}" Tag="Discrete" />
                                     </ComboBox>
                                 </Grid>
-                            </wpfui:CardControl>
+                            </custom:CardControl>
                             <DataTemplate.Triggers>
                                 <DataTrigger Binding="{Binding IsActive}" Value="True">
                                     <Setter TargetName="_statusIcon" Property="Foreground" Value="{DynamicResource SystemFillColorSuccessBrush}" />
@@ -179,13 +180,13 @@
             <TabItem Header="{x:Static resources:Resource.DiscreteGPUControl_MiscellaneousTabLabel}">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel Margin="0,0,12,0">
-                        <wpfui:CardControl Margin="0,0,0,8" Icon="Timer24">
-                            <wpfui:CardControl.Header>
+                        <custom:CardControl Margin="0,0,0,8" Icon="Timer24">
+                            <custom:CardControl.Header>
                                 <StackPanel VerticalAlignment="Center">
                                     <TextBlock Text="{x:Static resources:Resource.DiscreteGPUControl_PollingIntervalTitle}" FontWeight="Medium" />
                                     <TextBlock Text="{x:Static resources:Resource.DiscreteGPUControl_PollingIntervalDescription}" FontSize="11" TextWrapping="WrapWithOverflow" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
                                 </StackPanel>
-                            </wpfui:CardControl.Header>
+                            </custom:CardControl.Header>
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                 <Slider 
                                     x:Name="_intervalSlider" 
@@ -196,15 +197,15 @@
                                     ValueChanged="IntervalSlider_ValueChanged" />
                                 <TextBlock x:Name="_intervalText" Width="40" Margin="12,0,0,0" VerticalAlignment="Center" FontWeight="Medium" />
                             </StackPanel>
-                        </wpfui:CardControl>
+                        </custom:CardControl>
 
-                        <wpfui:CardControl Margin="0,0,0,8" Icon="Play24">
-                            <wpfui:CardControl.Header>
+                        <custom:CardControl Margin="0,0,0,8" Icon="Play24">
+                            <custom:CardControl.Header>
                                 <StackPanel VerticalAlignment="Center">
                                     <TextBlock Text="{x:Static resources:Resource.DiscreteGPUControl_StartupDelayTitle}" FontWeight="Medium" />
                                     <TextBlock Text="{x:Static resources:Resource.DiscreteGPUControl_StartupDelayDescription}" FontSize="11" TextWrapping="WrapWithOverflow" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
                                 </StackPanel>
-                            </wpfui:CardControl.Header>
+                            </custom:CardControl.Header>
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                 <Slider 
                                     x:Name="_startupDelaySlider" 
@@ -216,15 +217,15 @@
                                     ValueChanged="StartupDelaySlider_ValueChanged" />
                                 <TextBlock x:Name="_startupDelayText" Width="40" Margin="12,0,0,0" VerticalAlignment="Center" FontWeight="Medium" />
                             </StackPanel>
-                        </wpfui:CardControl>
+                        </custom:CardControl>
 
-                        <wpfui:CardControl Margin="0,0,0,8" Icon="Dismiss24">
-                            <wpfui:CardControl.Header>
+                        <custom:CardControl Margin="0,0,0,8" Icon="Dismiss24">
+                            <custom:CardControl.Header>
                                 <StackPanel VerticalAlignment="Center">
                                     <TextBlock Text="{x:Static resources:Resource.DiscreteGPUControl_KillProcessDelayTitle}" FontWeight="Medium" />
                                     <TextBlock Text="{x:Static resources:Resource.DiscreteGPUControl_KillProcessDelayDescription}" FontSize="11" TextWrapping="WrapWithOverflow" Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
                                 </StackPanel>
-                            </wpfui:CardControl.Header>
+                            </custom:CardControl.Header>
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                 <Slider 
                                     x:Name="_killDelaySlider" 
@@ -236,7 +237,7 @@
                                     ValueChanged="KillDelaySlider_ValueChanged" />
                                 <TextBlock x:Name="_killDelayText" Width="40" Margin="12,0,0,0" VerticalAlignment="Center" FontWeight="Medium" />
                             </StackPanel>
-                        </wpfui:CardControl>
+                        </custom:CardControl>
                         
                     </StackPanel>
                 </ScrollViewer>

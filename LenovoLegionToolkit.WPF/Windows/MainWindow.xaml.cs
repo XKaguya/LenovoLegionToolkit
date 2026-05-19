@@ -137,6 +137,58 @@ public partial class MainWindow
         await trayHelper.InitializeAsync();
         trayHelper.MakeVisible();
         _trayHelper = trayHelper;
+
+        ApplyCompactLayout();
+    }
+
+    private void ApplyCompactLayout()
+    {
+        if (_applicationSettings.Store.CompactMode)
+        {
+            _contentGrid.Margin = new Thickness(4, 2, 0, 0);
+
+            _contentGrid.ColumnDefinitions[0].Width = GridLength.Auto;
+            _navigationStore.Margin = new Thickness(0, 0, 0, 4);
+
+            _title.FontSize = 11;
+            if (_title.Parent is Grid titleGrid)
+            {
+                titleGrid.Margin = new Thickness(8, 2, 150, 2);
+            }
+
+            _openLogIndicator.LayoutTransform = new ScaleTransform(0.8, 0.8);
+            _openLogIndicator.Margin = new Thickness(0, 0, 4, 0);
+
+            _deviceInfoIndicator.LayoutTransform = new ScaleTransform(0.8, 0.8);
+            _deviceInfoIndicator.Margin = new Thickness(0, 0, 4, 0);
+
+            foreach (var item in _navigationStore.Items.OfType<Wpf.Ui.Controls.NavigationItem>())
+            {
+                if (item.Content != null)
+                {
+                    item.ToolTip = item.Content;
+                    item.Content = null;
+                }
+                item.HorizontalAlignment = HorizontalAlignment.Left;
+                item.Margin = new Thickness(6, 2, 6, 2);
+            }
+            foreach (var item in _navigationStore.Footer.OfType<Wpf.Ui.Controls.NavigationItem>())
+            {
+                if (item.Content != null)
+                {
+                    item.ToolTip = item.Content;
+                    item.Content = null;
+                }
+                item.HorizontalAlignment = HorizontalAlignment.Left;
+                item.Margin = new Thickness(6, 2, 6, 2);
+            }
+
+            _vantageIndicator.Padding = new Thickness(4, 2, 4, 2);
+            _legionZoneIndicator.Padding = new Thickness(4, 2, 4, 2);
+            _legionSpaceIndicator.Padding = new Thickness(4, 2, 4, 2);
+            _fnKeysIndicator.Padding = new Thickness(4, 2, 4, 2);
+            _updateIndicator.Padding = new Thickness(4, 2, 4, 2);
+        }
     }
 
     private async void MainWindow_Closing(object? sender, CancelEventArgs e)
@@ -392,8 +444,21 @@ public partial class MainWindow
 
     private void RestoreSize()
     {
+        if (_applicationSettings.Store.CompactMode)
+        {
+            MinWidth = 550;
+            MinHeight = 480;
+        }
+
         if (!_applicationSettings.Store.WindowSize.HasValue)
+        {
+            if (_applicationSettings.Store.CompactMode)
+            {
+                Width = 900;
+                Height = 620;
+            }
             return;
+        }
 
         Width = Math.Max(MinWidth, _applicationSettings.Store.WindowSize.Value.Width);
         Height = Math.Max(MinHeight, _applicationSettings.Store.WindowSize.Value.Height);

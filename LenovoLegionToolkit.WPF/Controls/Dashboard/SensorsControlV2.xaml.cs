@@ -36,12 +36,15 @@ public partial class SensorsControlV2
     private readonly HashSet<SensorItem> _activeSensorItems = [];
     private static readonly double[] AvailableRefreshIntervals = [0.5, 1, 2, 3, 4, 5];
     private readonly Dictionary<SensorItem, FrameworkElement> _sensorItemToControlMap;
+    private int _lastVisibleCardCount = -1;
+    private double _lastAdjustedWidth = -1;
 
     public SensorsControlV2()
     {
         InitializeComponent();
         InitializeContextMenu();
         IsVisibleChanged += SensorsControl_IsVisibleChanged;
+        SizeChanged += (_, e) => { if (e.WidthChanged) AdjustCardWidths(); };
 
         _sensorsGroupControllers.SelectedGpuIsIgpu = _hardwareSensorSettings.Store.SelectedGpuIsIgpu;
 
@@ -135,6 +138,7 @@ public partial class SensorsControlV2
         UpdateCardVisibility(_gpuCard, [SensorItem.GpuUtilization, SensorItem.GpuVramUtilization, SensorItem.GpuFrequency, SensorItem.GpuFanSpeed, SensorItem.GpuCoreTemperature, SensorItem.GpuVramTemperature, SensorItem.GpuPower]);
         UpdateMotherboardCardVisibility();
         UpdateMemoryDiskCardVisibility();
+        AdjustCardWidths();
     }
 
     private void InitializeContextMenu()
@@ -404,6 +408,28 @@ public partial class SensorsControlV2
         _seperator2.Visibility = (memoryVisible && diskVisible) ? Visibility.Visible : Visibility.Collapsed;
 
         _memoryDiskCard.Visibility = (memoryVisible || diskVisible) ? Visibility.Visible : Visibility.Collapsed;
+    }
+
+    private void AdjustCardWidths()
+    {
+        var width = ActualWidth;
+        if (width <= 0) return;
+
+        var allCards = new FrameworkElement[] { _cpuCard, _gpuCard, _motherboardCard, _memoryDiskCard };
+        var visibleCards = allCards.Where(c => c.Visibility == Visibility.Visible).ToList();
+        var count = visibleCards.Count;
+        if (count == 0) return;
+        if (count == _lastVisibleCardCount && Math.Abs(width - _lastAdjustedWidth) < 1) return;
+
+        _lastVisibleCardCount = count;
+        _lastAdjustedWidth = width;
+
+        const double cardMargin = 16;
+        var cardsPerRow = Math.Max(1, Math.Min(count, (int)(width / (200 + cardMargin))));
+        var cardWidth = Math.Max(200, (width - cardsPerRow * cardMargin) / cardsPerRow);
+
+        foreach (var card in visibleCards)
+            card.Width = cardWidth;
     }
 
     private Task<string> GetProcessedCpuName() => _sensorsGroupControllers.GetCpuNameAsync();

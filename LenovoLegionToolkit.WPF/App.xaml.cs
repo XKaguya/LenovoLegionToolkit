@@ -36,6 +36,7 @@ using LenovoLegionToolkit.Lib.Station.Core;
 using LenovoLegionToolkit.WPF.CLI;
 using LenovoLegionToolkit.WPF.Station.Core;
 using LenovoLegionToolkit.WPF.Station.Services;
+using LenovoLegionToolkit.WPF.Controls.Custom;
 using LenovoLegionToolkit.WPF.Extensions;
 using LenovoLegionToolkit.WPF.Resources;
 using LenovoLegionToolkit.WPF.Utils;
@@ -210,6 +211,8 @@ public partial class App
         {
             RenderOptions.ProcessRenderMode = RenderMode.SoftwareOnly;
         }
+
+        CardControl.IsCompact = settings.Store.CompactMode;
 
         MigrateSettingsToNew();
         ConfigureFeatureFlags();

@@ -53,6 +53,7 @@ public partial class SettingsAppBehaviorControl
         _useNewSensorDashboardToggle.IsChecked = _settings.Store.UseNewSensorDashboard;
         _lockWindowSizeToggle.IsChecked = _settings.Store.LockWindowSize;
         _alwaysOnTopToggle.IsChecked = _settings.Store.AlwaysOnTop;
+        _compactModeToggle.IsChecked = _settings.Store.CompactMode;
         _enableLoggingToggle.IsChecked = _settings.Store.EnableLogging;
 
         var useGpu = _settings.Store.GameDetection.UseDiscreteGPU;
@@ -83,6 +84,7 @@ public partial class SettingsAppBehaviorControl
         _hardwareSensorsToggle.Visibility = Visibility.Visible;
         _lockWindowSizeToggle.Visibility = Visibility.Visible;
         _alwaysOnTopToggle.Visibility = Visibility.Visible;
+        _compactModeToggle.Visibility = Visibility.Visible;
         _osdToggle.Visibility = Visibility.Visible;
 
         _hardwareSensorsToggle.IsChecked = _settings.Store.EnableHardwareSensors;
@@ -162,6 +164,21 @@ public partial class SettingsAppBehaviorControl
         _settings.SynchronizeStore();
 
         App.MainWindowInstance?.ApplyWindowLock(state.Value);
+    }
+
+    private void CompactModeToggle_Click(object sender, RoutedEventArgs e)
+    {
+        if (_isRefreshing || !IsLoaded)
+            return;
+
+        var state = _compactModeToggle.IsChecked;
+        if (state is null)
+            return;
+
+        _settings.Store.CompactMode = state.Value;
+        _settings.SynchronizeStore();
+
+        SnackbarHelper.Show(Resource.SettingsPage_CompactMode_Title, Resource.SettingsPage_RestartRequired_Message, SnackbarType.Success);
     }
 
     private void AlwaysOnTopToggle_Click(object sender, RoutedEventArgs e)

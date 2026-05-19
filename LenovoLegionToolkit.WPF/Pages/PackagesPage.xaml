@@ -1,4 +1,4 @@
-﻿<wpfui:UiPage
+<wpfui:UiPage
     x:Class="LenovoLegionToolkit.WPF.Pages.PackagesPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -154,6 +154,7 @@
                                     <TextBlock
                                         FontSize="12"
                                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        TextWrapping="WrapWithOverflow"
                                         Text="{x:Static resources:Resource.PackagesPage_PrimarySource_Message}" />
                                 </StackPanel>
                             </RadioButton>
@@ -167,6 +168,7 @@
                                     <TextBlock
                                         FontSize="12"
                                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        TextWrapping="WrapWithOverflow"
                                         Text="{x:Static resources:Resource.PackagesPage_SecondarySource_Message}" />
                                 </StackPanel>
                             </RadioButton>

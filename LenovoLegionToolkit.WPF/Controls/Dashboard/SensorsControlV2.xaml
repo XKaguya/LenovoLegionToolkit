@@ -1,4 +1,4 @@
-﻿<UserControl
+<UserControl
     x:Class="LenovoLegionToolkit.WPF.Controls.Dashboard.SensorsControlV2"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -14,13 +14,12 @@
 
     <UserControl.Resources>
         <Style x:Key="SensorCardStyle" TargetType="Border">
-            <Setter Property="Margin" Value="0,0,16,0" />
+            <Setter Property="Margin" Value="0,0,16,16" />
             <Setter Property="CornerRadius" Value="8" />
             <Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
             <Setter Property="BorderThickness" Value="1" />
             <Setter Property="Background" Value="{DynamicResource ControlFillColorDefaultBrush}" />
-            <Setter Property="Width" Value="250" />
-            <Setter Property="Height" Value="180" />
+            <Setter Property="MinWidth" Value="200" />
         </Style>
 
         <Style x:Key="CardTitleStyle" TargetType="TextBlock">
@@ -57,10 +56,7 @@
     </UserControl.Resources>
 
     <Grid>
-        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
-            <wpfui:CardControl HorizontalAlignment="Center">
-                <wpfui:CardControl.Content>
-                    <StackPanel behaviors:DragDropBehavior.IsEnabled="True" Orientation="Horizontal">
+        <WrapPanel x:Name="_cardWrapPanel" behaviors:DragDropBehavior.IsEnabled="True">
                         <Border x:Name="_cpuCard" Style="{StaticResource SensorCardStyle}">
                             <StackPanel Margin="12,10">
                                 <Grid>
@@ -594,9 +590,6 @@
                                 </StackPanel>
                             </StackPanel>
                         </Border>
-                    </StackPanel>
-                </wpfui:CardControl.Content>
-            </wpfui:CardControl>
-        </ScrollViewer>
+        </WrapPanel>
     </Grid>
 </UserControl>

@@ -106,6 +106,15 @@ namespace LenovoLegionToolkit.WPF.Behaviors
                         break;
                     }
                 }
+                else if (panel is WrapPanel)
+                {
+                    var sameRow = child != null && Math.Abs(dropPosition.Y - childCenter.Y) < child.ActualHeight / 2;
+                    if (sameRow ? dropPosition.X < childCenter.X : dropPosition.Y < childCenter.Y)
+                    {
+                        newIndex = i;
+                        break;
+                    }
+                }
                 else
                 {
                     if (dropPosition.Y < childCenter.Y)

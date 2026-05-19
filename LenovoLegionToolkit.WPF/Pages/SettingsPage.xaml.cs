@@ -1,7 +1,3 @@
-﻿using LenovoLegionToolkit.Lib;
-using LenovoLegionToolkit.Lib.SoftwareDisabler;
-using LenovoLegionToolkit.Lib.Utils;
-using LenovoLegionToolkit.WPF.Controls.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +5,12 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
+using LenovoLegionToolkit.Lib;
+using LenovoLegionToolkit.Lib.SoftwareDisabler;
+using LenovoLegionToolkit.Lib.Utils;
+using LenovoLegionToolkit.WPF.Controls.Settings;
 using Wpf.Ui.Common;
+using CustomControls = LenovoLegionToolkit.WPF.Controls.Custom;
 
 namespace LenovoLegionToolkit.WPF.Pages;
 
@@ -29,12 +30,14 @@ public partial class SettingsPage
 
     private bool _isInitialized;
     private bool _isInitializing;
+    private DataTemplate? _defaultNavTemplate;
 
     public SettingsPage()
     {
         InitializeComponent();
         Instance = this;
         IsVisibleChanged += SettingsPage_IsVisibleChanged;
+        SizeChanged += (_, e) => { if (e.WidthChanged && _isInitialized) UpdateNavLayout(); };
     }
 
     public void ApplyPendingTab()
@@ -104,6 +107,10 @@ public partial class SettingsPage
 
         _navigationListBox.ItemsSource = navigationItems;
 
+        _defaultNavTemplate ??= _navigationListBox.ItemTemplate;
+
+        UpdateNavLayout();
+
         if (!string.IsNullOrEmpty(PendingTabKey))
         {
             var target = navigationItems.FirstOrDefault(i => i.Key == PendingTabKey);
@@ -114,6 +121,16 @@ public partial class SettingsPage
         {
             _navigationListBox.SelectedIndex = 0;
         }
+    }
+
+    private void UpdateNavLayout()
+    {
+
+        var isNarrow = ActualWidth < 560;
+        _navColumn.Width = new GridLength(isNarrow ? 48 : 220);
+        _navigationListBox.ItemTemplate = isNarrow
+            ? (DataTemplate)Resources["CompactNavTemplate"]
+            : _defaultNavTemplate;
     }
 
     private async void NavigationListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

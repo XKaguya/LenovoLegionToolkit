@@ -6,6 +6,19 @@ namespace LenovoLegionToolkit.WPF.Controls.Custom;
 
 public class CardAction : Wpf.Ui.Controls.CardAction
 {
+    static CardAction()
+    {
+        MarginProperty.OverrideMetadata(
+            typeof(CardAction),
+            new FrameworkPropertyMetadata(
+                new Thickness(0),
+                FrameworkPropertyMetadataOptions.AffectsMeasure,
+                null,
+                (_, v) => v is Thickness m && CardControl.IsCompact
+                    ? new Thickness(m.Left, m.Top, m.Right, m.Bottom / 2)
+                    : v));
+    }
+
     protected override AutomationPeer OnCreateAutomationPeer() => new CardActionAutomationPeer(this);
 
     private class CardActionAutomationPeer(CardAction owner) : FrameworkElementAutomationPeer(owner)

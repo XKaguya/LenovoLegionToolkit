@@ -53,12 +53,18 @@ public class AutomationPipelineControl : UserControl
         ColumnDefinitions =
         {
             new() { Width = GridLength.Auto },
-            new() { Width = GridLength.Auto },
             new() { Width = new(1, GridUnitType.Star) },
-            new() { Width = GridLength.Auto },
-            new() { Width = GridLength.Auto },
-            new() { Width = GridLength.Auto },
         }
+    };
+
+    private readonly StackPanel _leftButtonsPanel = new()
+    {
+        Orientation = Orientation.Horizontal,
+    };
+
+    private readonly WrapPanel _rightButtonsPanel = new()
+    {
+        HorizontalAlignment = HorizontalAlignment.Right,
     };
 
     private readonly CheckBox _isExclusiveCheckBox = new()
@@ -219,6 +225,7 @@ public class AutomationPipelineControl : UserControl
         {
             _isExclusiveCheckBox.Visibility = Visibility.Hidden;
             _runOnStartupCheckBox.Visibility = Visibility.Hidden;
+            _leftButtonsPanel.Visibility = Visibility.Collapsed;
         }
 
         if (AutomationPipeline.Trigger is GamesAreRunningAutomationPipelineTrigger
@@ -246,17 +253,18 @@ public class AutomationPipelineControl : UserControl
 
         _deletePipelineButton.Click += (_, _) => OnDelete?.Invoke(this, EventArgs.Empty);
 
-        Grid.SetColumn(_isExclusiveCheckBox, 0);
-        Grid.SetColumn(_runOnStartupCheckBox, 1);
-        Grid.SetColumn(_runNowButton, 3);
-        Grid.SetColumn(_addStepButton, 4);
-        Grid.SetColumn(_deletePipelineButton, 5);
 
-        _buttonsStackPanel.Children.Add(_isExclusiveCheckBox);
-        _buttonsStackPanel.Children.Add(_runOnStartupCheckBox);
-        _buttonsStackPanel.Children.Add(_runNowButton);
-        _buttonsStackPanel.Children.Add(_addStepButton);
-        _buttonsStackPanel.Children.Add(_deletePipelineButton);
+        _leftButtonsPanel.Children.Add(_isExclusiveCheckBox);
+        _leftButtonsPanel.Children.Add(_runOnStartupCheckBox);
+
+        _rightButtonsPanel.Children.Add(_runNowButton);
+        _rightButtonsPanel.Children.Add(_addStepButton);
+        _rightButtonsPanel.Children.Add(_deletePipelineButton);
+
+        Grid.SetColumn(_leftButtonsPanel, 0);
+        Grid.SetColumn(_rightButtonsPanel, 1);
+        _buttonsStackPanel.Children.Add(_leftButtonsPanel);
+        _buttonsStackPanel.Children.Add(_rightButtonsPanel);
 
         _stackPanel.Children.Add(_stepsStackPanel);
         _stackPanel.Children.Add(_validationWarningTextBlock);

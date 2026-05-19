@@ -7672,6 +7672,24 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reduce visual clutter to fit more content on screen..
+        /// </summary>
+        public static string SettingsPage_CompactMode_Message {
+            get {
+                return ResourceManager.GetString("SettingsPage_CompactMode_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Compact Mode.
+        /// </summary>
+        public static string SettingsPage_CompactMode_Title {
+            get {
+                return ResourceManager.GetString("SettingsPage_CompactMode_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Dim 的本地化字符串。
         /// </summary>
         public static string SettingsPage_Custom_BackgroundImage_Dim {

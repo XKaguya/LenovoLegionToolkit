@@ -1,4 +1,4 @@
-﻿<wpfui:UiPage
+<wpfui:UiPage
     x:Class="LenovoLegionToolkit.WPF.Pages.AutomationPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -36,6 +36,7 @@
                     <TextBlock
                         Margin="0,8,0,0"
                         Focusable="True"
+                        TextWrapping="WrapWithOverflow"
                         Text="{x:Static resources:Resource.AutomationPage_Actions_Message}" />
                 </StackPanel>
 
@@ -90,6 +91,7 @@
                     <TextBlock
                         Margin="0,8,0,0"
                         Focusable="True"
+                        TextWrapping="WrapWithOverflow"
                         Text="{x:Static resources:Resource.AutomationPage_QuickActions_Message}" />
 
                 </StackPanel>
