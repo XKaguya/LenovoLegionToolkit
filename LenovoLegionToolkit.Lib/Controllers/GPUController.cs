@@ -258,10 +258,6 @@ public class GPUController
             {
                 _processes = processNames;
                 _state = GPUState.MonitorConnected;
-
-                // Comment due to annoying.
-                //if (Log.Instance.IsTraceEnabled)
-                //    Log.Instance.Trace($"Monitor connected [state={_state}, processes.Count={_processes.Count}, gpuInstanceId={_gpuInstanceId}]");
             }
         }
         else if (processNames.Count != 0)

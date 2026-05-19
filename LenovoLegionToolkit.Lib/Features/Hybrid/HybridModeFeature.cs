@@ -40,7 +40,7 @@ public class HybridModeFeature(GSyncFeature gSyncFeature, IGPUModeFeature igpuMo
             Log.Instance.Trace($"Failed to get GraphicsDevice bios selections. Machine might not support it.", ex);
         }
 
-        if (biosSelections?.Contains("UMA") == true)
+        if (biosSelections?.Any(item => item.Contains("UMA", StringComparison.OrdinalIgnoreCase)) == true)
         {
             return [HybridModeState.On, HybridModeState.OnIGPUOnly, HybridModeState.OnAuto, HybridModeState.UMA, HybridModeState.Off];
         }
