@@ -1803,114 +1803,6 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Accelerate.
-        /// </summary>
-        public static string CustomFanCurve_Accelerate {
-            get {
-                return ResourceManager.GetString("CustomFanCurve_Accelerate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Accelerate control&apos;s how much PWM is added to the current PWM Value..
-        /// </summary>
-        public static string CustomFanCurve_Accelerate_Tooltip {
-            get {
-                return ResourceManager.GetString("CustomFanCurve_Accelerate_Tooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Critical Temp.
-        /// </summary>
-        public static string CustomFanCurve_Critical_Temp {
-            get {
-                return ResourceManager.GetString("CustomFanCurve_Critical_Temp", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Force the maximum speed when the temperature is greater than or equal to this temperature to prevent burning out..
-        /// </summary>
-        public static string CustomFanCurve_Critical_Temp_Tooltip {
-            get {
-                return ResourceManager.GetString("CustomFanCurve_Critical_Temp_Tooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Deceleration.
-        /// </summary>
-        public static string CustomFanCurve_Deceleration {
-            get {
-                return ResourceManager.GetString("CustomFanCurve_Deceleration", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Deceleration control&apos;s how much PWM is decreased to the current PWM Value..
-        /// </summary>
-        public static string CustomFanCurve_Deceleration_Tooltip {
-            get {
-                return ResourceManager.GetString("CustomFanCurve_Deceleration_Tooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Fan Speed %.
-        /// </summary>
-        public static string CustomFanCurve_Fan_Speed {
-            get {
-                return ResourceManager.GetString("CustomFanCurve_Fan_Speed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Max Pwm.
-        /// </summary>
-        public static string CustomFanCurve_Max_Pwm {
-            get {
-                return ResourceManager.GetString("CustomFanCurve_Max_Pwm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to PWM Value.
-        /// </summary>
-        public static string CustomFanCurve_PWM_Value {
-            get {
-                return ResourceManager.GetString("CustomFanCurve_PWM_Value", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Settings.
-        /// </summary>
-        public static string CustomFanCurve_Settings {
-            get {
-                return ResourceManager.GetString("CustomFanCurve_Settings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Temperature °C.
-        /// </summary>
-        public static string CustomFanCurve_Temperature {
-            get {
-                return ResourceManager.GetString("CustomFanCurve_Temperature", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Real-Time Monitoring.
-        /// </summary>
-        public static string CustomFanCurve_Title {
-            get {
-                return ResourceManager.GetString("CustomFanCurve_Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to AC Connected.
         /// </summary>
         public static string DashboardBattery_AcConnected {
@@ -3645,15 +3537,6 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This device is not compatible with Lenovo Legion Toolkit..
-        /// </summary>
-        public static string IncompatibleDevice_Message {
-            get {
-                return ResourceManager.GetString("IncompatibleDevice_Message", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Information.
         /// </summary>
         public static string Information {
@@ -4417,15 +4300,6 @@ namespace LenovoLegionToolkit.WPF.Resources {
         public static string MainWindow_NavigationItem_Donate {
             get {
                 return ResourceManager.GetString("MainWindow_NavigationItem_Donate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Fan Curve.
-        /// </summary>
-        public static string MainWindow_NavigationItem_FanCurve {
-            get {
-                return ResourceManager.GetString("MainWindow_NavigationItem_FanCurve", resourceCulture);
             }
         }
         
@@ -6763,33 +6637,6 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Choose one or more quick actions to cycle through.
-        /// </summary>
-        public static string SelectSmartKeyPipelinesWindow_List_Description {
-            get {
-                return ResourceManager.GetString("SelectSmartKeyPipelinesWindow_List_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No Quick Actions defined..
-        /// </summary>
-        public static string SelectSmartKeyPipelinesWindow_List_Empty {
-            get {
-                return ResourceManager.GetString("SelectSmartKeyPipelinesWindow_List_Empty", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Show this app.
-        /// </summary>
-        public static string SelectSmartKeyPipelinesWindow_ShowThisApp {
-            get {
-                return ResourceManager.GetString("SelectSmartKeyPipelinesWindow_ShowThisApp", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Configure {0}.
         /// </summary>
         public static string SelectSpecialKeyPipelinesWindow_Configure_Title {
@@ -8375,24 +8222,6 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Assign Quick Action to Fn+F9 double press..
-        /// </summary>
-        public static string SettingsPage_SmartKeyDoublePressAction_Message {
-            get {
-                return ResourceManager.GetString("SettingsPage_SmartKeyDoublePressAction_Message", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Smart Key Secondary Action.
-        /// </summary>
-        public static string SettingsPage_SmartKeyDoublePressAction_Title {
-            get {
-                return ResourceManager.GetString("SettingsPage_SmartKeyDoublePressAction_Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Customize the Fn hotkeys..
         /// </summary>
         public static string SettingsPage_SmartKeys_Message {
@@ -8407,24 +8236,6 @@ namespace LenovoLegionToolkit.WPF.Resources {
         public static string SettingsPage_SmartKeys_Title {
             get {
                 return ResourceManager.GetString("SettingsPage_SmartKeys_Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Assign Quick Action to Fn+F9 single press..
-        /// </summary>
-        public static string SettingsPage_SmartKeySinglePressAction_Message {
-            get {
-                return ResourceManager.GetString("SettingsPage_SmartKeySinglePressAction_Message", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Smart Key Action.
-        /// </summary>
-        public static string SettingsPage_SmartKeySinglePressAction_Title {
-            get {
-                return ResourceManager.GetString("SettingsPage_SmartKeySinglePressAction_Title", resourceCulture);
             }
         }
         
