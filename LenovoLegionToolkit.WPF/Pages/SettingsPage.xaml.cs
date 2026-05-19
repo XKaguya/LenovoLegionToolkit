@@ -28,6 +28,10 @@ public partial class SettingsPage
     private SettingsPowerControl? _powerControl;
     private SettingsIntegrationsControl? _integrationsControl;
 
+    private const double CompactNavThreshold = 560;
+    private const double CompactNavWidth = 48;
+    private const double NormalNavWidth = 220;
+
     private bool _isInitialized;
     private bool _isInitializing;
     private DataTemplate? _defaultNavTemplate;
@@ -126,8 +130,8 @@ public partial class SettingsPage
     private void UpdateNavLayout()
     {
 
-        var isNarrow = ActualWidth < 560;
-        _navColumn.Width = new GridLength(isNarrow ? 48 : 220);
+        var isNarrow = ActualWidth < CompactNavThreshold;
+        _navColumn.Width = new GridLength(isNarrow ? CompactNavWidth : NormalNavWidth);
         _navigationListBox.ItemTemplate = isNarrow
             ? (DataTemplate)Resources["CompactNavTemplate"]
             : _defaultNavTemplate;

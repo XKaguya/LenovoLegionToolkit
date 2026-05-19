@@ -47,6 +47,11 @@ public partial class MainWindow
     private readonly INavigationService _extensionNavigationService = IoCContainer.Resolve<INavigationService>();
     private readonly UpdateChecker _updateChecker = IoCContainer.Resolve<UpdateChecker>();
 
+    private const double CompactMinWidth = 550;
+    private const double CompactMinHeight = 480;
+    private const double CompactDefaultWidth = 900;
+    private const double CompactDefaultHeight = 620;
+
     private TrayHelper? _trayHelper;
     private bool _windowSizeLocked;
 
@@ -446,16 +451,16 @@ public partial class MainWindow
     {
         if (_applicationSettings.Store.CompactMode)
         {
-            MinWidth = 550;
-            MinHeight = 480;
+            MinWidth = CompactMinWidth;
+            MinHeight = CompactMinHeight;
         }
 
         if (!_applicationSettings.Store.WindowSize.HasValue)
         {
             if (_applicationSettings.Store.CompactMode)
             {
-                Width = 900;
-                Height = 620;
+                Width = CompactDefaultWidth;
+                Height = CompactDefaultHeight;
             }
             return;
         }
