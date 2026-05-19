@@ -8519,7 +8519,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Automatically check for updates.
+        ///   Looks up a localized string similar to Update Frequency.
         /// </summary>
         public static string SettingsPage_UpdateCheckFrequency_Title {
             get {
