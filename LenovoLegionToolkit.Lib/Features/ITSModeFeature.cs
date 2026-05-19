@@ -13,7 +13,6 @@ using System.Threading.Tasks;
 using Windows.Win32;
 using Windows.Win32.Foundation;
 using Windows.Win32.Storage.FileSystem;
-using LenovoLegionToolkit.Lib.Controllers;
 using LenovoLegionToolkit.Lib.Settings;
 using System.Threading;
 using LenovoLegionToolkit.Lib.System;
@@ -22,7 +21,7 @@ using Registry = Microsoft.Win32.Registry;
 
 namespace LenovoLegionToolkit.Lib.Features;
 
-public partial class ITSModeFeature(Lazy<ITSModeListener> iTSModeListener) : IFeature<ITSMode>
+public partial class ITSModeFeature : IFeature<ITSMode>
 {
     #region Magic Constants
     private const string REG_KEY_LITSSVC_BASE = @"SYSTEM\CurrentControlSet\Services\LITSSVC\LNBITS\IC";
@@ -43,7 +42,33 @@ public partial class ITSModeFeature(Lazy<ITSModeListener> iTSModeListener) : IFe
     private const uint DISPATCHER_VERSION_3 = 8192U;
     #endregion
 
+    private readonly ITSModeListener _listener;
+
     public ITSMode LastItsMode { get; set; } = ITSMode.None;
+
+    public ITSModeFeature(ITSModeListener listener)
+    {
+        _listener = listener;
+        MessagingCenter.Subscribe<ITSModeToggleRequestMessage>(this, OnToggleRequestAsync);
+    }
+
+    private async void OnToggleRequestAsync(ITSModeToggleRequestMessage msg)
+    {
+        try
+        {
+            if (!await IsSupportedAsync().ConfigureAwait(false))
+                return;
+
+            var result = await ToggleItsMode().ConfigureAwait(false);
+
+            if (result != ITSMode.None)
+                await _listener.OnChangedAsync(result).ConfigureAwait(false);
+        }
+        catch (Exception ex)
+        {
+            Log.Instance.Trace($"Error handling ITS mode toggle request", ex);
+        }
+    }
 
     private void SaveCurrentStateToSettings(ITSMode state)
     {
@@ -69,14 +94,14 @@ public partial class ITSModeFeature(Lazy<ITSModeListener> iTSModeListener) : IFe
 
         if (mi.LegionSeries == LegionSeries.ThinkBook)
         {
-            return Enum.GetValues(typeof(ITSMode))
-                       .Cast<ITSMode>()
-                       .Where(mode => mode != ITSMode.None)
-                       .ToArray();
+            return Enum.GetValues<ITSMode>()
+                .Cast<ITSMode>()
+                .Where(mode => mode != ITSMode.None)
+                .ToArray();
         }
         else
         {
-            return Enum.GetValues(typeof(ITSMode))
+            return Enum.GetValues<ITSMode>()
                        .Cast<ITSMode>()
                        .Where(mode => mode != ITSMode.MmcGeek && mode != ITSMode.None)
                        .ToArray();
@@ -101,6 +126,7 @@ public partial class ITSModeFeature(Lazy<ITSModeListener> iTSModeListener) : IFe
         if (state == ITSMode.None)
         {
             Log.Instance.Trace($"Can't set ITS mode to None, operation aborted.");
+            return;
         }
 
         Log.Instance.Trace($"Setting ITS mode to: {state}");
@@ -119,12 +145,6 @@ public partial class ITSModeFeature(Lazy<ITSModeListener> iTSModeListener) : IFe
             Log.Instance.Trace($"ITS mode set successfully to: {state}");
 
             SaveCurrentStateToSettings(state);
-
-            PublishNotification(state);
-
-            await SyncWindowsPowerSettingsAsync(state).ConfigureAwait(false);
-
-            await iTSModeListener.Value.NotifyAsync(state).ConfigureAwait(false);
         }
         catch (Exception ex)
         {
@@ -192,23 +212,7 @@ public partial class ITSModeFeature(Lazy<ITSModeListener> iTSModeListener) : IFe
         }
     }
 
-    private async Task SyncWindowsPowerSettingsAsync(ITSMode itsMode)
-    {
-        try
-        {
-            var windowsPowerModeController = IoCContainer.Resolve<WindowsPowerModeController>();
-            var windowsPowerPlanController = IoCContainer.Resolve<WindowsPowerPlanController>();
-
-            await windowsPowerModeController.SetPowerModeAsync(itsMode).ConfigureAwait(false);
-            await windowsPowerPlanController.SetPowerPlanAsync(itsMode, true).ConfigureAwait(false);
-        }
-        catch (Exception ex)
-        {
-            Log.Instance.Trace($"Failed to sync Windows power settings after ITS mode change", ex);
-        }
-    }
-
-    public static async Task<ITSMode> GetITSModeEx()
+    public async Task<ITSMode> GetITSModeEx()
     {
         try
         {
@@ -282,7 +286,7 @@ public partial class ITSModeFeature(Lazy<ITSModeListener> iTSModeListener) : IFe
         return ITSMode.None;
     }
 
-    public Task SetITSModeExAsync(ITSMode mode)
+    private Task SetITSModeExAsync(ITSMode mode)
     {
         try
         {
@@ -327,11 +331,11 @@ public partial class ITSModeFeature(Lazy<ITSModeListener> iTSModeListener) : IFe
         }
     }
 
-    public static int GetDispatcherVersionEx() => ReadRegistryVersion(REG_KEY_DISPATCHER, nameof(GetDispatcherVersionEx));
+    private int GetDispatcherVersionEx() => ReadRegistryVersion(REG_KEY_DISPATCHER, nameof(GetDispatcherVersionEx));
 
-    public static int GetITSVersionEx() => ReadRegistryVersion(REG_KEY_LITSSVC_BASE, nameof(GetITSVersionEx));
+    private int GetITSVersionEx() => ReadRegistryVersion(REG_KEY_LITSSVC_BASE, nameof(GetITSVersionEx));
 
-    public static bool HasDispatcherDeviceNodeEx()
+    private bool HasDispatcherDeviceNodeEx()
     {
         try
         {
@@ -348,7 +352,7 @@ public partial class ITSModeFeature(Lazy<ITSModeListener> iTSModeListener) : IFe
         return false;
     }
 
-    public static bool IsEnergyDriverPresentEx()
+    private bool IsEnergyDriverPresentEx()
     {
         try
         {
@@ -376,7 +380,7 @@ public partial class ITSModeFeature(Lazy<ITSModeListener> iTSModeListener) : IFe
         }
     }
 
-    public static void ControlService(string serviceName, ITSModeServiceControlMessage message)
+    private void ControlService(string serviceName, ITSModeServiceControlMessage message)
     {
         try
         {
@@ -393,26 +397,7 @@ public partial class ITSModeFeature(Lazy<ITSModeListener> iTSModeListener) : IFe
         }
     }
 
-    private static void PublishNotification(ITSMode value)
-    {
-        switch (value)
-        {
-            case ITSMode.ItsAuto:
-                MessagingCenter.Publish(new NotificationMessage(NotificationType.ITSModeAuto, value.GetDisplayName()));
-                break;
-            case ITSMode.MmcCool:
-                MessagingCenter.Publish(new NotificationMessage(NotificationType.ITSModeCool, value.GetDisplayName()));
-                break;
-            case ITSMode.MmcPerformance:
-                MessagingCenter.Publish(new NotificationMessage(NotificationType.ITSModePerformance, value.GetDisplayName()));
-                break;
-            case ITSMode.MmcGeek:
-                MessagingCenter.Publish(new NotificationMessage(NotificationType.ITSModeGeek, value.GetDisplayName()));
-                break;
-        }
-    }
-
-    private static int ReadRegistryVersion(string subKey, string caller)
+    private int ReadRegistryVersion(string subKey, string caller)
     {
         try
         {
@@ -426,7 +411,7 @@ public partial class ITSModeFeature(Lazy<ITSModeListener> iTSModeListener) : IFe
         }
     }
 
-    private static int ReadRegistryInt(RegistryKey key, string valueName, int defaultValue)
+    private int ReadRegistryInt(RegistryKey key, string valueName, int defaultValue)
     {
         var value = key.GetValue(valueName, defaultValue);
 
@@ -445,7 +430,7 @@ public partial class ITSModeFeature(Lazy<ITSModeListener> iTSModeListener) : IFe
         }
     }
 
-    private static async Task<bool> WaitForITSModeAsync(ITSMode expected, CancellationToken token)
+    private async Task<bool> WaitForITSModeAsync(ITSMode expected, CancellationToken token)
     {
         var deadline = DateTimeOffset.UtcNow.AddSeconds(3);
 

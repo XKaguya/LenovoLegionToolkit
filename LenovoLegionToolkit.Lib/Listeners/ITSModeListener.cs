@@ -1,14 +1,16 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
+using LenovoLegionToolkit.Lib.Controllers;
 using LenovoLegionToolkit.Lib.Extensions;
-using LenovoLegionToolkit.Lib.Features;
 using LenovoLegionToolkit.Lib.Messaging;
 using LenovoLegionToolkit.Lib.Messaging.Messages;
 using LenovoLegionToolkit.Lib.Utils;
 
 namespace LenovoLegionToolkit.Lib.Listeners;
 
-public class ITSModeListener(ITSModeFeature itsModeFeature) : IListener<ITSModeListener.ChangedEventArgs>, IDisposable
+public class ITSModeListener(
+    WindowsPowerModeController windowsPowerModeController, 
+    WindowsPowerPlanController windowsPowerPlanController) : IListener<ITSModeListener.ChangedEventArgs>, IDisposable
 {
     public class ChangedEventArgs(ITSMode state) : EventArgs
     {
@@ -42,41 +44,46 @@ public class ITSModeListener(ITSModeFeature itsModeFeature) : IListener<ITSModeL
             return;
         }
 
-        try
-        {
-            if (!await itsModeFeature.IsSupportedAsync().ConfigureAwait(false))
-            {
-                return;
-            }
-
-            var newState = await itsModeFeature.ToggleItsMode().ConfigureAwait(false);
-
-            if (newState == ITSMode.None)
-            {
-                return;
-            }
-
-            Log.Instance.Trace($"ITSModeListener detected Fn+Q, preparing to broadcast {newState}");
-
-            await OnChangedAsync(newState).ConfigureAwait(false);
-        }
-        catch (Exception ex)
-        {
-            Log.Instance.Trace($"Error handling Fn+Q in ITSModeListener", ex);
-        }
-    }
-
-    protected virtual Task OnChangedAsync(ITSMode value)
-    {
-        itsModeFeature.LastItsMode = value;
-        RaiseChanged(value);
-
-        return Task.CompletedTask;
+        Log.Instance.Trace($"ITSModeListener detected Fn+Q, requesting toggle.");
+        MessagingCenter.Publish(new ITSModeToggleRequestMessage());
     }
 
     public async Task NotifyAsync(ITSMode value)
     {
-        await OnChangedAsync(value).ConfigureAwait(false);
+        await ChangeDependenciesAsync(value).ConfigureAwait(false);
+        RaiseChanged(value);
+    }
+
+    public virtual async Task OnChangedAsync(ITSMode value)
+    {
+        await ChangeDependenciesAsync(value).ConfigureAwait(false);
+        PublishNotification(value);
+        RaiseChanged(value);
+    }
+
+    private async Task ChangeDependenciesAsync(ITSMode value)
+    {
+        await windowsPowerModeController.SetPowerModeAsync(value).ConfigureAwait(false);
+        await windowsPowerPlanController.SetPowerPlanAsync(value, true).ConfigureAwait(false);
+    }
+
+    private static void PublishNotification(ITSMode value)
+    {
+        switch (value)
+        {
+            case ITSMode.ItsAuto:
+                MessagingCenter.Publish(new NotificationMessage(NotificationType.ITSModeAuto, value.GetDisplayName()));
+                break;
+            case ITSMode.MmcCool:
+                MessagingCenter.Publish(new NotificationMessage(NotificationType.ITSModeCool, value.GetDisplayName()));
+                break;
+            case ITSMode.MmcPerformance:
+                MessagingCenter.Publish(new NotificationMessage(NotificationType.ITSModePerformance, value.GetDisplayName()));
+                break;
+            case ITSMode.MmcGeek:
+                MessagingCenter.Publish(new NotificationMessage(NotificationType.ITSModeGeek, value.GetDisplayName()));
+                break;
+        }
     }
 
     protected void RaiseChanged(ITSMode value)

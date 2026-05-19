@@ -57,7 +57,7 @@ public class ITSModeControl : AbstractComboBoxFeatureCardControl<ITSMode>
             return;
         }
 
-        ITSMode mode = ITSMode.None;
+        ITSMode mode;
         if (_itsModeFeature.LastItsMode == ITSMode.None)
         {
             mode = await _itsModeFeature.GetStateAsync();
@@ -82,7 +82,7 @@ public class ITSModeControl : AbstractComboBoxFeatureCardControl<ITSMode>
         if (newValue.Value != oldValue.Value)
         {
             await _itsModeFeature.SetStateAsync(newValue.Value);
-            _itsModeFeature.LastItsMode = newValue.Value;
+            await _iTSModeListener.NotifyAsync(newValue.Value);
         }
 
         await base.OnStateChangeAsync(comboBox, feature, newValue, oldValue);
