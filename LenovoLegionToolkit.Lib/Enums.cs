@@ -983,11 +983,11 @@ public enum WhiteKeyboardBacklightState
 
 public enum WindowsPowerMode
 {
-    [Display(Name = nameof(Resource.BestPowerEfficiency), ResourceType = typeof(Resource))]
+    [Display(ResourceType = typeof(Resource), Name = "BestPowerEfficiency")]
     BestPowerEfficiency,
-    [Display(Name = nameof(Resource.Balanced), ResourceType = typeof(Resource))]
+    [Display(ResourceType = typeof(Resource), Name = "Balanced")]
     Balanced,
-    [Display(Name = nameof(Resource.BestPerformance), ResourceType = typeof(Resource))]
+    [Display(ResourceType = typeof(Resource), Name = "BestPerformance")]
     BestPerformance
 }
 
