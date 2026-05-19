@@ -14,11 +14,11 @@ public static partial class WMI
 {
     public static class LenovoBiosSetting
     {
-        public static Task<List<string>> GetBiosSelections(string settingName) => CallAsync(
+        public static Task<List<string>> GetBiosSelectionsAsync(string settingName) => CallAsync(
             "root\\WMI",
             $"SELECT * FROM Lenovo_GetBiosSelections",
             "GetBiosSelections",
-            new Dictionary<string, object> { { "Item", settingName } },
+            new() { { "Item", settingName } },
             pdc =>
             {
                 string? raw = pdc["Selections"]?.Value?.ToString();
@@ -30,9 +30,9 @@ public static partial class WMI
                     .Select(s => s.Trim())
                     .Where(s => !string.IsNullOrEmpty(s))
                     .ToList();
-            });
+        });
 
-        public static async Task<string> GetBiosSetting(string settingName)
+        public static async Task<string> GetBiosSettingAsync(string settingName)
         {
             var scope = new ManagementScope("root\\WMI");
             var query = new ObjectQuery("SELECT * FROM Lenovo_BiosSetting");
@@ -54,16 +54,15 @@ public static partial class WMI
             return string.Empty;
         }
 
-        public static Task SetBiosSetting(string settingName, string value) => CallAsync(
+        public static Task SetBiosSettingAsync(string settingName, string value) => CallAsync(
             "root\\WMI",
             $"SELECT * FROM Lenovo_SetBiosSetting",
             "SetBiosSetting",
-            new Dictionary<string, object> { { "parameter", $"{settingName},{value}," } });
-
-        public static Task SaveBiosSetting() => CallAsync(
+            new() { { "parameter", $"{settingName},{value}," } });
+        public static Task SaveBiosSettingAsync() => CallAsync(
             "root\\WMI",
             $"SELECT * FROM Lenovo_SaveBiosSettings",
             "SaveBiosSettings",
-            []);
+            new());
     }
 }
