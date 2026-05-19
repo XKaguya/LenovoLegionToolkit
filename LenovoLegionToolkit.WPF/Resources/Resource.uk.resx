@@ -257,7 +257,7 @@
     <value>Мережевий проксі</value>
   </data>
   <data name="ArgumentWindow_Edit_Message" xml:space="preserve">
-    <value>Відкрийте вікно аргументів для зручної зміни аргументів.</value>
+    <value>Modify startup arguments for the app.</value>
   </data>
   <data name="ArgumentWindow_Edit_Title" xml:space="preserve">
     <value>Змінити аргументи</value>
@@ -2649,7 +2649,7 @@
     <value>Fit</value>
   </data>
   <data name="SettingsPage_Custom_BackgroundImage_Title" xml:space="preserve">
-    <value>Власне фонове зображення</value>
+    <value>Background Image</value>
   </data>
   <data name="SettingsPage_DisableLegionSpace_Error_Message" xml:space="preserve">
     <value>Legion Space, можливо, не був відключений правильно</value>
@@ -2738,13 +2738,13 @@
     <value>Виключені процеси</value>
   </data>
   <data name="SettingsPage_ExcludeRefreshRates_Message" xml:space="preserve">
-    <value>Ви можете виключити частоту оновлення, щоб зробити комбінацію клавіш Fn+R більш корисною.</value>
+    <value>Hide specific refresh rates from the Fn+R cycle.</value>
   </data>
   <data name="SettingsPage_ExcludeRefreshRates_Title" xml:space="preserve">
     <value>Виключити частоти оновлення</value>
   </data>
   <data name="SettingsPage_HardwareAcceleration_Message" xml:space="preserve">
-    <value>Використовуйте апаратне прискорення для інтерфейсу користувача. Це може підвищити продуктивність та плавність.</value>
+    <value>Use hardware acceleration for the user interface.</value>
   </data>
   <data name="SettingsPage_HardwareAcceleration_Title" xml:space="preserve">
     <value>Апаратне прискорення</value>
@@ -2786,19 +2786,19 @@
     <value>Key Discovery</value>
   </data>
   <data name="SettingsPage_Language_Message" xml:space="preserve">
-    <value>Обрати мову.</value>
+    <value>Change the display language of the app.</value>
   </data>
   <data name="SettingsPage_Language_Title" xml:space="preserve">
     <value>Мова</value>
   </data>
   <data name="SettingsPage_LockWindowSize_Message" xml:space="preserve">
-    <value>Заблокувати розмір вікна LLT. Щоб запобігти його зміні чимось.</value>
+    <value>Prevent the window from being resized.</value>
   </data>
   <data name="SettingsPage_LockWindowSize_Title" xml:space="preserve">
     <value>Заблокувати розмір вікна</value>
   </data>
   <data name="SettingsPage_MinimizeOnClose_Message" xml:space="preserve">
-    <value>Завжди згортати у лоток. Закривайте натисканням правою кнопкою миші на образець у лотку.</value>
+    <value>Minimize to the system tray instead of closing.</value>
   </data>
   <data name="SettingsPage_MinimizeOnClose_Title" xml:space="preserve">
     <value>Згортати при закритті</value>
@@ -2858,7 +2858,7 @@
     <value>Налаштування датчика</value>
   </data>
   <data name="SettingsPage_SmartFnLock_Message" xml:space="preserve">
-    <value>Fn Lock буде тимчасово вимкнено при натисканні клавіш Alt, Ctrl або Shift.</value>
+    <value>Temporarily disable Fn Lock while Alt, Ctrl or Shift is held.</value>
   </data>
   <data name="SettingsPage_SmartFnLock_Title" xml:space="preserve">
     <value>Розумне Fn Lock</value>
@@ -2870,7 +2870,7 @@
     <value>Розумна клавіша</value>
   </data>
   <data name="SettingsPage_SynchronizeBrightnessToAllPowerPlans_Message" xml:space="preserve">
-    <value>Коли увімкнено, однаковий рівень яскравості буде застосований для всіх планів потужності Windows, поки ви не зміните його.</value>
+    <value>Apply the same brightness level across all Windows power plans.</value>
   </data>
   <data name="SettingsPage_SynchronizeBrightnessToAllPowerPlans_Title" xml:space="preserve">
     <value>Спільна яскравість дисплеїв</value>
@@ -2882,7 +2882,7 @@
     <value>Температура</value>
   </data>
   <data name="SettingsPage_Theme_Description" xml:space="preserve">
-    <value>Встановить білу тему, темну тему або дотримуйтесь системних налаштувань.</value>
+    <value>Set light, dark, or system-matched theme.</value>
   </data>
   <data name="SettingsPage_Theme_Title" xml:space="preserve">
     <value>Тема</value>

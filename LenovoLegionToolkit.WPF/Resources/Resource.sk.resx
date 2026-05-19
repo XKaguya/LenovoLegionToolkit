@@ -257,7 +257,7 @@
     <value>Network Proxy</value>
   </data>
   <data name="ArgumentWindow_Edit_Message" xml:space="preserve">
-    <value>Open an argument window for convenient modification of arguments.</value>
+    <value>Modify startup arguments for the app.</value>
   </data>
   <data name="ArgumentWindow_Edit_Title" xml:space="preserve">
     <value>Edit Arguments</value>
@@ -2652,7 +2652,7 @@ Prv sa uistite, že váš skript beží správne.</value>
     <value>Fit</value>
   </data>
   <data name="SettingsPage_Custom_BackgroundImage_Title" xml:space="preserve">
-    <value>Custom Background Image</value>
+    <value>Background Image</value>
   </data>
   <data name="SettingsPage_DisableLegionSpace_Error_Message" xml:space="preserve">
     <value>Legion Space may have not been disabled correctly</value>
@@ -2741,13 +2741,13 @@ Po zmene tejto možnosti sa odporúča reštart.</value>
     <value>Excluded Processes</value>
   </data>
   <data name="SettingsPage_ExcludeRefreshRates_Message" xml:space="preserve">
-    <value>Môžete vylúčiť obnovovacie frekvencie, aby bola skratka Fn+R užitočnejšia.</value>
+    <value>Hide specific refresh rates from the Fn+R cycle.</value>
   </data>
   <data name="SettingsPage_ExcludeRefreshRates_Title" xml:space="preserve">
     <value>Vylúčiť obnovovacie frekvencie</value>
   </data>
   <data name="SettingsPage_HardwareAcceleration_Message" xml:space="preserve">
-    <value>Use hardware acceleration for the user interface. This can improve performance and fluidity.</value>
+    <value>Use hardware acceleration for the user interface.</value>
   </data>
   <data name="SettingsPage_HardwareAcceleration_Title" xml:space="preserve">
     <value>Hardware Acceleration</value>
@@ -2789,19 +2789,19 @@ Po zmene tejto možnosti sa odporúča reštart.</value>
     <value>Key Discovery</value>
   </data>
   <data name="SettingsPage_Language_Message" xml:space="preserve">
-    <value>Vybrať jazyk.</value>
+    <value>Change the display language of the app.</value>
   </data>
   <data name="SettingsPage_Language_Title" xml:space="preserve">
     <value>Jazyk</value>
   </data>
   <data name="SettingsPage_LockWindowSize_Message" xml:space="preserve">
-    <value>Lock LLT's window size. To prevent something change it.</value>
+    <value>Prevent the window from being resized.</value>
   </data>
   <data name="SettingsPage_LockWindowSize_Title" xml:space="preserve">
     <value>Lock Window Size</value>
   </data>
   <data name="SettingsPage_MinimizeOnClose_Message" xml:space="preserve">
-    <value>Vždy minimalizovať na panel úloh. Zatvoriť pravým kliknutím na ikonu v panely úloh.</value>
+    <value>Minimize to the system tray instead of closing.</value>
   </data>
   <data name="SettingsPage_MinimizeOnClose_Title" xml:space="preserve">
     <value>Minimalizovať pri zatvorení</value>
@@ -2861,7 +2861,7 @@ Po zmene tejto možnosti sa odporúča reštart.</value>
     <value>Sensor Settings</value>
   </data>
   <data name="SettingsPage_SmartFnLock_Message" xml:space="preserve">
-    <value>Fn Lock will be temporarily disabled when Alt, Ctrl or Shift key is depressed.</value>
+    <value>Temporarily disable Fn Lock while Alt, Ctrl or Shift is held.</value>
   </data>
   <data name="SettingsPage_SmartFnLock_Title" xml:space="preserve">
     <value>Smart Fn Lock</value>
@@ -2873,7 +2873,7 @@ Po zmene tejto možnosti sa odporúča reštart.</value>
     <value>Smart Keys</value>
   </data>
   <data name="SettingsPage_SynchronizeBrightnessToAllPowerPlans_Message" xml:space="preserve">
-    <value>Keď zapnuté, rovnaká úroveň jasu bude použitá na všetky plány napájania Windows hocikedy ich zmeníte.</value>
+    <value>Apply the same brightness level across all Windows power plans.</value>
   </data>
   <data name="SettingsPage_SynchronizeBrightnessToAllPowerPlans_Title" xml:space="preserve">
     <value>Jas jediného displeja</value>
@@ -2885,7 +2885,7 @@ Po zmene tejto možnosti sa odporúča reštart.</value>
     <value>Temperature</value>
   </data>
   <data name="SettingsPage_Theme_Description" xml:space="preserve">
-    <value>Nastaviť svetlý motív, tmavý motív alebo riadiť sa systémom.</value>
+    <value>Set light, dark, or system-matched theme.</value>
   </data>
   <data name="SettingsPage_Theme_Title" xml:space="preserve">
     <value>Motív</value>

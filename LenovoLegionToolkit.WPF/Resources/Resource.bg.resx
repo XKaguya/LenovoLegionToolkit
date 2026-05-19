@@ -257,7 +257,7 @@
     <value>Network Proxy</value>
   </data>
   <data name="ArgumentWindow_Edit_Message" xml:space="preserve">
-    <value>Open an argument window for convenient modification of arguments.</value>
+    <value>Modify startup arguments for the app.</value>
   </data>
   <data name="ArgumentWindow_Edit_Title" xml:space="preserve">
     <value>Edit Arguments</value>
@@ -2650,7 +2650,7 @@ It won't affect other full screen windows, but you will not be able to click on 
     <value>Fit</value>
   </data>
   <data name="SettingsPage_Custom_BackgroundImage_Title" xml:space="preserve">
-    <value>Custom Background Image</value>
+    <value>Background Image</value>
   </data>
   <data name="SettingsPage_DisableLegionSpace_Error_Message" xml:space="preserve">
     <value>Legion Space may have not been disabled correctly</value>
@@ -2739,13 +2739,13 @@ It won't affect other full screen windows, but you will not be able to click on 
     <value>Excluded Processes</value>
   </data>
   <data name="SettingsPage_ExcludeRefreshRates_Message" xml:space="preserve">
-    <value>Може да изключите избрани честоти на опресняване, за да направите клавишната комбинация Fn+R по-полезна.</value>
+    <value>Hide specific refresh rates from the Fn+R cycle.</value>
   </data>
   <data name="SettingsPage_ExcludeRefreshRates_Title" xml:space="preserve">
     <value>Изключи честотата на опресняване</value>
   </data>
   <data name="SettingsPage_HardwareAcceleration_Message" xml:space="preserve">
-    <value>Use hardware acceleration for the user interface. This can improve performance and fluidity.</value>
+    <value>Use hardware acceleration for the user interface.</value>
   </data>
   <data name="SettingsPage_HardwareAcceleration_Title" xml:space="preserve">
     <value>Hardware Acceleration</value>
@@ -2787,19 +2787,19 @@ It won't affect other full screen windows, but you will not be able to click on 
     <value>Key Discovery</value>
   </data>
   <data name="SettingsPage_Language_Message" xml:space="preserve">
-    <value>Изберете език.</value>
+    <value>Change the display language of the app.</value>
   </data>
   <data name="SettingsPage_Language_Title" xml:space="preserve">
     <value>Език</value>
   </data>
   <data name="SettingsPage_LockWindowSize_Message" xml:space="preserve">
-    <value>Lock LLT's window size. To prevent something change it.</value>
+    <value>Prevent the window from being resized.</value>
   </data>
   <data name="SettingsPage_LockWindowSize_Title" xml:space="preserve">
     <value>Lock Window Size</value>
   </data>
   <data name="SettingsPage_MinimizeOnClose_Message" xml:space="preserve">
-    <value>Приложението се минимизира в лентата на задачите, когато затворите основния прозорец. Може да го спрете от менюто, което се отваря при натискането на десен бутон върху иконката му.</value>
+    <value>Minimize to the system tray instead of closing.</value>
   </data>
   <data name="SettingsPage_MinimizeOnClose_Title" xml:space="preserve">
     <value>Минимизирай приложението при затваряне на прозореца</value>
@@ -2859,7 +2859,7 @@ It won't affect other full screen windows, but you will not be able to click on 
     <value>Sensor Settings</value>
   </data>
   <data name="SettingsPage_SmartFnLock_Message" xml:space="preserve">
-    <value>Заключването на бутона Fn ще бъде изключено временно, когато някой от бутоните Alt, Ctrl или Shift е натиснат.</value>
+    <value>Temporarily disable Fn Lock while Alt, Ctrl or Shift is held.</value>
   </data>
   <data name="SettingsPage_SmartFnLock_Title" xml:space="preserve">
     <value>Умно заключване на Fn бутона</value>
@@ -2871,7 +2871,7 @@ It won't affect other full screen windows, but you will not be able to click on 
     <value>Smart Keys</value>
   </data>
   <data name="SettingsPage_SynchronizeBrightnessToAllPowerPlans_Message" xml:space="preserve">
-    <value>Когато е активирано, една и съща настройка на яркостта ще бъде приложена за всички планове за захранване на Windows.</value>
+    <value>Apply the same brightness level across all Windows power plans.</value>
   </data>
   <data name="SettingsPage_SynchronizeBrightnessToAllPowerPlans_Title" xml:space="preserve">
     <value>Една и съща яркост на дисплея</value>
@@ -2883,7 +2883,7 @@ It won't affect other full screen windows, but you will not be able to click on 
     <value>Temperature</value>
   </data>
   <data name="SettingsPage_Theme_Description" xml:space="preserve">
-    <value>Задайте светла или тъмна тема или използвайте системната настройка.</value>
+    <value>Set light, dark, or system-matched theme.</value>
   </data>
   <data name="SettingsPage_Theme_Title" xml:space="preserve">
     <value>Облик</value>

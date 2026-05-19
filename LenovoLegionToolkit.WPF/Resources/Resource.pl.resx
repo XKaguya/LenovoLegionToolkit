@@ -257,7 +257,7 @@
     <value>Network Proxy</value>
   </data>
   <data name="ArgumentWindow_Edit_Message" xml:space="preserve">
-    <value>Open an argument window for convenient modification of arguments.</value>
+    <value>Modify startup arguments for the app.</value>
   </data>
   <data name="ArgumentWindow_Edit_Title" xml:space="preserve">
     <value>Edit Arguments</value>
@@ -2653,7 +2653,7 @@ Uprzednio sprawdź, czy twój skrypt działa prawidłowo.</value>
     <value>Fit</value>
   </data>
   <data name="SettingsPage_Custom_BackgroundImage_Title" xml:space="preserve">
-    <value>Custom Background Image</value>
+    <value>Background Image</value>
   </data>
   <data name="SettingsPage_DisableLegionSpace_Error_Message" xml:space="preserve">
     <value>Legion Space may have not been disabled correctly</value>
@@ -2742,13 +2742,13 @@ Po zmianie tego ustawienia zalecane jest ponowne uruchomienie.</value>
     <value>Excluded Processes</value>
   </data>
   <data name="SettingsPage_ExcludeRefreshRates_Message" xml:space="preserve">
-    <value>Możesz wykluczyć częstotliwości odświeżania ze skrótu Fn+R.</value>
+    <value>Hide specific refresh rates from the Fn+R cycle.</value>
   </data>
   <data name="SettingsPage_ExcludeRefreshRates_Title" xml:space="preserve">
     <value>Wyklucz częstotliwości odświeżania</value>
   </data>
   <data name="SettingsPage_HardwareAcceleration_Message" xml:space="preserve">
-    <value>Use hardware acceleration for the user interface. This can improve performance and fluidity.</value>
+    <value>Use hardware acceleration for the user interface.</value>
   </data>
   <data name="SettingsPage_HardwareAcceleration_Title" xml:space="preserve">
     <value>Hardware Acceleration</value>
@@ -2790,19 +2790,19 @@ Po zmianie tego ustawienia zalecane jest ponowne uruchomienie.</value>
     <value>Key Discovery</value>
   </data>
   <data name="SettingsPage_Language_Message" xml:space="preserve">
-    <value>Wybierz język.</value>
+    <value>Change the display language of the app.</value>
   </data>
   <data name="SettingsPage_Language_Title" xml:space="preserve">
     <value>Język</value>
   </data>
   <data name="SettingsPage_LockWindowSize_Message" xml:space="preserve">
-    <value>Lock LLT's window size. To prevent something change it.</value>
+    <value>Prevent the window from being resized.</value>
   </data>
   <data name="SettingsPage_LockWindowSize_Title" xml:space="preserve">
     <value>Lock Window Size</value>
   </data>
   <data name="SettingsPage_MinimizeOnClose_Message" xml:space="preserve">
-    <value>Zawsze minimalizuj do zasobnika. Zamknij prawym przyciskiem na ikonie zasobnika.</value>
+    <value>Minimize to the system tray instead of closing.</value>
   </data>
   <data name="SettingsPage_MinimizeOnClose_Title" xml:space="preserve">
     <value>Minimalizuj przy zamknięciu</value>
@@ -2862,7 +2862,7 @@ Po zmianie tego ustawienia zalecane jest ponowne uruchomienie.</value>
     <value>Sensor Settings</value>
   </data>
   <data name="SettingsPage_SmartFnLock_Message" xml:space="preserve">
-    <value>Fn Lock zostanie tymczasowo wyłaczony, gdy wciśnięty jest klawisz Alt, Ctrl lub Shift.</value>
+    <value>Temporarily disable Fn Lock while Alt, Ctrl or Shift is held.</value>
   </data>
   <data name="SettingsPage_SmartFnLock_Title" xml:space="preserve">
     <value>Inteligentna blokada przycisku Fn</value>
@@ -2874,7 +2874,7 @@ Po zmianie tego ustawienia zalecane jest ponowne uruchomienie.</value>
     <value>Smart Keys</value>
   </data>
   <data name="SettingsPage_SynchronizeBrightnessToAllPowerPlans_Message" xml:space="preserve">
-    <value>Po włączeniu tego ustawienia ten sam poziom jasności zostanie zastosowany do wszystkich planów zasilania systemu Windows po każdej jego zmianie.</value>
+    <value>Apply the same brightness level across all Windows power plans.</value>
   </data>
   <data name="SettingsPage_SynchronizeBrightnessToAllPowerPlans_Title" xml:space="preserve">
     <value>Jednolity poziom jasności ekranu</value>
@@ -2886,7 +2886,7 @@ Po zmianie tego ustawienia zalecane jest ponowne uruchomienie.</value>
     <value>Temperatura</value>
   </data>
   <data name="SettingsPage_Theme_Description" xml:space="preserve">
-    <value>Wybierz motyw jasny, ciemny, albo ustaw zgodnie z motywem systemu.</value>
+    <value>Set light, dark, or system-matched theme.</value>
   </data>
   <data name="SettingsPage_Theme_Title" xml:space="preserve">
     <value>Motyw</value>

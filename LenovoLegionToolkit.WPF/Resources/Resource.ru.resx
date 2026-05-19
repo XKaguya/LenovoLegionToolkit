@@ -257,7 +257,7 @@
     <value>Прокси - сервер</value>
   </data>
   <data name="ArgumentWindow_Edit_Message" xml:space="preserve">
-    <value>Откройте окно аргументов для удобного редактирования.</value>
+    <value>Modify startup arguments for the app.</value>
   </data>
   <data name="ArgumentWindow_Edit_Title" xml:space="preserve">
     <value>Редактировать аргументы</value>
@@ -2653,7 +2653,7 @@
     <value>Fit</value>
   </data>
   <data name="SettingsPage_Custom_BackgroundImage_Title" xml:space="preserve">
-    <value>Пользовательское фоновое изображение</value>
+    <value>Background Image</value>
   </data>
   <data name="SettingsPage_DisableLegionSpace_Error_Message" xml:space="preserve">
     <value>Возможно, Legion Space был неверно отключен</value>
@@ -2742,13 +2742,13 @@
     <value>Исключенные процессы</value>
   </data>
   <data name="SettingsPage_ExcludeRefreshRates_Message" xml:space="preserve">
-    <value>Вы можете исключить частоту обновления, чтобы сделать сочетание клавиш Fn+R более полезным.</value>
+    <value>Hide specific refresh rates from the Fn+R cycle.</value>
   </data>
   <data name="SettingsPage_ExcludeRefreshRates_Title" xml:space="preserve">
     <value>Исключить частоту обновления</value>
   </data>
   <data name="SettingsPage_HardwareAcceleration_Message" xml:space="preserve">
-    <value>Используйте аппаратное ускорение для пользовательского интерфейса. Это может повысить производительность и плавность.</value>
+    <value>Use hardware acceleration for the user interface.</value>
   </data>
   <data name="SettingsPage_HardwareAcceleration_Title" xml:space="preserve">
     <value>Аппаратное ускорение</value>
@@ -2790,19 +2790,19 @@
     <value>Key Discovery</value>
   </data>
   <data name="SettingsPage_Language_Message" xml:space="preserve">
-    <value>Выбрать язык.</value>
+    <value>Change the display language of the app.</value>
   </data>
   <data name="SettingsPage_Language_Title" xml:space="preserve">
     <value>Язык</value>
   </data>
   <data name="SettingsPage_LockWindowSize_Message" xml:space="preserve">
-    <value>Заблокировать размер окна LLT. Чтобы предотвратить что-то изменить его.</value>
+    <value>Prevent the window from being resized.</value>
   </data>
   <data name="SettingsPage_LockWindowSize_Title" xml:space="preserve">
     <value>Заблокировать размер окна</value>
   </data>
   <data name="SettingsPage_MinimizeOnClose_Message" xml:space="preserve">
-    <value>Всегда сворачивать в область уведомлений. Закрывать правой кнопкой мыши на значке в области уведомлений.</value>
+    <value>Minimize to the system tray instead of closing.</value>
   </data>
   <data name="SettingsPage_MinimizeOnClose_Title" xml:space="preserve">
     <value>Сворачивать при закрытии</value>
@@ -2862,7 +2862,7 @@
     <value>Настройки датчиков</value>
   </data>
   <data name="SettingsPage_SmartFnLock_Message" xml:space="preserve">
-    <value>Функция Fn Lock будет временно отключена при нажатии клавиш Alt, Ctrl или Shift.</value>
+    <value>Temporarily disable Fn Lock while Alt, Ctrl or Shift is held.</value>
   </data>
   <data name="SettingsPage_SmartFnLock_Title" xml:space="preserve">
     <value>Умная клавиша Fn Lock</value>
@@ -2874,7 +2874,7 @@
     <value>Умные клавиши</value>
   </data>
   <data name="SettingsPage_SynchronizeBrightnessToAllPowerPlans_Message" xml:space="preserve">
-    <value>При включении этого параметра один и тот же уровень яркости будет применяться ко всем схемам питания Windows при каждом его изменении.</value>
+    <value>Apply the same brightness level across all Windows power plans.</value>
   </data>
   <data name="SettingsPage_SynchronizeBrightnessToAllPowerPlans_Title" xml:space="preserve">
     <value>Яркость одного дисплея</value>
@@ -2886,7 +2886,7 @@
     <value>Температура</value>
   </data>
   <data name="SettingsPage_Theme_Description" xml:space="preserve">
-    <value>Установить светлую тему, темную тему или следовать системным настройкам.</value>
+    <value>Set light, dark, or system-matched theme.</value>
   </data>
   <data name="SettingsPage_Theme_Title" xml:space="preserve">
     <value>Тема оформления</value>
