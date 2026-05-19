@@ -34,10 +34,6 @@ _Join the Official Discord: https://discord.gg/TB3ER8ZVdt_ (for releases, suppor
 _Join the Legion Series Discord: https://discord.com/invite/legionseries_<br>
 _Join the LOQ Series Discord: https://discord.gg/3GKzQtwdNf_
 
-<img src="assets/Main_DarkMode.png" width="700" />
-
-&nbsp;
-
 # Localization
 This fork has linked to crowdin [LenovoLegionToolkit](https://crowdin.com/project/lenovolegiontoolkit-unofficial)
 
