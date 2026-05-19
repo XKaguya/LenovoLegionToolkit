@@ -59,6 +59,24 @@ An expandable card section. Wraps `Wpf.Ui.Controls.CardExpander`.
 
 ---
 
+## `custom:NavigationItem`
+
+A navigation entry used inside `wpfui:NavigationStore`. Wraps `Wpf.Ui.Controls.NavigationItem`.
+
+**Key properties:** `Content` (label text), `Icon` (SymbolRegular name), `PageType` (target page type), `PageTag` (string identifier)
+
+```xml
+<custom:NavigationItem
+    Content="{x:Static resources:Resource.MainWindow_NavigationItem_Dashboard}"
+    Icon="Home24"
+    PageTag="dashboard"
+    PageType="{x:Type pages:DashboardPage}" />
+```
+
+> Navigation items go inside `wpfui:NavigationStore.Items` (main nav) or `wpfui:NavigationStore.Footer` (bottom items like Settings, Donate, About).
+
+---
+
 ## `custom:Badge`
 
 A small badge/pill indicator. Wraps `Wpf.Ui.Controls.Badge`.

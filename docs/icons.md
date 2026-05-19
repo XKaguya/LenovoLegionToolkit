@@ -60,7 +60,7 @@ All icons below are confirmed to exist in `SymbolRegular` for wpfui 2.1.0.
 | `CheckmarkCircle24` | Compatibility check flag, success state |
 | `Dismiss24` | Close, kill process |
 | `Warning24` | Warnings, conflict indicators |
-| `Info24` | Info cards |
+| `Info24` | Info cards, About nav item |
 | `ErrorCircle24` | Unsupported device dialog |
 | `ChevronDown24` | Expandable sections |
 | `Open24` | Open external link |
@@ -70,6 +70,14 @@ All icons below are confirmed to exist in `SymbolRegular` for wpfui 2.1.0.
 ### Navigation & Windows
 | Icon | Usage |
 |------|-------|
+| `Home24` | Dashboard nav item |
+| `Keyboard24` | Keyboard backlight nav item |
+| `BatteryCheckmark24` | Battery nav item |
+| `Rocket24` | Actions/Automation nav item |
+| `ReceiptPlay24` | Macro nav item |
+| `Box24` | Packages nav item |
+| `Settings24` | Settings nav item |
+| `Money24` | Donate nav item |
 | `Window24` | OSD overlay style setting |
 | `Desktop16` | Display/screen indicator |
 | `Desktop24` | GPU working mode flag |
