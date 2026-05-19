@@ -112,7 +112,16 @@ try
     {
         Console.WriteLine($"  BIOS Version: {obj["SMBIOSBIOSVersion"]}");
         Console.WriteLine($"  BIOS Release: {obj["ReleaseDate"]}");
-        Console.WriteLine($"  Serial Number: {obj["SerialNumber"]}");
+    }
+}
+catch (Exception ex) { LogError(ex); }
+
+try
+{
+    using var skuSearcher = new ManagementObjectSearcher("SELECT * FROM Win32_ComputerSystemProduct");
+    foreach (var obj in skuSearcher.Get())
+    {
+        Console.WriteLine($"  SKU: {obj["Version"]}");
     }
 }
 catch (Exception ex) { LogError(ex); }
