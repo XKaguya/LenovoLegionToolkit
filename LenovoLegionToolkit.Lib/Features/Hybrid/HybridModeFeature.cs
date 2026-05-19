@@ -33,7 +33,7 @@ public class HybridModeFeature(GSyncFeature gSyncFeature, IGPUModeFeature igpuMo
         List<string>? biosSelections = null;
         try
         {
-            biosSelections = await WMI.LenovoBiosSetting.GetBiosSelections("GraphicsDevice").ConfigureAwait(false);
+            biosSelections = await WMI.LenovoBiosSetting.GetBiosSelectionsAsync("GraphicsDevice").ConfigureAwait(false);
         }
         catch (Exception ex)
         {
@@ -61,7 +61,7 @@ public class HybridModeFeature(GSyncFeature gSyncFeature, IGPUModeFeature igpuMo
         string? biosSetting = null;
         try
         {
-            biosSetting = await WMI.LenovoBiosSetting.GetBiosSetting("GraphicsDevice").ConfigureAwait(false);
+            biosSetting = await WMI.LenovoBiosSetting.GetBiosSettingAsync("GraphicsDevice").ConfigureAwait(false);
         }
         catch (Exception ex)
         {
@@ -99,8 +99,8 @@ public class HybridModeFeature(GSyncFeature gSyncFeature, IGPUModeFeature igpuMo
         {
             try
             {
-                await WMI.LenovoBiosSetting.SetBiosSetting("GraphicsDevice", "UMA Graphics").ConfigureAwait(false);
-                await WMI.LenovoBiosSetting.SaveBiosSetting().ConfigureAwait(false);
+                await WMI.LenovoBiosSetting.SetBiosSettingAsync("GraphicsDevice", "UMA Graphics").ConfigureAwait(false);
+                await WMI.LenovoBiosSetting.SaveBiosSettingAsync().ConfigureAwait(false);
                 Log.Instance.Trace($"State set to {HybridModeState.UMA}  BiosGPUModeFeature");
             }
             catch (Exception ex)
