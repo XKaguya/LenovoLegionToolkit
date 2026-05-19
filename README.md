@@ -512,13 +512,13 @@ If you want to remove them instead, make sure that you uninstall all 3, otherwis
 
 LLT makes use of many low-level Windows APIs that can be falsely flagged by antiviruses as suspicious, resulting in a false-positive. LLT is open source and can easily be audited by anyone who has any doubts as to what this software does. All installers are built directly on GitHub with GitHub Actions, so that there is no doubt what they contain. 
 
-To ensure authenticity, the installer executable is signed with a project certificate. This signature allows the application's custom updater to verify that the installer hasn't been tampered with and originated from the official build process.
+To ensure authenticity, the installer executable and `Lenovo Legion Toolkit.exe` itself is signed with a project certificate. This signature allows the application's custom updater to verify that the installer hasn't been tampered with and originated from the official build process.
 
 If you downloaded the installer from this project's website or GitHub, you shouldn't worry - the warning is a false-positive. 
 
 #### Can I customize hotkeys?
 
-You can customize Fn+F9 hotkey in LLT settings. Other hotkeys can't be customized.
+You can customize hotkeys in LLT settings.
 
 #### Can I customize Conservation mode threshold?
 
@@ -528,7 +528,7 @@ No. Conservation mode threshold is set in firmware to 60% (2021 and earlier) or 
 
 No, it isn't possible to customize how the fan works in power modes other than Custom.
 
-#### Why can't I switch to Performance or Custom Power Mode on battery?
+#### Why can't I switch to Performance, Extreme or Custom Power Mode on battery?
 
 Starting with version 2.11.0, LLT's behavior was aligned with Vantage and Legion Zone and it does not allow using them without an appropriate power source.
 
@@ -547,9 +547,14 @@ Sometimes new motherboard does not contain correct model numbers and serial numb
 
 #### Why isn't a game detected, even though Actions are configured properly?
 
-Game detection feature is built on top of Windows' game detection, meaning LLT will react to EXE files that Windows considers "a game". That also means that if you nuked Xbox Game Bar from your installation, there is 99.9% chance this feature will not work.
+Game detection mode can be configured in LLT settings. There are four options:
 
-Windows probably doesn't recognize all games properly, but you can mark any program as game in Xbox Game Bar settings (Win+G). You can find list of recognized games in registry: `HKEY_CURRENT_USER\System\GameConfigStore\Children`.
+- **Auto** (default) — combines all methods below
+- **Discrete GPU** — reacts when any process starts using the discrete GPU
+- **Game Config Store** — reacts to games registered in Windows via Xbox Game Bar (`HKEY_CURRENT_USER\System\GameConfigStore\Children`). You can mark any program as a game in Xbox Game Bar settings (Win+G)
+- **Game Mode** — reacts when Windows activates Game Mode for the foreground process
+
+If a game is not detected, check which detection mode is configured in LLT settings and ensure the game meets the criteria for that mode.
 
 #### Can I use other RGB software while using LLT?
 
@@ -565,7 +570,7 @@ Only options natively supported by hardware are available; adding support for cu
 
 #### Can you add fan control to other models?
 
-Fan control is available on Gen 7 and later models. Older models will not be supported due to technical limitations. For discussions about fan control experimental support, join the **Official Discord**.
+Fan control is available on Gen 7 and later models. Older models will not be supported due to technical limitations. For discussions about fan control experimental support, join the [**Official Discord**](https://discord.gg/TB3ER8ZVdt).
 
 #### Why don't I see the custom tooltip when I hover LLT icon in tray?
 
