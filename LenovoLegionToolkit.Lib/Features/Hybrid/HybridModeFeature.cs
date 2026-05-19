@@ -35,9 +35,9 @@ public class HybridModeFeature(GSyncFeature gSyncFeature, IGPUModeFeature igpuMo
         {
             biosSelections = await WMI.LenovoBiosSetting.GetBiosSelectionsAsync("GraphicsDevice").ConfigureAwait(false);
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            Log.Instance.Trace($"Failed to get GraphicsDevice bios selections. Machine might not support it.", ex);
+            Log.Instance.Trace($"Failed to get GraphicsDevice bios selections. Machine might not support it.");
         }
 
         if (biosSelections?.Any(item => item.Contains("UMA", StringComparison.OrdinalIgnoreCase)) == true)
@@ -63,9 +63,9 @@ public class HybridModeFeature(GSyncFeature gSyncFeature, IGPUModeFeature igpuMo
         {
             biosSetting = await WMI.LenovoBiosSetting.GetBiosSettingAsync("GraphicsDevice").ConfigureAwait(false);
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            Log.Instance.Trace($"Failed to get GraphicsDevice bios setting. Machine might not support it.", ex);
+            Log.Instance.Trace($"Failed to get GraphicsDevice bios setting. Machine might not support it.");
         }
 
         if (!string.IsNullOrEmpty(biosSetting) && biosSetting.Contains("UMA"))
@@ -106,7 +106,6 @@ public class HybridModeFeature(GSyncFeature gSyncFeature, IGPUModeFeature igpuMo
             catch (Exception ex)
             {
                 Log.Instance.Trace($"Failed to set UMA graphics device.", ex);
-                throw;
             }
 
             return;
