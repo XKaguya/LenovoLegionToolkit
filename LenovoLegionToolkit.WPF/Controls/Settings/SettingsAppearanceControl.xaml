@@ -41,51 +41,78 @@
                     <controls:CardHeaderControl Title="{x:Static resources:Resource.SettingsPage_Custom_BackgroundImage_Title}" Subtitle="{x:Static resources:Resource.SettingsPage_Custom_BackgroundImage_Message}" />
                 </custom:CardControl.Header>
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                    <TextBlock
-                        x:Name="_backgroundImageDimLabel"
-                        Margin="0,0,8,0"
-                        VerticalAlignment="Center"
-                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                        Text="{x:Static resources:Resource.SettingsPage_Custom_BackgroundImage_Dim}"
-                        Visibility="Hidden" />
-                    <Slider
-                        x:Name="_backgroundImageOpacitySlider"
-                        Width="160"
-                        Margin="0,5,0,0"
-                        IsSnapToTickEnabled="True"
-                        LargeChange="0.1"
-                        Maximum="1"
-                        Minimum="0"
-                        SmallChange="0.01"
-                        TickFrequency="0.1"
-                        ValueChanged="OpacitySlider_ValueChanged"
-                        Visibility="Hidden" />
-                    <TextBlock
-                        x:Name="_backgroundImageDimValueText"
-                        Width="40"
-                        Margin="6,0,8,0"
-                        VerticalAlignment="Center"
-                        Foreground="{DynamicResource TextFillColorTertiaryBrush}"
-                        Visibility="Hidden" />
-                    <wpfui:Button
-                        x:Name="_selectBackgroundImageButton"
-                        Margin="8,0,0,0"
-                        Padding="12,8"
-                        AutomationProperties.Name="{x:Static resources:Resource.SettingsPage_Select_BackgroundImage_Content}"
-                        Click="SelectBackgroundImageButton_Click"
-                        Icon="FolderOpen24"
-                        ToolTip="{x:Static resources:Resource.SettingsPage_Select_BackgroundImage_Content}"
-                        Visibility="Hidden" />
-                    <wpfui:Button
-                        x:Name="_clearBackgroundImageButton"
-                        Margin="8,0,0,0"
-                        Padding="12,8"
-                        Appearance="Secondary"
-                        AutomationProperties.Name="{x:Static resources:Resource.SettingsPage_Clear_BackgroundImage_Title}"
-                        Click="ClearBackgroundImageButton_Click"
-                        Icon="Delete24"
-                        ToolTip="{x:Static resources:Resource.SettingsPage_Clear_BackgroundImage_Title}"
-                        Visibility="Hidden" />
+                    <StackPanel x:Name="_backgroundImageSliderControls" Margin="0,0,8,0" Visibility="Collapsed">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock
+                                Margin="0,0,6,0"
+                                VerticalAlignment="Center"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="{x:Static resources:Resource.SettingsPage_Custom_BackgroundImage_Dim}" />
+                            <Slider
+                                x:Name="_backgroundImageOpacitySlider"
+                                Width="120"
+                                IsSnapToTickEnabled="True"
+                                LargeChange="0.1"
+                                Maximum="1"
+                                Minimum="0"
+                                SmallChange="0.01"
+                                TickFrequency="0.01"
+                                ValueChanged="OpacitySlider_ValueChanged" />
+                            <TextBlock
+                                x:Name="_backgroundImageDimValueText"
+                                Margin="6,0,0,0"
+                                VerticalAlignment="Center"
+                                Foreground="{DynamicResource TextFillColorTertiaryBrush}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock
+                                Margin="0,0,6,0"
+                                VerticalAlignment="Center"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="{x:Static resources:Resource.SettingsPage_Custom_BackgroundImage_Blur}" />
+                            <Slider
+                                x:Name="_backgroundImageBlurSlider"
+                                Width="120"
+                                IsSnapToTickEnabled="True"
+                                Maximum="40"
+                                Minimum="0"
+                                SmallChange="1"
+                                TickFrequency="1"
+                                ValueChanged="BlurSlider_ValueChanged" />
+                            <TextBlock
+                                x:Name="_backgroundImageBlurValueText"
+                                Margin="6,0,0,0"
+                                VerticalAlignment="Center"
+                                Foreground="{DynamicResource TextFillColorTertiaryBrush}" />
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <wpfui:Button
+                            x:Name="_stretchToggleButton"
+                            Padding="12,8"
+                            Margin="0,0,4,0"
+                            Appearance="Secondary"
+                            Visibility="Collapsed"
+                            Click="StretchToggleButton_Click" />
+                        <wpfui:Button
+                            x:Name="_selectBackgroundImageButton"
+                            Padding="12,8"
+                            AutomationProperties.Name="{x:Static resources:Resource.SettingsPage_Select_BackgroundImage_Content}"
+                            Click="SelectBackgroundImageButton_Click"
+                            Icon="FolderOpen24"
+                            ToolTip="{x:Static resources:Resource.SettingsPage_Select_BackgroundImage_Content}"
+                            Visibility="Hidden" />
+                        <wpfui:Button
+                            x:Name="_clearBackgroundImageButton"
+                            Margin="4,0,0,0"
+                            Padding="12,8"
+                            Appearance="Secondary"
+                            AutomationProperties.Name="{x:Static resources:Resource.SettingsPage_Clear_BackgroundImage_Title}"
+                            Click="ClearBackgroundImageButton_Click"
+                            Icon="Delete24"
+                            ToolTip="{x:Static resources:Resource.SettingsPage_Clear_BackgroundImage_Title}"
+                            Visibility="Hidden" />
+                    </StackPanel>
                 </StackPanel>
             </custom:CardControl>
             <custom:CardControl Margin="0,0,0,8" Icon="Color24">

@@ -24,6 +24,13 @@ public enum AutorunState
     Disabled
 }
 
+public enum BackgroundImageStretchMode
+{
+    Fill = 0,
+    Fit = 1,
+    Crop = 2
+}
+
 public enum BatteryNightChargeState
 {
     [Display(ResourceType = typeof(Resource), Name = "BatteryNightChargeState_On")]

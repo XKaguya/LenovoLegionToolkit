@@ -587,6 +587,21 @@ public partial class MainWindow
         _backgroundDimOverlay.Opacity = opacity;
     }
 
+    public void SetBackgroundBlur(int radius)
+    {
+        _backgroundBlurEffect.Radius = radius;
+    }
+
+    public void SetBackgroundStretch(BackgroundImageStretchMode stretch)
+    {
+        _backgroundImage.Stretch = stretch switch
+        {
+            BackgroundImageStretchMode.Fit => System.Windows.Media.Stretch.Uniform,
+            BackgroundImageStretchMode.Crop => System.Windows.Media.Stretch.UniformToFill,
+            _ => System.Windows.Media.Stretch.Fill
+        };
+    }
+
     public void SetVisual()
     {
         var settings = IoCContainer.Resolve<ApplicationSettings>();
@@ -598,11 +613,14 @@ public partial class MainWindow
             {
                 SetMainWindowBackgroundImage(result);
                 SetWindowOpacity(opacity);
+                SetBackgroundBlur(settings.Store.BackgroundImageBlur);
+                SetBackgroundStretch(settings.Store.BackgroundImageStretch);
             }
             else
             {
                 _backgroundImage.ImageSource = null;
                 SetWindowOpacity(0);
+                SetBackgroundBlur(0);
             }
         }
         catch (Exception ex)

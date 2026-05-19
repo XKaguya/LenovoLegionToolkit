@@ -16,10 +16,6 @@
     FlowDirection="{x:Static utils:LocalizationHelper.Direction}">
 
     <Grid>
-        <Grid.Background>
-            <ImageBrush x:Name="_backgroundImage" />
-        </Grid.Background>
-
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -29,6 +25,17 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+
+        <Rectangle
+            Grid.RowSpan="7"
+            IsHitTestVisible="False">
+            <Rectangle.Fill>
+                <ImageBrush x:Name="_backgroundImage" />
+            </Rectangle.Fill>
+            <Rectangle.Effect>
+                <BlurEffect x:Name="_backgroundBlurEffect" Radius="0" KernelType="Gaussian" />
+            </Rectangle.Effect>
+        </Rectangle>
 
         <Rectangle
             x:Name="_backgroundDimOverlay"

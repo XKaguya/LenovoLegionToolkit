@@ -63,7 +63,9 @@ public class ApplicationSettings : AbstractSettings<ApplicationSettingsStore>
         public WindowPosition? WindowPosition { get; set; }
         public bool EnableLogging { get; set; }
         public string BackGroundImageFilePath { get; set; } = string.Empty;
-        public double Opacity { get; set; } = 1.0f;
+        public double Opacity { get; set; } = 0.3;
+        public int BackgroundImageBlur { get; set; } = 0;
+        public BackgroundImageStretchMode BackgroundImageStretch { get; set; } = BackgroundImageStretchMode.Crop;
         public List<string> ExcludedProcesses { get; set; } = [];
         public GameDetectionSettings GameDetection { get; set; } = new();
         public bool DynamicLightingWarningDontShowAgain { get; set; }

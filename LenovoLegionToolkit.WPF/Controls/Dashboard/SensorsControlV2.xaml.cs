@@ -424,7 +424,7 @@ public partial class SensorsControlV2
         _lastVisibleCardCount = count;
         _lastAdjustedWidth = width;
 
-        const double cardMargin = 16;
+        const double cardMargin = 8;
         var cardsPerRow = Math.Max(1, Math.Min(count, (int)(width / (200 + cardMargin))));
         var cardWidth = Math.Max(200, (width - cardsPerRow * cardMargin) / cardsPerRow);
 

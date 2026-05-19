@@ -14,7 +14,7 @@
 
     <UserControl.Resources>
         <Style x:Key="SensorCardStyle" TargetType="Border">
-            <Setter Property="Margin" Value="0,0,16,16" />
+            <Setter Property="Margin" Value="0,0,8,8" />
             <Setter Property="CornerRadius" Value="8" />
             <Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
             <Setter Property="BorderThickness" Value="1" />

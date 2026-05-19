@@ -60,11 +60,14 @@ public partial class SettingsAppearanceControl
 
         _backgroundImageOpacitySlider.Value = _settings.Store.Opacity;
         _backgroundImageDimValueText.Text = FormatDimValue(_settings.Store.Opacity);
+        _backgroundImageBlurSlider.Value = _settings.Store.BackgroundImageBlur;
+        _backgroundImageBlurValueText.Text = FormatBlurValue(_settings.Store.BackgroundImageBlur);
 
         _themeComboBox.Visibility = Visibility.Visible;
         _selectBackgroundImageButton.Visibility = Visibility.Visible;
         _clearBackgroundImageButton.Visibility = Visibility.Visible;
-        UpdateDimSliderVisibility();
+        UpdateImageControlsVisibility();
+        UpdateStretchButton(_settings.Store.BackgroundImageStretch);
         _hardwareAccelerationToggle.IsChecked = _settings.Store.EnableHardwareAcceleration;
 
         var array = Enum.GetValues<WindowBackdropType>()
@@ -174,11 +177,13 @@ public partial class SettingsAppearanceControl
                 var filePath = openFileDialog.FileName;
                 App.MainWindowInstance!.SetMainWindowBackgroundImage(filePath);
                 App.MainWindowInstance!.SetWindowOpacity(_settings.Store.Opacity);
+                App.MainWindowInstance!.SetBackgroundBlur(_settings.Store.BackgroundImageBlur);
+                App.MainWindowInstance!.SetBackgroundStretch(_settings.Store.BackgroundImageStretch);
 
                 _settings.Store.BackGroundImageFilePath = filePath;
                 _settings.SynchronizeStore();
 
-                UpdateDimSliderVisibility();
+                UpdateImageControlsVisibility();
             }
         }
         catch (Exception ex)
@@ -188,13 +193,12 @@ public partial class SettingsAppearanceControl
         }
     }
 
-    private void UpdateDimSliderVisibility()
+    private void UpdateImageControlsVisibility()
     {
         var hasImage = _settings.Store.BackGroundImageFilePath != string.Empty;
         var visibility = hasImage ? Visibility.Visible : Visibility.Collapsed;
-        _backgroundImageOpacitySlider.Visibility = visibility;
-        _backgroundImageDimLabel.Visibility = visibility;
-        _backgroundImageDimValueText.Visibility = visibility;
+        _backgroundImageSliderControls.Visibility = visibility;
+        _stretchToggleButton.Visibility = visibility;
     }
 
     private void OpacitySlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -211,6 +215,47 @@ public partial class SettingsAppearanceControl
         _backgroundImageDimValueText.Text = FormatDimValue(e.NewValue);
     }
 
+    private void BlurSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+    {
+        if (_isRefreshing)
+            return;
+
+        if (_settings.Store.BackGroundImageFilePath == string.Empty)
+            return;
+
+        var radius = (int)e.NewValue;
+        App.MainWindowInstance!.SetBackgroundBlur(radius);
+        _settings.Store.BackgroundImageBlur = radius;
+        _settings.SynchronizeStore();
+        _backgroundImageBlurValueText.Text = FormatBlurValue(radius);
+    }
+
+    private void StretchToggleButton_Click(object sender, RoutedEventArgs e)
+    {
+        var values = Enum.GetValues<BackgroundImageStretchMode>();
+        var next = values[((int)_settings.Store.BackgroundImageStretch + 1) % values.Length];
+        App.MainWindowInstance!.SetBackgroundStretch(next);
+        _settings.Store.BackgroundImageStretch = next;
+        _settings.SynchronizeStore();
+        UpdateStretchButton(next);
+    }
+
+    private void UpdateStretchButton(BackgroundImageStretchMode stretch)
+    {
+        _stretchToggleButton.Icon = stretch switch
+        {
+            BackgroundImageStretchMode.Fill => Wpf.Ui.Common.SymbolRegular.ArrowMaximize24,
+            BackgroundImageStretchMode.Fit => Wpf.Ui.Common.SymbolRegular.Resize24,
+            _ => Wpf.Ui.Common.SymbolRegular.Crop24
+        };
+        _stretchToggleButton.ToolTip = stretch switch
+        {
+            BackgroundImageStretchMode.Fill => Resource.SettingsPage_Custom_BackgroundImage_Stretch_Fill,
+            BackgroundImageStretchMode.Fit => Resource.SettingsPage_Custom_BackgroundImage_Stretch_Fit,
+            _ => Resource.SettingsPage_Custom_BackgroundImage_Stretch_Crop
+        };
+    }
+
     private void ClearBackgroundImageButton_Click(object sender, RoutedEventArgs e)
     {
         if (_isRefreshing)
@@ -220,7 +265,7 @@ public partial class SettingsAppearanceControl
         _settings.SynchronizeStore();
 
         App.MainWindowInstance?.SetVisual();
-        UpdateDimSliderVisibility();
+        UpdateImageControlsVisibility();
     }
 
     private void HardwareAccelerationToggle_Checked(object sender, RoutedEventArgs e)
@@ -281,5 +326,7 @@ public partial class SettingsAppearanceControl
     }
 
     private static string FormatDimValue(double opacity) => $"{opacity * 100:0}{Resource.Percent}";
+
+    private static string FormatBlurValue(int radius) => radius.ToString();
 }
 
