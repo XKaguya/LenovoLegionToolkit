@@ -285,15 +285,15 @@ public enum IGPUModeState
 
 public enum ITSMode
 {
-    None,
+    None = 0,
     [Display(ResourceType = typeof(Resource), Name = "ITSMode_Intelligent_Cooling")]
-    ItsAuto,
+    ItsAuto = 1,
     [Display(ResourceType = typeof(Resource), Name = "ITSMode_Intelligent_Battery_Saving")]
-    MmcCool,
+    MmcCool = 2,
     [Display(ResourceType = typeof(Resource), Name = "ITSMode_Intelligent_Extreme_Performance")]
-    MmcPerformance,
+    MmcPerformance = 3,
     [Display(ResourceType = typeof(Resource), Name = "ITSMode_Intelligent_Geek")]
-    MmcGeek
+    MmcGeek = 4
 }
 
 public enum ITSModeServiceControlMessage

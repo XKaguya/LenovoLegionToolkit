@@ -75,7 +75,7 @@ public static class HybridModeControlFactory
             if (newValue is null || oldValue is null)
                 return;
 
-            var reboot = (newValue == HybridModeState.Off || oldValue == HybridModeState.Off || newValue == HybridModeState.UMA) && await MessageBoxHelper.ShowAsync(this,
+            var reboot = (newValue == HybridModeState.Off || oldValue == HybridModeState.Off || newValue == HybridModeState.UMA || oldValue == HybridModeState.UMA) && await MessageBoxHelper.ShowAsync(this,
                     Resource.ComboBoxHybridModeControl_RestartRequired_Title,
                     string.Format(Resource.ComboBoxHybridModeControl_RestartRequired_Message, newValue.GetDisplayName()),
                     Resource.RestartNow,

@@ -1,13 +1,12 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using LenovoLegionToolkit.Lib.Features.Hybrid.Notify;
 using LenovoLegionToolkit.Lib.System;
 using LenovoLegionToolkit.Lib.System.Management;
 using LenovoLegionToolkit.Lib.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Management;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace LenovoLegionToolkit.Lib.Features.Hybrid;
 
@@ -31,14 +30,9 @@ public class HybridModeFeature(GSyncFeature gSyncFeature, IGPUModeFeature igpuMo
     {
         var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
 
-        List<string>? biosSelections = null;
-        try
-        {
-            biosSelections = await WMI.LenovoBiosSetting.GetBiosSelectionsAsync("GraphicsDevice").ConfigureAwait(false);
-        }
-        catch (ManagementException) { /* Ignore */ }
+        var biosSelections = await WMI.LenovoBiosSetting.GetBiosSelectionsAsync("GraphicsDevice").ConfigureAwait(false);
 
-        if (biosSelections?.Any(item => item.Contains("UMA", StringComparison.OrdinalIgnoreCase)) == true)
+        if (biosSelections.Any(item => item.Contains("UMA", StringComparison.OrdinalIgnoreCase)))
         {
             return [HybridModeState.On, HybridModeState.OnIGPUOnly, HybridModeState.OnAuto, HybridModeState.UMA, HybridModeState.Off];
         }
@@ -56,16 +50,11 @@ public class HybridModeFeature(GSyncFeature gSyncFeature, IGPUModeFeature igpuMo
     {
         Log.Instance.Trace($"Getting state...");
 
-        string? biosSetting = null;
-        try
-        {
-            biosSetting = await WMI.LenovoBiosSetting.GetBiosSettingAsync("GraphicsDevice").ConfigureAwait(false);
-        }
-        catch (ManagementException) { /* Ignore */ }
+        var biosSetting = await WMI.LenovoBiosSetting.GetBiosSettingAsync("GraphicsDevice").ConfigureAwait(false);
 
         if (!string.IsNullOrEmpty(biosSetting) && biosSetting.Contains("UMA"))
         {
-            Log.Instance.Trace($"State is {HybridModeState.UMA} BiosGPUModeFeature");
+            Log.Instance.Trace($"State is {HybridModeState.UMA}");
             return HybridModeState.UMA;
         }
 
@@ -96,7 +85,7 @@ public class HybridModeFeature(GSyncFeature gSyncFeature, IGPUModeFeature igpuMo
             {
                 await WMI.LenovoBiosSetting.SetBiosSettingAsync("GraphicsDevice", "UMA Graphics").ConfigureAwait(false);
                 await WMI.LenovoBiosSetting.SaveBiosSettingAsync().ConfigureAwait(false);
-                Log.Instance.Trace($"State set to {HybridModeState.UMA}  BiosGPUModeFeature");
+                Log.Instance.Trace($"State set to {HybridModeState.UMA}");
             }
             catch (Exception ex)
             {
@@ -132,12 +121,16 @@ public class HybridModeFeature(GSyncFeature gSyncFeature, IGPUModeFeature igpuMo
             catch (IGPUModeChangeException)
             {
                 if (!gSyncChanged)
+                {
                     throw;
+                }
             }
             finally
             {
                 if (!gSyncChanged && igpuMode is IGPUModeState.Default or IGPUModeState.Auto or IGPUModeState.IGPUOnly)
+                {
                     await dgpuNotify.NotifyLaterIfNeededAsync().ConfigureAwait(false);
+                }
             }
         }
 
