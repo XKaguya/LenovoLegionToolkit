@@ -1,4 +1,4 @@
-﻿using LenovoLegionToolkit.Lib.Utils;
+﻿using LenovoLegionToolkit.Lib.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,94 +14,56 @@ public static partial class WMI
 {
     public static class LenovoBiosSetting
     {
-        public static async Task<string> GetBiosSelections(string settingName)
-        {
-            return await Task.Run(() =>
+        public static Task<List<string>> GetBiosSelections(string settingName) => CallAsync(
+            "root\\WMI",
+            $"SELECT * FROM Lenovo_GetBiosSelections",
+            "GetBiosSelections",
+            new Dictionary<string, object> { { "Item", settingName } },
+            pdc =>
             {
-                try
-                {
-                    var scope = new ManagementScope("root\\WMI");
-                    var query = new ObjectQuery("SELECT * FROM Lenovo_GetBiosSelections");
-                    using var searcher = new ManagementObjectSearcher(scope, query);
+                string? raw = pdc["Selections"]?.Value?.ToString();
+                if (string.IsNullOrEmpty(raw))
+                    return [];
 
-                    foreach (ManagementObject obj in searcher.Get().Cast<ManagementObject>())
-                    {
-                        var inParams = obj.GetMethodParameters("GetBiosSelections");
-                        inParams["Name"] = settingName;
-                        var outParams = obj.InvokeMethod("GetBiosSelections", inParams, null);
-                        return outParams?["Selections"]?.ToString() ?? string.Empty;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Log.Instance.Trace($"GetBiosSelections failed for {settingName}.");
-                }
-
-                return string.Empty;
-            }).ConfigureAwait(false);
-        }
+                return raw
+                    .Split(',')
+                    .Select(s => s.Trim())
+                    .Where(s => !string.IsNullOrEmpty(s))
+                    .ToList();
+            });
 
         public static async Task<string> GetBiosSetting(string settingName)
         {
-            return await Task.Run(() =>
+            var scope = new ManagementScope("root\\WMI");
+            var query = new ObjectQuery("SELECT * FROM Lenovo_BiosSetting");
+            using var searcher = new ManagementObjectSearcher(scope, query);
+
+            var managementObjects = await searcher.GetAsync().ConfigureAwait(false);
+
+            foreach (var managementObject in managementObjects)
             {
-                try
+                using var obj = (ManagementObject)managementObject;
+                var current = obj["CurrentSetting"]?.ToString();
+                if (current != null && current.StartsWith(settingName + ","))
                 {
-                    var scope = new ManagementScope("root\\WMI");
-                    var query = new ObjectQuery("SELECT * FROM Lenovo_BiosSetting");
-                    using var searcher = new ManagementObjectSearcher(scope, query);
-
-                    foreach (ManagementObject obj in searcher.Get().Cast<ManagementObject>())
-                    {
-                        var current = obj["CurrentSetting"]?.ToString();
-                        if (current != null && current.StartsWith(settingName + ","))
-                        {
-                            var parts = current.Split(',');
-                            if (parts.Length >= 2)
-                                return parts[1];
-                        }
-                    }
+                    var parts = current.Split(',');
+                    if (parts.Length >= 2)
+                        return parts[1];
                 }
-                catch (Exception ex)
-                {
-                    Log.Instance.Trace($"GetBiosSetting failed for {settingName}.");
-                }
-
-                return string.Empty;
-            }).ConfigureAwait(false);
+            }
+            return string.Empty;
         }
 
-        public static async Task SetBiosSetting(string settingName, string value)
-        {
-            try
-            {
-                var parameter = $"{settingName},{value},";
-                await WMI.CallAsync(
-                    "root\\WMI",
-                    $"SELECT * FROM Lenovo_SetBiosSetting",
-                    "SetBiosSetting",
-                    new Dictionary<string, object> { { "Parameter", parameter } }).ConfigureAwait(false);
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.Trace($"SetBiosSetting failed for {settingName}={value}", ex);
-            }
-        }
+        public static Task SetBiosSetting(string settingName, string value) => CallAsync(
+            "root\\WMI",
+            $"SELECT * FROM Lenovo_SetBiosSetting",
+            "SetBiosSetting",
+            new Dictionary<string, object> { { "parameter", $"{settingName},{value}," } });
 
-        public static async Task SaveBiosSetting()
-        {
-            try
-            {
-                await WMI.CallAsync(
-                    "root\\WMI",
-                    $"SELECT * FROM Lenovo_SaveBiosSettings",
-                    "SaveBiosSettings",
-                    new Dictionary<string, object>()).ConfigureAwait(false);
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.Trace($"SaveBiosSettings failed", ex);
-            }
-        }
+        public static Task SaveBiosSetting() => CallAsync(
+            "root\\WMI",
+            $"SELECT * FROM Lenovo_SaveBiosSettings",
+            "SaveBiosSettings",
+            []);
     }
 }
