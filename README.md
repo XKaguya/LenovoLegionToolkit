@@ -55,10 +55,10 @@ Contributions to the localization efforts are warmly welcomed and greatly apprec
 <img src="assets/OSD_BarStyle.png" width="49%" />
 
 ### Settings
-<img src="assets/Settings_Power.png" width="49%" /> <img src="assets/Settings_Appearance.png" width="49%" />
+<img src="assets/Settings_Appearance.png" width="49%" /> <img src="assets/Settings_Power.png" width="49%" />
 <img src="assets/Settings_Display.png" width="49%" /> <img src="assets/Settings_SmartKeys.png" width="49%" />
-<img src="assets/Settings_SoftwareControl.png" width="49%" /> <img src="assets/Settings_Integrations.png" width="49%" />
-<img src="assets/Settings_Updates.png" width="49%" /> <img src="assets/Setting_AppBehavior.png" width="49%" />
+<img src="assets/Settings_SoftwareControl.png" width="49%" /> <img src="assets/Settings_Updates.png" width="49%" />
+<img src="assets/Settings_Integrations.png" width="49%" />
 
 ---
 
@@ -106,7 +106,7 @@ If you installed LLT on a clean Windows install, make sure to have necessary dri
 2. Lenovo Vantage Gaming Feature Driver
 
 > [!NOTE]
-> These drivers are not required on Gen 9 and later laptops.
+> These drivers are not required on Gen 10 and later laptops.
 
 #### Problems with .NET?
 
