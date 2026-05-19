@@ -138,12 +138,18 @@ public partial class ITSModeFeature(Lazy<ITSModeListener> iTSModeListener) : IFe
         try
         {
             var currentState = await GetStateAsync().ConfigureAwait(false);
-            var allStates = await GetAllStatesAsync().ConfigureAwait(false);
+
+            var desiredSequence = new[]
+            {
+                ITSMode.MmcCool,
+                ITSMode.ItsAuto,
+                ITSMode.MmcPerformance,
+                ITSMode.MmcGeek
+            };
 
             var isConnected = await Power.IsPowerAdapterConnectedAsync().ConfigureAwait(false) == PowerAdapterStatus.Connected;
 
-            var availableStates = allStates
-                .Where(state => state != ITSMode.None)
+            var availableStates = desiredSequence
                 .Where(state => isConnected || state != ITSMode.MmcGeek)
                 .ToArray();
 
