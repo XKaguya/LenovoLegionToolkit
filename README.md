@@ -24,8 +24,6 @@
 
 ---
 
-<br />
-
 Lenovo Legion Toolkit (LLT) is a Windows desktop utility created for Lenovo gaming laptops that replaces Lenovo Vantage / Legion Zone / Legion Space.
 
 It runs no background services, uses less memory, uses virtually no CPU, and contains no telemetry. Just like Lenovo Vantage, this application is Windows only.
@@ -55,10 +53,10 @@ Contributions to the localization efforts are warmly welcomed and greatly apprec
 <img src="assets/OSD_BarStyle.png" width="49%" />
 
 ### Settings
-<img src="assets/Settings_Appearance.png" width="49%" /> <img src="assets/Settings_Power.png" width="49%" />
-<img src="assets/Settings_Display.png" width="49%" /> <img src="assets/Settings_SmartKeys.png" width="49%" />
-<img src="assets/Settings_SoftwareControl.png" width="49%" /> <img src="assets/Settings_Updates.png" width="49%" />
-<img src="assets/Settings_Integrations.png" width="49%" />
+<img src="assets/Setting_AppBehavior.png" width="49%" /> <img src="assets/Settings_Appearance.png" width="49%" />
+<img src="assets/Settings_Power.png" width="49%" /> <img src="assets/Settings_Display.png" width="49%" />
+<img src="assets/Settings_SmartKeys.png" width="49%" /> <img src="assets/Settings_SoftwareControl.png" width="49%" />
+<img src="assets/Settings_Updates.png" width="49%" /> <img src="assets/Settings_Integrations.png" width="49%" />
 
 ---
 
