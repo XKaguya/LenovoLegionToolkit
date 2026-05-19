@@ -1,12 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using LenovoLegionToolkit.Lib.Features.Hybrid.Notify;
 using LenovoLegionToolkit.Lib.System;
 using LenovoLegionToolkit.Lib.System.Management;
 using LenovoLegionToolkit.Lib.Utils;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Management;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace LenovoLegionToolkit.Lib.Features.Hybrid;
 
@@ -35,10 +36,7 @@ public class HybridModeFeature(GSyncFeature gSyncFeature, IGPUModeFeature igpuMo
         {
             biosSelections = await WMI.LenovoBiosSetting.GetBiosSelectionsAsync("GraphicsDevice").ConfigureAwait(false);
         }
-        catch (Exception)
-        {
-            Log.Instance.Trace($"Failed to get GraphicsDevice bios selections. Machine might not support it.");
-        }
+        catch (ManagementException) { /* Ignore */ }
 
         if (biosSelections?.Any(item => item.Contains("UMA", StringComparison.OrdinalIgnoreCase)) == true)
         {
@@ -63,10 +61,7 @@ public class HybridModeFeature(GSyncFeature gSyncFeature, IGPUModeFeature igpuMo
         {
             biosSetting = await WMI.LenovoBiosSetting.GetBiosSettingAsync("GraphicsDevice").ConfigureAwait(false);
         }
-        catch (Exception)
-        {
-            Log.Instance.Trace($"Failed to get GraphicsDevice bios setting. Machine might not support it.");
-        }
+        catch (ManagementException) { /* Ignore */ }
 
         if (!string.IsNullOrEmpty(biosSetting) && biosSetting.Contains("UMA"))
         {
