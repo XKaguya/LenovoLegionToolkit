@@ -224,10 +224,10 @@ public class NotificationsManager
                 NotificationType.PowerModePerformance => si => si.Foreground = PowerModeState.Performance.GetSolidColorBrush(),
                 NotificationType.PowerModeExtreme => si => si.Foreground = PowerModeState.Extreme.GetSolidColorBrush(),
                 NotificationType.PowerModeGodMode => si => si.Foreground = PowerModeState.GodMode.GetSolidColorBrush(),
-                NotificationType.ITSModeAuto => si => si.Foreground = PowerModeState.Performance.GetSolidColorBrush(),
-                NotificationType.ITSModeCool => si => si.Foreground = PowerModeState.Quiet.GetSolidColorBrush(),
-                NotificationType.ITSModePerformance => si => si.Foreground = PowerModeState.Extreme.GetSolidColorBrush(),
-                NotificationType.ITSModeGeek => si => si.Foreground = PowerModeState.GodMode.GetSolidColorBrush(),
+                NotificationType.ITSModeAuto => si => si.Foreground = ITSMode.ItsAuto.GetSolidColorBrush(),
+                NotificationType.ITSModeCool => si => si.Foreground = ITSMode.MmcCool.GetSolidColorBrush(),
+                NotificationType.ITSModePerformance => si => si.Foreground = ITSMode.MmcPerformance.GetSolidColorBrush(),
+                NotificationType.ITSModeGeek => si => si.Foreground = ITSMode.MmcGeek.GetSolidColorBrush(),
                 _ => null
             };
 
