@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using LenovoLegionToolkit.Lib.Features.Hybrid.Notify;
@@ -28,7 +30,7 @@ public class HybridModeFeature(GSyncFeature gSyncFeature, IGPUModeFeature igpuMo
     {
         var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
 
-        string? biosSelections = null;
+        List<string>? biosSelections = null;
         try
         {
             biosSelections = await WMI.LenovoBiosSetting.GetBiosSelections("GraphicsDevice").ConfigureAwait(false);
@@ -38,7 +40,7 @@ public class HybridModeFeature(GSyncFeature gSyncFeature, IGPUModeFeature igpuMo
             Log.Instance.Trace($"Failed to get GraphicsDevice bios selections. Machine might not support it.", ex);
         }
 
-        if (!string.IsNullOrEmpty(biosSelections) && biosSelections.Contains("UMA"))
+        if (biosSelections?.Contains("UMA") == true)
         {
             return [HybridModeState.On, HybridModeState.OnIGPUOnly, HybridModeState.OnAuto, HybridModeState.UMA, HybridModeState.Off];
         }
