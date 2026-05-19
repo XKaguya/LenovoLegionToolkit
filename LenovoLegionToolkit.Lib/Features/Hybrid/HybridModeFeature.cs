@@ -27,9 +27,18 @@ public class HybridModeFeature(GSyncFeature gSyncFeature, IGPUModeFeature igpuMo
     public async Task<HybridModeState[]> GetAllStatesAsync()
     {
         var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
-        var result = await WMI.LenovoBiosSetting.GetBiosSelections("GraphicsDevice").ConfigureAwait(false);
 
-        if (result.Contains("UMA"))
+        string? biosSelections = null;
+        try
+        {
+            biosSelections = await WMI.LenovoBiosSetting.GetBiosSelections("GraphicsDevice").ConfigureAwait(false);
+        }
+        catch (Exception ex)
+        {
+            Log.Instance.Trace($"Failed to get GraphicsDevice bios selections. Machine might not support it.", ex);
+        }
+
+        if (!string.IsNullOrEmpty(biosSelections) && biosSelections.Contains("UMA"))
         {
             return [HybridModeState.On, HybridModeState.OnIGPUOnly, HybridModeState.OnAuto, HybridModeState.UMA, HybridModeState.Off];
         }
@@ -47,8 +56,17 @@ public class HybridModeFeature(GSyncFeature gSyncFeature, IGPUModeFeature igpuMo
     {
         Log.Instance.Trace($"Getting state...");
 
-        var result = await WMI.LenovoBiosSetting.GetBiosSetting("GraphicsDevice").ConfigureAwait(false);
-        if (result.Contains("UMA"))
+        string? biosSetting = null;
+        try
+        {
+            biosSetting = await WMI.LenovoBiosSetting.GetBiosSetting("GraphicsDevice").ConfigureAwait(false);
+        }
+        catch (Exception ex)
+        {
+            Log.Instance.Trace($"Failed to get GraphicsDevice bios setting. Machine might not support it.", ex);
+        }
+
+        if (!string.IsNullOrEmpty(biosSetting) && biosSetting.Contains("UMA"))
         {
             Log.Instance.Trace($"State is {HybridModeState.UMA} BiosGPUModeFeature");
             return HybridModeState.UMA;
@@ -77,9 +95,19 @@ public class HybridModeFeature(GSyncFeature gSyncFeature, IGPUModeFeature igpuMo
     {
         if (state == HybridModeState.UMA)
         {
-            await WMI.LenovoBiosSetting.SetBiosSetting("GraphicsDevice", "UMA Graphics").ConfigureAwait(false);
-            await WMI.LenovoBiosSetting.SaveBiosSetting().ConfigureAwait(false);
-            Log.Instance.Trace($"State set to {HybridModeState.UMA}  BiosGPUModeFeature");
+            try
+            {
+                await WMI.LenovoBiosSetting.SetBiosSetting("GraphicsDevice", "UMA Graphics").ConfigureAwait(false);
+                await WMI.LenovoBiosSetting.SaveBiosSetting().ConfigureAwait(false);
+                Log.Instance.Trace($"State set to {HybridModeState.UMA}  BiosGPUModeFeature");
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.Trace($"Failed to set UMA graphics device.", ex);
+                throw;
+            }
+
+            return;
         }
 
         await _ensureDGPUEjectedIfNeededCancellationTokenSource.CancelAsync().ConfigureAwait(false);
