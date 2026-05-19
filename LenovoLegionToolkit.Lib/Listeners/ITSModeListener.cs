@@ -20,7 +20,7 @@ public class ITSModeListener(ITSModeFeature itsModeFeature) : IListener<ITSModeL
     public async Task StartAsync()
     {
         var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
-        if (mi.Properties.SupportsITSMode)
+        if (!mi.Properties.SupportsITSMode)
         {
             return;
         }
