@@ -564,7 +564,8 @@ public static partial class Compatibility
         return lower.Contains("IdeaPad".ToLowerInvariant())
             || lower.Contains("ThinkBook".ToLowerInvariant()) 
             || lower.Contains("Lenovo Slim".ToLowerInvariant())
-            || lower.Contains("Motobook".ToLowerInvariant());
+            || lower.Contains("Motobook".ToLowerInvariant())
+            || lower.Contains("Yoga".ToLowerInvariant());
     }
 
     private static int GetMachineGeneration(string model)
