@@ -17,7 +17,6 @@ public class SpecialKeyListener(
     ApplicationSettings settings,
     FnKeysDisabler fnKeysDisabler,
     RefreshRateFeature feature,
-    TouchpadLockFeature touchpadLockFeature,
     MicrophoneFeature microphoneFeature)
     : AbstractWMIListener<SpecialKeyListener.ChangedEventArgs, SpecialKey, int>(WMI.LenovoUtilityEvent.Listen)
 {
