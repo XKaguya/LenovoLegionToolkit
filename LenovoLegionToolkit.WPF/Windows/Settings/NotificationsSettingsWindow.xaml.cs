@@ -29,6 +29,7 @@ public partial class NotificationsSettingsWindow
         _microphoneCard,
         _airplaneModeCard,
         _powerModeCard,
+        _itsModeCard,
         _refreshRateCard,
         _acAdapterCard,
         _smartKeyCard,
@@ -56,6 +57,7 @@ public partial class NotificationsSettingsWindow
         _microphoneToggle.IsChecked = _settings.Store.Notifications.Microphone;
         _airplaneModeToggle.IsChecked = _settings.Store.Notifications.AirplaneMode;
         _powerModeToggle.IsChecked = _settings.Store.Notifications.PowerMode;
+        _itsModeToggle.IsChecked = _settings.Store.Notifications.ITSMode;
         _refreshRateToggle.IsChecked = _settings.Store.Notifications.RefreshRate;
         _acAdapterToggle.IsChecked = _settings.Store.Notifications.ACAdapter;
         _smartKeyToggle.IsChecked = _settings.Store.Notifications.SmartKey;
@@ -210,6 +212,16 @@ public partial class NotificationsSettingsWindow
             return;
 
         _settings.Store.Notifications.PowerMode = state.Value;
+        _settings.SynchronizeStore();
+    }
+
+    private void ITSModeToggle_Click(object sender, RoutedEventArgs e)
+    {
+        var state = _itsModeToggle.IsChecked;
+        if (state is null)
+            return;
+
+        _settings.Store.Notifications.ITSMode = state.Value;
         _settings.SynchronizeStore();
     }
 

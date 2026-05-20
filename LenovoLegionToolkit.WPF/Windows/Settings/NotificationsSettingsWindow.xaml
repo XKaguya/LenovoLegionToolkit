@@ -243,6 +243,17 @@
                         Click="PowerModeToggle_Click" />
                 </custom:CardControl>
 
+                <custom:CardControl x:Name="_itsModeCard" Margin="0,0,0,8">
+                    <custom:CardControl.Header>
+                        <controls:CardHeaderControl Title="{x:Static resources:Resource.NotificationsSettingsWindow_ITSMode}" />
+                    </custom:CardControl.Header>
+                    <wpfui:ToggleSwitch
+                        x:Name="_itsModeToggle"
+                        Margin="0,0,0,8"
+                        AutomationProperties.Name="{x:Static resources:Resource.NotificationsSettingsWindow_ITSMode}"
+                        Click="ITSModeToggle_Click" />
+                </custom:CardControl>
+
                 <custom:CardControl x:Name="_refreshRateCard" Margin="0,0,0,24">
                     <custom:CardControl.Header>
                         <controls:CardHeaderControl Title="{x:Static resources:Resource.NotificationsSettingsWindow_RefreshRate}" />

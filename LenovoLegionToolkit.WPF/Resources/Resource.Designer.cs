@@ -4845,6 +4845,15 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ITS Mode.
+        /// </summary>
+        public static string NotificationsSettingsWindow_ITSMode {
+            get {
+                return ResourceManager.GetString("NotificationsSettingsWindow_ITSMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Keyboard Backlight.
         /// </summary>
         public static string NotificationsSettingsWindow_KeyboardBacklight {
