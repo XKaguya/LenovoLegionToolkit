@@ -4702,63 +4702,63 @@ namespace LenovoLegionToolkit.WPF.Resources {
         /// <summary>
         ///   Looks up a localized string similar to RGB Changed.
         /// </summary>
-        public static string Notification_RGBKeyboardBacklightChanged_Short {
+        public static string Notification_RGBKeyboardBacklightChanged {
             get {
-                return ResourceManager.GetString("Notification_RGBKeyboardBacklightChanged_Short", resourceCulture);
+                return ResourceManager.GetString("Notification_RGBKeyboardBacklightChanged", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to RGB Off.
         /// </summary>
-        public static string Notification_RGBKeyboardBacklightOff_Short {
+        public static string Notification_RGBKeyboardBacklightOff {
             get {
-                return ResourceManager.GetString("Notification_RGBKeyboardBacklightOff_Short", resourceCulture);
+                return ResourceManager.GetString("Notification_RGBKeyboardBacklightOff", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Double Press.
         /// </summary>
-        public static string Notification_SmartKeyDoublePress_Short {
+        public static string Notification_SmartKeyDoublePress {
             get {
-                return ResourceManager.GetString("Notification_SmartKeyDoublePress_Short", resourceCulture);
+                return ResourceManager.GetString("Notification_SmartKeyDoublePress", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Single Press.
         /// </summary>
-        public static string Notification_SmartKeySinglePress_Short {
+        public static string Notification_SmartKeySinglePress {
             get {
-                return ResourceManager.GetString("Notification_SmartKeySinglePress_Short", resourceCulture);
+                return ResourceManager.GetString("Notification_SmartKeySinglePress", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Spectrum Changed.
         /// </summary>
-        public static string Notification_SpectrumBacklightChanged_Short {
+        public static string Notification_SpectrumBacklightChanged {
             get {
-                return ResourceManager.GetString("Notification_SpectrumBacklightChanged_Short", resourceCulture);
+                return ResourceManager.GetString("Notification_SpectrumBacklightChanged", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Spectrum Off.
         /// </summary>
-        public static string Notification_SpectrumBacklightOff_Short {
+        public static string Notification_SpectrumBacklightOff {
             get {
-                return ResourceManager.GetString("Notification_SpectrumBacklightOff_Short", resourceCulture);
+                return ResourceManager.GetString("Notification_SpectrumBacklightOff", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Spectrum Preset.
         /// </summary>
-        public static string Notification_SpectrumBacklightPresetChanged_Short {
+        public static string Notification_SpectrumBacklightPresetChanged {
             get {
-                return ResourceManager.GetString("Notification_SpectrumBacklightPresetChanged_Short", resourceCulture);
+                return ResourceManager.GetString("Notification_SpectrumBacklightPresetChanged", resourceCulture);
             }
         }
         
@@ -4828,18 +4828,18 @@ namespace LenovoLegionToolkit.WPF.Resources {
         /// <summary>
         ///   Looks up a localized string similar to White Changed.
         /// </summary>
-        public static string Notification_WhiteKeyboardBacklightChanged_Short {
+        public static string Notification_WhiteKeyboardBacklightChanged {
             get {
-                return ResourceManager.GetString("Notification_WhiteKeyboardBacklightChanged_Short", resourceCulture);
+                return ResourceManager.GetString("Notification_WhiteKeyboardBacklightChanged", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to White Off.
         /// </summary>
-        public static string Notification_WhiteKeyboardBacklightOff_Short {
+        public static string Notification_WhiteKeyboardBacklightOff {
             get {
-                return ResourceManager.GetString("Notification_WhiteKeyboardBacklightOff_Short", resourceCulture);
+                return ResourceManager.GetString("Notification_WhiteKeyboardBacklightOff", resourceCulture);
             }
         }
         

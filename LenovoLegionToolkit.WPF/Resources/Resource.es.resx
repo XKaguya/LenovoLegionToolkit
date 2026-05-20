@@ -701,6 +701,9 @@ El cambio de modo puede requerir un reinicio.</value>
   <data name="CreateAutomationPipelineWindow_Title" xml:space="preserve">
     <value>Crear acción</value>
   </data>
+  <data name="Customize" xml:space="preserve">
+    <value>Customize</value>
+  </data>
   <data name="DashboardBattery_AcConnected" xml:space="preserve">
     <value>Conectado a CA</value>
   </data>
@@ -1271,6 +1274,9 @@ AVISO: Esta acción no se ejecutará correctamente si la pantalla interna está 
   <data name="HideAll" xml:space="preserve">
     <value>Ocultar todo(s)</value>
   </data>
+  <data name="IconColor" xml:space="preserve">
+    <value>Icon color</value>
+  </data>
   <data name="IGPUModeChangeException_Message" xml:space="preserve">
     <value>En un par de segundos intentar cambiar el modo de nuevo, si no obtiene el resultado esperado.
 Si la dGPU no responde del todo, reinicie su portátil.</value>
@@ -1654,6 +1660,9 @@ Activar esta opción si tiene conflictos con las aplicaciones en pantalla comple
   <data name="NotificationsSettingsWindow_FnLock" xml:space="preserve">
     <value>Bloqueo de tecla Fn</value>
   </data>
+  <data name="NotificationsSettingsWindow_ITSMode" xml:space="preserve">
+    <value>ITS Mode</value>
+  </data>
   <data name="NotificationsSettingsWindow_KeyboardBacklight" xml:space="preserve">
     <value>Retroalimentación del teclado</value>
   </data>
@@ -1757,6 +1766,27 @@ No afectará a otras ventanas a pantalla completa, pero no podrá hacer clic en 
   <data name="Notification_PortLightingOn" xml:space="preserve">
     <value>Puertos retroiluminados encendidos</value>
   </data>
+  <data name="Notification_RGBKeyboardBacklightChanged" xml:space="preserve">
+    <value>RGB Changed</value>
+  </data>
+  <data name="Notification_RGBKeyboardBacklightOff" xml:space="preserve">
+    <value>RGB Off</value>
+  </data>
+  <data name="Notification_SmartKeyDoublePress" xml:space="preserve">
+    <value>Double Press</value>
+  </data>
+  <data name="Notification_SmartKeySinglePress" xml:space="preserve">
+    <value>Single Press</value>
+  </data>
+  <data name="Notification_SpectrumBacklightChanged" xml:space="preserve">
+    <value>Spectrum Changed</value>
+  </data>
+  <data name="Notification_SpectrumBacklightOff" xml:space="preserve">
+    <value>Spectrum Off</value>
+  </data>
+  <data name="Notification_SpectrumBacklightPresetChanged" xml:space="preserve">
+    <value>Spectrum Preset</value>
+  </data>
   <data name="Notification_SpectrumKeyboardBacklight_Backlight" xml:space="preserve">
     <value>Retroiluminación {0}</value>
   </data>
@@ -1777,6 +1807,12 @@ No afectará a otras ventanas a pantalla completa, pero no podrá hacer clic en 
   </data>
   <data name="Notification_WhiteKeyboardBacklight" xml:space="preserve">
     <value>Retroiluminación {0}</value>
+  </data>
+  <data name="Notification_WhiteKeyboardBacklightChanged" xml:space="preserve">
+    <value>White Changed</value>
+  </data>
+  <data name="Notification_WhiteKeyboardBacklightOff" xml:space="preserve">
+    <value>White Off</value>
   </data>
   <data name="Notification_WhiteKeyboardBacklightSpecial" xml:space="preserve">
     <value>Backlight changed</value>
@@ -3158,6 +3194,9 @@ Se recomienda reiniciar después de cambiar esta opción.</value>
   </data>
   <data name="SymbolRegularPicker_Title" xml:space="preserve">
     <value>Seleccionar icono</value>
+  </data>
+  <data name="TextColor" xml:space="preserve">
+    <value>Text color</value>
   </data>
   <data name="TimeAutomationPipelineTriggerTabItemContent_Sunrise" xml:space="preserve">
     <value>Al amanecer</value>

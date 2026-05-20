@@ -702,6 +702,9 @@ Zmiana trybu może wymagać ponownego uruchomienia.</value>
   <data name="CreateAutomationPipelineWindow_Title" xml:space="preserve">
     <value>Utwórz akcję</value>
   </data>
+  <data name="Customize" xml:space="preserve">
+    <value>Customize</value>
+  </data>
   <data name="DashboardBattery_AcConnected" xml:space="preserve">
     <value>AC Connected</value>
   </data>
@@ -1270,6 +1273,9 @@ UWAGA: Ta akcja nie zadziała właściwie, jeśli wbudowany ekran jest wyłączo
   <data name="HideAll" xml:space="preserve">
     <value>Ukryj wszystkie</value>
   </data>
+  <data name="IconColor" xml:space="preserve">
+    <value>Icon color</value>
+  </data>
   <data name="IGPUModeChangeException_Message" xml:space="preserve">
     <value>Spróbuj zmienić tryb ponownie za kilka sekund, jeśli nie widzisz oczekiwanego rezultatu.
 Jeśli dedykowana karta graficzna nie odpowiada, uruchom laptop ponownie.</value>
@@ -1653,6 +1659,9 @@ Włącz tę opcję, jeżeli powiadomienia utrudniają korzystanie z aplikacji pe
   <data name="NotificationsSettingsWindow_FnLock" xml:space="preserve">
     <value>Fn Lock</value>
   </data>
+  <data name="NotificationsSettingsWindow_ITSMode" xml:space="preserve">
+    <value>ITS Mode</value>
+  </data>
   <data name="NotificationsSettingsWindow_KeyboardBacklight" xml:space="preserve">
     <value>Podświetlenie klawiatury</value>
   </data>
@@ -1756,6 +1765,27 @@ It won't affect other full screen windows, but you will not be able to click on 
   <data name="Notification_PortLightingOn" xml:space="preserve">
     <value>Podświetlenie portów włączone</value>
   </data>
+  <data name="Notification_RGBKeyboardBacklightChanged" xml:space="preserve">
+    <value>RGB Changed</value>
+  </data>
+  <data name="Notification_RGBKeyboardBacklightOff" xml:space="preserve">
+    <value>RGB Off</value>
+  </data>
+  <data name="Notification_SmartKeyDoublePress" xml:space="preserve">
+    <value>Double Press</value>
+  </data>
+  <data name="Notification_SmartKeySinglePress" xml:space="preserve">
+    <value>Single Press</value>
+  </data>
+  <data name="Notification_SpectrumBacklightChanged" xml:space="preserve">
+    <value>Spectrum Changed</value>
+  </data>
+  <data name="Notification_SpectrumBacklightOff" xml:space="preserve">
+    <value>Spectrum Off</value>
+  </data>
+  <data name="Notification_SpectrumBacklightPresetChanged" xml:space="preserve">
+    <value>Spectrum Preset</value>
+  </data>
   <data name="Notification_SpectrumKeyboardBacklight_Backlight" xml:space="preserve">
     <value>Podświetlenie {0}</value>
   </data>
@@ -1776,6 +1806,12 @@ It won't affect other full screen windows, but you will not be able to click on 
   </data>
   <data name="Notification_WhiteKeyboardBacklight" xml:space="preserve">
     <value>Podświetlenie {0}</value>
+  </data>
+  <data name="Notification_WhiteKeyboardBacklightChanged" xml:space="preserve">
+    <value>White Changed</value>
+  </data>
+  <data name="Notification_WhiteKeyboardBacklightOff" xml:space="preserve">
+    <value>White Off</value>
   </data>
   <data name="Notification_WhiteKeyboardBacklightSpecial" xml:space="preserve">
     <value>Backlight changed</value>
@@ -3157,6 +3193,9 @@ Po zmianie tego ustawienia zalecane jest ponowne uruchomienie.</value>
   </data>
   <data name="SymbolRegularPicker_Title" xml:space="preserve">
     <value>Wybierz ikonę</value>
+  </data>
+  <data name="TextColor" xml:space="preserve">
+    <value>Text color</value>
   </data>
   <data name="TimeAutomationPipelineTriggerTabItemContent_Sunrise" xml:space="preserve">
     <value>Wschód słońca</value>

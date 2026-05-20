@@ -702,6 +702,9 @@ Bu modları değiştirmek yeniden başlatma gerektirebilir.</value>
   <data name="CreateAutomationPipelineWindow_Title" xml:space="preserve">
     <value>Eylem Oluştur</value>
   </data>
+  <data name="Customize" xml:space="preserve">
+    <value>Customize</value>
+  </data>
   <data name="DashboardBattery_AcConnected" xml:space="preserve">
     <value>AC Bağlı</value>
   </data>
@@ -1270,6 +1273,9 @@ UYARI: Dahili ekran kapalıysa bu işlem doğru çalışmaz.</value>
   <data name="HideAll" xml:space="preserve">
     <value>Tümünü gizle</value>
   </data>
+  <data name="IconColor" xml:space="preserve">
+    <value>Icon color</value>
+  </data>
   <data name="IGPUModeChangeException_Message" xml:space="preserve">
     <value>Beklenen sonucu görmezseniz, birkaç saniye içinde modu tekrar değiştirmeyi deneyin.
 GPU hiç yanıt vermiyorsa, lütfen dizüstü bilgisayarınızı yeniden başlatın.</value>
@@ -1653,6 +1659,9 @@ Tam ekran uygulamalarda rahatsız oluyorsanız bu seçeneği etkinleştirin.</va
   <data name="NotificationsSettingsWindow_FnLock" xml:space="preserve">
     <value>Fn Kilidi</value>
   </data>
+  <data name="NotificationsSettingsWindow_ITSMode" xml:space="preserve">
+    <value>ITS Mode</value>
+  </data>
   <data name="NotificationsSettingsWindow_KeyboardBacklight" xml:space="preserve">
     <value>Klavye Işığı</value>
   </data>
@@ -1756,6 +1765,27 @@ Diğer tam ekran pencereleri etkilemeyecek, ancak bildirimlere tıklayamayacaks�
   <data name="Notification_PortLightingOn" xml:space="preserve">
     <value>Port ışıkları açık</value>
   </data>
+  <data name="Notification_RGBKeyboardBacklightChanged" xml:space="preserve">
+    <value>RGB Changed</value>
+  </data>
+  <data name="Notification_RGBKeyboardBacklightOff" xml:space="preserve">
+    <value>RGB Off</value>
+  </data>
+  <data name="Notification_SmartKeyDoublePress" xml:space="preserve">
+    <value>Double Press</value>
+  </data>
+  <data name="Notification_SmartKeySinglePress" xml:space="preserve">
+    <value>Single Press</value>
+  </data>
+  <data name="Notification_SpectrumBacklightChanged" xml:space="preserve">
+    <value>Spectrum Changed</value>
+  </data>
+  <data name="Notification_SpectrumBacklightOff" xml:space="preserve">
+    <value>Spectrum Off</value>
+  </data>
+  <data name="Notification_SpectrumBacklightPresetChanged" xml:space="preserve">
+    <value>Spectrum Preset</value>
+  </data>
   <data name="Notification_SpectrumKeyboardBacklight_Backlight" xml:space="preserve">
     <value>Arka ışık {0}</value>
   </data>
@@ -1776,6 +1806,12 @@ Diğer tam ekran pencereleri etkilemeyecek, ancak bildirimlere tıklayamayacaks�
   </data>
   <data name="Notification_WhiteKeyboardBacklight" xml:space="preserve">
     <value>Arka ışık {0}</value>
+  </data>
+  <data name="Notification_WhiteKeyboardBacklightChanged" xml:space="preserve">
+    <value>White Changed</value>
+  </data>
+  <data name="Notification_WhiteKeyboardBacklightOff" xml:space="preserve">
+    <value>White Off</value>
   </data>
   <data name="Notification_WhiteKeyboardBacklightSpecial" xml:space="preserve">
     <value>Backlight changed</value>
@@ -3157,6 +3193,9 @@ Bu seçeneği değiştirdikten sonra yeniden başlatma önerilir.</value>
   </data>
   <data name="SymbolRegularPicker_Title" xml:space="preserve">
     <value>Simge seç</value>
+  </data>
+  <data name="TextColor" xml:space="preserve">
+    <value>Text color</value>
   </data>
   <data name="TimeAutomationPipelineTriggerTabItemContent_Sunrise" xml:space="preserve">
     <value>Gündoğumu</value>

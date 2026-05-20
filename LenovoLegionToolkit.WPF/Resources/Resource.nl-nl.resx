@@ -702,6 +702,9 @@ Voor het wisselen van modi is mogelijk opnieuw opstarten vereist.</value>
   <data name="CreateAutomationPipelineWindow_Title" xml:space="preserve">
     <value>Nieuwe actie aanmaken</value>
   </data>
+  <data name="Customize" xml:space="preserve">
+    <value>Customize</value>
+  </data>
   <data name="DashboardBattery_AcConnected" xml:space="preserve">
     <value>AC Verbonden</value>
   </data>
@@ -1270,6 +1273,9 @@ WAARSCHUWING: Deze actie wordt niet correct uitgevoerd als het interne display i
   <data name="HideAll" xml:space="preserve">
     <value>Verberg alles</value>
   </data>
+  <data name="IconColor" xml:space="preserve">
+    <value>Icon color</value>
+  </data>
   <data name="IGPUModeChangeException_Message" xml:space="preserve">
     <value>Probeer de modus opnieuw te veranderen over een paar seconden, als je het verwachte resultaat niet ziet. Als de videokaart helemaal niet reageert, herstart dan je laptop.</value>
   </data>
@@ -1652,6 +1658,9 @@ Zet deze optie aan als u problemen ondervindt met applicaties in de volledige sc
   <data name="NotificationsSettingsWindow_FnLock" xml:space="preserve">
     <value>Fn Lock</value>
   </data>
+  <data name="NotificationsSettingsWindow_ITSMode" xml:space="preserve">
+    <value>ITS Mode</value>
+  </data>
   <data name="NotificationsSettingsWindow_KeyboardBacklight" xml:space="preserve">
     <value>Toetsenbord Achtergrondverlichting</value>
   </data>
@@ -1755,6 +1764,27 @@ Dit heeft geen invloed op andere schermvensters, maar je kunt niet op de notific
   <data name="Notification_PortLightingOn" xml:space="preserve">
     <value>Achtergrondverlichting van poorten aan</value>
   </data>
+  <data name="Notification_RGBKeyboardBacklightChanged" xml:space="preserve">
+    <value>RGB Changed</value>
+  </data>
+  <data name="Notification_RGBKeyboardBacklightOff" xml:space="preserve">
+    <value>RGB Off</value>
+  </data>
+  <data name="Notification_SmartKeyDoublePress" xml:space="preserve">
+    <value>Double Press</value>
+  </data>
+  <data name="Notification_SmartKeySinglePress" xml:space="preserve">
+    <value>Single Press</value>
+  </data>
+  <data name="Notification_SpectrumBacklightChanged" xml:space="preserve">
+    <value>Spectrum Changed</value>
+  </data>
+  <data name="Notification_SpectrumBacklightOff" xml:space="preserve">
+    <value>Spectrum Off</value>
+  </data>
+  <data name="Notification_SpectrumBacklightPresetChanged" xml:space="preserve">
+    <value>Spectrum Preset</value>
+  </data>
   <data name="Notification_SpectrumKeyboardBacklight_Backlight" xml:space="preserve">
     <value>Achtergrondverlichting {0}</value>
   </data>
@@ -1775,6 +1805,12 @@ Dit heeft geen invloed op andere schermvensters, maar je kunt niet op de notific
   </data>
   <data name="Notification_WhiteKeyboardBacklight" xml:space="preserve">
     <value>Achtergrondverlichting {0}</value>
+  </data>
+  <data name="Notification_WhiteKeyboardBacklightChanged" xml:space="preserve">
+    <value>White Changed</value>
+  </data>
+  <data name="Notification_WhiteKeyboardBacklightOff" xml:space="preserve">
+    <value>White Off</value>
   </data>
   <data name="Notification_WhiteKeyboardBacklightSpecial" xml:space="preserve">
     <value>Backlight changed</value>
@@ -3157,6 +3193,9 @@ Een herstart wordt aanbevolen na het wijzigen van deze optie.</value>
   </data>
   <data name="SymbolRegularPicker_Title" xml:space="preserve">
     <value>Selecteer icoon</value>
+  </data>
+  <data name="TextColor" xml:space="preserve">
+    <value>Text color</value>
   </data>
   <data name="TimeAutomationPipelineTriggerTabItemContent_Sunrise" xml:space="preserve">
     <value>Zonsopgang</value>

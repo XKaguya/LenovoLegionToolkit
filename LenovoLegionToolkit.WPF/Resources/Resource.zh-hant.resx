@@ -701,6 +701,9 @@
   <data name="CreateAutomationPipelineWindow_Title" xml:space="preserve">
     <value>建立功能</value>
   </data>
+  <data name="Customize" xml:space="preserve">
+    <value>Customize</value>
+  </data>
   <data name="DashboardBattery_AcConnected" xml:space="preserve">
     <value>交流電</value>
   </data>
@@ -1268,6 +1271,9 @@ Do not proceed unless you possess the necessary technical expertise.</value>
   <data name="HideAll" xml:space="preserve">
     <value>隱藏全部</value>
   </data>
+  <data name="IconColor" xml:space="preserve">
+    <value>Icon color</value>
+  </data>
   <data name="IGPUModeChangeException_Message" xml:space="preserve">
     <value>如果獨立顯示卡 (dGPU) 沒有變更模式，請等幾秒後再次嘗試。
 如果仍然沒有得到回應，請重新啟動您的筆記型電腦。</value>
@@ -1651,6 +1657,9 @@ Do not proceed unless you possess the necessary technical expertise.</value>
   <data name="NotificationsSettingsWindow_FnLock" xml:space="preserve">
     <value>鎖定 Fn 鍵</value>
   </data>
+  <data name="NotificationsSettingsWindow_ITSMode" xml:space="preserve">
+    <value>ITS Mode</value>
+  </data>
   <data name="NotificationsSettingsWindow_KeyboardBacklight" xml:space="preserve">
     <value>鍵盤背光</value>
   </data>
@@ -1754,6 +1763,27 @@ Do not proceed unless you possess the necessary technical expertise.</value>
   <data name="Notification_PortLightingOn" xml:space="preserve">
     <value>開啟介面指示燈</value>
   </data>
+  <data name="Notification_RGBKeyboardBacklightChanged" xml:space="preserve">
+    <value>RGB Changed</value>
+  </data>
+  <data name="Notification_RGBKeyboardBacklightOff" xml:space="preserve">
+    <value>RGB Off</value>
+  </data>
+  <data name="Notification_SmartKeyDoublePress" xml:space="preserve">
+    <value>Double Press</value>
+  </data>
+  <data name="Notification_SmartKeySinglePress" xml:space="preserve">
+    <value>Single Press</value>
+  </data>
+  <data name="Notification_SpectrumBacklightChanged" xml:space="preserve">
+    <value>Spectrum Changed</value>
+  </data>
+  <data name="Notification_SpectrumBacklightOff" xml:space="preserve">
+    <value>Spectrum Off</value>
+  </data>
+  <data name="Notification_SpectrumBacklightPresetChanged" xml:space="preserve">
+    <value>Spectrum Preset</value>
+  </data>
   <data name="Notification_SpectrumKeyboardBacklight_Backlight" xml:space="preserve">
     <value>背光 {0}</value>
   </data>
@@ -1774,6 +1804,12 @@ Do not proceed unless you possess the necessary technical expertise.</value>
   </data>
   <data name="Notification_WhiteKeyboardBacklight" xml:space="preserve">
     <value>背光 {0}</value>
+  </data>
+  <data name="Notification_WhiteKeyboardBacklightChanged" xml:space="preserve">
+    <value>White Changed</value>
+  </data>
+  <data name="Notification_WhiteKeyboardBacklightOff" xml:space="preserve">
+    <value>White Off</value>
   </data>
   <data name="Notification_WhiteKeyboardBacklightSpecial" xml:space="preserve">
     <value>Backlight changed</value>
@@ -3155,6 +3191,9 @@ Do not proceed unless you possess the necessary technical expertise.</value>
   </data>
   <data name="SymbolRegularPicker_Title" xml:space="preserve">
     <value>選擇圖示</value>
+  </data>
+  <data name="TextColor" xml:space="preserve">
+    <value>Text color</value>
   </data>
   <data name="TimeAutomationPipelineTriggerTabItemContent_Sunrise" xml:space="preserve">
     <value>日出</value>

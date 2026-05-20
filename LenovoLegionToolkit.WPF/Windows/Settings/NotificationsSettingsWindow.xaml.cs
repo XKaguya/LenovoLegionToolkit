@@ -313,14 +313,14 @@ public partial class NotificationsSettingsWindow
         new NotificationTypeCustomizationWindow(
             Resource.NotificationsSettingsWindow_KeyboardBacklight,
             [
-                (NotificationType.RGBKeyboardBacklightChanged,    Resource.Notification_RGBKeyboardBacklightChanged_Short),
-                (NotificationType.RGBKeyboardBacklightOff,        Resource.Notification_RGBKeyboardBacklightOff_Short),
-                (NotificationType.SpectrumBacklightChanged,       Resource.Notification_SpectrumBacklightChanged_Short),
-                (NotificationType.SpectrumBacklightOff,           Resource.Notification_SpectrumBacklightOff_Short),
-                (NotificationType.SpectrumBacklightPresetChanged, Resource.Notification_SpectrumBacklightPresetChanged_Short),
-                (NotificationType.WhiteKeyboardBacklightChanged,  Resource.Notification_WhiteKeyboardBacklightChanged_Short),
+                (NotificationType.RGBKeyboardBacklightChanged,    Resource.Notification_RGBKeyboardBacklightChanged),
+                (NotificationType.RGBKeyboardBacklightOff,        Resource.Notification_RGBKeyboardBacklightOff),
+                (NotificationType.SpectrumBacklightChanged,       Resource.Notification_SpectrumBacklightChanged),
+                (NotificationType.SpectrumBacklightOff,           Resource.Notification_SpectrumBacklightOff),
+                (NotificationType.SpectrumBacklightPresetChanged, Resource.Notification_SpectrumBacklightPresetChanged),
+                (NotificationType.WhiteKeyboardBacklightChanged,  Resource.Notification_WhiteKeyboardBacklightChanged),
                 (NotificationType.WhiteKeyboardBacklightChangedSpecial, Resource.Notification_WhiteKeyboardBacklightSpecial),
-                (NotificationType.WhiteKeyboardBacklightOff,      Resource.Notification_WhiteKeyboardBacklightOff_Short),
+                (NotificationType.WhiteKeyboardBacklightOff,      Resource.Notification_WhiteKeyboardBacklightOff),
                 (NotificationType.PanelLogoLightingOn,  Resource.Notification_PanelLogoLightingOn),
                 (NotificationType.PanelLogoLightingOff, Resource.Notification_PanelLogoLightingOff),
                 (NotificationType.PortLightingOn,  Resource.Notification_PortLightingOn),
@@ -401,8 +401,8 @@ public partial class NotificationsSettingsWindow
         new NotificationTypeCustomizationWindow(
             Resource.NotificationsSettingsWindow_SmartKey,
             [
-                (NotificationType.SmartKeySinglePress, Resource.Notification_SmartKeySinglePress_Short),
-                (NotificationType.SmartKeyDoublePress, Resource.Notification_SmartKeyDoublePress_Short)
+                (NotificationType.SmartKeySinglePress, Resource.Notification_SmartKeySinglePress),
+                (NotificationType.SmartKeyDoublePress, Resource.Notification_SmartKeyDoublePress)
             ],
             _settings) { Owner = this }.ShowDialog();
 

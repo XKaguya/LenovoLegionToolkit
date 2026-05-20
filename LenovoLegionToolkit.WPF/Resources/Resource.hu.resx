@@ -702,6 +702,9 @@ Az üzemmódok közötti váltás újraindítást igényelhet.</value>
   <data name="CreateAutomationPipelineWindow_Title" xml:space="preserve">
     <value>Művelet létrehozása</value>
   </data>
+  <data name="Customize" xml:space="preserve">
+    <value>Customize</value>
+  </data>
   <data name="DashboardBattery_AcConnected" xml:space="preserve">
     <value>AC Csatlakoztatva</value>
   </data>
@@ -1269,6 +1272,9 @@ FIGYELMEZTETÉS: Ez a művelet nem fog megfelelően futni, ha a belső kijelző 
   <data name="HideAll" xml:space="preserve">
     <value>Összes elrejtése</value>
   </data>
+  <data name="IconColor" xml:space="preserve">
+    <value>Icon color</value>
+  </data>
   <data name="IGPUModeChangeException_Message" xml:space="preserve">
     <value>Ha nem látja a várt eredményt, pár másodperc múlva próbálja meg újra megváltoztatni az üzemmódot.
 Ha a dGPU egyáltalán nem reagál, kérjük, indítsa újra a laptopját.</value>
@@ -1652,6 +1658,9 @@ Engedélyezze ezt az opciót, ha konfliktusok vannak a teljes képernyős alkalm
   <data name="NotificationsSettingsWindow_FnLock" xml:space="preserve">
     <value>Fn Lock</value>
   </data>
+  <data name="NotificationsSettingsWindow_ITSMode" xml:space="preserve">
+    <value>ITS Mode</value>
+  </data>
   <data name="NotificationsSettingsWindow_KeyboardBacklight" xml:space="preserve">
     <value>Billentyűzet háttérvilágítás</value>
   </data>
@@ -1755,6 +1764,27 @@ Nincs hatással a többi teljes képernyős ablakokra, de nem lehet kattintani a
   <data name="Notification_PortLightingOn" xml:space="preserve">
     <value>Portok háttérvilágítás bekapcsolva</value>
   </data>
+  <data name="Notification_RGBKeyboardBacklightChanged" xml:space="preserve">
+    <value>RGB Changed</value>
+  </data>
+  <data name="Notification_RGBKeyboardBacklightOff" xml:space="preserve">
+    <value>RGB Off</value>
+  </data>
+  <data name="Notification_SmartKeyDoublePress" xml:space="preserve">
+    <value>Double Press</value>
+  </data>
+  <data name="Notification_SmartKeySinglePress" xml:space="preserve">
+    <value>Single Press</value>
+  </data>
+  <data name="Notification_SpectrumBacklightChanged" xml:space="preserve">
+    <value>Spectrum Changed</value>
+  </data>
+  <data name="Notification_SpectrumBacklightOff" xml:space="preserve">
+    <value>Spectrum Off</value>
+  </data>
+  <data name="Notification_SpectrumBacklightPresetChanged" xml:space="preserve">
+    <value>Spectrum Preset</value>
+  </data>
   <data name="Notification_SpectrumKeyboardBacklight_Backlight" xml:space="preserve">
     <value>Háttérvilágítás {0}</value>
   </data>
@@ -1775,6 +1805,12 @@ Nincs hatással a többi teljes képernyős ablakokra, de nem lehet kattintani a
   </data>
   <data name="Notification_WhiteKeyboardBacklight" xml:space="preserve">
     <value>Háttérvilágítás {0}</value>
+  </data>
+  <data name="Notification_WhiteKeyboardBacklightChanged" xml:space="preserve">
+    <value>White Changed</value>
+  </data>
+  <data name="Notification_WhiteKeyboardBacklightOff" xml:space="preserve">
+    <value>White Off</value>
   </data>
   <data name="Notification_WhiteKeyboardBacklightSpecial" xml:space="preserve">
     <value>Backlight changed</value>
@@ -3156,6 +3192,9 @@ Az opció módosítása után ajánlott az újraindítás.</value>
   </data>
   <data name="SymbolRegularPicker_Title" xml:space="preserve">
     <value>Ikon kiválasztása</value>
+  </data>
+  <data name="TextColor" xml:space="preserve">
+    <value>Text color</value>
   </data>
   <data name="TimeAutomationPipelineTriggerTabItemContent_Sunrise" xml:space="preserve">
     <value>Napkelte</value>

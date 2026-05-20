@@ -701,6 +701,9 @@ Ein Wechsel des Modus kann einen Neustart erfordern.</value>
   <data name="CreateAutomationPipelineWindow_Title" xml:space="preserve">
     <value>Aktion erstellen</value>
   </data>
+  <data name="Customize" xml:space="preserve">
+    <value>Customize</value>
+  </data>
   <data name="DashboardBattery_AcConnected" xml:space="preserve">
     <value>Netzadapter verbunden</value>
   </data>
@@ -1269,6 +1272,9 @@ WARNUNG: Diese Aktion wird nicht korrekt ausgeführt, wenn der interne Bildschir
   <data name="HideAll" xml:space="preserve">
     <value>Alle verbergen</value>
   </data>
+  <data name="IconColor" xml:space="preserve">
+    <value>Icon color</value>
+  </data>
   <data name="IGPUModeChangeException_Message" xml:space="preserve">
     <value>Versuchen Sie, den Modus in ein paar Sekunden erneut zu ändern, wenn Sie nicht das erwartete Ergebnis sehen.
 Wenn die dGPU überhaupt nicht reagiert, starten Sie bitte Ihren Laptop neu.</value>
@@ -1652,6 +1658,9 @@ Aktiviere diese Option, wenn Konflikte mit Vollbildanwendungen auftreten.</value
   <data name="NotificationsSettingsWindow_FnLock" xml:space="preserve">
     <value>Fn Lock</value>
   </data>
+  <data name="NotificationsSettingsWindow_ITSMode" xml:space="preserve">
+    <value>ITS Mode</value>
+  </data>
   <data name="NotificationsSettingsWindow_KeyboardBacklight" xml:space="preserve">
     <value>Tastaturbeleuchtung</value>
   </data>
@@ -1755,6 +1764,27 @@ Andere Vollbildfenster werden dadurch nicht beeinträchtigt, aber Sie können ni
   <data name="Notification_PortLightingOn" xml:space="preserve">
     <value>Ports Hintergrundbeleuchtung an</value>
   </data>
+  <data name="Notification_RGBKeyboardBacklightChanged" xml:space="preserve">
+    <value>RGB Changed</value>
+  </data>
+  <data name="Notification_RGBKeyboardBacklightOff" xml:space="preserve">
+    <value>RGB Off</value>
+  </data>
+  <data name="Notification_SmartKeyDoublePress" xml:space="preserve">
+    <value>Double Press</value>
+  </data>
+  <data name="Notification_SmartKeySinglePress" xml:space="preserve">
+    <value>Single Press</value>
+  </data>
+  <data name="Notification_SpectrumBacklightChanged" xml:space="preserve">
+    <value>Spectrum Changed</value>
+  </data>
+  <data name="Notification_SpectrumBacklightOff" xml:space="preserve">
+    <value>Spectrum Off</value>
+  </data>
+  <data name="Notification_SpectrumBacklightPresetChanged" xml:space="preserve">
+    <value>Spectrum Preset</value>
+  </data>
   <data name="Notification_SpectrumKeyboardBacklight_Backlight" xml:space="preserve">
     <value>Hintergrundbeleuchtung {0}</value>
   </data>
@@ -1775,6 +1805,12 @@ Andere Vollbildfenster werden dadurch nicht beeinträchtigt, aber Sie können ni
   </data>
   <data name="Notification_WhiteKeyboardBacklight" xml:space="preserve">
     <value>Hintergrundbeleuchtung {0}</value>
+  </data>
+  <data name="Notification_WhiteKeyboardBacklightChanged" xml:space="preserve">
+    <value>White Changed</value>
+  </data>
+  <data name="Notification_WhiteKeyboardBacklightOff" xml:space="preserve">
+    <value>White Off</value>
   </data>
   <data name="Notification_WhiteKeyboardBacklightSpecial" xml:space="preserve">
     <value>Backlight changed</value>
@@ -3156,6 +3192,9 @@ Nach dem Ändern dieser Option wird ein Neustart empfohlen.</value>
   </data>
   <data name="SymbolRegularPicker_Title" xml:space="preserve">
     <value>Symbol auswählen</value>
+  </data>
+  <data name="TextColor" xml:space="preserve">
+    <value>Text color</value>
   </data>
   <data name="TimeAutomationPipelineTriggerTabItemContent_Sunrise" xml:space="preserve">
     <value>Sonnenaufgang</value>
