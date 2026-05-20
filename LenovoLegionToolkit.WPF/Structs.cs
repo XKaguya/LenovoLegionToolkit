@@ -127,7 +127,7 @@ public readonly struct DashboardGroup(DashboardGroupType type, string? customNam
                 DashboardItem.WinKeyLock)
         };
 
-        if (mi.LegionSeries is not (LegionSeries.ThinkBook or LegionSeries.IdeaPad))
+        if (!mi.Properties.SupportsITSMode)
         {
             return groups.ToArray();
         }
