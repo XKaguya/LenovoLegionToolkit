@@ -7,6 +7,7 @@ using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.Settings;
 using LenovoLegionToolkit.WPF.Extensions;
+using LenovoLegionToolkit.WPF.Resources;
 using Wpf.Ui.Controls;
 
 namespace LenovoLegionToolkit.WPF.Windows.Settings;
@@ -274,4 +275,146 @@ public partial class NotificationsSettingsWindow
         _settings.Store.Notifications.AutomationNotification = state.Value;
         _settings.SynchronizeStore();
     }
+
+    private void PowerModeCustomizeButton_Click(object sender, RoutedEventArgs e) =>
+        new NotificationTypeCustomizationWindow(
+            Resource.NotificationsSettingsWindow_PowerMode,
+            [
+                (NotificationType.PowerModeQuiet,       PowerModeState.Quiet.GetDisplayName()),
+                (NotificationType.PowerModeBalance,     PowerModeState.Balance.GetDisplayName()),
+                (NotificationType.PowerModePerformance, PowerModeState.Performance.GetDisplayName()),
+                (NotificationType.PowerModeExtreme,     PowerModeState.Extreme.GetDisplayName()),
+                (NotificationType.PowerModeGodMode,     PowerModeState.GodMode.GetDisplayName())
+            ],
+            _settings) { Owner = this }.ShowDialog();
+
+    private void ITSModeCustomizeButton_Click(object sender, RoutedEventArgs e) =>
+        new NotificationTypeCustomizationWindow(
+            Resource.NotificationsSettingsWindow_ITSMode,
+            [
+                (NotificationType.ITSModeAuto,        ITSMode.ItsAuto.GetDisplayName()),
+                (NotificationType.ITSModeCool,        ITSMode.MmcCool.GetDisplayName()),
+                (NotificationType.ITSModePerformance, ITSMode.MmcPerformance.GetDisplayName()),
+                (NotificationType.ITSModeGeek,        ITSMode.MmcGeek.GetDisplayName())
+            ],
+            _settings) { Owner = this }.ShowDialog();
+
+    private void ACAdapterCustomizeButton_Click(object sender, RoutedEventArgs e) =>
+        new NotificationTypeCustomizationWindow(
+            Resource.NotificationsSettingsWindow_ACAdapter,
+            [
+                (NotificationType.ACAdapterConnected, Resource.Notification_ACAdapterConnected),
+                (NotificationType.ACAdapterConnectedLowWattage, Resource.Notification_ACAdapterConnectedLowWattage),
+                (NotificationType.ACAdapterDisconnected, Resource.Notification_ACAdapterDisconnected)
+            ],
+            _settings) { Owner = this }.ShowDialog();
+
+    private void KeyboardBacklightCustomizeButton_Click(object sender, RoutedEventArgs e) =>
+        new NotificationTypeCustomizationWindow(
+            Resource.NotificationsSettingsWindow_KeyboardBacklight,
+            [
+                (NotificationType.RGBKeyboardBacklightChanged,    Resource.Notification_RGBKeyboardBacklightChanged_Short),
+                (NotificationType.RGBKeyboardBacklightOff,        Resource.Notification_RGBKeyboardBacklightOff_Short),
+                (NotificationType.SpectrumBacklightChanged,       Resource.Notification_SpectrumBacklightChanged_Short),
+                (NotificationType.SpectrumBacklightOff,           Resource.Notification_SpectrumBacklightOff_Short),
+                (NotificationType.SpectrumBacklightPresetChanged, Resource.Notification_SpectrumBacklightPresetChanged_Short),
+                (NotificationType.WhiteKeyboardBacklightChanged,  Resource.Notification_WhiteKeyboardBacklightChanged_Short),
+                (NotificationType.WhiteKeyboardBacklightChangedSpecial, Resource.Notification_WhiteKeyboardBacklightSpecial),
+                (NotificationType.WhiteKeyboardBacklightOff,      Resource.Notification_WhiteKeyboardBacklightOff_Short),
+                (NotificationType.PanelLogoLightingOn,  Resource.Notification_PanelLogoLightingOn),
+                (NotificationType.PanelLogoLightingOff, Resource.Notification_PanelLogoLightingOff),
+                (NotificationType.PortLightingOn,  Resource.Notification_PortLightingOn),
+                (NotificationType.PortLightingOff, Resource.Notification_PortLightingOff)
+            ],
+            _settings) { Owner = this }.ShowDialog();
+
+    private void CapsLockCustomizeButton_Click(object sender, RoutedEventArgs e) =>
+        new NotificationTypeCustomizationWindow(
+            Resource.NotificationsSettingsWindow_CapsLock,
+            [
+                (NotificationType.CapsLockOn, Resource.Notification_CapsLockOn),
+                (NotificationType.CapsLockOff, Resource.Notification_CapsLockOff)
+            ],
+            _settings) { Owner = this }.ShowDialog();
+
+    private void NumLockCustomizeButton_Click(object sender, RoutedEventArgs e) =>
+        new NotificationTypeCustomizationWindow(
+            Resource.NotificationsSettingsWindow_NumLock,
+            [
+                (NotificationType.NumLockOn, Resource.Notification_NumLockOn),
+                (NotificationType.NumLockOff, Resource.Notification_NumLockOff)
+            ],
+            _settings) { Owner = this }.ShowDialog();
+
+    private void FnLockCustomizeButton_Click(object sender, RoutedEventArgs e) =>
+        new NotificationTypeCustomizationWindow(
+            Resource.NotificationsSettingsWindow_FnLock,
+            [
+                (NotificationType.FnLockOn, Resource.Notification_FnLockOn),
+                (NotificationType.FnLockOff, Resource.Notification_FnLockOff)
+            ],
+            _settings) { Owner = this }.ShowDialog();
+
+    private void TouchpadLockCustomizeButton_Click(object sender, RoutedEventArgs e) =>
+        new NotificationTypeCustomizationWindow(
+            Resource.NotificationsSettingsWindow_TouchpadLock,
+            [
+                (NotificationType.TouchpadOn, Resource.Notification_TouchpadOn),
+                (NotificationType.TouchpadOff, Resource.Notification_TouchpadOff)
+            ],
+            _settings) { Owner = this }.ShowDialog();
+
+    private void CameraLockCustomizeButton_Click(object sender, RoutedEventArgs e) =>
+        new NotificationTypeCustomizationWindow(
+            Resource.NotificationsSettingsWindow_Camera,
+            [
+                (NotificationType.CameraOn, Resource.Notification_CameraOn),
+                (NotificationType.CameraOff, Resource.Notification_CameraOff)
+            ],
+            _settings) { Owner = this }.ShowDialog();
+
+    private void MicrophoneCustomizeButton_Click(object sender, RoutedEventArgs e) =>
+        new NotificationTypeCustomizationWindow(
+            Resource.NotificationsSettingsWindow_Microphone,
+            [
+                (NotificationType.MicrophoneOn, Resource.Notification_MicrophoneOn),
+                (NotificationType.MicrophoneOff, Resource.Notification_MicrophoneOff)
+            ],
+            _settings) { Owner = this }.ShowDialog();
+
+    private void AirplaneModeCustomizeButton_Click(object sender, RoutedEventArgs e) =>
+        new NotificationTypeCustomizationWindow(
+            Resource.NotificationsSettingsWindow_AirplaneMode,
+            [
+                (NotificationType.AirplaneModeOn, Resource.Notification_AirplaneModeOn),
+                (NotificationType.AirplaneModeOff, Resource.Notification_AirplaneModeOff)
+            ],
+            _settings) { Owner = this }.ShowDialog();
+
+    private void RefreshRateCustomizeButton_Click(object sender, RoutedEventArgs e) =>
+        new NotificationTypeCustomizationWindow(
+            Resource.NotificationsSettingsWindow_RefreshRate,
+            [(NotificationType.RefreshRate, Resource.NotificationsSettingsWindow_RefreshRate)],
+            _settings) { Owner = this }.ShowDialog();
+
+    private void SmartKeyCustomizeButton_Click(object sender, RoutedEventArgs e) =>
+        new NotificationTypeCustomizationWindow(
+            Resource.NotificationsSettingsWindow_SmartKey,
+            [
+                (NotificationType.SmartKeySinglePress, Resource.Notification_SmartKeySinglePress_Short),
+                (NotificationType.SmartKeyDoublePress, Resource.Notification_SmartKeyDoublePress_Short)
+            ],
+            _settings) { Owner = this }.ShowDialog();
+
+    private void UpdateAvailableCustomizeButton_Click(object sender, RoutedEventArgs e) =>
+        new NotificationTypeCustomizationWindow(
+            Resource.NotificationsSettingsWindow_Updates_Title,
+            [(NotificationType.UpdateAvailable, Resource.NotificationsSettingsWindow_Updates_Title)],
+            _settings) { Owner = this }.ShowDialog();
+
+    private void AutomationCustomizeButton_Click(object sender, RoutedEventArgs e) =>
+        new NotificationTypeCustomizationWindow(
+            Resource.NotificationsSettingsWindow_Automation,
+            [(NotificationType.AutomationNotification, Resource.NotificationsSettingsWindow_Automation)],
+            _settings) { Owner = this }.ShowDialog();
 }

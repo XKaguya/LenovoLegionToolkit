@@ -24,6 +24,12 @@ public class ApplicationSettings : AbstractSettings<ApplicationSettingsStore>
         public bool SmartKey { get; set; }
         public bool AutomationNotification { get; set; } = true;
         public bool ITSMode { get; set; } = true;
+
+        public Dictionary<NotificationType, int> IconOverrides { get; set; } = [];
+        public Dictionary<NotificationType, RGBColor> ColorOverrides { get; set; } = [];
+        public Dictionary<NotificationType, RGBColor> TextColorOverrides { get; set; } = [];
+        public Dictionary<NotificationType, NotificationPosition> PositionOverrides { get; set; } = [];
+        public Dictionary<NotificationType, NotificationDuration> DurationOverrides { get; set; } = [];
     }
 
     public class ApplicationSettingsStore

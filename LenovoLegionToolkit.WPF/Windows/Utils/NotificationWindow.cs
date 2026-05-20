@@ -57,10 +57,10 @@ public class NotificationWindow : UiWindow, INotificationWindow
         VerticalContentAlignment = VerticalAlignment.Center,
     };
 
-    public NotificationWindow(SymbolRegular symbol, SymbolRegular? overlaySymbol, Action<SymbolIcon>? symbolTransform, string text, Action? clickAction, ScreenInfo screenInfo, NotificationPosition position)
+    public NotificationWindow(SymbolRegular symbol, SymbolRegular? overlaySymbol, Action<SymbolIcon>? symbolTransform, string text, System.Windows.Media.Brush? textColor, Action? clickAction, ScreenInfo screenInfo, NotificationPosition position)
     {
         InitializeStyle();
-        InitializeContent(symbol, overlaySymbol, symbolTransform, text);
+        InitializeContent(symbol, overlaySymbol, symbolTransform, text, textColor);
 
         ShowInTaskbar = false;
         SourceInitialized += OnSourceInitialized;
@@ -186,10 +186,13 @@ public class NotificationWindow : UiWindow, INotificationWindow
         PInvoke.SetWindowPos((HWND)windowInteropHandler.Handle, HWND.Null, (int)nativeLeft, (int)nativeTop, 0, 0, SET_WINDOW_POS_FLAGS.SWP_NOACTIVATE | SET_WINDOW_POS_FLAGS.SWP_NOSIZE);
     }
 
-    private void InitializeContent(SymbolRegular symbol, SymbolRegular? overlaySymbol, Action<SymbolIcon>? symbolTransform, string text)
+    private void InitializeContent(SymbolRegular symbol, SymbolRegular? overlaySymbol, Action<SymbolIcon>? symbolTransform, string text, System.Windows.Media.Brush? textColor)
     {
         _symbolIcon.Symbol = symbol;
         _textBlock.Content = text;
+
+        if (textColor is not null)
+            _textBlock.Foreground = textColor;
 
         Grid.SetColumn(_symbolIcon, 0);
         Grid.SetColumn(_textBlock, 1);
