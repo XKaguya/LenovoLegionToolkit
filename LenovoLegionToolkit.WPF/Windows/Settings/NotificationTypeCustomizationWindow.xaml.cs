@@ -68,6 +68,7 @@ public partial class NotificationTypeCustomizationWindow
         var iconPicker = new SymbolRegularPickerControl
         {
             SelectedSymbol = notifications.IconOverrides.TryGetValue(type, out var iconInt)
+                && Enum.IsDefined(typeof(SymbolRegular), iconInt)
                 ? (SymbolRegular)iconInt
                 : NotificationsManager.GetDefaultSymbol(type),
             Margin = new Thickness(0, 0, 8, 0)
@@ -173,7 +174,7 @@ public partial class NotificationTypeCustomizationWindow
         if (hasOverride)
         {
             var idx = Array.IndexOf(Enum.GetValues<NotificationPosition>(), posOverride);
-            comboBox.SelectedIndex = idx + 1;
+            comboBox.SelectedIndex = idx >= 0 ? idx + 1 : 0;
         }
         else
         {
@@ -204,7 +205,7 @@ public partial class NotificationTypeCustomizationWindow
         if (hasOverride)
         {
             var idx = Array.IndexOf(Enum.GetValues<NotificationDuration>(), durOverride);
-            comboBox.SelectedIndex = idx + 1;
+            comboBox.SelectedIndex = idx >= 0 ? idx + 1 : 0;
         }
         else
         {

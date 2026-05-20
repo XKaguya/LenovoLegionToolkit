@@ -123,6 +123,7 @@
                             Click="UpdateAvailableToggle_Click" />
                         <wpfui:Button
                             Icon="PaintBrush24"
+                            AutomationProperties.Name="{x:Static resources:Resource.Customize}"
                             ToolTip="{x:Static resources:Resource.Customize}"
                             Click="UpdateAvailableCustomizeButton_Click" />
                     </StackPanel>
@@ -140,6 +141,7 @@
                             Click="AutomationToggle_Click" />
                         <wpfui:Button
                             Icon="PaintBrush24"
+                            AutomationProperties.Name="{x:Static resources:Resource.Customize}"
                             ToolTip="{x:Static resources:Resource.Customize}"
                             Click="AutomationCustomizeButton_Click" />
                     </StackPanel>
@@ -157,6 +159,7 @@
                             Click="CapsLockToggle_Click" />
                         <wpfui:Button
                             Icon="PaintBrush24"
+                            AutomationProperties.Name="{x:Static resources:Resource.Customize}"
                             ToolTip="{x:Static resources:Resource.Customize}"
                             Click="CapsLockCustomizeButton_Click" />
                     </StackPanel>
@@ -174,6 +177,7 @@
                             Click="NumLockToggle_Click" />
                         <wpfui:Button
                             Icon="PaintBrush24"
+                            AutomationProperties.Name="{x:Static resources:Resource.Customize}"
                             ToolTip="{x:Static resources:Resource.Customize}"
                             Click="NumLockCustomizeButton_Click" />
                     </StackPanel>
@@ -191,6 +195,7 @@
                             Click="FnLockToggle_Click" />
                         <wpfui:Button
                             Icon="PaintBrush24"
+                            AutomationProperties.Name="{x:Static resources:Resource.Customize}"
                             ToolTip="{x:Static resources:Resource.Customize}"
                             Click="FnLockCustomizeButton_Click" />
                     </StackPanel>
@@ -208,6 +213,7 @@
                             Click="TouchpadLockToggle_Click" />
                         <wpfui:Button
                             Icon="PaintBrush24"
+                            AutomationProperties.Name="{x:Static resources:Resource.Customize}"
                             ToolTip="{x:Static resources:Resource.Customize}"
                             Click="TouchpadLockCustomizeButton_Click" />
                     </StackPanel>
@@ -225,6 +231,7 @@
                             Click="SmartKeyToggle_Click" />
                         <wpfui:Button
                             Icon="PaintBrush24"
+                            AutomationProperties.Name="{x:Static resources:Resource.Customize}"
                             ToolTip="{x:Static resources:Resource.Customize}"
                             Click="SmartKeyCustomizeButton_Click" />
                     </StackPanel>
@@ -242,6 +249,7 @@
                             Click="KeyboardBacklightToggle_Click" />
                         <wpfui:Button
                             Icon="PaintBrush24"
+                            AutomationProperties.Name="{x:Static resources:Resource.Customize}"
                             ToolTip="{x:Static resources:Resource.Customize}"
                             Click="KeyboardBacklightCustomizeButton_Click" />
                     </StackPanel>
@@ -259,6 +267,7 @@
                             Click="CameraLockToggle_Click" />
                         <wpfui:Button
                             Icon="PaintBrush24"
+                            AutomationProperties.Name="{x:Static resources:Resource.Customize}"
                             ToolTip="{x:Static resources:Resource.Customize}"
                             Click="CameraLockCustomizeButton_Click" />
                     </StackPanel>
@@ -276,6 +285,7 @@
                             Click="MicrophoneToggle_Click" />
                         <wpfui:Button
                             Icon="PaintBrush24"
+                            AutomationProperties.Name="{x:Static resources:Resource.Customize}"
                             ToolTip="{x:Static resources:Resource.Customize}"
                             Click="MicrophoneCustomizeButton_Click" />
                     </StackPanel>
@@ -293,6 +303,7 @@
                             Click="AirplaneModeToggle_Click" />
                         <wpfui:Button
                             Icon="PaintBrush24"
+                            AutomationProperties.Name="{x:Static resources:Resource.Customize}"
                             ToolTip="{x:Static resources:Resource.Customize}"
                             Click="AirplaneModeCustomizeButton_Click" />
                     </StackPanel>
@@ -310,6 +321,7 @@
                             Click="PowerModeToggle_Click" />
                         <wpfui:Button
                             Icon="PaintBrush24"
+                            AutomationProperties.Name="{x:Static resources:Resource.Customize}"
                             ToolTip="{x:Static resources:Resource.Customize}"
                             Click="PowerModeCustomizeButton_Click" />
                     </StackPanel>
@@ -327,6 +339,7 @@
                             Click="ITSModeToggle_Click" />
                         <wpfui:Button
                             Icon="PaintBrush24"
+                            AutomationProperties.Name="{x:Static resources:Resource.Customize}"
                             ToolTip="{x:Static resources:Resource.Customize}"
                             Click="ITSModeCustomizeButton_Click" />
                     </StackPanel>
@@ -344,6 +357,7 @@
                             Click="RefreshRateToggle_Click" />
                         <wpfui:Button
                             Icon="PaintBrush24"
+                            AutomationProperties.Name="{x:Static resources:Resource.Customize}"
                             ToolTip="{x:Static resources:Resource.Customize}"
                             Click="RefreshRateCustomizeButton_Click" />
                     </StackPanel>
@@ -361,6 +375,7 @@
                             Click="ACAdapterToggle_Click" />
                         <wpfui:Button
                             Icon="PaintBrush24"
+                            AutomationProperties.Name="{x:Static resources:Resource.Customize}"
                             ToolTip="{x:Static resources:Resource.Customize}"
                             Click="ACAdapterCustomizeButton_Click" />
                     </StackPanel>

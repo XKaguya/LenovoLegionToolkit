@@ -193,7 +193,8 @@ public class NotificationsManager
                 _ => null
             };
 
-            if (_settings.Store.Notifications.IconOverrides.TryGetValue(notification.Type, out var iconOverride))
+            if (_settings.Store.Notifications.IconOverrides.TryGetValue(notification.Type, out var iconOverride)
+                && Enum.IsDefined(typeof(SymbolRegular), iconOverride))
                 symbol = (SymbolRegular)iconOverride;
 
             if (_settings.Store.Notifications.ColorOverrides.TryGetValue(notification.Type, out var colorOverride))

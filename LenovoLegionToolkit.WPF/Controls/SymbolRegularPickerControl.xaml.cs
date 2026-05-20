@@ -11,6 +11,11 @@ namespace LenovoLegionToolkit.WPF.Controls;
 
 public partial class SymbolRegularPickerControl
 {
+    private static readonly string[] _symbol24Names = Enum.GetNames<SymbolRegular>()
+        .Where(s => s.EndsWith("24", StringComparison.OrdinalIgnoreCase))
+        .OrderBy(s => s)
+        .ToArray();
+
     private readonly ThrottleLastDispatcher _throttleDispatcher = new(TimeSpan.FromMilliseconds(300));
 
     public event EventHandler? SymbolChanged;
@@ -45,7 +50,7 @@ public partial class SymbolRegularPickerControl
     private async void FilterTextBox_TextChanged(object sender, TextChangedEventArgs e) =>
         await _throttleDispatcher.DispatchAsync(() =>
         {
-            Dispatcher.Invoke(Refresh);
+            Dispatcher.InvokeAsync(Refresh);
             return Task.CompletedTask;
         });
 
@@ -70,10 +75,8 @@ public partial class SymbolRegularPickerControl
     {
         _iconsPanel.Children.Clear();
 
-        var items = Enum.GetNames<SymbolRegular>()
-            .Where(s => s.EndsWith("24", StringComparison.CurrentCultureIgnoreCase))
+        var items = _symbol24Names
             .Where(s => s.Contains(_filterTextBox.Text, StringComparison.CurrentCultureIgnoreCase))
-            .OrderBy(s => s)
             .ToArray();
 
         foreach (var item in items)
