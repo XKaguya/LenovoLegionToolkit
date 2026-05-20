@@ -12,8 +12,20 @@ namespace LenovoLegionToolkit.Lib.Features.Hybrid;
 
 public class HybridModeFeature(GSyncFeature gSyncFeature, IGPUModeFeature igpuModeFeature, DGPUNotify dgpuNotify) : IFeature<HybridModeState>
 {
+    private const string GRAPHICS_DEVICE = "GraphicsDevice";
+    private const string UMA_GRAPHICS = "UMA Graphics";
+    private const string SWITCHABLE_GRAPHICS = "Switchable Graphics";
+    private const string DISCRETE_GRAPHICS = "Discrete Graphics";
+
     private readonly CancellationTokenSource _ensureDGPUEjectedIfNeededCancellationTokenSource = new();
     private bool _isEnsuringEjected;
+
+    private HybridModeState? _lastState;
+
+    private static bool IsHybridMode(HybridModeState s) => s
+        is HybridModeState.On
+        or HybridModeState.OnIGPUOnly
+        or HybridModeState.OnAuto;
 
     public async Task<bool> IsSupportedAsync()
     {
@@ -30,9 +42,7 @@ public class HybridModeFeature(GSyncFeature gSyncFeature, IGPUModeFeature igpuMo
     {
         var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
 
-        var biosSelections = await WMI.LenovoBiosSetting.GetBiosSelectionsAsync("GraphicsDevice").ConfigureAwait(false);
-
-        if (biosSelections.Any(item => item.Contains("UMA", StringComparison.OrdinalIgnoreCase)))
+        if (mi.LegionSeries == LegionSeries.ThinkBook && await IsUMASupportedAsync().ConfigureAwait(false))
         {
             return [HybridModeState.On, HybridModeState.OnIGPUOnly, HybridModeState.OnAuto, HybridModeState.UMA, HybridModeState.Off];
         }
@@ -50,9 +60,8 @@ public class HybridModeFeature(GSyncFeature gSyncFeature, IGPUModeFeature igpuMo
     {
         Log.Instance.Trace($"Getting state...");
 
-        var biosSetting = await WMI.LenovoBiosSetting.GetBiosSettingAsync("GraphicsDevice").ConfigureAwait(false);
-
-        if (!string.IsNullOrEmpty(biosSetting) && biosSetting.Contains("UMA"))
+        var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
+        if (mi.LegionSeries == LegionSeries.ThinkBook && await IsUMAEnabledAsync().ConfigureAwait(false))
         {
             Log.Instance.Trace($"State is {HybridModeState.UMA}");
             return HybridModeState.UMA;
@@ -81,18 +90,15 @@ public class HybridModeFeature(GSyncFeature gSyncFeature, IGPUModeFeature igpuMo
     {
         if (state == HybridModeState.UMA)
         {
-            try
-            {
-                await WMI.LenovoBiosSetting.SetBiosSettingAsync("GraphicsDevice", "UMA Graphics").ConfigureAwait(false);
-                await WMI.LenovoBiosSetting.SaveBiosSettingAsync().ConfigureAwait(false);
-                Log.Instance.Trace($"State set to {HybridModeState.UMA}");
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.Trace($"Failed to set UMA graphics device.", ex);
-            }
-
+            await SetGraphicsDeviceAsync(UMA_GRAPHICS).ConfigureAwait(false);
+            _lastState = state;
             return;
+        }
+
+        if (await NeedsGraphicsDeviceSwitchAsync(state).ConfigureAwait(false))
+        {
+            var biosValue = state == HybridModeState.Off ? DISCRETE_GRAPHICS : SWITCHABLE_GRAPHICS;
+            await SetGraphicsDeviceAsync(biosValue).ConfigureAwait(false);
         }
 
         await _ensureDGPUEjectedIfNeededCancellationTokenSource.CancelAsync().ConfigureAwait(false);
@@ -135,6 +141,8 @@ public class HybridModeFeature(GSyncFeature gSyncFeature, IGPUModeFeature igpuMo
         }
 
         Log.Instance.Trace($"State set to {state} [gSync={gSync}, igpuMode={igpuMode}]");
+
+        _lastState = state;
     }
 
     public async Task EnsureDGPUEjectedIfNeededAsync()
@@ -203,6 +211,64 @@ public class HybridModeFeature(GSyncFeature gSyncFeature, IGPUModeFeature igpuMo
                 _isEnsuringEjected = false;
             }
         });
+    }
+
+    private async Task<bool> IsUMASupportedAsync()
+    {
+        try
+        {
+            var selections = await WMI.LenovoBiosSetting.GetBiosSelectionsAsync(GRAPHICS_DEVICE).ConfigureAwait(false);
+            return selections.Any(item => item.Contains("UMA", StringComparison.OrdinalIgnoreCase));
+        }
+        catch (Exception ex)
+        {
+            Log.Instance.Trace($"Failed to check UMA support", ex);
+            return false;
+        }
+    }
+
+    private async Task<bool> IsUMAEnabledAsync()
+    {
+        try
+        {
+            var setting = await WMI.LenovoBiosSetting.GetBiosSettingAsync(GRAPHICS_DEVICE).ConfigureAwait(false);
+            return !string.IsNullOrEmpty(setting) && setting.Contains("UMA", StringComparison.OrdinalIgnoreCase);
+        }
+        catch (Exception ex)
+        {
+            Log.Instance.Trace($"Failed to read GraphicsDevice", ex);
+            return false;
+        }
+    }
+
+    private async Task<bool> NeedsGraphicsDeviceSwitchAsync(HybridModeState target)
+    {
+        if (_lastState.HasValue && IsHybridMode(_lastState.Value) && IsHybridMode(target))
+        {
+            return false;
+        }
+
+        var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
+        if (mi.LegionSeries != LegionSeries.ThinkBook)
+        {
+            return false;
+        }
+
+        return await IsUMAEnabledAsync().ConfigureAwait(false);
+    }
+
+    private async Task SetGraphicsDeviceAsync(string value)
+    {
+        try
+        {
+            await WMI.LenovoBiosSetting.SetBiosSettingAsync(GRAPHICS_DEVICE, value).ConfigureAwait(false);
+            await WMI.LenovoBiosSetting.SaveBiosSettingAsync().ConfigureAwait(false);
+            Log.Instance.Trace($"GraphicsDevice set to: {value}");
+        }
+        catch (Exception ex)
+        {
+            Log.Instance.Trace($"Failed to set GraphicsDevice to {value}", ex);
+        }
     }
 
     private static (GSyncState, IGPUModeState) Unpack(HybridModeState state) => state switch

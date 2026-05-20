@@ -442,7 +442,6 @@ LLT makes use of several open-source libraries:
 * **LibreHardwareMonitor** ([LibreHardwareMonitor/LibreHardwareMonitor](https://github.com/LibreHardwareMonitor/LibreHardwareMonitor))
 * **PawnIO** ([namazso/PawnIO](https://github.com/namazso/PawnIO))
 * **CoordinateSharp** ([Tronald/CoordinateSharp](https://github.com/Tronald/CoordinateSharp))
-* **UniversalFanControl.Lib** ([XKaguya/UniversalFanControl.Lib](https://www.nuget.org/packages/UniversalFanControl.Lib))
 * **ZenStates-Core** ([irusanov/ZenStates-Core](https://github.com/irusanov/ZenStates-Core))
 * **PresentMonFps** ([lemutec/PresentMonFps](https://github.com/lemutec/PresentMonFps))
 
