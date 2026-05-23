@@ -22,13 +22,38 @@ public partial class SymbolRegularPickerControl
 
     private SymbolRegular? _selectedSymbol;
 
+    private string[] _filteredSymbolNames = [];
+    private int _loadedCount = 0;
+    private const int BatchSize = 60;
+
     public SymbolRegular? SelectedSymbol
     {
         get => _selectedSymbol;
         set
         {
             _selectedSymbol = value;
-            _button.Icon = value ?? SymbolRegular.Empty;
+            _symbolIcon.Symbol = value ?? SymbolRegular.Empty;
+        }
+    }
+
+    private SymbolRegular? _overlaySymbol;
+
+    public SymbolRegular? OverlaySymbol
+    {
+        get => _overlaySymbol;
+        set
+        {
+            _overlaySymbol = value;
+            if (value.HasValue)
+            {
+                _overlayIcon.Symbol = value.Value;
+                _overlayIcon.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                _overlayIcon.Symbol = SymbolRegular.Empty;
+                _overlayIcon.Visibility = Visibility.Collapsed;
+            }
         }
     }
 
@@ -74,12 +99,23 @@ public partial class SymbolRegularPickerControl
     private void Refresh()
     {
         _iconsPanel.Children.Clear();
+        _scrollViewer.ScrollToTop();
 
-        var items = _symbol24Names
+        _filteredSymbolNames = _symbol24Names
             .Where(s => s.Contains(_filterTextBox.Text, StringComparison.CurrentCultureIgnoreCase))
             .ToArray();
 
-        foreach (var item in items)
+        _loadedCount = 0;
+        LoadNextBatch();
+    }
+
+    private void LoadNextBatch()
+    {
+        if (_loadedCount >= _filteredSymbolNames.Length)
+            return;
+
+        var batch = _filteredSymbolNames.Skip(_loadedCount).Take(BatchSize);
+        foreach (var item in batch)
         {
             var button = new Button
             {
@@ -91,6 +127,15 @@ public partial class SymbolRegularPickerControl
             };
             button.Click += ItemButton_Click;
             _iconsPanel.Children.Add(button);
+        }
+        _loadedCount += BatchSize;
+    }
+
+    private void ScrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)
+    {
+        if (e.VerticalOffset + e.ViewportHeight >= e.ExtentHeight - 40)
+        {
+            LoadNextBatch();
         }
     }
 }

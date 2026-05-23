@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Shapes;
 using System.Windows.Media;
 using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Extensions;
@@ -11,7 +12,6 @@ using LenovoLegionToolkit.WPF.Extensions;
 using LenovoLegionToolkit.WPF.Resources;
 using LenovoLegionToolkit.WPF.Utils;
 using Wpf.Ui.Common;
-using CardControl = LenovoLegionToolkit.WPF.Controls.Custom.CardControl;
 
 namespace LenovoLegionToolkit.WPF.Windows.Settings;
 
@@ -47,21 +47,53 @@ public partial class NotificationTypeCustomizationWindow
 
         InitializeComponent();
 
-        Title = $"{Resource.Customize} {categoryTitle}";
+        Title = _title.Text = $"{Resource.Customize} {categoryTitle}";
 
         BuildRows();
     }
 
     private void BuildRows()
     {
-        _cardsContainer.Children.Clear();
+        _tableGrid.Children.Clear();
+        _tableGrid.RowDefinitions.Clear();
         _rows.Clear();
 
+        _tableGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+
+        void AddHeader(string text, int column, HorizontalAlignment alignment)
+        {
+            var secondaryBrush = Application.Current.TryFindResource("TextFillColorSecondaryBrush") as Brush ?? Brushes.Gray;
+            var textBlock = new TextBlock
+            {
+                Text = text,
+                FontWeight = FontWeights.SemiBold,
+                Foreground = secondaryBrush,
+                HorizontalAlignment = alignment,
+                VerticalAlignment = VerticalAlignment.Center,
+                Margin = new Thickness(column == 0 ? 0 : 6, 4, 6, 12)
+            };
+            Grid.SetRow(textBlock, 0);
+            Grid.SetColumn(textBlock, column);
+            _tableGrid.Children.Add(textBlock);
+        }
+
+        AddHeader(Resource.NotificationsSettingsWindow_NotificationType, 0, HorizontalAlignment.Left);
+        AddHeader(Resource.Icon, 1, HorizontalAlignment.Center);
+        AddHeader(Resource.IconColor, 2, HorizontalAlignment.Center);
+        AddHeader(Resource.TextColor, 3, HorizontalAlignment.Center);
+        AddHeader(Resource.NotificationsSettingsWindow_NotificationPosition_Title, 4, HorizontalAlignment.Center);
+        AddHeader(Resource.NotificationsSettingsWindow_NotificationDuration_Title, 5, HorizontalAlignment.Center);
+
+        int rowIndex = 1;
         foreach (var (type, displayName) in _types)
-            _rows.Add(BuildRow(type, displayName));
+        {
+            _tableGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            _rows.Add(BuildRow(type, displayName, rowIndex));
+            rowIndex++;
+        }
     }
 
-    private NotificationTypeRow BuildRow(NotificationType type, string displayName)
+    private NotificationTypeRow BuildRow(NotificationType type, string displayName, int rowIndex)
     {
         var notifications = _settings.Store.Notifications;
 
@@ -71,7 +103,10 @@ public partial class NotificationTypeCustomizationWindow
                 && Enum.IsDefined(typeof(SymbolRegular), iconInt)
                 ? (SymbolRegular)iconInt
                 : NotificationsManager.GetDefaultSymbol(type),
-            Margin = new Thickness(0, 0, 8, 0)
+            OverlaySymbol = NotificationsManager.GetDefaultOverlaySymbol(type),
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center,
+            Margin = new Thickness(0, 4, 0, 4)
         };
         iconPicker.SymbolChanged += (_, _) =>
         {
@@ -89,7 +124,10 @@ public partial class NotificationTypeCustomizationWindow
         {
             SelectedColor = notifications.ColorOverrides.TryGetValue(type, out var iconColor)
                 ? iconColor.ToColor()
-                : Colors.White
+                : Colors.White,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center,
+            Margin = new Thickness(0, 4, 0, 4)
         };
         iconColorPicker.ColorChangedDelayed += (_, _) =>
         {
@@ -102,7 +140,10 @@ public partial class NotificationTypeCustomizationWindow
         {
             SelectedColor = notifications.TextColorOverrides.TryGetValue(type, out var textColor)
                 ? textColor.ToColor()
-                : Colors.White
+                : Colors.White,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center,
+            Margin = new Thickness(0, 4, 0, 4)
         };
         textColorPicker.ColorChangedDelayed += (_, _) =>
         {
@@ -112,59 +153,65 @@ public partial class NotificationTypeCustomizationWindow
         };
 
         var positionComboBox = BuildPositionComboBox(type);
+        positionComboBox.HorizontalAlignment = HorizontalAlignment.Stretch;
+        positionComboBox.VerticalAlignment = VerticalAlignment.Center;
+        positionComboBox.Margin = new Thickness(6, 4, 6, 4);
+
         var durationComboBox = BuildDurationComboBox(type);
+        durationComboBox.HorizontalAlignment = HorizontalAlignment.Stretch;
+        durationComboBox.VerticalAlignment = VerticalAlignment.Center;
+        durationComboBox.Margin = new Thickness(6, 4, 6, 4);
 
-        var row1 = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 0, 0, 0) };
-        row1.Children.Add(iconPicker);
-        row1.Children.Add(new TextBlock
+        var dividerBrush = Application.Current.TryFindResource("DividerStrokeColorDefaultBrush") as Brush ?? Brushes.LightGray;
+        var separator = new Rectangle
         {
-            Text = Resource.IconColor,
-            VerticalAlignment = VerticalAlignment.Center,
-            Margin = new Thickness(0, 0, 4, 0)
-        });
-        row1.Children.Add(iconColorPicker);
-        row1.Children.Add(new TextBlock
-        {
-            Text = Resource.TextColor,
-            VerticalAlignment = VerticalAlignment.Center,
-            Margin = new Thickness(8, 0, 4, 0)
-        });
-        row1.Children.Add(textColorPicker);
-
-        var row2 = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 8, 0, 0) };
-        row2.Children.Add(new TextBlock
-        {
-            Text = Resource.NotificationsSettingsWindow_NotificationPosition_Title,
-            VerticalAlignment = VerticalAlignment.Center,
-            Margin = new Thickness(0, 0, 4, 0)
-        });
-        row2.Children.Add(positionComboBox);
-        row2.Children.Add(new TextBlock
-        {
-            Text = Resource.NotificationsSettingsWindow_NotificationDuration_Title,
-            VerticalAlignment = VerticalAlignment.Center,
-            Margin = new Thickness(8, 0, 4, 0)
-        });
-        row2.Children.Add(durationComboBox);
-
-        var contentPanel = new StackPanel { Margin = new Thickness(0, 4, 0, 4) };
-        contentPanel.Children.Add(row1);
-        contentPanel.Children.Add(row2);
-
-        var card = new CardControl
-        {
-            Margin = new Thickness(0, 0, 0, 8),
-            Header = new CardHeaderControl { Title = displayName },
-            Content = contentPanel
+            Height = 1,
+            Fill = dividerBrush,
+            VerticalAlignment = VerticalAlignment.Bottom,
+            IsHitTestVisible = false
         };
-        _cardsContainer.Children.Add(card);
+        Grid.SetRow(separator, rowIndex);
+        Grid.SetColumnSpan(separator, 6);
+        _tableGrid.Children.Add(separator);
+
+        var textBlock = new TextBlock
+        {
+            Text = displayName,
+            VerticalAlignment = VerticalAlignment.Center,
+            Margin = new Thickness(0, 4, 8, 4),
+            TextTrimming = TextTrimming.CharacterEllipsis,
+            ToolTip = displayName
+        };
+        Grid.SetRow(textBlock, rowIndex);
+        Grid.SetColumn(textBlock, 0);
+        _tableGrid.Children.Add(textBlock);
+
+        Grid.SetRow(iconPicker, rowIndex);
+        Grid.SetColumn(iconPicker, 1);
+        _tableGrid.Children.Add(iconPicker);
+
+        Grid.SetRow(iconColorPicker, rowIndex);
+        Grid.SetColumn(iconColorPicker, 2);
+        _tableGrid.Children.Add(iconColorPicker);
+
+        Grid.SetRow(textColorPicker, rowIndex);
+        Grid.SetColumn(textColorPicker, 3);
+        _tableGrid.Children.Add(textColorPicker);
+
+        Grid.SetRow(positionComboBox, rowIndex);
+        Grid.SetColumn(positionComboBox, 4);
+        _tableGrid.Children.Add(positionComboBox);
+
+        Grid.SetRow(durationComboBox, rowIndex);
+        Grid.SetColumn(durationComboBox, 5);
+        _tableGrid.Children.Add(durationComboBox);
 
         return new NotificationTypeRow(type, iconPicker, iconColorPicker, textColorPicker, positionComboBox, durationComboBox);
     }
 
     private ComboBox BuildPositionComboBox(NotificationType type)
     {
-        var comboBox = new ComboBox { MinWidth = 130, VerticalAlignment = VerticalAlignment.Center };
+        var comboBox = new ComboBox { MinWidth = 120, VerticalAlignment = VerticalAlignment.Center };
 
         comboBox.Items.Add(new ComboBoxItem { Content = Resource.Default, Tag = (NotificationPosition?)null });
         foreach (var pos in Enum.GetValues<NotificationPosition>())

@@ -10,7 +10,13 @@
             x:Name="_button"
             Width="38"
             Height="38"
-            Click="Button_Click" />
+            Padding="0"
+            Click="Button_Click">
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                <wpfui:SymbolIcon x:Name="_symbolIcon" FontSize="20" Symbol="Empty" />
+                <wpfui:SymbolIcon x:Name="_overlayIcon" FontSize="20" Symbol="Empty" Visibility="Collapsed" />
+            </Grid>
+        </wpfui:Button>
 
         <Popup
             x:Name="_popup"
@@ -36,8 +42,10 @@
                         TextChanged="FilterTextBox_TextChanged" />
 
                     <ScrollViewer
+                        x:Name="_scrollViewer"
                         Height="220"
                         Margin="4,0,4,0"
+                        ScrollChanged="ScrollViewer_ScrollChanged"
                         HorizontalScrollBarVisibility="Disabled"
                         VerticalScrollBarVisibility="Auto">
                         <WrapPanel x:Name="_iconsPanel" Margin="4" />

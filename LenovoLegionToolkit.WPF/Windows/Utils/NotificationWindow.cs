@@ -1,6 +1,4 @@
 using System;
-using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
@@ -57,7 +55,7 @@ public class NotificationWindow : UiWindow, INotificationWindow
         VerticalContentAlignment = VerticalAlignment.Center,
     };
 
-    public NotificationWindow(SymbolRegular symbol, SymbolRegular? overlaySymbol, Action<SymbolIcon>? symbolTransform, string text, System.Windows.Media.Brush? textColor, Action? clickAction, ScreenInfo screenInfo, NotificationPosition position)
+    public NotificationWindow(SymbolRegular symbol, SymbolRegular? overlaySymbol, Action<SymbolIcon>? symbolTransform, string text, Brush? textColor, Action? clickAction, ScreenInfo screenInfo, NotificationPosition position)
     {
         InitializeStyle();
         InitializeContent(symbol, overlaySymbol, symbolTransform, text, textColor);
@@ -121,7 +119,7 @@ public class NotificationWindow : UiWindow, INotificationWindow
 
     private void InitializePosition(Rect workArea, uint dpiX, uint dpiY, NotificationPosition position)
     {
-        _mainGrid.Measure(new System.Windows.Size(double.PositiveInfinity, MeasureHeight));
+        _mainGrid.Measure(new Size(double.PositiveInfinity, MeasureHeight));
 
         var multiplierX = dpiX / 96d;
         var multiplierY = dpiY / 96d;
@@ -186,7 +184,7 @@ public class NotificationWindow : UiWindow, INotificationWindow
         PInvoke.SetWindowPos((HWND)windowInteropHandler.Handle, HWND.Null, (int)nativeLeft, (int)nativeTop, 0, 0, SET_WINDOW_POS_FLAGS.SWP_NOACTIVATE | SET_WINDOW_POS_FLAGS.SWP_NOSIZE);
     }
 
-    private void InitializeContent(SymbolRegular symbol, SymbolRegular? overlaySymbol, Action<SymbolIcon>? symbolTransform, string text, System.Windows.Media.Brush? textColor)
+    private void InitializeContent(SymbolRegular symbol, SymbolRegular? overlaySymbol, Action<SymbolIcon>? symbolTransform, string text, Brush? textColor)
     {
         _symbolIcon.Symbol = symbol;
         _textBlock.Content = text;

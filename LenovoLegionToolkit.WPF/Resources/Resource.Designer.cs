@@ -3473,6 +3473,15 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Icon.
+        /// </summary>
+        public static string Icon {
+            get {
+                return ResourceManager.GetString("Icon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Icon color.
         /// </summary>
         public static string IconColor {
@@ -5022,6 +5031,15 @@ namespace LenovoLegionToolkit.WPF.Resources {
         public static string NotificationsSettingsWindow_NotificationPosition_Title {
             get {
                 return ResourceManager.GetString("NotificationsSettingsWindow_NotificationPosition_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string NotificationsSettingsWindow_NotificationType {
+            get {
+                return ResourceManager.GetString("NotificationsSettingsWindow_NotificationType", resourceCulture);
             }
         }
         

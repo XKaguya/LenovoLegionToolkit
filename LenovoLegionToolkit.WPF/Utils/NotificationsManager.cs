@@ -109,23 +109,7 @@ public class NotificationsManager
 
             var symbol = GetDefaultSymbol(notification.Type);
 
-            SymbolRegular? overlaySymbol = notification.Type switch
-            {
-                NotificationType.ACAdapterDisconnected => SymbolRegular.Line24,
-                NotificationType.AirplaneModeOff => SymbolRegular.Line24,
-                NotificationType.CapsLockOff => SymbolRegular.Line24,
-                NotificationType.CameraOff => SymbolRegular.Line24,
-                NotificationType.FnLockOff => SymbolRegular.Line24,
-                NotificationType.MicrophoneOff => SymbolRegular.Line24,
-                NotificationType.NumLockOff => SymbolRegular.Line24,
-                NotificationType.PanelLogoLightingOff => SymbolRegular.Line24,
-                NotificationType.PortLightingOff => SymbolRegular.Line24,
-                NotificationType.RGBKeyboardBacklightOff => SymbolRegular.Line24,
-                NotificationType.SpectrumBacklightOff => SymbolRegular.Line24,
-                NotificationType.TouchpadOff => SymbolRegular.Line24,
-                NotificationType.WhiteKeyboardBacklightOff => SymbolRegular.Line24,
-                _ => null,
-            };
+            SymbolRegular? overlaySymbol = GetDefaultOverlaySymbol(notification.Type);
 
             var text = notification.Type switch
             {
@@ -318,7 +302,24 @@ public class NotificationsManager
         NotificationType.ITSModeCool => SymbolRegular.Gauge24,
         NotificationType.ITSModePerformance => SymbolRegular.Gauge24,
         NotificationType.ITSModeGeek => SymbolRegular.Gauge24,
-        _ => SymbolRegular.Alert24
+    };
+
+    internal static SymbolRegular? GetDefaultOverlaySymbol(NotificationType type) => type switch
+    {
+        NotificationType.ACAdapterDisconnected => SymbolRegular.Line24,
+        NotificationType.AirplaneModeOff => SymbolRegular.Line24,
+        NotificationType.CapsLockOff => SymbolRegular.Line24,
+        NotificationType.CameraOff => SymbolRegular.Line24,
+        NotificationType.FnLockOff => SymbolRegular.Line24,
+        NotificationType.MicrophoneOff => SymbolRegular.Line24,
+        NotificationType.NumLockOff => SymbolRegular.Line24,
+        NotificationType.PanelLogoLightingOff => SymbolRegular.Line24,
+        NotificationType.PortLightingOff => SymbolRegular.Line24,
+        NotificationType.RGBKeyboardBacklightOff => SymbolRegular.Line24,
+        NotificationType.SpectrumBacklightOff => SymbolRegular.Line24,
+        NotificationType.TouchpadOff => SymbolRegular.Line24,
+        NotificationType.WhiteKeyboardBacklightOff => SymbolRegular.Line24,
+        _ => null,
     };
 
     private static void UpdateAvailableAction()

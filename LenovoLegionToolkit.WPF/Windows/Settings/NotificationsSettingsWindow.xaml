@@ -116,16 +116,16 @@
                         <controls:CardHeaderControl Title="{x:Static resources:Resource.NotificationsSettingsWindow_Updates_Title}" />
                     </custom:CardControl.Header>
                     <StackPanel Margin="0,0,0,8" Orientation="Horizontal" VerticalAlignment="Center">
-                        <wpfui:ToggleSwitch
-                            x:Name="_updateAvailableToggle"
-                            Margin="0,0,8,0"
-                            AutomationProperties.Name="{x:Static resources:Resource.NotificationsSettingsWindow_Updates_Title}"
-                            Click="UpdateAvailableToggle_Click" />
                         <wpfui:Button
-                            Icon="PaintBrush24"
+                            Icon="Edit24"
+                            Margin="0,0,8,0"
                             AutomationProperties.Name="{x:Static resources:Resource.Customize}"
                             ToolTip="{x:Static resources:Resource.Customize}"
                             Click="UpdateAvailableCustomizeButton_Click" />
+                        <wpfui:ToggleSwitch
+                            x:Name="_updateAvailableToggle"
+                            AutomationProperties.Name="{x:Static resources:Resource.NotificationsSettingsWindow_Updates_Title}"
+                            Click="UpdateAvailableToggle_Click" />
                     </StackPanel>
                 </custom:CardControl>
 
@@ -134,16 +134,16 @@
                         <controls:CardHeaderControl Title="{x:Static resources:Resource.NotificationsSettingsWindow_Automation}" />
                     </custom:CardControl.Header>
                     <StackPanel Margin="0,0,0,8" Orientation="Horizontal" VerticalAlignment="Center">
-                        <wpfui:ToggleSwitch
-                            x:Name="_automationToggle"
-                            Margin="0,0,8,0"
-                            AutomationProperties.Name="{x:Static resources:Resource.NotificationsSettingsWindow_Automation}"
-                            Click="AutomationToggle_Click" />
                         <wpfui:Button
-                            Icon="PaintBrush24"
+                            Icon="Edit24"
+                            Margin="0,0,8,0"
                             AutomationProperties.Name="{x:Static resources:Resource.Customize}"
                             ToolTip="{x:Static resources:Resource.Customize}"
                             Click="AutomationCustomizeButton_Click" />
+                        <wpfui:ToggleSwitch
+                            x:Name="_automationToggle"
+                            AutomationProperties.Name="{x:Static resources:Resource.NotificationsSettingsWindow_Automation}"
+                            Click="AutomationToggle_Click" />
                     </StackPanel>
                 </custom:CardControl>
 
@@ -152,16 +152,16 @@
                         <controls:CardHeaderControl Title="{x:Static resources:Resource.NotificationsSettingsWindow_CapsLock}" />
                     </custom:CardControl.Header>
                     <StackPanel Margin="0,0,0,8" Orientation="Horizontal" VerticalAlignment="Center">
-                        <wpfui:ToggleSwitch
-                            x:Name="_capsLockToggle"
-                            Margin="0,0,8,0"
-                            AutomationProperties.Name="{x:Static resources:Resource.NotificationsSettingsWindow_CapsLock}"
-                            Click="CapsLockToggle_Click" />
                         <wpfui:Button
-                            Icon="PaintBrush24"
+                            Icon="Edit24"
+                            Margin="0,0,8,0"
                             AutomationProperties.Name="{x:Static resources:Resource.Customize}"
                             ToolTip="{x:Static resources:Resource.Customize}"
                             Click="CapsLockCustomizeButton_Click" />
+                        <wpfui:ToggleSwitch
+                            x:Name="_capsLockToggle"
+                            AutomationProperties.Name="{x:Static resources:Resource.NotificationsSettingsWindow_CapsLock}"
+                            Click="CapsLockToggle_Click" />
                     </StackPanel>
                 </custom:CardControl>
 
@@ -170,16 +170,16 @@
                         <controls:CardHeaderControl Title="{x:Static resources:Resource.NotificationsSettingsWindow_NumLock}" />
                     </custom:CardControl.Header>
                     <StackPanel Margin="0,0,0,8" Orientation="Horizontal" VerticalAlignment="Center">
-                        <wpfui:ToggleSwitch
-                            x:Name="_numLockToggle"
-                            Margin="0,0,8,0"
-                            AutomationProperties.Name="{x:Static resources:Resource.NotificationsSettingsWindow_NumLock}"
-                            Click="NumLockToggle_Click" />
                         <wpfui:Button
-                            Icon="PaintBrush24"
+                            Icon="Edit24"
+                            Margin="0,0,8,0"
                             AutomationProperties.Name="{x:Static resources:Resource.Customize}"
                             ToolTip="{x:Static resources:Resource.Customize}"
                             Click="NumLockCustomizeButton_Click" />
+                        <wpfui:ToggleSwitch
+                            x:Name="_numLockToggle"
+                            AutomationProperties.Name="{x:Static resources:Resource.NotificationsSettingsWindow_NumLock}"
+                            Click="NumLockToggle_Click" />
                     </StackPanel>
                 </custom:CardControl>
 
@@ -188,16 +188,16 @@
                         <controls:CardHeaderControl Title="{x:Static resources:Resource.NotificationsSettingsWindow_FnLock}" />
                     </custom:CardControl.Header>
                     <StackPanel Margin="0,0,0,8" Orientation="Horizontal" VerticalAlignment="Center">
-                        <wpfui:ToggleSwitch
-                            x:Name="_fnLockToggle"
-                            Margin="0,0,8,0"
-                            AutomationProperties.Name="{x:Static resources:Resource.NotificationsSettingsWindow_FnLock}"
-                            Click="FnLockToggle_Click" />
                         <wpfui:Button
-                            Icon="PaintBrush24"
+                            Icon="Edit24"
+                            Margin="0,0,8,0"
                             AutomationProperties.Name="{x:Static resources:Resource.Customize}"
                             ToolTip="{x:Static resources:Resource.Customize}"
                             Click="FnLockCustomizeButton_Click" />
+                        <wpfui:ToggleSwitch
+                            x:Name="_fnLockToggle"
+                            AutomationProperties.Name="{x:Static resources:Resource.NotificationsSettingsWindow_FnLock}"
+                            Click="FnLockToggle_Click" />
                     </StackPanel>
                 </custom:CardControl>
 
@@ -206,16 +206,16 @@
                         <controls:CardHeaderControl Title="{x:Static resources:Resource.NotificationsSettingsWindow_TouchpadLock}" />
                     </custom:CardControl.Header>
                     <StackPanel Margin="0,0,0,8" Orientation="Horizontal" VerticalAlignment="Center">
-                        <wpfui:ToggleSwitch
-                            x:Name="_touchpadLockToggle"
-                            Margin="0,0,8,0"
-                            AutomationProperties.Name="{x:Static resources:Resource.NotificationsSettingsWindow_TouchpadLock}"
-                            Click="TouchpadLockToggle_Click" />
                         <wpfui:Button
-                            Icon="PaintBrush24"
+                            Icon="Edit24"
+                            Margin="0,0,8,0"
                             AutomationProperties.Name="{x:Static resources:Resource.Customize}"
                             ToolTip="{x:Static resources:Resource.Customize}"
                             Click="TouchpadLockCustomizeButton_Click" />
+                        <wpfui:ToggleSwitch
+                            x:Name="_touchpadLockToggle"
+                            AutomationProperties.Name="{x:Static resources:Resource.NotificationsSettingsWindow_TouchpadLock}"
+                            Click="TouchpadLockToggle_Click" />
                     </StackPanel>
                 </custom:CardControl>
 
@@ -224,16 +224,16 @@
                         <controls:CardHeaderControl Title="{x:Static resources:Resource.NotificationsSettingsWindow_SmartKey}" />
                     </custom:CardControl.Header>
                     <StackPanel Margin="0,0,0,8" Orientation="Horizontal" VerticalAlignment="Center">
-                        <wpfui:ToggleSwitch
-                            x:Name="_smartKeyToggle"
-                            Margin="0,0,8,0"
-                            AutomationProperties.Name="{x:Static resources:Resource.NotificationsSettingsWindow_SmartKey}"
-                            Click="SmartKeyToggle_Click" />
                         <wpfui:Button
-                            Icon="PaintBrush24"
+                            Icon="Edit24"
+                            Margin="0,0,8,0"
                             AutomationProperties.Name="{x:Static resources:Resource.Customize}"
                             ToolTip="{x:Static resources:Resource.Customize}"
                             Click="SmartKeyCustomizeButton_Click" />
+                        <wpfui:ToggleSwitch
+                            x:Name="_smartKeyToggle"
+                            AutomationProperties.Name="{x:Static resources:Resource.NotificationsSettingsWindow_SmartKey}"
+                            Click="SmartKeyToggle_Click" />
                     </StackPanel>
                 </custom:CardControl>
 
@@ -242,16 +242,16 @@
                         <controls:CardHeaderControl Title="{x:Static resources:Resource.NotificationsSettingsWindow_KeyboardBacklight}" />
                     </custom:CardControl.Header>
                     <StackPanel Margin="0,0,0,8" Orientation="Horizontal" VerticalAlignment="Center">
-                        <wpfui:ToggleSwitch
-                            x:Name="_keyboardBacklightToggle"
-                            Margin="0,0,8,0"
-                            AutomationProperties.Name="{x:Static resources:Resource.NotificationsSettingsWindow_KeyboardBacklight}"
-                            Click="KeyboardBacklightToggle_Click" />
                         <wpfui:Button
-                            Icon="PaintBrush24"
+                            Icon="Edit24"
+                            Margin="0,0,8,0"
                             AutomationProperties.Name="{x:Static resources:Resource.Customize}"
                             ToolTip="{x:Static resources:Resource.Customize}"
                             Click="KeyboardBacklightCustomizeButton_Click" />
+                        <wpfui:ToggleSwitch
+                            x:Name="_keyboardBacklightToggle"
+                            AutomationProperties.Name="{x:Static resources:Resource.NotificationsSettingsWindow_KeyboardBacklight}"
+                            Click="KeyboardBacklightToggle_Click" />
                     </StackPanel>
                 </custom:CardControl>
 
@@ -260,16 +260,16 @@
                         <controls:CardHeaderControl Title="{x:Static resources:Resource.NotificationsSettingsWindow_Camera}" />
                     </custom:CardControl.Header>
                     <StackPanel Margin="0,0,0,8" Orientation="Horizontal" VerticalAlignment="Center">
-                        <wpfui:ToggleSwitch
-                            x:Name="_cameraLockToggle"
-                            Margin="0,0,8,0"
-                            AutomationProperties.Name="{x:Static resources:Resource.NotificationsSettingsWindow_Camera}"
-                            Click="CameraLockToggle_Click" />
                         <wpfui:Button
-                            Icon="PaintBrush24"
+                            Icon="Edit24"
+                            Margin="0,0,8,0"
                             AutomationProperties.Name="{x:Static resources:Resource.Customize}"
                             ToolTip="{x:Static resources:Resource.Customize}"
                             Click="CameraLockCustomizeButton_Click" />
+                        <wpfui:ToggleSwitch
+                            x:Name="_cameraLockToggle"
+                            AutomationProperties.Name="{x:Static resources:Resource.NotificationsSettingsWindow_Camera}"
+                            Click="CameraLockToggle_Click" />
                     </StackPanel>
                 </custom:CardControl>
 
@@ -278,16 +278,16 @@
                         <controls:CardHeaderControl Title="{x:Static resources:Resource.NotificationsSettingsWindow_Microphone}" />
                     </custom:CardControl.Header>
                     <StackPanel Margin="0,0,0,8" Orientation="Horizontal" VerticalAlignment="Center">
-                        <wpfui:ToggleSwitch
-                            x:Name="_microphoneToggle"
-                            Margin="0,0,8,0"
-                            AutomationProperties.Name="{x:Static resources:Resource.NotificationsSettingsWindow_Microphone}"
-                            Click="MicrophoneToggle_Click" />
                         <wpfui:Button
-                            Icon="PaintBrush24"
+                            Icon="Edit24"
+                            Margin="0,0,8,0"
                             AutomationProperties.Name="{x:Static resources:Resource.Customize}"
                             ToolTip="{x:Static resources:Resource.Customize}"
                             Click="MicrophoneCustomizeButton_Click" />
+                        <wpfui:ToggleSwitch
+                            x:Name="_microphoneToggle"
+                            AutomationProperties.Name="{x:Static resources:Resource.NotificationsSettingsWindow_Microphone}"
+                            Click="MicrophoneToggle_Click" />
                     </StackPanel>
                 </custom:CardControl>
 
@@ -296,16 +296,16 @@
                         <controls:CardHeaderControl Title="{x:Static resources:Resource.NotificationsSettingsWindow_AirplaneMode}" />
                     </custom:CardControl.Header>
                     <StackPanel Margin="0,0,0,8" Orientation="Horizontal" VerticalAlignment="Center">
-                        <wpfui:ToggleSwitch
-                            x:Name="_airplaneModeToggle"
-                            Margin="0,0,8,0"
-                            AutomationProperties.Name="{x:Static resources:Resource.NotificationsSettingsWindow_AirplaneMode}"
-                            Click="AirplaneModeToggle_Click" />
                         <wpfui:Button
-                            Icon="PaintBrush24"
+                            Icon="Edit24"
+                            Margin="0,0,8,0"
                             AutomationProperties.Name="{x:Static resources:Resource.Customize}"
                             ToolTip="{x:Static resources:Resource.Customize}"
                             Click="AirplaneModeCustomizeButton_Click" />
+                        <wpfui:ToggleSwitch
+                            x:Name="_airplaneModeToggle"
+                            AutomationProperties.Name="{x:Static resources:Resource.NotificationsSettingsWindow_AirplaneMode}"
+                            Click="AirplaneModeToggle_Click" />
                     </StackPanel>
                 </custom:CardControl>
 
@@ -314,16 +314,16 @@
                         <controls:CardHeaderControl Title="{x:Static resources:Resource.NotificationsSettingsWindow_PowerMode}" />
                     </custom:CardControl.Header>
                     <StackPanel Margin="0,0,0,8" Orientation="Horizontal" VerticalAlignment="Center">
-                        <wpfui:ToggleSwitch
-                            x:Name="_powerModeToggle"
-                            Margin="0,0,8,0"
-                            AutomationProperties.Name="{x:Static resources:Resource.NotificationsSettingsWindow_PowerMode}"
-                            Click="PowerModeToggle_Click" />
                         <wpfui:Button
-                            Icon="PaintBrush24"
+                            Icon="Edit24"
+                            Margin="0,0,8,0"
                             AutomationProperties.Name="{x:Static resources:Resource.Customize}"
                             ToolTip="{x:Static resources:Resource.Customize}"
                             Click="PowerModeCustomizeButton_Click" />
+                        <wpfui:ToggleSwitch
+                            x:Name="_powerModeToggle"
+                            AutomationProperties.Name="{x:Static resources:Resource.NotificationsSettingsWindow_PowerMode}"
+                            Click="PowerModeToggle_Click" />
                     </StackPanel>
                 </custom:CardControl>
 
@@ -332,16 +332,16 @@
                         <controls:CardHeaderControl Title="{x:Static resources:Resource.NotificationsSettingsWindow_ITSMode}" />
                     </custom:CardControl.Header>
                     <StackPanel Margin="0,0,0,8" Orientation="Horizontal" VerticalAlignment="Center">
-                        <wpfui:ToggleSwitch
-                            x:Name="_itsModeToggle"
-                            Margin="0,0,8,0"
-                            AutomationProperties.Name="{x:Static resources:Resource.NotificationsSettingsWindow_ITSMode}"
-                            Click="ITSModeToggle_Click" />
                         <wpfui:Button
-                            Icon="PaintBrush24"
+                            Icon="Edit24"
+                            Margin="0,0,8,0"
                             AutomationProperties.Name="{x:Static resources:Resource.Customize}"
                             ToolTip="{x:Static resources:Resource.Customize}"
                             Click="ITSModeCustomizeButton_Click" />
+                        <wpfui:ToggleSwitch
+                            x:Name="_itsModeToggle"
+                            AutomationProperties.Name="{x:Static resources:Resource.NotificationsSettingsWindow_ITSMode}"
+                            Click="ITSModeToggle_Click" />
                     </StackPanel>
                 </custom:CardControl>
 
@@ -350,16 +350,16 @@
                         <controls:CardHeaderControl Title="{x:Static resources:Resource.NotificationsSettingsWindow_RefreshRate}" />
                     </custom:CardControl.Header>
                     <StackPanel Margin="0,0,0,8" Orientation="Horizontal" VerticalAlignment="Center">
-                        <wpfui:ToggleSwitch
-                            x:Name="_refreshRateToggle"
-                            Margin="0,0,8,0"
-                            AutomationProperties.Name="{x:Static resources:Resource.NotificationsSettingsWindow_RefreshRate}"
-                            Click="RefreshRateToggle_Click" />
                         <wpfui:Button
-                            Icon="PaintBrush24"
+                            Icon="Edit24"
+                            Margin="0,0,8,0"
                             AutomationProperties.Name="{x:Static resources:Resource.Customize}"
                             ToolTip="{x:Static resources:Resource.Customize}"
                             Click="RefreshRateCustomizeButton_Click" />
+                        <wpfui:ToggleSwitch
+                            x:Name="_refreshRateToggle"
+                            AutomationProperties.Name="{x:Static resources:Resource.NotificationsSettingsWindow_RefreshRate}"
+                            Click="RefreshRateToggle_Click" />
                     </StackPanel>
                 </custom:CardControl>
 
@@ -368,16 +368,16 @@
                         <controls:CardHeaderControl Title="{x:Static resources:Resource.NotificationsSettingsWindow_ACAdapter}" />
                     </custom:CardControl.Header>
                     <StackPanel Margin="0,0,0,8" Orientation="Horizontal" VerticalAlignment="Center">
-                        <wpfui:ToggleSwitch
-                            x:Name="_acAdapterToggle"
-                            Margin="0,0,8,0"
-                            AutomationProperties.Name="{x:Static resources:Resource.NotificationsSettingsWindow_ACAdapter}"
-                            Click="ACAdapterToggle_Click" />
                         <wpfui:Button
-                            Icon="PaintBrush24"
+                            Icon="Edit24"
+                            Margin="0,0,8,0"
                             AutomationProperties.Name="{x:Static resources:Resource.Customize}"
                             ToolTip="{x:Static resources:Resource.Customize}"
                             Click="ACAdapterCustomizeButton_Click" />
+                        <wpfui:ToggleSwitch
+                            x:Name="_acAdapterToggle"
+                            AutomationProperties.Name="{x:Static resources:Resource.NotificationsSettingsWindow_ACAdapter}"
+                            Click="ACAdapterToggle_Click" />
                     </StackPanel>
                 </custom:CardControl>
             </StackPanel>

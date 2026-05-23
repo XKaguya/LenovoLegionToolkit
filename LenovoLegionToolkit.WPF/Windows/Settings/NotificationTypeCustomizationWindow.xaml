@@ -6,13 +6,13 @@
     xmlns:resources="clr-namespace:LenovoLegionToolkit.WPF.Resources"
     xmlns:utils="clr-namespace:LenovoLegionToolkit.WPF.Utils"
     xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
-    Width="680"
+    Width="610"
     MinWidth="600"
-    MaxHeight="700"
+    Height="450"
+    MinHeight="250"
     FlowDirection="{x:Static utils:LocalizationHelper.Direction}"
-    ResizeMode="NoResize"
+    ResizeMode="CanResize"
     ShowInTaskbar="False"
-    SizeToContent="Height"
     WindowStartupLocation="CenterOwner">
 
     <Grid>
@@ -29,8 +29,28 @@
             ShowMinimize="False"
             UseSnapLayout="False" />
 
-        <wpfui:DynamicScrollViewer Grid.Row="1" Margin="12,0,12,0">
-            <StackPanel x:Name="_cardsContainer" Margin="0,8,0,8" />
+        <Grid
+            Grid.Row="0"
+            Height="24"
+            Margin="12,8,12,8">
+            <TextBlock
+                x:Name="_title"
+                VerticalAlignment="Center"
+                FontSize="12"
+                IsHitTestVisible="False" />
+        </Grid>
+
+        <wpfui:DynamicScrollViewer Grid.Row="1" Margin="12,0,12,0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <Grid x:Name="_tableGrid" Margin="0,8,16,8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.5*" MinWidth="110" />
+                    <ColumnDefinition Width="45" />
+                    <ColumnDefinition Width="75" />
+                    <ColumnDefinition Width="75" />
+                    <ColumnDefinition Width="1.2*" MinWidth="132" />
+                    <ColumnDefinition Width="*" MinWidth="112" />
+                </Grid.ColumnDefinitions>
+            </Grid>
         </wpfui:DynamicScrollViewer>
 
         <Grid Grid.Row="2" Margin="12,8,12,12">
