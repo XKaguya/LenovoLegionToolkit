@@ -11,7 +11,8 @@ public class SpecialKeySettings : AbstractSettings<SpecialKeySettings.SpecialKey
         public const int DriverKeyCodeOffset = 0x10000;
 
         public Dictionary<int, CustomSpecialKey> KeyModes { get; set; } = [];
-        public Dictionary<int, List<Guid>> KeyActions { get; set; } = [];
+        public Dictionary<int, List<Guid>> KeySinglePressActions { get; set; } = [];
+        public Dictionary<int, List<Guid>> KeyDoublePressActions { get; set; } = [];
         public Dictionary<int, string> KeyDescriptions { get; set; } = [];
 
         [JsonProperty(ObjectCreationHandling = ObjectCreationHandling.Replace)]

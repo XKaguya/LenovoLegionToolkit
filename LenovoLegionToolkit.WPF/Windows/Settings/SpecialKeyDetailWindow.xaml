@@ -17,6 +17,66 @@
     ShowInTaskbar="False"
     WindowStartupLocation="CenterOwner">
 
+    <local:BaseWindow.Resources>
+        <Style TargetType="TabControl">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="0,12,0,0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabControl">
+                        <Grid KeyboardNavigation.TabNavigation="Local">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,4" Panel.ZIndex="1" KeyboardNavigation.TabIndex="1" IsItemsHost="True" Background="Transparent" />
+                            <ContentPresenter Grid.Row="1" ContentSource="SelectedContent" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="TabItem">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Margin" Value="0,0,16,0" />
+            <Setter Property="Padding" Value="0,0,0,6" />
+            <Setter Property="Width" Value="Auto" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Border Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" HorizontalAlignment="Stretch">
+                            <StackPanel HorizontalAlignment="Stretch">
+                                <ContentPresenter ContentSource="Header" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{TemplateBinding Padding}" />
+                                <Rectangle x:Name="ActiveIndicator" Height="2" Fill="Transparent" RadiusX="1" RadiusY="1" Margin="0" HorizontalAlignment="Stretch" />
+                            </StackPanel>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+                                <Setter TargetName="ActiveIndicator" Property="Fill">
+                                    <Setter.Value>
+                                        <SolidColorBrush Color="{DynamicResource SystemAccentColorSecondary}" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="FontWeight" Value="Bold" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </local:BaseWindow.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -64,41 +124,79 @@
                         SelectionChanged="ModeComboBox_SelectionChanged" />
                 </custom:CardControl>
 
-                <StackPanel x:Name="_customPanel" Visibility="Collapsed">
+                <TabControl x:Name="_customPanel" Visibility="Collapsed">
+                    <TabItem Header="{x:Static resources:Resource.Notification_SmartKeySinglePress}">
+                        <StackPanel Margin="0,4,0,0">
+                            <custom:CardControl Margin="0,0,0,12">
+                                <custom:CardControl.Header>
+                                    <controls:CardHeaderControl Title="{x:Static resources:Resource.SelectSpecialKeyPipelinesWindow_ShowThisApp}" />
+                                </custom:CardControl.Header>
+                                <wpfui:ToggleSwitch x:Name="_showThisAppSingleToggle" Click="ShowThisAppSingleToggle_Click" />
+                            </custom:CardControl>
 
-                    <custom:CardControl Margin="0,0,0,12">
-                        <custom:CardControl.Header>
-                            <controls:CardHeaderControl Title="{x:Static resources:Resource.SelectSpecialKeyPipelinesWindow_ShowThisApp}" />
-                        </custom:CardControl.Header>
-                        <wpfui:ToggleSwitch x:Name="_showThisAppToggle" Click="ShowThisAppToggle_Click" />
-                    </custom:CardControl>
+                            <TextBlock
+                                Margin="0,0,0,8"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="{x:Static resources:Resource.SelectSpecialKeyPipelinesWindow_List_Description}"
+                                TextWrapping="Wrap" />
 
-                    <TextBlock
-                        Margin="0,0,0,8"
-                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                        Text="{x:Static resources:Resource.SelectSpecialKeyPipelinesWindow_List_Description}"
-                        TextWrapping="Wrap" />
+                            <controls:LoadableControl
+                                x:Name="_loaderSingle"
+                                Margin="0,0,0,8"
+                                IndicatorVerticalAlignment="Center">
 
-                    <controls:LoadableControl
-                        x:Name="_loader"
-                        Margin="0,0,0,8"
-                        IndicatorVerticalAlignment="Center">
+                                <Border CornerRadius="8">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="{DynamicResource ControlFillColorDefault}" />
+                                    </Border.Background>
 
-                        <Border CornerRadius="8">
-                            <Border.Background>
-                                <SolidColorBrush Color="{DynamicResource ControlFillColorDefault}" />
-                            </Border.Background>
+                                    <wpfui:DynamicScrollViewer MaxHeight="180">
+                                        <ItemsControl
+                                            x:Name="_listSingle"
+                                            Margin="8,8,16,0"
+                                            HorizontalContentAlignment="Stretch" />
+                                    </wpfui:DynamicScrollViewer>
+                                </Border>
+                            </controls:LoadableControl>
+                        </StackPanel>
+                    </TabItem>
 
-                            <wpfui:DynamicScrollViewer MaxHeight="200">
-                                <ItemsControl
-                                    x:Name="_list"
-                                    Margin="8,8,16,0"
-                                    HorizontalContentAlignment="Stretch" />
-                            </wpfui:DynamicScrollViewer>
-                        </Border>
+                    <TabItem Header="{x:Static resources:Resource.Notification_SmartKeyDoublePress}">
+                        <StackPanel Margin="0,4,0,0">
+                            <custom:CardControl Margin="0,0,0,12">
+                                <custom:CardControl.Header>
+                                    <controls:CardHeaderControl Title="{x:Static resources:Resource.SelectSpecialKeyPipelinesWindow_ShowThisApp}" />
+                                </custom:CardControl.Header>
+                                <wpfui:ToggleSwitch x:Name="_showThisAppDoubleToggle" Click="ShowThisAppDoubleToggle_Click" />
+                            </custom:CardControl>
 
-                    </controls:LoadableControl>
-                </StackPanel>
+                            <TextBlock
+                                Margin="0,0,0,8"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Text="{x:Static resources:Resource.SelectSpecialKeyPipelinesWindow_List_Description}"
+                                TextWrapping="Wrap" />
+
+                            <controls:LoadableControl
+                                x:Name="_loaderDouble"
+                                Margin="0,0,0,8"
+                                IndicatorVerticalAlignment="Center">
+
+                                <Border CornerRadius="8">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="{DynamicResource ControlFillColorDefault}" />
+                                    </Border.Background>
+
+                                    <wpfui:DynamicScrollViewer MaxHeight="180">
+                                        <ItemsControl
+                                            x:Name="_listDouble"
+                                            Margin="8,8,16,0"
+                                            HorizontalContentAlignment="Stretch" />
+                                    </wpfui:DynamicScrollViewer>
+                                </Border>
+                            </controls:LoadableControl>
+                        </StackPanel>
+                    </TabItem>
+                </TabControl>
 
             </StackPanel>
         </ScrollViewer>

@@ -25,8 +25,11 @@ public partial class SpecialKeyDetailWindow
     private bool _descriptionDirty;
     private CustomSpecialKey _pendingMode;
 
-    private List<Guid> ActionList =>
-        _settings.Store.KeyActions.GetValueOrDefault(_keyCode, []);
+    private List<Guid> SinglePressActionList =>
+        _settings.Store.KeySinglePressActions.GetValueOrDefault(_keyCode, []);
+
+    private List<Guid> DoublePressActionList =>
+        _settings.Store.KeyDoublePressActions.GetValueOrDefault(_keyCode, []);
 
     public SpecialKeyDetailWindow(SpecialKey key)
         : this((int)key, FormatDefaultDisplayName(key)) { }
@@ -73,7 +76,8 @@ public partial class SpecialKeyDetailWindow
 
         var isCustom = _pendingMode == CustomSpecialKey.Custom;
         _customPanel.Visibility = isCustom ? Visibility.Visible : Visibility.Collapsed;
-        _showThisAppToggle.IsChecked = isCustom && ActionList.Count == 0;
+        _showThisAppSingleToggle.IsChecked = isCustom && SinglePressActionList.Count == 0;
+        _showThisAppDoubleToggle.IsChecked = isCustom && DoublePressActionList.Count == 0;
 
         if (isCustom)
             await RefreshPipelineListAsync();
@@ -83,28 +87,40 @@ public partial class SpecialKeyDetailWindow
 
     private async Task RefreshPipelineListAsync()
     {
-        _loader.IsLoading = true;
+        _loaderSingle.IsLoading = true;
+        _loaderDouble.IsLoading = true;
 
         var allPipelines = await _automationProcessor.GetPipelinesAsync();
         var pipelines = allPipelines.Where(p => p.Trigger is null).OrderBy(p => p.Name).ToArray();
 
-        _list.Items.Clear();
+        _listSingle.Items.Clear();
+        _listDouble.Items.Clear();
 
         if (pipelines.IsEmpty())
-            _list.Items.Add(Resource.SelectSpecialKeyPipelinesWindow_List_Empty);
+        {
+            _listSingle.Items.Add(Resource.SelectSpecialKeyPipelinesWindow_List_Empty);
+            _listDouble.Items.Add(Resource.SelectSpecialKeyPipelinesWindow_List_Empty);
+        }
 
         foreach (var pipeline in pipelines)
         {
             var item = new PipelineListItem(pipeline)
             {
-                IsChecked = ActionList.Contains(pipeline.Id)
+                IsChecked = SinglePressActionList.Contains(pipeline.Id)
             };
-            _list.Items.Add(item);
+            _listSingle.Items.Add(item);
+
+            var itemDouble = new PipelineListItem(pipeline)
+            {
+                IsChecked = DoublePressActionList.Contains(pipeline.Id)
+            };
+            _listDouble.Items.Add(itemDouble);
         }
 
         EnableListIfPossible();
 
-        _loader.IsLoading = false;
+        _loaderSingle.IsLoading = false;
+        _loaderDouble.IsLoading = false;
     }
 
     private void DescriptionTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -125,7 +141,8 @@ public partial class SpecialKeyDetailWindow
 
         var isCustom = mode == CustomSpecialKey.Custom;
         _customPanel.Visibility = isCustom ? Visibility.Visible : Visibility.Collapsed;
-        _showThisAppToggle.IsChecked = isCustom && ActionList.Count == 0;
+        _showThisAppSingleToggle.IsChecked = isCustom && SinglePressActionList.Count == 0;
+        _showThisAppDoubleToggle.IsChecked = isCustom && DoublePressActionList.Count == 0;
 
         if (isCustom)
             _ = RefreshPipelineListAsync();
@@ -133,9 +150,15 @@ public partial class SpecialKeyDetailWindow
         _isRefreshing = false;
     }
 
-    private void ShowThisAppToggle_Click(object sender, RoutedEventArgs e) => EnableListIfPossible();
+    private void ShowThisAppSingleToggle_Click(object sender, RoutedEventArgs e) => EnableListIfPossible();
 
-    private void EnableListIfPossible() => _list.IsEnabled = !(_showThisAppToggle.IsChecked ?? false);
+    private void ShowThisAppDoubleToggle_Click(object sender, RoutedEventArgs e) => EnableListIfPossible();
+
+    private void EnableListIfPossible()
+    {
+        _listSingle.IsEnabled = !(_showThisAppSingleToggle.IsChecked ?? false);
+        _listDouble.IsEnabled = !(_showThisAppDoubleToggle.IsChecked ?? false);
+    }
 
     private void SaveButton_Click(object sender, RoutedEventArgs e)
     {
@@ -151,16 +174,30 @@ public partial class SpecialKeyDetailWindow
 
         if (_pendingMode == CustomSpecialKey.Default)
         {
-            _settings.Store.KeyActions.Remove(_keyCode);
+            _settings.Store.KeySinglePressActions.Remove(_keyCode);
+            _settings.Store.KeyDoublePressActions.Remove(_keyCode);
         }
         else
         {
-            var selectedPipelines = _list.Items.OfType<PipelineListItem>()
+            var selectedPipelines = _listSingle.Items.OfType<PipelineListItem>()
                 .Where(li => li.IsChecked)
                 .Select(li => li.Pipeline.Id)
                 .ToList();
 
-            _settings.Store.KeyActions[_keyCode] = selectedPipelines;
+            if (selectedPipelines.Count == 0 || (_showThisAppSingleToggle.IsChecked ?? false))
+                _settings.Store.KeySinglePressActions.Remove(_keyCode);
+            else
+                _settings.Store.KeySinglePressActions[_keyCode] = selectedPipelines;
+
+            var selectedDoublePipelines = _listDouble.Items.OfType<PipelineListItem>()
+                .Where(li => li.IsChecked)
+                .Select(li => li.Pipeline.Id)
+                .ToList();
+
+            if (selectedDoublePipelines.Count == 0 || (_showThisAppDoubleToggle.IsChecked ?? false))
+                _settings.Store.KeyDoublePressActions.Remove(_keyCode);
+            else
+                _settings.Store.KeyDoublePressActions[_keyCode] = selectedDoublePipelines;
         }
 
         _settings.SynchronizeStore();
@@ -176,7 +213,8 @@ public partial class SpecialKeyDetailWindow
     {
         _settings.Store.KeyDescriptions.Remove(_keyCode);
         _settings.Store.KeyModes.Remove(_keyCode);
-        _settings.Store.KeyActions.Remove(_keyCode);
+        _settings.Store.KeySinglePressActions.Remove(_keyCode);
+        _settings.Store.KeyDoublePressActions.Remove(_keyCode);
         _settings.SynchronizeStore();
         Close();
     }

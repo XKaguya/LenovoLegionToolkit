@@ -199,7 +199,8 @@ public partial class SpecialKeysWindow
             {
                 _settings.Store.KeyDescriptions.Remove(code);
                 _settings.Store.KeyModes.Remove(code);
-                _settings.Store.KeyActions.Remove(code);
+                _settings.Store.KeySinglePressActions.Remove(code);
+                _settings.Store.KeyDoublePressActions.Remove(code);
                 _settings.SynchronizeStore();
                 BuildKeyList();
             };
@@ -248,7 +249,8 @@ public partial class SpecialKeysWindow
                 _settings.Store.HiddenKeys.Remove(code);
                 _settings.Store.KeyDescriptions.Remove(code);
                 _settings.Store.KeyModes.Remove(code);
-                _settings.Store.KeyActions.Remove(code);
+                _settings.Store.KeySinglePressActions.Remove(code);
+                _settings.Store.KeyDoublePressActions.Remove(code);
                 _settings.SynchronizeStore();
                 BuildKeyList();
             };

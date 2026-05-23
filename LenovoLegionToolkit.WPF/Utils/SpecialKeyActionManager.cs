@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,6 +19,9 @@ public class SpecialKeyActionManager
     private readonly SpecialKeySettings _settings;
     private readonly AutomationProcessor _automationProcessor;
     private Action? _bringToForeground;
+
+    private readonly ConcurrentDictionary<int, TaskCompletionSource<bool>> _pendingPresses = new();
+    private static readonly TimeSpan DoublePressInterval = TimeSpan.FromMilliseconds(500);
 
     public SpecialKeyActionManager(SpecialKeySettings settings, AutomationProcessor automationProcessor)
     {
@@ -64,7 +68,43 @@ public class SpecialKeyActionManager
 
         Log.Instance.Trace($"Custom action triggered for {keyName} [code={keyInt}]");
 
-        var actions = _settings.Store.KeyActions.GetValueOrDefault(keyInt);
+        var doubleActions = _settings.Store.KeyDoublePressActions.GetValueOrDefault(keyInt);
+
+        if (doubleActions is null || doubleActions.Count == 0)
+        {
+            return await ExecuteSinglePressAsync(keyInt, keyName).ConfigureAwait(false);
+        }
+
+        if (_pendingPresses.TryGetValue(keyInt, out var tcs))
+        {
+            tcs.TrySetResult(true);
+            return true;
+        }
+
+        var newTcs = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+        if (_pendingPresses.TryAdd(keyInt, newTcs))
+        {
+            var delayTask = Task.Delay(DoublePressInterval);
+            var completedTask = await Task.WhenAny(newTcs.Task, delayTask).ConfigureAwait(false);
+
+            _pendingPresses.TryRemove(keyInt, out _);
+
+            if (completedTask == delayTask)
+            {
+                return await ExecuteSinglePressAsync(keyInt, keyName).ConfigureAwait(false);
+            }
+            else
+            {
+                return await ExecuteDoublePressAsync(keyInt, keyName).ConfigureAwait(false);
+            }
+        }
+
+        return false;
+    }
+
+    private async Task<bool> ExecuteSinglePressAsync(int keyInt, string keyName)
+    {
+        var actions = _settings.Store.KeySinglePressActions.GetValueOrDefault(keyInt);
 
         if (actions is null || actions.Count == 0)
         {
@@ -81,9 +121,41 @@ public class SpecialKeyActionManager
             var pipeline = pipelines.FirstOrDefault(p => p.Id == currentId);
             if (pipeline is not null)
             {
-                Log.Instance.Trace($"Running pipeline {currentId} for {keyName}");
+                Log.Instance.Trace($"Running pipeline {currentId} for {keyName} (single press)");
                 await _automationProcessor.RunNowAsync(pipeline.Id).ConfigureAwait(false);
                 MessagingCenter.Publish(new NotificationMessage(NotificationType.SmartKeySinglePress, pipeline.Name ?? string.Empty));
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.Instance.Trace($"Running pipeline {currentId} for {keyName} failed.", ex);
+        }
+
+        actions.RemoveAt(0);
+        actions.Add(currentId);
+        _settings.SynchronizeStore();
+
+        return true;
+    }
+
+    private async Task<bool> ExecuteDoublePressAsync(int keyInt, string keyName)
+    {
+        var actions = _settings.Store.KeyDoublePressActions.GetValueOrDefault(keyInt);
+
+        if (actions is null || actions.Count == 0)
+            return false;
+
+        var currentId = actions[0];
+
+        try
+        {
+            var pipelines = await _automationProcessor.GetPipelinesAsync().ConfigureAwait(false);
+            var pipeline = pipelines.FirstOrDefault(p => p.Id == currentId);
+            if (pipeline is not null)
+            {
+                Log.Instance.Trace($"Running pipeline {currentId} for {keyName} (double press)");
+                await _automationProcessor.RunNowAsync(pipeline.Id).ConfigureAwait(false);
+                MessagingCenter.Publish(new NotificationMessage(NotificationType.SmartKeyDoublePress, pipeline.Name ?? string.Empty));
             }
         }
         catch (Exception ex)
