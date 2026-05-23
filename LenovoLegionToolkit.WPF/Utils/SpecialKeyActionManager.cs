@@ -108,8 +108,6 @@ public class SpecialKeyActionManager
 
         if (actions is null || actions.Count == 0)
         {
-            Log.Instance.Trace($"Bringing to foreground for {keyName}");
-            _bringToForeground?.Invoke();
             return true;
         }
 

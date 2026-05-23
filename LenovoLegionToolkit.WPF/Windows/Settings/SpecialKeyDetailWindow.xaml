@@ -126,14 +126,7 @@
 
                 <TabControl x:Name="_customPanel" Visibility="Collapsed">
                     <TabItem Header="{x:Static resources:Resource.Notification_SmartKeySinglePress}">
-                        <StackPanel Margin="0,4,0,0">
-                            <custom:CardControl Margin="0,0,0,12">
-                                <custom:CardControl.Header>
-                                    <controls:CardHeaderControl Title="{x:Static resources:Resource.SelectSpecialKeyPipelinesWindow_ShowThisApp}" />
-                                </custom:CardControl.Header>
-                                <wpfui:ToggleSwitch x:Name="_showThisAppSingleToggle" Click="ShowThisAppSingleToggle_Click" />
-                            </custom:CardControl>
-
+                        <StackPanel Margin="0,4,0,0" TextElement.FontWeight="Normal">
                             <TextBlock
                                 Margin="0,0,0,8"
                                 Foreground="{DynamicResource TextFillColorSecondaryBrush}"
@@ -162,14 +155,7 @@
                     </TabItem>
 
                     <TabItem Header="{x:Static resources:Resource.Notification_SmartKeyDoublePress}">
-                        <StackPanel Margin="0,4,0,0">
-                            <custom:CardControl Margin="0,0,0,12">
-                                <custom:CardControl.Header>
-                                    <controls:CardHeaderControl Title="{x:Static resources:Resource.SelectSpecialKeyPipelinesWindow_ShowThisApp}" />
-                                </custom:CardControl.Header>
-                                <wpfui:ToggleSwitch x:Name="_showThisAppDoubleToggle" Click="ShowThisAppDoubleToggle_Click" />
-                            </custom:CardControl>
-
+                        <StackPanel Margin="0,4,0,0" TextElement.FontWeight="Normal">
                             <TextBlock
                                 Margin="0,0,0,8"
                                 Foreground="{DynamicResource TextFillColorSecondaryBrush}"

@@ -76,8 +76,6 @@ public partial class SpecialKeyDetailWindow
 
         var isCustom = _pendingMode == CustomSpecialKey.Custom;
         _customPanel.Visibility = isCustom ? Visibility.Visible : Visibility.Collapsed;
-        _showThisAppSingleToggle.IsChecked = isCustom && SinglePressActionList.Count == 0;
-        _showThisAppDoubleToggle.IsChecked = isCustom && DoublePressActionList.Count == 0;
 
         if (isCustom)
             await RefreshPipelineListAsync();
@@ -117,8 +115,6 @@ public partial class SpecialKeyDetailWindow
             _listDouble.Items.Add(itemDouble);
         }
 
-        EnableListIfPossible();
-
         _loaderSingle.IsLoading = false;
         _loaderDouble.IsLoading = false;
     }
@@ -141,23 +137,11 @@ public partial class SpecialKeyDetailWindow
 
         var isCustom = mode == CustomSpecialKey.Custom;
         _customPanel.Visibility = isCustom ? Visibility.Visible : Visibility.Collapsed;
-        _showThisAppSingleToggle.IsChecked = isCustom && SinglePressActionList.Count == 0;
-        _showThisAppDoubleToggle.IsChecked = isCustom && DoublePressActionList.Count == 0;
 
         if (isCustom)
             _ = RefreshPipelineListAsync();
 
         _isRefreshing = false;
-    }
-
-    private void ShowThisAppSingleToggle_Click(object sender, RoutedEventArgs e) => EnableListIfPossible();
-
-    private void ShowThisAppDoubleToggle_Click(object sender, RoutedEventArgs e) => EnableListIfPossible();
-
-    private void EnableListIfPossible()
-    {
-        _listSingle.IsEnabled = !(_showThisAppSingleToggle.IsChecked ?? false);
-        _listDouble.IsEnabled = !(_showThisAppDoubleToggle.IsChecked ?? false);
     }
 
     private void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -184,7 +168,7 @@ public partial class SpecialKeyDetailWindow
                 .Select(li => li.Pipeline.Id)
                 .ToList();
 
-            if (selectedPipelines.Count == 0 || (_showThisAppSingleToggle.IsChecked ?? false))
+            if (selectedPipelines.Count == 0)
                 _settings.Store.KeySinglePressActions.Remove(_keyCode);
             else
                 _settings.Store.KeySinglePressActions[_keyCode] = selectedPipelines;
@@ -194,7 +178,7 @@ public partial class SpecialKeyDetailWindow
                 .Select(li => li.Pipeline.Id)
                 .ToList();
 
-            if (selectedDoublePipelines.Count == 0 || (_showThisAppDoubleToggle.IsChecked ?? false))
+            if (selectedDoublePipelines.Count == 0)
                 _settings.Store.KeyDoublePressActions.Remove(_keyCode);
             else
                 _settings.Store.KeyDoublePressActions[_keyCode] = selectedDoublePipelines;

@@ -115,6 +115,7 @@ public partial class App
 
                 Compatibility.PrintControllerVersionAsync().ConfigureAwait(false);
                 InitOsd();
+                InitAppMessages();
                 LogIdentityStatus();
 
                 if (AppFlags.Instance.Debug)
@@ -1017,6 +1018,20 @@ public partial class App
         {
             HandleOsdCommand(OsdState.Show);
         }
+    }
+
+    private void InitAppMessages()
+    {
+        MessagingCenter.Subscribe<ShowAppMessage>(this, _ =>
+        {
+            Dispatcher.Invoke(() =>
+            {
+                if (MainWindowInstance is { } window)
+                {
+                    window.BringToForeground();
+                }
+            });
+        });
     }
 
     private void HandleOsdCommand(OsdState command)

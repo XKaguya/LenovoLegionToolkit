@@ -206,7 +206,8 @@ public partial class AutomationPage
             new TurnOnWiFiAutomationStep(),
             new WhiteKeyboardBacklightAutomationStep(default),
             new WinKeyAutomationStep(default),
-            new CloseAutomationStep(),
+            new CloseAppAutomationStep(),
+            new ShowAppAutomationStep(),
             new OsdAutomationStep(default),
             new FanMaxSpeedAutomationStep(default),
         };
