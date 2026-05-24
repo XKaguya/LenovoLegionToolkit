@@ -41,67 +41,63 @@ This product includes the following third-party components:
    - Source: https://github.com/Tronald/CoordinateSharp
    - License: AGPL-3.0
 
-10. UniversalFanControl.Lib
-    - Source: https://www.nuget.org/packages/UniversalFanControl.Lib
-    - License: MIT (by Kaguya)
-
-11. ZenStates-Core
+10. ZenStates-Core
     - Source: https://github.com/irusanov/ZenStates-Core
     - License: GPL-3.0
 
-12. PresentMonFps
+11. PresentMonFps
     - Source: https://github.com/lemutec/PresentMonFps
     - License: MIT
 
-13. Newtonsoft.Json
+12. Newtonsoft.Json
     - Source: https://github.com/JamesNK/Newtonsoft.Json
     - License: MIT
 
-14. Octokit
+13. Octokit
     - Source: https://github.com/octokit/octokit.net
     - License: MIT
 
-15. TaskScheduler
+14. TaskScheduler
     - Source: https://github.com/dahall/TaskScheduler
     - License: MIT
 
-16. ManagedNativeWifi
+15. ManagedNativeWifi
     - Source: https://github.com/emoacht/ManagedNativeWifi
     - License: MIT
 
-17. PubSub
+16. PubSub
     - Source: https://github.com/upta/pubsub
     - License: MIT
 
-18. NeoSmart.AsyncLock
+17. NeoSmart.AsyncLock
     - Source: https://github.com/neosmart/AsyncLock
     - License: MIT
 
-19. System.CommandLine
+18. System.CommandLine
     - Source: https://github.com/dotnet/command-line-api
     - License: MIT
 
-20. NAudio.Wasapi
+19. NAudio.Wasapi
     - Source: https://github.com/naudio/NAudio
     - License: MIT
 
-21. Ben.Demystifier
+20. Ben.Demystifier
     - Source: https://github.com/benaadams/Ben.Demystifier
     - License: Apache-2.0
 
-22. PixiEditor.ColorPicker
+21. PixiEditor.ColorPicker
     - Source: https://github.com/PixiEditor/ColorPicker
     - License: MIT
 
-23. WpfScreenHelper
+22. WpfScreenHelper
     - Source: https://github.com/micdenny/WpfScreenHelper
     - License: MIT
 
-24. NvAPIWrapper
+23. NvAPIWrapper
     - Source: https://github.com/tebjan/NvAPIWrapper
     - License: MIT
 
-25. WindowsDisplayAPI
+24. WindowsDisplayAPI
     - Source: https://github.com/falahati/WindowsDisplayAPI
     - License: MIT
 
