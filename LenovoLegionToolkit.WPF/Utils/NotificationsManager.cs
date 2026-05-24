@@ -262,8 +262,8 @@ public class NotificationsManager
         NotificationType.ACAdapterConnected => SymbolRegular.BatteryCharge24,
         NotificationType.ACAdapterConnectedLowWattage => SymbolRegular.BatteryCharge24,
         NotificationType.ACAdapterDisconnected => SymbolRegular.BatteryCharge24,
-        NotificationType.AirplaneModeOn => SymbolRegular.WifiOff24,
-        NotificationType.AirplaneModeOff => SymbolRegular.Wifi124,
+        NotificationType.AirplaneModeOn => SymbolRegular.Airplane24,
+        NotificationType.AirplaneModeOff => SymbolRegular.Airplane24,
         NotificationType.AutomationNotification => SymbolRegular.Rocket24,
         NotificationType.CapsLockOn => SymbolRegular.KeyboardShiftUppercase24,
         NotificationType.CapsLockOff => SymbolRegular.KeyboardShiftUppercase24,
@@ -302,6 +302,7 @@ public class NotificationsManager
         NotificationType.ITSModeCool => SymbolRegular.Gauge24,
         NotificationType.ITSModePerformance => SymbolRegular.Gauge24,
         NotificationType.ITSModeGeek => SymbolRegular.Gauge24,
+        _ => SymbolRegular.Question24,
     };
 
     internal static SymbolRegular? GetDefaultOverlaySymbol(NotificationType type) => type switch
