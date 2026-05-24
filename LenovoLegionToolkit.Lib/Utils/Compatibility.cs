@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -738,6 +738,7 @@ public static partial class Compatibility
             LegionSeries.Legion_Go => true,
             LegionSeries.LOQ => true,
             LegionSeries.Legion_Legacy => true,
+            LegionSeries.IdeaPad_Gaming => true,
             _ => false
         };
     }
