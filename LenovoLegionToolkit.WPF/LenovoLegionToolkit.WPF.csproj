@@ -60,8 +60,9 @@
 	<ItemGroup>
 		<None Remove="Assets\icon.ico" />
 		<None Remove="Assets\default_exe.png" />
-		<None Remove="Assets\Donate\paypal_logo.png" />
-		<None Remove="Assets\Donate\paypal_qr.png" />
+		<None Remove="Assets\Donate\Bartosz_Cichecki.jpg" />
+		<None Remove="Assets\Donate\Kaguya.png" />
+		<None Remove="Assets\Donate\Dr_Skinner.jpeg" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -71,8 +72,9 @@
 	<ItemGroup>
 		<Resource Include="Assets\default_exe.png" />
 		<Resource Include="Assets\icon.ico" />
-		<Resource Include="Assets\Donate\paypal_logo.png" />
-		<Resource Include="Assets\Donate\paypal_qr.png" />
+		<Resource Include="Assets\Donate\Bartosz_Cichecki.jpg" />
+		<Resource Include="Assets\Donate\Kaguya.png" />
+		<Resource Include="Assets\Donate\Dr_Skinner.jpeg" />
 	</ItemGroup>
 
 	<ItemGroup>

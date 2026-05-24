@@ -1,4 +1,4 @@
-﻿using System.Windows;
+using System.Windows;
 using LenovoLegionToolkit.WPF.Extensions;
 
 namespace LenovoLegionToolkit.WPF.Pages;
@@ -10,9 +10,15 @@ public partial class DonatePage
         InitializeComponent();
     }
 
-    private void PayPalDonateButton_Click(object sender, RoutedEventArgs e)
+    private void BartoszPayPal_Click(object sender, RoutedEventArgs e)
     {
-        Constants.PayPalUri.Open();
+        Constants.BartoszPayPalUri.Open();
+        e.Handled = true;
+    }
+
+    private void DrSkinnerGitHub_Click(object sender, RoutedEventArgs e)
+    {
+        Constants.DrSkinnerGitHubUri.Open();
         e.Handled = true;
     }
 }

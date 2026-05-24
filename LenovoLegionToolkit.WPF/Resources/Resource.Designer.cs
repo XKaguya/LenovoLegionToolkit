@@ -2329,11 +2329,74 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bartosz created Lenovo Legion Toolkit and authored the foundational architecture that powers every feature in the application today..
+        /// </summary>
+        public static string DonatePage_Bartosz_Description {
+            get {
+                return ResourceManager.GetString("DonatePage_Bartosz_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Original Creator.
+        /// </summary>
+        public static string DonatePage_Bartosz_Role {
+            get {
+                return ResourceManager.GetString("DonatePage_Bartosz_Role", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Even if you can't donate, simply using, sharing, and starring the project on GitHub goes a long way. Every bit of support is genuinely appreciated.
+        /// </summary>
+        public static string DonatePage_BottomMessage {
+            get {
+                return ResourceManager.GetString("DonatePage_BottomMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Donate with.
         /// </summary>
         public static string DonatePage_DonateWith {
             get {
                 return ResourceManager.GetString("DonatePage_DonateWith", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Responsible for core feature development, quality assurance, UI/UX design, and overall project direction as the current project lead..
+        /// </summary>
+        public static string DonatePage_DrSkinner_Description {
+            get {
+                return ResourceManager.GetString("DonatePage_DrSkinner_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Core Developer &amp; Project Lead.
+        /// </summary>
+        public static string DonatePage_DrSkinner_Role {
+            get {
+                return ResourceManager.GetString("DonatePage_DrSkinner_Role", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specializes in hardware research and reverse engineering, with contributions spanning core feature development and low-level system integration..
+        /// </summary>
+        public static string DonatePage_Kaguya_Description {
+            get {
+                return ResourceManager.GetString("DonatePage_Kaguya_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Core Developer &amp; Reverser.
+        /// </summary>
+        public static string DonatePage_Kaguya_Role {
+            get {
+                return ResourceManager.GetString("DonatePage_Kaguya_Role", resourceCulture);
             }
         }
         
@@ -2347,6 +2410,15 @@ namespace LenovoLegionToolkit.WPF.Resources {
         public static string DonatePage_Message {
             get {
                 return ResourceManager.GetString("DonatePage_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sponsor.
+        /// </summary>
+        public static string DonatePage_Sponsor {
+            get {
+                return ResourceManager.GetString("DonatePage_Sponsor", resourceCulture);
             }
         }
         

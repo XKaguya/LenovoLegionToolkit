@@ -1,4 +1,4 @@
-﻿<wpfui:UiPage
+<wpfui:UiPage
     x:Class="LenovoLegionToolkit.WPF.Pages.DonatePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -9,62 +9,300 @@
     FlowDirection="{x:Static utils:LocalizationHelper.Direction}"
     Scrollable="True">
 
+    <wpfui:UiPage.Resources>
+        <Style x:Key="DeveloperCardStyle" TargetType="Border">
+            <Setter Property="Background" Value="{DynamicResource ControlAltFillColorSecondaryBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource ControlElevationBorderBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="12" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource ControlAltFillColorTertiaryBrush}" />
+                    <Setter Property="BorderBrush" Value="{DynamicResource ControlStrongStrokeColorDefaultBrush}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </wpfui:UiPage.Resources>
+
     <StackPanel Margin="0,0,16,12">
         <TextBlock
-            Margin="0,16,0,24"
+            Margin="0,16,0,8"
             Focusable="True"
             FontSize="24"
             FontWeight="Medium"
             Text="{x:Static resources:Resource.DonatePage_Title}" />
 
         <TextBlock
-            MaxWidth="450"
+            MaxWidth="600"
             Margin="0,0,0,24"
             HorizontalAlignment="Left"
             Focusable="True"
             FontSize="14"
+            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
             Text="{x:Static resources:Resource.DonatePage_Message}"
-            TextAlignment="Justify"
+            TextAlignment="Left"
             TextWrapping="Wrap" />
 
-        <StackPanel x:Name="_paypal" Margin="0,8,0,0">
+        <WrapPanel Orientation="Horizontal">
 
+            <!--  Bartosz Cichecki  -->
             <Border
-                Width="300"
-                HorizontalAlignment="Left"
-                Background="Black"
-                BorderBrush="Gray"
-                BorderThickness="2"
-                CornerRadius="16"
-                Cursor="Hand"
-                MouseLeftButtonDown="PayPalDonateButton_Click"
-                MouseRightButtonDown="PayPalDonateButton_Click">
-                <StackPanel Orientation="Vertical">
-                    <Label
-                        Margin="0,8,0,-4"
-                        HorizontalContentAlignment="Center"
-                        Content="{x:Static resources:Resource.DonatePage_DonateWith}"
-                        FontSize="16"
-                        Foreground="White" />
-                    <Image
-                        Height="48"
-                        Margin="24,8,24,8"
-                        RenderOptions.BitmapScalingMode="Fant"
-                        Source="/Assets/Donate/paypal_logo.png" />
-                </StackPanel>
+                Width="220"
+                Margin="0,0,16,16"
+                Style="{StaticResource DeveloperCardStyle}">
+                <Grid>
+                    <StackPanel Margin="20,20,20,16">
+                        <Ellipse
+                            Width="72"
+                            Height="72"
+                            Margin="0,0,0,12"
+                            HorizontalAlignment="Center"
+                            Stroke="{DynamicResource ControlElevationBorderBrush}"
+                            StrokeThickness="1">
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="/Assets/Donate/Bartosz_Cichecki.jpg" Stretch="UniformToFill" />
+                            </Ellipse.Fill>
+                        </Ellipse>
+
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            FontSize="15"
+                            FontWeight="SemiBold"
+                            Text="Bartosz Cichecki"
+                            TextAlignment="Center"
+                            TextWrapping="Wrap" />
+
+                        <TextBlock
+                            Margin="0,4,0,12"
+                            HorizontalAlignment="Center"
+                            FontSize="11"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Text="{x:Static resources:Resource.DonatePage_Bartosz_Role}"
+                            TextAlignment="Center" />
+
+                        <TextBlock
+                            Margin="0,0,0,16"
+                            FontSize="12"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Text="{x:Static resources:Resource.DonatePage_Bartosz_Description}"
+                            TextAlignment="Center"
+                            TextWrapping="Wrap" />
+
+                        <wpfui:Button
+                            HorizontalAlignment="Center"
+                            Appearance="Primary"
+                            Click="BartoszPayPal_Click"
+                            Content="{x:Static resources:Resource.DonatePage_Sponsor}"
+                            Icon="Heart24" />
+                    </StackPanel>
+
+                    <!--  Inactive badge  -->
+                    <Border
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Margin="0,8,8,0"
+                        Padding="6,3,6,3"
+                        Background="{DynamicResource SystemFillColorNeutralBackgroundBrush}"
+                        BorderBrush="{DynamicResource ControlElevationBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="8">
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse
+                                Width="6"
+                                Height="6"
+                                Margin="0,0,4,0"
+                                VerticalAlignment="Center"
+                                Fill="{DynamicResource TextFillColorSecondaryBrush}" />
+                            <TextBlock
+                                FontSize="10"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                MaxWidth="50"
+                                TextTrimming="CharacterEllipsis"
+                                Text="{x:Static resources:Resource.Inactive}"
+                                ToolTip="{x:Static resources:Resource.Inactive}" />
+                        </StackPanel>
+                    </Border>
+                </Grid>
             </Border>
 
+            <!--  Kaguya  -->
             <Border
-                Width="300"
-                Margin="0,16,0,0"
-                HorizontalAlignment="Left"
-                Background="White"
-                CornerRadius="16"
-                RenderOptions.BitmapScalingMode="Fant">
-                <Image Margin="16" Source="/Assets/Donate/paypal_qr.png" />
+                Width="220"
+                Margin="0,0,16,16"
+                Style="{StaticResource DeveloperCardStyle}">
+                <Grid>
+                    <StackPanel Margin="20,20,20,16">
+                        <Ellipse
+                            Width="72"
+                            Height="72"
+                            Margin="0,0,0,12"
+                            HorizontalAlignment="Center"
+                            Stroke="{DynamicResource ControlElevationBorderBrush}"
+                            StrokeThickness="1">
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="/Assets/Donate/Kaguya.png" Stretch="UniformToFill" />
+                            </Ellipse.Fill>
+                        </Ellipse>
+
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            FontSize="15"
+                            FontWeight="SemiBold"
+                            Text="Kaguya"
+                            TextAlignment="Center"
+                            TextWrapping="Wrap" />
+
+                        <TextBlock
+                            Margin="0,4,0,12"
+                            HorizontalAlignment="Center"
+                            FontSize="11"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Text="{x:Static resources:Resource.DonatePage_Kaguya_Role}"
+                            TextAlignment="Center" />
+
+                        <TextBlock
+                            Margin="0,0,0,16"
+                            FontSize="12"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Text="{x:Static resources:Resource.DonatePage_Kaguya_Description}"
+                            TextAlignment="Center"
+                            TextWrapping="Wrap" />
+
+                        <wpfui:Button
+                            HorizontalAlignment="Center"
+                            Appearance="Primary"
+                            Content="{x:Static resources:Resource.DonatePage_Sponsor}"
+                            Icon="Heart24"
+                            IsEnabled="False" />
+                    </StackPanel>
+
+                    <!--  Active badge  -->
+                    <Border
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Margin="0,8,8,0"
+                        Padding="6,3,6,3"
+                        Background="{DynamicResource SystemFillColorSuccessBackgroundBrush}"
+                        BorderBrush="{DynamicResource ControlElevationBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="8">
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse
+                                Width="6"
+                                Height="6"
+                                Margin="0,0,4,0"
+                                VerticalAlignment="Center"
+                                Fill="{DynamicResource SystemFillColorSuccessBrush}" />
+                            <TextBlock
+                                FontSize="10"
+                                Foreground="{DynamicResource SystemFillColorSuccessBrush}"
+                                MaxWidth="50"
+                                TextTrimming="CharacterEllipsis"
+                                Text="{x:Static resources:Resource.Active}"
+                                ToolTip="{x:Static resources:Resource.Active}" />
+                        </StackPanel>
+                    </Border>
+                </Grid>
             </Border>
 
-        </StackPanel>
+            <!--  Dr. Skinner  -->
+            <Border
+                Width="220"
+                Margin="0,0,16,16"
+                Style="{StaticResource DeveloperCardStyle}">
+                <Grid>
+                    <StackPanel Margin="20,20,20,16">
+                        <Ellipse
+                            Width="72"
+                            Height="72"
+                            Margin="0,0,0,12"
+                            HorizontalAlignment="Center"
+                            Stroke="{DynamicResource ControlElevationBorderBrush}"
+                            StrokeThickness="1">
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="/Assets/Donate/Dr_Skinner.jpeg" Stretch="UniformToFill" />
+                            </Ellipse.Fill>
+                        </Ellipse>
+
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            FontSize="15"
+                            FontWeight="SemiBold"
+                            Text="Dr. Skinner"
+                            TextAlignment="Center"
+                            TextWrapping="Wrap" />
+
+                        <TextBlock
+                            Margin="0,4,0,12"
+                            HorizontalAlignment="Center"
+                            FontSize="11"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Text="{x:Static resources:Resource.DonatePage_DrSkinner_Role}"
+                            TextAlignment="Center" />
+
+                        <TextBlock
+                            Margin="0,0,0,16"
+                            FontSize="12"
+                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                            Text="{x:Static resources:Resource.DonatePage_DrSkinner_Description}"
+                            TextAlignment="Center"
+                            TextWrapping="Wrap" />
+
+                        <wpfui:Button
+                            HorizontalAlignment="Center"
+                            Appearance="Primary"
+                            Click="DrSkinnerGitHub_Click"
+                            Content="{x:Static resources:Resource.DonatePage_Sponsor}"
+                            Icon="Heart24" />
+                    </StackPanel>
+
+                    <!--  Active badge  -->
+                    <Border
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Margin="0,8,8,0"
+                        Padding="6,3,6,3"
+                        Background="{DynamicResource SystemFillColorSuccessBackgroundBrush}"
+                        BorderBrush="{DynamicResource ControlElevationBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="8">
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse
+                                Width="6"
+                                Height="6"
+                                Margin="0,0,4,0"
+                                VerticalAlignment="Center"
+                                Fill="{DynamicResource SystemFillColorSuccessBrush}" />
+                            <TextBlock
+                                FontSize="10"
+                                Foreground="{DynamicResource SystemFillColorSuccessBrush}"
+                                MaxWidth="50"
+                                TextTrimming="CharacterEllipsis"
+                                Text="{x:Static resources:Resource.Active}"
+                                ToolTip="{x:Static resources:Resource.Active}" />
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Border>
+
+        </WrapPanel>
+
+        <TextBlock
+            MaxWidth="600"
+            Margin="0,4,0,0"
+            HorizontalAlignment="Left"
+            FontSize="14"
+            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+            TextWrapping="Wrap">
+            <Run Text="{x:Static resources:Resource.DonatePage_BottomMessage}" />
+            <InlineUIContainer BaselineAlignment="Center">
+                <wpfui:SymbolIcon
+                    Filled="True"
+                    FontSize="14"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    Symbol="Heart24" />
+            </InlineUIContainer>
+        </TextBlock>
 
     </StackPanel>
 </wpfui:UiPage>
