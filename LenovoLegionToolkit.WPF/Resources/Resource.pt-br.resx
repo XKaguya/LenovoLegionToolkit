@@ -260,7 +260,7 @@
     <value>Modify startup arguments for the app.</value>
   </data>
   <data name="ArgumentWindow_Edit_Title" xml:space="preserve">
-    <value>Edit Arguments</value>
+    <value>Arguments</value>
   </data>
   <data name="ArgumentWindow_Flag_AllowAllCerts" xml:space="preserve">
     <value>Allow All Certificates</value>
@@ -646,11 +646,11 @@ Este tempo pode não ser exato caso o equipamento for carregado em estado de sus
   <data name="Close" xml:space="preserve">
     <value>Fechar</value>
   </data>
-  <data name="CloseAutomationStepControl_Message" xml:space="preserve">
+  <data name="CloseAppAutomationStepControl_Message" xml:space="preserve">
     <value>Close the Lenovo Legion Toolkit</value>
   </data>
-  <data name="CloseAutomationStepControl_Title" xml:space="preserve">
-    <value>Close</value>
+  <data name="CloseAppAutomationStepControl_Title" xml:space="preserve">
+    <value>Close App</value>
   </data>
   <data name="Color_Blue" xml:space="preserve">
     <value>Azul</value>
@@ -880,15 +880,34 @@ AVISO: Esta ação não será executada corretamente se a tela integrada estiver
   <data name="DisplayBrightnessAutomationStepControl_Title" xml:space="preserve">
     <value>Brilho da tela</value>
   </data>
-  <data name="DonatePage_DonateWith" xml:space="preserve">
-    <value>Doar com</value>
+  <data name="DonatePage_Bartosz_Description" xml:space="preserve">
+    <value>Bartosz created Lenovo Legion Toolkit and authored the foundational architecture that powers every feature in the application today.</value>
+  </data>
+  <data name="DonatePage_Bartosz_Role" xml:space="preserve">
+    <value>Original Creator</value>
+  </data>
+  <data name="DonatePage_BottomMessage" xml:space="preserve">
+    <value>Even if you can't donate, simply using, sharing, and starring the project on GitHub goes a long way. Every bit of support is genuinely appreciated</value>
+  </data>
+  <data name="DonatePage_DrSkinner_Description" xml:space="preserve">
+    <value>Responsible for core feature development, quality assurance, UI/UX design, and overall project direction as the current project lead.</value>
+  </data>
+  <data name="DonatePage_DrSkinner_Role" xml:space="preserve">
+    <value>Core Developer &amp; Project Lead</value>
+  </data>
+  <data name="DonatePage_Kaguya_Description" xml:space="preserve">
+    <value>Specializes in hardware research and reverse engineering, with contributions spanning core feature development and low-level system integration.</value>
+  </data>
+  <data name="DonatePage_Kaguya_Role" xml:space="preserve">
+    <value>Core Developer &amp; Reverser</value>
   </data>
   <data name="DonatePage_Message" xml:space="preserve">
-    <value>O desenvolvimento e a manutenção do Lenovo Legion Toolkit leva muito tempo. Se você gosta de usar este software pode apoiar seu futuro doando uma quantia de sua escolha.
+    <value>Development and maintenance of Lenovo Legion Toolkit takes a lot of time and effort. If you enjoy using this software, you can support its future by sponsoring the authors who make it possible.
 
-Clique no logotipo do PayPal abaixo ou digitalize o QR code para doar com o PayPal.
-
-Desde já, obrigado!</value>
+Thank you for your support!</value>
+  </data>
+  <data name="DonatePage_Sponsor" xml:space="preserve">
+    <value>Sponsor</value>
   </data>
   <data name="DonatePage_Title" xml:space="preserve">
     <value>Doar</value>
@@ -1271,6 +1290,9 @@ AVISO: Esta ação não será executada corretamente se o display interno estive
   </data>
   <data name="HideAll" xml:space="preserve">
     <value>Ocultar todos</value>
+  </data>
+  <data name="Icon" xml:space="preserve">
+    <value>Icon</value>
   </data>
   <data name="IconColor" xml:space="preserve">
     <value>Icon color</value>
@@ -1684,6 +1706,9 @@ It won't affect other full screen windows, but you will not be able to click on 
   </data>
   <data name="NotificationsSettingsWindow_NotificationPosition_Title" xml:space="preserve">
     <value>Posição</value>
+  </data>
+  <data name="NotificationsSettingsWindow_NotificationType" xml:space="preserve">
+    <value>Name</value>
   </data>
   <data name="NotificationsSettingsWindow_NumLock" xml:space="preserve">
     <value>Num Lock</value>
@@ -2383,9 +2408,6 @@ Certifique-se de que seu script seja executado corretamente primeiro.</value>
   <data name="SelectSpecialKeyPipelinesWindow_List_Empty" xml:space="preserve">
     <value>No Quick Actions defined.</value>
   </data>
-  <data name="SelectSpecialKeyPipelinesWindow_ShowThisApp" xml:space="preserve">
-    <value>Show this app</value>
-  </data>
   <data name="SensorItem_BatteryLevel" xml:space="preserve">
     <value>Battery Level</value>
   </data>
@@ -2950,7 +2972,7 @@ Uma reinicialização é recomendada após alterar esta opção.</value>
     <value>Use o novo painel do sensor em vez do antigo.</value>
   </data>
   <data name="SettingsPage_UseNewSensorDashboard_Title" xml:space="preserve">
-    <value>Use New Sensor Dashboard</value>
+    <value>New Sensor Dashboard</value>
   </data>
   <data name="SettingsPage_WindowBackdropType_Info" xml:space="preserve">
     <value>If you experience visual artifacts on Snackbar Notifications in HDR mode, set this to "None".</value>
@@ -2981,6 +3003,12 @@ Uma reinicialização é recomendada após alterar esta opção.</value>
   </data>
   <data name="Settings_GodModeFnQSwitchable_Title" xml:space="preserve">
     <value>Alterne para o modo Custom pressionando as teclas Fn+Q</value>
+  </data>
+  <data name="ShowAppAutomationStepControl_Message" xml:space="preserve">
+    <value>Show the Lenovo Legion Toolkit</value>
+  </data>
+  <data name="ShowAppAutomationStepControl_Title" xml:space="preserve">
+    <value>Show App</value>
   </data>
   <data name="SpeakerAutomationStepControl_Message" xml:space="preserve">
     <value>Quando mutado, todos os dispositivos de saída de áudio ativos serão silenciados.</value>

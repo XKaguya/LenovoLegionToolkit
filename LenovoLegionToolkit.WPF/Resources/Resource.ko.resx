@@ -260,7 +260,7 @@
     <value>Modify startup arguments for the app.</value>
   </data>
   <data name="ArgumentWindow_Edit_Title" xml:space="preserve">
-    <value>Edit Arguments</value>
+    <value>Arguments</value>
   </data>
   <data name="ArgumentWindow_Flag_AllowAllCerts" xml:space="preserve">
     <value>Allow All Certificates</value>
@@ -646,11 +646,11 @@ Supported formats are: {1}.</value>
   <data name="Close" xml:space="preserve">
     <value>Close</value>
   </data>
-  <data name="CloseAutomationStepControl_Message" xml:space="preserve">
+  <data name="CloseAppAutomationStepControl_Message" xml:space="preserve">
     <value>Close the Lenovo Legion Toolkit</value>
   </data>
-  <data name="CloseAutomationStepControl_Title" xml:space="preserve">
-    <value>Close</value>
+  <data name="CloseAppAutomationStepControl_Title" xml:space="preserve">
+    <value>Close App</value>
   </data>
   <data name="Color_Blue" xml:space="preserve">
     <value>Blue</value>
@@ -880,15 +880,34 @@ WARNING: This action will not run correctly, if internal display is off.</value>
   <data name="DisplayBrightnessAutomationStepControl_Title" xml:space="preserve">
     <value>Display brightness</value>
   </data>
-  <data name="DonatePage_DonateWith" xml:space="preserve">
-    <value>Donate with</value>
+  <data name="DonatePage_Bartosz_Description" xml:space="preserve">
+    <value>Bartosz created Lenovo Legion Toolkit and authored the foundational architecture that powers every feature in the application today.</value>
+  </data>
+  <data name="DonatePage_Bartosz_Role" xml:space="preserve">
+    <value>Original Creator</value>
+  </data>
+  <data name="DonatePage_BottomMessage" xml:space="preserve">
+    <value>Even if you can't donate, simply using, sharing, and starring the project on GitHub goes a long way. Every bit of support is genuinely appreciated</value>
+  </data>
+  <data name="DonatePage_DrSkinner_Description" xml:space="preserve">
+    <value>Responsible for core feature development, quality assurance, UI/UX design, and overall project direction as the current project lead.</value>
+  </data>
+  <data name="DonatePage_DrSkinner_Role" xml:space="preserve">
+    <value>Core Developer &amp; Project Lead</value>
+  </data>
+  <data name="DonatePage_Kaguya_Description" xml:space="preserve">
+    <value>Specializes in hardware research and reverse engineering, with contributions spanning core feature development and low-level system integration.</value>
+  </data>
+  <data name="DonatePage_Kaguya_Role" xml:space="preserve">
+    <value>Core Developer &amp; Reverser</value>
   </data>
   <data name="DonatePage_Message" xml:space="preserve">
-    <value>Development and maintenance of Lenovo Legion Toolkit takes a lot of time. If you like using this software you can support its future by donating an amount of your choice.
+    <value>Development and maintenance of Lenovo Legion Toolkit takes a lot of time and effort. If you enjoy using this software, you can support its future by sponsoring the authors who make it possible.
 
-Click the PayPal logo below or scan the QR code to donate with PayPal.
-
-Thanks in advance!</value>
+Thank you for your support!</value>
+  </data>
+  <data name="DonatePage_Sponsor" xml:space="preserve">
+    <value>Sponsor</value>
   </data>
   <data name="DonatePage_Title" xml:space="preserve">
     <value>Donate</value>
@@ -1271,6 +1290,9 @@ WARNING: This action will not run correctly if the internal display is off.</val
   </data>
   <data name="HideAll" xml:space="preserve">
     <value>Hide all</value>
+  </data>
+  <data name="Icon" xml:space="preserve">
+    <value>Icon</value>
   </data>
   <data name="IconColor" xml:space="preserve">
     <value>Icon color</value>
@@ -1685,6 +1707,9 @@ It won't affect other full screen windows, but you will not be able to click on 
   </data>
   <data name="NotificationsSettingsWindow_NotificationPosition_Title" xml:space="preserve">
     <value>Position</value>
+  </data>
+  <data name="NotificationsSettingsWindow_NotificationType" xml:space="preserve">
+    <value>Name</value>
   </data>
   <data name="NotificationsSettingsWindow_NumLock" xml:space="preserve">
     <value>Num Lock</value>
@@ -2384,9 +2409,6 @@ Make sure that your script runs correctly first.</value>
   <data name="SelectSpecialKeyPipelinesWindow_List_Empty" xml:space="preserve">
     <value>No Quick Actions defined.</value>
   </data>
-  <data name="SelectSpecialKeyPipelinesWindow_ShowThisApp" xml:space="preserve">
-    <value>Show this app</value>
-  </data>
   <data name="SensorItem_BatteryLevel" xml:space="preserve">
     <value>Battery Level</value>
   </data>
@@ -2580,7 +2602,7 @@ Make sure that your script runs correctly first.</value>
     <value>Change the accent color of the app.</value>
   </data>
   <data name="SettingsPage_AccentColor_Title" xml:space="preserve">
-    <value>Accent color</value>
+    <value>Accent Color</value>
   </data>
   <data name="SettingsPage_AlwaysOnTop_Message" xml:space="preserve">
     <value>Keep the app window above all other windows.</value>
@@ -2840,13 +2862,13 @@ Restart is recommended after changing this option.</value>
     <value>Minimize to the system tray instead of closing.</value>
   </data>
   <data name="SettingsPage_MinimizeOnClose_Title" xml:space="preserve">
-    <value>Minimize on close</value>
+    <value>Minimize on Close</value>
   </data>
   <data name="SettingsPage_MinimizeToTray_Message" xml:space="preserve">
     <value>Always minimize to tray instead of taskbar.</value>
   </data>
   <data name="SettingsPage_MinimizeToTray_Title" xml:space="preserve">
-    <value>Minimize to tray</value>
+    <value>Minimize to Tray</value>
   </data>
   <data name="SettingsPage_Notifications_Message" xml:space="preserve">
     <value>Configure which notifications are shown.</value>
@@ -2951,7 +2973,7 @@ Restart is recommended after changing this option.</value>
     <value>Use new sensor dashboard instead of the old one.</value>
   </data>
   <data name="SettingsPage_UseNewSensorDashboard_Title" xml:space="preserve">
-    <value>Use New Sensor Dashboard</value>
+    <value>New Sensor Dashboard</value>
   </data>
   <data name="SettingsPage_WindowBackdropType_Info" xml:space="preserve">
     <value>If you experience visual artifacts on Snackbar Notifications in HDR mode, set this to "None".</value>
@@ -2982,6 +3004,12 @@ Restart is recommended after changing this option.</value>
   </data>
   <data name="Settings_GodModeFnQSwitchable_Title" xml:space="preserve">
     <value>Switch to Custom Mode with Fn+Q</value>
+  </data>
+  <data name="ShowAppAutomationStepControl_Message" xml:space="preserve">
+    <value>Show the Lenovo Legion Toolkit</value>
+  </data>
+  <data name="ShowAppAutomationStepControl_Title" xml:space="preserve">
+    <value>Show App</value>
   </data>
   <data name="SpeakerAutomationStepControl_Message" xml:space="preserve">
     <value>When mute, all active audio output devices will be muted.</value>

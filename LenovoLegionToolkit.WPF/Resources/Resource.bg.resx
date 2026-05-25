@@ -260,7 +260,7 @@
     <value>Modify startup arguments for the app.</value>
   </data>
   <data name="ArgumentWindow_Edit_Title" xml:space="preserve">
-    <value>Edit Arguments</value>
+    <value>Arguments</value>
   </data>
   <data name="ArgumentWindow_Flag_AllowAllCerts" xml:space="preserve">
     <value>Allow All Certificates</value>
@@ -645,11 +645,11 @@
   <data name="Close" xml:space="preserve">
     <value>Затвори</value>
   </data>
-  <data name="CloseAutomationStepControl_Message" xml:space="preserve">
+  <data name="CloseAppAutomationStepControl_Message" xml:space="preserve">
     <value>Close the Lenovo Legion Toolkit</value>
   </data>
-  <data name="CloseAutomationStepControl_Title" xml:space="preserve">
-    <value>Close</value>
+  <data name="CloseAppAutomationStepControl_Title" xml:space="preserve">
+    <value>Close App</value>
   </data>
   <data name="Color_Blue" xml:space="preserve">
     <value>Синьо</value>
@@ -880,15 +880,34 @@
   <data name="DisplayBrightnessAutomationStepControl_Title" xml:space="preserve">
     <value>Яркост на екрана</value>
   </data>
-  <data name="DonatePage_DonateWith" xml:space="preserve">
-    <value>Дарете с</value>
+  <data name="DonatePage_Bartosz_Description" xml:space="preserve">
+    <value>Bartosz created Lenovo Legion Toolkit and authored the foundational architecture that powers every feature in the application today.</value>
+  </data>
+  <data name="DonatePage_Bartosz_Role" xml:space="preserve">
+    <value>Original Creator</value>
+  </data>
+  <data name="DonatePage_BottomMessage" xml:space="preserve">
+    <value>Even if you can't donate, simply using, sharing, and starring the project on GitHub goes a long way. Every bit of support is genuinely appreciated</value>
+  </data>
+  <data name="DonatePage_DrSkinner_Description" xml:space="preserve">
+    <value>Responsible for core feature development, quality assurance, UI/UX design, and overall project direction as the current project lead.</value>
+  </data>
+  <data name="DonatePage_DrSkinner_Role" xml:space="preserve">
+    <value>Core Developer &amp; Project Lead</value>
+  </data>
+  <data name="DonatePage_Kaguya_Description" xml:space="preserve">
+    <value>Specializes in hardware research and reverse engineering, with contributions spanning core feature development and low-level system integration.</value>
+  </data>
+  <data name="DonatePage_Kaguya_Role" xml:space="preserve">
+    <value>Core Developer &amp; Reverser</value>
   </data>
   <data name="DonatePage_Message" xml:space="preserve">
-    <value>Разработката и поддръжката на Lenovo Legion Toolkit изисква много време. Ако харесвате този софтуер може да подкрепите бъдещото му развитие като дарите сума по ваша лична преценка.
+    <value>Development and maintenance of Lenovo Legion Toolkit takes a lot of time and effort. If you enjoy using this software, you can support its future by sponsoring the authors who make it possible.
 
-Натиснете логото на PayPal по-долу или сканирайте QR-кода, за да дарите с PayPal.
-
-Благодаря предварително!</value>
+Thank you for your support!</value>
+  </data>
+  <data name="DonatePage_Sponsor" xml:space="preserve">
+    <value>Sponsor</value>
   </data>
   <data name="DonatePage_Title" xml:space="preserve">
     <value>Дарете</value>
@@ -1271,6 +1290,9 @@ Do not proceed unless you possess the necessary technical expertise.</value>
   </data>
   <data name="HideAll" xml:space="preserve">
     <value>Hide all</value>
+  </data>
+  <data name="Icon" xml:space="preserve">
+    <value>Icon</value>
   </data>
   <data name="IconColor" xml:space="preserve">
     <value>Icon color</value>
@@ -1685,6 +1707,9 @@ It won't affect other full screen windows, but you will not be able to click on 
   </data>
   <data name="NotificationsSettingsWindow_NotificationPosition_Title" xml:space="preserve">
     <value>Позиция</value>
+  </data>
+  <data name="NotificationsSettingsWindow_NotificationType" xml:space="preserve">
+    <value>Name</value>
   </data>
   <data name="NotificationsSettingsWindow_NumLock" xml:space="preserve">
     <value>Num Lock</value>
@@ -2382,9 +2407,6 @@ It won't affect other full screen windows, but you will not be able to click on 
   <data name="SelectSpecialKeyPipelinesWindow_List_Empty" xml:space="preserve">
     <value>No Quick Actions defined.</value>
   </data>
-  <data name="SelectSpecialKeyPipelinesWindow_ShowThisApp" xml:space="preserve">
-    <value>Show this app</value>
-  </data>
   <data name="SensorItem_BatteryLevel" xml:space="preserve">
     <value>Battery Level</value>
   </data>
@@ -2844,7 +2866,7 @@ It won't affect other full screen windows, but you will not be able to click on 
     <value>Always minimize to tray instead of taskbar.</value>
   </data>
   <data name="SettingsPage_MinimizeToTray_Title" xml:space="preserve">
-    <value>Minimize to tray</value>
+    <value>Minimize to Tray</value>
   </data>
   <data name="SettingsPage_Notifications_Message" xml:space="preserve">
     <value>Изберете кои известия да бъдат показани.</value>
@@ -2949,7 +2971,7 @@ It won't affect other full screen windows, but you will not be able to click on 
     <value>Use new sensor dashboard instead of the old one.</value>
   </data>
   <data name="SettingsPage_UseNewSensorDashboard_Title" xml:space="preserve">
-    <value>Use New Sensor Dashboard</value>
+    <value>New Sensor Dashboard</value>
   </data>
   <data name="SettingsPage_WindowBackdropType_Info" xml:space="preserve">
     <value>If you experience visual artifacts on Snackbar Notifications in HDR mode, set this to "None".</value>
@@ -2980,6 +3002,12 @@ It won't affect other full screen windows, but you will not be able to click on 
   </data>
   <data name="Settings_GodModeFnQSwitchable_Title" xml:space="preserve">
     <value>Switch to Custom Mode with Fn+Q</value>
+  </data>
+  <data name="ShowAppAutomationStepControl_Message" xml:space="preserve">
+    <value>Show the Lenovo Legion Toolkit</value>
+  </data>
+  <data name="ShowAppAutomationStepControl_Title" xml:space="preserve">
+    <value>Show App</value>
   </data>
   <data name="SpeakerAutomationStepControl_Message" xml:space="preserve">
     <value>When mute, all active audio output devices will be muted.</value>

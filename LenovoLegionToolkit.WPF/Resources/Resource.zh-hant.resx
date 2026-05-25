@@ -260,7 +260,7 @@
     <value>Modify startup arguments for the app.</value>
   </data>
   <data name="ArgumentWindow_Edit_Title" xml:space="preserve">
-    <value>編輯引數</value>
+    <value>Arguments</value>
   </data>
   <data name="ArgumentWindow_Flag_AllowAllCerts" xml:space="preserve">
     <value>Allow All Certificates</value>
@@ -645,11 +645,11 @@
   <data name="Close" xml:space="preserve">
     <value>關閉</value>
   </data>
-  <data name="CloseAutomationStepControl_Message" xml:space="preserve">
-    <value>關閉 Lenovo Legion Toolkit</value>
+  <data name="CloseAppAutomationStepControl_Message" xml:space="preserve">
+    <value>Close the Lenovo Legion Toolkit</value>
   </data>
-  <data name="CloseAutomationStepControl_Title" xml:space="preserve">
-    <value>關閉</value>
+  <data name="CloseAppAutomationStepControl_Title" xml:space="preserve">
+    <value>Close App</value>
   </data>
   <data name="Color_Blue" xml:space="preserve">
     <value>藍色（B）</value>
@@ -879,15 +879,34 @@
   <data name="DisplayBrightnessAutomationStepControl_Title" xml:space="preserve">
     <value>顯示亮度</value>
   </data>
-  <data name="DonatePage_DonateWith" xml:space="preserve">
-    <value>贊助於</value>
+  <data name="DonatePage_Bartosz_Description" xml:space="preserve">
+    <value>Bartosz created Lenovo Legion Toolkit and authored the foundational architecture that powers every feature in the application today.</value>
+  </data>
+  <data name="DonatePage_Bartosz_Role" xml:space="preserve">
+    <value>Original Creator</value>
+  </data>
+  <data name="DonatePage_BottomMessage" xml:space="preserve">
+    <value>Even if you can't donate, simply using, sharing, and starring the project on GitHub goes a long way. Every bit of support is genuinely appreciated</value>
+  </data>
+  <data name="DonatePage_DrSkinner_Description" xml:space="preserve">
+    <value>Responsible for core feature development, quality assurance, UI/UX design, and overall project direction as the current project lead.</value>
+  </data>
+  <data name="DonatePage_DrSkinner_Role" xml:space="preserve">
+    <value>Core Developer &amp; Project Lead</value>
+  </data>
+  <data name="DonatePage_Kaguya_Description" xml:space="preserve">
+    <value>Specializes in hardware research and reverse engineering, with contributions spanning core feature development and low-level system integration.</value>
+  </data>
+  <data name="DonatePage_Kaguya_Role" xml:space="preserve">
+    <value>Core Developer &amp; Reverser</value>
   </data>
   <data name="DonatePage_Message" xml:space="preserve">
-    <value>開發和維護 Lenovo Legion 工具套件需要大量的時間。如果您喜歡此應用程式，您可以透過贊助來支持應用程式未來的開發。
+    <value>Development and maintenance of Lenovo Legion Toolkit takes a lot of time and effort. If you enjoy using this software, you can support its future by sponsoring the authors who make it possible.
 
-點擊下方的 PayPal 圖示或掃描 QR 條碼使用 PayPal 贊助。
-
-萬分的感謝您！</value>
+Thank you for your support!</value>
+  </data>
+  <data name="DonatePage_Sponsor" xml:space="preserve">
+    <value>Sponsor</value>
   </data>
   <data name="DonatePage_Title" xml:space="preserve">
     <value>贊助</value>
@@ -1270,6 +1289,9 @@ Do not proceed unless you possess the necessary technical expertise.</value>
   </data>
   <data name="HideAll" xml:space="preserve">
     <value>隱藏全部</value>
+  </data>
+  <data name="Icon" xml:space="preserve">
+    <value>Icon</value>
   </data>
   <data name="IconColor" xml:space="preserve">
     <value>Icon color</value>
@@ -1684,6 +1706,9 @@ Do not proceed unless you possess the necessary technical expertise.</value>
   </data>
   <data name="NotificationsSettingsWindow_NotificationPosition_Title" xml:space="preserve">
     <value>位置</value>
+  </data>
+  <data name="NotificationsSettingsWindow_NotificationType" xml:space="preserve">
+    <value>Name</value>
   </data>
   <data name="NotificationsSettingsWindow_NumLock" xml:space="preserve">
     <value>數字鎖定</value>
@@ -2383,9 +2408,6 @@ Do not proceed unless you possess the necessary technical expertise.</value>
   <data name="SelectSpecialKeyPipelinesWindow_List_Empty" xml:space="preserve">
     <value>No Quick Actions defined.</value>
   </data>
-  <data name="SelectSpecialKeyPipelinesWindow_ShowThisApp" xml:space="preserve">
-    <value>Show this app</value>
-  </data>
   <data name="SensorItem_BatteryLevel" xml:space="preserve">
     <value>電量</value>
   </data>
@@ -2950,7 +2972,7 @@ Do not proceed unless you possess the necessary technical expertise.</value>
     <value>使用新的傳感器儀錶板而不是舊的。</value>
   </data>
   <data name="SettingsPage_UseNewSensorDashboard_Title" xml:space="preserve">
-    <value>使用新的儀表盤</value>
+    <value>New Sensor Dashboard</value>
   </data>
   <data name="SettingsPage_WindowBackdropType_Info" xml:space="preserve">
     <value>If you experience visual artifacts on Snackbar Notifications in HDR mode, set this to "None".</value>
@@ -2981,6 +3003,12 @@ Do not proceed unless you possess the necessary technical expertise.</value>
   </data>
   <data name="Settings_GodModeFnQSwitchable_Title" xml:space="preserve">
     <value>使用 Fn+Q 切換到客製化模式</value>
+  </data>
+  <data name="ShowAppAutomationStepControl_Message" xml:space="preserve">
+    <value>Show the Lenovo Legion Toolkit</value>
+  </data>
+  <data name="ShowAppAutomationStepControl_Title" xml:space="preserve">
+    <value>Show App</value>
   </data>
   <data name="SpeakerAutomationStepControl_Message" xml:space="preserve">
     <value>當開啟靜音後，所有活動的音訊輸出裝置都將會被靜音。</value>
