@@ -36,17 +36,11 @@ public partial class WindowsPowerModeController(ApplicationSettings settings, IM
         Log.Instance.Trace($"Activating... [powerModeState={powerModeState}]");
 
         var defaultMode = settings.Store.PowerModes.GetValueOrDefault(powerModeState, WindowsPowerMode.Balanced);
-        var powerModeOnAc = preset?.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerModeOnAc) ?? settings.Store.Overrides.GetPowerModeOnAc(powerModeState);
-        var powerModeOnDc = preset?.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerModeOnDc) ?? settings.Store.Overrides.GetPowerModeOnDc(powerModeState);
+        var powerModeOnAc = preset?.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerModeOnAc) ?? settings.Store.Overrides.GetPowerModeOnAc(powerModeState) ?? defaultMode;
+        var powerModeOnDc = preset?.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerModeOnDc) ?? settings.Store.Overrides.GetPowerModeOnDc(powerModeState) ?? defaultMode;
 
-        if (powerModeOnAc is null && powerModeOnDc is null)
-        {
-            Log.Instance.Trace($"Power mode is null. [powerModeState={powerModeState}]");
-            return;
-        }
-
-        var acGuid = GuidForWindowsPowerMode(powerModeOnAc ?? defaultMode);
-        var dcGuid = GuidForWindowsPowerMode(powerModeOnDc ?? defaultMode);
+        var acGuid = GuidForWindowsPowerMode(powerModeOnAc);
+        var dcGuid = GuidForWindowsPowerMode(powerModeOnDc);
 
         if (Power.IsBatterySaverEnabled())
         {

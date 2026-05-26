@@ -16,6 +16,7 @@ using LenovoLegionToolkit.WPF.Extensions;
 using LenovoLegionToolkit.WPF.Resources;
 using LenovoLegionToolkit.Lib.Messaging;
 using LenovoLegionToolkit.Lib.Messaging.Messages;
+using Wpf.Ui.Common;
 using static LenovoLegionToolkit.Lib.Settings.GodModeSettings;
 
 namespace LenovoLegionToolkit.WPF.Windows.Settings;
@@ -150,6 +151,7 @@ public partial class WindowsPowerModesWindow
         var acCard = new CardControl
         {
             Margin = new Thickness(0, 0, 0, 8),
+            Icon = SymbolRegular.PlugConnected24,
             Header = new CardHeaderControl { Title = $"{Resource.WindowsPowerPlansWindow_PowerMode_Title} - {Resource.WindowsPowerPlansWindow_PowerMode_AC}" },
             Content = acCombo
         };
@@ -157,6 +159,7 @@ public partial class WindowsPowerModesWindow
         var dcCard = new CardControl
         {
             Margin = new Thickness(0, 0, 0, 8),
+            Icon = SymbolRegular.BatterySaver24,
             Header = new CardHeaderControl { Title = $"{Resource.WindowsPowerPlansWindow_PowerMode_Title} - {Resource.WindowsPowerPlansWindow_PowerMode_DC}" },
             Content = dcCombo
         };
@@ -205,6 +208,7 @@ public partial class WindowsPowerModesWindow
         var acCard = new CardControl
         {
             Margin = new Thickness(0, 0, 0, 8),
+            Icon = SymbolRegular.PlugConnected24,
             Header = new CardHeaderControl { Title = $"{Resource.WindowsPowerPlansWindow_PowerMode_Title} - {Resource.WindowsPowerPlansWindow_PowerMode_AC}" },
             Content = acCombo
         };
@@ -212,6 +216,7 @@ public partial class WindowsPowerModesWindow
         var dcCard = new CardControl
         {
             Margin = new Thickness(0, 0, 0, 8),
+            Icon = SymbolRegular.BatterySaver24,
             Header = new CardHeaderControl { Title = $"{Resource.WindowsPowerPlansWindow_PowerMode_Title} - {Resource.WindowsPowerPlansWindow_PowerMode_DC}" },
             Content = dcCombo
         };
@@ -240,7 +245,9 @@ public partial class WindowsPowerModesWindow
 
             var presetCombo = new ComboBox { MinWidth = 200, VerticalAlignment = VerticalAlignment.Center };
             var presetList = presets.ToList();
-            presetCombo.SetItems(presetList, presetList.FirstOrDefault(), kvp => kvp.Value.Name);
+            var activePresetId = _godModeSettings.Store.ActivePresetId;
+            var activePreset = presetList.FirstOrDefault(kvp => kvp.Key == activePresetId);
+            presetCombo.SetItems(presetList, activePreset.Value is not null ? activePreset : presetList.FirstOrDefault(), kvp => kvp.Value.Name);
 
             var defaultMode = _settings.Store.PowerModes.GetValueOrDefault(PowerModeState.GodMode, WindowsPowerMode.Balanced);
 
@@ -253,6 +260,7 @@ public partial class WindowsPowerModesWindow
             var presetCard = new CardControl
             {
                 Margin = new Thickness(0, 0, 0, 8),
+                Icon = SymbolRegular.WrenchScrewdriver24,
                 Header = new CardHeaderControl { Title = Resource.GodModeSettingsWindow_ActivePreset_Title },
                 Content = presetCombo
             };
@@ -260,6 +268,7 @@ public partial class WindowsPowerModesWindow
             var acCard = new CardControl
             {
                 Margin = new Thickness(0, 0, 0, 8),
+                Icon = SymbolRegular.PlugConnected24,
                 Header = new CardHeaderControl { Title = $"{Resource.WindowsPowerPlansWindow_PowerMode_Title} - {Resource.WindowsPowerPlansWindow_PowerMode_AC}" },
                 Content = acCombo
             };
@@ -267,6 +276,7 @@ public partial class WindowsPowerModesWindow
             var dcCard = new CardControl
             {
                 Margin = new Thickness(0, 0, 0, 8),
+                Icon = SymbolRegular.BatterySaver24,
                 Header = new CardHeaderControl { Title = $"{Resource.WindowsPowerPlansWindow_PowerMode_Title} - {Resource.WindowsPowerPlansWindow_PowerMode_DC}" },
                 Content = dcCombo
             };
@@ -284,9 +294,9 @@ public partial class WindowsPowerModesWindow
                     isSwappingPreset = true;
                     try
                     {
-                        var presetVal = selectedKvp.Value;
-                        var savedAc = presetVal.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerModeOnAc) ?? defaultMode;
-                        var savedDc = presetVal.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerModeOnDc) ?? defaultMode;
+                        var livePreset = _godModeSettings.Store.Presets.GetValueOrDefault(selectedKvp.Key, selectedKvp.Value);
+                        var savedAc = livePreset.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerModeOnAc) ?? defaultMode;
+                        var savedDc = livePreset.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerModeOnDc) ?? defaultMode;
                         acCombo.SelectItem(savedAc);
                         dcCombo.SelectItem(savedDc);
                     }
@@ -317,8 +327,9 @@ public partial class WindowsPowerModesWindow
 
             if (presetCombo.TryGetSelectedItem(out KeyValuePair<Guid, GodModeSettingsStore.Preset> initialKvp))
             {
-                var initialAc = initialKvp.Value.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerModeOnAc) ?? defaultMode;
-                var initialDc = initialKvp.Value.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerModeOnDc) ?? defaultMode;
+                var liveInitialPreset = _godModeSettings.Store.Presets.GetValueOrDefault(initialKvp.Key, initialKvp.Value);
+                var initialAc = liveInitialPreset.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerModeOnAc) ?? defaultMode;
+                var initialDc = liveInitialPreset.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerModeOnDc) ?? defaultMode;
                 acCombo.SelectItem(initialAc);
                 dcCombo.SelectItem(initialDc);
             }

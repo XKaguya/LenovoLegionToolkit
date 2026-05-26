@@ -17,6 +17,7 @@ using LenovoLegionToolkit.WPF.Extensions;
 using LenovoLegionToolkit.WPF.Resources;
 using LenovoLegionToolkit.Lib.Messaging;
 using LenovoLegionToolkit.Lib.Messaging.Messages;
+using Wpf.Ui.Common;
 using static LenovoLegionToolkit.Lib.Settings.GodModeSettings;
 
 namespace LenovoLegionToolkit.WPF.Windows.Settings;
@@ -162,6 +163,7 @@ public partial class WindowsPowerPlansWindow
         var planCard = new CardControl
         {
             Margin = new Thickness(0, 0, 0, 8),
+            Icon = SymbolRegular.FlashSettings24,
             Header = new CardHeaderControl { Title = Resource.WindowsPowerPlansWindow_Title },
             Content = comboBox
         };
@@ -179,6 +181,7 @@ public partial class WindowsPowerPlansWindow
         var acCard = new CardControl
         {
             Margin = new Thickness(0, 0, 0, 8),
+            Icon = SymbolRegular.PlugConnected24,
             Header = new CardHeaderControl { Title = $"{Resource.WindowsPowerPlansWindow_PowerMode_Title} - {Resource.WindowsPowerPlansWindow_PowerMode_AC}" },
             Content = acCombo,
             Visibility = IsBalancedPlan(effectivePlan.Guid) ? Visibility.Visible : Visibility.Collapsed
@@ -187,6 +190,7 @@ public partial class WindowsPowerPlansWindow
         var dcCard = new CardControl
         {
             Margin = new Thickness(0, 0, 0, 8),
+            Icon = SymbolRegular.BatterySaver24,
             Header = new CardHeaderControl { Title = $"{Resource.WindowsPowerPlansWindow_PowerMode_Title} - {Resource.WindowsPowerPlansWindow_PowerMode_DC}" },
             Content = dcCombo,
             Visibility = IsBalancedPlan(effectivePlan.Guid) ? Visibility.Visible : Visibility.Collapsed
@@ -272,6 +276,7 @@ public partial class WindowsPowerPlansWindow
         var planCard = new CardControl
         {
             Margin = new Thickness(0, 0, 0, 8),
+            Icon = SymbolRegular.FlashSettings24,
             Header = new CardHeaderControl { Title = Resource.WindowsPowerPlansWindow_Title },
             Content = comboBox
         };
@@ -289,6 +294,7 @@ public partial class WindowsPowerPlansWindow
         var acCard = new CardControl
         {
             Margin = new Thickness(0, 0, 0, 8),
+            Icon = SymbolRegular.PlugConnected24,
             Header = new CardHeaderControl { Title = $"{Resource.WindowsPowerPlansWindow_PowerMode_Title} - {Resource.WindowsPowerPlansWindow_PowerMode_AC}" },
             Content = acCombo,
             Visibility = IsBalancedPlan(effectivePlan.Guid) ? Visibility.Visible : Visibility.Collapsed
@@ -297,6 +303,7 @@ public partial class WindowsPowerPlansWindow
         var dcCard = new CardControl
         {
             Margin = new Thickness(0, 0, 0, 8),
+            Icon = SymbolRegular.BatterySaver24,
             Header = new CardHeaderControl { Title = $"{Resource.WindowsPowerPlansWindow_PowerMode_Title} - {Resource.WindowsPowerPlansWindow_PowerMode_DC}" },
             Content = dcCombo,
             Visibility = IsBalancedPlan(effectivePlan.Guid) ? Visibility.Visible : Visibility.Collapsed
@@ -352,11 +359,14 @@ public partial class WindowsPowerPlansWindow
 
             var presetCombo = new ComboBox { MinWidth = 200, VerticalAlignment = VerticalAlignment.Center };
             var presetList = presets.ToList();
-            presetCombo.SetItems(presetList, presetList.FirstOrDefault(), kvp => kvp.Value.Name);
+            var activePresetId = _godModeSettings.Store.ActivePresetId;
+            var activePreset = presetList.FirstOrDefault(kvp => kvp.Key == activePresetId);
+            presetCombo.SetItems(presetList, activePreset.Value is not null ? activePreset : presetList.FirstOrDefault(), kvp => kvp.Value.Name);
 
             var presetCard = new CardControl
             {
                 Margin = new Thickness(0, 0, 0, 8),
+                Icon = SymbolRegular.WrenchScrewdriver24,
                 Header = new CardHeaderControl { Title = Resource.GodModeSettingsWindow_ActivePreset_Title },
                 Content = presetCombo
             };
@@ -367,6 +377,7 @@ public partial class WindowsPowerPlansWindow
             var planCard = new CardControl
             {
                 Margin = new Thickness(0, 0, 0, 8),
+                Icon = SymbolRegular.FlashSettings24,
                 Header = new CardHeaderControl { Title = Resource.WindowsPowerPlansWindow_Title },
                 Content = planCombo
             };
@@ -380,6 +391,7 @@ public partial class WindowsPowerPlansWindow
             var acCard = new CardControl
             {
                 Margin = new Thickness(0, 0, 0, 8),
+                Icon = SymbolRegular.PlugConnected24,
                 Header = new CardHeaderControl { Title = $"{Resource.WindowsPowerPlansWindow_PowerMode_Title} - {Resource.WindowsPowerPlansWindow_PowerMode_AC}" },
                 Content = acCombo
             };
@@ -387,6 +399,7 @@ public partial class WindowsPowerPlansWindow
             var dcCard = new CardControl
             {
                 Margin = new Thickness(0, 0, 0, 8),
+                Icon = SymbolRegular.BatterySaver24,
                 Header = new CardHeaderControl { Title = $"{Resource.WindowsPowerPlansWindow_PowerMode_Title} - {Resource.WindowsPowerPlansWindow_PowerMode_DC}" },
                 Content = dcCombo
             };
@@ -401,14 +414,14 @@ public partial class WindowsPowerPlansWindow
                 isSwappingPreset = true;
                 try
                 {
-                    var presetVal = kvp.Value;
+                    var livePreset = _godModeSettings.Store.Presets.GetValueOrDefault(kvp.Key, kvp.Value);
                     var currentPowerPlanGuid = GetGodModePresetPowerPlan(kvp.Key.ToString()) ?? Guid.Empty;
                     var selectedPlan = powerPlans.FirstOrDefault(pp => pp.Guid == currentPowerPlanGuid);
                     var effectivePlan = (selectedPlan == default) ? DefaultValue : selectedPlan;
                     planCombo.SelectedIndex = Array.IndexOf(powerPlans, effectivePlan);
 
-                    var savedAc = presetVal.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerPlanBalanceOnAc) ?? WindowsPowerMode.Balanced;
-                    var savedDc = presetVal.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerPlanBalanceOnDc) ?? WindowsPowerMode.Balanced;
+                    var savedAc = livePreset.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerPlanBalanceOnAc) ?? WindowsPowerMode.Balanced;
+                    var savedDc = livePreset.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerPlanBalanceOnDc) ?? WindowsPowerMode.Balanced;
                     acCombo.SelectItem(savedAc);
                     dcCombo.SelectItem(savedDc);
 
