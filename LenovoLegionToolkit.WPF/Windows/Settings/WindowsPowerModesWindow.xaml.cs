@@ -114,11 +114,12 @@ public partial class WindowsPowerModesWindow
     }
 
     private void BuildModeTab(WindowsPowerMode[] powerModes, PowerModeState powerModeState, string title,
-        Func<WindowsPowerMode, bool, Task> onChanged)
+        Func<WindowsPowerMode, bool, Task> onChanged,
+        WindowsPowerMode? savedAc = null, WindowsPowerMode? savedDc = null)
     {
         var defaultMode = _settings.Store.PowerModes.GetValueOrDefault(powerModeState, WindowsPowerMode.Balanced);
-        var savedAc = _settings.Store.Overrides.GetPowerModeOnAc(powerModeState);
-        var savedDc = _settings.Store.Overrides.GetPowerModeOnDc(powerModeState);
+        savedAc ??= _settings.Store.Overrides.GetPowerModeOnAc(powerModeState);
+        savedDc ??= _settings.Store.Overrides.GetPowerModeOnDc(powerModeState);
 
         var tabItem = new TabItem
         {
@@ -345,8 +346,9 @@ public partial class WindowsPowerModesWindow
             var savedDc = singlePreset.Value?.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerModeOnDc) ?? defaultMode;
 
             var presetKey = singlePreset.Key.ToString();
-            BuildModeTab(powerModes, PowerModeState.GodMode, singlePreset.Value?.Name ?? PowerModeState.GodMode.GetDisplayName(),
-                async (mode, isAc) => await GodModePresetPowerModeChangedAsync(presetKey, mode, isAc));
+            BuildModeTab(powerModes, PowerModeState.GodMode, PowerModeState.GodMode.GetDisplayName(),
+                async (mode, isAc) => await GodModePresetPowerModeChangedAsync(presetKey, mode, isAc),
+                savedAc: savedAc, savedDc: savedDc);
         }
     }
 

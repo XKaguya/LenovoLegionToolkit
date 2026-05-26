@@ -485,7 +485,7 @@ public partial class WindowsPowerPlansWindow
         {
             var singlePreset = presets.FirstOrDefault();
             BuildPowerPlanTab(powerPlans, powerModes, PowerModeState.GodMode,
-                singlePreset.Value?.Name ?? PowerModeState.GodMode.GetDisplayName(),
+                PowerModeState.GodMode.GetDisplayName(),
                 savedPlan: singlePreset.Value?.Overrides.TryGetGuid(PowerOverrideKey.PowerPlan),
                 savedAc: singlePreset.Value?.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerPlanBalanceOnAc),
                 savedDc: singlePreset.Value?.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerPlanBalanceOnDc),
