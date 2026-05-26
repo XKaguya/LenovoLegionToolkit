@@ -11,6 +11,7 @@
     Title="{x:Static resources:Resource.WindowsPowerPlansWindow_Title}"
     Width="560"
     MinWidth="500"
+    MinHeight="420"
     MaxWidth="800"
     FlowDirection="{x:Static utils:LocalizationHelper.Direction}"
     ResizeMode="CanMinimize"
@@ -56,7 +57,7 @@
             IndicatorVerticalAlignment="Center">
 
             <wpfui:DynamicScrollViewer>
-                <StackPanel Margin="0,0,16,0">
+                <StackPanel Margin="0,0,16,16">
 
                     <custom:CardControl
                         x:Name="_aoAcWarningCard"
@@ -68,7 +69,12 @@
                         </custom:CardControl.Header>
                     </custom:CardControl>
 
-                    <StackPanel x:Name="_cardsContainer" />
+                    <TabControl
+                        x:Name="_tabControl"
+                        Grid.IsSharedSizeScope="True"
+                        HorizontalContentAlignment="Center"
+                        ItemContainerStyle="{StaticResource SegmentedControlItemStyle}"
+                        Style="{StaticResource SegmentedControlStyle}" />
 
                 </StackPanel>
             </wpfui:DynamicScrollViewer>

@@ -10,6 +10,7 @@
     Title="{x:Static resources:Resource.WindowsPowerModesWindow_Title}"
     Width="560"
     MinWidth="500"
+    MinHeight="420"
     MaxWidth="800"
     FlowDirection="{x:Static utils:LocalizationHelper.Direction}"
     ResizeMode="CanMinimize"
@@ -55,7 +56,13 @@
             IndicatorVerticalAlignment="Center">
 
             <wpfui:DynamicScrollViewer>
-                <StackPanel x:Name="_cardsContainer" Margin="0,0,16,0" Grid.IsSharedSizeScope="True" />
+                <TabControl
+                    x:Name="_tabControl"
+                    Margin="0,0,16,16"
+                    Grid.IsSharedSizeScope="True"
+                    HorizontalContentAlignment="Center"
+                    ItemContainerStyle="{StaticResource SegmentedControlItemStyle}"
+                    Style="{StaticResource SegmentedControlStyle}" />
             </wpfui:DynamicScrollViewer>
 
         </controls:LoadableControl>
