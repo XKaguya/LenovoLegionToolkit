@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Automation;
@@ -132,13 +132,6 @@ public class PowerModeControl : AbstractComboBoxFeatureCardControl<PowerModeStat
             return;
         }
 
-        var result = await CheckCustomModeWarningAsync();
-
-        if (!result)
-        {
-            return;
-        }
-
         switch (state)
         {
             case PowerModeState.Balance:
@@ -149,12 +142,18 @@ public class PowerModeControl : AbstractComboBoxFeatureCardControl<PowerModeStat
             }
             case PowerModeState.GodMode:
             {
+                var result = await CheckCustomModeWarningAsync();
+                if (!result)
+                {
+                    return;
+                }
+
                 var window = new GodModeSettingsWindow { Owner = Window.GetWindow(this) };
                 window.ShowDialog();
                 break;
             }
             default:
-                throw new Exception($"Access to Custom Mode in {state} is denied.");
+                throw new Exception($"Access to Settings in {state} is denied.");
         }
     }
 
