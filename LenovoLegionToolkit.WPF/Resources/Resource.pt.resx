@@ -3380,6 +3380,9 @@ Logs serão guardados automaticamente, se escolheres continuar.</value>
   <data name="WindowsPowerPlansWindow_Title" xml:space="preserve">
     <value>Esquemas de Energia do Windows</value>
   </data>
+  <data name="WindowsPowerPlan_Title" xml:space="preserve">
+    <value>Windows Power Plan</value>
+  </data>
   <data name="WinKeyAutomationStepControl_Message" xml:space="preserve">
     <value>Desativar tecla Windows no teclado integrado.</value>
   </data>

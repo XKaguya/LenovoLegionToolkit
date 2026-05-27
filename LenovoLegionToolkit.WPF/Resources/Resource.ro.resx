@@ -3381,6 +3381,9 @@ Salvarea logurilor va fi activată automat dacă alegeți să continuați.</valu
   <data name="WindowsPowerPlansWindow_Title" xml:space="preserve">
     <value>Windows Power Plans</value>
   </data>
+  <data name="WindowsPowerPlan_Title" xml:space="preserve">
+    <value>Windows Power Plan</value>
+  </data>
   <data name="WinKeyAutomationStepControl_Message" xml:space="preserve">
     <value>Disable Windows key on built-in keyboard.</value>
   </data>

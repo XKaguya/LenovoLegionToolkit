@@ -164,7 +164,7 @@ public partial class WindowsPowerPlansWindow
         {
             Margin = new Thickness(0, 0, 0, 8),
             Icon = SymbolRegular.FlashSettings24,
-            Header = new CardHeaderControl { Title = Resource.WindowsPowerPlansWindow_Title },
+            Header = new CardHeaderControl { Title = Resource.WindowsPowerPlan_Title },
             Content = comboBox
         };
         container.Children.Add(planCard);
@@ -233,6 +233,7 @@ public partial class WindowsPowerPlansWindow
                 acCard.Visibility = visibility;
                 dcCard.Visibility = visibility;
 
+
                 if (onPlanChanged != null)
                 {
                     await onPlanChanged(plan);
@@ -277,7 +278,7 @@ public partial class WindowsPowerPlansWindow
         {
             Margin = new Thickness(0, 0, 0, 8),
             Icon = SymbolRegular.FlashSettings24,
-            Header = new CardHeaderControl { Title = Resource.WindowsPowerPlansWindow_Title },
+            Header = new CardHeaderControl { Title = Resource.WindowsPowerPlan_Title },
             Content = comboBox
         };
         container.Children.Add(planCard);
@@ -378,7 +379,7 @@ public partial class WindowsPowerPlansWindow
             {
                 Margin = new Thickness(0, 0, 0, 8),
                 Icon = SymbolRegular.FlashSettings24,
-                Header = new CardHeaderControl { Title = Resource.WindowsPowerPlansWindow_Title },
+                Header = new CardHeaderControl { Title = Resource.WindowsPowerPlan_Title },
                 Content = planCombo
             };
             container.Children.Add(planCard);
@@ -420,8 +421,11 @@ public partial class WindowsPowerPlansWindow
                     var effectivePlan = (selectedPlan == default) ? DefaultValue : selectedPlan;
                     planCombo.SelectedIndex = Array.IndexOf(powerPlans, effectivePlan);
 
-                    var savedAc = livePreset.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerPlanBalanceOnAc) ?? WindowsPowerMode.Balanced;
-                    var savedDc = livePreset.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerPlanBalanceOnDc) ?? WindowsPowerMode.Balanced;
+                    var presetBalanceAc = livePreset.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerPlanBalanceOnAc);
+                    var presetBalanceDc = livePreset.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerPlanBalanceOnDc);
+                    var isPreset = presetBalanceAc.HasValue || presetBalanceDc.HasValue;
+                    var savedAc = (isPreset ? presetBalanceAc : _settings.Store.Overrides.GetPowerPlanBalanceOnAc(PowerModeState.GodMode)) ?? WindowsPowerMode.Balanced;
+                    var savedDc = (isPreset ? presetBalanceDc : _settings.Store.Overrides.GetPowerPlanBalanceOnDc(PowerModeState.GodMode)) ?? WindowsPowerMode.Balanced;
                     acCombo.SelectItem(savedAc);
                     dcCombo.SelectItem(savedDc);
 
@@ -451,6 +455,8 @@ public partial class WindowsPowerPlansWindow
                     var visibility = IsBalancedPlan(plan.Guid) ? Visibility.Visible : Visibility.Collapsed;
                     acCard.Visibility = visibility;
                     dcCard.Visibility = visibility;
+
+
                     await GodModePresetPowerPlanChangedAsync(selectedKvp.Key.ToString(), plan);
                 }
             };
@@ -484,11 +490,17 @@ public partial class WindowsPowerPlansWindow
         else
         {
             var singlePreset = presets.FirstOrDefault();
+            var presetBalanceAc = singlePreset.Value?.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerPlanBalanceOnAc);
+            var presetBalanceDc = singlePreset.Value?.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerPlanBalanceOnDc);
+            var isPreset = presetBalanceAc.HasValue || presetBalanceDc.HasValue;
+            var savedAc = (isPreset ? presetBalanceAc : _settings.Store.Overrides.GetPowerPlanBalanceOnAc(PowerModeState.GodMode)) ?? WindowsPowerMode.Balanced;
+            var savedDc = (isPreset ? presetBalanceDc : _settings.Store.Overrides.GetPowerPlanBalanceOnDc(PowerModeState.GodMode)) ?? WindowsPowerMode.Balanced;
+
             BuildPowerPlanTab(powerPlans, powerModes, PowerModeState.GodMode,
                 PowerModeState.GodMode.GetDisplayName(),
                 savedPlan: singlePreset.Value?.Overrides.TryGetGuid(PowerOverrideKey.PowerPlan),
-                savedAc: singlePreset.Value?.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerPlanBalanceOnAc),
-                savedDc: singlePreset.Value?.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerPlanBalanceOnDc),
+                savedAc: savedAc,
+                savedDc: savedDc,
                 onPlanChanged: async (plan) => await GodModePresetPowerPlanChangedAsync(singlePreset.Key.ToString(), plan),
                 onOverlayChanged: async (mode, isAc) => await GodModePresetBalanceOverlayChangedAsync(singlePreset.Key.ToString(), mode, isAc));
         }
@@ -525,11 +537,7 @@ public partial class WindowsPowerPlansWindow
         if (preset == null)
         {
             _settings.Store.PowerPlans[powerModeState] = windowsPowerPlan.Guid;
-            if (windowsPowerPlan.Guid != Guid.Empty && !IsBalancedPlan(windowsPowerPlan.Guid))
-            {
-                _settings.Store.Overrides.SetPowerPlanBalanceOnAc(powerModeState, null);
-                _settings.Store.Overrides.SetPowerPlanBalanceOnDc(powerModeState, null);
-            }
+
         }
         else
         {
@@ -590,11 +598,6 @@ public partial class WindowsPowerPlansWindow
         }
 
         _settings.Store.ITSPowerPlans[itsMode] = windowsPowerPlan.Guid;
-        if (windowsPowerPlan.Guid != Guid.Empty && !IsBalancedPlan(windowsPowerPlan.Guid))
-        {
-            _settings.Store.ITSOverrides.SetPowerPlanBalanceOnAc(itsMode, null);
-            _settings.Store.ITSOverrides.SetPowerPlanBalanceOnDc(itsMode, null);
-        }
 
         _settings.SynchronizeStore();
 
@@ -643,11 +646,7 @@ public partial class WindowsPowerPlansWindow
         {
             var newOv = new Dictionary<PowerOverrideKey, string>(presetKvp.Value.Overrides ?? []);
             newOv.SetGuid(PowerOverrideKey.PowerPlan, windowsPowerPlan.Guid);
-            if (windowsPowerPlan.Guid != Guid.Empty && !IsBalancedPlan(windowsPowerPlan.Guid))
-            {
-                newOv.Remove(PowerOverrideKey.PowerPlanBalanceOnAc);
-                newOv.Remove(PowerOverrideKey.PowerPlanBalanceOnDc);
-            }
+
             var updated = presetKvp.Value with { Overrides = newOv };
             _godModeSettings.Store.Presets[presetKvp.Key] = updated;
             _godModeSettings.SynchronizeStore();

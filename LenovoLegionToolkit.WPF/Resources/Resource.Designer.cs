@@ -9694,7 +9694,16 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Default.
+        ///   Looks up a localized string similar to Windows Power Plan.
+        /// </summary>
+        public static string WindowsPowerPlan_Title {
+            get {
+                return ResourceManager.GetString("WindowsPowerPlan_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System Default.
         /// </summary>
         public static string WindowsPowerPlansWindow_DefaultPowerPlan {
             get {
@@ -9703,7 +9712,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to AC.
+        ///   Looks up a localized string similar to Plugged in.
         /// </summary>
         public static string WindowsPowerPlansWindow_PowerMode_AC {
             get {
@@ -9712,7 +9721,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DC.
+        ///   Looks up a localized string similar to On battery.
         /// </summary>
         public static string WindowsPowerPlansWindow_PowerMode_DC {
             get {

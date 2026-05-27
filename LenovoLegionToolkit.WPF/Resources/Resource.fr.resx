@@ -3380,6 +3380,9 @@ La journalisation sera activée automatiquement si vous choisissez de continuer.
   <data name="WindowsPowerPlansWindow_Title" xml:space="preserve">
     <value>Plans d'alimentation Windows</value>
   </data>
+  <data name="WindowsPowerPlan_Title" xml:space="preserve">
+    <value>Windows Power Plan</value>
+  </data>
   <data name="WinKeyAutomationStepControl_Message" xml:space="preserve">
     <value>Désactiver la touche Windows du clavier intégré.</value>
   </data>

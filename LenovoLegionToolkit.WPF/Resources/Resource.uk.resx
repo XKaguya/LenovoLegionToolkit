@@ -3377,6 +3377,9 @@ Thank you for your support!</value>
   <data name="WindowsPowerPlansWindow_Title" xml:space="preserve">
     <value>План живлення Windows</value>
   </data>
+  <data name="WindowsPowerPlan_Title" xml:space="preserve">
+    <value>Windows Power Plan</value>
+  </data>
   <data name="WinKeyAutomationStepControl_Message" xml:space="preserve">
     <value>Вимкнути клавішу Windows вбудованої клавіатури.</value>
   </data>

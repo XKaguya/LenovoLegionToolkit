@@ -3380,6 +3380,9 @@ Devam etmeyi seçerseniz, kayıt etme otomatik olarak etkinleştirilecektir.</va
   <data name="WindowsPowerPlansWindow_Title" xml:space="preserve">
     <value>Windows Güç Planları</value>
   </data>
+  <data name="WindowsPowerPlan_Title" xml:space="preserve">
+    <value>Windows Power Plan</value>
+  </data>
   <data name="WinKeyAutomationStepControl_Message" xml:space="preserve">
     <value>Dahili klavyedeki Windows tuşunu devre dışı bırakın.</value>
   </data>

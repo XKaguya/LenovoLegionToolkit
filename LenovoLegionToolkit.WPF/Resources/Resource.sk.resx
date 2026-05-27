@@ -3380,6 +3380,9 @@ Ak sa rozhodnete pokračovať záznam chýb bude automaticky zapnutý.</value>
   <data name="WindowsPowerPlansWindow_Title" xml:space="preserve">
     <value>Plány napájania</value>
   </data>
+  <data name="WindowsPowerPlan_Title" xml:space="preserve">
+    <value>Windows Power Plan</value>
+  </data>
   <data name="WinKeyAutomationStepControl_Message" xml:space="preserve">
     <value>Disable Windows key on built-in keyboard.</value>
   </data>

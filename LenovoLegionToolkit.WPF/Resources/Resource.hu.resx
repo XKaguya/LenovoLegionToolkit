@@ -3379,6 +3379,9 @@ A naplózás automatikusan engedélyezésre kerül, ha a folytatást választja.
   <data name="WindowsPowerPlansWindow_Title" xml:space="preserve">
     <value>Windows Energiasémák</value>
   </data>
+  <data name="WindowsPowerPlan_Title" xml:space="preserve">
+    <value>Windows Power Plan</value>
+  </data>
   <data name="WinKeyAutomationStepControl_Message" xml:space="preserve">
     <value>A beépített billentyűzet Windows gombjának letiltása.</value>
   </data>

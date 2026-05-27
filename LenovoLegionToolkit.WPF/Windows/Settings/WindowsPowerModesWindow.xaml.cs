@@ -296,8 +296,8 @@ public partial class WindowsPowerModesWindow
                     try
                     {
                         var livePreset = _godModeSettings.Store.Presets.GetValueOrDefault(selectedKvp.Key, selectedKvp.Value);
-                        var savedAc = livePreset.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerModeOnAc) ?? defaultMode;
-                        var savedDc = livePreset.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerModeOnDc) ?? defaultMode;
+                        var savedAc = livePreset.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerModeOnAc) ?? _settings.Store.Overrides.GetPowerModeOnAc(PowerModeState.GodMode) ?? defaultMode;
+                        var savedDc = livePreset.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerModeOnDc) ?? _settings.Store.Overrides.GetPowerModeOnDc(PowerModeState.GodMode) ?? defaultMode;
                         acCombo.SelectItem(savedAc);
                         dcCombo.SelectItem(savedDc);
                     }
@@ -329,8 +329,8 @@ public partial class WindowsPowerModesWindow
             if (presetCombo.TryGetSelectedItem(out KeyValuePair<Guid, GodModeSettingsStore.Preset> initialKvp))
             {
                 var liveInitialPreset = _godModeSettings.Store.Presets.GetValueOrDefault(initialKvp.Key, initialKvp.Value);
-                var initialAc = liveInitialPreset.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerModeOnAc) ?? defaultMode;
-                var initialDc = liveInitialPreset.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerModeOnDc) ?? defaultMode;
+                var initialAc = liveInitialPreset.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerModeOnAc) ?? _settings.Store.Overrides.GetPowerModeOnAc(PowerModeState.GodMode) ?? defaultMode;
+                var initialDc = liveInitialPreset.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerModeOnDc) ?? _settings.Store.Overrides.GetPowerModeOnDc(PowerModeState.GodMode) ?? defaultMode;
                 acCombo.SelectItem(initialAc);
                 dcCombo.SelectItem(initialDc);
             }
@@ -342,8 +342,8 @@ public partial class WindowsPowerModesWindow
         {
             var singlePreset = presets.FirstOrDefault();
             var defaultMode = _settings.Store.PowerModes.GetValueOrDefault(PowerModeState.GodMode, WindowsPowerMode.Balanced);
-            var savedAc = singlePreset.Value?.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerModeOnAc) ?? defaultMode;
-            var savedDc = singlePreset.Value?.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerModeOnDc) ?? defaultMode;
+            var savedAc = singlePreset.Value?.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerModeOnAc) ?? _settings.Store.Overrides.GetPowerModeOnAc(PowerModeState.GodMode) ?? defaultMode;
+            var savedDc = singlePreset.Value?.Overrides.TryGetEnum<WindowsPowerMode>(PowerOverrideKey.PowerModeOnDc) ?? _settings.Store.Overrides.GetPowerModeOnDc(PowerModeState.GodMode) ?? defaultMode;
 
             var presetKey = singlePreset.Key.ToString();
             BuildModeTab(powerModes, PowerModeState.GodMode, PowerModeState.GodMode.GetDisplayName(),

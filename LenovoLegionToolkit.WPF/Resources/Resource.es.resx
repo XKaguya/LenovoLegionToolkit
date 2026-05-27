@@ -3382,6 +3382,9 @@ El registro de sucesos se activará automáticamente, si decide continuar.</valu
   <data name="WindowsPowerPlansWindow_Title" xml:space="preserve">
     <value>Planes de energía de Windows</value>
   </data>
+  <data name="WindowsPowerPlan_Title" xml:space="preserve">
+    <value>Windows Power Plan</value>
+  </data>
   <data name="WinKeyAutomationStepControl_Message" xml:space="preserve">
     <value>Desactivar la tecla Windows del teclado integrado.</value>
   </data>

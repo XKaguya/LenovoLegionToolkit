@@ -31,7 +31,7 @@ public static class PowerOverrideExtensions
 
     public static void SetGuid(this Dictionary<PowerOverrideKey, string> overrides, PowerOverrideKey key, Guid? value)
     {
-        if (value.HasValue && value.Value != Guid.Empty)
+        if (value.HasValue)
             overrides[key] = value.Value.ToString();
         else
             overrides.Remove(key);
