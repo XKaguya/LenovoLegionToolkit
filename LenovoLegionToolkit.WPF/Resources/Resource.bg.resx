@@ -166,6 +166,9 @@
   <data name="Add" xml:space="preserve">
     <value>Добави</value>
   </data>
+  <data name="AddAutomationStepWindow_MultipleSteps" xml:space="preserve">
+    <value>Multiple steps...</value>
+  </data>
   <data name="AddAutomationStepWindow_Title" xml:space="preserve">
     <value>Добави стъпка</value>
   </data>
@@ -459,6 +462,9 @@
   </data>
   <data name="AutomationPipelineTriggerConfigurationWindow_Title" xml:space="preserve">
     <value>Конфигурирай</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
   </data>
   <data name="BalanceModeSettingsWindow_AIEngine_Message" xml:space="preserve">
     <value>Автоматично засича дали дадени игри са отворени и променя производителността на процесора и видеокартата. Температурата и шума от вентилаторите е възможно да се повишат.</value>

@@ -166,6 +166,9 @@
   <data name="Add" xml:space="preserve">
     <value>Pievienot</value>
   </data>
+  <data name="AddAutomationStepWindow_MultipleSteps" xml:space="preserve">
+    <value>Multiple steps...</value>
+  </data>
   <data name="AddAutomationStepWindow_Title" xml:space="preserve">
     <value>Pievienot soli</value>
   </data>
@@ -460,6 +463,9 @@ Tiks izpildītas tikai tās darbības, kas atbilst pašreizējam stāvoklim.</va
   </data>
   <data name="AutomationPipelineTriggerConfigurationWindow_Title" xml:space="preserve">
     <value>Konfigurēt</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
   </data>
   <data name="BalanceModeSettingsWindow_AIEngine_Message" xml:space="preserve">
     <value>Automātiski nosaka, kad darbojas noteiktas spēles, un koriģē centrālā procesora un GPU veiktspēju. Temperatūra un ventilatora troksnis var paaugstināties.</value>

@@ -166,6 +166,9 @@
   <data name="Add" xml:space="preserve">
     <value>Добавить</value>
   </data>
+  <data name="AddAutomationStepWindow_MultipleSteps" xml:space="preserve">
+    <value>Multiple steps...</value>
+  </data>
   <data name="AddAutomationStepWindow_Title" xml:space="preserve">
     <value>Добавить шаг</value>
   </data>
@@ -460,6 +463,9 @@
   </data>
   <data name="AutomationPipelineTriggerConfigurationWindow_Title" xml:space="preserve">
     <value>Настроить</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
   </data>
   <data name="BalanceModeSettingsWindow_AIEngine_Message" xml:space="preserve">
     <value>Автоматически определяет, когда запущены определенные игры, и настраивает производительность CPU и GPU. Возможно повышение температуры и шума вентиляторов.</value>

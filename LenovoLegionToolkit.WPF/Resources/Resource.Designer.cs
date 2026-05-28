@@ -205,6 +205,15 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Multiple steps....
+        /// </summary>
+        public static string AddAutomationStepWindow_MultipleSteps {
+            get {
+                return ResourceManager.GetString("AddAutomationStepWindow_MultipleSteps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add step.
         /// </summary>
         public static string AddAutomationStepWindow_Title {
@@ -1084,6 +1093,15 @@ namespace LenovoLegionToolkit.WPF.Resources {
         public static string AutomationPipelineTriggerConfigurationWindow_Title {
             get {
                 return ResourceManager.GetString("AutomationPipelineTriggerConfigurationWindow_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Back.
+        /// </summary>
+        public static string Back {
+            get {
+                return ResourceManager.GetString("Back", resourceCulture);
             }
         }
         
@@ -4563,7 +4581,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Match All (And).
+        ///   Looks up a localized string similar to Match All (AND).
         /// </summary>
         public static string MultipleTriggersAutomationPipelineTrigger_Logic_And {
             get {
@@ -4572,7 +4590,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Match Any (Or).
+        ///   Looks up a localized string similar to Match Any (OR).
         /// </summary>
         public static string MultipleTriggersAutomationPipelineTrigger_Logic_Or {
             get {

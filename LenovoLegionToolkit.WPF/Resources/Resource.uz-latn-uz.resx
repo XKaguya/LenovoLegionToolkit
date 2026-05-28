@@ -166,6 +166,9 @@
   <data name="Add" xml:space="preserve">
     <value>Qosıw</value>
   </data>
+  <data name="AddAutomationStepWindow_MultipleSteps" xml:space="preserve">
+    <value>Multiple steps...</value>
+  </data>
   <data name="AddAutomationStepWindow_Title" xml:space="preserve">
     <value>Adım qosıw</value>
   </data>
@@ -460,6 +463,9 @@ Tek ámeldegi jaǵdayǵa sáykes keletuǵın háreketler orınlanadı.</value>
   </data>
   <data name="AutomationPipelineTriggerConfigurationWindow_Title" xml:space="preserve">
     <value>Sazlaw</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
   </data>
   <data name="BalanceModeSettingsWindow_AIEngine_Message" xml:space="preserve">
     <value>Belgili oyınlar iske túskenin avtomatikalıq anıqlaydı, CPU hám GPU iskerligin ózgertedi. Temperatura hám samallatqısh shawqımı artıwı múmkin.</value>

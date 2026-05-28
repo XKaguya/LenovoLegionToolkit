@@ -166,6 +166,9 @@
   <data name="Add" xml:space="preserve">
     <value>Thêm</value>
   </data>
+  <data name="AddAutomationStepWindow_MultipleSteps" xml:space="preserve">
+    <value>Multiple steps...</value>
+  </data>
   <data name="AddAutomationStepWindow_Title" xml:space="preserve">
     <value>Thêm hành động</value>
   </data>
@@ -460,6 +463,9 @@ Chỉ có các Hành động thỏa điều kiện hiện tại sẽ được ch
   </data>
   <data name="AutomationPipelineTriggerConfigurationWindow_Title" xml:space="preserve">
     <value>Tùy chỉnh</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
   </data>
   <data name="BalanceModeSettingsWindow_AIEngine_Message" xml:space="preserve">
     <value>Tự động phát hiện khi một số tựa game khởi chạy và điều chỉnh hiệu suất CPU và GPU. Nhiệt độ và tiếng ồn từ quạt tản nhiệt có thể tăng.</value>

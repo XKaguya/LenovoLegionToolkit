@@ -166,6 +166,9 @@
   <data name="Add" xml:space="preserve">
     <value>Aggiungi</value>
   </data>
+  <data name="AddAutomationStepWindow_MultipleSteps" xml:space="preserve">
+    <value>Multiple steps...</value>
+  </data>
   <data name="AddAutomationStepWindow_Title" xml:space="preserve">
     <value>Aggiungi azione</value>
   </data>
@@ -459,6 +462,9 @@
   </data>
   <data name="AutomationPipelineTriggerConfigurationWindow_Title" xml:space="preserve">
     <value>Configure</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
   </data>
   <data name="BalanceModeSettingsWindow_AIEngine_Message" xml:space="preserve">
     <value>Rileva automaticamente quando alcuni giochi sono in esecuzione e modifica le prestazioni della CPU e della GPU. Le temperature e la rumorosità delle ventole potrebbe aumentare.</value>

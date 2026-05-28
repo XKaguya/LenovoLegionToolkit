@@ -63,34 +63,38 @@
 
         <Grid Grid.Row="3" Margin="0,0,12,12">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <StackPanel
-                x:Name="_logicSelection"
+            <wpfui:Button
+                x:Name="_backButton"
                 Grid.Column="0"
+                MinWidth="100"
                 Margin="12,0,0,0"
+                Click="BackButton_Click"
+                Visibility="Collapsed"
+                Content="{x:Static resources:Resource.Back}" />
+
+            <ComboBox
+                x:Name="_logicComboBox"
+                Grid.Column="1"
+                MinWidth="60"
+                Margin="12,0,0,0"
+                HorizontalAlignment="Left"
                 VerticalAlignment="Center"
-                Orientation="Horizontal"
-                Visibility="Collapsed">
-                <TextBlock
-                    VerticalAlignment="Center"
-                    Text="{x:Static resources:Resource.MultipleTriggersAutomationPipelineTrigger_Logic_Title}" />
-                <ComboBox
-                    x:Name="_logicComboBox"
-                    MinWidth="120"
-                    Margin="8,0,0,0"
-                    SelectedIndex="0">
-                    <ComboBoxItem Content="{x:Static resources:Resource.MultipleTriggersAutomationPipelineTrigger_Logic_And}" />
-                    <ComboBoxItem Content="{x:Static resources:Resource.MultipleTriggersAutomationPipelineTrigger_Logic_Or}" />
-                </ComboBox>
-            </StackPanel>
+                SelectedIndex="0"
+                Visibility="Collapsed"
+                ToolTip="{x:Static resources:Resource.MultipleTriggersAutomationPipelineTrigger_Logic_Title}">
+                <ComboBoxItem Content="{x:Static resources:Resource.MultipleTriggersAutomationPipelineTrigger_Logic_And}" />
+                <ComboBoxItem Content="{x:Static resources:Resource.MultipleTriggersAutomationPipelineTrigger_Logic_Or}" />
+            </ComboBox>
 
             <wpfui:Button
                 x:Name="_createButton"
-                Grid.Column="1"
+                Grid.Column="2"
                 MinWidth="100"
                 Margin="8,0,0,0"
                 Appearance="Primary"
@@ -98,7 +102,7 @@
                 Content="{x:Static resources:Resource.Create}" />
 
             <wpfui:Button
-                Grid.Column="2"
+                Grid.Column="3"
                 MinWidth="100"
                 Margin="8,0,0,0"
                 Click="CancelButton_Click"

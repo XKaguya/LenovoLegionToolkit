@@ -113,6 +113,13 @@ public partial class CreateAutomationPipelineWindow
 
     private void CancelButton_Click(object sender, RoutedEventArgs e) => Close();
 
+    private async void BackButton_Click(object sender, RoutedEventArgs e)
+    {
+        _multiSelect = false;
+        _selectedTriggers.Clear();
+        await RefreshAsync();
+    }
+
     private void _searchBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
     {
         _ = RefreshAsync();
@@ -136,9 +143,10 @@ public partial class CreateAutomationPipelineWindow
             }
         }
 
-        _createButton.IsEnabled = false;
+        _backButton.Visibility = _multiSelect ? Visibility.Visible : Visibility.Collapsed;
         _createButton.Visibility = _multiSelect ? Visibility.Visible : Visibility.Collapsed;
-        _logicSelection.Visibility = _multiSelect ? Visibility.Visible : Visibility.Collapsed;
+        _logicComboBox.Visibility = _multiSelect ? Visibility.Visible : Visibility.Collapsed;
+        RefreshCreateButton();
 
         return Task.CompletedTask;
     }

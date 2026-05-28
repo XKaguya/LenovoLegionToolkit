@@ -166,6 +166,9 @@
   <data name="Add" xml:space="preserve">
     <value>追加</value>
   </data>
+  <data name="AddAutomationStepWindow_MultipleSteps" xml:space="preserve">
+    <value>Multiple steps...</value>
+  </data>
   <data name="AddAutomationStepWindow_Title" xml:space="preserve">
     <value>ステップを追加</value>
   </data>
@@ -460,6 +463,9 @@
   </data>
   <data name="AutomationPipelineTriggerConfigurationWindow_Title" xml:space="preserve">
     <value>設定</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
   </data>
   <data name="BalanceModeSettingsWindow_AIEngine_Message" xml:space="preserve">
     <value>特定のゲームの実行中を自動的に検出し、CPU と GPU のパフォーマンスを調整します。温度とファンの騒音が増加する可能性があります。</value>
