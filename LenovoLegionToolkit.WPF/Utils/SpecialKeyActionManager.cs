@@ -120,8 +120,8 @@ public class SpecialKeyActionManager
             if (pipeline is not null)
             {
                 Log.Instance.Trace($"Running pipeline {currentId} for {keyName} (single press)");
-                await _automationProcessor.RunNowAsync(pipeline.Id).ConfigureAwait(false);
                 MessagingCenter.Publish(new NotificationMessage(NotificationType.SmartKeySinglePress, pipeline.Name ?? string.Empty));
+                await _automationProcessor.RunNowAsync(pipeline.Id).ConfigureAwait(false);
             }
         }
         catch (Exception ex)
@@ -152,8 +152,8 @@ public class SpecialKeyActionManager
             if (pipeline is not null)
             {
                 Log.Instance.Trace($"Running pipeline {currentId} for {keyName} (double press)");
-                await _automationProcessor.RunNowAsync(pipeline.Id).ConfigureAwait(false);
                 MessagingCenter.Publish(new NotificationMessage(NotificationType.SmartKeyDoublePress, pipeline.Name ?? string.Empty));
+                await _automationProcessor.RunNowAsync(pipeline.Id).ConfigureAwait(false);
             }
         }
         catch (Exception ex)

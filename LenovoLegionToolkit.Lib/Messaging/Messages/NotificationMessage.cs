@@ -1,8 +1,10 @@
-﻿namespace LenovoLegionToolkit.Lib.Messaging.Messages;
+namespace LenovoLegionToolkit.Lib.Messaging.Messages;
 
 public readonly struct NotificationMessage(NotificationType type, params object[] args) : IMessage
 {
     public NotificationType Type { get; } = type;
+
+    public NotificationOverrides? Overrides { get; init; }
 
     public object[] Args { get; } = args;
 

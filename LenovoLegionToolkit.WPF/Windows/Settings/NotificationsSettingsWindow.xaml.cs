@@ -277,7 +277,7 @@ public partial class NotificationsSettingsWindow
     }
 
     private void OpenCustomizeWindow(string title, (NotificationType, string)[] types) =>
-        new NotificationTypeCustomizationWindow(title, types, _settings) { Owner = this }.ShowDialog();
+        new NotificationTypeCustomizationWindow(title, types, _settings.Store.Notifications) { Owner = this }.ShowDialog();
 
     private void PowerModeCustomizeButton_Click(object sender, RoutedEventArgs e) =>
         OpenCustomizeWindow(Resource.NotificationsSettingsWindow_PowerMode,

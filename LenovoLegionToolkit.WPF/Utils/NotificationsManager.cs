@@ -177,23 +177,30 @@ public class NotificationsManager
                 _ => null
             };
 
-            if (_settings.Store.Notifications.IconOverrides.TryGetValue(notification.Type, out var iconOverride)
+            if (notification.Overrides?.IconOverride != null && Enum.IsDefined(typeof(SymbolRegular), notification.Overrides.IconOverride.Value))
+                symbol = (SymbolRegular)notification.Overrides.IconOverride.Value;
+            else if (_settings.Store.Notifications.IconOverrides.TryGetValue(notification.Type, out var iconOverride)
                 && Enum.IsDefined(typeof(SymbolRegular), iconOverride))
                 symbol = (SymbolRegular)iconOverride;
 
-            if (_settings.Store.Notifications.ColorOverrides.TryGetValue(notification.Type, out var colorOverride))
+            if (notification.Overrides?.ColorOverride != null)
+                symbolTransform = si => si.Foreground = new SolidColorBrush(notification.Overrides.ColorOverride.Value.ToColor());
+            else if (_settings.Store.Notifications.ColorOverrides.TryGetValue(notification.Type, out var colorOverride))
                 symbolTransform = si => si.Foreground = new SolidColorBrush(colorOverride.ToColor());
 
             if (symbolTransform is null && overlaySymbol is not null)
                 symbolTransform = si => si.SetResourceReference(Control.ForegroundProperty, "TextFillColorSecondaryBrush");
 
-            Brush? textColor = _settings.Store.Notifications.TextColorOverrides.TryGetValue(notification.Type, out var textColorOverride)
-                ? new SolidColorBrush(textColorOverride.ToColor())
-                : null;
+            Brush? textColor = null;
+            if (notification.Overrides?.TextColorOverride != null)
+                textColor = new SolidColorBrush(notification.Overrides.TextColorOverride.Value.ToColor());
+            else if (_settings.Store.Notifications.TextColorOverrides.TryGetValue(notification.Type, out var textColorOverride))
+                textColor = new SolidColorBrush(textColorOverride.ToColor());
 
-            var effectiveDuration = _settings.Store.Notifications.DurationOverrides.TryGetValue(notification.Type, out var durOverride)
-                ? durOverride
-                : _settings.Store.NotificationDuration;
+            var effectiveDuration = notification.Overrides?.DurationOverride 
+                ?? (_settings.Store.Notifications.DurationOverrides.TryGetValue(notification.Type, out var durOverride)
+                    ? durOverride
+                    : _settings.Store.NotificationDuration);
 
             var duration = effectiveDuration switch
             {
@@ -203,9 +210,10 @@ public class NotificationsManager
                 _ => throw new ArgumentException(nameof(effectiveDuration))
             };
 
-            var effectivePosition = _settings.Store.Notifications.PositionOverrides.TryGetValue(notification.Type, out var posOverride)
-                ? posOverride
-                : _settings.Store.NotificationPosition;
+            var effectivePosition = notification.Overrides?.PositionOverride
+                ?? (_settings.Store.Notifications.PositionOverrides.TryGetValue(notification.Type, out var posOverride)
+                    ? posOverride
+                    : _settings.Store.NotificationPosition);
 
             ShowNotification(duration, symbol, overlaySymbol, symbolTransform, text, textColor, clickAction, effectivePosition);
 

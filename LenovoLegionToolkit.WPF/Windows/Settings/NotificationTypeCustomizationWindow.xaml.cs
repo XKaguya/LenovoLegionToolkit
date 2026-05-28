@@ -33,16 +33,16 @@ public partial class NotificationTypeCustomizationWindow
         public ComboBox DurationComboBox { get; } = durationComboBox;
     }
 
-    private readonly NotificationSettings _settings;
+    private readonly INotificationCustomizationStore _store;
     private readonly IReadOnlyList<(NotificationType Type, string DisplayName)> _types;
     private readonly List<NotificationTypeRow> _rows = [];
 
     public NotificationTypeCustomizationWindow(
         string categoryTitle,
         IReadOnlyList<(NotificationType Type, string DisplayName)> types,
-        NotificationSettings settings)
+        INotificationCustomizationStore store)
     {
-        _settings = settings;
+        _store = store;
         _types = types;
 
         InitializeComponent();
@@ -95,7 +95,7 @@ public partial class NotificationTypeCustomizationWindow
 
     private NotificationTypeRow BuildRow(NotificationType type, string displayName, int rowIndex)
     {
-        var notifications = _settings.Store.Notifications;
+        var notifications = _store;
 
         var iconPicker = new SymbolRegularPickerControl
         {
@@ -117,7 +117,7 @@ public partial class NotificationTypeCustomizationWindow
                 notifications.IconOverrides.Remove(type);
                 iconPicker.SelectedSymbol = NotificationsManager.GetDefaultSymbol(type);
             }
-            _settings.SynchronizeStore();
+            _store.SynchronizeStore();
         };
 
         var iconColorPicker = new ColorPickerControl
@@ -133,7 +133,7 @@ public partial class NotificationTypeCustomizationWindow
         {
             var c = iconColorPicker.SelectedColor;
             notifications.ColorOverrides[type] = new RGBColor(c.R, c.G, c.B);
-            _settings.SynchronizeStore();
+            _store.SynchronizeStore();
         };
 
         var textColorPicker = new ColorPickerControl
@@ -149,7 +149,7 @@ public partial class NotificationTypeCustomizationWindow
         {
             var c = textColorPicker.SelectedColor;
             notifications.TextColorOverrides[type] = new RGBColor(c.R, c.G, c.B);
-            _settings.SynchronizeStore();
+            _store.SynchronizeStore();
         };
 
         var positionComboBox = BuildPositionComboBox(type);
@@ -217,7 +217,7 @@ public partial class NotificationTypeCustomizationWindow
         foreach (var pos in Enum.GetValues<NotificationPosition>())
             comboBox.Items.Add(new ComboBoxItem { Content = pos.GetDisplayName(), Tag = (NotificationPosition?)pos });
 
-        var hasOverride = _settings.Store.Notifications.PositionOverrides.TryGetValue(type, out var posOverride);
+        var hasOverride = _store.PositionOverrides.TryGetValue(type, out var posOverride);
         if (hasOverride)
         {
             var idx = Array.IndexOf(Enum.GetValues<NotificationPosition>(), posOverride);
@@ -231,10 +231,10 @@ public partial class NotificationTypeCustomizationWindow
         comboBox.SelectionChanged += (_, _) =>
         {
             if (comboBox.SelectedItem is ComboBoxItem { Tag: NotificationPosition pos })
-                _settings.Store.Notifications.PositionOverrides[type] = pos;
+                _store.PositionOverrides[type] = pos;
             else
-                _settings.Store.Notifications.PositionOverrides.Remove(type);
-            _settings.SynchronizeStore();
+                _store.PositionOverrides.Remove(type);
+            _store.SynchronizeStore();
         };
 
         return comboBox;
@@ -248,7 +248,7 @@ public partial class NotificationTypeCustomizationWindow
         foreach (var dur in Enum.GetValues<NotificationDuration>())
             comboBox.Items.Add(new ComboBoxItem { Content = dur.GetDisplayName(), Tag = (NotificationDuration?)dur });
 
-        var hasOverride = _settings.Store.Notifications.DurationOverrides.TryGetValue(type, out var durOverride);
+        var hasOverride = _store.DurationOverrides.TryGetValue(type, out var durOverride);
         if (hasOverride)
         {
             var idx = Array.IndexOf(Enum.GetValues<NotificationDuration>(), durOverride);
@@ -262,10 +262,10 @@ public partial class NotificationTypeCustomizationWindow
         comboBox.SelectionChanged += (_, _) =>
         {
             if (comboBox.SelectedItem is ComboBoxItem { Tag: NotificationDuration dur })
-                _settings.Store.Notifications.DurationOverrides[type] = dur;
+                _store.DurationOverrides[type] = dur;
             else
-                _settings.Store.Notifications.DurationOverrides.Remove(type);
-            _settings.SynchronizeStore();
+                _store.DurationOverrides.Remove(type);
+            _store.SynchronizeStore();
         };
 
         return comboBox;
@@ -273,7 +273,7 @@ public partial class NotificationTypeCustomizationWindow
 
     private void ResetButton_Click(object sender, RoutedEventArgs e)
     {
-        var notifications = _settings.Store.Notifications;
+        var notifications = _store;
         foreach (var row in _rows)
         {
             notifications.IconOverrides.Remove(row.Type);
@@ -282,7 +282,7 @@ public partial class NotificationTypeCustomizationWindow
             notifications.PositionOverrides.Remove(row.Type);
             notifications.DurationOverrides.Remove(row.Type);
         }
-        _settings.SynchronizeStore();
+        _store.SynchronizeStore();
         BuildRows();
     }
 

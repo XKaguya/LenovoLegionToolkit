@@ -4,18 +4,18 @@ namespace LenovoLegionToolkit.Lib.Settings;
 
 public class NotificationSettings() : AbstractSettings<NotificationSettings.NotificationSettingsStore>("notification_settings.json")
 {
-    public class Notifications
+    public class Notifications : INotificationCustomizationStore
     {
         public bool UpdateAvailable { get; set; } = true;
-        public bool CapsLock { get; set; }
-        public bool NumLock { get; set; }
-        public bool FnLock { get; set; }
+        public bool CapsLock { get; set; } = true;
+        public bool NumLock { get; set; } = true;
+        public bool FnLock { get; set; } = true;
         public bool TouchpadLock { get; set; } = true;
         public bool KeyboardBacklight { get; set; } = true;
         public bool CameraLock { get; set; } = true;
         public bool AirplaneMode { get; set; } = true;
         public bool Microphone { get; set; } = true;
-        public bool PowerMode { get; set; }
+        public bool PowerMode { get; set; } = true;
         public bool RefreshRate { get; set; } = true;
         public bool ACAdapter { get; set; }
         public bool SmartKey { get; set; }
@@ -27,6 +27,11 @@ public class NotificationSettings() : AbstractSettings<NotificationSettings.Noti
         public Dictionary<NotificationType, RGBColor> TextColorOverrides { get; set; } = [];
         public Dictionary<NotificationType, NotificationPosition> PositionOverrides { get; set; } = [];
         public Dictionary<NotificationType, NotificationDuration> DurationOverrides { get; set; } = [];
+
+        public void SynchronizeStore()
+        {
+            IoCContainer.Resolve<NotificationSettings>().SynchronizeStore();
+        }
     }
 
     public class NotificationSettingsStore
