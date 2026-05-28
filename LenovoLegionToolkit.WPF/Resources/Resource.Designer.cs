@@ -4590,6 +4590,15 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No Logic (Separate).
+        /// </summary>
+        public static string MultipleTriggersAutomationPipelineTrigger_Logic_None {
+            get {
+                return ResourceManager.GetString("MultipleTriggersAutomationPipelineTrigger_Logic_None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Match Any (OR).
         /// </summary>
         public static string MultipleTriggersAutomationPipelineTrigger_Logic_Or {

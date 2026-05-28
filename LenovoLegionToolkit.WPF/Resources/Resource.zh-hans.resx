@@ -1654,6 +1654,9 @@ Thank you for your support!</value>
   <data name="MultipleTriggersAutomationPipelineTrigger_Logic_And" xml:space="preserve">
     <value>匹配全部</value>
   </data>
+  <data name="MultipleTriggersAutomationPipelineTrigger_Logic_None" xml:space="preserve">
+    <value>No Logic (Separate)</value>
+  </data>
   <data name="MultipleTriggersAutomationPipelineTrigger_Logic_Or" xml:space="preserve">
     <value>匹配任意</value>
   </data>

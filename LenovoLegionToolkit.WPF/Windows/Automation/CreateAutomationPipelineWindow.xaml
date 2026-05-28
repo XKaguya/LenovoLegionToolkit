@@ -88,6 +88,7 @@
                 SelectedIndex="0"
                 Visibility="Collapsed"
                 ToolTip="{x:Static resources:Resource.MultipleTriggersAutomationPipelineTrigger_Logic_Title}">
+                <ComboBoxItem Content="{x:Static resources:Resource.MultipleTriggersAutomationPipelineTrigger_Logic_None}" />
                 <ComboBoxItem Content="{x:Static resources:Resource.MultipleTriggersAutomationPipelineTrigger_Logic_And}" />
                 <ComboBoxItem Content="{x:Static resources:Resource.MultipleTriggersAutomationPipelineTrigger_Logic_Or}" />
             </ComboBox>
