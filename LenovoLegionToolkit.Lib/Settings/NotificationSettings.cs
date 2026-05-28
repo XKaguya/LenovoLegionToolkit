@@ -4,7 +4,7 @@ namespace LenovoLegionToolkit.Lib.Settings;
 
 public class NotificationSettings() : AbstractSettings<NotificationSettings.NotificationSettingsStore>("notification_settings.json")
 {
-    public class Notifications : INotificationCustomizationStore
+    public class Notifications
     {
         public bool UpdateAvailable { get; set; } = true;
         public bool CapsLock { get; set; } = true;
@@ -28,10 +28,6 @@ public class NotificationSettings() : AbstractSettings<NotificationSettings.Noti
         public Dictionary<NotificationType, NotificationPosition> PositionOverrides { get; set; } = [];
         public Dictionary<NotificationType, NotificationDuration> DurationOverrides { get; set; } = [];
 
-        public void SynchronizeStore()
-        {
-            IoCContainer.Resolve<NotificationSettings>().SynchronizeStore();
-        }
     }
 
     public class NotificationSettingsStore

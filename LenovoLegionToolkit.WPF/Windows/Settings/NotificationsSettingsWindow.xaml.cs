@@ -277,7 +277,7 @@ public partial class NotificationsSettingsWindow
     }
 
     private void OpenCustomizeWindow(string title, (NotificationType, string)[] types) =>
-        new NotificationTypeCustomizationWindow(title, types, _settings.Store.Notifications) { Owner = this }.ShowDialog();
+        new NotificationTypeCustomizationWindow(title, types, new NotificationsStoreWrapper(_settings)) { Owner = this }.ShowDialog();
 
     private void PowerModeCustomizeButton_Click(object sender, RoutedEventArgs e) =>
         OpenCustomizeWindow(Resource.NotificationsSettingsWindow_PowerMode,
@@ -390,4 +390,15 @@ public partial class NotificationsSettingsWindow
     private void AutomationCustomizeButton_Click(object sender, RoutedEventArgs e) =>
         OpenCustomizeWindow(Resource.NotificationsSettingsWindow_Automation,
         [(NotificationType.AutomationNotification, Resource.NotificationsSettingsWindow_Automation)]);
+
+    private sealed class NotificationsStoreWrapper(NotificationSettings settings) : INotificationCustomizationStore
+    {
+        public Dictionary<NotificationType, int> IconOverrides => settings.Store.Notifications.IconOverrides;
+        public Dictionary<NotificationType, RGBColor> ColorOverrides => settings.Store.Notifications.ColorOverrides;
+        public Dictionary<NotificationType, RGBColor> TextColorOverrides => settings.Store.Notifications.TextColorOverrides;
+        public Dictionary<NotificationType, NotificationPosition> PositionOverrides => settings.Store.Notifications.PositionOverrides;
+        public Dictionary<NotificationType, NotificationDuration> DurationOverrides => settings.Store.Notifications.DurationOverrides;
+
+        public void SynchronizeStore() => settings.SynchronizeStore();
+    }
 }

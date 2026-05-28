@@ -192,8 +192,9 @@ public partial class WindowsPowerModeController(ApplicationSettings settings, IM
     public static Guid GuidForWindowsPowerMode(WindowsPowerMode windowsPowerMode) => windowsPowerMode switch
     {
         WindowsPowerMode.BestPowerEfficiency => BestPowerEfficiency,
+        WindowsPowerMode.Balanced => Guid.Empty,
         WindowsPowerMode.BestPerformance => BestPerformance,
-        _ => Guid.Empty
+        _ => throw new ArgumentOutOfRangeException(nameof(windowsPowerMode), windowsPowerMode, null)
     };
 
     public static void ApplyActiveOverlayScheme(Guid guid)
