@@ -228,8 +228,8 @@ public enum FanMaxSpeedState
 
 public enum OsdState
 {
-    [Display(ResourceType = typeof(Resource), Name = "OsdState_Hidden")]
-    Hidden,
+    [Display(ResourceType = typeof(Resource), Name = "OsdState_Hide")]
+    Hide,
     [Display(ResourceType = typeof(Resource), Name = "OsdState_Show")]
     Show,
     [Display(ResourceType = typeof(Resource), Name = "OsdState_Toggle")]

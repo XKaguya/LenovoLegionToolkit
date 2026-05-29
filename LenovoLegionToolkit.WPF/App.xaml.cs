@@ -1041,7 +1041,7 @@ public partial class App
 
         switch (command)
         {
-            case OsdState.Hidden:
+            case OsdState.Hide:
                 if (OsdWindow != null)
                 {
                     OsdWindow.Hide();

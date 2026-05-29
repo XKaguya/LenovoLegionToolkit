@@ -209,6 +209,7 @@ public partial class AutomationPage
             new CloseAppAutomationStep(),
             new ShowAppAutomationStep(),
             new OsdAutomationStep(default),
+            new OsdLockPositionAutomationStep(default),
             new FanMaxSpeedAutomationStep(default),
         };
 

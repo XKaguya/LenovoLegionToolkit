@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using LenovoLegionToolkit.Lib.Automation.Resources;
 
 namespace LenovoLegionToolkit.Lib.Automation;
@@ -25,4 +25,14 @@ public enum OverclockDiscreteGPUAutomationStepState
     Off,
     [Display(ResourceType = typeof(Resource), Name = "OverclockDiscreteGPUAutomationStepState_On")]
     On
+}
+
+public enum OsdLockPositionAutomationStepState
+{
+    [Display(ResourceType = typeof(Resource), Name = "OsdLockPositionAutomationStepState_Unlock")]
+    Unlock,
+    [Display(ResourceType = typeof(Resource), Name = "OsdLockPositionAutomationStepState_Lock")]
+    Lock,
+    [Display(ResourceType = typeof(Resource), Name = "OsdLockPositionAutomationStepState_Toggle")]
+    Toggle
 }

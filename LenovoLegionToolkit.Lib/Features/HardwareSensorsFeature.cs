@@ -32,7 +32,7 @@ public class HardwareSensorsFeature(ApplicationSettings settings, OsdSettings os
             settings.Store.UseNewSensorDashboard = false;
             osdSettings.Store.ShowOsd = false;
             osdSettings.SynchronizeStore();
-            MessagingCenter.Publish(new OsdChangedMessage(OsdState.Hidden));
+            MessagingCenter.Publish(new OsdChangedMessage(OsdState.Hide));
         }
 
         settings.Store.EnableHardwareSensors = state == HardwareSensorsState.On;

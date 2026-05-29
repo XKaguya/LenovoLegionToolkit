@@ -570,6 +570,7 @@ public class AutomationPipelineControl : UserControl
             CloseAppAutomationStep s => new CloseAppAutomationStepControl(s),
             ShowAppAutomationStep s => new ShowAppAutomationStepControl(s),
             OsdAutomationStep s => new OsdAutomationStepControl(s),
+            OsdLockPositionAutomationStep s => new OsdLockPositionAutomationStepControl(s),
             FanMaxSpeedAutomationStep s => new FanMaxSpeedAutomationStepControl(s),
             _ => throw new InvalidOperationException("Unknown step type"),
         };

@@ -5438,6 +5438,24 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Set the lock position state of the OSD.
+        /// </summary>
+        public static string OsdLockPositionAutomationStepControl_Message {
+            get {
+                return ResourceManager.GetString("OsdLockPositionAutomationStepControl_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OSD Lock Position.
+        /// </summary>
+        public static string OsdLockPositionAutomationStepControl_Title {
+            get {
+                return ResourceManager.GetString("OsdLockPositionAutomationStepControl_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Background Color.
         /// </summary>
         public static string OsdSettings_Appearance_BackgroundColor {

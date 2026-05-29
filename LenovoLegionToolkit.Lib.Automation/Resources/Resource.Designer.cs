@@ -358,11 +358,29 @@ namespace LenovoLegionToolkit.Lib.Automation.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lock.
+        /// </summary>
+        public static string OsdLockPositionAutomationStepState_Lock {
+            get {
+                return ResourceManager.GetString("OsdLockPositionAutomationStepState_Lock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Toggle.
         /// </summary>
-        public static string OsdState_Toggle {
+        public static string OsdLockPositionAutomationStepState_Toggle {
             get {
-                return ResourceManager.GetString("OsdState_Toggle", resourceCulture);
+                return ResourceManager.GetString("OsdLockPositionAutomationStepState_Toggle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unlock.
+        /// </summary>
+        public static string OsdLockPositionAutomationStepState_Unlock {
+            get {
+                return ResourceManager.GetString("OsdLockPositionAutomationStepState_Unlock", resourceCulture);
             }
         }
         

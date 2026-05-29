@@ -385,14 +385,14 @@
   <data name="OsdItem_VramUtilization" xml:space="preserve">
     <value>显存利用率</value>
   </data>
-  <data name="OsdState_Hidden" xml:space="preserve">
+  <data name="OsdState_Hide" xml:space="preserve">
     <value>隐藏</value>
   </data>
   <data name="OsdState_Show" xml:space="preserve">
     <value>显示</value>
   </data>
   <data name="OsdState_Toggle" xml:space="preserve">
-    <value>切换状态</value>
+    <value>切换</value>
   </data>
   <data name="OverdriveState_Off" xml:space="preserve">
     <value>关</value>

@@ -385,14 +385,14 @@
   <data name="OsdItem_VramUtilization" xml:space="preserve">
     <value>Использование VRAM</value>
   </data>
-  <data name="OsdState_Hidden" xml:space="preserve">
+  <data name="OsdState_Hide" xml:space="preserve">
     <value>Скрыть</value>
   </data>
   <data name="OsdState_Show" xml:space="preserve">
     <value>Показать</value>
   </data>
   <data name="OsdState_Toggle" xml:space="preserve">
-    <value>Состояние переключения</value>
+    <value>Переключатель</value>
   </data>
   <data name="OverdriveState_Off" xml:space="preserve">
     <value>Откл.</value>
