@@ -3274,6 +3274,9 @@ Necesită repornirea.</value>
   <data name="TryAgain" xml:space="preserve">
     <value>Încercați din nou</value>
   </data>
+  <data name="TurnOffAirplaneModeAutomationStepControl_Title" xml:space="preserve">
+    <value>Turn off airplane mode</value>
+  </data>
   <data name="TurnOffMonitorsAutomationStepControl_Message" xml:space="preserve">
     <value>Opriți toate afișajele disponibile.</value>
   </data>
@@ -3292,6 +3295,9 @@ Mișcarea mouse-ului sau apăsarea tastaturii va reporni afișajele.</value>
   </data>
   <data name="TurnOffWiFiAutomationStepControl_Title" xml:space="preserve">
     <value>Turn off Wi-Fi</value>
+  </data>
+  <data name="TurnOnAirplaneModeAutomationStepControl_Title" xml:space="preserve">
+    <value>Turn on airplane mode</value>
   </data>
   <data name="TurnOnWiFiAutomationStepControl_Title" xml:space="preserve">
     <value>Turn on Wi-Fi</value>

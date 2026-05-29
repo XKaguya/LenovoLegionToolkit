@@ -3273,6 +3273,9 @@ Do not proceed unless you possess the necessary technical expertise.</value>
   <data name="TryAgain" xml:space="preserve">
     <value>再試一次</value>
   </data>
+  <data name="TurnOffAirplaneModeAutomationStepControl_Title" xml:space="preserve">
+    <value>Turn off airplane mode</value>
+  </data>
   <data name="TurnOffMonitorsAutomationStepControl_Message" xml:space="preserve">
     <value>關閉所有可供使用的顯示器。</value>
   </data>
@@ -3291,6 +3294,9 @@ Do not proceed unless you possess the necessary technical expertise.</value>
   </data>
   <data name="TurnOffWiFiAutomationStepControl_Title" xml:space="preserve">
     <value>關閉 Wi-Fi</value>
+  </data>
+  <data name="TurnOnAirplaneModeAutomationStepControl_Title" xml:space="preserve">
+    <value>Turn on airplane mode</value>
   </data>
   <data name="TurnOnWiFiAutomationStepControl_Title" xml:space="preserve">
     <value>開啟 Wi-Fi</value>

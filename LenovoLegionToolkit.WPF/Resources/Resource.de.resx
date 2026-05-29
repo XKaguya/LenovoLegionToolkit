@@ -3273,6 +3273,9 @@ Erfordert einen Neustart.</value>
   <data name="TryAgain" xml:space="preserve">
     <value>Erneut versuchen</value>
   </data>
+  <data name="TurnOffAirplaneModeAutomationStepControl_Title" xml:space="preserve">
+    <value>Turn off airplane mode</value>
+  </data>
   <data name="TurnOffMonitorsAutomationStepControl_Message" xml:space="preserve">
     <value>Alle verfügbaren Bildschirme ausschalten.</value>
   </data>
@@ -3291,6 +3294,9 @@ Mausbewegung oder Tastendruck weckt die Bildschirme auf.</value>
   </data>
   <data name="TurnOffWiFiAutomationStepControl_Title" xml:space="preserve">
     <value>WLAN ausschalten</value>
+  </data>
+  <data name="TurnOnAirplaneModeAutomationStepControl_Title" xml:space="preserve">
+    <value>Turn on airplane mode</value>
   </data>
   <data name="TurnOnWiFiAutomationStepControl_Title" xml:space="preserve">
     <value>WLAN einschalten</value>

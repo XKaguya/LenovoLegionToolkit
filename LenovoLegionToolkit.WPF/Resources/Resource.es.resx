@@ -3275,6 +3275,9 @@ Requiere un reinicio.</value>
   <data name="TryAgain" xml:space="preserve">
     <value>Intentar de nuevo</value>
   </data>
+  <data name="TurnOffAirplaneModeAutomationStepControl_Title" xml:space="preserve">
+    <value>Turn off airplane mode</value>
+  </data>
   <data name="TurnOffMonitorsAutomationStepControl_Message" xml:space="preserve">
     <value>Apagar todas las pantallas disponibles.</value>
   </data>
@@ -3293,6 +3296,9 @@ Al mover el ratón o pulsar el teclado se activarán las pantallas.</value>
   </data>
   <data name="TurnOffWiFiAutomationStepControl_Title" xml:space="preserve">
     <value>Apagar el Wi-Fi</value>
+  </data>
+  <data name="TurnOnAirplaneModeAutomationStepControl_Title" xml:space="preserve">
+    <value>Turn on airplane mode</value>
   </data>
   <data name="TurnOnWiFiAutomationStepControl_Title" xml:space="preserve">
     <value>Encender el Wi-Fi</value>

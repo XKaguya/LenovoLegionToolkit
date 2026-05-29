@@ -3274,6 +3274,9 @@ Requires restart.</value>
   <data name="TryAgain" xml:space="preserve">
     <value>もう一度試してください</value>
   </data>
+  <data name="TurnOffAirplaneModeAutomationStepControl_Title" xml:space="preserve">
+    <value>Turn off airplane mode</value>
+  </data>
   <data name="TurnOffMonitorsAutomationStepControl_Message" xml:space="preserve">
     <value>利用可能なディスプレイをすべてオフにします。</value>
   </data>
@@ -3292,6 +3295,9 @@ Requires restart.</value>
   </data>
   <data name="TurnOffWiFiAutomationStepControl_Title" xml:space="preserve">
     <value>Wi-Fiをオフにする</value>
+  </data>
+  <data name="TurnOnAirplaneModeAutomationStepControl_Title" xml:space="preserve">
+    <value>Turn on airplane mode</value>
   </data>
   <data name="TurnOnWiFiAutomationStepControl_Title" xml:space="preserve">
     <value>Wi-Fiをオンにする</value>

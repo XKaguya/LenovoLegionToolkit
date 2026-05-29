@@ -1,4 +1,4 @@
-﻿using LenovoLegionToolkit.Lib.Utils;
+using LenovoLegionToolkit.Lib.Utils;
 using System;
 using System.Runtime.InteropServices;
 
@@ -33,6 +33,36 @@ public static class AirplaneMode
             var newState = state == 0 ? 1 : 0;
             radioManager.SetSystemRadioState(newState);
             return newState == 0;
+        }
+        finally
+        {
+            Marshal.ReleaseComObject(radioManager);
+        }
+    }
+
+    public static void TurnOn()
+    {
+        SetState(0);
+    }
+
+    public static void TurnOff()
+    {
+        SetState(1);
+    }
+
+    private static void SetState(int state)
+    {
+        var comType = Type.GetTypeFromCLSID(RadioManagerClsid);
+        if (comType == null)
+        {
+            Log.Instance.Trace($"Failed to get COM type for IRadioManager.");
+            return;
+        }
+
+        var radioManager = (IRadioManager)Activator.CreateInstance(comType)!;
+        try
+        {
+            radioManager.SetSystemRadioState(state);
         }
         finally
         {

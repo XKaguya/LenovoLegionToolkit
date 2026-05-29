@@ -3274,6 +3274,9 @@ Se desativado, esta app irá executar os atalhos Fn.
   <data name="TryAgain" xml:space="preserve">
     <value>Tentar novamente</value>
   </data>
+  <data name="TurnOffAirplaneModeAutomationStepControl_Title" xml:space="preserve">
+    <value>Turn off airplane mode</value>
+  </data>
   <data name="TurnOffMonitorsAutomationStepControl_Message" xml:space="preserve">
     <value>Desligar todos os ecrãs disponíveis.</value>
   </data>
@@ -3292,6 +3295,9 @@ Mover o rato ou clicar no teclado vai ligar os ecrãs.</value>
   </data>
   <data name="TurnOffWiFiAutomationStepControl_Title" xml:space="preserve">
     <value>Desligar o Wi-Fi</value>
+  </data>
+  <data name="TurnOnAirplaneModeAutomationStepControl_Title" xml:space="preserve">
+    <value>Turn on airplane mode</value>
   </data>
   <data name="TurnOnWiFiAutomationStepControl_Title" xml:space="preserve">
     <value>Ligar o Wi-Fi</value>

@@ -205,6 +205,8 @@ public partial class AutomationPage
             new TurnOffMonitorsAutomationStep(),
             new TurnOffWiFiAutomationStep(),
             new TurnOnWiFiAutomationStep(),
+            new TurnOnAirplaneModeAutomationStep(),
+            new TurnOffAirplaneModeAutomationStep(),
             new WhiteKeyboardBacklightAutomationStep(default),
             new WinKeyAutomationStep(default),
             new CloseAppAutomationStep(),

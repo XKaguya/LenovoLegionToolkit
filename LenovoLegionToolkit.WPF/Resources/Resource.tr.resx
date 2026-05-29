@@ -3274,6 +3274,9 @@ Yeniden başlatma gerektirir.</value>
   <data name="TryAgain" xml:space="preserve">
     <value>Tekrar deneyin</value>
   </data>
+  <data name="TurnOffAirplaneModeAutomationStepControl_Title" xml:space="preserve">
+    <value>Turn off airplane mode</value>
+  </data>
   <data name="TurnOffMonitorsAutomationStepControl_Message" xml:space="preserve">
     <value>Mevcut tüm ekranları kapat.</value>
   </data>
@@ -3292,6 +3295,9 @@ Fareyi hareket ettirmek veya klavyeye basmak ekranları uyandırır.</value>
   </data>
   <data name="TurnOffWiFiAutomationStepControl_Title" xml:space="preserve">
     <value>WiFi'yi kapat</value>
+  </data>
+  <data name="TurnOnAirplaneModeAutomationStepControl_Title" xml:space="preserve">
+    <value>Turn on airplane mode</value>
   </data>
   <data name="TurnOnWiFiAutomationStepControl_Title" xml:space="preserve">
     <value>WiFi'yi aç</value>

@@ -9466,6 +9466,15 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Turn off airplane mode.
+        /// </summary>
+        public static string TurnOffAirplaneModeAutomationStepControl_Title {
+            get {
+                return ResourceManager.GetString("TurnOffAirplaneModeAutomationStepControl_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Turn off all available displays..
         /// </summary>
         public static string TurnOffMonitorsAutomationStepControl_Message {
@@ -9517,6 +9526,15 @@ namespace LenovoLegionToolkit.WPF.Resources {
         public static string TurnOffWiFiAutomationStepControl_Title {
             get {
                 return ResourceManager.GetString("TurnOffWiFiAutomationStepControl_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Turn on airplane mode.
+        /// </summary>
+        public static string TurnOnAirplaneModeAutomationStepControl_Title {
+            get {
+                return ResourceManager.GetString("TurnOnAirplaneModeAutomationStepControl_Title", resourceCulture);
             }
         }
         

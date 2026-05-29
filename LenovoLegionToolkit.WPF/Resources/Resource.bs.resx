@@ -3275,6 +3275,9 @@ Zahtijeva ponovno pokretanje.</value>
   <data name="TryAgain" xml:space="preserve">
     <value>Pokušaj ponovo</value>
   </data>
+  <data name="TurnOffAirplaneModeAutomationStepControl_Title" xml:space="preserve">
+    <value>Turn off airplane mode</value>
+  </data>
   <data name="TurnOffMonitorsAutomationStepControl_Message" xml:space="preserve">
     <value>Turn off all available displays.</value>
   </data>
@@ -3293,6 +3296,9 @@ Moving the mouse or pressing the keyboard will wake displays up.</value>
   </data>
   <data name="TurnOffWiFiAutomationStepControl_Title" xml:space="preserve">
     <value>Turn off Wi-Fi</value>
+  </data>
+  <data name="TurnOnAirplaneModeAutomationStepControl_Title" xml:space="preserve">
+    <value>Turn on airplane mode</value>
   </data>
   <data name="TurnOnWiFiAutomationStepControl_Title" xml:space="preserve">
     <value>Turn on Wi-Fi</value>

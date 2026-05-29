@@ -3273,6 +3273,9 @@ Thank you for your support!</value>
   <data name="TryAgain" xml:space="preserve">
     <value>Спробувати знову</value>
   </data>
+  <data name="TurnOffAirplaneModeAutomationStepControl_Title" xml:space="preserve">
+    <value>Turn off airplane mode</value>
+  </data>
   <data name="TurnOffMonitorsAutomationStepControl_Message" xml:space="preserve">
     <value>Вимкнути усі доступні дисплеї.</value>
   </data>
@@ -3291,6 +3294,9 @@ Thank you for your support!</value>
   </data>
   <data name="TurnOffWiFiAutomationStepControl_Title" xml:space="preserve">
     <value>Вимкнути Wi-Fi</value>
+  </data>
+  <data name="TurnOnAirplaneModeAutomationStepControl_Title" xml:space="preserve">
+    <value>Turn on airplane mode</value>
   </data>
   <data name="TurnOnWiFiAutomationStepControl_Title" xml:space="preserve">
     <value>Увімкнути Wi-Fi</value>
