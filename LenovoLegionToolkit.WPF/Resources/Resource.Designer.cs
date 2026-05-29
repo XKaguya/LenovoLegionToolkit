@@ -1702,8 +1702,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select GPU operating mode based on your computer&apos;s usage and power conditions.
-        ///Switching modes may require restart..
+        ///   Looks up a localized string similar to Select GPU operating mode based on your computer&apos;s usage and power conditions..
         /// </summary>
         public static string ComboBoxHybridModeAutomationStepControl_Message {
             get {
@@ -1830,6 +1829,24 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cycle through available Custom Mode presets..
+        /// </summary>
+        public static string CycleGodModePresetAutomationStepControl_Message {
+            get {
+                return ResourceManager.GetString("CycleGodModePresetAutomationStepControl_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cycle Custom Mode preset.
+        /// </summary>
+        public static string CycleGodModePresetAutomationStepControl_Title {
+            get {
+                return ResourceManager.GetString("CycleGodModePresetAutomationStepControl_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to AC Connected.
         /// </summary>
         public static string DashboardBattery_AcConnected {
@@ -1902,9 +1919,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disable discrete GPU if it is active unnecessarily.
-        ///
-        ///WARNING: This action will not run correctly, if internal display is off or Hybrid mode is not active..
+        ///   Looks up a localized string similar to Disable discrete GPU if it is active unnecessarily..
         /// </summary>
         public static string DeactivateGPUAutomationStepControl_Message {
             get {
@@ -2327,9 +2342,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Change display brightness of the built-in display.
-        ///
-        ///WARNING: This action will not run correctly, if internal display is off..
+        ///   Looks up a localized string similar to Change display brightness of the built-in display..
         /// </summary>
         public static string DisplayBrightnessAutomationStepControl_Message {
             get {
@@ -2439,9 +2452,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Change scaling of the built-in display.
-        ///
-        ///WARNING: This action will not run correctly, if internal display is off..
+        ///   Looks up a localized string similar to Change scaling of the built-in display..
         /// </summary>
         public static string DpiScaleAutomationStepControl_Message {
             get {
@@ -2927,8 +2938,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Activate Custom Mode preset.
-        ///This settings takes effect only when Custom Mode is enabled..
+        ///   Looks up a localized string similar to Apply a specific Custom Mode preset..
         /// </summary>
         public static string GodModePresetAutomationStepControl_Message {
             get {
@@ -3487,9 +3497,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enable high dynamic range (HDR) on the built-in display.
-        ///
-        ///WARNING: This action will not run correctly if the internal display is off..
+        ///   Looks up a localized string similar to Enable high dynamic range (HDR) on the built-in display..
         /// </summary>
         public static string HDRAutomationStepControl_Message {
             get {
@@ -5735,9 +5743,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Increase performance by overclocking discrete GPU.
-        ///
-        ///WARNING: This action will not run correctly, if discrete GPU is not available..
+        ///   Looks up a localized string similar to Increase performance by overclocking discrete GPU..
         /// </summary>
         public static string OverclockDiscreteGPUAutomationStepControl_Message {
             get {
@@ -6450,9 +6456,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Change refresh rate of the built-in display.
-        ///
-        ///WARNING: This action will not run correctly, if internal display is off..
+        ///   Looks up a localized string similar to Change refresh rate of the built-in display..
         /// </summary>
         public static string RefreshRateAutomationStepControl_Message {
             get {
@@ -6506,9 +6510,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Change resolution of the built-in display.
-        ///
-        ///WARNING: This action will not run correctly, if internal display is off..
+        ///   Looks up a localized string similar to Change resolution of the built-in display..
         /// </summary>
         public static string ResolutionAutomationStepControl_Message {
             get {
@@ -6760,8 +6762,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Run a script or a program.
-        ///Make sure that your script runs correctly first..
+        ///   Looks up a localized string similar to Run a script or a program..
         /// </summary>
         public static string RunAutomationStepControl_Message {
             get {
@@ -9356,8 +9357,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Allow switching between integrated and discrete GPU.
-        ///Requires restart..
+        ///   Looks up a localized string similar to Allow switching between integrated and discrete GPU..
         /// </summary>
         public static string ToggleHybridModeAutomationStepControl_Message {
             get {

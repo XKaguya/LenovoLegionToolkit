@@ -174,6 +174,7 @@ public partial class AutomationPage
             new DpiScaleAutomationStep(default),
             new FlipToStartAutomationStep(default),
             new FnLockAutomationStep(default),
+            new CycleGodModePresetAutomationStep(),
             new GodModePresetAutomationStep(default),
             new HardwareSensorsAutomationStep(default),
             new HDRAutomationStep(default),
