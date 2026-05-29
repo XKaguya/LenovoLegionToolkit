@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Automation;
 using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Automation;
 using LenovoLegionToolkit.Lib.Automation.Pipeline;
@@ -251,7 +252,7 @@ public partial class SpecialKeyDetailWindow
             _grid.Children.Add(_checkBox);
             _grid.Children.Add(_nameTextBox);
 
-            System.Windows.Automation.AutomationProperties.SetLabeledBy(_checkBox, _nameTextBox);
+            AutomationProperties.SetLabeledBy(_checkBox, _nameTextBox);
 
             Content = _grid;
         }

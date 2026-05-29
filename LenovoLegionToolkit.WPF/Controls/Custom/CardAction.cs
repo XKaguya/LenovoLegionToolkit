@@ -1,10 +1,11 @@
 ﻿using System.Windows;
 using System.Windows.Automation;
 using System.Windows.Automation.Peers;
+using UiCardAction = Wpf.Ui.Controls.CardAction;
 
 namespace LenovoLegionToolkit.WPF.Controls.Custom;
 
-public class CardAction : Wpf.Ui.Controls.CardAction
+public class CardAction : UiCardAction
 {
     static CardAction()
     {

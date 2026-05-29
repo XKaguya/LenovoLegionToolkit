@@ -1,9 +1,10 @@
 ﻿using System.Windows.Automation;
 using System.Windows.Automation.Peers;
+using UiNavigationItem = Wpf.Ui.Controls.NavigationItem;
 
 namespace LenovoLegionToolkit.WPF.Controls.Custom;
 
-public class NavigationItem : Wpf.Ui.Controls.NavigationItem
+public class NavigationItem : UiNavigationItem
 {
     protected override AutomationPeer OnCreateAutomationPeer() => new NavigationItemAutomationPeer(this);
 

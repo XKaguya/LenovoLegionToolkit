@@ -1,10 +1,11 @@
 ﻿using System.Windows;
 using System.Windows.Automation;
 using System.Windows.Automation.Peers;
+using UiInfoBar = Wpf.Ui.Controls.InfoBar;
 
 namespace LenovoLegionToolkit.WPF.Controls.Custom;
 
-public class InfoBar : Wpf.Ui.Controls.InfoBar
+public class InfoBar : UiInfoBar
 {
     protected override AutomationPeer OnCreateAutomationPeer() => new InfoBarAutomationPeer(this);
 

@@ -1,10 +1,11 @@
 ﻿using System.Windows;
 using System.Windows.Automation;
 using System.Windows.Automation.Peers;
+using UiCardExpander = Wpf.Ui.Controls.CardExpander;
 
 namespace LenovoLegionToolkit.WPF.Controls.Custom;
 
-public class CardExpander : Wpf.Ui.Controls.CardExpander
+public class CardExpander : UiCardExpander
 {
     static CardExpander()
     {

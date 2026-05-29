@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using LenovoLegionToolkit.Lib;
+using Wpf.Ui.Controls;
 
 namespace LenovoLegionToolkit.WPF.Windows.Utils;
 
@@ -53,7 +54,7 @@ public partial class UnsupportedWindow
  
     private void Hyperlink_Click(object sender, RoutedEventArgs e)
     {
-        if (sender is Wpf.Ui.Controls.Hyperlink { Tag: string uriString })
+        if (sender is Hyperlink { Tag: string uriString })
         {
             Process.Start("explorer.exe", uriString);
             e.Handled = true;

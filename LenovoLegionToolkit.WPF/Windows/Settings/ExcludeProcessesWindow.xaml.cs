@@ -11,6 +11,7 @@ using LenovoLegionToolkit.WPF.Resources;
 using LenovoLegionToolkit.WPF.Utils;
 using Wpf.Ui.Common;
 using Wpf.Ui.Controls;
+using Button = Wpf.Ui.Controls.Button;
 
 namespace LenovoLegionToolkit.WPF.Windows.Settings;
 
@@ -127,7 +128,7 @@ public partial class ExcludeProcessesWindow
                 FontSize = 14
             };
 
-            var removeButton = new Wpf.Ui.Controls.Button
+            var removeButton = new Button
             {
                 Icon = SymbolRegular.Dismiss24,
                 ToolTip = Resource.Delete,

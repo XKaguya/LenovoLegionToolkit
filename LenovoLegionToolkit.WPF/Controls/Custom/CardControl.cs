@@ -1,10 +1,11 @@
 ﻿using System.Windows;
 using System.Windows.Automation;
 using System.Windows.Automation.Peers;
+using UiCardControl = Wpf.Ui.Controls.CardControl;
 
 namespace LenovoLegionToolkit.WPF.Controls.Custom;
 
-public class CardControl : Wpf.Ui.Controls.CardControl
+public class CardControl : UiCardControl
 {
     public static bool IsCompact { get; set; }
 

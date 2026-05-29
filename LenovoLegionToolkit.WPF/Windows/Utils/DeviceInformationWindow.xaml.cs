@@ -10,6 +10,7 @@ using LenovoLegionToolkit.WPF.Resources;
 using LenovoLegionToolkit.WPF.Utils;
 using LenovoLegionToolkit.WPF.Windows.Overclocking.Amd;
 using Wpf.Ui.Controls;
+using SymbolRegular = Wpf.Ui.Common.SymbolRegular;
 
 namespace LenovoLegionToolkit.WPF.Windows.Utils;
 
@@ -193,6 +194,6 @@ public partial class DeviceInformationWindow
     {
         _isSerialNumberRevealed = !_isSerialNumberRevealed;
         _serialNumberLabel.Text = _isSerialNumberRevealed ? _actualSerialNumber : new string('*', _actualSerialNumber.Length);
-        _toggleSerialNumberButton.Icon = _isSerialNumberRevealed ? Wpf.Ui.Common.SymbolRegular.EyeOff24 : Wpf.Ui.Common.SymbolRegular.Eye24;
+        _toggleSerialNumberButton.Icon = _isSerialNumberRevealed ? SymbolRegular.EyeOff24 : SymbolRegular.Eye24;
     }
 }

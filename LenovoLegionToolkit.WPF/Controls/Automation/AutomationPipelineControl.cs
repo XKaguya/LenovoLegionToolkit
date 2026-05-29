@@ -23,6 +23,7 @@ using LenovoLegionToolkit.WPF.Resources;
 using LenovoLegionToolkit.WPF.Utils;
 using LenovoLegionToolkit.WPF.Windows.Automation;
 using Wpf.Ui.Common;
+using Wpf.Ui.Controls;
 using Button = Wpf.Ui.Controls.Button;
 using CardExpander = LenovoLegionToolkit.WPF.Controls.Custom.CardExpander;
 using MenuItem = Wpf.Ui.Controls.MenuItem;
@@ -495,7 +496,7 @@ public class AutomationPipelineControl : UserControl
             accessoryPanel.Children.Add(button);
         }
 
-        var dragHandle = new Wpf.Ui.Controls.SymbolIcon
+        var dragHandle = new SymbolIcon
         {
             Symbol = SymbolRegular.ReOrderDotsVertical24,
             Margin = new(16, 0, 16, 0),

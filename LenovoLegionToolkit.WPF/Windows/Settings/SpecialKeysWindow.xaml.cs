@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.Settings;
@@ -129,7 +130,7 @@ public partial class SpecialKeysWindow
                 Subtitle = subtitleText
             },
             Tag = code,
-            Cursor = System.Windows.Input.Cursors.Hand,
+            Cursor = Cursors.Hand,
             ContextMenu = CreateHideContextMenu(code,
                 !Enum.IsDefined(typeof(SpecialKey), (SpecialKey)code)
                 && !(code >= SpecialKeySettings.SpecialKeySettingsStore.DriverKeyCodeOffset
@@ -155,7 +156,7 @@ public partial class SpecialKeysWindow
             {
                 Title = displayName
             },
-            Cursor = System.Windows.Input.Cursors.Arrow,
+            Cursor = Cursors.Arrow,
             ContextMenu = CreateUnhideContextMenu(code, isCustom)
         };
         _hiddenArea.Children.Add(card);

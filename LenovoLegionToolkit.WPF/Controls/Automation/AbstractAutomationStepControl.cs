@@ -1,6 +1,7 @@
 ﻿ using System;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Controls;
 using LenovoLegionToolkit.Lib.Automation.Steps;
 using LenovoLegionToolkit.WPF.Resources;
@@ -38,7 +39,7 @@ public abstract class AbstractAutomationStepControl : UserControl
     {
         Symbol = SymbolRegular.ReOrderDotsVertical24,
         Margin = new(-8, 0, 0, 0),
-        Cursor = System.Windows.Input.Cursors.SizeAll,
+        Cursor = Cursors.SizeAll,
         Opacity = 0.5,
     };
 

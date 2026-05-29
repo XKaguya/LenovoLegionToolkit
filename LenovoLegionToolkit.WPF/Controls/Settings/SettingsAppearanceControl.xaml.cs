@@ -15,6 +15,7 @@ using LenovoLegionToolkit.WPF.Resources;
 using LenovoLegionToolkit.WPF.Utils;
 using LenovoLegionToolkit.WPF.Windows.Utils;
 using Microsoft.Win32;
+using SymbolRegular = Wpf.Ui.Common.SymbolRegular;
 
 namespace LenovoLegionToolkit.WPF.Controls.Settings;
 
@@ -244,9 +245,9 @@ public partial class SettingsAppearanceControl
     {
         _stretchToggleButton.Icon = stretch switch
         {
-            BackgroundImageStretchMode.Fill => Wpf.Ui.Common.SymbolRegular.ArrowMaximize24,
-            BackgroundImageStretchMode.Fit => Wpf.Ui.Common.SymbolRegular.Resize24,
-            _ => Wpf.Ui.Common.SymbolRegular.Crop24
+            BackgroundImageStretchMode.Fill => SymbolRegular.ArrowMaximize24,
+            BackgroundImageStretchMode.Fit => SymbolRegular.Resize24,
+            _ => SymbolRegular.Crop24
         };
         _stretchToggleButton.ToolTip = stretch switch
         {

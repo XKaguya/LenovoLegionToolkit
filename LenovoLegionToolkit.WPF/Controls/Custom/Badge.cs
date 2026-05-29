@@ -1,10 +1,11 @@
 ﻿using System.Windows;
 using System.Windows.Automation;
 using System.Windows.Automation.Peers;
+using UiBadge = Wpf.Ui.Controls.Badge;
 
 namespace LenovoLegionToolkit.WPF.Controls.Custom;
 
-public class Badge : Wpf.Ui.Controls.Badge
+public class Badge : UiBadge
 {
     protected override AutomationPeer OnCreateAutomationPeer() => new BadgeAutomationPeer(this);
 

@@ -122,7 +122,7 @@ public partial class CreateAutomationPipelineWindow
         await RefreshAsync();
     }
 
-    private void _searchBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+    private void _searchBox_TextChanged(object sender, TextChangedEventArgs e)
     {
         _ = RefreshAsync();
     }

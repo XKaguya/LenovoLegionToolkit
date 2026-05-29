@@ -11,6 +11,7 @@ using LenovoLegionToolkit.WPF.Resources;
 using LenovoLegionToolkit.WPF.Windows.Settings;
 using Wpf.Ui.Common;
 using TextBox = Wpf.Ui.Controls.TextBox;
+using Button = Wpf.Ui.Controls.Button;
 
 namespace LenovoLegionToolkit.WPF.Controls.Automation.Steps;
 
@@ -22,7 +23,7 @@ public class NotificationAutomationStepControl : AbstractAutomationStepControl<N
         Width = 300
     };
 
-    private readonly Wpf.Ui.Controls.Button _customizeButton = new()
+    private readonly Button _customizeButton = new()
     {
         Icon = SymbolRegular.Edit24,
         ToolTip = Resource.Customize,

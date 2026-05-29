@@ -53,7 +53,7 @@ public partial class AddAutomationStepWindow
         Close();
     }
 
-    private void _searchBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+    private void _searchBox_TextChanged(object sender, TextChangedEventArgs e)
     {
         _ = RefreshAsync();
     }

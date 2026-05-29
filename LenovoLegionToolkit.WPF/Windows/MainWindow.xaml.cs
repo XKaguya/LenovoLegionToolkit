@@ -32,6 +32,8 @@ using LenovoLegionToolkit.WPF.Resources;
 using LenovoLegionToolkit.WPF.Utils;
 using LenovoLegionToolkit.WPF.Windows.Utils;
 using CustomNavigationItem = LenovoLegionToolkit.WPF.Controls.Custom.NavigationItem;
+using Wpf.Ui.Controls.Interfaces;
+using Wpf.Ui.Common;
 
 namespace LenovoLegionToolkit.WPF.Windows;
 
@@ -297,8 +299,8 @@ public partial class MainWindow
                 Content = item.Title,
                 Icon = item.Icon switch
                 {
-                    ExtensionIcon.Gauge => Wpf.Ui.Common.SymbolRegular.Gauge24,
-                    _ => Wpf.Ui.Common.SymbolRegular.Empty,
+                    ExtensionIcon.Gauge => SymbolRegular.Gauge24,
+                    _ => SymbolRegular.Empty,
                 },
                 PageTag = item.PageTag,
                 PageType = item.PageType
@@ -596,9 +598,9 @@ public partial class MainWindow
     {
         _backgroundImage.Stretch = stretch switch
         {
-            BackgroundImageStretchMode.Fit => System.Windows.Media.Stretch.Uniform,
-            BackgroundImageStretchMode.Crop => System.Windows.Media.Stretch.UniformToFill,
-            _ => System.Windows.Media.Stretch.Fill
+            BackgroundImageStretchMode.Fit => Stretch.Uniform,
+            BackgroundImageStretchMode.Crop => Stretch.UniformToFill,
+            _ => Stretch.Fill
         };
     }
 
@@ -630,7 +632,7 @@ public partial class MainWindow
         }
     }
 
-    private void NavigationStore_Navigated(Wpf.Ui.Controls.Interfaces.INavigation sender, Wpf.Ui.Common.RoutedNavigationEventArgs e)
+    private void NavigationStore_Navigated(INavigation sender, RoutedNavigationEventArgs e)
     {
         SetVisual();
     }

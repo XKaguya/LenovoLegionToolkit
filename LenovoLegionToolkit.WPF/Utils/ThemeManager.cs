@@ -6,6 +6,9 @@ using LenovoLegionToolkit.Lib.Settings;
 using LenovoLegionToolkit.Lib.System;
 using LenovoLegionToolkit.Lib.Utils;
 using LenovoLegionToolkit.WPF.Extensions;
+using ThemeType = Wpf.Ui.Appearance.ThemeType;
+using BackgroundType = Wpf.Ui.Appearance.BackgroundType;
+using Accent = Wpf.Ui.Appearance.Accent;
 
 namespace LenovoLegionToolkit.WPF.Utils;
 
@@ -84,25 +87,25 @@ public class ThemeManager
 
     private void SetTheme()
     {
-        var theme = IsDarkMode() ? Wpf.Ui.Appearance.ThemeType.Dark : Wpf.Ui.Appearance.ThemeType.Light;
+        var theme = IsDarkMode() ? ThemeType.Dark : ThemeType.Light;
         Wpf.Ui.Appearance.Theme.Apply(theme, GetBackgroundType(_settings.Store.BackdropType), false);
     }
 
-    public static Wpf.Ui.Appearance.BackgroundType GetBackgroundType(WindowBackdropType backdropType)
+    public static BackgroundType GetBackgroundType(WindowBackdropType backdropType)
     {
         return backdropType switch
         {
-            WindowBackdropType.Mica => Wpf.Ui.Appearance.BackgroundType.Mica,
-            WindowBackdropType.Acrylic => Wpf.Ui.Appearance.BackgroundType.Acrylic,
-            WindowBackdropType.Tabbed => Wpf.Ui.Appearance.BackgroundType.Tabbed,
-            _ => Wpf.Ui.Appearance.BackgroundType.None
+            WindowBackdropType.Mica => BackgroundType.Mica,
+            WindowBackdropType.Acrylic => BackgroundType.Acrylic,
+            WindowBackdropType.Tabbed => BackgroundType.Tabbed,
+            _ => BackgroundType.None
         };
     }
 
     private void SetColor()
     {
         var accentColor = GetAccentColor().ToColor();
-        Wpf.Ui.Appearance.Accent.Apply(systemAccent: accentColor,
+        Accent.Apply(systemAccent: accentColor,
             primaryAccent: accentColor,
             secondaryAccent: accentColor,
             tertiaryAccent: accentColor);
