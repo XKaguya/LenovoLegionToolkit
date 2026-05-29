@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using LenovoLegionToolkit.Lib.Extensions;
 using LenovoLegionToolkit.Lib.Utils;
@@ -39,5 +39,22 @@ public static class WiFi
         return NativeWifi.EnumerateConnectedNetworkSsids()
             .Select(c => c.ToString())
             .FirstOrDefault();
+    }
+
+    public static void Toggle()
+    {
+        try
+        {
+            var interfaces = NativeWifi.EnumerateInterfaces().ToList();
+            var anyOn = interfaces.Any(i => NativeWifi.GetInterfaceRadio(i.Id)?.RadioSets.Any(r => r.SoftwareOn == true) == true);
+            if (anyOn)
+                TurnOff();
+            else
+                TurnOn();
+        }
+        catch (Exception ex)
+        {
+            Log.Instance.Trace($"Failed to toggle WiFi.", ex);
+        }
     }
 }

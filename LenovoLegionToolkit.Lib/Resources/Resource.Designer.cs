@@ -1413,6 +1413,33 @@ namespace LenovoLegionToolkit.Lib.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Off.
         /// </summary>
+        public static string ToggleState_Off {
+            get {
+                return ResourceManager.GetString("ToggleState_Off", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to On.
+        /// </summary>
+        public static string ToggleState_On {
+            get {
+                return ResourceManager.GetString("ToggleState_On", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle.
+        /// </summary>
+        public static string ToggleState_Toggle {
+            get {
+                return ResourceManager.GetString("ToggleState_Toggle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Off.
+        /// </summary>
         public static string TouchpadLockState_Off {
             get {
                 return ResourceManager.GetString("TouchpadLockState_Off", resourceCulture);

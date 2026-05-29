@@ -236,6 +236,16 @@ public enum OsdState
     Toggle,
 }
 
+public enum ToggleState
+{
+    [Display(ResourceType = typeof(Resource), Name = "ToggleState_Off")]
+    Off,
+    [Display(ResourceType = typeof(Resource), Name = "ToggleState_On")]
+    On,
+    [Display(ResourceType = typeof(Resource), Name = "ToggleState_Toggle")]
+    Toggle,
+}
+
 public enum FnLockState
 {
     [Display(ResourceType = typeof(Resource), Name = "FnLockState_Off")]

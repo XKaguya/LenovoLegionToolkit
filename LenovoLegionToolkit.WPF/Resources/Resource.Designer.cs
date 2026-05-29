@@ -232,6 +232,15 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Airplane mode.
+        /// </summary>
+        public static string AirplaneModeAutomationStepControl_Title {
+            get {
+                return ResourceManager.GetString("AirplaneModeAutomationStepControl_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Charge USB devices, when the laptop is off, sleeping or hibernated..
         /// </summary>
         public static string AlwaysOnUsbAutomationStepControl_Message {
@@ -9466,15 +9475,6 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Turn off airplane mode.
-        /// </summary>
-        public static string TurnOffAirplaneModeAutomationStepControl_Title {
-            get {
-                return ResourceManager.GetString("TurnOffAirplaneModeAutomationStepControl_Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Turn off all available displays..
         /// </summary>
         public static string TurnOffMonitorsAutomationStepControl_Message {
@@ -9517,33 +9517,6 @@ namespace LenovoLegionToolkit.WPF.Resources {
         public static string TurnOffMonitorsControl_TurnOff {
             get {
                 return ResourceManager.GetString("TurnOffMonitorsControl_TurnOff", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Turn off Wi-Fi.
-        /// </summary>
-        public static string TurnOffWiFiAutomationStepControl_Title {
-            get {
-                return ResourceManager.GetString("TurnOffWiFiAutomationStepControl_Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Turn on airplane mode.
-        /// </summary>
-        public static string TurnOnAirplaneModeAutomationStepControl_Title {
-            get {
-                return ResourceManager.GetString("TurnOnAirplaneModeAutomationStepControl_Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Turn on Wi-Fi.
-        /// </summary>
-        public static string TurnOnWiFiAutomationStepControl_Title {
-            get {
-                return ResourceManager.GetString("TurnOnWiFiAutomationStepControl_Title", resourceCulture);
             }
         }
         
@@ -9735,6 +9708,15 @@ namespace LenovoLegionToolkit.WPF.Resources {
         public static string WhiteKeyboardBacklightControl_Title {
             get {
                 return ResourceManager.GetString("WhiteKeyboardBacklightControl_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wi-Fi.
+        /// </summary>
+        public static string WiFiAutomationStepControl_Title {
+            get {
+                return ResourceManager.GetString("WiFiAutomationStepControl_Title", resourceCulture);
             }
         }
         
