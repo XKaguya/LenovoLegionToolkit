@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -93,6 +93,7 @@ public static class LocalizationHelper
         if (interactive && await GetLanguageFromFile() is null)
         {
             var window = new LanguageSelectorWindow(Languages, DefaultLanguage);
+            IoCContainer.Resolve<ThemeManager>().Apply();
             window.Show();
             cultureInfo = await window.ShouldContinue;
             if (cultureInfo is not null)
