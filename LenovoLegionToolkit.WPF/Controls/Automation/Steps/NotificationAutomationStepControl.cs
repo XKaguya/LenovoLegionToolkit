@@ -20,6 +20,7 @@ public class NotificationAutomationStepControl : AbstractAutomationStepControl<N
     private readonly TextBox _scriptPath = new()
     {
         PlaceholderText = Resource.NotificationAutomationStepControl_NotificationText,
+        ToolTip = Resource.NotificationAutomationStepControl_ToolTip,
         Width = 300
     };
 

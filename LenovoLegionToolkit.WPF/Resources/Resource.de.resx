@@ -1654,10 +1654,13 @@ Klicken Sie auf Ja zum Deaktivieren und Nein zum Ignorieren.</value>
     <value>Nein</value>
   </data>
   <data name="NotificationAutomationStepControl_NotificationText" xml:space="preserve">
-    <value>Benachrichtigungstext</value>
+    <value>Notification Text (supports $RUN_OUTPUT$)</value>
   </data>
   <data name="NotificationAutomationStepControl_Title" xml:space="preserve">
     <value>Benachrichtigung anzeigen</value>
+  </data>
+  <data name="NotificationAutomationStepControl_ToolTip" xml:space="preserve">
+    <value>You can use $RUN_OUTPUT$ to insert the output of the previous step dynamically.</value>
   </data>
   <data name="NotificationsSettingsWindow_ACAdapter" xml:space="preserve">
     <value>Netzadapter</value>
@@ -1872,7 +1875,7 @@ Andere Vollbildfenster werden dadurch nicht beeinträchtigt, aber Sie können ni
     <value>Schwebendes Gadget</value>
   </data>
   <data name="OsdLockPositionAutomationStepControl_Message" xml:space="preserve">
-    <value>Set the lock position state of the OSD</value>
+    <value>Set the lock position state of the OSD.</value>
   </data>
   <data name="OsdLockPositionAutomationStepControl_Title" xml:space="preserve">
     <value>OSD Lock Position</value>

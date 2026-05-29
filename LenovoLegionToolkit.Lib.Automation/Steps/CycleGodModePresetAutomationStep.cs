@@ -34,6 +34,7 @@ public class CycleGodModePresetAutomationStep() : IAutomationStep
 
         var nextIndex = (currentIndex + 1) % presetIds.Count;
         var targetPresetId = presetIds[nextIndex];
+        var presetName = state.Presets[targetPresetId].Name;
 
         var newState = state with { ActivePresetId = targetPresetId };
 
@@ -41,6 +42,8 @@ public class CycleGodModePresetAutomationStep() : IAutomationStep
 
         if (await _feature.GetStateAsync().ConfigureAwait(false) == PowerModeState.GodMode)
             await _controller.ApplyStateAsync().ConfigureAwait(false);
+
+        context.LastRunOutput = presetName;
     }
 
     public IAutomationStep DeepCopy() => new CycleGodModePresetAutomationStep();

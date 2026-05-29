@@ -4958,7 +4958,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Notification Text.
+        ///   Looks up a localized string similar to Notification Text (supports $RUN_OUTPUT$).
         /// </summary>
         public static string NotificationAutomationStepControl_NotificationText {
             get {
@@ -4972,6 +4972,15 @@ namespace LenovoLegionToolkit.WPF.Resources {
         public static string NotificationAutomationStepControl_Title {
             get {
                 return ResourceManager.GetString("NotificationAutomationStepControl_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can use $RUN_OUTPUT$ to insert the output of the previous step dynamically..
+        /// </summary>
+        public static string NotificationAutomationStepControl_ToolTip {
+            get {
+                return ResourceManager.GetString("NotificationAutomationStepControl_ToolTip", resourceCulture);
             }
         }
         
@@ -5446,7 +5455,7 @@ namespace LenovoLegionToolkit.WPF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set the lock position state of the OSD.
+        ///   Looks up a localized string similar to Set the lock position state of the OSD..
         /// </summary>
         public static string OsdLockPositionAutomationStepControl_Message {
             get {
