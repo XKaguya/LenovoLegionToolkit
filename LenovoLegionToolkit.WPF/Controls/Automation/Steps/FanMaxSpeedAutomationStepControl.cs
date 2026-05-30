@@ -1,13 +1,13 @@
-﻿using LenovoLegionToolkit.Lib;
+using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Automation.Steps;
 using LenovoLegionToolkit.WPF.Resources;
 using Wpf.Ui.Common;
 
 namespace LenovoLegionToolkit.WPF.Controls.Automation.Steps;
 
-public class FanMaxSpeedAutomationStepControl : AbstractComboBoxAutomationStepCardControl<FanMaxSpeedState>
+public class FanMaxSpeedAutomationStepControl : AbstractComboBoxAutomationStepCardControl<ToggleState>
 {
-    public FanMaxSpeedAutomationStepControl(IAutomationStep<FanMaxSpeedState> step) : base(step)
+    public FanMaxSpeedAutomationStepControl(IAutomationStep<ToggleState> step) : base(step)
     {
         Icon = SymbolRegular.Gauge24;
         Title = Resource.FanMaxSpeedAutomationStepControl_Title;

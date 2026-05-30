@@ -10,29 +10,3 @@ public enum DeactivateGPUAutomationStepState
     [Display(ResourceType = typeof(Resource), Name = "DeactivateGPUAutomationStepState_RestartGPU")]
     RestartGPU,
 }
-
-public enum MacroAutomationStepState
-{
-    [Display(ResourceType = typeof(Resource), Name = "MacroAutomationStepState_Off")]
-    Off,
-    [Display(ResourceType = typeof(Resource), Name = "MacroAutomationStepState_On")]
-    On
-}
-
-public enum OverclockDiscreteGPUAutomationStepState
-{
-    [Display(ResourceType = typeof(Resource), Name = "OverclockDiscreteGPUAutomationStepState_Off")]
-    Off,
-    [Display(ResourceType = typeof(Resource), Name = "OverclockDiscreteGPUAutomationStepState_On")]
-    On
-}
-
-public enum OsdLockPositionAutomationStepState
-{
-    [Display(ResourceType = typeof(Resource), Name = "OsdLockPositionAutomationStepState_Unlock")]
-    Unlock,
-    [Display(ResourceType = typeof(Resource), Name = "OsdLockPositionAutomationStepState_Lock")]
-    Lock,
-    [Display(ResourceType = typeof(Resource), Name = "OsdLockPositionAutomationStepState_Toggle")]
-    Toggle
-}

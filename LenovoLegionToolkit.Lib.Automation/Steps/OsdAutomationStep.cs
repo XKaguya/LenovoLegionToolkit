@@ -8,14 +8,14 @@ using Newtonsoft.Json;
 namespace LenovoLegionToolkit.Lib.Automation.Steps;
 
 [method: JsonConstructor]
-public class OsdAutomationStep(OsdState state)
-    : IAutomationStep<OsdState>
+public class OsdAutomationStep(ToggleState state)
+    : IAutomationStep<ToggleState>
 {
-    public OsdState State { get; } = state;
+    public ToggleState State { get; } = state;
 
     public Task<bool> IsSupportedAsync() => Task.FromResult(true);
 
-    public Task<OsdState[]> GetAllStatesAsync() => Task.FromResult(Enum.GetValues<OsdState>());
+    public Task<ToggleState[]> GetAllStatesAsync() => Task.FromResult(Enum.GetValues<ToggleState>());
 
     public IAutomationStep DeepCopy() => new OsdAutomationStep(State);
 

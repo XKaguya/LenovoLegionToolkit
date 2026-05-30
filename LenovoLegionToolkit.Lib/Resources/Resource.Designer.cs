@@ -288,33 +288,6 @@ namespace LenovoLegionToolkit.Lib.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Off.
         /// </summary>
-        public static string FanMaxSpeedState_Off {
-            get {
-                return ResourceManager.GetString("FanMaxSpeedState_Off", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to On.
-        /// </summary>
-        public static string FanMaxSpeedState_On {
-            get {
-                return ResourceManager.GetString("FanMaxSpeedState_On", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toggle.
-        /// </summary>
-        public static string FanMaxSpeedState_Toggle {
-            get {
-                return ResourceManager.GetString("FanMaxSpeedState_Toggle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Off.
-        /// </summary>
         public static string FlipToStartState_Off {
             get {
                 return ResourceManager.GetString("FlipToStartState_Off", resourceCulture);
@@ -831,33 +804,6 @@ namespace LenovoLegionToolkit.Lib.Resources {
         public static string OsdItem_VramUtilization {
             get {
                 return ResourceManager.GetString("OsdItem_VramUtilization", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hide.
-        /// </summary>
-        public static string OsdState_Hide {
-            get {
-                return ResourceManager.GetString("OsdState_Hide", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Show.
-        /// </summary>
-        public static string OsdState_Show {
-            get {
-                return ResourceManager.GetString("OsdState_Show", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toggle.
-        /// </summary>
-        public static string OsdState_Toggle {
-            get {
-                return ResourceManager.GetString("OsdState_Toggle", resourceCulture);
             }
         }
         

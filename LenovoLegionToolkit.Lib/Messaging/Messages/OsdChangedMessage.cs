@@ -1,6 +1,6 @@
 namespace LenovoLegionToolkit.Lib.Messaging.Messages;
 
-public readonly struct OsdChangedMessage(OsdState state) : IMessage
+public readonly struct OsdChangedMessage(ToggleState state) : IMessage
 {
-    public OsdState State { get; } = state;
+    public ToggleState State { get; } = state;
 }

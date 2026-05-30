@@ -1016,7 +1016,7 @@ public partial class App
 
         if (OsdSettings.Store.ShowOsd)
         {
-            HandleOsdCommand(OsdState.Show);
+            HandleOsdCommand(ToggleState.On);
         }
     }
 
@@ -1034,42 +1034,27 @@ public partial class App
         });
     }
 
-    private void HandleOsdCommand(OsdState command)
+    private void HandleOsdCommand(ToggleState command)
     {
         var OsdSettings = IoCContainer.Resolve<OsdSettings>();
         bool shouldBeBar = OsdSettings.Store.SelectedStyleIndex == 1;
 
-        switch (command)
+        bool show = command switch
         {
-            case OsdState.Hide:
-                if (OsdWindow != null)
-                {
-                    OsdWindow.Hide();
-                }
-                break;
+            ToggleState.On => true,
+            ToggleState.Off => false,
+            ToggleState.Toggle => !(OsdWindow?.IsVisible ?? false),
+            _ => throw new ArgumentOutOfRangeException(nameof(command), command, null)
+        };
 
-            case OsdState.Show:
-                EnsureCorrectOsdStyle(shouldBeBar);
-                if (OsdWindow != null)
-                {
-                    OsdWindow.Show();
-                }
-                break;
-
-            case OsdState.Toggle:
-                if (OsdWindow is { IsVisible: true })
-                {
-                    OsdWindow.Hide();
-                }
-                else
-                {
-                    EnsureCorrectOsdStyle(shouldBeBar);
-                    if (OsdWindow != null)
-                    {
-                        OsdWindow.Show();
-                    }
-                }
-                break;
+        if (show)
+        {
+            EnsureCorrectOsdStyle(shouldBeBar);
+            OsdWindow?.Show();
+        }
+        else
+        {
+            OsdWindow?.Hide();
         }
 
         OsdSettings.Store.ShowOsd = OsdWindow?.IsVisible ?? false;

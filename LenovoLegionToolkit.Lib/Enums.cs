@@ -216,25 +216,6 @@ public enum OsdItem
     PchFan,
 }
 
-public enum FanMaxSpeedState
-{
-    [Display(ResourceType = typeof(Resource), Name = "FanMaxSpeedState_Off")]
-    Off,
-    [Display(ResourceType = typeof(Resource), Name = "FanMaxSpeedState_On")]
-    On,
-    [Display(ResourceType = typeof(Resource), Name = "FanMaxSpeedState_Toggle")]
-    Toggle,
-}
-
-public enum OsdState
-{
-    [Display(ResourceType = typeof(Resource), Name = "OsdState_Hide")]
-    Hide,
-    [Display(ResourceType = typeof(Resource), Name = "OsdState_Show")]
-    Show,
-    [Display(ResourceType = typeof(Resource), Name = "OsdState_Toggle")]
-    Toggle,
-}
 
 public enum ToggleState
 {

@@ -5,9 +5,9 @@ using Wpf.Ui.Common;
 
 namespace LenovoLegionToolkit.WPF.Controls.Automation.Steps;
 
-public class OsdAutomationStepControl : AbstractComboBoxAutomationStepCardControl<OsdState>
+public class OsdAutomationStepControl : AbstractComboBoxAutomationStepCardControl<ToggleState>
 {
-    public OsdAutomationStepControl(IAutomationStep<OsdState> step) : base(step)
+    public OsdAutomationStepControl(IAutomationStep<ToggleState> step) : base(step)
     {
         Icon = SymbolRegular.Window16;
         Title = Resource.OsdAutomationStepControl_Title;

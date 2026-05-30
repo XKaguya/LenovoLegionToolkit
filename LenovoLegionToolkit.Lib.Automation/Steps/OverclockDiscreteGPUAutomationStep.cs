@@ -1,18 +1,18 @@
-﻿using System;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using LenovoLegionToolkit.Lib.Controllers;
 
 namespace LenovoLegionToolkit.Lib.Automation.Steps;
 
-public class OverclockDiscreteGPUAutomationStep(OverclockDiscreteGPUAutomationStepState state)
-    : IAutomationStep<OverclockDiscreteGPUAutomationStepState>
+public class OverclockDiscreteGPUAutomationStep(ToggleState state)
+    : IAutomationStep<ToggleState>
 {
     private readonly GPUOverclockController _controller = IoCContainer.Resolve<GPUOverclockController>();
 
-    public OverclockDiscreteGPUAutomationStepState State { get; } = state;
+    public ToggleState State { get; } = state;
 
-    public Task<OverclockDiscreteGPUAutomationStepState[]> GetAllStatesAsync() => Task.FromResult(Enum.GetValues<OverclockDiscreteGPUAutomationStepState>());
+    public Task<ToggleState[]> GetAllStatesAsync() => Task.FromResult(Enum.GetValues<ToggleState>());
 
     public Task<bool> IsSupportedAsync() => _controller.IsSupportedAsync();
 
@@ -21,17 +21,17 @@ public class OverclockDiscreteGPUAutomationStep(OverclockDiscreteGPUAutomationSt
         if (!await _controller.IsSupportedAsync().ConfigureAwait(false))
             return;
 
-        var (_, info) = _controller.GetState();
+        var (isEnabled, info) = _controller.GetState();
 
-        switch (State)
+        bool targetState = State switch
         {
-            case OverclockDiscreteGPUAutomationStepState.On:
-                _controller.SaveState(true, info);
-                break;
-            case OverclockDiscreteGPUAutomationStepState.Off:
-                _controller.SaveState(false, info);
-                break;
-        }
+            ToggleState.On => true,
+            ToggleState.Off => false,
+            ToggleState.Toggle => !isEnabled,
+            _ => isEnabled
+        };
+
+        _controller.SaveState(targetState, info);
 
         await _controller.ApplyStateAsync(true).ConfigureAwait(false);
     }

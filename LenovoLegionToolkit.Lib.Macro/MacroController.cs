@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -36,6 +36,7 @@ public class MacroController
 
     public event EventHandler<RecorderReceivedEventArgs>? RecorderReceived;
     public event EventHandler<RecorderStoppedEventArgs>? RecorderStopped;
+    public event EventHandler<EventArgs>? StateChanged;
 
     public bool IsEnabled => _settings.Store.IsEnabled;
 
@@ -55,8 +56,12 @@ public class MacroController
 
     public void SetEnabled(bool enabled)
     {
+        if (_settings.Store.IsEnabled == enabled)
+            return;
+
         _settings.Store.IsEnabled = enabled;
         _settings.SynchronizeStore();
+        StateChanged?.Invoke(this, EventArgs.Empty);
     }
 
     public Dictionary<MacroIdentifier, MacroSequence> GetSequences() => _settings.Store.Sequences;

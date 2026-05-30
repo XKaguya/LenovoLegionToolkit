@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Windows;
 using LenovoLegionToolkit.Lib;
@@ -22,6 +22,8 @@ public partial class MacroPage
 
     private void MacroPage_Initialized(object? sender, EventArgs e)
     {
+        _controller.StateChanged += (_, _) => Dispatcher.Invoke(() => _enableMacroToggle.IsChecked = _controller.IsEnabled);
+
         _enableMacroToggle.IsChecked = _controller.IsEnabled;
 
         var zeroNumberButton = _numberPad.Children.OfType<Button>().Last();

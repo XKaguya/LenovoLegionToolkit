@@ -10,16 +10,16 @@ using Newtonsoft.Json;
 namespace LenovoLegionToolkit.Lib.Automation.Steps;
 
 [method: JsonConstructor]
-public class OsdLockPositionAutomationStep(OsdLockPositionAutomationStepState state)
-    : IAutomationStep<OsdLockPositionAutomationStepState>
+public class OsdLockPositionAutomationStep(ToggleState state)
+    : IAutomationStep<ToggleState>
 {
     private readonly OsdSettings _osdSettings = IoCContainer.Resolve<OsdSettings>();
 
-    public OsdLockPositionAutomationStepState State { get; } = state;
+    public ToggleState State { get; } = state;
 
     public Task<bool> IsSupportedAsync() => Task.FromResult(true);
 
-    public Task<OsdLockPositionAutomationStepState[]> GetAllStatesAsync() => Task.FromResult(Enum.GetValues<OsdLockPositionAutomationStepState>());
+    public Task<ToggleState[]> GetAllStatesAsync() => Task.FromResult(Enum.GetValues<ToggleState>());
 
     public IAutomationStep DeepCopy() => new OsdLockPositionAutomationStep(State);
 
@@ -28,9 +28,9 @@ public class OsdLockPositionAutomationStep(OsdLockPositionAutomationStepState st
         bool currentState = _osdSettings.Store.IsLocked;
         bool newState = State switch
         {
-            OsdLockPositionAutomationStepState.Lock => true,
-            OsdLockPositionAutomationStepState.Unlock => false,
-            OsdLockPositionAutomationStepState.Toggle => !currentState,
+            ToggleState.On => true,
+            ToggleState.Off => false,
+            ToggleState.Toggle => !currentState,
             _ => currentState
         };
 

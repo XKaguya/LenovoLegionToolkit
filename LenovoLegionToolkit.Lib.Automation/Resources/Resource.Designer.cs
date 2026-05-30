@@ -322,24 +322,6 @@ namespace LenovoLegionToolkit.Lib.Automation.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Off.
-        /// </summary>
-        public static string MacroAutomationStepState_Off {
-            get {
-                return ResourceManager.GetString("MacroAutomationStepState_Off", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to On.
-        /// </summary>
-        public static string MacroAutomationStepState_On {
-            get {
-                return ResourceManager.GetString("MacroAutomationStepState_On", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to On resume.
         /// </summary>
         public static string OnResumeAutomationPipelineTrigger_DisplayName {
@@ -354,51 +336,6 @@ namespace LenovoLegionToolkit.Lib.Automation.Resources {
         public static string OnStartupAutomationPipelineTrigger_DisplayName {
             get {
                 return ResourceManager.GetString("OnStartupAutomationPipelineTrigger_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lock.
-        /// </summary>
-        public static string OsdLockPositionAutomationStepState_Lock {
-            get {
-                return ResourceManager.GetString("OsdLockPositionAutomationStepState_Lock", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toggle.
-        /// </summary>
-        public static string OsdLockPositionAutomationStepState_Toggle {
-            get {
-                return ResourceManager.GetString("OsdLockPositionAutomationStepState_Toggle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unlock.
-        /// </summary>
-        public static string OsdLockPositionAutomationStepState_Unlock {
-            get {
-                return ResourceManager.GetString("OsdLockPositionAutomationStepState_Unlock", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Off.
-        /// </summary>
-        public static string OverclockDiscreteGPUAutomationStepState_Off {
-            get {
-                return ResourceManager.GetString("OverclockDiscreteGPUAutomationStepState_Off", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to On.
-        /// </summary>
-        public static string OverclockDiscreteGPUAutomationStepState_On {
-            get {
-                return ResourceManager.GetString("OverclockDiscreteGPUAutomationStepState_On", resourceCulture);
             }
         }
         
