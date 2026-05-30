@@ -37,6 +37,11 @@ public static class BootLogo
     {
         try
         {
+            if (AppFlags.Instance.Debug)
+            {
+                return true;
+            }
+
             var mi = await Compatibility.GetMachineInformationAsync().ConfigureAwait(false);
             if (!mi.Properties.SupportsBootLogoChange)
                 return false;

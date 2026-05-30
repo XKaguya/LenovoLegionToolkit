@@ -65,7 +65,7 @@ public abstract class AbstractRefreshingControl : UserControl
         {
             _refreshTask = null;
 
-            if (exceptions)
+            if (exceptions && !AppFlags.Instance.Debug)
                 Visibility = Visibility.Collapsed;
             else
                 IsEnabled = true;

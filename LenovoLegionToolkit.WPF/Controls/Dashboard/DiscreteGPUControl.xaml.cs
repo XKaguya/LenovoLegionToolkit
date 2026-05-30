@@ -8,6 +8,7 @@ using LenovoLegionToolkit.Lib;
 using LenovoLegionToolkit.Lib.Controllers;
 using LenovoLegionToolkit.Lib.Listeners;
 using LenovoLegionToolkit.Lib.Settings;
+using LenovoLegionToolkit.Lib.Utils;
 using LenovoLegionToolkit.WPF.Resources;
 using LenovoLegionToolkit.WPF.Windows.Dashboard;
 
@@ -77,7 +78,8 @@ public partial class DiscreteGPUControl
             _discreteGPUStatusDescription.Text = "-";
             _gpuInfoButton.ToolTip = null;
             _gpuInfoButton.IsEnabled = false;
-            Visibility = Visibility.Collapsed;
+            if (!AppFlags.Instance.Debug)
+                Visibility = Visibility.Collapsed;
             return;
         }
 

@@ -91,7 +91,8 @@ public partial class SensorsControl
             {
                 Log.Instance.Trace($"Sensors not supported.");
 
-                Dispatcher.Invoke(() => Visibility = Visibility.Collapsed);
+                if (!AppFlags.Instance.Debug)
+                    Dispatcher.Invoke(() => Visibility = Visibility.Collapsed);
                 return;
             }
 

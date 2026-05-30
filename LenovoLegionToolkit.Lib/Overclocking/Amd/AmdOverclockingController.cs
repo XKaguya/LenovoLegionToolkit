@@ -77,7 +77,7 @@ public sealed class AmdOverclockingController : IDisposable
         SaveShutdownInfo(new ShutdownInfo { Status = "Running", AbnormalCount = count });
     }
 
-    public bool IsSupported() => _isInitialized && _machineInformation?.Properties.IsAmdDevice == true;
+    public bool IsSupported() => AppFlags.Instance.Debug || (_isInitialized && _machineInformation?.Properties.IsAmdDevice == true);
 
     public bool IsActive() => File.Exists(_internalProfilePath);
 

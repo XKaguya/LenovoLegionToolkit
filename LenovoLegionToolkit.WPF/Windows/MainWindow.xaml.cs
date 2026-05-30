@@ -103,22 +103,23 @@ public partial class MainWindow
     {
         _contentGrid.Visibility = Visibility.Hidden;
 
-        if (!await KeyboardBacklightPage.IsSupportedAsync())
+        if (!AppFlags.Instance.Debug)
         {
-            _navigationStore.Items.Remove(_keyboardItem);
-        }
+            if (!await KeyboardBacklightPage.IsSupportedAsync())
+            {
+                _navigationStore.Items.Remove(_keyboardItem);
+            }
 
-        if (!await LampArrayRGBKeyboardPage.IsSupportedAsync())
-        {
-            _navigationStore.Items.Remove(_lampArrayKeyboardItem);
-        }
+            if (!await LampArrayRGBKeyboardPage.IsSupportedAsync())
+            {
+                _navigationStore.Items.Remove(_lampArrayKeyboardItem);
+            }
 
-
-
-        var mi = await Compatibility.GetMachineInformationAsync();
-        if (!(mi.LegionSeries == LegionSeries.Legion_Pro_7 && mi.Generation >= 10))
-        {
-            _navigationStore.Items.Remove(_lampArrayKeyboardItem);
+            var mi = await Compatibility.GetMachineInformationAsync();
+            if (!(mi.LegionSeries == LegionSeries.Legion_Pro_7 && mi.Generation >= 10))
+            {
+                _navigationStore.Items.Remove(_lampArrayKeyboardItem);
+            }
         }
 
         var actionManager = IoCContainer.Resolve<SpecialKeyActionManager>();

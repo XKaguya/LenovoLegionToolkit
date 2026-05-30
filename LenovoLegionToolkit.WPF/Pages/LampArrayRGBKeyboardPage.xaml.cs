@@ -73,7 +73,7 @@ public partial class LampArrayRGBKeyboardPage : UiPage
     {
         try
         {
-            if (AppFlags.Instance.EnableLampArray)
+            if (AppFlags.Instance.Debug || AppFlags.Instance.EnableLampArray)
             {
                 return true;
             }
@@ -92,7 +92,7 @@ public partial class LampArrayRGBKeyboardPage : UiPage
         try
         {
             var mi = await Compatibility.GetMachineInformationAsync();
-            bool showAmbients = mi is { LegionSeries: LegionSeries.Legion_Pro_7, Generation: >= 10 };
+            bool showAmbients = AppFlags.Instance.Debug || mi is { LegionSeries: LegionSeries.Legion_Pro_7, Generation: >= 10 };
 
             if (!showAmbients)
             {

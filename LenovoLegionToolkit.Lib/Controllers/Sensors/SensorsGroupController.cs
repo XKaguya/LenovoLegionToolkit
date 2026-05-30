@@ -187,6 +187,12 @@ public class SensorsGroupController : IDisposable
             Log.Instance.Trace($"Sensor group check failed: {ex}");
             return result;
         }
+
+        if (AppFlags.Instance.Debug)
+        {
+            return LibreHardwareMonitorInitialState.Success;
+        }
+
         return LibreHardwareMonitorInitialState.Fail;
     }
 
